@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useAuth } from "@/contexts/auth-context";
 import { usePathname } from "next/navigation";
+import { ROLES } from "@/types/roles";
+import { DashboardRoutes } from "@/config/routes";
 
 export default function DashboardNavigation() {
   const { user, logout } = useAuth();
@@ -41,53 +43,22 @@ export default function DashboardNavigation() {
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Dashboard</h2>
 
         <nav className="space-y-2">
-          <Link
-            href="/dashboard"
-            className={`block px-3 py-2 rounded-md text-sm font-medium ${
-              isActive("/dashboard")
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            Ana Sayfa
-          </Link>
-
-          <Link
-            href="/dashboard/profile"
-            className={`block px-3 py-2 rounded-md text-sm font-medium ${
-              isActive("/dashboard/profile")
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            Profilim
-          </Link>
-
-          {user.role === "admin" && (
-            <>
-              <Link
-                href="/dashboard/admin"
-                className={`block px-3 py-2 rounded-md text-sm font-medium ${
-                  isActive("/dashboard/admin")
-                    ? "bg-blue-100 text-blue-700"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                Admin Paneli
-              </Link>
-            </>
-          )}
-
-          <Link
-            href="/dashboard/users"
-            className={`block px-3 py-2 rounded-md text-sm font-medium ${
-              isActive("/dashboard/users")
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            Kullanıcılar
-          </Link>
+          {/* Dinamik Menü - Role bazlı */}
+          {DashboardRoutes.filter((item) =>
+            item.allowedRoles.includes(user.role as ROLES)
+          ).map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`block px-3 py-2 rounded-md text-sm font-medium ${
+                isActive(item.href)
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              {item.icon} {item.label}
+            </Link>
+          ))}
         </nav>
       </div>
 

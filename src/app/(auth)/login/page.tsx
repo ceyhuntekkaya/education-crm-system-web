@@ -46,6 +46,9 @@ export default function LoginPage() {
                 <strong>Admin:</strong> admin@example.com / admin123
               </div>
               <div>
+                <strong>Kurum:</strong> institution@example.com / inst123
+              </div>
+              <div>
                 <strong>Kullanıcı:</strong> user@example.com / user123
               </div>
             </div>

@@ -1,16 +1,6 @@
 "use client";
 
-import ProtectedRoute from "@/components/protected-route";
-
 export default function AdminPage() {
-  return (
-    <ProtectedRoute requiredRole="admin">
-      <AdminPageContent />
-    </ProtectedRoute>
-  );
-}
-
-function AdminPageContent() {
   const mockUsers = [
     {
       id: 1,

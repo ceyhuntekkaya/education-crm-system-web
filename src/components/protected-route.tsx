@@ -4,17 +4,16 @@ import { useAuth } from "@/contexts/auth-context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import UnauthorizedAccess from "./unauthorized-access";
+import { ROLES, AllowedRoles } from "@/types/roles";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: "admin" | "user";
-  allowAdminAccess?: boolean;
+  roles?: AllowedRoles;
 }
 
 export default function ProtectedRoute({
   children,
-  requiredRole,
-  allowAdminAccess = true,
+  roles,
 }: ProtectedRouteProps) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
@@ -43,13 +42,12 @@ export default function ProtectedRoute({
     return null;
   }
 
-  // Rol kontrolü - yetkisiz erişim durumunda unauthorized component'i render et
-  if (requiredRole && user.role !== requiredRole) {
-    // Admin kullanıcılar eğer allowAdminAccess true ise tüm sayfalara erişebilir
-    if (user.role === "admin" && allowAdminAccess) {
-      // Admin erişimi izinli, normal içeriği render et
-      return <>{children}</>;
-    } else {
+  // Rol kontrolü - admin her şeye erişebilir, diğer roller sadece izin verilen rollerde olmalı
+  if (roles && roles.length > 0) {
+    const userHasPermission =
+      roles.includes(user.role as ROLES) || user.role === ROLES.ADMIN;
+
+    if (!userHasPermission) {
       // Yetkisiz erişim - unauthorized component'i render et
       return <UnauthorizedAccess user={user} />;
     }
