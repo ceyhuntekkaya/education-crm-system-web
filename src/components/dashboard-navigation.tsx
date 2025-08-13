@@ -52,6 +52,17 @@ export default function DashboardNavigation() {
             Ana Sayfa
           </Link>
 
+          <Link
+            href="/dashboard/profile"
+            className={`block px-3 py-2 rounded-md text-sm font-medium ${
+              isActive("/dashboard/profile")
+                ? "bg-blue-100 text-blue-700"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            Profilim
+          </Link>
+
           {user.role === "admin" && (
             <>
               <Link
@@ -62,7 +73,7 @@ export default function DashboardNavigation() {
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
-                Admin Page
+                Admin Paneli
               </Link>
             </>
           )}
@@ -75,7 +86,7 @@ export default function DashboardNavigation() {
                 : "text-gray-700 hover:bg-gray-100"
             }`}
           >
-            Kullanıcılar Sayfası
+            Kullanıcılar
           </Link>
         </nav>
       </div>
