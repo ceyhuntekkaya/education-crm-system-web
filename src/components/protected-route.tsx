@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import UnauthorizedAccess from "./unauthorized-access";
 import { ROLES, AllowedRoles } from "@/types/roles";
+import { ROUTES } from "@/config/routes";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -21,7 +22,7 @@ export default function ProtectedRoute({
   useEffect(() => {
     if (!isLoading && !user) {
       // Sadece giriş yapmamış kullanıcıları login sayfasına yönlendir
-      router.push("/login");
+      router.push(ROUTES.AUTH.LOGIN);
     }
   }, [user, isLoading, router]);
 

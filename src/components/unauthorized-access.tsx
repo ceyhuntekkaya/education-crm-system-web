@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { User } from "@/contexts/auth-context";
+import { ROUTES } from "@/config/routes";
 
 interface UnauthorizedAccessProps {
   user: User | null;
@@ -173,7 +174,7 @@ export default function UnauthorizedAccess({ user }: UnauthorizedAccessProps) {
                 </button>
 
                 <button
-                  onClick={() => router.push("/dashboard")}
+                  onClick={() => router.push(ROUTES.DASHBOARD.HOME)}
                   className="w-full group relative bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 hover:from-blue-600 hover:to-blue-700 transition-all duration-200 text-left text-white"
                 >
                   <div className="flex items-center">
@@ -208,7 +209,7 @@ export default function UnauthorizedAccess({ user }: UnauthorizedAccessProps) {
                 </button>
 
                 <button
-                  onClick={() => router.push("/")}
+                  onClick={() => router.push(ROUTES.HOME)}
                   className="w-full group relative bg-white border-2 border-green-300 rounded-xl p-6 hover:border-green-400 hover:shadow-lg transition-all duration-200 text-left"
                 >
                   <div className="flex items-center">

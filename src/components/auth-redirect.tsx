@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/auth-context';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
+import { ROUTES } from "@/config/routes";
 
 interface AuthRedirectProps {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export default function AuthRedirect({ children }: AuthRedirectProps) {
   useEffect(() => {
     if (!isLoading && user) {
       // Kullanıcı giriş yapmışsa dashboard'a yönlendir
-      router.push('/dashboard');
+      router.push(ROUTES.DASHBOARD.HOME);
     }
   }, [user, isLoading, router]);
 

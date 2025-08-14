@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useAuth } from "@/contexts/auth-context";
 import { usePathname } from "next/navigation";
 import { ROLES } from "@/types/roles";
-import { DashboardRoutes } from "@/config/routes";
+import { getDashboardRoutes, ROUTES } from "@/config/routes";
 
-export default function DashboardNavigation() {
+export default function DashboardSidebar() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
 
@@ -19,7 +19,7 @@ export default function DashboardNavigation() {
       {/* Ana Sayfa (Home) Linki */}
       <div className="p-4 border-b border-gray-200 bg-white">
         <Link
-          href="/"
+          href={ROUTES.HOME}
           className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition duration-200"
         >
           <svg
@@ -44,9 +44,7 @@ export default function DashboardNavigation() {
 
         <nav className="space-y-2">
           {/* Dinamik Menü - Role bazlı */}
-          {DashboardRoutes.filter((item) =>
-            item.allowedRoles.includes(user.role as ROLES)
-          ).map((item) => (
+          {getDashboardRoutes(user.role as ROLES).map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -78,7 +76,7 @@ export default function DashboardNavigation() {
         <button
           onClick={() => {
             logout();
-            window.location.href = "/";
+            window.location.href = ROUTES.HOME;
           }}
           className="w-full flex items-center justify-center px-3 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition duration-200"
         >

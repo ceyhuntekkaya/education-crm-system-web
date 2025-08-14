@@ -1,5 +1,30 @@
 import { ROLES } from "@/types/roles";
 
+// Tüm route href'leri
+export const ROUTES = {
+  // Public routes
+  HOME: "/",
+  ABOUT_US: "/about-us",
+  CONTACT: "/contact",
+  
+  // Auth routes
+  AUTH: {
+    LOGIN: "/auth/login",
+    REGISTER: "/auth/register",
+  },
+  
+  // Protected routes
+  DASHBOARD: {
+    HOME: "/dashboard",
+    ADMIN: "/dashboard/admin",
+    INSTITUTION: "/dashboard/institution",
+    USER: "/dashboard/user",
+  },
+  
+  // Special routes
+  UNAUTHORIZED: "/unauthorized",
+} as const;
+
 // Dashboard menü öğesi tanımı
 export interface DashboardMenuItem {
   href: string;
@@ -8,89 +33,38 @@ export interface DashboardMenuItem {
   allowedRoles: ROLES[];
 }
 
-// Public navigation öğesi tanımı
-export interface PublicMenuItem {
-  href: string;
-  label: string;
-  icon?: string;
-}
-
-// Auth navigation öğesi tanımı (login/register için)
-export interface AuthMenuItem {
-  href: string;
-  label: string;
-  icon?: string;
-}
-
-// Authenticated user navigation öğesi tanımı
-export interface AuthenticatedMenuItem {
-  href: string;
-  label: string;
-  icon?: string;
-}
-
 // Dashboard menü öğeleri
 export const DashboardRoutes: DashboardMenuItem[] = [
   {
-    href: "/dashboard",
+    href: ROUTES.DASHBOARD.HOME,
     label: "Ana Sayfa",
     icon: "🏠",
     allowedRoles: [ROLES.ADMIN, ROLES.INSTITUTION, ROLES.USER],
   },
   {
-    href: "/dashboard/admin",
+    href: ROUTES.DASHBOARD.ADMIN,
     label: "Admin Paneli",
     icon: "🔧",
     allowedRoles: [ROLES.ADMIN],
   },
   {
-    href: "/dashboard/institution",
+    href: ROUTES.DASHBOARD.INSTITUTION,
     label: "Kurum Paneli",
     icon: "🏢",
     allowedRoles: [ROLES.ADMIN, ROLES.INSTITUTION],
   },
   {
-    href: "/dashboard/user",
+    href: ROUTES.DASHBOARD.USER,
     label: "Kullanıcı Paneli",
     icon: "👤",
     allowedRoles: [ROLES.ADMIN, ROLES.USER],
   },
 ];
 
-// Public navigation öğeleri (giriş yapmamış kullanıcılar için)
-export const PublicRoutes: PublicMenuItem[] = [
+// Dashboard route'larını kullanıcının rolüne göre filtreleyen fonksiyon
+export const getDashboardRoutes = (userRole: ROLES): DashboardMenuItem[] => {
+  return DashboardRoutes.filter((item) =>
+    item.allowedRoles.includes(userRole)
+  );
+};
 
-  {
-    href: "/about-us",
-    label: "Hakkımızda",
-    icon: "ℹ️",
-  },
-  {
-    href: "/contact",
-    label: "İletişim",
-    icon: "📞",
-  },
-];
-
-// Guest authentication öğeleri (giriş yapmamış kullanıcılar için)
-export const GuestAuthRoutes: AuthMenuItem[] = [
-  {
-    href: "/login",
-    label: "Giriş Yap",
-    icon: "🔑",
-  },
-  {
-    href: "/register",
-    label: "Kayıt Ol",
-    icon: "📝",
-  },
-];
-
-// Authenticated user navigation öğeleri
-export const AuthenticatedRoutes: AuthenticatedMenuItem[] = [
-  {
-    href: "/dashboard",
-    label: "Dashboard",
-    icon: "📊",
-  },
-];

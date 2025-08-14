@@ -1,5 +1,5 @@
 import ProtectedRoute from "@/components/protected-route";
-import DashboardNavigation from "@/components/dashboard-navigation";
+import DashboardSidebar from "@/components/layouts/dashboard-sidebar";
 
 export default function ProtectedLayout({
   children,
@@ -9,7 +9,7 @@ export default function ProtectedLayout({
   return (
     <ProtectedRoute>
       <div className="flex h-screen">
-        <DashboardNavigation />
+        <DashboardSidebar />
         <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </ProtectedRoute>

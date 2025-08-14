@@ -113,7 +113,7 @@ export default function LoginPage() {
 
             <div className="text-center">
               <Link
-                href="/register"
+                href="/auth/register"
                 className="text-blue-600 hover:text-blue-500"
               >
                 Hesabınız yok mu? Kayıt olun

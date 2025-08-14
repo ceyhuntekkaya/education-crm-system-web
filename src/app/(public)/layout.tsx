@@ -1,4 +1,4 @@
-import Navigation from "@/components/navigation";
+import PublicHeader from "@/components/layouts/public-header";
 
 export default function PublicLayout({
   children,
@@ -7,7 +7,7 @@ export default function PublicLayout({
 }) {
   return (
     <div>
-      <Navigation />
+      <PublicHeader />
       {children}
     </div>
   );

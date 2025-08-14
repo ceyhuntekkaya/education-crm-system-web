@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ROUTES } from "@/config/routes";
 
 export default function PublicHomePage() {
   return (
@@ -17,13 +18,13 @@ export default function PublicHomePage() {
               </p>
               <div className="space-x-4">
                 <Link
-                  href="/login"
+                  href={ROUTES.AUTH.LOGIN}
                   className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300"
                 >
                   Giriş Yap
                 </Link>
                 <Link
-                  href="/register"
+                  href={ROUTES.AUTH.REGISTER}
                   className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300"
                 >
                   Kayıt Ol
@@ -153,7 +154,7 @@ export default function PublicHomePage() {
               EduCRM ile eğitim yönetiminizi dijitalleştirin
             </p>
             <Link
-              href="/login"
+              href={ROUTES.AUTH.LOGIN}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
             >
               Giriş Yap

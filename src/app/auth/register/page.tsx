@@ -28,7 +28,7 @@ export default function RegisterPage() {
         "Kayıt işlemi tamamlandı! Giriş yapmak için yönlendiriliyorsunuz..."
       );
       setTimeout(() => {
-        window.location.href = "/login";
+        window.location.href = "/auth/login";
       }, 2000);
     }, 1000);
   };
@@ -128,7 +128,10 @@ export default function RegisterPage() {
             </div>
 
             <div className="text-center">
-              <Link href="/login" className="text-blue-600 hover:text-blue-500">
+              <Link
+                href="/auth/login"
+                className="text-blue-600 hover:text-blue-500"
+              >
                 Zaten hesabınız var mı? Giriş yapın
               </Link>
             </div>
