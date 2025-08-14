@@ -4,6 +4,7 @@ export const ROUTES = {
   HOME: "/",
   ABOUT_US: "/about-us",
   CONTACT: "/contact",
+  FORM_EXAMPLE: "/form-example",
   
   // Auth routes
   AUTH: {

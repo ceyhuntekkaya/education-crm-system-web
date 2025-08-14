@@ -2,6 +2,7 @@
 
 import React from "react";
 import * as yup from "yup";
+import Link from "next/link";
 import {
   Form,
   FormInput,
@@ -13,6 +14,7 @@ import {
 } from "@/components";
 import { FormProvider, FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
+import { ROUTES } from "@/constants/routes";
 
 // Yup validation schema
 const validationSchema = yup.object({
@@ -112,110 +114,139 @@ export default function FormExamplePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <FormProvider
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Sol taraf - Form (yarısı) */}
-            <div className="lg:col-span-1">
-              <div className="bg-white shadow-md rounded-lg p-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-                  Kayıt Formu
-                </h1>
-
-                <FormContent onSubmit={handleSubmit} />
-              </div>
-
-              {/* Açıklama panelleri */}
-              <div className="mt-8 space-y-6">
-                <div className="bg-white shadow-md rounded-lg p-6">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                    🎯 Yup Validation ile Form Sistemi
-                  </h2>
-                  <div className="text-sm text-gray-600 space-y-2">
-                    <p>• Zorunlu alanlar Yup schema ile belirlenir</p>
-                    <p>• Required (*) işareti otomatik gösterilir</p>
-                    <p>• Helper text ile kullanıcıya rehberlik sağlanır</p>
-                    <p>• Hata durumunda helper text gizlenir</p>
-                    <p>• E-posta formatı otomatik kontrol edilir</p>
-                    <p>• Yaş 18-100 arasında olmalıdır</p>
-                    <p>• Ad/Soyad 2-100 karakter arası</p>
-                    <p>• Kategori seçimi zorunludur</p>
-                    <p>
-                      • Şehir AutoComplete ile seçilir (custom değer de
-                      girilebilir)
-                    </p>
-                    <p>• Açıklama max 500 karakter</p>
-                    <p>
-                      • Form geçerli olduğunda &quot;Kayıt Ol&quot; butonu aktif
-                      olur
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-white shadow-md rounded-lg p-6">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                    🔍 FormAutoComplete Özellikleri
-                  </h2>
-                  <div className="text-sm text-gray-600 space-y-2">
-                    <p>
-                      • <strong>Klavye Navigasyonu:</strong> ↑↓ ok tuşları ile
-                      seçenekler arası gezinme
-                    </p>
-                    <p>
-                      • <strong>Enter:</strong> Seçili seçeneği onaylama
-                    </p>
-                    <p>
-                      • <strong>Escape:</strong> Dropdown&apos;u kapatma
-                    </p>
-                    <p>
-                      • <strong>Filtreleme:</strong> Yazılan metne göre dinamik
-                      filtreleme
-                    </p>
-                    <p>
-                      • <strong>Custom Değer:</strong> Listede olmayan
-                      değerlerin girilmesine izin
-                    </p>
-                    <p>
-                      • <strong>Türkçe Karakter Desteği:</strong> İ, ı, ş, ğ, ü,
-                      ö, ç karakterleri doğru aranır
-                    </p>
-                    <p>
-                      • <strong>Minimum Karakter:</strong> Filtreleme için
-                      minimum karakter sayısı
-                    </p>
-                    <p>
-                      • <strong>Maksimum Sonuç:</strong> Gösterilecek maksimum
-                      seçenek sayısı
-                    </p>
-                    <p>
-                      • <strong>Otomatik Scroll:</strong> Seçili öğeye otomatik
-                      scroll
-                    </p>
-                    <p>
-                      • <strong>Click Outside:</strong> Dışarı tıklayınca
-                      dropdown kapanması
-                    </p>
-                  </div>
-                </div>
-              </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-4">
+              <Link
+                href={ROUTES.HOME}
+                className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
+              >
+                EduCRM
+              </Link>
+              <span className="text-gray-300">|</span>
+              <h1 className="text-lg font-semibold text-gray-800">
+                Form Örneği
+              </h1>
             </div>
-
-            {/* Sağ taraf - Debug bilgileri (diğer yarısı, yan yana) */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-4">
-                {/* Form Values ve Errors yan yana - diğer yarıyı paylaşıyor */}
-                <div className="grid grid-cols-2 gap-4">
-                  <FormDebugValues />
-                  <FormDebugErrors />
-                </div>
-              </div>
-            </div>
+            <Link
+              href={ROUTES.HOME}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            >
+              ← Ana Sayfaya Dön
+            </Link>
           </div>
-        </FormProvider>
+        </div>
+      </header>
+
+      {/* Content */}
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <FormProvider
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Sol taraf - Form (yarısı) */}
+              <div className="lg:col-span-1">
+                <div className="bg-white shadow-md rounded-lg p-8">
+                  <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Kayıt Formu
+                  </h1>
+
+                  <FormContent onSubmit={handleSubmit} />
+                </div>
+
+                {/* Açıklama panelleri */}
+                <div className="mt-8 space-y-6">
+                  <div className="bg-white shadow-md rounded-lg p-6">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                      🎯 Yup Validation ile Form Sistemi
+                    </h2>
+                    <div className="text-sm text-gray-600 space-y-2">
+                      <p>• Zorunlu alanlar Yup schema ile belirlenir</p>
+                      <p>• Required (*) işareti otomatik gösterilir</p>
+                      <p>• Helper text ile kullanıcıya rehberlik sağlanır</p>
+                      <p>• Hata durumunda helper text gizlenir</p>
+                      <p>• E-posta formatı otomatik kontrol edilir</p>
+                      <p>• Yaş 18-100 arasında olmalıdır</p>
+                      <p>• Ad/Soyad 2-100 karakter arası</p>
+                      <p>• Kategori seçimi zorunludur</p>
+                      <p>
+                        • Şehir AutoComplete ile seçilir (custom değer de
+                        girilebilir)
+                      </p>
+                      <p>• Açıklama max 500 karakter</p>
+                      <p>
+                        • Form geçerli olduğunda &quot;Kayıt Ol&quot; butonu
+                        aktif olur
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white shadow-md rounded-lg p-6">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                      🔍 FormAutoComplete Özellikleri
+                    </h2>
+                    <div className="text-sm text-gray-600 space-y-2">
+                      <p>
+                        • <strong>Klavye Navigasyonu:</strong> ↑↓ ok tuşları ile
+                        seçenekler arası gezinme
+                      </p>
+                      <p>
+                        • <strong>Enter:</strong> Seçili seçeneği onaylama
+                      </p>
+                      <p>
+                        • <strong>Escape:</strong> Dropdown&apos;u kapatma
+                      </p>
+                      <p>
+                        • <strong>Filtreleme:</strong> Yazılan metne göre
+                        dinamik filtreleme
+                      </p>
+                      <p>
+                        • <strong>Custom Değer:</strong> Listede olmayan
+                        değerlerin girilmesine izin
+                      </p>
+                      <p>
+                        • <strong>Türkçe Karakter Desteği:</strong> İ, ı, ş, ğ,
+                        ü, ö, ç karakterleri doğru aranır
+                      </p>
+                      <p>
+                        • <strong>Minimum Karakter:</strong> Filtreleme için
+                        minimum karakter sayısı
+                      </p>
+                      <p>
+                        • <strong>Maksimum Sonuç:</strong> Gösterilecek maksimum
+                        seçenek sayısı
+                      </p>
+                      <p>
+                        • <strong>Otomatik Scroll:</strong> Seçili öğeye
+                        otomatik scroll
+                      </p>
+                      <p>
+                        • <strong>Click Outside:</strong> Dışarı tıklayınca
+                        dropdown kapanması
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sağ taraf - Debug bilgileri (diğer yarısı, yan yana) */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-4">
+                  {/* Form Values ve Errors yan yana - diğer yarıyı paylaşıyor */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormDebugValues />
+                    <FormDebugErrors />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FormProvider>
+        </div>
       </div>
     </div>
   );
@@ -269,7 +300,7 @@ function FormDebugValues() {
             <div className="bg-blue-100 rounded-lg p-4 text-blue-700 text-sm max-w-xs mx-auto">
               <p className="mb-2">💡 İpucu:</p>
               <p>
-                Formu doldurdukça burада değerler gerçek zamanlı olarak
+                Formu doldurdukça burada değerler gerçek zamanlı olarak
                 görünecek
               </p>
             </div>
