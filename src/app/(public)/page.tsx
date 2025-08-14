@@ -102,13 +102,17 @@ export default function PublicHomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-purple-50 border border-purple-200 p-6 rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Admin Hesabı */}
+              <div className="bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg p-6">
                 <div className="text-center">
-                  <h3 className="text-xl font-semibold text-purple-900 mb-3">
-                    👑 Admin Hesabı
-                  </h3>
-                  <div className="text-sm text-purple-700 space-y-1">
+                  <div className="flex items-center justify-center space-x-2 mb-3">
+                    <span className="text-2xl">👑</span>
+                    <h3 className="text-xl font-semibold text-red-800">
+                      Admin Hesabı
+                    </h3>
+                  </div>
+                  <div className="text-sm text-red-700 space-y-1">
                     <div>
                       <strong>E-posta:</strong> admin@example.com
                     </div>
@@ -116,18 +120,45 @@ export default function PublicHomePage() {
                       <strong>Şifre:</strong> admin123
                     </div>
                   </div>
-                  <p className="text-sm text-purple-600 mt-3">
+                  <p className="text-sm text-red-600 mt-3">
                     Tüm sistem yönetimi özelliklerine erişim
                   </p>
                 </div>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
+              {/* Kurum Hesabı */}
+              <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6">
                 <div className="text-center">
-                  <h3 className="text-xl font-semibold text-blue-900 mb-3">
-                    👤 Kullanıcı Hesabı
-                  </h3>
+                  <div className="flex items-center justify-center space-x-2 mb-3">
+                    <span className="text-2xl">🏢</span>
+                    <h3 className="text-xl font-semibold text-blue-800">
+                      Kurum Hesabı
+                    </h3>
+                  </div>
                   <div className="text-sm text-blue-700 space-y-1">
+                    <div>
+                      <strong>E-posta:</strong> institution@example.com
+                    </div>
+                    <div>
+                      <strong>Şifre:</strong> inst123
+                    </div>
+                  </div>
+                  <p className="text-sm text-blue-600 mt-3">
+                    Kurum yönetimi ve öğrenci işlemleri
+                  </p>
+                </div>
+              </div>
+
+              {/* Kullanıcı Hesabı */}
+              <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-lg p-6">
+                <div className="text-center">
+                  <div className="flex items-center justify-center space-x-2 mb-3">
+                    <span className="text-2xl">👤</span>
+                    <h3 className="text-xl font-semibold text-green-800">
+                      Kullanıcı Hesabı
+                    </h3>
+                  </div>
+                  <div className="text-sm text-green-700 space-y-1">
                     <div>
                       <strong>E-posta:</strong> user@example.com
                     </div>
@@ -135,8 +166,8 @@ export default function PublicHomePage() {
                       <strong>Şifre:</strong> user123
                     </div>
                   </div>
-                  <p className="text-sm text-blue-600 mt-3">
-                    Öğrenci profili ve kurs erişimi
+                  <p className="text-sm text-green-600 mt-3">
+                    Temel kullanıcı özellikleri ve profil yönetimi
                   </p>
                 </div>
               </div>

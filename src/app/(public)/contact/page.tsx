@@ -1,4 +1,62 @@
+"use client";
+
+import React, { useState } from "react";
+import * as yup from "yup";
+import { Form, FormInput, FormTextarea, FormButton } from "@/components";
+import { FormProvider, FormValues } from "@/contexts";
+
+// Yup validation schema
+const validationSchema = yup.object({
+  name: yup
+    .string()
+    .required("Ad Soyad zorunludur")
+    .min(2, "Ad Soyad en az 2 karakter olmalıdır")
+    .max(100, "Ad Soyad en fazla 100 karakter olabilir"),
+
+  email: yup
+    .string()
+    .required("E-posta zorunludur")
+    .email("Geçerli bir e-posta adresi giriniz"),
+
+  subject: yup
+    .string()
+    .required("Konu zorunludur")
+    .min(5, "Konu en az 5 karakter olmalıdır")
+    .max(200, "Konu en fazla 200 karakter olabilir"),
+
+  message: yup
+    .string()
+    .required("Mesaj zorunludur")
+    .min(10, "Mesaj en az 10 karakter olmalıdır")
+    .max(1000, "Mesaj en fazla 1000 karakter olabilir"),
+});
+
+// İlk değerler
+const initialValues = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
+
 export default function ContactPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleSubmit = async (values: FormValues) => {
+    setIsLoading(true);
+    setSuccessMessage("");
+
+    // Simulate message sending
+    setTimeout(() => {
+      console.log("İletişim formu gönderildi:", values);
+      setSuccessMessage(
+        "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız."
+      );
+      setIsLoading(false);
+    }, 1000);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -70,78 +128,57 @@ export default function ContactPage() {
                   Bize Yazın
                 </h2>
 
-                <form className="space-y-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Ad Soyad
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
+                <FormProvider
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                >
+                  <Form onSubmit={handleSubmit} className="space-y-4">
+                    <FormInput
                       name="name"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      label="Ad Soyad"
                       placeholder="Adınızı ve soyadınızı giriniz"
+                      helperText="Gerçek ad ve soyadınızı yazınız"
                     />
-                  </div>
 
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      E-posta
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
+                    <FormInput
                       name="email"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      type="email"
+                      label="E-posta"
                       placeholder="E-posta adresinizi giriniz"
+                      helperText="Size geri dönüş yapabilmemiz için gereklidir"
                     />
-                  </div>
 
-                  <div>
-                    <label
-                      htmlFor="subject"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Konu
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
+                    <FormInput
                       name="subject"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      label="Konu"
                       placeholder="Mesajınızın konusunu giriniz"
+                      helperText="Mesajınızın ana konusunu belirtiniz"
                     />
-                  </div>
 
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Mesaj
-                    </label>
-                    <textarea
-                      id="message"
+                    <FormTextarea
                       name="message"
-                      rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      label="Mesaj"
                       placeholder="Mesajınızı buraya yazınız"
-                    ></textarea>
-                  </div>
+                      rows={4}
+                      helperText="Detaylı bir açıklama yazınız (en az 10 karakter)"
+                    />
 
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 font-medium transition-colors"
-                  >
-                    Mesaj Gönder
-                  </button>
-                </form>
+                    {successMessage && (
+                      <div className="text-green-600 text-sm bg-green-50 p-3 rounded">
+                        {successMessage}
+                      </div>
+                    )}
+
+                    <FormButton
+                      variant="primary"
+                      disableOnInvalid
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Gönderiliyor..." : "Mesaj Gönder"}
+                    </FormButton>
+                  </Form>
+                </FormProvider>
               </div>
             </div>
           </div>

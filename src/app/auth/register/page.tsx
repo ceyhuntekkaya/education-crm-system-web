@@ -1,39 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import * as yup from "yup";
 import Link from "next/link";
+import { Form, FormInput, FormButton } from "@/components";
+import { FormProvider, FormValues } from "@/contexts";
+import { ROUTES } from "@/constants";
+
+// Yup validation schema
+const validationSchema = yup.object({
+  name: yup
+    .string()
+    .required("Ad Soyad zorunludur")
+    .min(2, "Ad Soyad en az 2 karakter olmalıdır")
+    .max(100, "Ad Soyad en fazla 100 karakter olabilir"),
+
+  email: yup
+    .string()
+    .required("E-posta zorunludur")
+    .email("Geçerli bir e-posta adresi giriniz"),
+
+  password: yup
+    .string()
+    .required("Şifre zorunludur")
+    .min(6, "Şifre en az 6 karakter olmalıdır")
+    .max(50, "Şifre en fazla 50 karakter olabilir"),
+});
+
+// İlk değerler
+const initialValues = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 export default function RegisterPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
     setMessage("");
 
-    if (!name || !email || !password) {
-      setMessage("Lütfen tüm alanları doldurun");
-      setIsLoading(false);
-      return;
-    }
-
     // Simulate registration
     setTimeout(() => {
+      console.log("Kayıt formu gönderildi:", values);
       setMessage(
         "Kayıt işlemi tamamlandı! Giriş yapmak için yönlendiriliyorsunuz..."
       );
       setTimeout(() => {
-        window.location.href = "/auth/login";
+        window.location.href = ROUTES.AUTH.LOGIN;
       }, 2000);
     }, 1000);
   };
 
   return (
-    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -43,97 +65,69 @@ export default function RegisterPage() {
             Bu bir demo uygulamadır
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Ad Soyad
-              </label>
-              <input
-                id="name"
+
+        <div className="bg-white shadow-md rounded-lg p-8">
+          <FormProvider
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            <Form onSubmit={handleSubmit} className="space-y-6">
+              <FormInput
                 name="name"
                 type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                label="Ad Soyad"
                 placeholder="Adınızı ve soyadınızı girin"
+                helperText="Gerçek ad ve soyadınızı yazınız"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                E-posta adresi
-              </label>
-              <input
-                id="email"
+
+              <FormInput
                 name="email"
                 type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                label="E-posta adresi"
                 placeholder="E-posta adresinizi girin"
+                helperText="Geçerli bir e-posta adresi girin (örn: kullanici@ornek.com)"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Şifre
-              </label>
-              <input
-                id="password"
+
+              <FormInput
                 name="password"
                 type="password"
-                autoComplete="new-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                label="Şifre"
                 placeholder="Şifrenizi girin"
+                helperText="En az 6 karakter uzunluğunda güvenli bir şifre"
               />
-            </div>
-          </div>
 
-          {message && (
-            <div
-              className={`text-sm text-center p-2 rounded ${
-                message.includes("tamamlandı")
-                  ? "text-green-600 bg-green-50"
-                  : "text-red-600 bg-red-50"
-              }`}
-            >
-              {message}
-            </div>
-          )}
+              {message && (
+                <div
+                  className={`text-sm text-center p-2 rounded ${
+                    message.includes("tamamlandı")
+                      ? "text-green-600 bg-green-50"
+                      : "text-red-600 bg-red-50"
+                  }`}
+                >
+                  {message}
+                </div>
+              )}
 
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "Kayıt oluşturuluyor..." : "Hesap Oluştur"}
-            </button>
-          </div>
+              <FormButton
+                variant="primary"
+                disableOnInvalid
+                className="w-full"
+                disabled={isLoading}
+              >
+                {isLoading ? "Kayıt oluşturuluyor..." : "Hesap Oluştur"}
+              </FormButton>
 
-          <div className="text-center">
-            <Link
-              href="/auth/login"
-              className="text-blue-600 hover:text-blue-500"
-            >
-              Zaten hesabınız var mı? Giriş yapın
-            </Link>
-          </div>
-        </form>
+              <div className="text-center">
+                <Link
+                  href={ROUTES.AUTH.LOGIN}
+                  className="text-blue-600 hover:text-blue-500"
+                >
+                  Zaten hesabınız var mı? Giriş yapın
+                </Link>
+              </div>
+            </Form>
+          </FormProvider>
+        </div>
       </div>
     </div>
   );

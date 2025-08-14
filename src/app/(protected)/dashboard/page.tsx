@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/contexts";
 import Link from "next/link";
+import { ROUTES } from "@/constants";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -49,25 +50,31 @@ export default function DashboardPage() {
     },
   ];
 
-  const quickActions = [
+  const quickActions: Array<{
+    title: string;
+    description: string;
+    href: string;
+    icon: string;
+    color: string;
+  }> = [
     {
       title: "Profilim",
       description: "Kişisel bilgilerinizi görüntüleyin ve düzenleyin",
-      href: "/dashboard/profile",
+      href: ROUTES.DASHBOARD.USER.PROFILE,
       icon: "👤",
       color: "from-indigo-500 to-indigo-600",
     },
     {
       title: "Kullanıcılar",
       description: "Kullanıcı listesini görüntüleyin ve yönetin",
-      href: "/dashboard/users",
-      icon: "�",
+      href: ROUTES.DASHBOARD.ADMIN.USERS,
+      icon: "👥",
       color: "from-green-500 to-green-600",
     },
     {
       title: "Ana Sayfa",
       description: "Herkese açık ana sayfaya dönün",
-      href: "/",
+      href: ROUTES.HOME,
       icon: "🏠",
       color: "from-cyan-500 to-cyan-600",
     },
@@ -77,7 +84,7 @@ export default function DashboardPage() {
     quickActions.splice(1, 0, {
       title: "Admin Paneli",
       description: "Sistem yönetimi ve kullanıcı işlemleri",
-      href: "/dashboard/admin",
+      href: ROUTES.DASHBOARD.ADMIN.HOME,
       icon: "⚙️",
       color: "from-red-500 to-red-600",
     });

@@ -1,123 +1,162 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
+import * as yup from "yup";
+import Link from "next/link";
 import { useAuth } from "@/contexts";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Form, FormInput, FormButton } from "@/components";
+import { FormProvider, FormValues } from "@/contexts";
+import { ROUTES } from "@/constants";
+
+// Yup validation schema
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .required("E-posta zorunludur")
+    .email("Geçerli bir e-posta adresi giriniz"),
+
+  password: yup
+    .string()
+    .required("Şifre zorunludur")
+    .min(6, "Şifre en az 6 karakter olmalıdır"),
+});
+
+// İlk değerler
+const initialValues = {
+  email: "",
+  password: "",
+};
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { login, isLoading } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    if (!email || !password) {
-      setError("Lütfen tüm alanları doldurun");
-      return;
-    }
-
-    const success = await login(email, password);
+  const handleSubmit = async (values: FormValues) => {
+    const success = await login(
+      values.email as string,
+      values.password as string
+    );
     if (success) {
-      router.push("/dashboard");
-    } else {
-      setError("E-posta veya şifre hatalı");
+      router.push(ROUTES.DASHBOARD.HOME);
     }
   };
 
   return (
-    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Hesabınıza giriş yapın
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Demo hesapları:
+            Sistemimizi test etmek için aşağıdaki demo hesapları
+            kullanabilirsiniz:
           </p>
-          <div className="mt-2 text-xs text-gray-500 bg-gray-100 p-3 rounded">
-            <div>
-              <strong>Admin:</strong> admin@example.com / admin123
+          <div className="mt-4 space-y-3">
+            {/* Admin Hesabı */}
+            <div className="bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <span className="text-lg">👑</span>
+                <h4 className="font-semibold text-red-800">Admin Hesabı</h4>
+              </div>
+              <div className="text-xs text-red-700">
+                <div>
+                  <strong>E-posta:</strong> admin@example.com
+                </div>
+                <div>
+                  <strong>Şifre:</strong> admin123
+                </div>
+                <div className="mt-1 text-red-600">
+                  Tüm sistem yönetimi özelliklerine erişim
+                </div>
+              </div>
             </div>
-            <div>
-              <strong>Kurum:</strong> institution@example.com / inst123
+
+            {/* Kurum Hesabı */}
+            <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <span className="text-lg">🏢</span>
+                <h4 className="font-semibold text-blue-800">Kurum Hesabı</h4>
+              </div>
+              <div className="text-xs text-blue-700">
+                <div>
+                  <strong>E-posta:</strong> institution@example.com
+                </div>
+                <div>
+                  <strong>Şifre:</strong> inst123
+                </div>
+                <div className="mt-1 text-blue-600">
+                  Kurum yönetimi ve öğrenci işlemleri
+                </div>
+              </div>
             </div>
-            <div>
-              <strong>Kullanıcı:</strong> user@example.com / user123
+
+            {/* Kullanıcı Hesabı */}
+            <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <span className="text-lg">👤</span>
+                <h4 className="font-semibold text-green-800">
+                  Kullanıcı Hesabı
+                </h4>
+              </div>
+              <div className="text-xs text-green-700">
+                <div>
+                  <strong>E-posta:</strong> user@example.com
+                </div>
+                <div>
+                  <strong>Şifre:</strong> user123
+                </div>
+                <div className="mt-1 text-green-600">
+                  Temel kullanıcı özellikleri ve profil yönetimi
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                E-posta adresi
-              </label>
-              <input
-                id="email"
+
+        <div className="bg-white shadow-md rounded-lg p-8">
+          <FormProvider
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            <Form onSubmit={handleSubmit} className="space-y-6">
+              <FormInput
                 name="email"
                 type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                label="E-posta adresi"
                 placeholder="E-posta adresinizi girin"
+                helperText="Kayıtlı e-posta adresinizi giriniz"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Şifre
-              </label>
-              <input
-                id="password"
+
+              <FormInput
                 name="password"
                 type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                label="Şifre"
                 placeholder="Şifrenizi girin"
+                helperText="Hesabınızın şifresini giriniz"
               />
-            </div>
-          </div>
 
-          {error && (
-            <div className="text-red-600 text-sm text-center bg-red-50 p-2 rounded">
-              {error}
-            </div>
-          )}
+              <FormButton
+                variant="primary"
+                disableOnInvalid
+                className="w-full"
+                disabled={isLoading}
+              >
+                {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
+              </FormButton>
 
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
-            </button>
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/auth/register"
-              className="text-blue-600 hover:text-blue-500"
-            >
-              Hesabınız yok mu? Kayıt olun
-            </Link>
-          </div>
-        </form>
+              <div className="text-center">
+                <Link
+                  href={ROUTES.AUTH.REGISTER}
+                  className="text-blue-600 hover:text-blue-500"
+                >
+                  Hesabınız yok mu? Kayıt olun
+                </Link>
+              </div>
+            </Form>
+          </FormProvider>
+        </div>
       </div>
     </div>
   );
