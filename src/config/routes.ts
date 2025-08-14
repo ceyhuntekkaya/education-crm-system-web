@@ -1,43 +1,9 @@
 import { ROLES } from "@/types/roles";
+import { MenuItem } from "@/types/menu";
+import { ROUTES } from "@/constants/routes";
 
-// Tüm route href'leri
-export const ROUTES = {
-  // Public routes
-  HOME: "/",
-  ABOUT_US: "/about-us",
-  CONTACT: "/contact",
-  
-  // Auth routes
-  AUTH: {
-    LOGIN: "/auth/login",
-    REGISTER: "/auth/register",
-  },
-  
-  // Protected routes
-  DASHBOARD: {
-    HOME: "/dashboard",
-    ADMIN: {
-      HOME: "/dashboard/admin",
-      USERS: "/dashboard/admin/users",
-      INSTITUTIONS: "/dashboard/admin/institutions",
-      SETTINGS: "/dashboard/admin/settings",
-    },
-    INSTITUTION: "/dashboard/institution",
-    USER: "/dashboard/user",
-  },
-  
-  // Special routes
-  UNAUTHORIZED: "/unauthorized",
-} as const;
-
-// Menü öğesi tanımı
-export interface MenuItem {
-  href: string;
-  label: string;
-  icon: string;
-  allowedRoles?: ROLES[];
-  children?: MenuItem[];
-}
+// Re-export for backward compatibility
+export { ROUTES };
 
 // Public menü öğeleri
 export const PublicRoutes: MenuItem[] = [
@@ -107,13 +73,13 @@ export const DashboardRoutes: MenuItem[] = [
     ],
   },
   {
-    href: ROUTES.DASHBOARD.INSTITUTION,
+    href: ROUTES.DASHBOARD.INSTITUTION.HOME,
     label: "Kurum Paneli",
     icon: "🏢",
     allowedRoles: [ROLES.ADMIN, ROLES.INSTITUTION],
   },
   {
-    href: ROUTES.DASHBOARD.USER,
+    href: ROUTES.DASHBOARD.USER.HOME,
     label: "Kullanıcı Paneli",
     icon: "👤",
     allowedRoles: [ROLES.ADMIN, ROLES.USER],

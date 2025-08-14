@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/config";
 
 export default function PublicHeader() {
   const { user, logout } = useAuth();

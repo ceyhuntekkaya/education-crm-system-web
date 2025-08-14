@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import AuthRedirect from "@/components/auth-redirect";
+import { AuthRedirect } from "@/guards";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

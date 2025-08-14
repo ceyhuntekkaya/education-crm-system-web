@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
 import { usePathname } from "next/navigation";
 import { ROLES } from "@/types/roles";
-import { getDashboardRoutes, ROUTES, type MenuItem } from "@/config/routes";
+import { MenuItem } from "@/types/menu";
+import { getDashboardRoutes, ROUTES } from "@/config";
 import { useState } from "react";
 
 export default function DashboardSidebar() {

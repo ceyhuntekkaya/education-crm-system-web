@@ -1,6 +1,6 @@
 "use client";
 
-import ProtectedRoute from "@/components/protected-route";
+import { ProtectedRoute } from "@/guards";
 import { ROLES } from "@/types/roles";
 
 export default function AdminLayout({

@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/auth-context";
-import { ROUTES } from "@/config/routes";
+import { useAuth } from "@/contexts";
+import { ROUTES } from "@/config";
 
 interface AuthRedirectProps {
   children: React.ReactNode;

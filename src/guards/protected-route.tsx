@@ -1,11 +1,11 @@
 "use client";
 
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import UnauthorizedAccess from "./unauthorized-access";
 import { ROLES, AllowedRoles } from "@/types/roles";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/config";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

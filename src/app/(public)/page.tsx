@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/config";
 
 export default function PublicHomePage() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
 
 export default function UserPage() {
   const { user } = useAuth();

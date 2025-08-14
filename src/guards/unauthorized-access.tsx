@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { User } from "@/contexts/auth-context";
-import { ROUTES } from "@/config/routes";
+import { User } from "@/contexts";
+import { ROUTES } from "@/config";
 
 interface UnauthorizedAccessProps {
   user: User | null;

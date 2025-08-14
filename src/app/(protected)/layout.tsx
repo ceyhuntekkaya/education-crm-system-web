@@ -1,4 +1,4 @@
-import ProtectedRoute from "@/components/protected-route";
+import { ProtectedRoute } from "@/guards";
 import DashboardSidebar from "@/components/layouts/dashboard-sidebar";
 
 export default function ProtectedLayout({

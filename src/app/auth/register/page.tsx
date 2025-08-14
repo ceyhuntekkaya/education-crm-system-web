@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import AuthRedirect from "@/components/auth-redirect";
+import { AuthRedirect } from "@/guards";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
