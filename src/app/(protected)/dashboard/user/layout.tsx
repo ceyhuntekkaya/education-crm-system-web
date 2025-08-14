@@ -1,6 +1,6 @@
 "use client";
 
-import { ProtectedRoute } from "@/guards";
+import { ProtectedRouteProvider } from "@/providers";
 import { ROLES } from "@/types/roles";
 
 export default function UserLayout({
@@ -8,5 +8,9 @@ export default function UserLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ProtectedRoute roles={[ROLES.USER]}>{children}</ProtectedRoute>;
+  return (
+    <ProtectedRouteProvider roles={[ROLES.USER]}>
+      {children}
+    </ProtectedRouteProvider>
+  );
 }

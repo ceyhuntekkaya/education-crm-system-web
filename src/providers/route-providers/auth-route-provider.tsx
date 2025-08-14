@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts";
 import { ROUTES } from "@/config";
 
-interface AuthRedirectProps {
+interface AuthRouteProviderProps {
   children: React.ReactNode;
 }
 
-export default function AuthRedirect({ children }: AuthRedirectProps) {
+export default function AuthRouteProvider({
+  children,
+}: AuthRouteProviderProps) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 

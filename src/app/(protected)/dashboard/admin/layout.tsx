@@ -1,6 +1,6 @@
 "use client";
 
-import { ProtectedRoute } from "@/guards";
+import { ProtectedRouteProvider } from "@/providers";
 import { ROLES } from "@/types/roles";
 
 export default function AdminLayout({
@@ -8,5 +8,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ProtectedRoute roles={[ROLES.ADMIN]}>{children}</ProtectedRoute>;
+  return (
+    <ProtectedRouteProvider roles={[ROLES.ADMIN]}>
+      {children}
+    </ProtectedRouteProvider>
+  );
 }

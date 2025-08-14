@@ -3,19 +3,19 @@
 import { useAuth } from "@/contexts";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import UnauthorizedAccess from "./unauthorized-access";
+import { UnauthorizedAccess } from "@/components";
 import { ROLES, AllowedRoles } from "@/types/roles";
 import { ROUTES } from "@/config";
 
-interface ProtectedRouteProps {
+interface ProtectedRouteProviderProps {
   children: React.ReactNode;
   roles?: AllowedRoles;
 }
 
-export default function ProtectedRoute({
+export default function ProtectedRouteProvider({
   children,
   roles,
-}: ProtectedRouteProps) {
+}: ProtectedRouteProviderProps) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 

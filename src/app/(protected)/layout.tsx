@@ -1,4 +1,4 @@
-import { ProtectedRoute } from "@/guards";
+import { ProtectedRouteProvider } from "@/providers";
 import DashboardSidebar from "@/components/layouts/dashboard-sidebar";
 
 export default function ProtectedLayout({
@@ -7,11 +7,11 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ProtectedRoute>
+    <ProtectedRouteProvider>
       <div className="flex h-screen">
         <DashboardSidebar />
         <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
-    </ProtectedRoute>
+    </ProtectedRouteProvider>
   );
 }
