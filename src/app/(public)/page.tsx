@@ -16,18 +16,29 @@ export default function PublicHomePage() {
                 Modern eğitim yönetim sistemi ile öğrenci, eğitmen ve kurumunuz
                 için kapsamlı çözümler sunuyoruz.
               </p>
-              <div className="space-x-4">
+              <div className="space-x-4 space-y-4 md:space-y-0">
                 <Link
                   href={ROUTES.AUTH.LOGIN}
-                  className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300"
+                  className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300"
                 >
                   Giriş Yap
                 </Link>
                 <Link
                   href={ROUTES.AUTH.REGISTER}
-                  className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300"
+                  className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300 ml-4"
                 >
                   Kayıt Ol
+                </Link>
+              </div>
+
+              {/* Examples Link */}
+              <div className="mt-8">
+                <Link
+                  href="/examples"
+                  className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition duration-300"
+                >
+                  <span>🧪</span>
+                  <span>Sistem Örnekleri ve Testler</span>
                 </Link>
               </div>
             </div>
