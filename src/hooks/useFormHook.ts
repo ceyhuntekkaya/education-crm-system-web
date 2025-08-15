@@ -1,11 +1,11 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm, FormValues } from '@/contexts';
 
 // useFormHook - Form işlemleri için özel hook
 export const useFormHook = () => {
-  const { values, errors, setValue, setError, getValue, getError, isFieldRequired, reset, validate, isValid } = useForm();
+  const { values, errors, setValue, setError, getValue, getError, isFieldRequired, reset, validate, isValid, initialValues } = useForm();
 
   // Form reset işlemi
   const resetForm = useCallback(() => {
@@ -78,9 +78,9 @@ export const useFormHook = () => {
   }, [errors]);
 
   // Form dirty durumunu kontrol etme (değiştirilip değiştirilmediği)
-  const isDirty = useCallback((initialValues: FormValues) => {
+  const isDirty = useMemo(() => {
     return JSON.stringify(values) !== JSON.stringify(initialValues);
-  }, [values]);
+  }, [values, initialValues]);
 
   // Field'ları temizleme (belirli field'ları boşaltma)
   const clearFields = useCallback(async (fieldNames: string[]) => {

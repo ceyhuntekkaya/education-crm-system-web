@@ -23,6 +23,7 @@ export interface FormErrors {
 interface FormContextType {
   values: FormValues;
   errors: FormErrors;
+  initialValues: FormValues;
   setValue: (
     name: string,
     value: string | number | boolean | null | undefined
@@ -223,6 +224,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   const contextValue: FormContextType = {
     values,
     errors,
+    initialValues,
     setValue,
     setError,
     getValue,
