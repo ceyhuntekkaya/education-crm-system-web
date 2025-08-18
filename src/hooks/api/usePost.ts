@@ -75,9 +75,33 @@ export const usePostForm = <TFormData = Record<string, unknown>, TResponse = unk
       },
     };
     
+    // Normalizer: convert undefined/null/objects to safe primitive values for form submission.
+    const normalizeForm = (data: unknown): TFormData => {
+      if (!data || typeof data !== "object") return (data as unknown) as TFormData;
+      const dataObj = data as Record<string, unknown>;
+      const out: Record<string, unknown> = {};
+      Object.keys(dataObj).forEach((k) => {
+        const v = dataObj[k];
+        if (v === undefined || v === null) {
+          out[k] = "";
+        } else if (typeof v === "object") {
+          // Keep File-like objects intact, otherwise stringify
+          const maybeFile = v as { name?: unknown; size?: unknown };
+          const isFileLike =
+            typeof maybeFile.name === "string" && typeof maybeFile.size === "number";
+          out[k] = isFileLike ? v : String(v);
+        } else {
+          out[k] = v;
+        }
+      });
+      return out as TFormData;
+    };
+
+    const payload = normalizeForm(formData);
+
     return api.executeMutation(
       (variables: TFormData) => apiClient.post<TResponse>(url, variables),
-      formData,
+      payload,
       combinedOptions
     );
   }, [url, mutationOptions, resetOnSuccess, api]);
