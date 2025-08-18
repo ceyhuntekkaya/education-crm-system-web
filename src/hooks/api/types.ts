@@ -8,11 +8,11 @@ export interface ApiState<T> {
 }
 
 // API Hook seçenekleri
-export interface ApiOptions extends AxiosRequestConfig {
+export interface ApiOptions<T = unknown> extends AxiosRequestConfig {
   // Otomatik çalışma (GET için)
   enabled?: boolean;
   // Başarı callback'i
-  onSuccess?: (data: unknown) => void;
+  onSuccess?: (data: T) => void;
   // Hata callback'i
   onError?: (error: string) => void;
   // Yükleme bitimi callback'i

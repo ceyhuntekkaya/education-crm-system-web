@@ -8,7 +8,7 @@ import { ApiOptions, PaginationParams } from './types';
 // GET istekleri için hook
 export const useGet = <T>(
   url: string | null,
-  options?: ApiOptions & { params?: Record<string, unknown> }
+  options?: ApiOptions<T> & { params?: Record<string, unknown> }
 ) => {
   const { enabled = true, params, onSuccess, onError, onFinally } = options || {};
   const api = useApi<T>();
