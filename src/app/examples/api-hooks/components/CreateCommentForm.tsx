@@ -1,144 +1,114 @@
 "use client";
 
+import React from "react";
+import * as yup from "yup";
 import { usePostForm } from "@/hooks/api";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
 import { Comment, CreateComment } from "@/types";
-import React from "react";
+import { Form, FormInput, FormTextarea, FormButton } from "@/components";
+import { FormProvider, FormValues } from "@/contexts";
+import { useFormHook } from "@/hooks/useFormHook";
 
-const CreateCommentForm = () => {
+// Basit doğrulama şeması
+const validationSchema = yup.object({
+  postId: yup.number().required("Post ID zorunludur").min(1).max(100),
+  name: yup.string().required("İsim zorunludur").min(2),
+  email: yup
+    .string()
+    .required("E-posta zorunludur")
+    .email("Geçerli e-posta giriniz"),
+  body: yup.string().required("Yorum zorunludur").min(3),
+});
+
+const initialValues = {
+  postId: 1,
+  name: "",
+  email: "",
+  body: "",
+};
+
+function InnerCreateCommentForm() {
   const { submitForm, loading, error } = usePostForm<CreateComment, Comment>(
     API_ENDPOINTS.EXAMPLES.COMMENTS.CREATE,
     {
       resetOnSuccess: true,
-      onSuccess: (comment) => {
-        alert(`Yorum eklendi! ID: ${comment.id}\nİsim: ${comment.name}`);
+      onSuccess: (data) => {
+        console.log("Yorum eklendi:", data);
+        alert(`Yorum eklendi! ID: ${data.id}\nİsim: ${data.name}`);
+      },
+      onError: (err) => {
+        const msg = typeof err === "string" ? err : String(err);
+        alert("Yorum oluşturma başarısız: " + msg);
       },
     }
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+  const { resetForm } = useFormHook();
 
-    submitForm({
-      postId: parseInt(formData.get("postId") as string) || 1,
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      body: formData.get("body") as string,
-    });
+  const handleSubmit = async (values: FormValues) => {
+    await submitForm({
+      // postId: Number(values.postId) || 1,
+      // name: String(values.name || ""),
+      // email: String(values.email || ""),
+      // body: String(values.body || ""),
+      ...values,
+    } as CreateComment);
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px" }}>
-      <h2>💬 Yorum Ekle (JSONPlaceholder API)</h2>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-      >
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Post ID:
-          </label>
-          <input
-            name="postId"
-            type="number"
-            placeholder="Post ID (1-100)"
-            defaultValue="1"
-            min="1"
-            max="100"
-            required
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </div>
+    <Form onSubmit={handleSubmit} className="space-y-4">
+      <FormInput
+        name="postId"
+        type="number"
+        label="Post ID"
+        placeholder="Post ID (1-100)"
+        helperText="İlgili post ID'si (1-100)"
+      />
 
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>İsim:</label>
-          <input
-            name="name"
-            placeholder="Adınız"
-            required
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </div>
+      <FormInput name="name" label="İsim" placeholder="Adınız" />
 
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Email:
-          </label>
-          <input
-            name="email"
-            type="email"
-            placeholder="email@example.com"
-            required
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </div>
+      <FormInput
+        name="email"
+        type="email"
+        label="Email"
+        placeholder="email@example.com"
+      />
 
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Yorum:
-          </label>
-          <textarea
-            name="body"
-            placeholder="Yorumunuzu yazın..."
-            required
-            rows={4}
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              resize: "vertical",
-            }}
-          />
-        </div>
+      <FormTextarea
+        name="body"
+        label="Yorum"
+        placeholder="Yorumunuzu yazın..."
+        rows={4}
+      />
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: loading ? "#ccc" : "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: loading ? "not-allowed" : "pointer",
-            fontSize: "16px",
-          }}
-        >
+      <div className="flex gap-3">
+        <FormButton variant="primary" disableOnInvalid>
           {loading ? "📤 Gönderiliyor..." : "💬 Yorum Ekle"}
-        </button>
+        </FormButton>
 
-        {error && (
-          <div
-            style={{
-              color: "red",
-              padding: "10px",
-              backgroundColor: "#ffebee",
-              borderRadius: "4px",
-            }}
-          >
-            ❌ Hata: {error}
-          </div>
-        )}
-      </form>
+        <FormButton type="button" variant="secondary" onClick={resetForm}>
+          İptal
+        </FormButton>
+      </div>
+
+      {error && <div className="text-red-500">❌ Hata: {String(error)}</div>}
+    </Form>
+  );
+}
+
+export default function CreateCommentForm() {
+  return (
+    <div className="p-5 max-w-lg mx-auto bg-white rounded-md shadow-sm">
+      <h2 className="text-xl font-semibold mb-4">
+        💬 Yorum Ekle (JSONPlaceholder API)
+      </h2>
+
+      <FormProvider
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+      >
+        <InnerCreateCommentForm />
+      </FormProvider>
     </div>
   );
-};
-
-export default CreateCommentForm;
+}
