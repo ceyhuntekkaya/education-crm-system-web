@@ -38,6 +38,23 @@ export default function ExamplesPage() {
       ],
       status: "✅ Çalışır Durumda",
     },
+    {
+      id: "ui-components",
+      title: "🎨 UI Komponentleri Sistemi",
+      description:
+        "Button, Modal, Dropdown, Popover, Toast, Tooltip ve daha fazlası",
+      href: "/examples/ui-components",
+      color: "from-purple-500 to-pink-500",
+      features: [
+        "Modern UI komponentleri",
+        "Tailwind CSS ile tasarım",
+        "TypeScript tip güvenliği",
+        "Interaktif örnekler",
+        "useToast hook sistemi",
+        "Responsive tasarım",
+      ],
+      status: "✅ Çalışır Durumda",
+    },
   ];
 
   return (
