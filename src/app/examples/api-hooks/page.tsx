@@ -53,106 +53,71 @@ export default function ApiHooksExamplePage() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f5f5f5" }}>
-      <div
-        style={{
-          backgroundColor: "white",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          marginBottom: "20px",
-          padding: "20px",
-        }}
-      >
-        <h1 style={{ margin: "0 0 20px 0", color: "#333" }}>
+    <div className="min-h-screen bg-gray-100">
+      {/* Header Section */}
+      <div className="bg-white shadow-sm mb-5 p-5">
+        <h1 className="text-2xl font-bold text-gray-800 mb-5">
           🚀 API Hooks Demo - JSONPlaceholder API
         </h1>
-        <p style={{ margin: "0", color: "#666" }}>
+        <p className="text-gray-600 text-base m-0">
           Bu demo sayfası, oluşturduğumuz API hook sisteminin tüm özelliklerini
           gerçek bir API ile test etmenizi sağlar.
         </p>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0 20px",
-        }}
-      >
+      {/* Main Content */}
+      <div className="flex gap-5 max-w-6xl mx-auto px-5">
         {/* Tab Menu */}
-        <div style={{ width: "250px" }}>
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              padding: "15px",
-              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-              position: "sticky",
-              top: "20px",
-            }}
-          >
-            <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>📋 Örnekler</h3>
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "12px",
-                  marginBottom: "8px",
-                  border: "none",
-                  borderRadius: "6px",
-                  textAlign: "left",
-                  cursor: "pointer",
-                  backgroundColor: activeTab === tab.id ? "#007bff" : "#f8f9fa",
-                  color: activeTab === tab.id ? "white" : "#333",
-                  fontSize: "14px",
-                  transition: "all 0.2s",
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
+        <div className="w-64">
+          <div className="bg-white rounded-lg p-4 shadow-sm sticky top-5">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              📋 Örnekler
+            </h3>
+            <div className="space-y-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+                    w-full px-3 py-3 text-left text-sm font-medium rounded-md transition-all duration-200
+                    ${
+                      activeTab === tab.id
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                    }
+                  `}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Content Area */}
-        <div style={{ flex: 1 }}>
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-              minHeight: "500px",
-            }}
-          >
+        <div className="flex-1">
+          <div className="bg-white rounded-lg shadow-sm min-h-[500px]">
             {tabs.find((tab) => tab.id === activeTab)?.component}
           </div>
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: "40px",
-          padding: "20px",
-          backgroundColor: "white",
-          borderTop: "1px solid #eee",
-          textAlign: "center",
-          color: "#666",
-        }}
-      >
+      {/* Footer */}
+      <div className="mt-10 p-5 bg-white border-t border-gray-200 text-center text-gray-600">
         <p>
           🔗 API:{" "}
           <a
             href="https://jsonplaceholder.typicode.com"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 underline"
           >
             JSONPlaceholder
           </a>{" "}
-          | 📚 Dokümantasyon: <code>docs/API_HOOKS.md</code>
+          | 📚 Dokümantasyon:{" "}
+          <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+            docs/API_HOOKS.md
+          </code>
         </p>
       </div>
     </div>
