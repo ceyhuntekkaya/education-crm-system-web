@@ -55,12 +55,6 @@ export default function PublicHeader() {
                   >
                     İletişim
                   </Link>
-                  <Link
-                    href={ROUTES.FORM_EXAMPLE}
-                    className="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors"
-                  >
-                    Form Örneği
-                  </Link>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -93,12 +87,6 @@ export default function PublicHeader() {
                     className="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors"
                   >
                     İletişim
-                  </Link>
-                  <Link
-                    href={ROUTES.FORM_EXAMPLE}
-                    className="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors"
-                  >
-                    Form Örneği
                   </Link>
                 </div>
 
