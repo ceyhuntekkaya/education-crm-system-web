@@ -15,6 +15,7 @@ interface FormSelectProps {
   helperText?: string;
   disabled?: boolean;
   className?: string;
+  fullWidth?: boolean;
 }
 
 // FormSelect bileşeni
@@ -26,6 +27,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   helperText,
   disabled = false,
   className = "",
+  fullWidth = true,
 }) => {
   const { value, error, required, onChange } = useFormField(name);
 
@@ -66,6 +68,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
+        fullWidth={fullWidth}
       />
 
       {helperText && !error && (

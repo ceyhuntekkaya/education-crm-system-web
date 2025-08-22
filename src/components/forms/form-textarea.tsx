@@ -30,7 +30,7 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
   helperText,
   variant = "default",
   size = "md",
-  fullWidth = false,
+  fullWidth = true,
   rows = 3,
   disabled = false,
   textareaClassName = "",

@@ -14,6 +14,7 @@ export interface SelectProps {
   disabled?: boolean;
   className?: string;
   variant?: "default" | "filled" | "outlined";
+  fullWidth?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -24,6 +25,7 @@ export const Select: React.FC<SelectProps> = ({
   disabled = false,
   className = "",
   variant = "default",
+  fullWidth = false,
 }) => {
   const baseClasses =
     "transition-all duration-200 border rounded-lg focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed";
@@ -37,7 +39,9 @@ export const Select: React.FC<SelectProps> = ({
   };
   return (
     <select
-      className={`${baseClasses} ${variantClasses[variant]} ${className} px-3 py-2`}
+      className={`${baseClasses} ${
+        variantClasses[variant]
+      } ${className} px-3 py-2${fullWidth ? " w-full" : ""}`}
       value={value ?? ""}
       onChange={(e) => onChange?.(e.target.value)}
       disabled={disabled}

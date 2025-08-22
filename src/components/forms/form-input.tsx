@@ -34,7 +34,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   size,
   startIcon,
   endIcon,
-  fullWidth,
+  fullWidth = true,
   id,
   ...rest
 }) => {
