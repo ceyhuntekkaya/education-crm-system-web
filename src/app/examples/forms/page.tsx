@@ -440,6 +440,7 @@ function FormContent({
           label="Ad Soyad"
           placeholder="Adınızı ve soyadınızı giriniz"
           helperText="Gerçek ad ve soyadınızı yazınız"
+          fullWidth
         />
 
         <FormInput
@@ -448,6 +449,7 @@ function FormContent({
           label="E-posta"
           placeholder="E-posta adresinizi giriniz"
           helperText="Geçerli bir e-posta adresi girin (örn: kullanici@ornek.com)"
+          fullWidth
         />
 
         <FormInput
@@ -456,6 +458,7 @@ function FormContent({
           label="Yaş"
           placeholder="Yaşınızı giriniz"
           helperText="18-100 yaş aralığında olmalıdır"
+          fullWidth
         />
 
         <FormSelect
@@ -480,6 +483,7 @@ function FormContent({
           placeholder="Kendiniz hakkında kısa bir açıklama yazınız"
           rows={3}
           helperText="İsteğe bağlı - Kendinizi tanıtın (max 500 karakter)"
+          fullWidth
         />
 
         <FormCheckbox

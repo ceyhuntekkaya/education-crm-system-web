@@ -2,19 +2,17 @@
 
 import React from "react";
 
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface TextareaProps
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
   label?: string;
   error?: string;
   helperText?: string;
   variant?: "default" | "filled" | "outlined";
   size?: "sm" | "md" | "lg";
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
   fullWidth?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       className = "",
@@ -23,21 +21,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       helperText,
       variant = "default",
       size = "md",
-      startIcon,
-      endIcon,
       fullWidth = false,
       disabled,
-      type = "text",
       id,
+      rows = 3,
       ...props
     },
     ref
   ) => {
-    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const textareaId =
+      id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
 
     const baseClasses =
-      "transition-all duration-200 border rounded-lg focus:outline-none focus:ring-2";
-
+      "transition-all duration-200 border rounded-lg focus:outline-none focus:ring-2 resize-vertical";
     const variantClasses = {
       default:
         "border-gray-300 focus:border-blue-500 focus:ring-blue-200 bg-white",
@@ -46,40 +42,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       outlined:
         "border-2 border-gray-300 focus:border-blue-500 focus:ring-blue-200 bg-white",
     };
-
     const sizeClasses = {
       sm: "px-3 py-2 text-sm",
       md: "px-4 py-3 text-base",
       lg: "px-5 py-4 text-lg",
     };
-
     const errorClasses = error
       ? "border-red-500 focus:border-red-500 focus:ring-red-200"
       : "";
-
     const disabledClasses = disabled
       ? "opacity-50 cursor-not-allowed bg-gray-50"
       : "";
-
     const widthClasses = fullWidth ? "w-full" : "";
 
-    const paddingWithIcons = () => {
-      let paddingClasses = sizeClasses[size];
-      if (startIcon) {
-        paddingClasses = paddingClasses.replace("px-", "pl-10 pr-");
-      }
-      if (endIcon) {
-        paddingClasses = paddingClasses
-          .replace("px-", "pl-")
-          .replace("pr-", "pr-10");
-      }
-      return paddingClasses;
-    };
-
-    const inputClasses = [
+    const textareaClasses = [
       baseClasses,
       variantClasses[variant],
-      paddingWithIcons(),
+      sizeClasses[size],
       errorClasses,
       disabledClasses,
       widthClasses,
@@ -92,7 +71,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className={`${fullWidth ? "w-full" : ""}`}>
         {label && (
           <label
-            htmlFor={inputId}
+            htmlFor={textareaId}
             className={`block text-sm font-medium mb-2 ${
               error ? "text-red-700" : "text-gray-700"
             } ${disabled ? "opacity-50" : ""}`}
@@ -100,34 +79,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-
-        <div className="relative">
-          {startIcon && (
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              {startIcon}
-            </div>
-          )}
-
-          <input
-            ref={ref}
-            id={inputId}
-            type={type}
-            disabled={disabled}
-            className={
-              error
-                ? `${inputClasses} text-red-600 placeholder-red-400`
-                : inputClasses
-            }
-            {...props}
-          />
-
-          {endIcon && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              {endIcon}
-            </div>
-          )}
-        </div>
-
+        <textarea
+          ref={ref}
+          id={textareaId}
+          rows={rows}
+          disabled={disabled}
+          className={
+            error
+              ? `${textareaClasses} text-red-600 placeholder-red-400`
+              : textareaClasses
+          }
+          {...props}
+        />
         {error && (
           <p className="mt-1 text-sm text-red-600 flex items-center">
             <svg
@@ -144,7 +107,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {error}
           </p>
         )}
-
         {helperText && !error && (
           <p
             className={`mt-1 text-sm text-gray-500 ${
@@ -159,6 +121,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+Textarea.displayName = "Textarea";
 
-export default Input;
+export default Textarea;
