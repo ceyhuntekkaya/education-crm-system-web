@@ -2,9 +2,10 @@
 
 import React from "react";
 import { useFormField } from "@/contexts";
+import Input, { InputProps } from "@/components/ui/input";
 
 // FormInput props tipi
-interface FormInputProps {
+interface FormInputProps extends Partial<InputProps> {
   name: string;
   type?: "text" | "email" | "password" | "number" | "tel" | "url";
   placeholder?: string;
@@ -28,16 +29,20 @@ export const FormInput: React.FC<FormInputProps> = ({
   disabled = false,
   className = "",
   inputClassName = "",
-  labelClassName = "",
-  errorClassName = "",
-  helperClassName = "",
+  // Allow passing UI Input extras via extension of InputProps
+  variant,
+  size,
+  startIcon,
+  endIcon,
+  fullWidth,
+  id,
+  ...rest
 }) => {
   const { value, error, required, onChange } = useFormField(name);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    // Type'a göre değer dönüştürme
     let convertedValue: string | number = inputValue;
     if (type === "number" && inputValue !== "") {
       convertedValue = Number(inputValue);
@@ -47,21 +52,9 @@ export const FormInput: React.FC<FormInputProps> = ({
   };
 
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
-      {label && (
-        <label
-          htmlFor={name}
-          className={`text-sm font-medium ${
-            error ? "text-red-600" : "text-gray-700"
-          } ${labelClassName}`}
-        >
-          {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
-        </label>
-      )}
-
-      <input
-        id={name}
+    <div className={`${className}`}>
+      <Input
+        id={id || name}
         name={name}
         type={type}
         value={
@@ -71,30 +64,17 @@ export const FormInput: React.FC<FormInputProps> = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        className={`
-          px-3 py-2 border border-gray-300 rounded-md shadow-sm
-          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-          disabled:bg-gray-100 disabled:cursor-not-allowed
-          ${
-            error
-              ? "border-red-500 text-red-600 placeholder-red-400 focus:ring-red-500 focus:border-red-500"
-              : "text-gray-900 placeholder-gray-400"
-          }
-          ${inputClassName}
-        `}
+        className={inputClassName}
+        label={label}
+        error={error}
+        helperText={helperText}
+        variant={variant}
+        size={size}
+        startIcon={startIcon}
+        endIcon={endIcon}
+        fullWidth={fullWidth}
+        {...rest}
       />
-
-      {helperText && !error && (
-        <span className={`text-xs text-gray-500 ${helperClassName}`}>
-          {helperText}
-        </span>
-      )}
-
-      {error && (
-        <span className={`text-sm text-red-600 ${errorClassName}`}>
-          {error}
-        </span>
-      )}
     </div>
   );
 };

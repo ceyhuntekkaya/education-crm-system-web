@@ -10,7 +10,7 @@ import {
   ToastExamples,
   TooltipExamples,
   InputExamples,
-} from "./components";
+} from "./sections";
 
 const UIComponentsPage: React.FC = () => {
   return (
@@ -167,9 +167,9 @@ const UIComponentsPage: React.FC = () => {
                 </p>
                 <pre className="text-sm bg-white p-3 rounded border">
                   {`import { 
-  Button, Input, Modal, Dropdown, 
-  Popover, Toast, Tooltip 
-} from '@/components/ui';`}
+                    Button, Input, Modal, Dropdown, 
+                    Popover, Toast, Tooltip 
+                  } from '@/components/ui';`}
                 </pre>
               </div>
 

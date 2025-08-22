@@ -7,6 +7,7 @@ import { Form, FormInput, FormButton } from "@/components/forms";
 import { FormProvider, FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib/api";
+import { Button } from "@/components";
 
 const initialValues = {
   name: "",
@@ -94,6 +95,7 @@ const UsersListContent: React.FC = () => {
               name="name"
               label="İsim"
               placeholder="İsime göre ara..."
+              fullWidth
             />
 
             <FormInput
@@ -101,18 +103,21 @@ const UsersListContent: React.FC = () => {
               label="E-posta"
               placeholder="E-postaya göre ara..."
               type="email"
+              fullWidth
             />
 
             <FormInput
               name="username"
               label="Kullanıcı Adı"
               placeholder="Kullanıcı adına göre ara..."
+              fullWidth
             />
 
             <FormInput
               name="phone"
               label="Telefon"
               placeholder="Telefona göre ara..."
+              fullWidth
             />
           </div>
 
@@ -124,13 +129,13 @@ const UsersListContent: React.FC = () => {
               Filtrele
             </FormButton>
 
-            <FormButton
+            <Button
               type="button"
+              variant="secondary"
               onClick={handleClearFilters}
-              className="bg-gray-500 hover:bg-gray-600 text-white"
             >
               Temizle
-            </FormButton>
+            </Button>
           </div>
         </Form>
       </div>
