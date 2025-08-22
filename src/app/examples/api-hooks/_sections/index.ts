@@ -1,7 +1,7 @@
-export { default as UsersListExample } from './UsersListExample';
-export { default as CreatePostExample } from './CreatePostExample';
-export { default as CreateCommentForm } from './CreateCommentForm';
-export { default as UpdatePostExample } from './UpdatePostExample';
-export { default as DeletePostExample } from './DeletePostExample';
-export { default as PostsPaginationExample } from './PostsPaginationExample';
-export { default as TodoManagementExample } from './TodoManagementExample';
+export { default as CreateCommentForm } from "./create-comment-form";
+export { default as CreatePostExample } from "./create-post-example";
+export { default as DeletePostExample } from "./delete-post-example";
+export { default as PostsPaginationExample } from "./posts-pagination-example";
+export { default as TodoManagementExample } from "./todo-management-example";
+export { default as UpdatePostExample } from "./update-post-example";
+export { default as UsersListExample } from "./users-list-example";

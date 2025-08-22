@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useGet } from "@/hooks/api";
-import { User } from "@/types/jsonplaceholder";
+import { User } from "@/types/json-placeholder";
 import { Form, FormInput, FormButton } from "@/components/forms";
 import { FormProvider, FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";

@@ -110,4 +110,4 @@ export interface ApiErrorResponse {
 export type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse;
 
 // JSONPlaceholder API types (for examples and testing)
-export * from '@/types/jsonplaceholder';
+export * from '@/types/json-placeholder';

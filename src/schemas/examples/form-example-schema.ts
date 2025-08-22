@@ -1,8 +1,6 @@
-import React from "react";
-import { FormProvider } from "@/contexts";
 import * as yup from "yup";
 
-const validationSchema = yup.object({
+export const formExamplesSchema = yup.object({
   name: yup
     .string()
     .required("İsim zorunludur")
@@ -32,28 +30,3 @@ const validationSchema = yup.object({
   description: yup.string().max(500, "Açıklama en fazla 500 karakter olabilir"),
   terms: yup.boolean().oneOf([true], "Kullanım şartlarını kabul etmelisiniz"),
 });
-
-const initialValues = {
-  name: "",
-  email: "",
-  age: "",
-  category: "",
-  city: "",
-  description: "",
-  terms: false,
-};
-
-export default function FormProviderWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <FormProvider
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-    >
-      {children}
-    </FormProvider>
-  );
-}
