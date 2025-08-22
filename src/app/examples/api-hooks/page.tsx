@@ -12,7 +12,7 @@ import {
   DeletePostExample,
   PostsPaginationExample,
   TodoManagementExample,
-} from "./components";
+} from "./_sections";
 
 // 🎯 ANA DEMO COMPONENT - Tüm örnekleri gösterir
 export default function ApiHooksExamplePage() {

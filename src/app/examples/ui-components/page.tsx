@@ -10,7 +10,7 @@ import {
   ToastExamples,
   TooltipExamples,
   InputExamples,
-} from "./sections";
+} from "./_sections";
 
 const UIComponentsPage: React.FC = () => {
   return (
