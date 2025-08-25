@@ -7,13 +7,14 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { ROLES, UserRole } from "@/types/roles";
+import { ROLES, UserRole, DEPARTMENTS, Department } from "@/types/roles";
 
 export interface User {
   id: string;
   email: string;
   name: string;
   role: UserRole;
+  department?: Department;
 }
 
 interface AuthContextType {
@@ -64,6 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           password: "admin123",
           name: "Admin User",
           role: ROLES.ADMIN,
+          department: DEPARTMENTS.IT,
         },
         {
           id: "2",
@@ -71,6 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           password: "user123",
           name: "Regular User",
           role: ROLES.USER,
+          department: DEPARTMENTS.HR,
         },
         {
           id: "3",
@@ -78,6 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           password: "inst123",
           name: "Kurum Yöneticisi",
           role: ROLES.INSTITUTION,
+          department: DEPARTMENTS.FINANCE,
         },
       ];
 
@@ -91,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           email: foundUser.email,
           name: foundUser.name,
           role: foundUser.role,
+          department: foundUser.department,
         };
 
         setUser(userData);

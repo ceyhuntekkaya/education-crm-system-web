@@ -4,18 +4,24 @@ import { useAuth } from "@/contexts";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { UnauthorizedAccess } from "@/components";
-import { ROLES, AllowedRoles } from "@/types/roles";
+import {
+  ROLES,
+  AllowedRoles,
+  DEPARTMENTS,
+  AllowedDepartments,
+} from "@/types/roles";
 import { ROUTES } from "@/config";
 
 interface ProtectedRouteProviderProps {
   children: React.ReactNode;
   roles?: AllowedRoles;
+  departments?: AllowedDepartments;
 }
 
-export default function ProtectedRouteProvider({
-  children,
-  roles,
-}: ProtectedRouteProviderProps) {
+export default function ProtectedRouteProvider(
+  props: ProtectedRouteProviderProps
+) {
+  const { children, roles, departments } = props;
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
@@ -43,15 +49,24 @@ export default function ProtectedRouteProvider({
     return null;
   }
 
-  // Rol kontrolü - admin her şeye erişebilir, diğer roller sadece izin verilen rollerde olmalı
-  if (roles && roles.length > 0) {
-    const userHasPermission =
-      roles.includes(user.role as ROLES) || user.role === ROLES.ADMIN;
+  // Rol ve departman kontrolü
+  let userHasPermission = true;
 
-    if (!userHasPermission) {
-      // Yetkisiz erişim - unauthorized component'i render et
-      return <UnauthorizedAccess user={user} />;
-    }
+  if (roles && roles.length > 0) {
+    userHasPermission =
+      roles.includes(user.role as ROLES) || user.role === ROLES.ADMIN;
+  }
+
+  if (departments && departments.length > 0 && userHasPermission) {
+    userHasPermission =
+      (user.department &&
+        departments.includes(user.department as DEPARTMENTS)) ||
+      user.role === ROLES.ADMIN;
+  }
+
+  if (!userHasPermission) {
+    // Yetkisiz erişim - unauthorized component'i render et
+    return <UnauthorizedAccess user={user} />;
   }
 
   // Normal erişim - içeriği render et
