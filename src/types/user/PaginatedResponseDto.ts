@@ -1,4 +1,4 @@
-export interface PaginatedResponseDto<T = any> {
+export interface PaginatedResponseDto<T = unknown> {
   content: T[];
   page: number;
   size: number;
