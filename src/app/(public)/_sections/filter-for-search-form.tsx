@@ -35,7 +35,7 @@ const FormContent = () => {
   return (
     <Form
       onSubmit={onSubmit}
-      className="filter-form bg-white box-shadow-md rounded-16 p-32 mb-32"
+      className="filter-form bg-white box-shadow-md rounded-16 p-32 mb-32 wow bounceIn"
       data-aos="fade-up"
     >
       <h4 className="mb-24 text-main-600 fw-semibold">Okulları Filtrele</h4>
