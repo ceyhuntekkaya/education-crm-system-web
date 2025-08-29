@@ -78,7 +78,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         </select>
         {iconLeft && (
           <span
-            className={`$${
+            className={`${
               variant === "outline"
                 ? "bg-white text-neutral-200 border border-main-25 border-4 w-48 h-48 text-2xl"
                 : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md ms-8"
@@ -89,7 +89,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         )}
         {iconRight && (
           <span
-            className={`$${
+            className={`${
               variant === "outline"
                 ? "bg-white text-neutral-200 border border-main-25 border-4 w-48 h-48 text-2xl"
                 : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md me-8"

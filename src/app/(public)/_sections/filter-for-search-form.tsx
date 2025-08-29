@@ -1,7 +1,7 @@
 "use client";
 import { FormProvider, useFormField } from "@/contexts";
 import * as yup from "yup";
-import { Button, Form, FormInput } from "@/components";
+import { Button, Form, FormAutocomplete, FormInput } from "@/components";
 import { FormSelect } from "@/components/forms/form-select";
 
 import { FormValues } from "@/contexts";
@@ -51,7 +51,19 @@ const FormContent = () => {
         />
       </div>
       <div className="grid-cols-2 gap-16">
-        <FormSelect
+        <FormAutocomplete
+          name="city"
+          variant="inline"
+          placeholder="Şehir ara..."
+          options={[
+            { value: "istanbul", label: "İstanbul" },
+            { value: "ankara", label: "Ankara" },
+            { value: "izmir", label: "İzmir" },
+          ]}
+          maxResults={5}
+          noOptionsText="Şehir bulunamadı"
+        />
+        {/* <FormSelect
           name="city"
           variant="inline"
           options={[
@@ -62,7 +74,7 @@ const FormContent = () => {
             { value: "bursa", label: "Bursa" },
             { value: "antalya", label: "Antalya" },
           ]}
-        />
+        /> */}
         <FormSelect
           name="district"
           variant="inline"
