@@ -1,0 +1,50 @@
+/* ===================== Course Item Css Start ============================ */
+.course-item {
+    &:hover {
+        .course-item__img {
+            transform: scale(1.1);
+        }
+    }
+    &__thumb {
+        overflow: hidden;
+        max-height: 306px;
+    }
+    &__content {
+        padding: 32px 16px;
+        @include md-screen {
+            padding: 24px 8px;
+        }
+    }
+    &__user {
+        position: absolute;
+        inset-block-end: calc(100% - 30px);
+        inset-inline-end: 24px;
+        background-color: var(--main-600);
+        border-radius: 50rem;
+        z-index: 1;
+    }
+
+    &.list-view {
+        @media (min-width: 575px) {
+            display: flex;
+            .course-item {
+                &__thumb {
+                    max-width: 386px;
+                }
+                &__content {
+                    padding: 28px 32px 28px 40px;
+                    @media (max-width: 768px) {
+                        padding: 24px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wishlist-btn {
+    &:active {
+        transform: scale(1.2);
+    }
+}
+/* ===================== Course Item Css End ============================ */

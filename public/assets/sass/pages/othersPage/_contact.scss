@@ -1,0 +1,22 @@
+/* ========================= Contact Page Css Start =========================== */
+.contact-item {
+    * {
+        transition: .2s linear;
+    }
+    &:hover {
+        * {
+            color: hsl(var(--white)) !important;
+        }
+        .contact-item__icon {
+            color: var(--main-600) !important;
+            background-color: hsl(var(--white)) !important;
+            i {
+                color: var(--main-600) !important;
+            }
+        }
+    }
+    .contact-item__icon {
+        transition: 0s !important;
+    }
+}
+/* ========================= Contact Page Css End =========================== */

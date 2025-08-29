@@ -1,0 +1,758 @@
+// =============================================
+// Popover Component Styles
+// =============================================
+
+// Popover Container
+.popover {
+    position: absolute;
+    z-index: 1070;
+    max-width: 276px;
+    min-width: 190px;
+    padding: 8px;
+    margin: 0;
+    font-family: var(--body-font);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    white-space: normal;
+    line-break: auto;
+    font-size: var(--size-14);
+    word-wrap: break-word;
+    background-color: hsl(var(--white));
+    background-clip: padding-box;
+    border: 1px solid hsl(var(--neutral-30));
+    border-radius: 16px;
+    @extend .box-shadow-lg;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: opacity 0.2s linear, visibility 0.2s linear, transform 0.2s linear, margin 0.2s linear;
+    
+    // Kapanma animasyonu - sadece closing state'inde
+    &.closing {
+        // Placement'a göre kapanma yönü
+        &[data-placement^="top"] {
+            animation: popoverSlideToBottom 0.15s ease-in forwards;
+        }
+        
+        &[data-placement^="bottom"] {
+            animation: popoverSlideToTop 0.15s ease-in forwards;
+        }
+        
+        &[data-placement^="left"] {
+            animation: popoverSlideToRight 0.15s ease-in forwards;
+        }
+        
+        &[data-placement^="right"] {
+            animation: popoverSlideToLeft 0.15s ease-in forwards;
+        }
+    }
+
+    // Active state - Placement-specific animasyonlar
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+        
+        // Placement'a göre farklı animasyonlar
+        &[data-placement^="top"] {
+            animation: popoverSlideFromBottom 0.2s ease-out;
+        }
+        
+        &[data-placement^="bottom"] {
+            animation: popoverSlideFromTop 0.2s ease-out;
+        }
+        
+        &[data-placement^="left"] {
+            animation: popoverSlideFromRight 0.2s ease-out;
+        }
+        
+        &[data-placement^="right"] {
+            animation: popoverSlideFromLeft 0.2s ease-out;
+        }
+        
+        // Header benzeri backdrop effect (opsiyonel)
+        &.popover-backdrop {
+            backdrop-filter: blur(2px);
+        }
+    }
+
+    // Arrow styles
+    .popover-arrow {
+        position: absolute;
+        display: block;
+        width: 1rem;
+        height: 0.5rem;
+        margin: 0;
+
+        &::before,
+        &::after {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+
+    // Popover Header
+    .popover-header {
+        padding: 8px 14px;
+        margin: -8px -8px 0 -8px;
+        font-size: var(--size-16);
+        font-weight: 600;
+        color: hsl(var(--heading-color));
+        background-color: hsl(var(--neutral-25));
+        border-bottom: 1px solid hsl(var(--neutral-30));
+        border-radius: calc(6px - 1px) calc(6px - 1px) 0 0;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    // Popover Body
+    .popover-body {
+        padding: 8px 0 0 0;
+        color: hsl(var(--body-color));
+        font-size: var(--size-14);
+        line-height: 1.6;
+        max-height: 400px;
+        overflow-y: auto;
+        
+        // Header submenu benzeri scroll stili
+        &.scroll-sm {
+            scrollbar-width: thin;
+            scrollbar-color: hsl(var(--neutral-200)) transparent;
+            
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background-color: hsl(var(--neutral-200));
+                border-radius: 3px;
+                
+                &:hover {
+                    background-color: hsl(var(--neutral-300));
+                }
+            }
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        // Header nav-submenu benzeri link stili
+        a, .popover-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 14px;
+            color: hsl(var(--neutral-700));
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: .2s linear;
+            font-size: rem(14px);
+            width: 100%;
+            position: relative;
+
+            &:hover {
+                background-color: hsl(var(--neutral-30));
+                color: hsl(var(--neutral-700));
+                // Header benzeri hover efekti
+                transform: translateX(2px);
+            }
+
+            &.active, &.activePage {
+                color: hsl(var(--main));
+                background-color: hsl(var(--main)/.08);
+            }
+
+            // Badge support
+            .badge {
+                margin-left: auto;
+                font-size: rem(11px);
+                padding: 2px 6px;
+                border-radius: 10px;
+                font-weight: 600;
+            }
+
+            // Icon spacing
+            i {
+                width: 16px;
+                flex-shrink: 0;
+                margin-right: 8px;
+            }
+        }
+
+        // Button içerikler için
+        .btn {
+            margin: 4px 0;
+        }
+        
+        // Header benzeri group hover efektleri
+        .group-hover-item {
+            display: none;
+            transition: .2s linear;
+        }
+        
+        .group-hover-visible {
+            opacity: 0;
+            visibility: hidden;
+            transition: .2s linear;
+        }
+        
+        .group-hover-transform {
+            transform: scale(0);
+            opacity: 0;
+            transition: .2s linear;
+        }
+        
+        // Item hover group
+        .item-hover {
+            &:hover {
+                .group-hover-item {
+                    display: block !important;
+                }
+                .group-hover-visible {
+                    visibility: visible !important;
+                    opacity: 1;
+                }
+                .group-hover-transform {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+// Header nav-submenu benzeri konumlandırma sistemi
+.popover {
+    // Başlangıç durumu - Header submenu gibi
+    &:not(.show) {
+        // Top placement için başlangıç margin'i
+        &[data-placement^="top"] {
+            margin-top: -16px;
+        }
+        
+        // Bottom placement için başlangıç margin'i  
+        &[data-placement^="bottom"] {
+            margin-top: 16px;
+        }
+        
+        // Left placement için başlangıç margin'i
+        &[data-placement^="left"] {
+            margin-left: -16px;
+        }
+        
+        // Right placement için başlangıç margin'i
+        &[data-placement^="right"] {
+            margin-left: 16px;
+        }
+    }
+
+    // Show durumu - Header submenu hover gibi
+    &.show {
+        // Tüm margin'leri sıfırla
+        &[data-placement^="top"],
+        &[data-placement^="bottom"],
+        &[data-placement^="left"],
+        &[data-placement^="right"] {
+            margin: 0;
+        }
+    }
+
+    // Arrow stilleri
+    &[data-placement^="top"] {
+        .popover-arrow {
+            bottom: calc(-0.5rem - 1px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        &[data-placement="top-start"] .popover-arrow {
+            left: 1rem;
+            transform: none;
+        }
+        
+        &[data-placement="top-end"] .popover-arrow {
+            left: auto;
+            right: 1rem;
+            transform: none;
+        }
+    }
+
+    &[data-placement^="bottom"] {
+        .popover-arrow {
+            top: calc(-0.5rem - 1px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        &[data-placement="bottom-start"] .popover-arrow {
+            left: 1rem;
+            transform: none;
+        }
+        
+        &[data-placement="bottom-end"] .popover-arrow {
+            left: auto;
+            right: 1rem;
+            transform: none;
+        }
+    }
+
+    &[data-placement^="left"] {
+        .popover-arrow {
+            right: calc(-0.5rem - 1px);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0.5rem;
+            height: 1rem;
+        }
+        
+        &[data-placement="left-start"] .popover-arrow {
+            top: 1rem;
+            transform: none;
+        }
+        
+        &[data-placement="left-end"] .popover-arrow {
+            top: auto;
+            bottom: 1rem;
+            transform: none;
+        }
+    }
+
+    &[data-placement^="right"] {
+        .popover-arrow {
+            left: calc(-0.5rem - 1px);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0.5rem;
+            height: 1rem;
+        }
+        
+        &[data-placement="right-start"] .popover-arrow {
+            top: 1rem;
+            transform: none;
+        }
+        
+        &[data-placement="right-end"] .popover-arrow {
+            top: auto;
+            bottom: 1rem;
+            transform: none;
+        }
+    }
+
+    // Arrow border stilleri
+    .popover-arrow {
+        &::before,
+        &::after {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+
+    &[data-placement^="top"] .popover-arrow {
+        &::before {
+            bottom: 0;
+            border-width: 0.5rem 0.5rem 0;
+            border-top-color: hsl(var(--neutral-30));
+        }
+        &::after {
+            bottom: 1px;
+            border-width: 0.5rem 0.5rem 0;
+            border-top-color: hsl(var(--white));
+        }
+    }
+
+    &[data-placement^="bottom"] .popover-arrow {
+        &::before {
+            top: 0;
+            border-width: 0 0.5rem 0.5rem 0.5rem;
+            border-bottom-color: hsl(var(--neutral-30));
+        }
+        &::after {
+            top: 1px;
+            border-width: 0 0.5rem 0.5rem 0.5rem;
+            border-bottom-color: hsl(var(--white));
+        }
+    }
+
+    &[data-placement^="left"] .popover-arrow {
+        &::before {
+            right: 0;
+            border-width: 0.5rem 0 0.5rem 0.5rem;
+            border-left-color: hsl(var(--neutral-30));
+        }
+        &::after {
+            right: 1px;
+            border-width: 0.5rem 0 0.5rem 0.5rem;
+            border-left-color: hsl(var(--white));
+        }
+    }
+
+    &[data-placement^="right"] .popover-arrow {
+        &::before {
+            left: 0;
+            border-width: 0.5rem 0.5rem 0.5rem 0;
+            border-right-color: hsl(var(--neutral-30));
+        }
+        &::after {
+            left: 1px;
+            border-width: 0.5rem 0.5rem 0.5rem 0;
+            border-right-color: hsl(var(--white));
+        }
+    }
+}
+
+// Popover Variants
+.popover {
+    // Success variant
+    &.popover-success {
+        border-color: hsl(var(--success-200));
+        
+        .popover-header {
+            background-color: hsl(var(--success-50));
+            color: hsl(var(--success-700));
+            border-bottom-color: hsl(var(--success-200));
+        }
+
+        &[data-placement^="top"] .popover-arrow::before {
+            border-top-color: hsl(var(--success-200));
+        }
+        &[data-placement^="bottom"] .popover-arrow::before {
+            border-bottom-color: hsl(var(--success-200));
+        }
+        &[data-placement^="left"] .popover-arrow::before {
+            border-left-color: hsl(var(--success-200));
+        }
+        &[data-placement^="right"] .popover-arrow::before {
+            border-right-color: hsl(var(--success-200));
+        }
+    }
+
+    // Warning variant
+    &.popover-warning {
+        border-color: hsl(var(--warning-200));
+        
+        .popover-header {
+            background-color: hsl(var(--warning-50));
+            color: hsl(var(--warning-700));
+            border-bottom-color: hsl(var(--warning-200));
+        }
+
+        &[data-placement^="top"] .popover-arrow::before {
+            border-top-color: hsl(var(--warning-200));
+        }
+        &[data-placement^="bottom"] .popover-arrow::before {
+            border-bottom-color: hsl(var(--warning-200));
+        }
+        &[data-placement^="left"] .popover-arrow::before {
+            border-left-color: hsl(var(--warning-200));
+        }
+        &[data-placement^="right"] .popover-arrow::before {
+            border-right-color: hsl(var(--warning-200));
+        }
+    }
+
+    // Danger variant
+    &.popover-danger {
+        border-color: hsl(var(--danger-200));
+        
+        .popover-header {
+            background-color: hsl(var(--danger-50));
+            color: hsl(var(--danger-700));
+            border-bottom-color: hsl(var(--danger-200));
+        }
+
+        &[data-placement^="top"] .popover-arrow::before {
+            border-top-color: hsl(var(--danger-200));
+        }
+        &[data-placement^="bottom"] .popover-arrow::before {
+            border-bottom-color: hsl(var(--danger-200));
+        }
+        &[data-placement^="left"] .popover-arrow::before {
+            border-left-color: hsl(var(--danger-200));
+        }
+        &[data-placement^="right"] .popover-arrow::before {
+            border-right-color: hsl(var(--danger-200));
+        }
+    }
+
+    // Info variant
+    &.popover-info {
+        border-color: hsl(var(--info-200));
+        
+        .popover-header {
+            background-color: hsl(var(--info-50));
+            color: hsl(var(--info-700));
+            border-bottom-color: hsl(var(--info-200));
+        }
+
+        &[data-placement^="top"] .popover-arrow::before {
+            border-top-color: hsl(var(--info-200));
+        }
+        &[data-placement^="bottom"] .popover-arrow::before {
+            border-bottom-color: hsl(var(--info-200));
+        }
+        &[data-placement^="left"] .popover-arrow::before {
+            border-left-color: hsl(var(--info-200));
+        }
+        &[data-placement^="right"] .popover-arrow::before {
+            border-right-color: hsl(var(--info-200));
+        }
+    }
+
+    // Dark variant
+    &.popover-dark {
+        background-color: hsl(var(--neutral-800));
+        border-color: hsl(var(--neutral-700));
+        color: hsl(var(--white));
+        
+        .popover-header {
+            background-color: hsl(var(--neutral-700));
+            color: hsl(var(--white));
+            border-bottom-color: hsl(var(--neutral-600));
+        }
+
+        .popover-body {
+            color: hsl(var(--neutral-200));
+        }
+
+        &[data-placement^="top"] .popover-arrow::after {
+            border-top-color: hsl(var(--neutral-800));
+        }
+        &[data-placement^="bottom"] .popover-arrow::after {
+            border-bottom-color: hsl(var(--neutral-800));
+        }
+        &[data-placement^="left"] .popover-arrow::after {
+            border-left-color: hsl(var(--neutral-800));
+        }
+        &[data-placement^="right"] .popover-arrow::after {
+            border-right-color: hsl(var(--neutral-800));
+        }
+    }
+}
+
+// Size variations
+.popover {
+    // Small popover
+    &.popover-sm {
+        max-width: 200px;
+        font-size: var(--size-12);
+
+        .popover-header {
+            padding: var(--size-8) var(--size-12);
+            font-size: var(--size-14);
+        }
+
+        .popover-body {
+            padding: var(--size-12);
+        }
+    }
+
+    // Large popover
+    &.popover-lg {
+        max-width: 350px;
+        font-size: var(--size-16);
+
+        .popover-header {
+            padding: var(--size-16) var(--size-20);
+            font-size: var(--size-18);
+        }
+
+        .popover-body {
+            padding: var(--size-20);
+        }
+    }
+}
+
+// Header benzeri placement-specific animasyonlar
+@keyframes popoverSlideFromTop {
+    from {
+        transform: translateY(-8px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes popoverSlideFromBottom {
+    from {
+        transform: translateY(8px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes popoverSlideFromLeft {
+    from {
+        transform: translateX(-8px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes popoverSlideFromRight {
+    from {
+        transform: translateX(8px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+// Kapanma animasyonları - açılışın tersi yönde
+@keyframes popoverSlideToBottom {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(8px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes popoverSlideToTop {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-8px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes popoverSlideToLeft {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-8px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes popoverSlideToRight {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(8px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+// Animation classes for entrance/exit
+.popover-enter {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.popover-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.popover-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.popover-exit-active {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+}
+
+// Responsive adjustments
+@include sm-screen {
+    .popover {
+        max-width: calc(100vw - 2rem);
+        margin: 1rem;
+    }
+}
+
+// Accessibility improvements
+.popover {
+    &:focus {
+        outline: none;
+    }
+
+    // High contrast mode support
+    @media (prefers-contrast: high) {
+        border-width: 2px;
+        box-shadow: 0 0 0 1px var(--neutral-800);
+    }
+
+    // Reduced motion support
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+        
+        &.show {
+            transform: none;
+        }
+    }
+}
+
+// Header has-submenu benzeri hover container
+.popover-container {
+    position: relative;
+    
+    &.has-popover {
+        // Header has-submenu gibi hover davranışı
+        &:hover {
+            // Popover açık olduğunda container'ın hover state'i
+            .popover-trigger {
+                // Trigger'a hover efekti verebiliriz
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+// Trigger styles
+.popover-trigger {
+    cursor: pointer;
+    
+    &:focus {
+        outline: 2px solid var(--main-600);
+        outline-offset: 2px;
+    }
+    
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+}

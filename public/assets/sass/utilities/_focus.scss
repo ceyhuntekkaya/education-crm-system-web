@@ -1,0 +1,12 @@
+.focus-border-main-500:focus {
+    border-color: var(--main-500) !important;
+}
+.focus-border-main-600:focus {
+    border-color: var(--main-600) !important;
+}
+.focus-visible-outline:focus-visible {
+    outline: 0;
+}
+.focus-box-shadow:focus {
+    box-shadow: none;
+}

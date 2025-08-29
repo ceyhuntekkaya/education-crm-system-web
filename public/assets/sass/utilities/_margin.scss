@@ -1,0 +1,503 @@
+/* ================================= Margin Css Start =========================== */
+@each $property, $value in $spaces {
+  .m-#{$property} {
+    margin: var(--size-#{$property}) !important;
+  }
+}
+
+@each $property, $value in $spaces {
+  .mx-#{$property} {
+    margin-inline: var(--size-#{$property}) !important;
+  }
+}
+
+@each $property, $value in $spaces {
+  .my-#{$property} {
+    margin-block: var(--size-#{$property}) !important;
+  }
+}
+
+@each $property, $value in $spaces {
+  .ms-#{$property} {
+    margin-inline-start: var(--size-#{$property}) !important;
+  }
+}
+
+@each $property, $value in $spaces {
+  .me-#{$property} {
+    margin-inline-end: var(--size-#{$property}) !important;
+  }
+}
+
+@each $property, $value in $spaces {
+  .mt-#{$property} {
+    margin-block-start: var(--size-#{$property}) !important;
+  }
+}
+
+@each $property, $value in $spaces {
+  .mb-#{$property} {
+    margin-block-end: var(--size-#{$property}) !important;
+  }
+}
+
+.ms--40 {
+  margin-inline-start: -40px;
+}
+
+.ms--6 {
+  margin-inline-start: -6px;
+}
+
+@media (min-width: 992px) {
+  .ms-lg-4 {
+      margin-inline-start: 1.5rem !important;
+  }
+}
+
+.mt--5 {
+  margin-block-end: -5px;
+}
+
+.me--5 {
+  margin-inline-end: -5px;
+}
+
+.mt-0 {
+  margin-block-start: 0!important;
+}
+
+.mb-0 {
+  margin-block-end: 0!important;
+}
+
+.ms-0 {
+  margin-inline-start: 0!important;
+}
+.ms--150px {
+  @media (min-width: 991px) {
+    margin-inline-start: -150px !important;
+  }
+  margin-inline-start: 24px;
+}
+
+.mt--200px {
+  @media (min-width: 991px) {
+    margin-top: -200px !important;
+  }
+}
+
+.me-0 {
+  margin-inline-end: 0!important;
+}
+
+.me-148-px {
+margin-inline-end: clamp(1.25rem, -26.75rem + 32vw, 9.25rem);;
+}
+.ms-8-persent {
+margin-inline-start: 8% !important;
+}
+.me-8-persent {
+margin-inline-end: 8% !important;
+}
+
+
+.my-120 {
+  margin-block-start: 60px !important;
+  margin-block-end: 60px !important;
+  @media (min-width: 576px) {
+    margin-block-start: 80px !important;
+    margin-block-end: 80px !important;
+  }
+  @media (min-width: 992px) {
+    margin-block-start: 120px !important;
+    margin-block-end: 120px !important;
+  }
+}
+.mt-120 {
+    margin-block-start: 60px !important;
+    @media (min-width: 576px) {
+    margin-block-start: 80px !important;
+  }
+    @media (min-width: 992px) {
+    margin-block-start: 120px !important;
+  }
+}
+.mb-120 {
+    margin-block-end: 60px !important;
+    @media (min-width: 576px) {
+    margin-block-end: 80px !important;
+  }
+    @media (min-width: 992px) {
+    margin-block-end: 120px !important;
+  }
+}
+.my-60 {
+    margin-block-start: 30px !important;
+    margin-block-end: 30px !important;
+    @media (min-width: 576px) {
+    margin-block-start: 40px !important;
+    margin-block-end: 40px !important;
+  }
+    @media (min-width: 992px) {
+    margin-block-start: 60px !important;
+    margin-block-end: 60px !important;
+  }
+}
+.mt-60 {
+    margin-block-start: 30px !important;
+    @media (min-width: 576px) {
+    margin-block-start: 40px !important;
+  }
+    @media (min-width: 992px) {
+    margin-block-start: 60px !important;
+  }
+}
+  .mb-60 {
+    margin-block-end: 30px !important;
+    @media (min-width: 576px) {
+    margin-block-end: 40px !important;
+  }
+    @media (min-width: 992px) {
+    margin-block-end: 60px !important;
+  }
+}
+
+.top-50-percent{
+  inset-block-start: 50%;  
+}
+.nset-block-start-8-percent {
+  inset-block-start: 8%;  
+}
+.inset-inline-end-0-px{
+  inset-inline-end: 0;  
+} 
+.inset-inline-end-3-percent{
+ inset-inline-end: 20px;
+}
+.inset-inline-end-1-percent {
+  inset-inline-end: 1%;  
+}
+.inset-inline-start-22px{
+  inset-inline-start: 22px
+}
+
+.top--20-percent{
+  inset-block-start: -20%;  
+}
+.inset-block-end-20-px {
+  inset-block-end: 20px;  
+}
+.inset-block-end-50-px {
+  inset-block-end: 50px;  
+}
+.inset-block-start-15-px {
+  inset-block-start: 15px;  
+}
+.inset-block-start-18-px {
+  inset-block-start: 18px;  
+}
+.inset-inline-start-25-px{
+  inset-inline-start: 25px;
+}
+.margin-inline-start-auto {
+  margin-inline-start: auto;
+}
+.inset-block-start-50-persent {
+  inset-block-end: 30%;
+}
+
+
+.left-15-percent{
+  inset-inline-start: 10%;
+}
+
+.left-32-percent{
+  left: 32%;
+}
+.top-10-percent{
+  top: 10%;
+}
+
+.right-5-percent{
+  right: 5%;
+}
+.top-35-percent {
+  top: 35%;
+}
+.inset-block-start-50-percent {
+  inset-block-start: 50%;
+}
+
+.bottom-18-percent{
+  bottom: 18%;
+}
+.left-3-percent{
+  left: 3%;
+}
+
+.bottom-10-percent{
+  bottom: 10%;
+}
+.left-17-percent{
+  left: 17%;
+}
+
+
+
+.inset-block-start-20-percent{
+  inset-block-start: 20%;
+}
+.inset-inline-start-8-percent{
+  inset-inline-start: 8%;
+}
+
+.inset-block-end-26-percent {
+  inset-block-end: 26%;
+}
+.inset-inline-start-50-percent {
+  inset-inline-start: 50%;
+}
+
+.inset-inline-start-34-percent {
+  inset-inline-start: 34%;
+}
+.inset-block-end-25-percent {
+  inset-block-end: 25%;
+}
+
+.inset-inline-start-25-percent{
+  inset-inline-start: 25%;
+}
+.inset-block-start-0 {
+  inset-block-start: 0;
+}
+.padding-block-end-90px {
+  padding-block-end: 90px;
+}
+
+
+.inset-block-end-0-percent {
+  inset-block-start: 0 !important;
+}
+.inset-inline-end-137-px {
+  inset-inline-end: 137px;
+}
+.margin-left-137-px{
+  @media (min-width: 992px) {
+    margin-inline-start: 137px;
+  }
+}
+
+.inset-inline-start-10-persent{
+  inset-inline-start: 10%;
+}
+.inset-block-start-30-persent{
+  inset-block-start: 30%;
+}
+
+.inset-inline-end-13-persent{
+  inset-inline-end: 13%;
+}
+.inset-block-start-10-persent {
+  inset-block-start: 10%;
+}
+
+.inset-inline-end-8-persent{
+  inset-inline-end: 8%;
+}
+.inset-block-end-8-persent {
+  inset-block-end: 8%;
+}
+.inset-block-end-50-persent {
+  inset-block-end: 50%;
+}
+
+
+
+
+
+.bottom-10-percent{
+  bottom: 10%;
+}
+.left-7-percent{
+  left: 7%;
+}
+
+.bottom-14-percent{
+  bottom: 14%;
+}
+.left-65-percent{
+  left: 65%;
+}
+
+.top-55-percent{
+  top: 55%;
+}
+.left-30-percent{
+  left: 30%;
+}
+.inset-inline-start-35-percent {
+  inset-inline-start: 35%;
+}
+
+.left-57-percent{
+  left: 57%;
+}
+
+.top-18-percent{
+  top: 18%;
+}
+.top-25-percent {
+  top: 25%;
+}
+
+
+.left-75-percent{
+  left: 75%;
+}
+.inset-inline-start-70-percent {
+  inset-inline-start: 70%;
+}
+.inset-inline-start-63-percent {
+  inset-inline-start: 63%;
+}
+.inset-inline-end-7-percent {
+  inset-inline-end: 7%;
+}
+.inset-inline-end-32-percent {
+  inset-inline-end: 32%;
+}
+.inset-block-end-0 {
+  inset-block-end: 0 !important;
+}
+.inset-block-end-90-persent {
+  inset-block-start: 90%;
+}
+.inset-block-end-20-persent {
+  inset-block-end: 20%;
+}
+
+
+
+
+.inset-inline-start-45-persent {
+  inset-inline-start: 45%;
+}
+.inset-block-start-5-persent {
+  inset-block-start: 5%;
+}
+.inset-inline-start-0-persent {
+  inset-inline-start: 0;
+}
+.inset-block-end-0-persent {
+  inset-block-end: 0;
+}
+.inset-inline-end-35-persent {
+  inset-inline-end: 35%;
+}
+.inset-block-end-30-persent {
+  inset-block-end: 30%;
+}
+.inset-inline-end-40-persent {
+  inset-inline-end: 40%;
+}
+.inset-block-start-5-persent {
+  inset-block-start: 5%;
+}
+.inset-inline-end-2-persent {
+  inset-inline-end: 2%;
+}
+.inset-block-end-45-persent {
+  inset-block-end: 45%;
+}
+.inset-inline-end-45-persent {
+  inset-inline-end: 45%;
+}
+.inset-inline-end-2-persent {
+  inset-inline-end: 2%;
+}
+.inset-block-start-2-persent {
+  inset-block-start: 2%;
+}
+
+
+
+
+
+.top-10-percent{
+  top: 10%;
+}
+.left-85-percent{
+  left: 85%;
+}
+
+.left-83-percent{
+  left: 83%;
+}
+
+.bottom-5-percent{
+  bottom: 5%;
+}
+.left-70-percent{
+  left: 70%;
+}
+
+
+.top-8-percent{
+  top: 20%;
+}
+.right-8-percent{
+  inset-inline-end: 8%;
+}
+.padding-top-100-px {
+  padding-top: 100px;
+}
+.padding-top-162-px {
+  padding-top: 162px;
+}
+.padding-block-end-50-px {
+  padding-block-end: 50px;
+}
+.margin-top--94px {
+   margin-top: -94px;
+}
+.margin-top-94px {
+  margin-top: 94px;
+}
+.mt--120{
+  margin-top: -100px;
+}
+
+
+
+
+.lg-ms-134px {
+  @media (min-width: 991px) {
+    margin-inline-start: 134px !important;
+  }
+}
+
+
+/* ================================= Margin Css End =========================== */
+.transform-translate-y-94px {
+  transform: translateY(-94px);
+}
+.transform-scale-x--1px {
+  transform: scaleX(-1);
+}
+
+
+
+
+/*==================================== z-index css start=====================*/ 
+.z-index-n9 {
+  z-index: -9;
+}
+.z-n10 {
+  z-index: -10;
+}
+.z-999 {
+  z-index: 999;
+}
+/*==================================== z-index css end=====================*/ 

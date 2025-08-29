@@ -1,0 +1,92 @@
+
+
+.end-0 {
+    right: unset !important;
+    inset-inline-end: 0 !important;
+}
+
+
+/* ================================ RTL Css Start ============================== */
+[dir="rtl"] {
+    .ph.ph-caret-left:before {
+        content: "\E13A";
+    }
+    .ph.ph-caret-right:before {
+        content: "\e138";
+    }
+    .ph.ph-arrow-right:before {
+        content: "\E058";
+    }
+    .ph-bold.ph-arrow-up-right:before {
+        content: "\E090";
+    }
+    .ph-bold.ph-arrow-right:before {
+        content: "\E058";
+    }
+    .ph-bold.ph-caret-left:before {
+        content: "\E13A";
+    }
+    .ph-bold.ph-caret-right:before {
+        content: "\e138";
+    }
+    .ph-bold.ph-arrow-left:before {
+        content: "\e06c";
+    }
+
+    
+    .banner-three__item .row {
+        flex-direction: row-reverse;
+    }
+    .border-start {
+        border-left: unset !important;
+        border-inline-start: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+    }
+    .common-check .form-check-input::before {
+        transform: translate(50%, -50%);
+    }
+    .form-check .form-check-input {
+        margin-left: 0;
+        margin-inline-start: -1.5em;
+    }
+    .positioned-rotation {
+        transform: rotate(-45deg);
+    }
+    .form-select {
+        background-position: left .75rem center;
+    }
+    .form-check {
+        padding-left: 0;
+        padding-inline-start: 1.5em;
+    }
+    .common-check.common-radio .form-check-input:checked::after {
+        -webkit-transform: translate(50%, -50%) scale(1);
+        transform: translate(50%, -50%) scale(1);
+    }
+    .ms-auto {
+        margin-left: 0 !important;
+        margin-inline-start: auto !important;
+    }
+    .color-list__button.active::before {
+        transform: translate(50%, -50%);
+    }
+    .floating-label {
+        transform: translateX(25px);
+    }
+    .child-future-icon{
+        transform: rotate(-89deg);
+    }
+    .start-0 {
+        left: unset !important;
+        inset-inline-start: 0 !important;
+    }
+    .translate-middle {
+        transform: translate(50%,-50%)!important;
+    }
+    .translate-middle-x {
+        transform: translateX(50%)!important;
+    }
+    .triangle-shape::before {
+        transform: translateX(50%);
+    }
+}
+/* ================================ RTL Css End ============================== */

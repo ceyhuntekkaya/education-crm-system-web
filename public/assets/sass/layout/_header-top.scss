@@ -1,0 +1,11 @@
+/* ================================== Header Top Start ================================== */
+.header-top {
+    padding: 24px 0;
+    @include lg-screen {
+        padding: 16px 0;
+    }
+    @include sm-screen {
+        padding: 8px 0;
+    }
+}
+/* ================================== Header Top End ================================== */

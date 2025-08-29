@@ -1,0 +1,74 @@
+// background
+@each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      .bg-#{$color}-#{$shade} {
+        background-color: var(--#{$color}-#{$shade}) !important;
+      }
+    }
+}
+
+// hover background
+@each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      .hover-bg-#{$color}-#{$shade} {
+        &:hover {
+            background-color: var(--#{$color}-#{$shade}) !important;
+        }
+      }
+    }
+  }
+
+  .bg-color-three {
+    background-color: hsl(144deg 56% 42% / 5%) !important;
+  }
+
+  .bg-dark-yellow {
+    background-color: #F3B439;
+  }
+
+  .hover-bg-white {
+    &:hover {
+      background-color: #fff !important;
+    }
+  }
+
+  .bg-color {
+    &-black {
+      background-color: rgba(11, 19, 35, 1);
+    }
+    &-deep-green {
+      background-color: rgba(0, 167, 111, 1);
+    }
+    &-violet {
+      background-color: rgba(142, 51, 255, 1);
+    }
+    &-info {
+      background-color: rgba(0, 184, 217, 1);
+    }
+    &-light-green {
+      background-color: rgba(34, 197, 94, 1);
+    }
+    &-yellow {
+      background-color: rgba(255, 171, 0, 1);
+    }
+    &-danger {
+      background-color: rgba(255, 86, 48, 1);
+    }
+    &-blue {
+      background-color: rgba(0, 102, 255, 1);
+    }
+    &-main-500 {
+      background-color: #066bc9b7;
+    }
+    
+    &-paste {
+      background-color: rgba(51, 255, 0, 1);
+    }
+    &-warning {
+      background-color: rgba(255, 122, 0, 1);
+    }
+  }
+
+  .bg-transparent {
+    background-color: transparent !important;
+}

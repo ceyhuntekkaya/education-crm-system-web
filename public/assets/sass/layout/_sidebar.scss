@@ -1,0 +1,230 @@
+// =======================================
+//          Sidebar Styles
+// =======================================
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 2;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.sidebar {
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  @media (min-width: 992px) {
+    transform: translateX(0);
+  }
+
+  &--mobile-open {
+    transform: translateX(0);
+  }
+
+  // Collapsed sidebar specific styles
+  &--collapsed {
+    .sidebar-nav {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .sidebar-header {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .sidebar-footer {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .sidebar-menu {
+      li {
+        margin-bottom: 0;
+      }
+    }
+
+    .sidebar-admin-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid map-get($colors, "neutral", "30");
+    }
+
+    // Show collapsed text in collapsed mode
+    .sidebar-menu__text--collapsed {
+      display: block;
+    }
+
+    // Hide normal text in collapsed mode  
+    .sidebar-menu__text {
+      display: none;
+    }
+  }
+}
+
+.sidebar-mobile-toggle {
+  @media (min-width: 992px) {
+    display: none !important;
+  }
+}
+
+.sidebar-menu__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-weight: 500;
+  color: map-get($colors, "neutral", "600");
+
+  &:hover {
+    background-color: map-get($colors, "main", "25");
+    color: map-get($colors, "neutral", "700");
+    text-decoration: none;
+  }
+
+  // Aktif durum - sistem main rengi kullanımı
+  &.bg-main-600 {
+    background-color: map-get($colors, "main", "600");
+    color: white;
+    font-weight: 600;
+
+    &:hover {
+      background-color: map-get($colors, "main", "700");
+      color: white;
+    }
+  }
+
+  // Alt menü stilleri
+  &--sub {
+    font-size: 14px;
+    color: map-get($colors, "neutral", "500");
+    padding-left: 44px;
+
+    &:hover {
+      background-color: map-get($colors, "neutral", "20");
+      color: map-get($colors, "neutral", "600");
+    }
+  }
+
+  // Collapsed mode specific class
+  &--collapsed {
+    // Keep normal styling, show text
+    justify-content: space-between;
+    
+    // Hide normal text, show collapsed text
+    .sidebar-menu__text {
+      display: none;
+    }
+    
+    .sidebar-menu__text--collapsed {
+      display: block;
+    }
+  }
+}
+
+.sidebar-welcome {
+  border-bottom: 1px solid map-get($colors, "neutral", "30");
+}
+
+.sidebar-menu {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+}
+
+.sidebar-submenu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &--collapsed {
+    // Submenu styling for collapsed mode
+    padding-left: 16px;
+    background-color: map-get($colors, "neutral", "10");
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+}
+
+// Collapsed text is hidden by default
+.sidebar-menu__text--collapsed {
+  display: none;
+}
+
+// Company logo container
+.sidebar-logo-container {
+  .company-logo {
+    background-color: map-get($colors, "main", "600");
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: map-get($colors, "main", "700");
+    }
+  }
+}
+
+// Admin section
+.sidebar-admin-section {
+  border-top: 1px solid map-get($colors, "neutral", "30");
+  
+  .admin-label {
+    color: map-get($colors, "neutral", "500");
+  }
+}
+
+// Footer logout
+.sidebar-footer {
+  .logout-link {
+    color: map-get($colors, "neutral", "600");
+    
+    &:hover {
+      background-color: map-get($colors, "neutral", "20");
+      color: map-get($colors, "neutral", "700");
+      text-decoration: none;
+    }
+  }
+
+  .logout-button {
+    background-color: map-get($colors, "neutral", "20");
+    color: map-get($colors, "neutral", "600");
+    border: none;
+    transition: all 0.2s ease;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    &:hover {
+      background-color: map-get($colors, "neutral", "30");
+      color: map-get($colors, "neutral", "700");
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    i {
+      font-size: 18px;
+    }
+  }
+}

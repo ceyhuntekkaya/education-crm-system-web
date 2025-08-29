@@ -1,0 +1,35 @@
+export enum CampaignContentType {
+  BANNER_IMAGE = "BANNER_IMAGE", // Banner resmi
+  THUMBNAIL_IMAGE = "THUMBNAIL_IMAGE", // Küçük resim
+  HERO_IMAGE = "HERO_IMAGE", // Ana resim
+  GALLERY_IMAGE = "GALLERY_IMAGE", // Galeri resmi
+  PROMOTIONAL_VIDEO = "PROMOTIONAL_VIDEO", // Tanıtım videosu
+  TESTIMONIAL_VIDEO = "TESTIMONIAL_VIDEO", // Referans videosu
+  INFOGRAPHIC = "INFOGRAPHIC", // İnfografik
+  BROCHURE = "BROCHURE", // Broşür
+  FLYER = "FLYER", // El ilanı
+  POSTER = "POSTER", // Poster
+  SOCIAL_MEDIA_POST = "SOCIAL_MEDIA_POST", // Sosyal medya gönderisi
+  EMAIL_HEADER = "EMAIL_HEADER", // E-posta başlığı
+  WEB_BANNER = "WEB_BANNER", // Web banner
+  MOBILE_BANNER = "MOBILE_BANNER", // Mobil banner
+  STORY_TEMPLATE = "STORY_TEMPLATE", // Story şablonu
+  LOGO_VARIATION = "LOGO_VARIATION", // Logo varyasyonu
+  ICON = "ICON", // İkon
+  BACKGROUND_IMAGE = "BACKGROUND_IMAGE", // Arkaplan resmi
+  PATTERN = "PATTERN", // Desen
+  WATERMARK = "WATERMARK", // Filigran
+  AUDIO_AD = "AUDIO_AD", // Sesli reklam
+  JINGLE = "JINGLE", // Jingle
+  PRESENTATION = "PRESENTATION", // Sunum
+  DOCUMENT = "DOCUMENT", // Belge
+  CERTIFICATE = "CERTIFICATE", // Sertifika
+  BADGE = "BADGE", // Rozet
+  STICKER = "STICKER", // Çıkartma
+  GIF_ANIMATION = "GIF_ANIMATION", // GIF animasyon
+  INTERACTIVE_CONTENT = "INTERACTIVE_CONTENT", // İnteraktif içerik
+  AR_CONTENT = "AR_CONTENT", // Artırılmış gerçeklik
+  VR_CONTENT = "VR_CONTENT", // Sanal gerçeklik
+  THREE_D_MODEL = "THREE_D_MODEL", // 3D model
+  OTHER = "OTHER", // Diğer
+}

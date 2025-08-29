@@ -1,0 +1,184 @@
+// width height
+@each $property, $value in $spaces {
+    .w-#{$property} {
+      width: $value !important;
+    }
+}
+
+@each $property, $value in $spaces {
+    .h-#{$property} {
+      height: $value !important;
+    }
+}
+
+.min-h {
+  &-252 {
+    min-height: 252px;
+  }
+  &-inherit {
+    min-height: inherit;
+  }
+}
+
+.max-h-unset {
+    max-height: unset !important;
+}
+.max-h-416 {
+    max-height: 416px !important;
+}
+.max-h-150 {
+    max-height: 150px !important;
+}
+
+.max-w-unset {
+    max-width: unset !important;
+}
+
+.max-w-340 {
+  max-width: 340px;
+}
+.max-w-274 {
+  @media (min-width: 576x) {
+    max-width: 274px;
+  }
+}
+.max-w {
+  &-176 {
+    max-width: 176px;
+  }
+  &-116 {
+    max-width: 116px;
+  }
+  &-454 {
+    max-width: 454px;
+  }
+  &-306 {
+    max-width: 306px;
+  }
+}
+.max-w-708 {
+  max-width: 708px;
+}
+.min-w-320 {
+  min-width: 320px;
+}
+
+.max-w-150 {
+  max-width: 150px;
+}
+.max-w-636 {
+  max-width: 636px;
+}
+.max-w-646 {
+  max-width: 646px;
+}
+.max-w-611 {
+  max-width: 611px;
+}
+.max-w-416 {
+  max-width: 416px;
+}
+.tw-max-width-742-px{
+  max-width: 742px;
+}
+.tw-max-width-22{
+  max-width: 22%;
+}
+.max-w-416-px{
+  max-width: 416px;
+}
+.max-w-557-px{
+  max-width: 557px;
+}
+.max-w-357-px{
+  max-width: 357px;
+}
+.max-w-506-px{
+  max-width: 506px;
+}
+.max-w-535-px{
+  max-width: 535px;
+}
+.max-w-526-px{
+  max-width: 526px;
+}
+.max-w-632-px{
+  max-width: 632px;
+}
+.max-w-636-px{
+  max-width: 636px !important;
+}
+.max-w-286-px {
+  max-width: 286px !important;
+}
+.max-w-288-px {
+  max-width: 288px !important;
+}
+.max-w-1536-px {
+  max-width: 1536px !important;
+}
+.max-w-1016-px {
+  max-width: 1016px !important;
+}
+.max-w-366-px {
+  max-width: 366px !important;
+}
+.max-w-344-px {
+  max-width: 344px !important;
+}
+.max-w-420-px {
+  max-width: 420px !important;
+}
+.max-w-514-px {
+  max-width: 514px !important;
+}
+.max-w-220-px {
+  max-width: 220px !important;
+}
+.max-w-240-px {
+  max-width: 240px !important;
+}
+.max-w-330-px {
+  max-width: 330px !important;
+}
+.max-w-268-px {
+  max-width: 268px !important;
+}
+.max-w-234-px {
+  max-width: 234px !important;
+}
+
+
+
+.lg-w-50-percent {
+  @media (min-width: 992px) {
+    width: 50%;
+  }
+}
+
+
+.w-50-percent {
+  width: 50% !important;
+}
+
+
+
+
+
+.h-50-px{
+  height: 50px;
+}
+.h-166-px{
+  height: 166px;
+}
+.w-257-px{
+  width: 257px;
+}
+
+.min-w-max {
+  min-width: max-content;
+}
+
+.h-6px{
+  height: 6px;
+}

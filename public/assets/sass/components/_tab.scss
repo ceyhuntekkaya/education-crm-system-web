@@ -1,0 +1,43 @@
+/* ================================= Tab Css Start =========================== */
+.nav-tab-wrapper {
+    border-radius: 24px;
+    @media (min-width: 992px) {
+        border-radius: 50rem;
+    }
+}
+
+.common-tab {
+    @include msm-screen {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+    }
+    .nav-item {
+        .nav-link {
+            padding: 16px 24px !important;
+            @include xl-screen {
+                padding: 12px 16px !important; 
+                font-size: rem(14px) !important;
+            }
+            @include msm-screen {
+                font-size: rem(13px) !important;
+            }
+            i {
+                @include msm-screen {
+                    display: none !important;
+                }
+            }
+            &.active {
+                color: hsl(var(--white)) !important; 
+                border-color: hsl(var(--main)) !important;
+                background-color: hsl(var(--main)) !important;
+                i {
+                    color: hsl(var(--white)) !important; 
+                }
+            }
+            &:hover {
+                color: hsl(var(--main));
+            }
+        }
+    }
+}
+/* ================================= Tab Css End =========================== */

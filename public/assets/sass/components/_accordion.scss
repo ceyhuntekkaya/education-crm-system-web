@@ -1,0 +1,165 @@
+/* =========================== Accordion Css start ============================= */ 
+.common-accordion {
+    .accordion-item {
+        border: 1px solid var(--neutral-30);
+        border-radius: 16px;
+        overflow: hidden;
+        &:not(:last-child) {
+            margin-block-end:20px;
+        }
+    }
+
+    .accordion-item:has(.accordion-collapse.collapse.show), .accordion-item:has(.accordion-collapse.collapsing) {
+        background-color: var(--main-600)  !important;
+        color: #fff !important;
+    }
+
+    .accordion-button[aria-expanded="true"] {
+        color: #fff !important;
+    }
+    
+    .accordion-collapse.collapse.show {
+        color: #fff !important;
+    }
+
+    .accordion-header {
+        line-height: 1;
+        .accordion-button.collapsed {
+            background-color: var(--main-25) !important;
+        }
+    }
+    .accordion-body {
+        padding: 20px 30px;
+        padding-block-start: 0;
+        @include msm-screen {
+            padding: 16px;
+            padding-block-start: 0;
+        }
+        &__desc {
+            border-top: 1px dashed #fff;
+            padding-top: 12px;
+        }
+    }
+    &:first-of-type .accordion-button.collapsed {
+        border-radius: 5px;  
+    }
+    &:last-of-type .accordion-button.collapsed {
+        border-radius: 5px;  
+    }
+    .accordion-button{
+        color: var(--heading-color);
+        padding: 24px 32px;
+        padding-inline-end: 64px; 
+        font-weight: 600;
+        font-size: clampCal(16, 20);
+        font-family: var(--heading-font);
+        @include msm-screen {
+            padding: 16px;
+            padding-inline-end: 64px; 
+        }
+        &::after {
+            background-image: none;
+        }
+        &:focus {
+            box-shadow: none;
+        }
+        &:not(.collapsed) {
+            background-color: transparent !important;
+            box-shadow: none;
+            color: hsl(var(--main));
+            &::after {
+                background-image: none;
+                color: hsl(var(--main)); ; 
+            }
+        }
+        &[aria-expanded="true"], &[aria-expanded="false"] {
+            &::after {
+                font-family: 'Phosphor';
+                font-weight: 900;
+                content: "\E3D4";
+                color: hsl(var(--main));
+                display: inline-block;
+                position: absolute;
+                inset-block-start: 50%;
+                transform: translateY(-50%);
+                inset-inline-end: 30px;
+                height: 36px;
+                width: 36px;
+                background-color: var(--main-600);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                color: #fff;
+                text-align: center;
+                @include msm-screen {
+                    inset-inline-end: 20px;
+                }
+            }
+        }
+        &[aria-expanded="true"] {
+            &::after {
+                content: "\E32A";
+                color: var(--neutral-700);
+                background-color: #fff;
+                color: var(--main-600);
+            }
+        }
+    }
+
+    /* Style Two Start */
+    &.style-two {
+        .accordion-header {
+            .accordion-button {
+                &.collapsed {
+                    background-color: hsl(var(--white)) !important;
+                }
+            }
+            [aria-expanded=false]::after {
+                background-color: transparent;
+                color: var(--main-600);
+                border: 1px solid var(--neutral-30);
+            }
+        }
+    }
+    /* Style Two Start */
+
+    /* Style Three Start */
+    &.style-three {
+        .accordion-item {
+            .accordion-button {
+                background-color: #fff !important;
+                &.bg-main-25 {
+                    background-color: var(--main-25) !important;
+                }
+                &:not(.collapsed) {
+                    background-color: hsl(var(--main)) !important;
+                    border-radius: 16px !important;
+                }
+                &[aria-expanded=true]::after, &[aria-expanded=false]::after {
+                    width: unset;
+                    height: unset;
+                    background: transparent;
+                    color: var(--neutral-500);
+                    content: "\E136";
+                }
+                &[aria-expanded=true]::after {
+                    content: "\E13C";
+                    color: #fff;
+                }
+            }
+            .accordion-collapse.collapse.show {
+                color: var(--nuetral-500) !important;
+            }
+        }
+        .accordion-item:has(.accordion-collapse.collapse.show), .accordion-item:has(.accordion-collapse.collapsing) {
+            background-color: #fff !important;
+            color: var(--neutral-700) !important;
+        }
+    }
+    /* Style Three End */
+    .accordion-button {
+        text-align: start;
+    }
+}
+/* ================================= Accordion Css End =========================== */

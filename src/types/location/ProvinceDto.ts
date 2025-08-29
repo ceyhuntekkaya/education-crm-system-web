@@ -1,0 +1,31 @@
+export interface ProvinceDto {
+  id?: number;
+  name?: string;
+  nameEn?: string;
+  code?: string;
+  plateCode?: string;
+  region?: string;
+  areaCode?: string;
+  postalCodePrefix?: string;
+  latitude?: number;
+  longitude?: number;
+  population?: number;
+  areaKm2?: number;
+  elevationM?: number;
+  timeZone?: string;
+  isMetropolitan?: boolean;
+  sortOrder?: number;
+  slug?: string;
+  description?: string;
+  gdpPerCapita?: number;
+  unemploymentRate?: number;
+  educationIndex?: number;
+  hasAirport?: boolean;
+  hasUniversity?: boolean;
+  hasMetro?: boolean;
+  trafficDensity?: string;
+  schoolCount?: number;
+  studentCount?: number;
+  teacherCount?: number;
+  literacyRate?: number;
+}

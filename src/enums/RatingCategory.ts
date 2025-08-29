@@ -1,0 +1,18 @@
+export enum RatingCategory {
+  OVERALL_SATISFACTION = "OVERALL_SATISFACTION", // Genel memnuniyet
+  CLEANLINESS = "CLEANLINESS", // Temizlik
+  STAFF_FRIENDLINESS = "STAFF_FRIENDLINESS", // Personel ilgisi
+  FACILITIES = "FACILITIES", // Tesisler
+  COMMUNICATION = "COMMUNICATION", // İletişim
+  PROFESSIONALISM = "PROFESSIONALISM", // Profesyonellik
+  VALUE_FOR_MONEY = "VALUE_FOR_MONEY", // Fiyat/performans
+  RECOMMENDATION = "RECOMMENDATION", // Tavsiye etme
+  ACADEMIC_QUALITY = "ACADEMIC_QUALITY", // Akademik kalite
+  INFRASTRUCTURE = "INFRASTRUCTURE", // Altyapı
+  EXTRACURRICULAR = "EXTRACURRICULAR", // Sosyal aktiviteler
+  SAFETY = "SAFETY", // Güvenlik
+  TRANSPORTATION = "TRANSPORTATION", // Ulaşım
+  CAFETERIA = "CAFETERIA", // Kantin
+  TECHNOLOGY = "TECHNOLOGY", // Teknoloji
+  CUSTOM = "CUSTOM", // Özel kategori
+}

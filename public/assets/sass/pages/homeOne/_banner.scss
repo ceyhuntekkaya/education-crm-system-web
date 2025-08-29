@@ -1,0 +1,299 @@
+/* ===================================== Banner Css Start =========================== */
+
+body {
+    position: relative;
+    z-index: 1;
+    &::before, &::after {
+        position: absolute;
+        content: "";
+        width: 216px;
+        height: 216px;
+        background-color: var(--main-600);
+        border-radius: 50%;
+        filter: blur(450px);
+        top: 264px;
+        inset-inline-start: 0;
+        z-index: -1;
+    }
+    &::after {
+        background-color: var(--main-two-600);
+        inset-inline-start: auto;
+        inset-inline-end: 0;
+        top: 0%;
+        width: 216px;
+        height: 216px;
+    }
+}
+
+.banner {
+    &::before, &::after {
+        position: absolute;
+        content: "";
+        width: 216px;
+        height: 216px;
+        background-color: #FEC533;
+        border-radius: 50%;
+        filter: blur(450px);
+        top: 48px;
+        inset-inline-start: 50%;
+        z-index: -1;
+    }
+}
+
+.banner-thumb {
+    @include lg-screen {
+        max-width: 606px;
+        margin-inline-end:120px;
+    }
+    @include sm-screen {
+        max-width: 606px;
+        margin-inline-end:0px;
+    }
+    &__img {
+        @media (min-width: 1500px) {
+            margin-inline-start:126px;
+        }
+    }
+}
+
+.buttons-wrapper {
+    @include sm-screen {
+        gap: 8px !important;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    .btn {
+        @include msm-screen {
+            padding-inline-start:14px;
+            padding-inline-end:14px;
+            i {
+                display: none !important;
+            }
+        }
+       
+    }
+}
+
+.banner-box {
+    position: absolute;
+    @include msm-screen {
+        padding: 8px !important;
+    }
+    &.one {
+        inset-inline-start: 0;
+        inset-block-start: 50px;
+        animation: upDown 4s linear infinite;
+        animation-delay: 4.5s;
+        &.style-two {
+            z-index: 1;
+            inset-block-start: auto;
+            inset-block-end: 60px;
+            inset-inline-start: auto;
+            inset-inline-end: 24px;
+            @media (min-width: 1599px) {
+                inset-inline-end: -70px;
+            }
+        }
+    }
+    &.two {
+        inset-inline-start: 0;
+        inset-block-end: 100px;
+        animation: upDown 5s linear infinite;
+        animation-delay: 3s;
+    }
+    &.one, &.two {
+        @media (max-width: 1499px) {
+            inset-inline-start: -24px;
+        }
+        @include msm-screen {
+            inset-inline-start: 8px;
+        }
+    }
+    &.three {
+        inset-block-start: 50%;
+        animation: upDown 6s linear infinite;
+        animation-delay: 1.5s;
+        min-width: max-content;
+        @media (min-width: 1700px) {
+            inset-inline-start: calc(100% + 14px);
+        }
+        @media (max-width: 1699px) {
+            inset-inline-end: -126px;
+        }
+        @include sm-screen {
+            inset-inline-end: -24px;
+        }
+        @include msm-screen {
+            inset-inline-end: 8px;
+        }
+    }
+    &.position {
+        &-top {
+            inset-block-end: auto;
+            inset-block-start: 6%;
+            inset-inline-start: 36% !important;
+            inset-inline-end: auto;
+        }
+        &-bottom {
+            inset-block-start: auto;
+            inset-block-end: 6%;
+            inset-inline-start: 26% !important;
+            inset-inline-end: auto;
+        }
+    }
+}
+
+.enrolled-students {
+    @media (max-width: 424px) {
+        display: none;
+    }
+}
+.banner-box__icon {
+    @media (max-width: 424px) {
+        display: none;
+    }
+}
+
+.curve-arrow {
+    inset-block-start: 40%;
+    inset-inline-start: -36px;
+    animation: upDown 3.5s linear infinite;
+}
+
+.enrolled-students {
+    img {
+        &:hover {
+            z-index: 1;
+            transform: scale(1.2);
+        }
+        &:not(:first-child) {
+            margin-inline-start: -24px;
+        }
+    }
+    &.style-two {
+        img:not(:first-child) {
+            margin-inline-start: -16px;
+        }
+    }
+}
+
+
+/* Shapes Css Start */
+.shape {
+    position: absolute;
+    z-index: -1;
+    &.one {
+        inset-inline-start: 9%;
+        inset-block-start: 14%;
+    }
+    &.two {
+        inset-block-end: 75px;
+        inset-inline-start: 70px;
+    }
+    &.three {
+        inset-block-end: 16px;
+        inset-inline-start: 50%;
+    }
+    &.four {
+        inset-inline-end: 8%;
+        inset-block-start: 13%;
+        animation-delay: 1s;
+    }
+    &.five {
+        inset-inline-end: 4%;
+        inset-block-start: 34%;
+    }
+    &.six {
+        inset-inline-end: 6%;
+        inset-block-end: 14%;
+    }
+    &.seven {
+        inset-block-end: 0;
+        inset-inline-start: 26%;
+    }
+    &.eight {
+        inset-block-end: 10%;
+        inset-inline-end: 26%;
+    }
+    &.nine {
+        inset-inline-start: 3%;
+        inset-block-start: 24%;
+        animation-delay: 1s;
+    }
+    &.ten {
+        inset-inline-start: 40%;
+        top: 10%;
+    }
+    &.style-left {
+        inset-block-end: -48px;
+        inset-inline-start: -48px;
+    }
+    &.style-right {
+        inset-inline-end: -48px;
+        inset-block-start: -48px;
+    }
+    &.style-top {
+        inset-inline-start: -48px;
+        inset-block-start: -48px;
+    }
+}
+
+.animation-rotation {
+    animation: roatation 8s linear infinite;
+}
+
+.animation-scalation {
+    animation: scalation 8s linear infinite;
+}
+
+.animation-walking {
+    animation: walking 10s linear infinite;
+}
+.animation-upDown {
+   animation: upDown 4s linear infinite;
+}
+
+@keyframes upDown {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes scalation {
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(.5); 
+    }
+    100% {
+        transform: scale(1); 
+    }
+}
+
+@keyframes roatation {
+    0% {
+        transform: rotate(0deg); 
+    }
+    100% {
+        transform: rotate(360deg); 
+    }
+}
+@keyframes walking {
+    0% {
+        transform: translate(0px) rotate(0deg); 
+    }
+    50% {
+        transform: translate(100px) rotate(180deg); 
+    }
+    100% {
+        transform: translate(0px) rotate(360deg); 
+    }
+}
+/* ===================================== Banner Css End =========================== */

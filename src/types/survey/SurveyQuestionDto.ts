@@ -1,0 +1,40 @@
+import { ConditionType } from '../../enums/ConditionType';
+import { QuestionType } from '../../enums/QuestionType';
+import { RatingCategory } from '../../enums/RatingCategory';
+
+export interface SurveyQuestionDto {
+  id: number;
+  surveyId: number;
+  questionText: string;
+  description: string;
+  questionType: QuestionType;
+  ratingCategory: RatingCategory;
+  isRequired: boolean;
+  sortOrder: number;
+  isActive: boolean;
+  options: string;
+  allowOtherOption: boolean;
+  otherOptionLabel: string;
+  ratingScaleMin: number;
+  ratingScaleMax: number;
+  ratingScaleStep: number;
+  ratingLabels: string;
+  textMinLength: number;
+  textMaxLength: number;
+  placeholderText: string;
+  showIfQuestionId: number;
+  showIfAnswer: string;
+  showIfCondition: ConditionType;
+  customCssClass: string;
+  helpText: string;
+  imageUrl: string;
+  totalResponses: number;
+  averageRating: number;
+  skipCount: number;
+  questionTypeDisplayName: string;
+  ratingCategoryDisplayName: string;
+  optionsList: string[];
+  ratingLabelsMap: Record<string, string>;
+  responseRate: number;
+  skipRate: number;
+}

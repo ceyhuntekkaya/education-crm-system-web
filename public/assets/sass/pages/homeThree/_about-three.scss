@@ -1,0 +1,26 @@
+/* =========================== About Three Css Start =============================== */
+.about-three-thumbs {
+    &__one {
+        @media (min-width: 1200px) {
+            padding-bottom: 100px;
+        }
+    }
+    &__two {
+        @media (min-width: 1200px) {
+            position: absolute;
+            inset-inline-end: 0;
+            inset-block-end: 0;
+            max-width: 384px;
+            border: 1px solid #fff;
+        }
+        @media (max-width: 1399px) {
+            max-width: 354px;
+        }
+        @include lg-screen {
+            // height: 100%;
+            max-width: 100%;
+            width: 100% ;
+        }
+    }
+}
+/* =========================== About Three Css End =============================== */

@@ -1,0 +1,23 @@
+/* ================================= Certificate Css Start ============================== */
+.certificate {
+    position: relative;
+    @media (min-width: 1199px) {
+        padding-top: 174px;
+    }
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+        inset-inline-start: 0;
+        background-color: var(--main-25) !important;
+        z-index: -1;
+    }
+    &__thumb {
+        position: absolute;
+        bottom: 0;
+        inset-inline-start: 58%;
+    }
+}
+/* ================================= Certificate Css End ============================== */

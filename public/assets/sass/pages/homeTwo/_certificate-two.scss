@@ -1,0 +1,13 @@
+/* ============================= Certificate Two Css Start ================================ */
+.certificate-two {
+    &__thumb {
+        @media (min-width: 992px) {
+            position: absolute;
+            inset-inline-start: 56%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding-inline-end: 24px;
+        }
+    }
+}
+/* ============================= Certificate Two Css End ================================ */

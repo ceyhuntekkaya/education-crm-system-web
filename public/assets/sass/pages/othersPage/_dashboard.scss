@@ -1,0 +1,104 @@
+.dashboard-sidebar {
+    height: 100vh;
+    position: fixed !important;
+    top: 0;
+    z-index: 999;
+
+    ul li.activePage > a {
+        background: var(--main-600);
+        color: #fff !important;
+    }
+    
+    ul li.activePage > a i {
+        color: #fff;
+    }
+}
+.student-dashboard-sidebar {
+    height: 100vh;
+    position: sticky !important;
+    top: 0;
+    z-index: 999;
+
+    ul li.activePage > a {
+        background: var(--main-600);
+        color: #fff !important;
+    }
+    
+    ul li.activePage > a i {
+        color: #fff;
+    }
+}
+
+.student-dashboard-sidebar.active {
+    transform: translateX(0px);
+}
+@media (max-width: 1200px) {
+    .student-dashboard-sidebar {
+        position: fixed !important;
+        inset-inline-start: 0;
+        top: 0;
+        z-index: 999 !important;
+        width: 100%;
+        max-width: 348px;
+        border-radius: 0 !important;
+        border: 0 !important;
+        border-inline-end: 1px solid var(--neutral-30) !important;
+        transform: translateX(-100%);
+        transition: 0.3s !important;
+        overflow-y: auto;
+        height: 100vh;
+    }
+}
+.dashboard-sidebar.active {
+    transform: translateX(0px);
+}
+
+@media (max-width: 991px) {
+    .dashboard-sidebar {
+        position: fixed !important;
+        inset-inline-start: 0;
+        top: 0;
+        z-index: 99;
+        width: 100%;
+        max-width: 348px;
+        border-radius: 0 !important;
+        border: 0 !important;
+        border-inline-end: 1px solid var(--neutral-30) !important;
+        transform: translateX(-100%);
+        transition: 0.2slinear;
+        overflow-y: auto;
+        height: 100vh;
+    }
+}
+
+
+div.dt-container.dt-empty-footer tbody>tr:last-child>*{
+    border-bottom: 1px solid #EBECEF;
+}
+table.dataTable.display>tbody>tr>* {
+    border-top: 1px solid #EBECEF; 
+}
+
+
+@media (min-width: 992px) {
+    .dashbord-body{
+        margin-inline-start: 288px;
+    }
+}
+
+.scrollbar {
+    height: calc(100vh - 167px);
+    overflow-y: auto;
+    padding-bottom: 24px;
+}
+
+.student-dashbord-scrollbar {
+    height: calc(100vh - 349px);
+    overflow-y: auto;
+    padding-bottom: 24px;
+}
+
+.dataTables_scrollHeadInner{
+    padding-right: 0 !important;
+}
+

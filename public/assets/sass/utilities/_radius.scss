@@ -1,0 +1,24 @@
+/* Border Radius */
+@each $property, $value in $spaces {
+    .rounded-#{$property} {
+       border-radius: #{$value} !important;
+    }
+  }
+  
+  .rounded-top-start-8px {
+   border-top-left-radius: 8px !important;
+  }
+  
+  .rounded-top-start-72px {
+   border-top-left-radius: 72px !important;
+  }
+  .rounded-top-end-72px {
+   border-top-right-radius: 72px !important;
+  }
+
+  .rounded-bottom-start-72px {
+   border-bottom-left-radius: 72px !important;
+  }
+  .rounded-bottom-end-72px {
+   border-bottom-right-radius: 72px !important;
+  }

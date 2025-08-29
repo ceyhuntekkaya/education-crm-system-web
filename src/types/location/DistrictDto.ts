@@ -1,0 +1,30 @@
+export interface DistrictDto {
+  id?: number;
+  name?: string;
+  nameEn?: string;
+  code?: string;
+  districtType?: string;
+  postalCode?: string;
+  latitude?: number;
+  longitude?: number;
+  population?: number;
+  areaKm2?: number;
+  elevationM?: number;
+  densityPerKm2?: number;
+  isCentral?: boolean;
+  isCoastal?: boolean;
+  sortOrder?: number;
+  slug?: string;
+  description?: string;
+  averageIncome?: number;
+  propertyPriceIndex?: number;
+  costOfLivingIndex?: number;
+  socioeconomicLevel?: string;
+  hasMetroStation?: boolean;
+  hasBusTerminal?: boolean;
+  hasTrainStation?: boolean;
+  distanceToAirportKm?: number;
+  distanceToCityCenterKm?: number;
+  publicTransportScore?: number;
+  trafficCongestionLevel?: string;
+}
