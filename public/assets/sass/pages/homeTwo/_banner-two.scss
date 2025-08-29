@@ -1,0 +1,63 @@
+/* ===================================== Banner Two Css Start ==================================== */
+.banner-two {
+    @media (min-width: 1200px) {
+        padding-top: 32px !important;
+    }
+}
+
+.showHideOne {
+    animation: showHideOne 10s linear infinite;
+}
+.showHideTwo {
+    animation: showHideTwo 10s linear infinite;
+}
+
+@keyframes showHideOne {
+    0% {
+        clip-path: polygon(100% 100%, 100% 100%, 100% 0, 100% 0);
+        opacity: .8;
+    }
+    10% {
+        clip-path: polygon(100% 100%, 100% 100%, 100% 0, 100% 0);
+        opacity: 1;
+    }
+    80% {
+        clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+    }
+    95% {
+        clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+    }
+    100% {
+        opacity: .8;
+    }
+}
+
+@keyframes showHideTwo {
+    0% {
+        clip-path: polygon(0 100%, 0 100%, 0 0, 0 0);
+    }
+    10% {
+        clip-path: polygon(0 100%, 0 100%, 0 0, 0 0);
+        opacity: .8;
+    }
+    15% {
+        opacity: .4;
+    }
+    20% {
+        opacity: .8;
+    }
+    55% {
+        opacity: 1;
+    }
+    50% {
+        clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0);
+    }
+    95% {
+        clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0);
+    }
+    100% {
+        opacity: .8;
+    }
+}
+
+/* ===================================== Banner Two Css End ==================================== */

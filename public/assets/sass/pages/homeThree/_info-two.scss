@@ -1,0 +1,18 @@
+/* ========================= Info Two Css Start =============================== */
+.info-two {
+    margin-top: -105px;
+    position: relative;
+    z-index: 1;
+}
+.info-two-item {
+    padding: clampCal(24, 40, 1199, 1599);
+}
+
+
+@media (max-width: 991px) and (min-width: 575px), (max-width: 424px) {
+    .info-two-item {
+        flex-direction: column;
+        align-items: start;
+    }
+}
+/* ========================= Info Two Css End =============================== */

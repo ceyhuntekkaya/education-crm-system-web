@@ -1,0 +1,153 @@
+.progress-wrap {
+  line-height: 33px;
+}
+.w-50 {
+  width: 50% !important;
+}
+
+.nav-menu--mobile .nav-submenu {
+  display: block;
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 0.4s linear;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+}
+
+.nav-menu--mobile .has-submenu.activePage .nav-submenu {
+  transition: all 0.4s linear;
+  max-height: 1000px;
+  visibility: visible;
+  opacity: 1;
+  height: 100%;
+}
+
+.play-button {
+  cursor: pointer;
+}
+
+.slick-list {
+  padding-bottom: 25px;
+}
+
+.custom--range {
+  .horizontal-slider {
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 4px;
+  }
+
+  .track {
+    background: #007bff;
+    height: 100%;
+  }
+
+  .thumb {
+    height: 20px;
+    width: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    top: -7px;
+    &:focus-visible {
+      outline: none !important;
+    }
+  }
+  .custom--range__prices {
+    padding-top: 10px;
+  }
+}
+.not_found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  .display-1 {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  a {
+    margin-top: 20px;
+  }
+}
+.mobile-menu {
+  top: 0;
+}
+.nav-menu--mobile .nav-submenu__link {
+  padding-left: 10px;
+}
+.scroll-hide-sm {
+  overflow-y: scroll;
+}
+.has-submenu > span::before {
+  position: absolute;
+  content: "\e136";
+  font-family: "Phosphor";
+  inset-inline-end: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  font-weight: 900;
+  color: hsl(var(--heading-color) / 0.4);
+  transition: 0.2s linear;
+}
+
+.common-tab.edit {
+  display: flex;
+}
+
+.custom-padding {
+  padding: 20px 40px !important;
+}
+.header-select.mobile {
+  display: block;
+  .select2-container {
+    width: 100% !important;
+    .selection {
+      width: 100%;
+    }
+  }
+  .select2-selection--single {
+    display: flex !important;
+    width: 100%;
+  }
+}
+
+.course-item .course-item__content .group-hover-item {
+  display: block !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 992px) {
+}
+@media only screen and (max-width: 768px) {
+  .slick-dots {
+    padding-bottom: 20px;
+  }
+  .circle {
+    display: none;
+  }
+  .animation-walking {
+    display: none;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .slick-dots {
+    padding-bottom: 20px;
+  }
+  .slick-list {
+    padding-bottom: 40px;
+  }
+  .static-circle {
+    display: none;
+  }
+  .choose-us {
+    display: none;
+  }
+}
+@media only screen and (max-width: 425px) {
+  /*Small smartphones [325px -> 425px]*/
+}

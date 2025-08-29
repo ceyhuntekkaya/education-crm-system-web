@@ -1,4 +1,7 @@
+
 export * from "./layouts";
-export * from "./status";
 export * from "./forms";
 export * from "./ui";
+
+
+export { default as Loading } from './loading';

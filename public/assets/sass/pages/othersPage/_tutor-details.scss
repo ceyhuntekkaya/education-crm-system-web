@@ -1,0 +1,31 @@
+/* ============================== Tutor Details Css Start ============================== */
+.tution-info-list {
+    li {
+        @media (max-width: 480px) {
+            flex-direction: column;
+            gap: 8px;
+            .w-50-percent {
+                width: 100% !important;
+            }
+            span:nth-child(2) {
+                font-size: 14px !important;
+            }
+        }
+        &:nth-child(even) {
+            background-color: var(--main-25);
+        }
+    }
+
+    &.style-two {
+        min-width: 700px;
+        li {
+            display: flex;
+            flex-direction: row !important;
+            gap: 16px !important;
+            span {
+                width: 20%;
+            }
+        }
+    }
+}
+/* ============================== Tutor Details Css End ============================== */

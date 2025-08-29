@@ -1,0 +1,85 @@
+/* ================================= Button Css Start =========================== */
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: none;
+    background-color: none;
+    border-color: none;
+}
+
+.btn {
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    font-family: var(--body-font);
+    color: hsl(var(--white)) !important;
+    z-index: 1;
+    line-height: 1;
+    text-transform: capitalize;
+    padding: 17px 32px;
+    justify-content: center;
+    &:hover, &:focus, &:focus-visible {
+        box-shadow: none !important;
+    }
+    &-sm {
+        padding: 14px 20px !important;
+    }
+    &:active {
+        transform: scale(1.01);
+    }
+    // ============= Different Color Button Start ==================
+    &-main {
+        background-color: hsl(var(--main)) !important;
+        border-color: hsl(var(--main)) !important;
+        &:hover {
+            background-color: var(--main-800) !important;
+            border-color: var(--main-800) !important;
+        }
+    }
+    &-outline-main {
+        background-color: transparent!important;
+        border-color: hsl(var(--main)) !important;
+        color: hsl(var(--main)) !important;
+        &:hover {
+            background-color: hsl(var(--main)/.1) !important;
+            border-color: hsl(var(--main)) !important;
+        }
+    }
+    &-white {
+        background-color: hsl(var(--white)) !important;
+        border-color: hsl(var(--white)) !important;
+        color: hsl(var(--main)) !important;
+        &:hover {
+            background-color: var(--main-600) !important;
+            border-color: var(--main-600) !important;
+            color: hsl(var(--white)) !important;
+        }
+    }
+    &-outline-white {
+        background-color: transparent!important;
+        border-color: hsl(var(--white)) !important;
+        color: hsl(var(--white)) !important;
+        &:hover {
+            background-color: hsl(var(--white)/.25) !important;
+            border-color: hsl(var(--white)) !important;
+        }
+    }
+    // Success Button
+    &-success {
+        background-color: var(--success-500) !important;
+        border-color: var(--success-500) !important;
+        &:hover {
+            background-color: var(--success-700) !important;
+            border-color: var(--success-700) !important;
+        }
+    }
+    // Error Button
+    &-error {
+        background-color: var(--danger-500) !important;
+        border-color: var(--danger-500) !important;
+        &:hover {
+            background-color: var(--danger-700) !important;
+            border-color: var(--danger-700) !important;
+        }
+    }
+}
+/* ================================= Button Css End =========================== */

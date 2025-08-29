@@ -1,0 +1,257 @@
+/* ============= Header Start Here ======================= */
+.header {
+    transition: .2s linear;
+    border-bottom: 1px solid hsl(var(--main)/.08);
+    @include md-screen {
+        padding: 10px 0;
+    }
+    &.fixed-header {
+        position: sticky;
+        inset-inline-start: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        width: 100%;
+        z-index: 99;
+        backdrop-filter: blur(24px);
+        animation: slideDown 0.35s ease-out;    
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
+        background-color: hsl(var(--white) / .9);
+        @include md-screen {
+            inset-block-start: -1px;
+        }
+    }
+    &-content-wrapper {
+        gap: clampCal(16, 40, 1199, 1599);
+    }   
+}
+@keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+
+.logo {
+    img {
+        max-width: 200px;
+    }
+}
+
+.toggle-mobileMenu {
+    line-height: 1;
+    font-size: 36px;
+    color: var(--neutral-700);
+}
+
+/* Header Menu and Submenu Css Start */
+.nav-menu {
+    gap: 24px;
+    @include xl-screen {
+        gap: 20px;
+    }
+    &__item {
+        &.activePage {
+            > a {
+                color: hsl(var(--main));
+                &::before {
+                    color: hsl(var(--main));
+                }
+            }
+        }
+        &:hover {
+            > a {
+                color: var(--neutral-700);
+                @media (min-width: 992px) {
+                    color: hsl(var(--main));
+                }
+            }
+        }
+    }
+    &__link {
+        color: var(--neutral-700);
+        font-weight: 500;
+        width: 100%;
+        padding: 38px 0;
+        width: 100%;
+        @include xl-screen {
+            font-size: rem(14px) !important;
+        }
+    }   
+}
+
+
+
+
+
+.has-submenu {
+    position: relative;
+    .nav-menu {
+        &__link {
+            padding-inline-end: 16px;
+        }
+    }
+
+    &.active {
+        > a, > a::before{
+            color: hsl(var(--main));
+        }
+        > a::before {
+            transform: translateY(-50%) rotate(180deg) !important; 
+        }
+    }
+    &:hover {
+        .nav-submenu {
+            visibility: visible;
+            opacity: 1;
+            margin-block-start: 0;
+        }
+        > a {
+            &::before {
+                @media (min-width: 992px) {
+                    color: hsl(var(--main));
+                    transform: translateY(-50%) rotate(180deg);
+                }
+            }
+        }
+    }
+    > a {
+        position: relative;
+        &::before {
+            position: absolute;
+            content: "\E136";
+            font-family: 'Phosphor';
+            inset-inline-end: 0;
+            inset-block-start: 50%;
+            transform: translateY(-50%);
+            font-weight: 900;
+            color: hsl(var(--heading-color)/.4);
+            transition: .2s linear;
+        }
+    }
+}
+
+/* Submenu Start */
+.nav-submenu {
+    position: absolute;
+    inset-inline-start: 0;
+    @extend .box-shadow-lg; 
+    inset-block-start: 100%;
+    width: max-content;
+    background-color: hsl(var(--white));
+    border-radius: 6px;
+    min-width: 190px;
+    overflow: hidden;
+    padding: 8px;
+    visibility: hidden;
+    opacity: 0;
+    margin-block-start: 16px;
+    transition: .2s linear;
+    z-index: 99;
+    @media (min-width: 992px) {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    &__item {
+        display: block;
+        border-radius: 4px;
+        transition: .2s linear;
+        position: relative;
+        &.activePage {
+            .nav-submenu {
+                &__link {
+                    color: hsl(var(--main));
+                }
+            }
+        }
+        &:hover {
+            a {
+                color: var(--neutral-700);
+            }
+        }
+    }
+    &__link {
+        color: var(--neutral-700);
+        font-weight: 500;
+        width: 100%;
+        padding-inline-end: 16px;
+        width: 100%;
+        display: block;
+        padding: 8px 14px;
+        border-radius: inherit;
+        font-size: rem(14px);
+        &::before {
+            position: absolute;
+        }
+    }
+}
+/* Submenu End */
+/* Header Menu and Submenu Css End */
+
+.header {
+    &-right {
+        gap: clampCal(8, 24, 1199, 1599);
+    }
+    &-select {
+        @include md-screen {
+            margin-inline-start: auto;
+        }
+        @include msm-screen {
+            width: auto;
+            display: inline-flex;
+        }
+    }
+}
+.select-icon {
+    @include msm-screen {
+        display: none !important;
+    }
+}
+
+.info-action {
+    @include lg-screen {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    @include msm-screen {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 18px !important;
+    }
+}
+
+//   .nav-menu__item .nav-menu__link { 
+//       @media (min-width: 992px) and (min-width: 1399px) {
+//         font-size: 12px !important;
+//       }
+//   }
+
+@media (min-width: 570px) and (max-width: 1501px) {
+    .nav-menu__item .nav-menu__link {
+        font-size: 12px !important;
+    }
+    .common-input{
+        max-width: 180px !important;
+    }
+}
+@media (min-width: 570px) and (max-width: 1399px) {
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        padding: 11px 0;
+        padding-inline-start: 30px !important;
+        padding-inline-end: 48px !important;
+    }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        padding: 6px 0;
+        padding-inline-start: 30px !important;
+        padding-inline-end: 48px !important;
+    }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        padding: 11px 0;
+        padding-inline-start: 30px !important;
+        padding-inline-end: 48px !important;
+    }
+}
+
+
+/* ================================= Header Css End =========================== */

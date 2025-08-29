@@ -1,22 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import BootstrapInit from "@/helper/bootstrap-init";
+import RouteScrollToTop from "@/helper/route-scroll-to-top";
+import LoadPhosphorIcon from "@/helper/load-phosphor-icon";
+
+import "./font.css";
+import "./globals.scss";
 import { AuthProvider } from "@/contexts";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "EduCRM - Eğitim CRM Sistemi",
-  description: "Eğitim kurumları için CRM sistemi",
-};
 
 export default function RootLayout({
   children,
@@ -24,11 +12,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AuthProvider>{children}</AuthProvider>
+    <html lang="en">
+      <body suppressHydrationWarning={true}>
+        <AuthProvider>
+          <BootstrapInit />
+          <LoadPhosphorIcon />
+          <RouteScrollToTop />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

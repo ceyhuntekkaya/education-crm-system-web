@@ -1,0 +1,106 @@
+
+/* ============= Footer Start Here ======================= */
+.footer {
+    margin-block-start: auto;
+}
+
+
+.footer-item {
+    &__logo {
+        margin-block-end: 20px;
+        a {
+            img {
+                width: 100%;
+                height: 100%;
+                max-width: 190px;
+                max-height: 64px;
+            }
+        }
+    }
+}
+/* Footer List Item */
+.footer-menu {
+    &__link {
+        &:hover {
+            color: hsl(var(--main));
+        }
+    }
+}
+
+/* Footer Contact */
+.footer-contact {
+    &__item {
+        gap: 16px;
+        color: hsl(var(--white));
+        font-weight: 300;
+        margin-block-end: 16px;
+        &:last-child {
+            margin-block-end: 0;
+        }
+    }
+    &__icon {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+    &__text {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+    &__link {
+        color: inherit;
+        &:hover {
+            color: hsl(var(--main)); 
+            color: hsl(var(--main)); 
+        }
+    }
+}
+
+/* Footer Top */
+.footer-top {
+    margin-block-end: clampCal(40, 80);
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: clampCal(24, 40);
+        .text {
+            max-width: 330px;
+        }
+    }
+}
+
+.subscribe-form {
+    max-width: 550px;
+    input {
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        padding-inline-start: 40px !important;
+        color: hsl(var(--white));
+        @media (min-width: 768px) {
+            min-width: 400px;
+        }
+        &::placeholder {
+            color: hsl(var(--white)/.8);
+        }
+    }
+    .input-icon {
+        inset-inline-start: 0 ;
+    }
+}
+/* ============= Footer End Here ======================= */
+
+/* ============= Bottom Footer End Here ======================= */
+.footer-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clampCal(10, 30);
+}
+.footer-link {
+    &:hover {
+        color: hsl(var(--main));
+    }
+}
+/* =============Bottom Footer End Here ======================= */
+

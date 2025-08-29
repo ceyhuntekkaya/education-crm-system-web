@@ -1,0 +1,29 @@
+/* =========================== ABout Css Start ============================ */
+.about-thumbs {
+    @media (min-width: 1600px) {
+        position: absolute !important;
+        inset-inline-end: 54%;
+        width: 716px;
+        inset-block-start: 0;
+    }
+}
+.offer-message {
+    position: absolute;
+    inset-inline-start: -100px;
+    inset-block-end: 200px;
+    z-index: 1;
+    @include lg-screen {
+        inset-inline-start: 24px;
+    }
+    &.style-two {
+        inset-inline-start: auto;
+        inset-inline-end: 24px;
+        z-index: 1;
+        inset-block-end: auto;
+        inset-block-start: 60px;
+        @media (min-width: 1599px) {
+            inset-inline-end: -70px;
+        }
+    }
+}
+/* =========================== ABout Css End ============================ */

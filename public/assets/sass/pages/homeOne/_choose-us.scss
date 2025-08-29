@@ -1,0 +1,69 @@
+/* ============================== Choose Us Section Start ================================== */
+.animation-video {
+        position: relative;
+        @media (max-width: 464px) {
+                margin-top: 16px;
+        }
+    @media (min-width: 464px) {
+        position: absolute;
+        bottom: -80px;
+        inset-inline-start: 0;
+    }
+}
+
+.choose-us__thumbs {
+    margin-block-end: 80px;
+    max-width: 640px;
+    @media (min-width: 464px) {
+        padding-inline-start: 110px;
+    }
+}
+
+.choose-us__img {
+        @media (max-width: 464px) {
+                width: 100%;
+        }
+}
+
+.play-button {
+    &::before {
+        position: absolute;
+        content: "";
+        width: inherit;
+        height: inherit;
+        background: inherit ;
+        border-radius: 50%;
+        inset-inline-start: 0;
+        top: 0;
+        z-index: -1;
+        -webkit-animation: animate 2.3s ease-out infinite;
+                animation: animate 2.3s ease-out infinite;
+      }
+}
+
+
+@keyframes animate {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      opacity: 1;
+    }
+    30% {
+      -webkit-transform: scale(0.6);
+              transform: scale(0.6);
+      opacity: 1;
+    }
+    60% {
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+      opacity: .9;
+    }
+    100% {
+      -webkit-transform: scale(2);
+              transform: scale(2);
+      opacity: 0;
+    }
+}
+  
+/* ============================== Choose Us Section End ================================== */
+  

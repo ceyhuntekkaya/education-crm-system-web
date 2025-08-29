@@ -1,0 +1,28 @@
+/* Gallery Css Start */
+.masonry {
+  column-count: 2;
+  column-gap: 24px;
+  @media (min-width: 768px) {
+    column-count: 3;
+  }
+  @include sm-screen {
+    column-gap: 16px;
+  }
+  &__item {
+    margin-bottom: 24px;
+    @include sm-screen {
+      margin-bottom: 16px;
+    }
+    &:hover {
+      .masonry__image {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+    }
+  }
+  &__image {
+    background-color: #0e162aad !important;
+    font-size: 28px;
+  }
+}
+/* Gallery Css End */

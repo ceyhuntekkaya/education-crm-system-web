@@ -7,29 +7,31 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { ROLES, UserRole, DEPARTMENTS, Department } from "@/types/roles";
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: UserRole;
-  department?: Department;
-}
+import { fakeUsers } from "@/types/user/fakeUsers";
+import { UserDto } from "@/types/user/UserDto";
 
 interface AuthContextType {
-  user: User | null;
+  user: UserDto | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{ success: boolean; role?: string }>;
   logout: () => void;
   isAuthenticated: boolean;
+  currentRole: string;
+  currentDepartments: string[];
+  currentPermissions: string[];
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentRole, setCurrentRole] = useState<string>("");
+  const [currentDepartments, setCurrentDepartments] = useState<string[]>([]);
+  const [currentPermissions, setCurrentPermissions] = useState<string[]>([]);
 
   // Sayfa yüklendiğinde localStorage'dan kullanıcı bilgilerini kontrol et
   useEffect(() => {
@@ -37,7 +39,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
-          setUser(JSON.parse(storedUser));
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+          const role =
+            parsedUser?.userRoles?.map((roleObj: any) => roleObj.role)[0] || "";
+          setCurrentRole(role);
+          // Tüm userRoles içindeki departments'ları düz diziye çevir
+          const departments = (parsedUser?.userRoles || [])
+            .flatMap((roleObj: any) => roleObj.departments || [])
+            .map((dep: any) =>
+              typeof dep === "string" ? dep : dep.name || dep
+            );
+          setCurrentDepartments(departments);
+          // Tüm userRoles içindeki permissions'ları düz diziye çevir
+          const permissions = (parsedUser?.userRoles || [])
+            .flatMap((roleObj: any) => roleObj.permissions || [])
+            .map((perm: any) =>
+              typeof perm === "string" ? perm : perm.name || perm
+            );
+          setCurrentPermissions(permissions);
         }
       } catch (error) {
         console.error("Auth check error:", error);
@@ -50,63 +70,51 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth();
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; role?: string }> => {
     setIsLoading(true);
 
     try {
       // Fake API call - gerçek uygulamada API'ye istek atılacak
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simülasyon için delay
 
-      // Fake kullanıcı verileri
-      const fakeUsers = [
-        {
-          id: "1",
-          email: "admin@example.com",
-          password: "admin123",
-          name: "Admin User",
-          role: ROLES.ADMIN,
-          department: DEPARTMENTS.IT,
-        },
-        {
-          id: "2",
-          email: "user@example.com",
-          password: "user123",
-          name: "Regular User",
-          role: ROLES.USER,
-          department: DEPARTMENTS.HR,
-        },
-        {
-          id: "3",
-          email: "institution@example.com",
-          password: "inst123",
-          name: "Kurum Yöneticisi",
-          role: ROLES.INSTITUTION,
-          department: DEPARTMENTS.FINANCE,
-        },
-      ];
-
-      const foundUser = fakeUsers.find(
-        (u) => u.email === email && u.password === password
-      );
+      const foundUser = fakeUsers.find((u) => u.email === email);
 
       if (foundUser) {
-        const userData = {
-          id: foundUser.id,
-          email: foundUser.email,
-          name: foundUser.name,
-          role: foundUser.role,
-          department: foundUser.department,
+        setUser(foundUser);
+        localStorage.setItem("user", JSON.stringify(foundUser));
+        const role =
+          foundUser?.userRoles?.map((roleObj: any) => roleObj.role)[0] || "";
+        setCurrentRole(role);
+        const departments = (foundUser?.userRoles || [])
+          .flatMap((roleObj: any) => roleObj.departments || [])
+          .map((dep: any) => (typeof dep === "string" ? dep : dep.name || dep));
+        setCurrentDepartments(departments);
+        // Tüm userRoles içindeki permissions'ları düz diziye çevir
+        const permissions = (foundUser?.userRoles || [])
+          .flatMap((roleObj: any) => roleObj.permissions || [])
+          .map((perm: any) =>
+            typeof perm === "string" ? perm : perm.name || perm
+          );
+        setCurrentPermissions(permissions);
+        return {
+          success: true,
+          role,
         };
-
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
-        return true;
       }
 
-      return false;
+      setCurrentRole("");
+      return {
+        success: false,
+      };
     } catch (error) {
       console.error("Login error:", error);
-      return false;
+      setCurrentRole("");
+      return {
+        success: false,
+      };
     } finally {
       setIsLoading(false);
     }
@@ -114,15 +122,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
+    setCurrentRole("");
+    setCurrentDepartments([]);
     localStorage.removeItem("user");
+    setCurrentPermissions([]);
   };
 
-  const value = {
+  const value: AuthContextType = {
     user,
     isLoading,
     login,
     logout,
     isAuthenticated: !!user,
+    currentRole,
+    currentDepartments,
+    currentPermissions,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

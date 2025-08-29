@@ -1,0 +1,19 @@
+/* =========================== Banner Four Css Start =========================== */
+.banner-four {
+    &-thumb {
+        @media (min-width: 1200px) {
+            inset-inline-start: 5%
+        }
+        @media (min-width: 1600px) {
+            inset-inline-start: 20%
+        }
+    }
+}
+
+
+ .box {
+    height: 150px;
+    background-color: red;
+    width: 200px;
+}
+/* =========================== Banner Four Css End =========================== */

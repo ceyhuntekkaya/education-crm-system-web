@@ -1,0 +1,307 @@
+/* Font Family*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+$colors: (
+  "main": (
+    "05": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.97)),
+    "25": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.96)),
+    "50": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.9)),
+    "100": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.8)),
+    "200": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.7)),
+    "300": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.6)),
+    "400": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.5)),
+    "500": hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.4)),
+    "600": hsl(var(--main-h), var(--main-s), var(--main-l)), // main theme color
+    "700": hsl(var(--main-h), var(--main-s), calc(var(--main-l) - var(--main-l) * 0.1)),
+    "800": hsl(var(--main-h), var(--main-s), calc(var(--main-l) - var(--main-l) * 0.2)),
+    "900": hsl(var(--main-h), var(--main-s), calc(var(--main-l) - var(--main-l) * 0.3))
+  ),
+  "main-two": (
+    "25": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.94)),
+    "50": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.9)),
+    "100": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.8)),
+    "200": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.7)),
+    "300": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.6)),
+    "400": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.5)),
+    "500": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) + (100% - var(--main-two-l)) * 0.4)),
+    "600": hsl(var(--main-two-h), var(--main-two-s), var(--main-two-l)), // main-two theme color
+    "700": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) - var(--main-two-l) * 0.1)),
+    "800": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) - var(--main-two-l) * 0.2)),
+    "900": hsl(var(--main-two-h), var(--main-two-s), calc(var(--main-two-l) - var(--main-two-l) * 0.3))
+  ),
+  "main-three": (
+    "25": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.94)),
+    "50": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.9)),
+    "100": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.8)),
+    "200": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.7)),
+    "300": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.6)),
+    "400": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.5)),
+    "500": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) + (100% - var(--main-three-l)) * 0.4)),
+    "600": hsl(var(--main-three-h), var(--main-three-s), var(--main-three-l)), // main-three theme color
+    "700": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) - var(--main-three-l) * 0.1)),
+    "800": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) - var(--main-three-l) * 0.2)),
+    "900": hsl(var(--main-three-h), var(--main-three-s), calc(var(--main-three-l) - var(--main-three-l) * 0.3))
+  ),
+  
+  "neutral": (
+    "10": #FFFFFF,
+    "20": #F5F6F7,
+    "30": #EBECEF,
+    "40": #DFE0E4,
+    "50": #C1C4CC,
+    "60": #B2B6BF,
+    "70": #A6AAB5,
+    "80": #979CA8,
+    "90": #888E9C,
+    "100": #798090,
+    "200": #6A7283,
+    "300": #5B6477,
+    "400": #4F586D,
+    "500": #404A60,
+    "600": #343E56,
+    "700": #222E48,
+    "800": #13203B,
+    "900": #071431,
+  ),
+
+  "light": (
+    "50": #F5F6FA,
+    "100": #F3F4F6,
+    "600": #E4F1FF,
+    "700": #374151,
+    "800": #1F2937,
+  ),
+  
+  "primary": (
+    "50": #E4F1FF,
+    "100": #BFDCFF,
+    "200": #95C7FF,
+    "300": #6BB1FF,
+    "400": #519FFF,
+    "500": #458EFF,
+    "600": #487FFF,
+    "700": #486CEA,
+    "800": #4759D6,
+    "900": #4536B6
+  ),
+
+  "danger": (
+    "50": #FEF2F2,
+    "100": #FEE2E2,
+    "200": #FECACA,
+    "300": #FCA5A5,
+    "400": #F87171,
+    "500": #EF4444,
+    "600": #DC2626,
+    "700": #B91C1C,
+    "800": #991B1B,
+    "900": #7F1D1D
+  ),
+
+  "success": (
+    "50": #F0FDF4,
+    "100": #DCFCE7,
+    "200": #BBF7D0,
+    "300": #86EFAC,
+    "400": #4ADE80,
+    "500": #22C55E,
+    "600": #16A34A,
+    "700": #15803D,
+    "800": #166534,
+    "900": #14532D
+  ),
+
+  "warning": (
+    "5": #F376390D,  
+    "30": #F376390D,  
+    "50": #FEFCE8,  
+    "100": #FEF9C3,
+    "200": #FEF08A,
+    "300": #FDE047,
+    "400": #FACC15,
+    "500": #EAB308,
+    "600": #FF9F29,
+    "700": #f39016,
+    "800": #e58209,
+    "900": #d77907
+  ),
+
+  "info": (
+    "50": #EFF6FF,
+    "100": #DBEAFE,
+    "200": #BFDBFE,
+    "300": #93C5FD,
+    "400": #60A5FA,
+    "500": #9570f4,
+    "600": #875BF7,
+    "700": #1D4ED8,
+    "800": #1E40AF,
+    "900": #1E3A8A
+  ),
+
+  "purple": (
+    "50": #ede7fe,
+    "100": #cab6fb,
+    "200": #a685f9,
+    "300": #8255f7,
+    "400": #5f24f4,
+    "500": #5314f2,
+    "600": #450bdb,
+    "700": #3608aa,
+    "800": #27067a,
+    "900": #170449
+  ),
+  "yellow": (
+    "50": #fcefc1,
+    "100": #f8e6a7,
+    "600": #FFCA0E,
+    "700": #e1b001,
+  ),
+);
+
+// Space
+$spaces: (
+  "1": #{rem(1px)},
+  "2": #{rem(2px)},
+  "3": #{rem(3px)},
+  "4": #{rem(4px)},
+  "5": #{rem(5px)},
+  "6": #{rem(6px)},
+  "7": #{rem(7px)},
+  "8": #{rem(8px)},
+  "9": #{rem(9px)},
+  "10": #{rem(10px)},
+  "11": #{rem(11px)},
+  "12": #{rem(12px)},
+  "13": #{rem(13px)},
+  "14": #{rem(14px)},
+  "16": #{rem(16px)},
+  "18": #{rem(18px)},
+  "20": #{rem(20px)},
+  "21": #{rem(21px)},
+  "22": #{rem(22px)},
+  "24": #{rem(24px)},
+  "26": #{rem(26px)},
+  "28": #{rem(28px)},
+  "30": #{rem(30px)},
+  "32": #{rem(32px)},
+  "36": #{rem(36px)},
+  "38": #{rem(38px)},
+  "40": #{rem(40px)}, 
+  "44": #{rem(44px)}, 
+  "48": #{rem(48px)},
+  "50": #{rem(50px)},
+  "51": #{rem(51px)},
+  "52": #{rem(52px)},
+  "54": #{rem(54px)},
+  "56": #{rem(56px)},
+  "60": #{rem(60px)},
+  "64": #{rem(64px)},
+  "68": #{rem(68px)},
+  "72": #{rem(72px)},
+  "76": #{rem(76px)},
+  "80": #{rem(80px)},
+  "85": #{rem(85px)},
+  "90": #{rem(90px)},
+  "96": #{rem(96px)},
+  "104": #{rem(104px)},
+  "110": #{rem(110px)},
+  "120": #{rem(120px)},
+  "126": #{rem(126px)},
+  "136": #{rem(136px)},
+  "144": #{rem(144px)},
+  "154": #{rem(154px)},
+  "160": #{rem(160px)},
+  "184": #{rem(184px)},
+  "187": #{rem(187px)},
+);
+
+$font-sizes: (
+  "xs": #{rem(12px)},
+  "sm": #{rem(14px)},
+  "md": #{rem(16px)},
+  "lg": #{rem(18px)},
+  "xl": #{rem(20px)},
+  "2xl": #{rem(24px)},
+  "3xl": #{rem(30px)},
+  "4xl": #{rem(36px)},
+  "5xl": #{rem(48px)},
+  "6xl": #{rem(60px)},
+  "6xxl": #{rem(72px)},
+  "6xxxl": #{rem(80px)},
+);
+
+/* ========================= Variable Css Start ======================== */
+:root {    
+
+  /* Font Family Variable */
+  --heading-font: "Inter", sans-serif;
+  --body-font: "Inter", sans-serif;
+  
+  /* Font Size Variable Start */
+  --heading-one: clamp(2rem, 0.2181rem + 3.7123vw, 3rem); // Min:32px - Max: 48px
+  --heading-two: clamp(1.75rem, 0.4136rem + 2.7842vw, 2.5rem); // Min: 28px - Max: 40px
+  --heading-three: clamp(1.5rem, 0.609rem + 1.8561vw, 2rem); // Min: 24px - Max: 32px
+  --heading-four: clamp(1.25rem, 0.8045rem + 0.9281vw, 1.5rem); // Min: 20px - Max: 24px
+  --heading-five: clamp(1.125rem, 0.9023rem + 0.464vw, 1.25rem); // Min: 18px - Max-20px
+  --heading-six: clamp(1rem, 0.769rem + 0.6813vw, 1rem); // Min: 16px - Max-16px
+  /* Font Size End */
+  
+  /* Font Size Variable Start */
+  --display-one: clamp(2.5rem, -6.4095rem + 18.5615vw, 7.5rem); // Min:40px - Max: 120px
+  --display-two: clamp(2.25rem, -2.6502rem + 10.2088vw, 5rem);// Min: 36px - Max: 80px
+  --display-three: clamp(2rem, -1.5638rem + 7.4246vw, 4rem); // Min: 32px - Max: 64px
+  --display-four: clamp(1.75rem, -1.3683rem + 6.4965vw, 3.5rem); // Min: 28px - Max: 56px
+  /* Font Size End */
+
+  /* template main color */
+  --main-h: 209;
+  --main-s: 94%;
+  --main-l: 41%;
+  --main: var(--main-h) var(--main-s) var(--main-l);
+
+  /* template main Two color */
+  --main-two-h: 20;
+  --main-two-s: 89%;
+  --main-two-l: 59%;
+  --main-two: var(--main-two-h) var(--main-two-s) var(--main-two-l);
+
+  /* template main Two color */
+  --main-three-h: 144;
+  --main-three-s: 56%;
+  --main-three-l: 42%;
+  --main-three: var(--main-three-h) var(--main-three-s) var(--main-three-l);
+
+   /* White Color */
+  --white: 0 0% 100%;
+  --black: 0 0% 0%;
+  --light: 219 13% 39%;
+  
+  --heading-color: var(--neutral-700);
+  --body-color: var(--light);
+  --body-bg: var(--gray);
+  --border-color: 236 13% 77%;
+  --section-bg: 210 25% 97%;
+
+  --translate-x-middle: translateX(-50%); 
+  --translate-y-middle: translateY(-50%); 
+    
+  // spacing
+  @each $property, $value in $spaces {
+    --size-#{$property}: #{$value};  
+  } 
+  
+  // Colors
+  @each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      --#{$color}-#{$shade}: #{$value};
+    }
+  }
+
+  // font sizes
+  @each $property, $value in $font-sizes {
+    --font-#{$property}: #{$value};
+  }  
+}
+/* ========================= Variable Css End ======================== */

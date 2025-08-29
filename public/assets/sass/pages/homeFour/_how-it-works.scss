@@ -1,0 +1,14 @@
+.how-it-work-wrapper {
+    @media (min-width: 576px) {
+        margin-bottom: 24px;
+    }
+    div[class*="col"]:nth-child(even) > div {
+        @media (min-width: 576px) {
+            transform: translateY(24px);
+        }
+    }
+}
+
+
+
+

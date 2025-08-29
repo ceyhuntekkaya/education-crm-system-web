@@ -1,0 +1,25 @@
+/* ===================================== Testimonials Section Three Css Start ================================= */
+.testimonials-three-item {
+    transition: .2s linear;
+}
+.testimonials-three {
+    @media (min-width: 575px) {
+        .slick-list {
+            padding: 90px 0 !important;
+        }
+        .slick-slide {
+            margin: 0;
+            opacity: .6;
+            transition: .4s linear;
+            &.slick-current.slick-center {
+                opacity: 1;
+                transform: scaleX(1.36) scaleY(1.25);
+                transform-origin: center;
+                .testimonials-three-item {
+                    box-shadow: 0 6px 30px 0px  rgba(0, 0, 0, 0.14) !important; 
+                }
+            }
+        }
+    }
+}
+/* ===================================== Testimonials Section Three Css End ================================= */

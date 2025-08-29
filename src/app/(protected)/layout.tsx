@@ -1,17 +1,34 @@
-import { ProtectedRouteProvider } from "@/providers";
-import DashboardSidebar from "@/components/layouts/dashboard-sidebar";
+"use client";
+import React, { useState } from "react";
+import { ProtectedGuard } from "@/providers";
+import { Sidebar } from "@/components";
+import { userLayoutNavigation } from "@/routes";
 
-export default function ProtectedLayout({
+const ProtectedLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}) => {
   return (
-    <ProtectedRouteProvider>
-      <div className="flex h-screen">
-        <DashboardSidebar />
-        <div className="flex-1 overflow-y-auto">{children}</div>
+    <ProtectedGuard>
+      <div>
+        <Sidebar
+          menuItems={userLayoutNavigation}
+          companyName="EduAll"
+          userName="Henry"
+          userRole="Admin"
+        />
+        <div
+          style={{
+            marginLeft: "320px",
+            transition: "margin-left 0.3s ease",
+            minHeight: "100vh",
+            backgroundColor: "#f8f9fa",
+          }}
+        >
+          {children}
+        </div>
       </div>
-    </ProtectedRouteProvider>
+    </ProtectedGuard>
   );
-}
+};
+
+export default ProtectedLayout;

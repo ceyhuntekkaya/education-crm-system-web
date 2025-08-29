@@ -1,0 +1,22 @@
+/* Error and Success Button Variants */
+.btn-error {
+  background-color: var(--danger-600);
+  color: #fff;
+  border: 1px solid var(--danger-600);
+}
+.btn-error:hover,
+.btn-error:focus {
+  background-color: var(--danger-700);
+  border-color: var(--danger-700);
+}
+
+.btn-success {
+  background-color: var(--success-600);
+  color: #fff;
+  border: 1px solid var(--success-600);
+}
+.btn-success:hover,
+.btn-success:focus {
+  background-color: var(--success-700);
+  border-color: var(--success-700);
+}

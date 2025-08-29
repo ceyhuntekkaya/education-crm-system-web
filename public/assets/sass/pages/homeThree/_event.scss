@@ -1,0 +1,24 @@
+/* ============================= Event Section Css Start =============================== */
+.event-item {
+    gap: clampCal(24, 32);
+    @media (min-width: 1199px) {
+        padding-inline-start: clampCal(24, 40, 1299, 1599) !important;
+        padding-inline-end: clampCal(24, 40, 1299, 1599) !important;
+    }
+    h1, h2, h3, h4, h5, h6, span, a {
+        transition: .1s linear;
+    }
+    &:hover {
+        h1, h2, h3, h4, h5, h6, span, a {
+            color: #fff !important;
+        }
+        .btn {
+            border-color: #fff !important;
+            &:hover {
+                background-color: #fff !important;
+                color: var(--main-600) !important;
+            }
+        }
+    }
+}
+/* ============================= Event Section Css End =============================== */

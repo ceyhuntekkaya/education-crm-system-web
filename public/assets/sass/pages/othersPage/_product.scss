@@ -1,0 +1,39 @@
+/* ======================== Product Css Start ============================== */
+.color-list {
+    &__button {
+        transition: .2s linear;
+        &.active {
+            transform: scale(1.35);
+            position: relative;
+            &::before {
+                position: absolute;
+                content: "\E182";
+                font-family: 'phosphor';
+                top: 50%;
+                inset-inline-start: 50%;
+                transform: translate(-50%, -50%);
+                color: #fff;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.active-scale-08 {
+    &:active {
+        transform: scale(0.8);
+    }
+}
+
+.add-to-cart {
+    &.active {
+        background-color: var(--main-600) !important;
+        color: hsl(var(--white)) !important;
+    }
+}
+
+/* Product Details Css */
+.product-small-thumbs .slick-current.slick-active > div > div {
+    border-color: var(--main-600) !important;
+}
+/* ======================== Product Css End  ============================== */

@@ -1,0 +1,25 @@
+/* ======================== Course Details Css Start ============================= */
+.course-details {
+    .p-32 {
+        @include xl-screen {
+            padding: rem(24px) !important;
+        }
+        @include lg-screen {
+            padding: rem(16px) !important;
+        }
+    }
+}
+.curriculam-item {
+    padding: 20px 32px;
+    border-bottom: 1px dashed var(--neutral-30);
+    @include xl-screen {
+        padding: 20px 24px !important;
+    }
+    @include lg-screen {
+        padding: rem(16px) !important;
+    }
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+/* ======================== Course Details Css End ============================= */

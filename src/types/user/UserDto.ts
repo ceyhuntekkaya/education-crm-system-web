@@ -1,6 +1,6 @@
-import { UserType } from '../../enums/UserType';
-import { UserRole } from '../../enums/UserRole';
-import { UserInstitutionAccessDto } from './UserInstitutionAccessDto';
+import { UserType } from "../../enums/UserType";
+import { UserRole } from "../../enums/UserRole";
+import { UserInstitutionAccessDto } from "./UserInstitutionAccessDto";
 
 export interface UserDto {
   id: number;

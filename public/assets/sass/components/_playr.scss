@@ -1,0 +1,30 @@
+/* ================================ Playr Css Start ================================ */
+.plyr__poster, .plyr__video-wrapper {
+    background-color: transparent !important;
+}
+
+.plyr--video {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.player {
+    width: 100%;
+}
+
+.plyr__poster {
+    background-size: cover;
+}
+
+@media screen and (max-width: 575px) {
+    .plyr__controls__item.plyr__control[data-plyr=pip] {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .plyr__controls__item.plyr__control[data-plyr=fullscreen] {
+        display: none;
+    }
+}
+/* ================================ Playr Css End ================================ */

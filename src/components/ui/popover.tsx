@@ -1,156 +1,420 @@
 "use client";
 
-import React, {
-  ReactNode,
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 
-interface PopoverProps {
-  trigger: ReactNode;
-  content: ReactNode;
-  placement?:
-    | "top"
-    | "bottom"
-    | "left"
-    | "right"
-    | "top-start"
-    | "top-end"
-    | "bottom-start"
-    | "bottom-end";
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  closeOnClickOutside?: boolean;
-  closeOnEsc?: boolean;
+// Placement türleri
+export type PopoverPlacement =
+  | "top"
+  | "top-start"
+  | "top-end"
+  | "bottom"
+  | "bottom-start"
+  | "bottom-end"
+  | "left"
+  | "left-start"
+  | "left-end"
+  | "right"
+  | "right-start"
+  | "right-end";
+
+// Variant türleri
+export type PopoverVariant =
+  | "default"
+  | "success"
+  | "warning"
+  | "danger"
+  | "info"
+  | "dark";
+
+// Size türleri
+export type PopoverSize = "sm" | "md" | "lg";
+
+// Trigger türleri
+export type PopoverTrigger = "click" | "hover" | "focus";
+
+export interface PopoverProps {
+  children: React.ReactNode;
+  content: React.ReactNode;
+  title?: string;
+  placement?: PopoverPlacement;
+  variant?: PopoverVariant;
+  size?: PopoverSize;
+  trigger?: PopoverTrigger;
+  disabled?: boolean;
+  showArrow?: boolean;
+  offset?: number;
+  delay?: number;
   className?: string;
-  contentClassName?: string;
+  popoverClassName?: string;
+  backdrop?: boolean;
+  onShow?: () => void;
+  onHide?: () => void;
 }
 
-const Popover: React.FC<PopoverProps> = ({
-  trigger,
+// Header nav-submenu benzeri pozisyon hesaplama
+const calculatePosition = (
+  triggerElement: HTMLElement,
+  popoverElement: HTMLElement,
+  placement: PopoverPlacement,
+  offset: number = 8
+) => {
+  const triggerRect = triggerElement.getBoundingClientRect();
+  const popoverRect = popoverElement.getBoundingClientRect();
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+  let top = 0;
+  let left = 0;
+
+  // Ana placement'a göre pozisyon hesaplama
+  switch (placement) {
+    case "top":
+    case "top-start":
+    case "top-end":
+      // Top: Header submenu gibi
+      top = triggerRect.top + scrollTop - popoverRect.height - offset - 20;
+      break;
+    case "bottom":
+    case "bottom-start":
+    case "bottom-end":
+      // Bottom: Header submenu gibi
+      top = triggerRect.bottom + scrollTop + offset;
+      break;
+    case "left":
+    case "left-start":
+    case "left-end":
+      // Left: Header submenu gibi
+      left = triggerRect.left + scrollLeft - popoverRect.width - offset;
+      break;
+    case "right":
+    case "right-start":
+    case "right-end":
+      // Right: Header submenu gibi
+      left = triggerRect.right + scrollLeft + offset;
+      break;
+  }
+
+  // Header submenu benzeri hizalama
+  switch (placement) {
+    case "top":
+    case "bottom":
+      // Center: Ortala
+      left =
+        triggerRect.left +
+        scrollLeft +
+        (triggerRect.width - popoverRect.width) / 2;
+      break;
+    case "top-start":
+    case "bottom-start":
+      // Start: Sol hizalı (header submenu gibi)
+      left = triggerRect.left + scrollLeft;
+      break;
+    case "top-end":
+      left = triggerRect.right + scrollLeft - popoverRect.width;
+      break;
+    case "bottom-end":
+      left = triggerRect.right + scrollLeft - popoverRect.width - 40;
+      break;
+    case "left":
+    case "right":
+      // Center: Dikey ortala
+      top =
+        triggerRect.top +
+        scrollTop +
+        (triggerRect.height - popoverRect.height) / 2;
+      break;
+    case "left-start":
+    case "right-start":
+      // Start: Üst hizalı
+      top = triggerRect.top + scrollTop;
+      break;
+    case "left-end":
+    case "right-end":
+      // End: Alt hizalı
+      top = triggerRect.bottom + scrollTop - popoverRect.height;
+      break;
+  }
+
+  // Viewport sınırları kontrolü - Header submenu gibi basit
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Basit sınır kontrolü
+  if (left < 8) left = 8;
+  if (left + popoverRect.width > viewportWidth - 8) {
+    left = viewportWidth - popoverRect.width - 8;
+  }
+  if (top < scrollTop + 8) top = scrollTop + 8;
+  if (top + popoverRect.height > scrollTop + viewportHeight - 8) {
+    top = scrollTop + viewportHeight - popoverRect.height - 8;
+  }
+
+  return { top, left };
+};
+
+export const Popover: React.FC<PopoverProps> = ({
+  children,
   content,
-  placement = "bottom",
-  isOpen: controlledIsOpen,
-  onOpenChange,
-  closeOnClickOutside = true,
-  closeOnEsc = true,
+  title,
+  placement = "top",
+  variant = "default",
+  size = "md",
+  trigger = "click",
+  disabled = false,
+  showArrow = true,
+  offset = 8,
+  delay = 0,
   className = "",
-  contentClassName = "",
+  popoverClassName = "",
+  backdrop = false,
+  onShow,
+  onHide,
 }) => {
-  const [internalIsOpen, setInternalIsOpen] = useState(false);
-  const isOpen =
-    controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+  const hoverTimeoutRef = useRef<NodeJS.Timeout>();
 
-  const setIsOpen = useCallback(
-    (open: boolean) => {
-      if (onOpenChange) {
-        onOpenChange(open);
-      } else {
-        setInternalIsOpen(open);
-      }
-    },
-    [onOpenChange]
-  );
+  // Popover'ı göster
+  const showPopover = useCallback(() => {
+    if (disabled) return;
 
+    if (delay > 0) {
+      timeoutRef.current = setTimeout(() => {
+        setIsVisible(true);
+        setIsAnimating(true);
+        onShow?.();
+      }, delay);
+    } else {
+      setIsVisible(true);
+      setIsAnimating(true);
+      onShow?.();
+    }
+  }, [disabled, delay, onShow]);
+
+  // Popover'ı gizle - animasyon ile
+  const hidePopover = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Kapanma animasyonu başlat
+    setIsAnimating(true);
+    setIsVisible(false);
+
+    // Animasyon tamamlandıktan sonra DOM'dan kaldır
+    setTimeout(() => {
+      setIsAnimating(false);
+      onHide?.();
+    }, 150); // Kapanma animasyon süresi
+  }, [onHide]);
+
+  // Pozisyon hesaplama
+  useEffect(() => {
+    if (isVisible && triggerRef.current && popoverRef.current) {
+      const newPosition = calculatePosition(
+        triggerRef.current,
+        popoverRef.current,
+        placement,
+        offset
+      );
+      setPosition(newPosition);
+    }
+  }, [isVisible, placement, offset]);
+
+  // Event handler'lar
+  const handleClick = () => {
+    if (trigger === "click") {
+      isVisible ? hidePopover() : showPopover();
+    }
+  };
+
+  const handleFocus = () => {
+    if (trigger === "focus") {
+      showPopover();
+    }
+  };
+
+  const handleBlur = () => {
+    if (trigger === "focus") {
+      hidePopover();
+    }
+  };
+
+  // Dış tıklama kontrolü
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        closeOnClickOutside &&
+        isVisible &&
+        triggerRef.current &&
         popoverRef.current &&
+        !triggerRef.current.contains(event.target as Node) &&
         !popoverRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        hidePopover();
       }
     };
 
-    const handleEscape = (event: KeyboardEvent) => {
-      if (closeOnEsc && event.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
+    if (trigger === "click") {
       document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleEscape);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
+  }, [isVisible, trigger, hidePopover]);
+
+  // Scroll ve resize olayları
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isVisible) {
+        hidePopover();
+      }
+    };
+
+    const handleResize = () => {
+      if (isVisible) {
+        hidePopover();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, true);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("scroll", handleScroll, true);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [isOpen, closeOnClickOutside, closeOnEsc, setIsOpen]);
+  }, [isVisible, hidePopover]);
 
-  const placementClasses = {
-    top: "bottom-full left-1/2 transform -translate-x-1/2",
-    bottom: "top-full left-1/2 transform -translate-x-1/2",
-    left: "right-full top-1/2 transform -translate-y-1/2",
-    right: "left-full top-1/2 transform -translate-y-1/2",
-    "top-start": "bottom-full left-0",
-    "top-end": "bottom-full right-0",
-    "bottom-start": "top-full left-0",
-    "bottom-end": "top-full right-0",
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Popover class'ları
+  const popoverClasses = [
+    "popover",
+    isVisible ? "show" : "",
+    isAnimating && !isVisible ? "closing" : "",
+    variant !== "default" ? `popover-${variant}` : "",
+    size !== "md" ? `popover-${size}` : "",
+    backdrop ? "popover-backdrop" : "",
+    popoverClassName,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  // Header submenu gibi hover container logic - delay ile
+  const handleContainerMouseEnter = () => {
+    if (trigger === "hover") {
+      // Eğer hide timeout varsa iptal et
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = undefined;
+      }
+      showPopover();
+    }
   };
 
-  const offsetClasses = {
-    top: "mb-2",
-    bottom: "mt-2",
-    left: "mr-2",
-    right: "ml-2",
-    "top-start": "mb-2",
-    "top-end": "mb-2",
-    "bottom-start": "mt-2",
-    "bottom-end": "mt-2",
+  const handleContainerMouseLeave = () => {
+    if (trigger === "hover") {
+      // Header submenu gibi - biraz delay ile kapat
+      hoverTimeoutRef.current = setTimeout(() => {
+        hidePopover();
+      }, 150); // 150ms delay - boşluk geçişi için yeterli
+    }
   };
 
-  const arrowClasses = {
-    top: "top-full left-1/2 transform -translate-x-1/2 border-t-gray-800",
-    bottom: "bottom-full left-1/2 transform -translate-x-1/2 border-b-gray-800",
-    left: "left-full top-1/2 transform -translate-y-1/2 border-l-gray-800",
-    right: "right-full top-1/2 transform -translate-y-1/2 border-r-gray-800",
-    "top-start": "top-full left-4 border-t-gray-800",
-    "top-end": "top-full right-4 border-t-gray-800",
-    "bottom-start": "bottom-full left-4 border-b-gray-800",
-    "bottom-end": "bottom-full right-4 border-b-gray-800",
+  // Trigger element - Header submenu gibi container wrapper
+  const triggerElement = (
+    <div
+      className={`popover-container d-inline-block ${
+        trigger === "hover" ? "has-popover" : ""
+      }`}
+      onMouseEnter={handleContainerMouseEnter}
+      onMouseLeave={handleContainerMouseLeave}
+    >
+      <div
+        ref={triggerRef}
+        className={`popover-trigger d-inline-block ${className}`}
+        onClick={handleClick}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        tabIndex={trigger === "focus" ? 0 : undefined}
+        role={trigger === "click" ? "button" : undefined}
+        aria-expanded={isVisible}
+        aria-describedby={isVisible ? "popover-content" : undefined}
+      >
+        {children}
+      </div>
+    </div>
+  );
+
+  // Popover content hover handlers - Header submenu gibi delay ile
+  const handlePopoverMouseEnter = () => {
+    if (trigger === "hover") {
+      // Popover üzerindeyken timeout'u iptal et ve açık tut
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = undefined;
+      }
+      showPopover();
+    }
   };
+
+  const handlePopoverMouseLeave = () => {
+    if (trigger === "hover") {
+      // Popover'dan çıkıldığında delay ile kapat
+      hoverTimeoutRef.current = setTimeout(() => {
+        hidePopover();
+      }, 150); // Aynı delay süresi
+    }
+  };
+
+  // Popover content - animasyon sırasında da görünür olmalı
+  const popoverContent =
+    (isVisible || isAnimating) && typeof document !== "undefined"
+      ? createPortal(
+          <div
+            ref={popoverRef}
+            className={popoverClasses}
+            data-placement={placement}
+            style={{
+              position: "absolute",
+              top: position.top,
+              left: position.left,
+              zIndex: 1070,
+            }}
+            role="tooltip"
+            id="popover-content"
+            onMouseEnter={handlePopoverMouseEnter}
+            onMouseLeave={handlePopoverMouseLeave}
+          >
+            {showArrow && <div className="popover-arrow"></div>}
+
+            {title && <div className="popover-header">{title}</div>}
+
+            <div className="popover-body scroll-sm">{content}</div>
+          </div>,
+          document.body
+        )
+      : null;
 
   return (
-    <div className={`relative inline-block ${className}`} ref={popoverRef}>
-      {/* Trigger */}
-      <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
-
-      {/* Popover Content */}
-      {isOpen && (
-        <div
-          className={`
-            absolute z-50 animate-in fade-in-0 zoom-in-95
-            ${placementClasses[placement]}
-            ${offsetClasses[placement]}
-          `}
-        >
-          {/* Content */}
-          <div
-            className={`
-              bg-gray-800 text-white px-3 py-2 rounded-md shadow-lg
-              max-w-xs break-words relative
-              ${contentClassName}
-            `}
-          >
-            {content}
-
-            {/* Arrow */}
-            <div
-              className={`
-                absolute w-0 h-0 border-4 border-transparent
-                ${arrowClasses[placement]}
-              `}
-            />
-          </div>
-        </div>
-      )}
-    </div>
+    <>
+      {triggerElement}
+      {popoverContent}
+    </>
   );
 };
 

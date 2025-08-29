@@ -1,0 +1,14 @@
+/* ================================== Choose Us Two Css Start ====================================== */
+.about-two {
+    &__thumb {
+        padding-bottom: clampCal(32, 52);
+        @media (min-width: 1199px) {
+            padding-inline-end: clampCal(32, 94);
+        }
+    }
+
+    .offer-message.style-two {
+        inset-inline-end: 0 !important;
+    }
+}
+/* ================================== Choose Us Two Css End ====================================== */

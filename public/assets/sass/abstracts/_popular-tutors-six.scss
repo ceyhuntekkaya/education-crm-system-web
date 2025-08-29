@@ -1,0 +1,59 @@
+.triangle-shape::before {
+    position: absolute;
+    content: "";
+    height: 65px;
+    width: 40px;
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    background-color: var(--main-200);
+    inset-block-start: 100%;
+    transform: translateX(-50%);
+    inset-inline-start: 50%;
+}
+.shape-bg-red-light::before {
+    background-color: var(--danger-200);
+}
+.shape-bg-green-light::before {
+    background-color: var(--success-200);
+}
+// .triangle-shape-2::before {
+//     position: absolute;
+//     content: "";
+//     height: 65px;
+//     width: 40px;
+//     clip-path: polygon(50% 100%, 0 0, 100% 0);
+//     
+//     inset-block-start: 100%;
+//     transform: translateX(-50%);
+//     inset-inline-start: 50%;
+
+// }
+// .triangle-shape-3::before {
+//     position: absolute;
+//     content: "";
+//     height: 65px;
+//     width: 40px;
+//     clip-path: polygon(50% 100%, 0 0, 100% 0);
+//     
+//     inset-block-start: 100%;
+//     transform: translateX(-50%);
+//     inset-inline-start: 50%;
+
+// }
+
+.triangle-shape-right {
+    &::before, &::after {
+        position: absolute;
+        content: "";
+        width: 42px;
+        height: 30px;
+        clip-path: polygon(100% 100%, 0 42%, 0 100%);
+        background-color: black;
+        bottom: 100%;
+        inset-inline-end: 0;
+    }
+    &::after {
+        clip-path: polygon(100% 100%, 100% 42%, 0 100%);
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+    }
+}

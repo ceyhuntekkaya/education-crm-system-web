@@ -1,0 +1,106 @@
+/* ======================== Instructor Css Start ========================= */
+.instructor-item {
+    .cover-img {
+        min-height: 344px;
+    }
+}
+
+.social-infos {
+    position: absolute;
+    inset-block-end: calc(100% - 24px);
+    inset-inline-end: 24px;
+    background-color: var(--main-600);
+    padding: 8px;
+    border-radius: 50rem;
+    z-index: 1;
+    &__button {
+        &:hover {
+            transform: scale(1.1);
+        }
+        &.active {
+            i::before {
+                content: "\E32A";
+            }
+        }
+    }
+    .social-list{
+        display: none;
+    }
+}
+
+
+
+.our-popular-five {
+    position: absolute;
+    inset-block-start: 20px;
+    inset-inline-end: 24px;
+    background-color: var(--main-600);
+    padding: 8px;
+    border-radius: 50rem;
+    z-index: 1;
+    &__button {
+        &:hover {
+            transform: scale(1.1);
+        }
+        &.active {
+            i::before {
+                content: "\E32A";
+            }
+        }
+    }
+    .social-list{
+        display: none;
+    }
+}
+
+/* Instructor Two Item Css Start */
+.instructor-item-two {
+    &:hover {
+        .instructor-item-two {
+            &__thumb {
+                &::before {
+                    transform: rotate(225deg);
+                }
+                &-inner {
+                    &::before {
+                        visibility: visible;
+                        opacity: .3;
+                    }
+                }
+            }
+        }
+    }
+    &__thumb {
+        &::before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            inset-inline-start: 0;
+            top: 0;
+            border-width: 1px;
+            border-style: solid;
+            border-color: transparent var(--main-600) transparent var(--main-600);
+            border-radius: inherit;
+            transform: rotate(45deg);
+            transition: .4s;
+        }
+        &-inner {
+            &::before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 100%;
+                inset-inline-start: 0;
+                top: 0;
+                background-color: var(--neutral-900);
+                border-radius: inherit;
+                visibility: hidden;
+                opacity: 0;
+                transition: .1s;
+            }
+        }
+    }
+}
+/* Instructor Two Item Css End */
+/* ======================== Instructor Css End ========================= */

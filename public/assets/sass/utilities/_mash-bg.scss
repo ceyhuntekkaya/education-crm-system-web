@@ -1,0 +1,81 @@
+/* ======================= Mash Bg Css Start ============================== */
+.mash-bg-main {
+    position: relative;
+    &.mash-main-style-two {
+        &::before {
+            width: 585px;
+            height: 585px;
+            background-color: var(--main-three-200);
+            inset-inline-start: 10%;
+        }
+    }
+    &::before {
+        position: absolute;
+        content: "";
+        width: 200px;
+        height: 200px;
+        background-color: var(--main-600);
+        border-radius: 50%;
+        filter: blur(400px);
+        top: 50%;
+        transform: translateY(-50%);
+        inset-inline-start: 0;
+        z-index: -1;
+    }
+}
+.mash-bg-main-two {
+    position: relative;
+    &.mash-two-style-two {
+        &::after {
+            width: 585px;
+            height: 585px;
+            background-color: var(--main-two-200);
+            inset-inline-end: 10%;
+        }
+    }
+    &::after {
+        position: absolute;
+        content: "";
+        width: 200px;
+        height: 200px;
+        background-color: var(--main-two-600);
+        border-radius: 50%;
+        filter: blur(400px);
+        top: 50%;
+        transform: translateY(-50%);
+        inset-inline-end: 0;
+        z-index: -1;
+    }
+}
+
+.mash-reverse {
+    &.mash-bg-main {
+        &::before {
+            inset-inline-start: auto;
+            inset-inline-end: 0;
+        }
+        &::after {
+            inset-inline-end: auto;
+            inset-inline-start: 0;
+        }
+    }
+}
+
+
+.mash-bg-main {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "";
+        width: 200px;
+        height: 200px;
+        background-color: var(--main-600);
+        border-radius: 50%;
+        filter: blur(400px);
+        top: 50%;
+        transform: translateY(-50%);
+        inset-inline-start: 0;
+        z-index: -1;
+    }
+}
+/* ======================= Mash Bg Css End ============================== */

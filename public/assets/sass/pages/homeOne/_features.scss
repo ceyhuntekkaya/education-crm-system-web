@@ -1,0 +1,31 @@
+/* ============================== Features Section Css Start ============================== */
+.features-item {
+  padding: clampCal(24, 40, 1199, 1599);
+}
+
+.half-bg {
+  position: relative;
+  z-index: 1;
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 50%;
+    inset-inline-start: 0;
+    bottom: 0;
+    background-color: var(--main-25);
+    z-index: -1;
+  }
+  &.style-two {
+    &::before {
+      bottom: auto;
+      top: 0;
+    }
+  }
+  &__64 {
+    &::before {
+      height: 64%;
+    }
+  }
+}
+/* ============================== Features Section Css End ============================== */

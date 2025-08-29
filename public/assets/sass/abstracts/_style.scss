@@ -1,0 +1,95 @@
+.js-marquee{
+    display: flex;
+    gap: 24px;
+}
+.js-marquee-wrapper{
+    display: flex;
+    gap: 24px;
+}
+.apexcharts-grid-row {
+    fill: transparent !important;
+    opacity: 0 !important;
+}
+.my-profile{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+/***********
+dashbord settimgs start
+***********/
+body {
+    background: whitesmoke;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+.avatar-upload {
+    position: relative;
+    max-width: 460px;
+    .avatar-edit {
+        position: absolute;
+        right: 12px;
+        z-index: 1;
+        top: 10px;
+        input {
+            display: none;
+            + label {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                margin-bottom: 0;
+                border-radius: 100%;
+                // background: #FFFFFF;
+                border: 1px solid transparent;
+                // box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                font-weight: normal;
+                transition: all .2s ease-in-out;
+            }
+        }
+    }
+    .avatar-preview {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        border-radius: 100%;
+        > div {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
+/***********
+dashbord settimgs end
+***********/ 
+
+
+.ql-toolbar.ql-snow{
+    border: transparent;
+}
+
+
+.dropdown-toggle::after{
+    display: none;
+}
+
+
+.dropdown-item:hover{
+    background: none;
+}
+.dropdown-menu {
+    border: none;
+    box-shadow: 0px 13px 30px 10px rgba(46, 45, 116, 0.05);
+}
+
+
+

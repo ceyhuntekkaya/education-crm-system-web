@@ -1,0 +1,49 @@
+/* Item Hover Css Start */
+.item-hover {
+    &:hover {
+        .item-hover__text {
+            color: #fff !important;
+        }
+        .item-hover__text-main {
+            color: var(--main-600)  !important;
+        }
+        .item-hover__bg {
+            background-color: #fff !important;
+        }
+        .item-hover__bg-main {
+            background-color: var(--main-600) !important;
+        }
+        .group-hover-item{
+            display: block !important;
+        }
+        .group-hover-visible{
+            visibility: visible !important;
+            opacity: 1;
+        }
+        .group-hover-transform{
+           transform: scale(.9);
+           opacity: 1;
+        }
+    }
+}
+
+
+.hover-margin-left:hover {
+    margin-inline-start: 16px;
+}
+.hover-underline:hover {
+    text-decoration: underline;
+}
+
+.transfrom-scale-0{
+    transform: scale(0);
+    opacity: 0;
+}
+
+
+/* Item Hover Css End */
+
+
+
+
+

@@ -1,0 +1,57 @@
+/* ================= Slick Arrow & Dots css Start ================ */ 
+.slick-initialized.slick-slider {
+  .slick-track {
+      display: flex;
+  }
+  .slick-slide {
+    cursor: grab;
+    height: auto;
+    margin: 0 10px;
+    > div {
+          height: 100%;
+        > div {
+            height: 100%;
+        }
+    }
+  }
+}
+
+.responsive-arrow {
+    @include xl-screen {
+        .slick-arrow {
+            width: 40px !important;
+            height: 40px !important;
+            background-color: hsl(var(--white)/.2) !important;
+            color: hsl(var(--white)) !important;
+        }
+    }
+}
+
+/* Dots Css Start */ 
+.slick-dots {
+    text-align: center;
+    padding-block-start: 20px;
+    li {
+        display: inline-block;
+        line-height: 0;
+        button {
+            border: none;
+            background-color: hsl(var(--black)/.2);
+            color: hsl(var(--white));;
+            margin: 0 3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 1px;
+            border-radius: 50%;
+            text-indent: -9999px;
+            transition: .3s linear;
+        }
+        &.slick-active button {
+            background-color: hsl(var(--main));
+            width: 25px;
+            border-radius: 5px;
+        }
+    }
+}
+/* Dots Css End */
+/* ================= Slick Arrow & Dots css Start ================ */ 

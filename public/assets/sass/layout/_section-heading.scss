@@ -1,0 +1,59 @@
+
+/* ====================== Section Heading ==================== */
+.section-heading {
+  margin-bottom: clampCal(32, 60);
+  max-width: 640px;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  &__subtitle {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: hsl(var(--white));
+    margin-block-end: 10px;
+    text-transform: uppercase;
+     
+    letter-spacing: 0.11em;
+  }
+  &__title {
+    position: relative;
+    margin-block-end: 16px;
+  }
+  &__desc {
+    margin-block-start: clampCal(16, 32);
+    font-size: clampCal(16, 18);
+    max-width: 750px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+  // Style left
+  &.style-left {
+    text-align: left;
+    margin-inline-start: 0;
+    .section-heading {
+      &__desc {
+        margin-inline-start: 0;
+      }
+    }
+  }
+  // Style Flex
+  &.style-flex {
+    display: flex;
+    max-width: unset;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .section-heading {
+      &__inner {
+        max-width: 630px;
+      }
+      &__content {
+        max-width: 432px;
+        margin-inline-start:0;
+        @media (min-width: 1199px) {
+          margin-inline-start: auto !important;
+        }
+      }
+    }
+  }
+}
+/* ====================== Section Heading En d==================== */
