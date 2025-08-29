@@ -4,9 +4,16 @@
     padding: 10px !important;
     border-radius: 6px !important;
     min-width: 200px;
-    margin-top: 8px !important;
+    margin-top: 2px !important;
     max-height: 240px;
     overflow-y: auto;
+    z-index: 9999 !important;
+    position: absolute !important;
+    background: white !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
     
     @include sm-screen {
         min-width: 170px;

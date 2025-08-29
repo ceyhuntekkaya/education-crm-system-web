@@ -2,7 +2,6 @@
 import { FormProvider, useFormField } from "@/contexts";
 import * as yup from "yup";
 import { Button, Form, FormAutocomplete, FormInput } from "@/components";
-import { FormSelect } from "@/components/forms/form-select";
 
 import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
@@ -60,7 +59,6 @@ const FormContent = () => {
             { value: "ankara", label: "Ankara" },
             { value: "izmir", label: "İzmir" },
           ]}
-          maxResults={5}
           noOptionsText="Şehir bulunamadı"
         />
         {/* <FormSelect
@@ -75,38 +73,41 @@ const FormContent = () => {
             { value: "antalya", label: "Antalya" },
           ]}
         /> */}
-        <FormSelect
+        <FormAutocomplete
           name="district"
           variant="inline"
+          placeholder="İlçe ara..."
           options={[
-            { value: "", label: "İlçe Seçiniz" },
             { value: "kadikoy", label: "Kadıköy" },
             { value: "besiktas", label: "Beşiktaş" },
             { value: "cankaya", label: "Çankaya" },
             { value: "konak", label: "Konak" },
             { value: "nilüfer", label: "Nilüfer" },
           ]}
+          noOptionsText="İlçe bulunamadı"
         />
-        <FormSelect
+        <FormAutocomplete
           name="schoolType"
           variant="inline"
+          placeholder="Okul türü ara..."
           options={[
-            { value: "", label: "Okul Türü Seçiniz" },
             { value: "ilkokul", label: "İlkokul" },
             { value: "ortaokul", label: "Ortaokul" },
             { value: "lise", label: "Lise" },
             { value: "universite", label: "Üniversite" },
           ]}
+          noOptionsText="Okul türü bulunamadı"
         />
-        <FormSelect
+        <FormAutocomplete
           name="institutionType"
           variant="inline"
+          placeholder="Kurum tipi ara..."
           options={[
-            { value: "", label: "Kurum Tipi Seçiniz" },
             { value: "devlet", label: "Devlet" },
             { value: "ozel", label: "Özel" },
             { value: "vakif", label: "Vakıf" },
           ]}
+          noOptionsText="Kurum tipi bulunamadı"
         />
       </div>
       <span className="d-block border border-neutral-30 border-dashed my-24" />

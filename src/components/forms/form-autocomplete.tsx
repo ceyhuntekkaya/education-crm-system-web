@@ -324,7 +324,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
         {/* Dropdown */}
         {isOpen && (
-          <div className="position-absolute w-100 bg-white z-index-999 form-autocomplete-dropdown">
+          <div className="form-autocomplete-dropdown">
             {isLoading ? (
               <div className="form-autocomplete-loading">
                 <i className="ph-bold ph-spinner ph-spin"></i>
