@@ -25,6 +25,7 @@ export interface UserDto {
   postalCode: string;
   latitude: number;
   longitude: number;
+  roles: string[];
   userRoles: UserRole[];
   institutionAccess: UserInstitutionAccessDto[];
 }

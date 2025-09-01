@@ -4,20 +4,18 @@ import Image from "next/image";
 import { FormProvider, useAuth, FormValues } from "@/contexts";
 import * as yup from "yup";
 import { Button, Form, FormInput } from "@/components";
-import { useFormHook } from "@/hooks";
 import { useRouter } from "next/navigation";
 import { Role } from "@/enums/Role";
 import { PATHS } from "@/routes/paths";
+import { LoginResponse } from "@/types";
 
-// Yup validation schema
 const validationSchema = yup.object({
-  email: yup.string().required("Email adresi zorunludur"),
+  username: yup.string().required("Kullanıcı adı zorunludur"),
   password: yup.string().required("Parola zorunludur"),
 });
 
-// İlk değerler
 const initialValues: FormValues = {
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -37,9 +35,21 @@ const LoginFormContent: React.FC = () => {
   const { login } = useAuth();
 
   const onSubmit = async (values: FormValues) => {
-    const res = await login(String(values.email), String(values.password));
-    if (res.success) {
-      switch (res.role) {
+    const loginRequest = {
+      username: String(values.username ?? ""),
+      password: String(values.password ?? ""),
+    };
+    const res = await (
+      login as (formData: typeof loginRequest) => Promise<LoginResponse>
+    )(loginRequest);
+
+    if (res?.accessToken) {
+      const userRoles = res.user?.userRoles;
+      const role =
+        Array.isArray(userRoles) && userRoles.length > 0
+          ? userRoles[0]?.role
+          : undefined;
+      switch (role) {
         case Role.ADMIN:
           router.push(PATHS.PROTECTED.ADMIN.HOME);
           break;
@@ -72,9 +82,9 @@ const LoginFormContent: React.FC = () => {
               </div>
               <Form onSubmit={onSubmit} className="d-flex flex-column gap-16">
                 <FormInput
-                  name="email"
-                  label="E-posta"
-                  placeholder="E-posta adresinizi giriniz"
+                  name="username"
+                  label="Kullanıcı Adı"
+                  placeholder="Kullanıcı adınızı giriniz"
                 />
 
                 <FormInput
@@ -117,9 +127,9 @@ const LoginFormContent: React.FC = () => {
               <Image
                 src="/assets/images/thumbs/account-img.png"
                 alt="Account"
-                width={500} // adjust to your image's actual width
-                height={400} // adjust to your image's actual height
-                priority // ensures faster LCP for above-the-fold images
+                width={500}
+                height={400}
+                priority
               />
             </div>
           </div>

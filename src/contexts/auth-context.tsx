@@ -7,136 +7,125 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { fakeUsers } from "@/types/user/fakeUsers";
 import { UserDto } from "@/types/user/UserDto";
-
-interface AuthContextType {
-  user: UserDto | null;
-  isLoading: boolean;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<{ success: boolean; role?: string }>;
-  logout: () => void;
-  isAuthenticated: boolean;
-  currentRole: string;
-  currentDepartments: string[];
-  currentPermissions: string[];
-}
+import { usePostForm } from "@/hooks";
+import { jwtDecode } from "jwt-decode";
+import { API_ENDPOINTS } from "@/lib";
+import { AuthContextType, LoginRequest, LoginResponse } from "@/types/auth";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const [currentRole, setCurrentRole] = useState<string>("");
   const [currentDepartments, setCurrentDepartments] = useState<string[]>([]);
   const [currentPermissions, setCurrentPermissions] = useState<string[]>([]);
 
-  // Sayfa yüklendiğinde localStorage'dan kullanıcı bilgilerini kontrol et
   useEffect(() => {
     const checkAuth = () => {
       try {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-          const parsedUser = JSON.parse(storedUser);
-          setUser(parsedUser);
-          const role =
-            parsedUser?.userRoles?.map((roleObj: any) => roleObj.role)[0] || "";
-          setCurrentRole(role);
-          // Tüm userRoles içindeki departments'ları düz diziye çevir
-          const departments = (parsedUser?.userRoles || [])
-            .flatMap((roleObj: any) => roleObj.departments || [])
-            .map((dep: any) =>
-              typeof dep === "string" ? dep : dep.name || dep
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          const parsedToken = JSON.parse(token);
+          const decoded: any = jwtDecode(parsedToken);
+          if (decoded && decoded.user) {
+            setUser(decoded.user as UserDto);
+            setCurrentRole(decoded.user.userRoles?.[0]?.role || "");
+            setCurrentDepartments(
+              decoded.user.userRoles?.[0]?.departments?.map((dep: any) =>
+                typeof dep === "string" ? dep : dep.name || dep
+              ) || []
             );
-          setCurrentDepartments(departments);
-          // Tüm userRoles içindeki permissions'ları düz diziye çevir
-          const permissions = (parsedUser?.userRoles || [])
-            .flatMap((roleObj: any) => roleObj.permissions || [])
-            .map((perm: any) =>
-              typeof perm === "string" ? perm : perm.name || perm
+            setCurrentPermissions(
+              decoded.user.userRoles?.[0]?.permissions?.map((perm: any) =>
+                typeof perm === "string" ? perm : perm.name || perm
+              ) || []
             );
-          setCurrentPermissions(permissions);
+          } else {
+            setUser(decoded as UserDto);
+            setCurrentRole(decoded.userRoles?.[0]?.role || "");
+            setCurrentDepartments(
+              decoded.userRoles?.[0]?.departments?.map((dep: any) =>
+                typeof dep === "string" ? dep : dep.name || dep
+              ) || []
+            );
+            setCurrentPermissions(
+              decoded.userRoles?.[0]?.permissions?.map((perm: any) =>
+                typeof perm === "string" ? perm : perm.name || perm
+              ) || []
+            );
+          }
         }
       } catch (error) {
         console.error("Auth check error:", error);
-        localStorage.removeItem("user");
+        localStorage.removeItem("accessToken");
       } finally {
         setIsLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
-  const login = async (
-    email: string,
-    password: string
-  ): Promise<{ success: boolean; role?: string }> => {
-    setIsLoading(true);
+  const {
+    submitForm: login,
+    loading: loginLoading,
+    error: loginError,
+  } = usePostForm<LoginRequest, LoginResponse>(API_ENDPOINTS.AUTH.LOGIN, {
+    onSuccess: (data) => {
+      console.log("login başarılı:", data);
+      setUser(data.user);
+      setAccessToken(data.accessToken);
+      localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
+      setCurrentRole(data.user.userRoles?.[0]?.role || "");
+      setCurrentDepartments(
+        data.user.userRoles?.[0]?.departments?.map((dep: any) =>
+          typeof dep === "string" ? dep : dep.name || dep
+        ) || []
+      );
+      setCurrentPermissions(
+        data.user.userRoles?.[0]?.permissions?.map((perm: any) =>
+          typeof perm === "string" ? perm : perm.name || perm
+        ) || []
+      );
+    },
+    onError: (err) => {
+      const msg = typeof err === "string" ? err : String(err);
+      console.log("login başarısız:", msg);
+    },
+  });
 
-    try {
-      // Fake API call - gerçek uygulamada API'ye istek atılacak
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simülasyon için delay
-
-      const foundUser = fakeUsers.find((u) => u.email === email);
-
-      if (foundUser) {
-        setUser(foundUser);
-        localStorage.setItem("user", JSON.stringify(foundUser));
-        const role =
-          foundUser?.userRoles?.map((roleObj: any) => roleObj.role)[0] || "";
-        setCurrentRole(role);
-        const departments = (foundUser?.userRoles || [])
-          .flatMap((roleObj: any) => roleObj.departments || [])
-          .map((dep: any) => (typeof dep === "string" ? dep : dep.name || dep));
-        setCurrentDepartments(departments);
-        // Tüm userRoles içindeki permissions'ları düz diziye çevir
-        const permissions = (foundUser?.userRoles || [])
-          .flatMap((roleObj: any) => roleObj.permissions || [])
-          .map((perm: any) =>
-            typeof perm === "string" ? perm : perm.name || perm
-          );
-        setCurrentPermissions(permissions);
-        return {
-          success: true,
-          role,
-        };
-      }
-
+  const {
+    submitForm: logout,
+    loading: logoutLoading,
+    error: logoutError,
+  } = usePostForm<null, null>(API_ENDPOINTS.AUTH.LOGOUT, {
+    onSuccess: (data) => {
+      setUser(null);
       setCurrentRole("");
-      return {
-        success: false,
-      };
-    } catch (error) {
-      console.error("Login error:", error);
-      setCurrentRole("");
-      return {
-        success: false,
-      };
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const logout = () => {
-    setUser(null);
-    setCurrentRole("");
-    setCurrentDepartments([]);
-    localStorage.removeItem("user");
-    setCurrentPermissions([]);
-  };
+      setCurrentDepartments([]);
+      setCurrentPermissions([]);
+      setAccessToken(null);
+      localStorage.removeItem("accessToken");
+    },
+    onError: (err) => {
+      const msg = typeof err === "string" ? err : String(err);
+      console.log("login başarısız:", msg);
+    },
+  });
 
   const value: AuthContextType = {
     user,
-    isLoading,
+    setIsLoading,
+    isLoading: isLoading || loginLoading || logoutLoading,
     login,
-    logout,
+    logout: () => logout(null),
     isAuthenticated: !!user,
     currentRole,
     currentDepartments,
     currentPermissions,
+    accessToken,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -3,6 +3,7 @@ export const API_ENDPOINTS = {
   // Auth endpoints
   AUTH: {
     LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
   },
 
   TEMP: {

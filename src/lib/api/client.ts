@@ -5,9 +5,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 class ApiClient {
   private client: AxiosInstance;
 
-  constructor(
-    baseURL: string = process.env.NEXT_PUBLIC_API_URL || "https://dummyjson.com"
-  ) {
+  constructor(baseURL: string = process.env.NEXT_PUBLIC_API_URL || "") {
     this.client = axios.create({
       baseURL,
       timeout: 10000,
