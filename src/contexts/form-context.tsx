@@ -11,7 +11,7 @@ import * as yup from "yup";
 
 // Form değer tipi
 export interface FormValues {
-  [key: string]: string | number | boolean | null | undefined;
+  [key: string]: string | number | boolean | null | undefined | any[] | any;
 }
 
 // Form hata tipi
@@ -26,10 +26,12 @@ interface FormContextType {
   initialValues: FormValues;
   setValue: (
     name: string,
-    value: string | number | boolean | null | undefined
+    value: string | number | boolean | null | undefined | any[] | any
   ) => Promise<void>;
   setError: (name: string, error: string | undefined) => void;
-  getValue: (name: string) => string | number | boolean | null | undefined;
+  getValue: (
+    name: string
+  ) => string | number | boolean | null | undefined | any[] | any;
   getError: (name: string) => string | undefined;
   isFieldRequired: (name: string) => boolean;
   reset: () => void;
@@ -46,7 +48,7 @@ interface FormProviderProps {
   initialValues?: FormValues;
   validationRules?: {
     [key: string]: (
-      value: string | number | boolean | null | undefined
+      value: string | number | boolean | null | undefined | any[] | any
     ) => string | undefined;
   };
   validationSchema?: yup.ObjectSchema<FormValues>;
@@ -67,7 +69,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   const validateFieldWithSchema = useCallback(
     async (
       fieldName: string,
-      value: string | number | boolean | null | undefined
+      value: string | number | boolean | null | undefined | any[] | any
     ) => {
       if (!validationSchema) return undefined;
 
@@ -88,7 +90,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   const setValue = useCallback(
     async (
       name: string,
-      value: string | number | boolean | null | undefined
+      value: string | number | boolean | null | undefined | any[] | any
     ) => {
       setValues((prev) => ({
         ...prev,

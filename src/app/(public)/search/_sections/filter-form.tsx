@@ -1,22 +1,357 @@
 "use client";
+import React from "react";
 import { FormProvider, useFormField } from "@/contexts";
 import * as yup from "yup";
-import { Button, Form, FormAutocomplete, FormInput } from "@/components";
+import {
+  Button,
+  Form,
+  FormAutocomplete,
+  FormInput,
+  FormCheckbox,
+  FormRadio,
+  FormRange,
+} from "@/components";
 
 import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
 
-const validationSchema = yup.object({});
+// Form seçenekleri data'ları
+const institutionTypeOptions = [
+  { value: "1", label: "Anaokulu" },
+  { value: "2", label: "İlkokul" },
+  { value: "3", label: "Ortaokul" },
+  { value: "4", label: "Lise" },
+  { value: "5", label: "Üniversite" },
+  { value: "6", label: "Özel Kurs" },
+];
 
-const initialValues: FormValues = {};
+const curriculumTypeOptions = [
+  { value: "meb", label: "MEB Müfredatı" },
+  { value: "ib", label: "IB Programı" },
+  { value: "cambridge", label: "Cambridge" },
+  { value: "american", label: "Amerikan Müfredatı" },
+  { value: "german", label: "Alman Müfredatı" },
+];
+
+const languageOptions = [
+  { value: "tr", label: "Türkçe" },
+  { value: "en", label: "İngilizce" },
+  { value: "de", label: "Almanca" },
+  { value: "fr", label: "Fransızca" },
+  { value: "bilingual", label: "İki Dilli" },
+];
+
+const ratingOptions = [
+  { value: "1", label: "1 Yıldız ve üzeri" },
+  { value: "2", label: "2 Yıldız ve üzeri" },
+  { value: "3", label: "3 Yıldız ve üzeri" },
+  { value: "4", label: "4 Yıldız ve üzeri" },
+  { value: "5", label: "5 Yıldız" },
+];
+
+const locationOptions = {
+  countries: [
+    { value: "", label: "Ülke seçin" },
+    { value: "1", label: "Türkiye" },
+    { value: "2", label: "ABD" },
+    { value: "3", label: "Almanya" },
+  ],
+  provinces: [
+    { value: "", label: "Şehir seçin" },
+    { value: "1", label: "İstanbul" },
+    { value: "2", label: "Ankara" },
+    { value: "3", label: "İzmir" },
+  ],
+  districts: [
+    { value: "", label: "İlçe seçin" },
+    { value: "1", label: "Kadıköy" },
+    { value: "2", label: "Beşiktaş" },
+    { value: "3", label: "Şişli" },
+  ],
+  neighborhoods: [
+    { value: "", label: "Mahalle seçin" },
+    { value: "1", label: "Acıbadem" },
+    { value: "2", label: "Fenerbahçe" },
+    { value: "3", label: "Moda" },
+  ],
+};
+
+const sortOptions = [
+  { value: "name", label: "İsim" },
+  { value: "rating", label: "Puan" },
+  { value: "price", label: "Ücret" },
+  { value: "distance", label: "Mesafe" },
+  { value: "createdAt", label: "Eklenme Tarihi" },
+];
+
+const sortDirectionOptions = [
+  { value: "asc", label: "Artan" },
+  { value: "desc", label: "Azalan" },
+];
+
+// Form bölümleri yapılandırması
+const formSections = [
+  {
+    id: "search",
+    title: null,
+    component: (
+      <div className="position-relative d-flex flex-column gap-12">
+        <FormInput
+          name="searchTerm"
+          variant="inline"
+          placeholder="Kurum adı veya anahtar kelime ara..."
+          iconLeft="ph-magnifying-glass"
+        />
+      </div>
+    ),
+  },
+  {
+    id: "location",
+    title: "Lokasyon",
+    component: (
+      <div className="d-flex flex-column gap-16">
+        <FormAutocomplete
+          name="countryId"
+          variant="inline"
+          placeholder="Ülke ara..."
+          options={locationOptions.countries}
+          noOptionsText="Ülke bulunamadı"
+        />
+        <FormAutocomplete
+          name="provinceId"
+          variant="inline"
+          placeholder="Şehir ara..."
+          options={locationOptions.provinces}
+          noOptionsText="Şehir bulunamadı"
+        />
+        <FormAutocomplete
+          name="districtId"
+          variant="inline"
+          placeholder="İlçe ara..."
+          options={locationOptions.districts}
+          noOptionsText="İlçe bulunamadı"
+        />
+        <FormAutocomplete
+          name="neighborhoodId"
+          variant="inline"
+          placeholder="Mahalle ara..."
+          options={locationOptions.neighborhoods}
+          noOptionsText="Mahalle bulunamadı"
+        />
+        <FormInput
+          name="radiusKm"
+          type="number"
+          label="Yarıçap (km)"
+          variant="inline"
+          placeholder="Yarıçap (km)"
+          min="1"
+          max="100"
+        />
+      </div>
+    ),
+  },
+  {
+    id: "institutionTypes",
+    title: "Kurum Türü",
+    component: (
+      <FormCheckbox
+        name="institutionTypeIds"
+        label=""
+        options={institutionTypeOptions}
+        multi={true}
+      />
+    ),
+  },
+  {
+    id: "ageRange",
+    title: null,
+    component: (
+      <FormRange
+        name="ageRange"
+        label="Yaş Aralığı"
+        min={1}
+        max={80}
+        step={1}
+        suffix=" yaş"
+      />
+    ),
+  },
+  {
+    id: "feeRange",
+    title: null,
+    component: (
+      <FormRange
+        name="feeRange"
+        label="Ücret Aralığı"
+        min={0.1}
+        max={10000}
+        step={0.1}
+        prefix="₺"
+      />
+    ),
+  },
+  {
+    id: "curriculum",
+    title: "Müfredat Türü",
+    component: (
+      <FormRadio
+        name="curriculumType"
+        label=""
+        value=""
+        options={curriculumTypeOptions}
+        multi={true}
+      />
+    ),
+  },
+  {
+    id: "language",
+    title: "Eğitim Dili",
+    component: (
+      <FormRadio
+        name="languageOfInstruction"
+        label=""
+        value=""
+        options={languageOptions}
+        multi={true}
+      />
+    ),
+  },
+  {
+    id: "rating",
+    title: "Minimum Puan",
+    component: (
+      <FormRadio
+        name="minRating"
+        label=""
+        value=""
+        options={ratingOptions}
+        multi={true}
+      />
+    ),
+  },
+  {
+    id: "additional",
+    title: "Ek Filtreler",
+    component: (
+      <div className="d-flex flex-column gap-16">
+        <FormCheckbox
+          name="hasActiveCampaigns"
+          label="Aktif kampanyası olan kurumlar"
+        />
+        <FormCheckbox name="isSubscribed" label="Sadece üye olunan kurumlar" />
+      </div>
+    ),
+  },
+  {
+    id: "sorting",
+    title: "Sıralama",
+    component: (
+      <div className="d-flex flex-column gap-16">
+        <FormAutocomplete
+          name="sortBy"
+          variant="inline"
+          placeholder="Sıralama türü seçin..."
+          options={sortOptions}
+          noOptionsText="Sıralama seçeneği bulunamadı"
+        />
+        <FormAutocomplete
+          name="sortDirection"
+          variant="inline"
+          placeholder="Sıralama yönü seçin..."
+          options={sortDirectionOptions}
+          noOptionsText="Yön seçeneği bulunamadı"
+        />
+      </div>
+    ),
+  },
+];
+
+const validationSchema = yup.object({
+  searchTerm: yup.string(),
+  institutionTypeIds: yup.mixed(),
+  ageRange: yup.mixed(),
+  feeRange: yup.mixed(),
+  curriculumType: yup.string(),
+  languageOfInstruction: yup.string(),
+  countryId: yup.mixed(),
+  provinceId: yup.mixed(),
+  districtId: yup.mixed(),
+  neighborhoodId: yup.mixed(),
+  latitude: yup.number(),
+  longitude: yup.number(),
+  radiusKm: yup.number(),
+  minRating: yup.mixed(),
+  hasActiveCampaigns: yup.boolean(),
+  isSubscribed: yup.boolean(),
+  sortBy: yup.string(),
+  sortDirection: yup.string(),
+});
+
+const initialValues: FormValues = {
+  searchTerm: "",
+  institutionTypeIds: [] as any,
+  ageRange: [1, 80] as any,
+  feeRange: [0.1, 1000] as any,
+  curriculumType: "",
+  languageOfInstruction: "",
+  countryId: "",
+  provinceId: "",
+  districtId: "",
+  neighborhoodId: "",
+  latitude: 0,
+  longitude: 0,
+  radiusKm: 5,
+  minRating: "",
+  hasActiveCampaigns: false,
+  isSubscribed: false,
+  sortBy: "name",
+  sortDirection: "asc",
+};
 
 const FormContent = () => {
   const { values, resetForm } = useFormHook();
   console.log("Form değerleri:", values);
 
   const onSubmit = (values: FormValues) => {
-    // Filtreleme işlemini burada yapabilirsin
-    console.log("Filtrelenen değerler:", values);
+    // API'ye gönderilecek parametreleri hazırla
+    const apiParams = {
+      searchTerm: values.searchTerm || undefined,
+      institutionTypeIds:
+        Array.isArray(values.institutionTypeIds) &&
+        values.institutionTypeIds.length
+          ? values.institutionTypeIds
+          : undefined,
+      minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : undefined,
+      maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : undefined,
+      minFee: Array.isArray(values.feeRange) ? values.feeRange[0] : undefined,
+      maxFee: Array.isArray(values.feeRange) ? values.feeRange[1] : undefined,
+      curriculumType: values.curriculumType || undefined,
+      languageOfInstruction: values.languageOfInstruction || undefined,
+      countryId: values.countryId ? Number(values.countryId) : undefined,
+      provinceId: values.provinceId ? Number(values.provinceId) : undefined,
+      districtId: values.districtId ? Number(values.districtId) : undefined,
+      neighborhoodId: values.neighborhoodId
+        ? Number(values.neighborhoodId)
+        : undefined,
+      latitude: values.latitude || undefined,
+      longitude: values.longitude || undefined,
+      radiusKm: values.radiusKm || undefined,
+      minRating: values.minRating || undefined,
+      hasActiveCampaigns: values.hasActiveCampaigns || undefined,
+      isSubscribed: values.isSubscribed || undefined,
+      sortBy: values.sortBy || "name",
+      sortDirection: values.sortDirection || "asc",
+      page: 1,
+      size: 10,
+    };
+
+    // Undefined değerleri temizle
+    const cleanParams = Object.fromEntries(
+      Object.entries(apiParams).filter(([_, value]) => value !== undefined)
+    );
+
+    console.log("API Parametreleri:", cleanParams);
+    // Burada API çağrısını yapabilirsin
   };
 
   return (
@@ -41,299 +376,38 @@ const FormContent = () => {
               <span className="d-block border border-neutral-30 border-dashed my-24" />
             </div>
           </div>
-          <div className="position-relative">
-            <input
-              type="text"
-              className="common-input pe-48 rounded-pill bg-main-25"
-              placeholder="Enter Your Email..."
-            />
+          {/* Form Bölümleri - Map ile render */}
+          {formSections.map((section, index) => (
+            <React.Fragment key={section.id}>
+              <div className={section.title ? "d-flex flex-column gap-16" : ""}>
+                {section.title && (
+                  <h6 className="text-lg mb-16 fw-semibold">{section.title}</h6>
+                )}
+                {section.component}
+              </div>
+              {index < formSections.length - 1 && (
+                <span className="d-block border border-neutral-30 border-dashed my-24" />
+              )}
+            </React.Fragment>
+          ))}
+          <span className="d-block border border-neutral-30 border-dashed my-32" />
+          <div className="d-flex flex-column gap-12">
             <button
               type="submit"
-              className="text-xl position-absolute top-50 translate-middle-y inset-inline-end-0 me-4  w-40 h-40 bg-main-600 d-flex align-items-center justify-content-center text-white rounded-circle hover-bg-main-700"
+              className="btn btn-main rounded-pill flex-center gap-16 fw-semibold w-100"
             >
-              <i className="ph-bold ph-magnifying-glass" />
+              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+              Filtrele
+            </button>
+            <button
+              type="reset"
+              className="btn btn-outline-main rounded-pill flex-center gap-16 fw-semibold w-100"
+              onClick={() => resetForm()}
+            >
+              <i className="ph-bold ph-arrow-clockwise d-flex text-lg" />
+              Filtreleri Temizle
             </button>
           </div>
-          <span className="d-block border border-neutral-30 border-dashed my-24" />
-          <div className="d-flex flex-column gap-32">
-            <div className="col-sm-12">
-              <h6 className="text-lg mb-24 fw-semibold">Gender</h6>
-              <div className="d-flex flex-column gap-16">
-                <div className="form-check common-check common-radio mb-0">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="Male"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="Male"
-                  >
-                    Male
-                  </label>
-                </div>
-                <div className="form-check common-check common-radio mb-0">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="Female"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="Female"
-                  >
-                    Female
-                  </label>
-                </div>
-                <div className="form-check common-check common-radio mb-0">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="kids"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="kids"
-                  >
-                    kids
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="">
-              <h6 className="text-lg mb-24 fw-semibold">Category</h6>
-              <div className="d-flex flex-column gap-16">
-                <div className="form-check common-check mb-0">
-                  <input
-                    className="form-check-input bg-main-25"
-                    type="checkbox"
-                    name="tutorType"
-                    id="All"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="All"
-                  >
-                    All
-                  </label>
-                </div>
-                <div className="form-check common-check mb-0">
-                  <input
-                    className="form-check-input bg-main-25"
-                    type="checkbox"
-                    name="tutorType"
-                    id="Shoes"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="Shoes"
-                  >
-                    Shoes
-                  </label>
-                </div>
-                <div className="form-check common-check mb-0">
-                  <input
-                    className="form-check-input bg-main-25"
-                    type="checkbox"
-                    name="tutorType"
-                    id="Apparel"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="Apparel"
-                  >
-                    Apparel
-                  </label>
-                </div>
-                <div className="form-check common-check mb-0">
-                  <input
-                    className="form-check-input bg-main-25"
-                    type="checkbox"
-                    name="tutorType"
-                    id="Accessories"
-                  />
-                  <label
-                    className="form-check-label fw-normal flex-grow-1"
-                    htmlFor="Accessories"
-                  >
-                    Accessories
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="">
-              <h6 className="text-lg mb-20 fw-medium">Color</h6>
-              <div className="color-list d-flex flex-wrap align-items-center gap-12">
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-black rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-deep-green rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-violet rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-info rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-light-green rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-yellow rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-danger rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-blue rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-paste rounded-circle"
-                />
-                <button
-                  type="button"
-                  className="color-list__button w-24 h-24 bg-color-warning rounded-circle"
-                />
-              </div>
-            </div>
-            <div className="">
-              <div>
-                <h6 className="text-lg mb-20 fw-medium">Pricing scale</h6>
-                <div className="custom--range">
-                  <div className="custom--range__content">
-                    <input
-                      type="text"
-                      id="amount"
-                      readOnly
-                      className="custom--range__prices text-neutral-600 text-start text-md fw-medium w-100 text-center bg-transparent border-0 outline-0"
-                      value={`$${values[0]} - $${values[1]}`}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="">
-              <h6 className="text-lg mb-20 fw-medium">Star Category</h6>
-              <div className="d-flex flex-column gap-16">
-                <div className="flex-between gap-16">
-                  <div className="form-check common-check mb-0">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="categories"
-                      id="star5"
-                    />
-                    <label
-                      className="form-check-label fw-normal flex-grow-1 flex-align gap-8"
-                      htmlFor="star5"
-                    >
-                      <span className="text-warning-600 text-xl d-flex">
-                        <i className="ph-fill ph-star" />
-                      </span>
-                      5 Star
-                    </label>
-                  </div>
-                </div>
-                <div className="flex-between gap-16">
-                  <div className="form-check common-check mb-0">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="categories"
-                      id="star4"
-                    />
-                    <label
-                      className="form-check-label fw-normal flex-grow-1 flex-align gap-8"
-                      htmlFor="star4"
-                    >
-                      <span className="text-warning-600 text-xl d-flex">
-                        <i className="ph-fill ph-star" />
-                      </span>
-                      4 Star
-                    </label>
-                  </div>
-                </div>
-                <div className="flex-between gap-16">
-                  <div className="form-check common-check mb-0">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="categories"
-                      id="star3"
-                    />
-                    <label
-                      className="form-check-label fw-normal flex-grow-1 flex-align gap-8"
-                      htmlFor="star3"
-                    >
-                      <span className="text-warning-600 text-xl d-flex">
-                        <i className="ph-fill ph-star" />
-                      </span>
-                      3 Star
-                    </label>
-                  </div>
-                </div>
-                <div className="flex-between gap-16">
-                  <div className="form-check common-check mb-0">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="categories"
-                      id="star2"
-                    />
-                    <label
-                      className="form-check-label fw-normal flex-grow-1 flex-align gap-8"
-                      htmlFor="star2"
-                    >
-                      <span className="text-warning-600 text-xl d-flex">
-                        <i className="ph-fill ph-star" />
-                      </span>
-                      2 Star
-                    </label>
-                  </div>
-                </div>
-                <div className="flex-between gap-16">
-                  <div className="form-check common-check mb-0">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="categories"
-                      id="star1s"
-                    />
-                    <label
-                      className="form-check-label fw-normal flex-grow-1 flex-align gap-8"
-                      htmlFor="star1s"
-                    >
-                      <span className="text-warning-600 text-xl d-flex">
-                        <i className="ph-fill ph-star" />
-                      </span>
-                      1 Star
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <span className="d-block border border-neutral-30 border-dashed my-32" />
-          <button
-            type="reset"
-            className="btn btn-outline-main rounded-pill flex-center gap-16 fw-semibold w-100"
-          >
-            <i className="ph-bold ph-arrow-clockwise d-flex text-lg" />
-            Reset Filters
-          </button>
         </form>
       </div>
     </Form>

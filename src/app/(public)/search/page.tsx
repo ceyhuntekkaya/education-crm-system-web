@@ -6,13 +6,13 @@ import { Breadcrumb } from "@/components";
 const SearchPage = () => {
   return (
     <div>
-      <Breadcrumb title={"Arama Sonuçları"} />
+      <Breadcrumb title={"Okulları Listele"} />
       <section
         className="course-list-view py-120 background-img bg-img"
         data-background-image="assets/images/bg/gradient-bg.png"
       >
         <div className={`side-overlay`}></div>
-        <div className="container">
+        <div className="container container--xl">
           <div className="row">
             <div className="col-lg-3">
               <FilterForm />
