@@ -12,7 +12,7 @@ const SearchPage = () => {
         data-background-image="assets/images/bg/gradient-bg.png"
       >
         <div className={`side-overlay`}></div>
-        <div className="container container--xl">
+        <div className="container">
           <div className="row">
             <div className="col-lg-3">
               <FilterForm />

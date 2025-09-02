@@ -1,35 +1,88 @@
 "use client";
 import { FormProvider, useFormField } from "@/contexts";
 import * as yup from "yup";
-import { Button, Form, FormAutocomplete, FormInput } from "@/components";
+import {
+  Button,
+  Form,
+  FormAutocomplete,
+  FormInput,
+  FormCheckbox,
+  FormRadio,
+} from "@/components";
 
 import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
 
 const validationSchema = yup.object({
-  schoolName: yup.string(),
-  city: yup.string(),
-  district: yup.string(),
-  schoolType: yup.string(),
-  institutionType: yup.string(),
+  searchTerm: yup.string(),
+  provinceId: yup.mixed(),
+  districtId: yup.mixed(),
+  institutionTypeIds: yup.mixed(),
+  minRating: yup.mixed(),
 });
 
 const initialValues: FormValues = {
-  schoolName: "",
-  city: "",
-  district: "",
-  schoolType: "",
-  institutionType: "",
+  searchTerm: "",
+  provinceId: "",
+  districtId: "",
+  institutionTypeIds: [] as any,
+  minRating: "",
 };
 
 const FormContent = () => {
   const { values, resetForm } = useFormHook();
   console.log("Form değerleri:", values);
 
+  // Filter-form'daki API parametre mantığına uygun şekilde parametreleri hazırla
   const onSubmit = (values: FormValues) => {
-    // Filtreleme işlemini burada yapabilirsin
-    console.log("Filtrelenen değerler:", values);
+    const apiParams = {
+      searchTerm: values.searchTerm || undefined,
+      provinceId: values.provinceId ? Number(values.provinceId) : undefined,
+      districtId: values.districtId ? Number(values.districtId) : undefined,
+      institutionTypeIds:
+        Array.isArray(values.institutionTypeIds) &&
+        values.institutionTypeIds.length
+          ? values.institutionTypeIds
+          : undefined,
+      minRating: values.minRating || undefined,
+      page: 1,
+      size: 10,
+    };
+    const cleanParams = Object.fromEntries(
+      Object.entries(apiParams).filter(([_, value]) => value !== undefined)
+    );
+    console.log("API Parametreleri:", cleanParams);
+    // Burada API çağrısı yapılabilir
   };
+
+  // Filter-form'daki inputları ve opsiyonları kullan
+  const provinceOptions = [
+    { value: "", label: "Şehir seçin" },
+    { value: "1", label: "İstanbul" },
+    { value: "2", label: "Ankara" },
+    { value: "3", label: "İzmir" },
+  ];
+  const districtOptions = [
+    { value: "", label: "İlçe seçin" },
+    { value: "1", label: "Kadıköy" },
+    { value: "2", label: "Beşiktaş" },
+    { value: "3", label: "Şişli" },
+  ];
+  const institutionTypeOptions = [
+    { value: "1", label: "Anaokulu" },
+    { value: "2", label: "İlkokul" },
+    { value: "3", label: "Ortaokul" },
+    { value: "4", label: "Lise" },
+    { value: "5", label: "Üniversite" },
+    { value: "6", label: "Özel Kurs" },
+  ];
+  const ratingOptions = [
+    { value: "1", label: "1 Yıldız ve üzeri" },
+    { value: "2", label: "2 Yıldız ve üzeri" },
+    { value: "3", label: "3 Yıldız ve üzeri" },
+    { value: "4", label: "4 Yıldız ve üzeri" },
+    { value: "5", label: "5 Yıldız" },
+  ];
 
   return (
     <Form
@@ -39,75 +92,45 @@ const FormContent = () => {
     >
       <h4 className="mb-24 text-main-600 fw-semibold">Okulları Filtrele</h4>
       <p className="text-neutral-500 text-sm mb-16 d-none d-md-block">
-        İl, ilçe, okul türü veya kurum tipine göre filtreleyin.
+        Şehir, ilçe, kurum türü, minimum puan ve arama kelimesine göre
+        filtreleyin.
       </p>
       <div className="mb-24">
         <FormInput
-          name="schoolName"
+          name="searchTerm"
           variant="inline"
-          placeholder="Okul İsmi"
+          placeholder="Anahtar kelime ile ara..."
+          iconRight="ph-magnifying-glass"
           className="col-span-2"
         />
       </div>
       <div className="grid-cols-2 gap-16">
         <FormAutocomplete
-          name="city"
+          name="provinceId"
           variant="inline"
           placeholder="Şehir ara..."
-          options={[
-            { value: "istanbul", label: "İstanbul" },
-            { value: "ankara", label: "Ankara" },
-            { value: "izmir", label: "İzmir" },
-          ]}
+          options={provinceOptions}
           noOptionsText="Şehir bulunamadı"
         />
-        {/* <FormSelect
-          name="city"
-          variant="inline"
-          options={[
-            { value: "", label: "İl Seçiniz" },
-            { value: "istanbul", label: "İstanbul" },
-            { value: "ankara", label: "Ankara" },
-            { value: "izmir", label: "İzmir" },
-            { value: "bursa", label: "Bursa" },
-            { value: "antalya", label: "Antalya" },
-          ]}
-        /> */}
         <FormAutocomplete
-          name="district"
+          name="districtId"
           variant="inline"
           placeholder="İlçe ara..."
-          options={[
-            { value: "kadikoy", label: "Kadıköy" },
-            { value: "besiktas", label: "Beşiktaş" },
-            { value: "cankaya", label: "Çankaya" },
-            { value: "konak", label: "Konak" },
-            { value: "nilüfer", label: "Nilüfer" },
-          ]}
+          options={districtOptions}
           noOptionsText="İlçe bulunamadı"
         />
-        <FormAutocomplete
-          name="schoolType"
-          variant="inline"
-          placeholder="Okul türü ara..."
-          options={[
-            { value: "ilkokul", label: "İlkokul" },
-            { value: "ortaokul", label: "Ortaokul" },
-            { value: "lise", label: "Lise" },
-            { value: "universite", label: "Üniversite" },
-          ]}
-          noOptionsText="Okul türü bulunamadı"
+        <FormCheckbox
+          name="institutionTypeIds"
+          label="Kurum Türü"
+          options={institutionTypeOptions}
+          multi={true}
         />
-        <FormAutocomplete
-          name="institutionType"
-          variant="inline"
-          placeholder="Kurum tipi ara..."
-          options={[
-            { value: "devlet", label: "Devlet" },
-            { value: "ozel", label: "Özel" },
-            { value: "vakif", label: "Vakıf" },
-          ]}
-          noOptionsText="Kurum tipi bulunamadı"
+        <FormRadio
+          name="minRating"
+          label="Minimum Puan"
+          value=""
+          options={ratingOptions}
+          multi={true}
         />
       </div>
       <span className="d-block border border-neutral-30 border-dashed my-24" />
@@ -120,7 +143,7 @@ const FormContent = () => {
           Sıfırla
         </Button>
         <Button type="submit" leftIcon="ph-magnifying-glass">
-          Filterele
+          Filtrele
         </Button>
       </div>
       <p className="text-neutral-400 text-xs mt-16 d-block d-md-none">

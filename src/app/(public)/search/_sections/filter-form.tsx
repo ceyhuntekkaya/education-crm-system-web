@@ -99,7 +99,7 @@ const formSections = [
         <FormInput
           name="searchTerm"
           variant="inline"
-          placeholder="Kurum adı veya anahtar kelime ara..."
+          placeholder="Anahtar kelime ile ara..."
           iconLeft="ph-magnifying-glass"
         />
       </div>

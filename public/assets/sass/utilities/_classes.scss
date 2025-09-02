@@ -7,6 +7,15 @@
     &--xl {
         max-width: 1760px !important;
     }
+    &--md {
+        max-width: 1200px !important;
+    }
+    &--sm {
+        max-width: 900px !important;
+    }
+    &--xs {
+        max-width: 600px !important;
+    }
 }
 
 .grid-cols {
