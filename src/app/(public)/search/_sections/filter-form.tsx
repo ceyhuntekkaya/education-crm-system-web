@@ -312,7 +312,7 @@ const FormContent = () => {
   const { values, resetForm } = useFormHook();
   const { institutions } = useInstitutionSearch();
 
-  console.log("Kurumlar:", institutions);
+  // console.log("Kurumlar:", institutions);
 
   const onSubmit = (values: FormValues) => {
     // API'ye gönderilecek parametreleri hazırla

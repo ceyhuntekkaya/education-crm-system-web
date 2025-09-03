@@ -1,6 +1,10 @@
 "use client";
 
+import { useGet } from "@/hooks";
+import { API_ENDPOINTS } from "@/lib";
 import { SchoolSearchResultDto } from "@/types/institution/InstitutionSearch.types";
+import { CountryDto } from "@/types/location/CountryDto";
+import { ApiResponseDto } from "@/types/user/ApiResponseDto";
 
 const mockInstitutions: SchoolSearchResultDto[] = [
   {
@@ -359,8 +363,17 @@ const mockInstitutions: SchoolSearchResultDto[] = [
 ];
 
 export function useInstitutionSearch() {
+  const {
+    data: countriesResponse,
+    loading,
+    error,
+  } = useGet<ApiResponseDto<CountryDto[]>>(API_ENDPOINTS.LOCATION.COUNTRIES);
+
+  const countries = countriesResponse?.data || [];
+
   return {
     institutions: mockInstitutions,
+    countries,
   };
 }
 

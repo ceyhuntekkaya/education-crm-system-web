@@ -67,14 +67,14 @@ class ApiClient {
     this.client.interceptors.response.use(
       (response) => {
         // Response'un JSON format kontrolü
-        console.log("Response interceptor:", {
-          status: response.status,
-          statusText: response.statusText,
-          data: response.data,
-          headers: response.headers,
-          contentLength: response.headers["content-length"],
-          contentType: response.headers["content-type"],
-        });
+        // console.log("Response interceptor:", {
+        //   status: response.status,
+        //   statusText: response.statusText,
+        //   data: response.data,
+        //   headers: response.headers,
+        //   contentLength: response.headers["content-length"],
+        //   contentType: response.headers["content-type"],
+        // });
 
         // Boş response kontrolü
         if (

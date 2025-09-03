@@ -2,6 +2,8 @@ export interface ApiResponseDto<T = unknown> {
   success: boolean;
   message: string;
   data: T;
+  errors?: unknown;
   timestamp: string;
-  status: number;
+  path?: string;
+  status?: number;
 }

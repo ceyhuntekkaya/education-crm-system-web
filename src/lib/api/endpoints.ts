@@ -7,7 +7,7 @@ export const API_ENDPOINTS = {
   },
 
   LOCATION: {
-    COUNTRIES: "/countries",
+    COUNTRIES: "/locations/countries",
   },
 
   TEMP: {

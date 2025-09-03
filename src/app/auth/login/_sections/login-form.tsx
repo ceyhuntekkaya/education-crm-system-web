@@ -15,8 +15,8 @@ const validationSchema = yup.object({
 });
 
 const initialValues: FormValues = {
-  username: "",
-  password: "",
+  username: "admin@egitimara.com",
+  password: "genixo123",
 };
 
 const LoginForm: React.FC = () => {
