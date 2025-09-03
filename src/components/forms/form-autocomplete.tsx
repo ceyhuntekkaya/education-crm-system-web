@@ -89,7 +89,14 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
       }
     }
     setHighlightedIndex(-1);
-  }, [searchTerm, options, filterFunction, maxResults, defaultFilterFunction, value]);
+  }, [
+    searchTerm,
+    options,
+    filterFunction,
+    maxResults,
+    defaultFilterFunction,
+    value,
+  ]);
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
