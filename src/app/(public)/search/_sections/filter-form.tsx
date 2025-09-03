@@ -13,6 +13,7 @@ import {
 
 import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
+import { useInstitutionSearch } from "../_hooks";
 
 // Form seçenekleri data'ları
 const institutionTypeOptions = [
@@ -309,7 +310,9 @@ const initialValues: FormValues = {
 
 const FormContent = () => {
   const { values, resetForm } = useFormHook();
-  console.log("Form değerleri:", values);
+  const { institutions } = useInstitutionSearch();
+
+  console.log("Kurumlar:", institutions);
 
   const onSubmit = (values: FormValues) => {
     // API'ye gönderilecek parametreleri hazırla

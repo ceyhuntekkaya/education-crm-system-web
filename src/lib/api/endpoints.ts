@@ -6,6 +6,10 @@ export const API_ENDPOINTS = {
     LOGOUT: "/auth/logout",
   },
 
+  LOCATION: {
+    COUNTRIES: "/countries",
+  },
+
   TEMP: {
     CARTS: "/carts",
   },

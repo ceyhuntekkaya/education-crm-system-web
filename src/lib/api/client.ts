@@ -19,7 +19,7 @@ class ApiClient {
       (config) => {
         // localStorage'dan token alma (client-side)
         if (typeof window !== "undefined") {
-          const token = localStorage.getItem("auth_token");
+          const token = JSON.parse(localStorage.getItem("accessToken") || "");
           if (token) {
             config.headers.Authorization = `Bearer ${token}`;
           }
@@ -38,7 +38,7 @@ class ApiClient {
         // 401 durumunda token'ı temizle ve login'e yönlendir
         if (error.response?.status === 401) {
           if (typeof window !== "undefined") {
-            localStorage.removeItem("auth_token");
+            localStorage.removeItem("accessToken");
             window.location.href = "/auth/login";
           }
         }
