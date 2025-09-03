@@ -92,7 +92,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
     onError: (err) => {
       const msg = typeof err === "string" ? err : String(err);
-      console.log("login başarısız:", msg);
+      console.error("Login hatası:", {
+        error: err,
+        message: msg,
+        timestamp: new Date().toISOString(),
+      });
     },
   });
 
