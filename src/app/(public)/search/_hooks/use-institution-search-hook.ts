@@ -10,6 +10,7 @@ import { ProvinceDto } from "@/types/location/ProvinceDto";
 import { DistrictDto } from "@/types/location/DistrictDto";
 import { NeighborhoodDto } from "@/types/location/NeighborhoodDto";
 import { ApiResponseDto } from "@/types/user/ApiResponseDto";
+import { InstitutionTypeDto } from "@/types/institution/InstitutionTypeDto";
 
 const mockInstitutions: SchoolSearchResultDto[] = [
   {
@@ -527,6 +528,25 @@ export function useInstitutionSearchHook({
     }
   }, [values, updateField]);
 
+  const {
+    data: institutionTypesResponse,
+    loading: institutionTypesLoading,
+    error: institutionTypesError,
+  } = useGet<ApiResponseDto<InstitutionTypeDto[]>>(
+    API_ENDPOINTS.INSTITUTIONS.INSTITUTION_TYPES
+  );
+
+  const institutionTypes = {
+    data: [
+      ...(institutionTypesResponse?.data?.map((type) => ({
+        value: type.id?.toString() || "",
+        label: type.displayName || "",
+      })) || []),
+    ],
+    loading: institutionTypesLoading,
+    error: institutionTypesError,
+  };
+
   // Search functionality
   const {
     submitForm: search,
@@ -549,11 +569,14 @@ export function useInstitutionSearchHook({
     }
   );
 
-  const locationOptions = {
-    countries,
-    provinces,
-    districts,
-    neighborhoods,
+  const options = {
+    institution: institutionTypes,
+    location: {
+      countries,
+      provinces,
+      districts,
+      neighborhoods,
+    },
   };
 
   return {
@@ -562,7 +585,7 @@ export function useInstitutionSearchHook({
     provinces,
     districts,
     neighborhoods,
-    locationOptions,
+    options,
     search,
     searchLoading,
     searchError,

@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
   INSTITUTIONS: {
     SCHOOLS: "/institutions/schools",
     SCHOOLS_SEARCH: "/institutions/schools/search",
+    INSTITUTION_TYPES: "/institutions/institution-types",
   },
 
   TEMP: {

@@ -16,14 +16,6 @@ import { useFormHook } from "@/hooks";
 import { useInstitutionSearchHook } from "../_hooks";
 
 // Form seçenekleri data'ları
-const institutionTypeOptions = [
-  { value: "1", label: "Anaokulu" },
-  { value: "2", label: "İlkokul" },
-  { value: "3", label: "Ortaokul" },
-  { value: "4", label: "Lise" },
-  { value: "5", label: "Üniversite" },
-  { value: "6", label: "Özel Kurs" },
-];
 
 const curriculumTypeOptions = [
   { value: "meb", label: "MEB Müfredatı" },
@@ -107,7 +99,7 @@ const initialValues: FormValues = {
 const FormContent = () => {
   const { values, resetForm, updateField } = useFormHook();
 
-  const { locationOptions, search } = useInstitutionSearchHook({
+  const { options, search } = useInstitutionSearchHook({
     values,
     updateField,
   });
@@ -137,18 +129,18 @@ const FormContent = () => {
             name="countryId"
             variant="inline"
             placeholder="Ülke ara..."
-            options={locationOptions.countries.data}
+            options={options.location.countries.data}
             noOptionsText="Ülke bulunamadı"
-            isLoading={locationOptions.countries.loading}
+            isLoading={options.location.countries.loading}
           />
           <FormAutocomplete
             key={`province-${values.countryId}-${values.provinceId || "empty"}`}
             name="provinceId"
             variant="inline"
             placeholder="İl ara..."
-            options={locationOptions.provinces.data}
+            options={options.location.provinces.data}
             noOptionsText="İl bulunamadı"
-            isLoading={locationOptions.provinces.loading}
+            isLoading={options.location.provinces.loading}
             disabled={!values.countryId}
           />
           <FormAutocomplete
@@ -158,9 +150,9 @@ const FormContent = () => {
             name="districtId"
             variant="inline"
             placeholder="İlçe ara..."
-            options={locationOptions.districts.data}
+            options={options.location.districts.data}
             noOptionsText="İlçe bulunamadı"
-            isLoading={locationOptions.districts.loading}
+            isLoading={options.location.districts.loading}
             disabled={!values.provinceId}
           />
           <FormAutocomplete
@@ -170,9 +162,9 @@ const FormContent = () => {
             name="neighborhoodId"
             variant="inline"
             placeholder="Mahalle ara..."
-            options={locationOptions.neighborhoods.data}
+            options={options.location.neighborhoods.data}
             noOptionsText="Mahalle bulunamadı"
-            isLoading={locationOptions.neighborhoods.loading}
+            isLoading={options.location.neighborhoods.loading}
             disabled={!values.districtId}
           />
           <FormInput
@@ -194,7 +186,7 @@ const FormContent = () => {
         <FormCheckbox
           name="institutionTypeIds"
           label=""
-          options={institutionTypeOptions}
+          options={options.institution.data}
           multi={true}
         />
       ),
