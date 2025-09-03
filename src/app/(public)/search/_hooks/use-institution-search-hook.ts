@@ -175,7 +175,7 @@ export function useInstitutionSearchHook({
     submitForm: search,
     loading: searchLoading,
     error: searchError,
-  } = usePostForm<SchoolSearchDto, SchoolSearchResultDto>(
+  } = usePostForm<SchoolSearchDto, ApiResponseDto<SchoolSearchResultDto[]>>(
     API_ENDPOINTS.INSTITUTIONS.SCHOOLS_SEARCH,
     {
       onSuccess: (data) => {
