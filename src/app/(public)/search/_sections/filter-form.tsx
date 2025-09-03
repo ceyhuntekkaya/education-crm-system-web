@@ -13,7 +13,7 @@ import {
 
 import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
-import { useInstitutionSearch } from "../_hooks";
+import { useInstitutionSearchHook } from "../_hooks";
 
 // Form seçenekleri data'ları
 const institutionTypeOptions = [
@@ -49,33 +49,6 @@ const ratingOptions = [
   { value: "5", label: "5 Yıldız" },
 ];
 
-const locationOptions = {
-  countries: [
-    { value: "", label: "Ülke seçin" },
-    { value: "1", label: "Türkiye" },
-    { value: "2", label: "ABD" },
-    { value: "3", label: "Almanya" },
-  ],
-  provinces: [
-    { value: "", label: "Şehir seçin" },
-    { value: "1", label: "İstanbul" },
-    { value: "2", label: "Ankara" },
-    { value: "3", label: "İzmir" },
-  ],
-  districts: [
-    { value: "", label: "İlçe seçin" },
-    { value: "1", label: "Kadıköy" },
-    { value: "2", label: "Beşiktaş" },
-    { value: "3", label: "Şişli" },
-  ],
-  neighborhoods: [
-    { value: "", label: "Mahalle seçin" },
-    { value: "1", label: "Acıbadem" },
-    { value: "2", label: "Fenerbahçe" },
-    { value: "3", label: "Moda" },
-  ],
-};
-
 const sortOptions = [
   { value: "name", label: "İsim" },
   { value: "rating", label: "Puan" },
@@ -87,183 +60,6 @@ const sortOptions = [
 const sortDirectionOptions = [
   { value: "asc", label: "Artan" },
   { value: "desc", label: "Azalan" },
-];
-
-// Form bölümleri yapılandırması
-const formSections = [
-  {
-    id: "search",
-    title: null,
-    component: (
-      <div className="position-relative d-flex flex-column gap-12">
-        <FormInput
-          name="searchTerm"
-          variant="inline"
-          placeholder="Anahtar kelime ile ara..."
-          iconLeft="ph-magnifying-glass"
-        />
-      </div>
-    ),
-  },
-  {
-    id: "location",
-    title: "Lokasyon",
-    component: (
-      <div className="d-flex flex-column gap-16">
-        <FormAutocomplete
-          name="countryId"
-          variant="inline"
-          placeholder="Ülke ara..."
-          options={locationOptions.countries}
-          noOptionsText="Ülke bulunamadı"
-        />
-        <FormAutocomplete
-          name="provinceId"
-          variant="inline"
-          placeholder="Şehir ara..."
-          options={locationOptions.provinces}
-          noOptionsText="Şehir bulunamadı"
-        />
-        <FormAutocomplete
-          name="districtId"
-          variant="inline"
-          placeholder="İlçe ara..."
-          options={locationOptions.districts}
-          noOptionsText="İlçe bulunamadı"
-        />
-        <FormAutocomplete
-          name="neighborhoodId"
-          variant="inline"
-          placeholder="Mahalle ara..."
-          options={locationOptions.neighborhoods}
-          noOptionsText="Mahalle bulunamadı"
-        />
-        <FormInput
-          name="radiusKm"
-          type="number"
-          label="Yarıçap (km)"
-          variant="inline"
-          placeholder="Yarıçap (km)"
-          min="1"
-          max="100"
-        />
-      </div>
-    ),
-  },
-  {
-    id: "institutionTypes",
-    title: "Kurum Türü",
-    component: (
-      <FormCheckbox
-        name="institutionTypeIds"
-        label=""
-        options={institutionTypeOptions}
-        multi={true}
-      />
-    ),
-  },
-  {
-    id: "ageRange",
-    title: null,
-    component: (
-      <FormRange
-        name="ageRange"
-        label="Yaş Aralığı"
-        min={1}
-        max={80}
-        step={1}
-        suffix=" yaş"
-      />
-    ),
-  },
-  {
-    id: "feeRange",
-    title: null,
-    component: (
-      <FormRange
-        name="feeRange"
-        label="Ücret Aralığı"
-        min={0.1}
-        max={10000}
-        step={0.1}
-        prefix="₺"
-      />
-    ),
-  },
-  {
-    id: "curriculum",
-    title: "Müfredat Türü",
-    component: (
-      <FormRadio
-        name="curriculumType"
-        label=""
-        value=""
-        options={curriculumTypeOptions}
-        multi={true}
-      />
-    ),
-  },
-  {
-    id: "language",
-    title: "Eğitim Dili",
-    component: (
-      <FormRadio
-        name="languageOfInstruction"
-        label=""
-        value=""
-        options={languageOptions}
-        multi={true}
-      />
-    ),
-  },
-  {
-    id: "rating",
-    title: "Minimum Puan",
-    component: (
-      <FormRadio
-        name="minRating"
-        label=""
-        value=""
-        options={ratingOptions}
-        multi={true}
-      />
-    ),
-  },
-  {
-    id: "additional",
-    title: "Ek Filtreler",
-    component: (
-      <div className="d-flex flex-column gap-16">
-        <FormCheckbox
-          name="hasActiveCampaigns"
-          label="Aktif kampanyası olan kurumlar"
-        />
-        <FormCheckbox name="isSubscribed" label="Sadece üye olunan kurumlar" />
-      </div>
-    ),
-  },
-  {
-    id: "sorting",
-    title: "Sıralama",
-    component: (
-      <div className="d-flex flex-column gap-16">
-        <FormAutocomplete
-          name="sortBy"
-          variant="inline"
-          placeholder="Sıralama türü seçin..."
-          options={sortOptions}
-          noOptionsText="Sıralama seçeneği bulunamadı"
-        />
-        <FormAutocomplete
-          name="sortDirection"
-          variant="inline"
-          placeholder="Sıralama yönü seçin..."
-          options={sortDirectionOptions}
-          noOptionsText="Yön seçeneği bulunamadı"
-        />
-      </div>
-    ),
-  },
 ];
 
 const validationSchema = yup.object({
@@ -309,41 +105,263 @@ const initialValues: FormValues = {
 };
 
 const FormContent = () => {
-  const { values, resetForm } = useFormHook();
-  const { institutions } = useInstitutionSearch();
+  const { values, resetForm, updateField } = useFormHook();
 
-  // console.log("Kurumlar:", institutions);
+  const { locationOptions, search } = useInstitutionSearchHook({
+    values,
+    updateField,
+  });
+
+  const formSections = [
+    {
+      id: "search",
+      title: null,
+      component: (
+        <div className="position-relative d-flex flex-column gap-12">
+          <FormInput
+            name="searchTerm"
+            variant="inline"
+            placeholder="Anahtar kelime ile ara..."
+            iconLeft="ph-magnifying-glass"
+          />
+        </div>
+      ),
+    },
+    {
+      id: "location",
+      title: "Lokasyon",
+      component: (
+        <div className="d-flex flex-column gap-16">
+          <FormAutocomplete
+            key={`country-${values.countryId || "empty"}`}
+            name="countryId"
+            variant="inline"
+            placeholder="Ülke ara..."
+            options={locationOptions.countries.data}
+            noOptionsText="Ülke bulunamadı"
+            isLoading={locationOptions.countries.loading}
+          />
+          <FormAutocomplete
+            key={`province-${values.countryId}-${values.provinceId || "empty"}`}
+            name="provinceId"
+            variant="inline"
+            placeholder="İl ara..."
+            options={locationOptions.provinces.data}
+            noOptionsText="İl bulunamadı"
+            isLoading={locationOptions.provinces.loading}
+            disabled={!values.countryId}
+          />
+          <FormAutocomplete
+            key={`district-${values.provinceId}-${
+              values.districtId || "empty"
+            }`}
+            name="districtId"
+            variant="inline"
+            placeholder="İlçe ara..."
+            options={locationOptions.districts.data}
+            noOptionsText="İlçe bulunamadı"
+            isLoading={locationOptions.districts.loading}
+            disabled={!values.provinceId}
+          />
+          <FormAutocomplete
+            key={`neighborhood-${values.districtId}-${
+              values.neighborhoodId || "empty"
+            }`}
+            name="neighborhoodId"
+            variant="inline"
+            placeholder="Mahalle ara..."
+            options={locationOptions.neighborhoods.data}
+            noOptionsText="Mahalle bulunamadı"
+            isLoading={locationOptions.neighborhoods.loading}
+            disabled={!values.districtId}
+          />
+          <FormInput
+            name="radiusKm"
+            type="number"
+            label="Yarıçap (km)"
+            variant="inline"
+            placeholder="Yarıçap (km)"
+            min="1"
+            max="100"
+          />
+        </div>
+      ),
+    },
+    {
+      id: "institutionTypes",
+      title: "Kurum Türü",
+      component: (
+        <FormCheckbox
+          name="institutionTypeIds"
+          label=""
+          options={institutionTypeOptions}
+          multi={true}
+        />
+      ),
+    },
+    {
+      id: "ageRange",
+      title: null,
+      component: (
+        <FormRange
+          name="ageRange"
+          label="Yaş Aralığı"
+          min={1}
+          max={80}
+          step={1}
+          suffix=" yaş"
+        />
+      ),
+    },
+    {
+      id: "feeRange",
+      title: null,
+      component: (
+        <FormRange
+          name="feeRange"
+          label="Ücret Aralığı"
+          min={0.1}
+          max={10000}
+          step={0.1}
+          prefix="₺"
+        />
+      ),
+    },
+    {
+      id: "curriculum",
+      title: "Müfredat Türü",
+      component: (
+        <FormRadio
+          name="curriculumType"
+          label=""
+          value=""
+          options={curriculumTypeOptions}
+          multi={true}
+        />
+      ),
+    },
+    {
+      id: "language",
+      title: "Eğitim Dili",
+      component: (
+        <FormRadio
+          name="languageOfInstruction"
+          label=""
+          value=""
+          options={languageOptions}
+          multi={true}
+        />
+      ),
+    },
+    {
+      id: "rating",
+      title: "Minimum Puan",
+      component: (
+        <FormRadio
+          name="minRating"
+          label=""
+          value=""
+          options={ratingOptions}
+          multi={true}
+        />
+      ),
+    },
+    {
+      id: "additional",
+      title: "Ek Filtreler",
+      component: (
+        <div className="d-flex flex-column gap-16">
+          <FormCheckbox
+            name="hasActiveCampaigns"
+            label="Aktif kampanyası olan kurumlar"
+          />
+          <FormCheckbox
+            name="isSubscribed"
+            label="Sadece üye olunan kurumlar"
+          />
+        </div>
+      ),
+    },
+    {
+      id: "sorting",
+      title: "Sıralama",
+      component: (
+        <div className="d-flex flex-column gap-16">
+          <FormAutocomplete
+            name="sortBy"
+            variant="inline"
+            placeholder="Sıralama türü seçin..."
+            options={sortOptions}
+            noOptionsText="Sıralama seçeneği bulunamadı"
+          />
+          <FormAutocomplete
+            name="sortDirection"
+            variant="inline"
+            placeholder="Sıralama yönü seçin..."
+            options={sortDirectionOptions}
+            noOptionsText="Yön seçeneği bulunamadı"
+          />
+        </div>
+      ),
+    },
+  ];
 
   const onSubmit = (values: FormValues) => {
     // API'ye gönderilecek parametreleri hazırla
+    // const apiParams = {
+    //   searchTerm: values.searchTerm || undefined,
+    //   institutionTypeIds:
+    //     Array.isArray(values.institutionTypeIds) &&
+    //     values.institutionTypeIds.length
+    //       ? values.institutionTypeIds
+    //       : undefined,
+    //   minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : undefined,
+    //   maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : undefined,
+    //   minFee: Array.isArray(values.feeRange) ? values.feeRange[0] : undefined,
+    //   maxFee: Array.isArray(values.feeRange) ? values.feeRange[1] : undefined,
+    //   curriculumType: values.curriculumType || undefined,
+    //   languageOfInstruction: values.languageOfInstruction || undefined,
+    //   countryId: values.countryId ? Number(values.countryId) : undefined,
+    //   provinceId: values.provinceId ? Number(values.provinceId) : undefined,
+    //   districtId: values.districtId ? Number(values.districtId) : undefined,
+    //   neighborhoodId: values.neighborhoodId
+    //     ? Number(values.neighborhoodId)
+    //     : undefined,
+    //   latitude: values.latitude || undefined,
+    //   longitude: values.longitude || undefined,
+    //   radiusKm: values.radiusKm || undefined,
+    //   minRating: values.minRating || undefined,
+    //   hasActiveCampaigns: values.hasActiveCampaigns || undefined,
+    //   isSubscribed: values.isSubscribed || undefined,
+    //   sortBy: values.sortBy || "name",
+    //   sortDirection: values.sortDirection || "asc",
+    //   page: 1,
+    //   size: 10,
+    // };
+
     const apiParams = {
-      searchTerm: values.searchTerm || undefined,
-      institutionTypeIds:
-        Array.isArray(values.institutionTypeIds) &&
-        values.institutionTypeIds.length
-          ? values.institutionTypeIds
-          : undefined,
-      minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : undefined,
-      maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : undefined,
-      minFee: Array.isArray(values.feeRange) ? values.feeRange[0] : undefined,
-      maxFee: Array.isArray(values.feeRange) ? values.feeRange[1] : undefined,
-      curriculumType: values.curriculumType || undefined,
-      languageOfInstruction: values.languageOfInstruction || undefined,
-      countryId: values.countryId ? Number(values.countryId) : undefined,
-      provinceId: values.provinceId ? Number(values.provinceId) : undefined,
-      districtId: values.districtId ? Number(values.districtId) : undefined,
-      neighborhoodId: values.neighborhoodId
-        ? Number(values.neighborhoodId)
-        : undefined,
-      latitude: values.latitude || undefined,
-      longitude: values.longitude || undefined,
-      radiusKm: values.radiusKm || undefined,
-      minRating: values.minRating || undefined,
-      hasActiveCampaigns: values.hasActiveCampaigns || undefined,
-      isSubscribed: values.isSubscribed || undefined,
-      sortBy: values.sortBy || "name",
-      sortDirection: values.sortDirection || "asc",
-      page: 1,
+      searchTerm: "",
+      institutionTypeIds: null,
+      minAge: null,
+      maxAge: 0,
+      minFee: 0.1,
+      maxFee: 0,
+      curriculumType: "",
+      languageOfInstruction: "",
+      countryId: null,
+      provinceId: null,
+      districtId: null,
+      neighborhoodId: null,
+      latitude: null,
+      longitude: null,
+      radiusKm: null,
+      minRating: null,
+      hasActiveCampaigns: null,
+      isSubscribed: null,
+      propertyFilters: null,
+      sortBy: "",
+      sortDirection: "",
+      page: 0,
       size: 10,
     };
 
@@ -353,7 +371,8 @@ const FormContent = () => {
     );
 
     console.log("API Parametreleri:", cleanParams);
-    // Burada API çağrısını yapabilirsin
+    // Search fonksiyonunu hook'tan kullan
+    search(cleanParams);
   };
 
   return (
@@ -363,54 +382,52 @@ const FormContent = () => {
       data-aos="fade-up"
     >
       <div>
-        <form action="#">
-          <div className="flex-between">
-            <div className="flex-grow-1">
-              <div className="flex-between">
-                <h4 className="mb-0">Arama Kriterleri</h4>
-                <button
-                  type="button"
-                  className="sidebar-close text-xl text-neutral-500 d-lg-none hover-text-main-600"
-                >
-                  <i className="ph-bold ph-x" />
-                </button>
-              </div>
-              <span className="d-block border border-neutral-30 border-dashed my-24" />
+        <div className="flex-between">
+          <div className="flex-grow-1">
+            <div className="flex-between">
+              <h4 className="mb-0">Arama Kriterleri</h4>
+              <button
+                type="button"
+                className="sidebar-close text-xl text-neutral-500 d-lg-none hover-text-main-600"
+              >
+                <i className="ph-bold ph-x" />
+              </button>
             </div>
+            <span className="d-block border border-neutral-30 border-dashed my-24" />
           </div>
-          {/* Form Bölümleri - Map ile render */}
-          {formSections.map((section, index) => (
-            <React.Fragment key={section.id}>
-              <div className={section.title ? "d-flex flex-column gap-16" : ""}>
-                {section.title && (
-                  <h6 className="text-lg mb-16 fw-semibold">{section.title}</h6>
-                )}
-                {section.component}
-              </div>
-              {index < formSections.length - 1 && (
-                <span className="d-block border border-neutral-30 border-dashed my-24" />
+        </div>
+        {/* Form Bölümleri - Map ile render */}
+        {formSections.map((section, index) => (
+          <React.Fragment key={section.id}>
+            <div className={section.title ? "d-flex flex-column gap-16" : ""}>
+              {section.title && (
+                <h6 className="text-lg mb-16 fw-semibold">{section.title}</h6>
               )}
-            </React.Fragment>
-          ))}
-          <span className="d-block border border-neutral-30 border-dashed my-32" />
-          <div className="d-flex flex-column gap-12">
-            <button
-              type="submit"
-              className="btn btn-main rounded-pill flex-center gap-16 fw-semibold w-100"
-            >
-              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
-              Filtrele
-            </button>
-            <button
-              type="reset"
-              className="btn btn-outline-main rounded-pill flex-center gap-16 fw-semibold w-100"
-              onClick={() => resetForm()}
-            >
-              <i className="ph-bold ph-arrow-clockwise d-flex text-lg" />
-              Filtreleri Temizle
-            </button>
-          </div>
-        </form>
+              {section.component}
+            </div>
+            {index < formSections.length - 1 && (
+              <span className="d-block border border-neutral-30 border-dashed my-24" />
+            )}
+          </React.Fragment>
+        ))}
+        <span className="d-block border border-neutral-30 border-dashed my-32" />
+        <div className="d-flex flex-column gap-12">
+          <button
+            type="submit"
+            className="btn btn-main rounded-pill flex-center gap-16 fw-semibold w-100"
+          >
+            <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+            Filtrele
+          </button>
+          <button
+            type="reset"
+            className="btn btn-outline-main rounded-pill flex-center gap-16 fw-semibold w-100"
+            onClick={() => resetForm()}
+          >
+            <i className="ph-bold ph-arrow-clockwise d-flex text-lg" />
+            Filtreleri Temizle
+          </button>
+        </div>
       </div>
     </Form>
   );

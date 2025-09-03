@@ -1,2 +1,2 @@
-export { default as useInstitutionSearch } from "./useInstitutionSearch";
-export { useInstitutionSearch as useInstitutionSearchFunc } from "./useInstitutionSearch";
+export { default as useInstitutionSearch } from "./use-institution-search-hook";
+export { default as useInstitutionSearchHook } from "./use-institution-search-hook";

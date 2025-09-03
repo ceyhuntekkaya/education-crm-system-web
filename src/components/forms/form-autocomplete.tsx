@@ -87,6 +87,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled || isLoading) return;
+
     const newValue = e.target.value;
     setSearchTerm(newValue);
     setIsOpen(true);
@@ -123,6 +125,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Handle option selection
   const handleOptionSelect = (option: AutocompleteOption) => {
+    if (disabled || isLoading) return;
+
     setSearchTerm(option.label);
     onChange(option.value);
     setIsOpen(false);
@@ -133,6 +137,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (disabled || isLoading) return;
+
     if (!isOpen) {
       if (e.key === "ArrowDown" || e.key === "Enter") {
         setIsOpen(true);
@@ -200,18 +206,20 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     const baseClasses = "rounded-pill outline-0 w-100 h-48";
     const leftPadding = iconLeft ? "ps-60" : "px-16";
     const rightPadding = iconRight ? "pe-60" : "";
+    const disabledClasses =
+      disabled || isLoading ? "opacity-60 cursor-not-allowed" : "";
 
     switch (variant) {
       case "inline":
         return `${baseClasses} common-input bg-main-25 ${
           iconLeft ? "ps-48" : ""
-        } ${iconRight ? "pe-48" : ""} border-neutral-30`;
+        } ${iconRight ? "pe-48" : ""} border-neutral-30 ${disabledClasses}`;
       case "outline":
-        return `${baseClasses} bg-white text-black border border-transparent focus-border-main-600 ${leftPadding} ${rightPadding}`;
+        return `${baseClasses} bg-white text-black border border-transparent focus-border-main-600 ${leftPadding} ${rightPadding} ${disabledClasses}`;
       default:
         return `${baseClasses} common-input ${iconLeft ? "ps-48" : ""} ${
           iconRight ? "pe-48" : ""
-        } border-transparent focus-border-main-600`;
+        } border-transparent focus-border-main-600 ${disabledClasses}`;
     }
   };
 
@@ -260,11 +268,12 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             type="text"
             className={getVariantClasses()}
             placeholder={placeholder}
-            disabled={disabled}
+            disabled={disabled || isLoading}
             value={displayValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             onFocus={() => {
+              if (disabled || isLoading) return;
               setIsOpen(true);
               // Eğer input'ta seçili bir değer varsa ve o değerle eşleşen option varsa, arama terimini temizle
               if (
@@ -311,19 +320,27 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
               iconRight ? "me-56" : "me-16"
             } text-neutral-400 transition-transform ${
               isOpen ? "rotate-180" : ""
+            } ${
+              disabled || isLoading
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
             }`}
-            style={{ cursor: "pointer" }}
             onClick={() => {
+              if (disabled || isLoading) return;
               setIsOpen(!isOpen);
               inputRef.current?.focus();
             }}
           >
-            <i className="ph-bold ph-caret-down"></i>
+            {isLoading ? (
+              <i className="ph-bold ph-spinner ph-spin"></i>
+            ) : (
+              <i className="ph-bold ph-caret-down"></i>
+            )}
           </span>
         </div>
 
         {/* Dropdown */}
-        {isOpen && (
+        {isOpen && !disabled && (
           <div className="form-autocomplete-dropdown">
             {isLoading ? (
               <div className="form-autocomplete-loading">

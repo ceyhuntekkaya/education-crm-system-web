@@ -8,6 +8,17 @@ export const API_ENDPOINTS = {
 
   LOCATION: {
     COUNTRIES: "/locations/countries",
+    PROVINCES: (countryId: string | number) =>
+      `/locations/countries/${countryId}/provinces`,
+    DISTRICTS: (provinceId: string | number) =>
+      `/locations/provinces/${provinceId}/districts`,
+    NEIGHBORHOODS: (districtId: string | number) =>
+      `/locations/districts/${districtId}/neighborhoods`,
+  },
+
+  INSTITUTIONS: {
+    SCHOOLS: "/institutions/schools",
+    SCHOOLS_SEARCH: "/institutions/schools/search",
   },
 
   TEMP: {

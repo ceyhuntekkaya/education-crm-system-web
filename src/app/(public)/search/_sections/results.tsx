@@ -1,6 +1,6 @@
 "use client";
 
-import useInstitutionSearch from "../_hooks/useInstitutionSearch";
+import useInstitutionSearch from "../_hooks/use-institution-search-hook";
 import { InstitutionCard } from "./institution-card";
 import Pagination from "./pagination";
 
