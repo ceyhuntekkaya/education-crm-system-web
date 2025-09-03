@@ -75,15 +75,21 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Filter options based on search term
   useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setFilteredOptions(options.slice(0, maxResults));
+    // Eğer seçili bir değer varsa, her zaman tüm seçenekleri göster (arama yaparken bile)
+    if (value && typeof value === "string" && value !== "") {
+      setFilteredOptions(options);
     } else {
-      const filterFunc = filterFunction || defaultFilterFunction;
-      const filtered = filterFunc(options, searchTerm);
-      setFilteredOptions(filtered);
+      // Seçili değer yoksa normal filtreleme mantığı
+      if (searchTerm.trim() === "") {
+        setFilteredOptions(options.slice(0, maxResults));
+      } else {
+        const filterFunc = filterFunction || defaultFilterFunction;
+        const filtered = filterFunc(options, searchTerm);
+        setFilteredOptions(filtered);
+      }
     }
     setHighlightedIndex(-1);
-  }, [searchTerm, options, filterFunction, maxResults, defaultFilterFunction]);
+  }, [searchTerm, options, filterFunction, maxResults, defaultFilterFunction, value]);
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,6 +129,17 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     }
   }, [searchTerm, options, onChange]);
 
+  // Handle clear/reset
+  const handleClear = () => {
+    if (disabled || isLoading) return;
+
+    setSearchTerm("");
+    onChange("");
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+    inputRef.current?.focus();
+  };
+
   // Handle option selection
   const handleOptionSelect = (option: AutocompleteOption) => {
     if (disabled || isLoading) return;
@@ -138,6 +155,13 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (disabled || isLoading) return;
+
+    // Backspace ile temizleme - eğer seçili bir değer varsa ve input boş değilse
+    if (e.key === "Backspace" && value && searchTerm === "") {
+      e.preventDefault();
+      handleClear();
+      return;
+    }
 
     if (!isOpen) {
       if (e.key === "ArrowDown" || e.key === "Enter") {
@@ -239,6 +263,11 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     return searchTerm;
   }, [value, options, searchTerm, isOpen]);
 
+  // Check if we have a selected value for showing clear button
+  const hasSelectedValue = React.useMemo(() => {
+    return typeof value === "string" && value !== "" && !isOpen;
+  }, [value, isOpen]);
+
   // Update search term when value changes externally
   useEffect(() => {
     if (typeof value === "string" && value !== "") {
@@ -314,6 +343,19 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
               <i className={`ph-bold ${iconRight}`} />
             </span>
           )}
+          {/* Clear button - sadece seçili değer varsa göster */}
+          {hasSelectedValue && (
+            <span
+              className={`position-absolute play-button top-50 translate-middle-y inset-inline-end-0 ${
+                iconRight ? "me-100" : "me-40"
+              } text-neutral-400 hover-text-danger-600 cursor-pointer transition-colors`}
+              onClick={handleClear}
+              title="Temizle"
+            >
+              <i className="ph-bold ph-x"></i>
+            </span>
+          )}
+
           {/* Dropdown indicator */}
           <span
             className={`position-absolute top-50 translate-middle-y inset-inline-end-0 ${
