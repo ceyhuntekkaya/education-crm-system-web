@@ -4,10 +4,11 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 //  "https://jsonplaceholder.typicode.com"
 // http://46.62.141.0:8080/api
 // http://192.168.1.105:8080/api
+// https://demo.designexium.co.uk/api
 class ApiClient {
   private client: AxiosInstance;
 
-  constructor(baseURL: string = "http://192.168.1.105:8080/api") {
+  constructor(baseURL: string = "https://demo.designexium.co.uk/api") {
     this.client = axios.create({
       baseURL,
       timeout: 10000,
