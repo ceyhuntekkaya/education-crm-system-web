@@ -238,7 +238,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     const leftPadding = iconLeft ? "ps-60" : "px-16";
     const rightPadding = iconRight ? "pe-60" : "";
     const disabledClasses =
-      disabled || isLoading ? "opacity-60 cursor-not-allowed" : "";
+      disabled || isLoading ? "opacity-75 cursor-not-allowed" : "";
 
     switch (variant) {
       case "inline":

@@ -105,6 +105,7 @@ const FormContent = () => {
   });
 
   const formSections = [
+    // ** search
     {
       id: "search",
       title: null,
@@ -119,6 +120,7 @@ const FormContent = () => {
         </div>
       ),
     },
+    // ** location
     {
       id: "location",
       title: "Lokasyon",
@@ -179,6 +181,7 @@ const FormContent = () => {
         </div>
       ),
     },
+    // ** institutionTypes
     {
       id: "institutionTypes",
       title: "Kurum Türü",
@@ -191,6 +194,7 @@ const FormContent = () => {
         />
       ),
     },
+    // ** ageRange
     {
       id: "ageRange",
       title: null,
@@ -205,6 +209,7 @@ const FormContent = () => {
         />
       ),
     },
+    // ** feeRange
     {
       id: "feeRange",
       title: null,
@@ -219,6 +224,7 @@ const FormContent = () => {
         />
       ),
     },
+    // ** curriculum
     {
       id: "curriculum",
       title: "Müfredat Türü",
@@ -232,6 +238,7 @@ const FormContent = () => {
         />
       ),
     },
+    // ** language
     {
       id: "language",
       title: "Eğitim Dili",
@@ -245,6 +252,7 @@ const FormContent = () => {
         />
       ),
     },
+    // ** rating
     {
       id: "rating",
       title: "Minimum Puan",
@@ -258,6 +266,7 @@ const FormContent = () => {
         />
       ),
     },
+    // ** additional
     {
       id: "additional",
       title: "Ek Filtreler",
@@ -274,6 +283,7 @@ const FormContent = () => {
         </div>
       ),
     },
+    // ** sorting
     {
       id: "sorting",
       title: "Sıralama",
@@ -333,24 +343,24 @@ const FormContent = () => {
 
     const apiParams = {
       searchTerm: "",
-      institutionTypeIds: null,
-      minAge: null,
+      institutionTypeIds: undefined,
+      minAge: undefined,
       maxAge: 0,
       minFee: 0.1,
       maxFee: 0,
       curriculumType: "",
       languageOfInstruction: "",
-      countryId: null,
-      provinceId: null,
-      districtId: null,
-      neighborhoodId: null,
-      latitude: null,
-      longitude: null,
-      radiusKm: null,
-      minRating: null,
-      hasActiveCampaigns: null,
-      isSubscribed: null,
-      propertyFilters: null,
+      countryId: undefined,
+      provinceId: undefined,
+      districtId: undefined,
+      neighborhoodId: undefined,
+      latitude: undefined,
+      longitude: undefined,
+      radiusKm: undefined,
+      minRating: undefined,
+      hasActiveCampaigns: undefined,
+      isSubscribed: undefined,
+      propertyFilters: undefined,
       sortBy: "",
       sortDirection: "",
       page: 0,
