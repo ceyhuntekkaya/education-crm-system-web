@@ -53,7 +53,7 @@ const Results = () => {
         <InstitutionCard
           key={expandedCard.id}
           institution={expandedCard}
-          className="col-12 grid-item-transition card-expand-transition mb-32"
+          className="col-12 grid-item-transition card-expand-transition"
           isExpanded={true}
           onCardClick={() => handleCardClick(expandedCard.id?.toString() || "")}
           animationDelay={getAnimationDelay(0)}
@@ -66,7 +66,7 @@ const Results = () => {
       <InstitutionCard
         key={institution.id}
         institution={institution}
-        className="col-md-4 col-sm-6 col-xs-6 grid-item-transition"
+        className="col-md-4 col-sm-6 col-xs-6 grid-item-transition mb-24"
         isExpanded={false}
         onCardClick={() => handleCardClick(institution.id?.toString() || "")}
         animationDelay={getAnimationDelay(idx)}
@@ -76,7 +76,7 @@ const Results = () => {
 
   return (
     <div>
-      <div className="row gy-24">
+      <div className="row">
         {rows.map((row: typeof institutions, rowIdx: number) =>
           renderRow(row, rowIdx)
         )}

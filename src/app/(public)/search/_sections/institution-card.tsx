@@ -11,94 +11,6 @@ interface InstitutionCardProps {
   animationDelay?: string;
 }
 
-const ImagePlaceholder = ({ children }: { children: React.ReactNode }) => (
-  <div className="w-100 h-100 bg-neutral-100 d-flex align-items-center justify-content-center">
-    <span className="text-neutral-400">{children}</span>
-  </div>
-);
-
-const Badge = ({
-  text,
-  color,
-  icon,
-  position = "left",
-}: {
-  text: string;
-  color?: string;
-  icon?: string;
-  position?: "left" | "right";
-}) => (
-  <div
-    className={`position-absolute inset-block-start-16 ${
-      position === "left" ? "inset-inline-start-16" : "inset-inline-end-16"
-    }`}
-  >
-    <span
-      className="px-12 py-6 rounded-8 text-white text-sm fw-medium d-flex align-items-center gap-8"
-      style={{ backgroundColor: color ?? "#888" }}
-    >
-      {icon && <i className={`ph ${icon}`}></i>}
-      {text}
-    </span>
-  </div>
-);
-
-const ActionButton = ({
-  icon,
-  isActive = false,
-  variant = "default",
-}: {
-  icon: string;
-  isActive?: boolean;
-  variant?: "default" | "success" | "danger";
-}) => {
-  const getButtonClasses = () => {
-    const baseClasses =
-      "w-36 h-36 rounded-8 d-flex justify-content-center align-items-center box-shadow-sm transition-2";
-
-    if (variant === "success") {
-      return `${baseClasses} bg-success-600 text-white`;
-    }
-
-    if (variant === "danger" && isActive) {
-      return `${baseClasses} bg-danger-600 text-white`;
-    }
-
-    return `${baseClasses} bg-white text-neutral-600 hover-bg-danger-50 hover-text-danger-600`;
-  };
-
-  return (
-    <button className={getButtonClasses()}>
-      <i
-        className={`ph ${
-          isActive && variant === "danger" ? "ph-fill" : ""
-        } ph-${icon}`}
-      ></i>
-    </button>
-  );
-};
-
-const PropertyTag = ({
-  label,
-  value,
-  variant = "primary",
-}: {
-  label: string;
-  value: string;
-  variant?: "primary" | "success";
-}) => {
-  const colorClasses =
-    variant === "success"
-      ? "bg-success-25 text-success-700"
-      : "bg-main-25 text-main-700";
-
-  return (
-    <span className={`px-8 py-4 ${colorClasses} rounded-6 text-xs`}>
-      {label}: {value}
-    </span>
-  );
-};
-
 export const InstitutionCard = memo(
   ({
     institution,
@@ -304,7 +216,7 @@ export const InstitutionCard = memo(
 
                 {/* Quick Highlights Pills */}
                 {visibleHighlights.length > 0 && (
-                  <div className="mb-16">
+                  <div className="mb-24">
                     <div className="d-flex flex-wrap gap-4">
                       {visibleHighlights.slice(0, 2).map((highlight, index) => (
                         <span
@@ -331,7 +243,7 @@ export const InstitutionCard = memo(
                   size="sm"
                   rightIcon="ph-caret-down"
                   fullWidth
-                  className="mt-12"
+                  className="mt-24"
                 >
                   Detayları gör
                 </Button>
@@ -720,7 +632,7 @@ export const InstitutionCard = memo(
                   onClick={onCardClick}
                   size="sm"
                   rightIcon="ph-caret-up"
-                  className="mt-12 px-20 d-flex align-items-center gap-8 mx-auto"
+                  className="px-20 d-flex align-items-center gap-8 mx-auto"
                 >
                   Daha Az Göster
                 </Button>
