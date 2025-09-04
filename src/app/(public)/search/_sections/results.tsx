@@ -53,7 +53,7 @@ const Results = () => {
         <InstitutionCard
           key={expandedCard.id}
           institution={expandedCard}
-          className="col-12 grid-item-transition card-expand-transition"
+          className="col-12 grid-item-transition card-expand-transition mb-32"
           isExpanded={true}
           onCardClick={() => handleCardClick(expandedCard.id?.toString() || "")}
           animationDelay={getAnimationDelay(0)}
