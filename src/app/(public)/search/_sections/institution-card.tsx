@@ -1,27 +1,27 @@
-import Link from "next/link";
 import Image from "next/image";
 import { SchoolSearchResultDto } from "@/types/institution/InstitutionSearch.types";
 
 interface InstitutionCardProps {
   institution: SchoolSearchResultDto;
   className?: string;
+  isExpanded?: boolean;
+  onCardClick?: () => void;
 }
 
 export const InstitutionCard = ({
   institution,
   className = "",
+  isExpanded = false,
+  onCardClick,
 }: InstitutionCardProps) => (
-  <div className={`col-md-4 col-sm-6 col-xs-6 ${className}`}>
-    <div className="scale-hover-item bg-white rounded-16 p-16 h-100 box-shadow-md">
+  <div className={className}>
+    <div
+      className={`scale-hover-item bg-white rounded-16 p-16 h-100 box-shadow-md cursor-pointer `}
+      onClick={onCardClick}
+    >
       {/* Cover Image */}
-      <div
-        className="position-relative rounded-12 overflow-hidden mb-16"
-        style={{ height: "200px" }}
-      >
-        <Link
-          href={`/institution/${institution.slug ?? ""}`}
-          className="w-100 h-100 d-block"
-        >
+      <div className="position-relative rounded-12 overflow-hidden mb-16 h-166-px">
+        <div className="w-100 h-100 d-block">
           {institution.coverImageUrl ? (
             <Image
               src={institution.coverImageUrl}
@@ -34,7 +34,7 @@ export const InstitutionCard = ({
               <span className="text-neutral-400">No Image</span>
             </div>
           )}
-        </Link>
+        </div>
 
         {/* Institution Type Badge */}
         {(institution.institutionTypeName ||
@@ -96,7 +96,7 @@ export const InstitutionCard = ({
       </div>
 
       {/* Content */}
-      <div className="px-8">
+      <div className={`px-8 ${isExpanded ? "content-fade-in" : ""}`}>
         {/* Logo and Institution Name */}
         <div className="d-flex align-items-center gap-12 mb-12">
           <div className="w-40 h-40 rounded-8 overflow-hidden flex-shrink-0 bg-neutral-50">
@@ -115,13 +115,8 @@ export const InstitutionCard = ({
             )}
           </div>
           <div className="flex-grow-1">
-            <h5 className="mb-4">
-              <Link
-                href={`/institution/${institution.slug ?? ""}`}
-                className="link text-line-2 hover-text-main-600"
-              >
-                {institution.name ?? "İsim Yok"}
-              </Link>
+            <h5 className="mb-4 text-line-2">
+              {institution.name ?? "İsim Yok"}
             </h5>
             <p className="text-sm text-neutral-600 mb-0">
               {institution.campusName ?? ""}
