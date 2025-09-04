@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useInstitutionSearch from "../_hooks/use-institution-search-hook";
 import { InstitutionCard } from "./institution-card";
 import Pagination from "./pagination";
@@ -9,6 +9,7 @@ const CARDS_PER_ROW = 3;
 const ANIMATION_DELAY_INCREMENT = 100;
 
 const Results = () => {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const { institutions } = useInstitutionSearch();
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
@@ -33,6 +34,15 @@ const Results = () => {
 
     // Farklı bir karta tıklandıysa direkt olarak aç
     setExpandedCardId(institutionId);
+
+    // Scroll işlemi - kısa bir delay ile
+    setTimeout(() => {
+      if (scrollRef.current) {
+        const element = scrollRef.current;
+        const y = element.getBoundingClientRect().top + window.scrollY - 125;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }, 50);
   };
 
   // Split institutions into rows
@@ -57,6 +67,7 @@ const Results = () => {
           isExpanded={true}
           onCardClick={() => handleCardClick(expandedCard.id?.toString() || "")}
           animationDelay={getAnimationDelay(0)}
+          ref={scrollRef}
         />
       );
     }
@@ -70,6 +81,7 @@ const Results = () => {
         isExpanded={false}
         onCardClick={() => handleCardClick(institution.id?.toString() || "")}
         animationDelay={getAnimationDelay(idx)}
+        ref={scrollRef}
       />
     ));
   };
