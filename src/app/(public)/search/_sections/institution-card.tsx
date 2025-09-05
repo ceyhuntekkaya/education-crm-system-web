@@ -1,5 +1,6 @@
 import { memo, useState, forwardRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { SchoolSearchResultDto } from "@/types/institution/InstitutionSearch.types";
 import { Button, Icon } from "@/components";
 
@@ -247,16 +248,18 @@ export const InstitutionCard = memo(
                 </div>
 
                 {/* Expand Trigger - İçerik alanında */}
-                <div className="border-top ">
-                  <Button
-                    variant="outline"
-                    onClick={onCardClick}
-                    size="sm"
-                    rightIcon="ph-caret-down"
-                    className="mt-24 mx-auto"
-                  >
-                    Detayları gör
-                  </Button>
+                <div className="border-top pt-16">
+                  <div className="d-flex gap-8">
+                    <Button
+                      variant="outline"
+                      onClick={onCardClick}
+                      size="sm"
+                      rightIcon="ph-caret-down"
+                      className="flex-grow-1"
+                    >
+                      Detayları gör
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}
@@ -644,9 +647,11 @@ export const InstitutionCard = memo(
                       <div className="flex-grow-1"></div>
 
                       {/* Action Button - Bottom */}
-                      <Button rightIcon="ph-eye" className="mt-12">
-                        Kuruma Git
-                      </Button>
+                      <Link href={`/search/${institution.id}`}>
+                        <Button rightIcon="ph-eye" className="mt-12 w-100">
+                          Kuruma Git
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
