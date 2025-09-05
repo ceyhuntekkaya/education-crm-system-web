@@ -1,0 +1,42 @@
+import { SurveyTriggerEvent } from "../../../enums/SurveyTriggerEvent";
+import { SurveyType } from "../../../enums/SurveyType";
+import { SurveyQuestionDto } from "./SurveyQuestionDto";
+
+export interface SurveyDto {
+  id: number;
+  title: string;
+  description: string;
+  surveyType: SurveyType;
+  triggerEvent: SurveyTriggerEvent;
+  isActive: boolean;
+  isAnonymous: boolean;
+  isMandatory: boolean;
+  showResultsToPublic: boolean;
+  sendDelayHours: number;
+  reminderDelayHours: number;
+  maxReminders: number;
+  expiresAfterDays: number;
+  primaryColor: string;
+  logoUrl: string;
+  headerImageUrl: string;
+  customCss: string;
+  welcomeMessage: string;
+  thankYouMessage: string;
+  completionRedirectUrl: string;
+  emailSubject: string;
+  emailBody: string;
+  emailTemplateId: string;
+  totalSent: number;
+  totalStarted: number;
+  totalCompleted: number;
+  averageCompletionTimeSeconds: number;
+  averageRating: number;
+  startRate: number;
+  completionRate: number;
+  questionCount: number;
+  estimatedDuration: string;
+  hasRatingQuestions: boolean;
+  questions: SurveyQuestionDto[];
+  createdAt: string;
+  updatedAt: string;
+}

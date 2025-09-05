@@ -11,9 +11,9 @@ import {
   FormRange,
 } from "@/components";
 
-import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
 import { useInstitutionSearchHook } from "../_hooks";
+import { FormValues } from "@/types";
 
 // Form seçenekleri data'ları
 

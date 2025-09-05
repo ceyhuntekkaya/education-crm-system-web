@@ -1,7 +1,7 @@
 import { memo, useState, forwardRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SchoolSearchResultDto } from "@/types/institution/InstitutionSearch.types";
+import { SchoolSearchResultDto } from "@/types/dto/institution/InstitutionSearch.types";
 import { Button, Icon } from "@/components";
 
 interface InstitutionCardProps {

@@ -10,8 +10,8 @@ import {
   FormRadio,
 } from "@/components";
 
-import { FormValues } from "@/contexts";
 import { useFormHook } from "@/hooks";
+import { FormValues } from "@/types";
 
 const validationSchema = yup.object({
   searchTerm: yup.string(),

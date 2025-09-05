@@ -1,13 +1,12 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
-import { FormProvider, useAuth, FormValues } from "@/contexts";
 import * as yup from "yup";
 import { Button, Form, FormInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Role } from "@/enums/Role";
 import { PATHS } from "@/routes/paths";
-import { LoginResponse } from "@/types";
+import { AuthenticationResponse, FormValues } from "@/types";
+import { FormProvider, useAuth } from "@/contexts";
 
 const validationSchema = yup.object({
   username: yup.string().required("Kullanıcı adı zorunludur"),
@@ -40,7 +39,9 @@ const LoginFormContent: React.FC = () => {
       password: String(values.password ?? ""),
     };
     const res = await (
-      login as (formData: typeof loginRequest) => Promise<LoginResponse>
+      login as (
+        formData: typeof loginRequest
+      ) => Promise<AuthenticationResponse>
     )(loginRequest);
 
     if (res?.accessToken) {

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { FormEvent } from "react";
-import { useForm, FormValues } from "@/contexts";
+import { useForm } from "@/contexts";
+import { FormValues } from "@/types";
 
 // Form props tipi
 interface FormProps {
