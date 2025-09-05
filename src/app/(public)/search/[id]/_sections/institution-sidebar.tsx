@@ -15,7 +15,8 @@ export default function InstitutionSidebar({
     <div className="col-lg-4">
       {/* Profile Card */}
       <div className="border border-neutral-30 rounded-12 bg-white p-8">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32 bg-main-25">
+        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+          {/* Logo */}
           <div className="p-16 border border-neutral-50 rounded-circle aspect-ratio-1 max-w-150 max-h-150 mx-auto">
             <div className="position-relative">
               <Image
@@ -54,6 +55,44 @@ export default function InstitutionSidebar({
                   ({school.ratingCount})
                 </span>
               </span>
+            </div>
+          </div>
+
+          {/* Hızlı Bilgiler */}
+          <div className="row g-8 mb-20">
+            <div className="col-6 mb-16">
+              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
+                <div className="text-lg fw-bold text-main-600 mb-4">
+                  {school.currentStudentCount}
+                </div>
+                <p className="text-xs text-neutral-600 mb-0">Öğrenci</p>
+              </div>
+            </div>
+            <div className="col-6 mb-16">
+              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
+                <div className="text-lg fw-bold text-success-600 mb-4">
+                  {school.classSizeAverage}
+                </div>
+                <p className="text-xs text-neutral-600 mb-0">Sınıf Ort.</p>
+              </div>
+            </div>
+            <div className="col-6 mb-16">
+              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
+                <div className="text-lg fw-bold text-warning-600 mb-4">
+                  {school.viewCount > 1000
+                    ? `${(school.viewCount / 1000).toFixed(1)}K`
+                    : school.viewCount}
+                </div>
+                <p className="text-xs text-neutral-600 mb-0">Görüntülenme</p>
+              </div>
+            </div>
+            <div className="col-6 mb-16">
+              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
+                <div className="text-lg fw-bold text-danger-600 mb-4">
+                  {school.likeCount}
+                </div>
+                <p className="text-xs text-neutral-600 mb-0">Beğeni</p>
+              </div>
             </div>
           </div>
 
@@ -101,12 +140,19 @@ export default function InstitutionSidebar({
               <span className="text-2xl text-main-600">
                 <i className="ph-bold ph-phone-call" />
               </span>
-              <a
-                href={`tel:${school.phone}`}
-                className="text-neutral-700 hover-text-main-600"
-              >
-                {school.phone}
-              </a>
+              <div className="d-flex flex-column">
+                <a
+                  href={`tel:${school.phone}`}
+                  className="text-neutral-700 hover-text-main-600"
+                >
+                  {school.phone}
+                </a>
+                {school.extension && (
+                  <small className="text-neutral-500">
+                    Dahili: {school.extension}
+                  </small>
+                )}
+              </div>
             </div>
             <div className="flex-align gap-16">
               <span className="text-2xl text-success-600">
@@ -134,7 +180,7 @@ export default function InstitutionSidebar({
 
       {/* Contact Form */}
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32 bg-main-25">
+        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
           <h4 className="mb-16">İletişime Geç</h4>
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
           <form action="#" className="d-flex flex-column gap-20">

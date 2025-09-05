@@ -1,195 +1,183 @@
-interface InstitutionPricingInfoProps {
+interface InstitutionLocationInfoProps {
   school: any;
-  formatCurrency: (amount: number) => string;
+  campus: any;
 }
 
-export default function InstitutionPricingInfo({
+export default function InstitutionLocationInfo({
   school,
-  formatCurrency,
-}: InstitutionPricingInfoProps) {
+  campus,
+}: InstitutionLocationInfoProps) {
   return (
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
         <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          {/* Ana Ücret Bilgileri */}
-          <h4 className="mb-16">Ücret Bilgileri</h4>
+          <h4 className="mb-16">Konum ve Bölge Bilgileri</h4>
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
 
-          {/* Temel Ücretler */}
-          <h5 className="mb-16">Temel Ücret Yapısı</h5>
+          {/* İl Bilgileri */}
+          <h5 className="mb-16 text-main-600">İl Bilgileri</h5>
           <ul className="tution-info-list bg-white rounded-8 mb-32">
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Kayıt Ücreti
+                İl Adı
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-main-600 fw-semibold text-lg">
-                  {formatCurrency(school.registrationFee)}
+                <span className="text-main-600 fw-semibold">
+                  {school.campus.province.name}
                 </span>
               </span>
             </li>
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Aylık Ücret
+                İl Kodu
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-success-600 fw-semibold text-lg">
-                  {formatCurrency(school.monthlyFee)}
+                {school.campus.province.code}
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Plaka Kodu
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="bg-main-50 text-main-600 px-12 py-6 rounded-8 fw-semibold">
+                  {school.campus.province.plateCode}
                 </span>
               </span>
             </li>
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Yıllık Ücret
+                Büyükşehir mi?
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-warning-600 fw-semibold text-lg">
-                  {formatCurrency(school.annualFee)}
+                <span
+                  className={`px-12 py-6 rounded-8 text-sm fw-medium ${
+                    school.campus.province.isMetropolitan
+                      ? "bg-success-50 text-success-600"
+                      : "bg-neutral-50 text-neutral-600"
+                  }`}
+                >
+                  {school.campus.province.isMetropolitan ? "Evet" : "Hayır"}
                 </span>
               </span>
             </li>
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                10 Aylık Toplam
+                İldeki Okul Sayısı
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-primary-600 fw-semibold text-lg">
-                  {formatCurrency(
-                    school.registrationFee + school.monthlyFee * 10
-                  )}
+                <span className="text-primary-600 fw-semibold">
+                  {school.campus.province.schoolCount?.toLocaleString()} okul
                 </span>
               </span>
             </li>
           </ul>
 
-          {/* Ödeme Seçenekleri */}
-          <h5 className="mb-16">Ödeme Seçenekleri ve İndirimler</h5>
+          {/* İlçe Bilgileri */}
+          <h5 className="mb-16 text-success-600">İlçe Bilgileri</h5>
           <ul className="tution-info-list bg-white rounded-8 mb-32">
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Aylık Ödeme
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-neutral-600 fw-medium">
-                  Her ayın 1&apos;i
-                </span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                3 Aylık Ödeme
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-success-600 fw-semibold">%5 İndirim</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                6 Aylık Ödeme
+                İlçe Adı
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-success-600 fw-semibold">
-                  %10 İndirim
+                  {school.campus.district.name}
                 </span>
               </span>
             </li>
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Yıllık Ödeme
+                İlçe Kodu
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                {school.campus.district.code}
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                İlçe Türü
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="bg-info-50 text-info-600 px-12 py-6 rounded-8 text-sm fw-medium">
+                  {school.campus.district.districtType}
+                </span>
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Merkez İlçe mi?
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span
+                  className={`px-12 py-6 rounded-8 text-sm fw-medium ${
+                    school.campus.district.isCentral
+                      ? "bg-warning-50 text-warning-600"
+                      : "bg-neutral-50 text-neutral-600"
+                  }`}
+                >
+                  {school.campus.district.isCentral ? "Evet" : "Hayır"}
+                </span>
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                İlçedeki Okul Sayısı
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-success-600 fw-semibold">
-                  %15 İndirim
+                  {school.campus.district.schoolCount?.toLocaleString()} okul
+                </span>
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Sosyoekonomik Seviye
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="bg-primary-50 text-primary-600 px-12 py-6 rounded-8 fw-semibold">
+                  {school.campus.district.socioeconomicLevel === "UPPER_MIDDLE"
+                    ? "Üst Orta Gelir"
+                    : school.campus.district.socioeconomicLevel}
                 </span>
               </span>
             </li>
           </ul>
 
-          {/* Ödeme Yöntemleri */}
-          <h5 className="mb-16">Kabul Edilen Ödeme Yöntemleri</h5>
-          <ul className="tution-info-list bg-white rounded-8 mb-32">
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Nakit Ödeme
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-success-600 fw-medium">✓ Mevcut</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Kredi Kartı
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-success-600 fw-medium">✓ Taksitli</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Banka Havalesi/EFT
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-success-600 fw-medium">✓ Mevcut</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Otomatik Ödeme
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-info-600 fw-medium">✓ Talimat</span>
-              </span>
-            </li>
-          </ul>
-
-          {/* Önemli Notlar */}
-          <h5 className="mb-16">Önemli Koşullar</h5>
+          {/* Kampüs Konum Özeti */}
+          <h5 className="mb-16 text-warning-600">Kampüs Konum Özeti</h5>
           <ul className="tution-info-list bg-white rounded-8">
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Kayıt Ücreti
+                Genel Konum
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-warning-600 fw-medium">İade edilmez</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Aylık Ücretler
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-neutral-600 fw-medium">Peşin alınır</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Fiyat Geçerliliği
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-neutral-600 fw-medium">
-                  2024-2025 Eğitim Yılı
+                <span className="text-main-600 fw-medium">
+                  {school.campus.province.name} ili,{" "}
+                  {school.campus.district.name} ilçesi
                 </span>
               </span>
             </li>
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Fiyat Değişikliği
+                Bölgedeki Eğitim
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-warning-600 fw-medium">
-                  Hakkı saklıdır
-                </span>
+                İlçede{" "}
+                <span className="text-success-600 fw-semibold">
+                  {school.campus.district.schoolCount}
+                </span>{" "}
+                okul bulunmaktadır
               </span>
             </li>
           </ul>

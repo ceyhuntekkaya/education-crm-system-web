@@ -6,6 +6,10 @@ import {
   InstitutionGeneralInfo,
   InstitutionPricingInfo,
   InstitutionReviews,
+  InstitutionCampusInfo,
+  InstitutionStatistics,
+  InstitutionLocationInfo,
+  InstitutionSeoInfo,
 } from "./_sections";
 
 // UI Components
@@ -36,6 +40,20 @@ export default function InstitutionDetailPage() {
       isActive: true,
     },
     {
+      id: "pills-campus",
+      icon: "ph-bold ph-buildings",
+      title: "Kampüs & Okul Grubu",
+      children: (
+        <InstitutionCampusInfo school={school} campus={campus} brand={brand} />
+      ),
+    },
+    {
+      id: "pills-location",
+      icon: "ph-bold ph-map-pin",
+      title: "Konum Bilgileri",
+      children: <InstitutionLocationInfo school={school} campus={campus} />,
+    },
+    {
       id: "pills-qualification",
       icon: "ph-bold ph-currency-circle-dollar",
       title: "Ücretler",
@@ -45,6 +63,18 @@ export default function InstitutionDetailPage() {
           formatCurrency={formatCurrency}
         />
       ),
+    },
+    {
+      id: "pills-statistics",
+      icon: "ph-bold ph-chart-bar",
+      title: "İstatistikler",
+      children: <InstitutionStatistics school={school} campus={campus} />,
+    },
+    {
+      id: "pills-seo",
+      icon: "ph-bold ph-magnifying-glass",
+      title: "SEO Bilgileri",
+      children: <InstitutionSeoInfo school={school} />,
     },
     {
       id: "pills-reviews",
