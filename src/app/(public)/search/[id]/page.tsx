@@ -10,6 +10,7 @@ import {
   InstitutionStatistics,
   InstitutionLocationInfo,
   InstitutionSeoInfo,
+  InstitutionCampaigns,
 } from "./_sections";
 
 // UI Components
@@ -19,7 +20,7 @@ import { TabContent, TabNavigation, type TabItem } from "@/components";
 import { formatCurrency, renderStars } from "./_utils";
 
 // Mock data
-import { institutionMockData } from "./_mock";
+import { institutionMockData, campaignMockData } from "./_mock";
 
 export default function InstitutionDetailPage() {
   const { school, campus, brand } = institutionMockData;
@@ -63,6 +64,12 @@ export default function InstitutionDetailPage() {
           formatCurrency={formatCurrency}
         />
       ),
+    },
+    {
+      id: "pills-campaigns",
+      icon: "ph-bold ph-tag",
+      title: "Kampanyalar",
+      children: <InstitutionCampaigns campaigns={campaignMockData} />,
     },
     {
       id: "pills-statistics",

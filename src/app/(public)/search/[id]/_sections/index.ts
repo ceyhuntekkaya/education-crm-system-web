@@ -8,3 +8,4 @@ export { default as InstitutionStatistics } from "./institution-statistics";
 export { default as InstitutionLocationInfo } from "./institution-location-info";
 export { default as InstitutionSeoInfo } from "./institution-seo-info";
 export { default as ContactForm } from "./contact-form";
+export { default as InstitutionCampaigns } from "./institution-campaigns";
