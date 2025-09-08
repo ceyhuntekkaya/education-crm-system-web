@@ -102,7 +102,9 @@ export default function InstitutionDetailPage() {
           {/* Sağ İçerik - Tab Yapısı */}
           <div className="col-lg-8">
             {/* Tab Navigation */}
-            <TabNavigation tabs={tabItems} />
+            <div className="border border-neutral-30 rounded-12 bg-white p-8">
+              <TabNavigation tabs={tabItems} />
+            </div>
 
             {/* Tab Content */}
             <TabContent tabs={tabItems} />

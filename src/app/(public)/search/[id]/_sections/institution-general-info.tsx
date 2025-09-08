@@ -114,7 +114,7 @@ export default function InstitutionGeneralInfo({
       {/* Cover Image */}
       {school.coverImageUrl && (
         <div
-          className="position-relative rounded-16 overflow-hidden my-24"
+          className="position-relative rounded-16 overflow-hidden my-24 "
           style={{ height: "300px" }}
         >
           <Image
