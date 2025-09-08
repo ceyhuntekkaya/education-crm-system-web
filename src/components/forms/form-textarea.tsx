@@ -33,14 +33,29 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
   // Variant bazlı stil sınıfları
   const getVariantClasses = (): string => {
     const baseClasses = "rounded-24 outline-0 w-100 px-16 py-12";
+    const errorClasses = error
+      ? "border-danger-600 text-danger-600 placeholder-danger-600"
+      : "";
 
     switch (variant) {
       case "inline":
-        return `${baseClasses} common-input bg-main-25 border-neutral-30`;
+        return `${baseClasses} common-input bg-main-25 ${
+          error ? "border-danger-600" : "border-neutral-30"
+        } ${errorClasses}`;
       case "outline":
-        return `${baseClasses} bg-white text-black border border-transparent focus-border-main-600`;
+        return `${baseClasses} bg-white ${
+          error ? "text-danger-600" : "text-black"
+        } border ${
+          error
+            ? "border-danger-600"
+            : "border-transparent focus-border-main-600"
+        } ${error ? "placeholder-danger-600" : ""}`;
       default:
-        return `${baseClasses} common-input border-transparent focus-border-main-600`;
+        return `${baseClasses} common-input ${
+          error
+            ? "border-danger-600 focus-border-danger-600"
+            : "border-transparent focus-border-main-600"
+        } ${errorClasses}`;
     }
   };
 

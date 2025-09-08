@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormField } from "@/contexts";
 
 type FormInputVariant = "inline" | "outline";
@@ -12,6 +12,15 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   customStyle?: boolean;
   iconLeft?: string;
   iconRight?: string;
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "number"
+    | "telephone"
+    | "tel"
+    | "url"
+    | "search";
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -29,31 +38,109 @@ export const FormInput: React.FC<FormInputProps> = ({
 }) => {
   const { value, error, required, onChange } = useFormField(name);
 
+  // Telefon için display state
+  const [displayValue, setDisplayValue] = useState<string>("");
+
+  // Türkiye telefon formatlaması - sadece gösterim için
+  const formatPhoneDisplay = (value: string): string => {
+    // Sadece rakamları al
+    const cleaned = value.replace(/\D/g, "");
+
+    // Türkiye telefon numarası kontrolü (05XX format)
+    if (cleaned.length === 0) return "";
+
+    // İlk rakam 0 değilse, başına 0 ekle
+    let phone = cleaned;
+    if (phone.length > 0 && phone[0] !== "0") {
+      phone = "0" + phone;
+    }
+
+    // Formatla: (05XX) XXX XX XX
+    if (phone.length <= 4) {
+      return `(${phone}`;
+    } else if (phone.length <= 7) {
+      return `(${phone.slice(0, 4)}) ${phone.slice(4)}`;
+    } else if (phone.length <= 9) {
+      return `(${phone.slice(0, 4)}) ${phone.slice(4, 7)} ${phone.slice(7)}`;
+    } else {
+      return `(${phone.slice(0, 4)}) ${phone.slice(4, 7)} ${phone.slice(
+        7,
+        9
+      )} ${phone.slice(9, 11)}`;
+    }
+  };
+
+  // Telefon numarasından sadece rakamları al
+  const getCleanPhoneNumber = (value: string): string => {
+    const cleaned = value.replace(/\D/g, "");
+    // İlk rakam 0 değilse, başına 0 ekle
+    if (cleaned.length > 0 && cleaned[0] !== "0") {
+      return "0" + cleaned;
+    }
+    return cleaned;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val: string | number = e.target.value;
-    if (type === "number" && val !== "") {
+
+    if (type === "telephone" || type === "tel") {
+      // Display value'yu formatla
+      const formatted = formatPhoneDisplay(val as string);
+      setDisplayValue(formatted);
+
+      // Actual value olarak sadece rakamları gönder
+      const cleanValue = getCleanPhoneNumber(val as string);
+      onChange(cleanValue);
+    } else if (type === "number" && val !== "") {
       val = Number(val);
+      onChange(val);
+    } else {
+      onChange(val);
     }
-    onChange(val);
   };
+
+  // Telefon tipinde value'yu kontrol et
+  useEffect(() => {
+    if ((type === "telephone" || type === "tel") && value) {
+      const formatted = formatPhoneDisplay(value as string);
+      setDisplayValue(formatted);
+    }
+  }, [value, type]);
 
   // Variant bazlı stil sınıfları
   const getVariantClasses = (): string => {
     const baseClasses = "rounded-pill outline-0 w-100 h-48";
     const leftPadding = iconLeft ? "ps-60" : "px-16";
     const rightPadding = iconRight ? "pe-60" : "";
+    const errorClasses = error
+      ? "border-danger-600 text-danger-600 placeholder-danger-600"
+      : "";
 
     switch (variant) {
       case "inline":
         return `${baseClasses} common-input bg-main-25 ${
           iconLeft ? "ps-48" : ""
-        } ${iconRight ? "pe-48" : ""} border-neutral-30`;
+        } ${iconRight ? "pe-48" : ""} ${
+          error ? "border-danger-600" : "border-neutral-30"
+        } ${errorClasses}`;
       case "outline":
-        return `${baseClasses} bg-white text-black border border-transparent focus-border-main-600 ${leftPadding} ${rightPadding}`;
+        return `${baseClasses} bg-white ${
+          error ? "text-danger-600" : "text-black"
+        } border ${
+          error
+            ? "border-danger-600"
+            : "border-transparent focus-border-main-600"
+        } ${leftPadding} ${rightPadding} ${
+          error ? "placeholder-danger-600" : ""
+        }`;
       default:
         return `${baseClasses} common-input ${iconLeft ? "ps-48" : ""} ${
           iconRight ? "pe-48" : ""
-        } border-transparent focus-border-main-600`;
+        } ${
+          error
+            ? "border-danger-600 focus-border-danger-600"
+            : "border-transparent focus-border-main-600"
+        } ${errorClasses}`;
     }
   };
 
@@ -118,12 +205,16 @@ export const FormInput: React.FC<FormInputProps> = ({
         <input
           id={id || name}
           name={name}
-          type={type}
+          type={type === "telephone" ? "tel" : type}
           className={getVariantClasses()}
           placeholder={placeholder}
           disabled={disabled}
           value={
-            typeof value === "string" || typeof value === "number" ? value : ""
+            type === "telephone" || type === "tel"
+              ? displayValue
+              : typeof value === "string" || typeof value === "number"
+              ? value
+              : ""
           }
           onChange={handleChange}
           required={required}

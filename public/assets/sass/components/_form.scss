@@ -80,6 +80,11 @@
             color: var(--neutral-100);
         }
     }
+    &-danger-600 {
+        &::placeholder {
+            color: var(--danger-600) !important;
+        }
+    }
 }
 
 /* input End */
