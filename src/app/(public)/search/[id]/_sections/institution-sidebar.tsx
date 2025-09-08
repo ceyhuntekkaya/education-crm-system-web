@@ -64,7 +64,7 @@ export default function InstitutionSidebar({
   ];
 
   return (
-    <div className="col-lg-4">
+    <div>
       {/* Profile Card */}
       <div className="border border-neutral-30 rounded-12 bg-white p-8">
         <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">

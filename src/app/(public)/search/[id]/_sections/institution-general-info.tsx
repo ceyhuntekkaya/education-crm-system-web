@@ -6,21 +6,119 @@ interface InstitutionGeneralInfoProps {
   renderStars: (rating: number) => JSX.Element;
 }
 
+const tempUrl =
+  "https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg";
+const tempIconUrl =
+  "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
+
 export default function InstitutionGeneralInfo({
   school,
   campus,
   renderStars,
 }: InstitutionGeneralInfoProps) {
+  const institutionInfoItems = [
+    {
+      label: "Kurum Adı",
+      value: <span className="text-main-600 fw-semibold">{school.name}</span>,
+    },
+    {
+      label: "Kurum Türü",
+      value: (
+        <span className="fw-semibold text-warning-600 text-md">
+          <div className="d-flex align-items-center gap-8">
+            {school.institutionType.iconUrl && (
+              <Image
+                src={tempIconUrl || school.institutionType.iconUrl}
+                alt={school.institutionType.displayName}
+                width={20}
+                height={20}
+              />
+            )}
+            <span
+              className="px-12 py-4 rounded-pill text-sm fw-medium"
+              style={{
+                backgroundColor: `${school.institutionType.colorCode}20`,
+                color: school.institutionType.colorCode,
+                border: `1px solid ${school.institutionType.colorCode}30`,
+              }}
+            >
+              {school.institutionType.displayName}
+            </span>
+          </div>
+          <small className="text-neutral-500 d-block mt-4">
+            {school.institutionType.description}
+          </small>
+        </span>
+      ),
+    },
+    {
+      label: "Yaş Aralığı",
+      value: `${school.minAge} - ${school.maxAge} yaş`,
+    },
+    {
+      label: "Müfredat Türü",
+      value: school.curriculumType,
+    },
+    {
+      label: "Eğitim Dili",
+      value: school.languageOfInstruction,
+    },
+    {
+      label: "Yabancı Dil",
+      value: school.foreignLanguages,
+    },
+    {
+      label: "Öğrenci Kapasitesi",
+      value: `${school.currentStudentCount} / ${school.capacity}`,
+    },
+    {
+      label: "Ortalama Sınıf Mevcudu",
+      value: `${school.classSizeAverage} öğrenci`,
+    },
+    {
+      label: "Görüntülenme Sayısı",
+      value: school.viewCount.toLocaleString(),
+    },
+    {
+      label: "Kampüs",
+      value: campus.name,
+    },
+    {
+      label: "Website",
+      value: (
+        <a
+          href={campus.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-main-600"
+        >
+          {campus.websiteUrl}
+        </a>
+      ),
+    },
+    {
+      label: "Değerlendirme",
+      value: (
+        <div className="flex-align gap-8">
+          {renderStars(school.ratingAverage)}
+          <span className="text-md text-neutral-700 ms-8">
+            ({school.ratingCount} değerlendirme)
+          </span>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className="tutor-details__content">
       {/* Cover Image */}
       {school.coverImageUrl && (
         <div
-          className="position-relative rounded-16 overflow-hidden mb-24"
+          className="position-relative rounded-16 overflow-hidden my-24"
           style={{ height: "300px" }}
         >
           <Image
-            src={school.coverImageUrl}
+            src={tempUrl || school.coverImageUrl}
             alt={school.name}
             fill
             className="object-cover"
@@ -54,145 +152,16 @@ export default function InstitutionGeneralInfo({
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
 
           <ul className="tution-info-list bg-white rounded-8">
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Kurum Adı
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-main-600 fw-semibold">{school.name}</span>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Kurum Türü
-              </span>
-              <span className="w-50-percent fw-semibold text-warning-600 text-md">
-                <div className="d-flex align-items-center gap-8">
-                  {school.institutionType.iconUrl && (
-                    <Image
-                      src={school.institutionType.iconUrl}
-                      alt={school.institutionType.displayName}
-                      width={20}
-                      height={20}
-                    />
-                  )}
-                  <span
-                    className="px-12 py-4 rounded-pill text-sm fw-medium"
-                    style={{
-                      backgroundColor: `${school.institutionType.colorCode}20`,
-                      color: school.institutionType.colorCode,
-                      border: `1px solid ${school.institutionType.colorCode}30`,
-                    }}
-                  >
-                    {school.institutionType.displayName}
-                  </span>
-                </div>
-                <small className="text-neutral-500 d-block mt-4">
-                  {school.institutionType.description}
-                </small>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Yaş Aralığı
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.minAge} - {school.maxAge} yaş
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Müfredat Türü
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.curriculumType}
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Eğitim Dili
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.languageOfInstruction}
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Yabancı Dil
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.foreignLanguages}
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Öğrenci Kapasitesi
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.currentStudentCount} / {school.capacity}
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Ortalama Sınıf Mevcudu
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.classSizeAverage} öğrenci
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Görüntülenme Sayısı
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {school.viewCount.toLocaleString()}
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Kampüs
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                {campus.name}
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Website
-              </span>
-              <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <a
-                  href={campus.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-main-600"
-                >
-                  {campus.websiteUrl}
-                </a>
-              </span>
-            </li>
-
-            <li className="d-flex align-items-start px-32 py-16">
-              <span className="w-50-percent fw-semibold text-neutral-700">
-                Değerlendirme
-              </span>
-              <div className="flex-align gap-8">
-                {renderStars(school.ratingAverage)}
-                <span className="text-md text-neutral-700 ms-8">
-                  ({school.ratingCount} değerlendirme)
+            {institutionInfoItems.map((item, index) => (
+              <li key={index} className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  {item.label}
                 </span>
-              </div>
-            </li>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                  {item.value}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

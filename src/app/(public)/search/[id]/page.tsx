@@ -91,11 +91,13 @@ export default function InstitutionDetailPage() {
       <div className="container">
         <div className="row gy-4">
           {/* Sol Sidebar - Profil ve İletişim */}
-          <InstitutionSidebar
-            school={school as any}
-            campus={campus as any}
-            renderStars={renderStars}
-          />
+          <div className="col-lg-4">
+            <InstitutionSidebar
+              school={school as any}
+              campus={campus as any}
+              renderStars={renderStars}
+            />
+          </div>
 
           {/* Sağ İçerik - Tab Yapısı */}
           <div className="col-lg-8">
