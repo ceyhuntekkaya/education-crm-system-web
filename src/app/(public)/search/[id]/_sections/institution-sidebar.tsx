@@ -8,7 +8,7 @@ interface InstitutionSidebarProps {
 }
 
 const tempImgUrl =
-  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Ftr%2Fsearch%2Fschool-cartoon%3Fimage_type%3Dillustration&psig=AOvVaw2nfx7Ed00X6UE7qDyaasxA&ust=1757402665534000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCPjzoZ7RyI8DFQAAAAAdAAAAABAE";
+  "https://static.vecteezy.com/system/resources/previews/004/641/880/non_2x/illustration-of-high-school-building-school-building-free-vector.jpg";
 
 export default function InstitutionSidebar({
   school,
@@ -24,7 +24,7 @@ export default function InstitutionSidebar({
           <div className="p-16 border border-neutral-50 rounded-circle aspect-ratio-1 max-w-150 max-h-150 mx-auto">
             <div className="position-relative">
               <Image
-                src={school.logoUrl || tempImgUrl}
+                src={tempImgUrl || school.logoUrl}
                 alt={school.name || "Okul Logosu"}
                 width={150}
                 height={150}
