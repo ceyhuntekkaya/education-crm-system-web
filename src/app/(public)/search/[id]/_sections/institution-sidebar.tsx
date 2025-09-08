@@ -1,5 +1,7 @@
 import { CampusDto, SchoolDto } from "@/types";
 import Image from "next/image";
+import { formatViewCount } from "../_utils";
+import { ContactForm } from ".";
 
 interface InstitutionSidebarProps {
   school: SchoolDto;
@@ -15,6 +17,52 @@ export default function InstitutionSidebar({
   campus,
   renderStars,
 }: InstitutionSidebarProps) {
+  const socialMediaLinks = [
+    {
+      url: campus.facebookUrl,
+      icon: "ph-facebook-logo",
+      platform: "Facebook",
+    },
+    {
+      url: campus.twitterUrl,
+      icon: "ph-twitter-logo",
+      platform: "Twitter",
+    },
+    {
+      url: campus.instagramUrl,
+      icon: "ph-instagram-logo",
+      platform: "Instagram",
+    },
+    {
+      url: campus.linkedinUrl,
+      icon: "ph-linkedin-logo",
+      platform: "LinkedIn",
+    },
+  ];
+
+  const quickInfoStats = [
+    {
+      value: school.currentStudentCount,
+      label: "Öğrenci",
+      colorClass: "text-main-600",
+    },
+    {
+      value: school.classSizeAverage,
+      label: "Sınıf Ort.",
+      colorClass: "text-success-600",
+    },
+    {
+      value: formatViewCount(school.viewCount),
+      label: "Görüntülenme",
+      colorClass: "text-warning-600",
+    },
+    {
+      value: school.likeCount,
+      label: "Beğeni",
+      colorClass: "text-danger-600",
+    },
+  ];
+
   return (
     <div className="col-lg-4">
       {/* Profile Card */}
@@ -64,76 +112,33 @@ export default function InstitutionSidebar({
 
           {/* Hızlı Bilgiler */}
           <div className="row g-8 mb-20">
-            <div className="col-6 mb-16">
-              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
-                <div className="text-lg fw-bold text-main-600 mb-4">
-                  {school.currentStudentCount}
+            {quickInfoStats.map((stat, index) => (
+              <div key={index} className="col-6 mb-16">
+                <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
+                  <div className={`text-lg fw-bold ${stat.colorClass} mb-4`}>
+                    {stat.value}
+                  </div>
+                  <p className="text-xs text-neutral-600 mb-0">{stat.label}</p>
                 </div>
-                <p className="text-xs text-neutral-600 mb-0">Öğrenci</p>
               </div>
-            </div>
-            <div className="col-6 mb-16">
-              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
-                <div className="text-lg fw-bold text-success-600 mb-4">
-                  {school.classSizeAverage}
-                </div>
-                <p className="text-xs text-neutral-600 mb-0">Sınıf Ort.</p>
-              </div>
-            </div>
-            <div className="col-6 mb-16">
-              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
-                <div className="text-lg fw-bold text-warning-600 mb-4">
-                  {(school.viewCount ?? 0) > 1000
-                    ? `${((school.viewCount ?? 0) / 1000).toFixed(1)}K`
-                    : school.viewCount ?? 0}
-                </div>
-                <p className="text-xs text-neutral-600 mb-0">Görüntülenme</p>
-              </div>
-            </div>
-            <div className="col-6 mb-16">
-              <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
-                <div className="text-lg fw-bold text-danger-600 mb-4">
-                  {school.likeCount}
-                </div>
-                <p className="text-xs text-neutral-600 mb-0">Beğeni</p>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Social Media Links */}
           <ul className="social-list flex-center gap-16 mt-28">
-            <li className="social-list__item">
-              <a
-                href={campus.facebookUrl}
-                className="text-main-600 text-xl hover-text-white w-40 h-40 rounded-circle border border-main-600 hover-bg-main-600 flex-center"
-              >
-                <i className="ph-bold ph-facebook-logo" />
-              </a>
-            </li>
-            <li className="social-list__item">
-              <a
-                href={campus.twitterUrl}
-                className="text-main-600 text-xl hover-text-white w-40 h-40 rounded-circle border border-main-600 hover-bg-main-600 flex-center"
-              >
-                <i className="ph-bold ph-twitter-logo" />
-              </a>
-            </li>
-            <li className="social-list__item">
-              <a
-                href={campus.instagramUrl}
-                className="text-main-600 text-xl hover-text-white w-40 h-40 rounded-circle border border-main-600 hover-bg-main-600 flex-center"
-              >
-                <i className="ph-bold ph-instagram-logo" />
-              </a>
-            </li>
-            <li className="social-list__item">
-              <a
-                href={campus.linkedinUrl}
-                className="text-main-600 text-xl hover-text-white w-40 h-40 rounded-circle border border-main-600 hover-bg-main-600 flex-center"
-              >
-                <i className="ph-bold ph-linkedin-logo" />
-              </a>
-            </li>
+            {socialMediaLinks.map((social, index) => (
+              <li key={index} className="social-list__item">
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-main-600 text-xl hover-text-white w-40 h-40 rounded-circle border border-main-600 hover-bg-main-600 flex-center"
+                  aria-label={social.platform}
+                >
+                  <i className={`ph-bold ${social.icon}`} />
+                </a>
+              </li>
+            ))}
           </ul>
 
           <span className="d-block border border-neutral-30 my-20 border-dashed" />
@@ -184,79 +189,7 @@ export default function InstitutionSidebar({
       </div>
 
       {/* Contact Form */}
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          <h4 className="mb-16">İletişime Geç</h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
-          <form action="#" className="d-flex flex-column gap-20">
-            <div className="">
-              <label
-                htmlFor="myName"
-                className="text-lg fw-semibold text-neutral-700 mb-8"
-              >
-                İsim
-              </label>
-              <input
-                type="text"
-                className="common-input border-transparent rounded-pill focus-border-main-600"
-                id="myName"
-                placeholder="İsminizi girin..."
-              />
-            </div>
-            <div className="">
-              <label
-                htmlFor="Email"
-                className="text-lg fw-semibold text-neutral-700 mb-8"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                className="common-input border-transparent rounded-pill focus-border-main-600"
-                id="Email"
-                placeholder="Email adresinizi girin..."
-              />
-            </div>
-            <div className="">
-              <label
-                htmlFor="Phone"
-                className="text-lg fw-semibold text-neutral-700 mb-8"
-              >
-                Telefon
-              </label>
-              <input
-                type="tel"
-                className="common-input border-transparent rounded-pill focus-border-main-600"
-                id="Phone"
-                placeholder="Telefon numaranızı girin..."
-              />
-            </div>
-            <div className="">
-              <label
-                htmlFor="Message"
-                className="text-lg fw-semibold text-neutral-700 mb-8"
-              >
-                Mesaj
-              </label>
-              <textarea
-                className="common-input border-transparent rounded-24 focus-border-main-600"
-                id="Message"
-                placeholder="Mesajınızı girin..."
-                defaultValue={""}
-              />
-            </div>
-            <div className="">
-              <button
-                type="submit"
-                className="btn btn-main rounded-pill flex-center gap-8 mt-20"
-              >
-                Mesaj Gönder
-                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <ContactForm schoolId={school.id} campusId={campus.id} />
     </div>
   );
 }
