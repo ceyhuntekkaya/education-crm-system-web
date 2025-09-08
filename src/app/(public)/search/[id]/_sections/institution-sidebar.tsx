@@ -1,10 +1,14 @@
+import { CampusDto, SchoolDto } from "@/types";
 import Image from "next/image";
 
 interface InstitutionSidebarProps {
-  school: any;
-  campus: any;
+  school: SchoolDto;
+  campus: CampusDto;
   renderStars: (rating: number) => JSX.Element;
 }
+
+const tempImgUrl =
+  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Ftr%2Fsearch%2Fschool-cartoon%3Fimage_type%3Dillustration&psig=AOvVaw2nfx7Ed00X6UE7qDyaasxA&ust=1757402665534000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCPjzoZ7RyI8DFQAAAAAdAAAAABAE";
 
 export default function InstitutionSidebar({
   school,
@@ -20,8 +24,8 @@ export default function InstitutionSidebar({
           <div className="p-16 border border-neutral-50 rounded-circle aspect-ratio-1 max-w-150 max-h-150 mx-auto">
             <div className="position-relative">
               <Image
-                src={school.logoUrl}
-                alt={school.name}
+                src={school.logoUrl || tempImgUrl}
+                alt={school.name || "Okul Logosu"}
                 width={150}
                 height={150}
                 className="rounded-circle bg-dark-yellow aspect-ratio-1 cover-img"
@@ -42,12 +46,12 @@ export default function InstitutionSidebar({
             <span className="text-neutral-500 text-md">
               Tür:{" "}
               <span className="text-main-600 fw-medium">
-                {school.institutionType.displayName}
+                {school.institutionType?.displayName}
               </span>
             </span>
             <span className="w-4 h-4 bg-main-600 rounded-circle" />
             <div className="flex-align gap-4">
-              {renderStars(school.ratingAverage)}
+              {renderStars(school.ratingAverage || 0)}
               <span className="text-md text-neutral-700 ms-8">
                 {school.ratingAverage}
                 <span className="text-neutral-100">
@@ -79,9 +83,9 @@ export default function InstitutionSidebar({
             <div className="col-6 mb-16">
               <div className="text-center p-12 bg-white rounded-8 border border-neutral-100">
                 <div className="text-lg fw-bold text-warning-600 mb-4">
-                  {school.viewCount > 1000
-                    ? `${(school.viewCount / 1000).toFixed(1)}K`
-                    : school.viewCount}
+                  {(school.viewCount ?? 0) > 1000
+                    ? `${((school.viewCount ?? 0) / 1000).toFixed(1)}K`
+                    : school.viewCount ?? 0}
                 </div>
                 <p className="text-xs text-neutral-600 mb-0">Görüntülenme</p>
               </div>
@@ -170,8 +174,9 @@ export default function InstitutionSidebar({
                 <i className="ph-bold ph-map-pin-line" />
               </span>
               <span className="text-neutral-700">
-                {campus.addressLine1}, {campus.district.name},{" "}
-                {campus.province.name}
+                {campus.addressLine1}
+                {campus.district?.name ? `, ${campus.district.name}` : ""}
+                {campus.province?.name ? `, ${campus.province.name}` : ""}
               </span>
             </div>
           </div>

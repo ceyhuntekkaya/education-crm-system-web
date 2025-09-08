@@ -92,8 +92,8 @@ export default function InstitutionDetailPage() {
         <div className="row gy-4">
           {/* Sol Sidebar - Profil ve İletişim */}
           <InstitutionSidebar
-            school={school}
-            campus={campus}
+            school={school as any}
+            campus={campus as any}
             renderStars={renderStars}
           />
 
