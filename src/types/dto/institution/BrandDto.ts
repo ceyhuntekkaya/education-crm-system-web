@@ -1,6 +1,7 @@
-import { CampusSummaryDto } from './CampusSummaryDto';
+import { CampusSummaryDto } from "./CampusSummaryDto";
 
 export interface BrandDto {
+  /** Format: int64 */
   id?: number;
   name?: string;
   slug?: string;
@@ -10,6 +11,7 @@ export interface BrandDto {
   websiteUrl?: string;
   email?: string;
   phone?: string;
+  /** Format: int32 */
   foundedYear?: number;
   facebookUrl?: string;
   twitterUrl?: string;
@@ -19,10 +21,14 @@ export interface BrandDto {
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
+  /** Format: int64 */
   viewCount?: number;
+  /** Format: double */
   ratingAverage?: number;
+  /** Format: int64 */
   ratingCount?: number;
   campuses?: CampusSummaryDto[];
   isActive?: boolean;
+  /** Format: date-time */
   createdAt?: string;
 }

@@ -1,4 +1,6 @@
-export const institutionMockData = {
+import { SchoolDetailDto } from "@/types";
+
+export const institutionMockData: SchoolDetailDto = {
   school: {
     id: 1,
     name: "Eğitim Dünyası Maslak Anaokulu",
