@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 interface AccordionItemProps {
   id: string;
-  title: string;
+  title: string | ReactNode;
   children: ReactNode;
   isOpen: boolean;
   onToggle: (id: string) => void;
@@ -45,12 +45,18 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
           }
         }}
       >
-        <h6 className="text-lg mb-0 fw-semibold">{title}</h6>
+        <div className="text-lg mb-0 fw-semibold">
+          {typeof title === "string" ? (
+            <h6 className="mb-0">{title}</h6>
+          ) : (
+            title
+          )}
+        </div>
         {!forceOpen && (
           <i
             className={`ph-bold ${
               shouldShow ? "ph-caret-up" : "ph-caret-down"
-            } text-neutral-500 transition-all duration-300`}
+            } text-neutral-500 transition-all duration-500`}
             style={{
               transform: shouldShow ? "rotate(0deg)" : "rotate(0deg)",
             }}
@@ -59,11 +65,11 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
       </div>
 
       <div
-        className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out`}
+        className={`accordion-content overflow-hidden transition-all duration-500 ease-in-out`}
         style={{
           maxHeight: shouldShow ? "2000px" : "0px",
           opacity: shouldShow ? 1 : 0,
-          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          transition: "all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         }}
       >
         <div

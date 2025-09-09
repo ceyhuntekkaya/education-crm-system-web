@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { FormProvider } from "@/contexts";
 import { Form, Button } from "@/components";
 import { Accordion, AccordionItem } from "@/components/ui";
@@ -21,11 +21,14 @@ import {
 } from "./_sections";
 
 const FormContent = () => {
-  const { values, resetForm, updateField } = useFormHook();
+  const { values, resetForm, updateField, isDirty, areFieldsDirty } =
+    useFormHook();
 
-  const { options, search } = useInstitutionSearchHook({
+  const { options, search, sectionChanges } = useInstitutionSearchHook({
     values,
     updateField,
+    isDirty,
+    areFieldsDirty,
   });
 
   // Accordion hook'unu başlat - istediğiniz bölümleri varsayılan olarak açık yapabilirsiniz
@@ -152,16 +155,33 @@ const FormContent = () => {
               );
             }
 
+            // Bu section'da değişiklik var mı kontrol et
+            const hasChanges = sectionChanges[section.id];
+
+            // Değişiklik varsa title className'ini güncelle - minimal ve şık stil
+            const titleClassName = hasChanges
+              ? "text-main-600 fw-semibold hover-text-main-700"
+              : "text-neutral-700 hover-text-main-600";
+
             return (
               <React.Fragment key={section.id}>
                 <AccordionItem
                   id={section.id}
-                  title={section.title}
+                  title={
+                    hasChanges ? (
+                      <div className="d-flex align-items-center gap-8">
+                        <span className="w-4 h-4 bg-main-600 rounded-circle flex-shrink-0"></span>
+                        <span>{section.title}</span>
+                      </div>
+                    ) : (
+                      section.title
+                    )
+                  }
                   isOpen={isOpen(section.id)}
                   onToggle={toggleItem}
                   forceOpen={(section as any).forceOpen || false}
                   className="mb-0"
-                  titleClassName="text-neutral-700 hover-text-main-600"
+                  titleClassName={titleClassName}
                   contentClassName=""
                 >
                   {section.component}

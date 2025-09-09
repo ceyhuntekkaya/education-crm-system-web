@@ -7,4 +7,6 @@ export interface UseInstitutionSearchHookParams {
     name: string,
     value: string | number | boolean | null | undefined
   ) => Promise<void>;
+  isDirty?: boolean;
+  areFieldsDirty?: (fields: string[]) => boolean;
 }

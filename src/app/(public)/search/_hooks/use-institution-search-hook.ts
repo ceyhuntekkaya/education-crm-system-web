@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useGet, usePostForm } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@/types";
 
 import type { LocationFilter, UseInstitutionSearchHookParams } from "../_types";
+import { SECTION_FIELD_MAPPING } from "../_sections/filter-form/_constants";
 import { mockInstitutions } from "../_mock";
 
 /**
@@ -49,6 +50,8 @@ const transformLocationData = <T extends { id?: number; name?: string }>(
 export function useInstitutionSearchHook({
   values = {},
   updateField = async () => {},
+  isDirty = false,
+  areFieldsDirty = () => false,
 }: UseInstitutionSearchHookParams = {}) {
   // Önceki değerleri takip etmek için ref kullanıyoruz
   // Bu sayede hangi alanın değiştiğini tespit edip bağımlı alanları temizleyebiliriz
@@ -160,6 +163,29 @@ export function useInstitutionSearchHook({
     error: institutionTypesError,
   };
 
+  // ============ SECTION DEĞİŞİKLİK DURUMU ============
+  // Her section için değişiklik durumunu hesapla
+  const sectionChanges = useMemo(() => {
+    const changes: Record<string, boolean> = {};
+
+    // Eğer form hiç değişmemişse hiçbir section'da değişiklik yok
+    if (!isDirty) {
+      Object.keys(SECTION_FIELD_MAPPING).forEach((sectionId) => {
+        changes[sectionId] = false;
+      });
+      return changes;
+    }
+
+    // Her section için field'ları kontrol et
+    Object.keys(SECTION_FIELD_MAPPING).forEach((sectionId) => {
+      const fields =
+        SECTION_FIELD_MAPPING[sectionId as keyof typeof SECTION_FIELD_MAPPING];
+      changes[sectionId] = areFieldsDirty([...fields]); // readonly array'i mutable array'e dönüştür
+    });
+
+    return changes;
+  }, [isDirty, areFieldsDirty]);
+
   // ============ BAĞIMLI ALAN TEMİZLEME LOGİĞİ ============
   // Üst seviye bir alan değiştiğinde, alt seviye alanları otomatik olarak temizle
   // Örn: Ülke değişirse → il, ilçe, mahalle temizlenir
@@ -230,6 +256,9 @@ export function useInstitutionSearchHook({
 
     // Gruplandırılmış seçenekler (component'lerde kolayca kullanım için)
     options,
+
+    // Section değişiklik durumları
+    sectionChanges,
 
     // Arama fonksiyonalitesi
     search, // Arama fonksiyonu
