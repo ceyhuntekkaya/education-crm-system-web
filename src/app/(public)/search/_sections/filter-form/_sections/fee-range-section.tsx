@@ -3,15 +3,8 @@ import { FormRange } from "@/components";
 
 export const FeeRangeSection = {
   id: "feeRange",
-  title: null,
+  title: "Ücret Aralığı",
   component: (
-    <FormRange
-      name="feeRange"
-      label="Ücret Aralığı"
-      min={0.1}
-      max={10000}
-      step={0.1}
-      prefix="₺"
-    />
+    <FormRange name="feeRange" min={0.1} max={10000} step={0.1} prefix="₺" />
   ),
 };

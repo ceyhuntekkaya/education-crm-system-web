@@ -2,7 +2,8 @@
 import React from "react";
 import { FormProvider } from "@/contexts";
 import { Form, Button } from "@/components";
-import { useFormHook } from "@/hooks";
+import { Accordion, AccordionItem } from "@/components/ui";
+import { useFormHook, useAccordion } from "@/hooks";
 import { useInstitutionSearchHook } from "../../_hooks";
 import { FormValues } from "@/types";
 import { initialValues, validationSchema } from "./_schemas";
@@ -27,9 +28,15 @@ const FormContent = () => {
     updateField,
   });
 
+  // Accordion hook'unu başlat - istediğiniz bölümleri varsayılan olarak açık yapabilirsiniz
+  const { isOpen, toggleItem } = useAccordion({
+    defaultOpen: ["search"], // SearchSection varsayılan olarak açık
+    allowMultiple: true, // Birden fazla bölüm aynı anda açık olabilir
+  });
+
   const formSections = [
-    SearchSection,
-    LocationSection({ values, options }),
+    { ...SearchSection, forceOpen: true }, // Arama bölümü her zaman açık
+    { ...LocationSection({ values, options }), forceOpen: true }, // Arama bölümü her zaman açık
     InstitutionTypesSection({ options }),
     AgeRangeSection,
     FeeRangeSection,
@@ -132,20 +139,40 @@ const FormContent = () => {
             <span className="d-block border border-neutral-30 border-dashed my-24" />
           </div>
         </div>
-        {/* Form Bölümleri - Map ile render */}
-        {formSections.map((section, index) => (
-          <React.Fragment key={section.id}>
-            <div className={section.title ? "d-flex flex-column gap-16" : ""}>
-              {section.title && (
-                <h6 className="text-lg mb-16 fw-semibold">{section.title}</h6>
-              )}
-              {section.component}
-            </div>
-            {index < formSections.length - 1 && (
-              <span className="d-block border border-neutral-30 border-dashed my-24" />
-            )}
-          </React.Fragment>
-        ))}
+        {/* Form Bölümleri - Accordion ile render */}
+        <Accordion styling="off">
+          {formSections.map((section, index) => {
+            // Eğer title yoksa (SearchSection gibi), accordion olmadan render et
+            if (!section.title) {
+              return (
+                <div key={section.id} className="mb-24">
+                  {section.component}
+                  <span className="d-block border border-neutral-30 border-dashed my-24" />
+                </div>
+              );
+            }
+
+            return (
+              <React.Fragment key={section.id}>
+                <AccordionItem
+                  id={section.id}
+                  title={section.title}
+                  isOpen={isOpen(section.id)}
+                  onToggle={toggleItem}
+                  forceOpen={(section as any).forceOpen || false}
+                  className="mb-0"
+                  titleClassName="text-neutral-700 hover-text-main-600"
+                  contentClassName=""
+                >
+                  {section.component}
+                </AccordionItem>
+                {index < formSections.length - 1 && (
+                  <span className="d-block border border-neutral-30 border-dashed my-24" />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </Accordion>
         <span className="d-block border border-neutral-30 border-dashed my-32" />
         <div className="d-flex flex-column gap-12">
           <Button
