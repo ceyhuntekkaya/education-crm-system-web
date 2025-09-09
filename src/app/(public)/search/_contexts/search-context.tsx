@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useMemo } from "react";
-import { useGet, usePostForm } from "@/hooks";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useMemo,
+  useState,
+} from "react";
+import { useGet, usePostForm, useFormHook } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import {
   ApiResponseDto,
@@ -14,9 +21,12 @@ import {
   SchoolSearchResultDto,
 } from "@/types";
 
-import type { LocationFilter, UseInstitutionSearchHookParams } from "../_types";
 import { SECTION_FIELD_MAPPING } from "../_sections/filter-form/_constants";
 import { mockInstitutions } from "../_mock";
+import { SearchContextValue, SearchProviderProps } from "../_types";
+
+// Context'in varsayılan değeri
+const SearchContext = createContext<SearchContextValue | undefined>(undefined);
 
 /**
  * API'den gelen lokasyon verilerini select component'i için uygun formata dönüştürür
@@ -37,38 +47,15 @@ const transformLocationData = <T extends { id?: number; name?: string }>(
   })) || []),
 ];
 
-/**
- * Kurum arama sayfası için gerekli tüm verileri ve fonksiyonları sağlayan custom hook
- * - Lokasyon verilerini (ülke, il, ilçe, mahalle) yönetir
- * - Kurum türlerini getirir
- * - Arama fonksiyonalitesi sağlar
- * - Form alanları arası bağımlılıkları otomatik olarak yönetir
- *
- * @param values - Form değerleri (countryId, provinceId, districtId, neighborhoodId)
- * @param updateField - Form alanlarını güncellemek için kullanılan fonksiyon
- */
-export function useInstitutionSearchHook({
-  values = {},
-  updateField = async () => {},
-  isDirty = false,
-  areFieldsDirty = () => false,
-}: UseInstitutionSearchHookParams = {}) {
+export function SearchProvider({ children }: SearchProviderProps) {
+  // Form hook'tan sadece gerekli değerleri al
+  const { values, updateField, isDirty, areFieldsDirty } = useFormHook();
   // Önceki değerleri takip etmek için ref kullanıyoruz
-  // Bu sayede hangi alanın değiştiğini tespit edip bağımlı alanları temizleyebiliriz
   const prevValues = useRef({
     countryId: values?.countryId,
     provinceId: values?.provinceId,
     districtId: values?.districtId,
   });
-
-  // API çağrıları için gerekli lokasyon filtre objesi
-  const locationFilter: LocationFilter = {
-    countryId: values?.countryId,
-    provinceId: values?.provinceId,
-    districtId: values?.districtId,
-    neighborhoodId: values?.neighborhoodId,
-  };
-
   // ============ API ÇAĞRILARI ============
 
   // Tüm ülkeleri getir - her zaman yüklenir
@@ -78,36 +65,36 @@ export function useInstitutionSearchHook({
     error: countriesError,
   } = useGet<ApiResponseDto<CountryDto[]>>(API_ENDPOINTS.LOCATION.COUNTRIES);
 
-  // İlleri getir - sadece ülke seçilmişse
+  // İlleri getir - ülke seçilmişse
   const {
     data: provincesResponse,
     loading: provincesLoading,
     error: provincesError,
   } = useGet<ApiResponseDto<ProvinceDto[]>>(
-    locationFilter.countryId
-      ? API_ENDPOINTS.LOCATION.PROVINCES(locationFilter.countryId)
+    values?.countryId
+      ? API_ENDPOINTS.LOCATION.PROVINCES(values.countryId)
       : null // Ülke seçilmemişse API çağrısı yapma
   );
 
-  // İlçeleri getir - sadece il seçilmişse
+  // İlçeleri getir - il seçilmişse
   const {
     data: districtsResponse,
     loading: districtsLoading,
     error: districtsError,
   } = useGet<ApiResponseDto<DistrictDto[]>>(
-    locationFilter.provinceId
-      ? API_ENDPOINTS.LOCATION.DISTRICTS(locationFilter.provinceId)
+    values?.provinceId
+      ? API_ENDPOINTS.LOCATION.DISTRICTS(values.provinceId)
       : null // İl seçilmemişse API çağrısı yapma
   );
 
-  // Mahalleleri getir - sadece ilçe seçilmişse
+  // Mahalleleri getir - ilçe seçilmişse
   const {
     data: neighborhoodsResponse,
     loading: neighborhoodsLoading,
     error: neighborhoodsError,
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
-    locationFilter.districtId
-      ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(locationFilter.districtId)
+    values?.districtId
+      ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(values.districtId)
       : null // İlçe seçilmemişse API çağrısı yapma
   );
 
@@ -243,8 +230,8 @@ export function useInstitutionSearchHook({
     },
   };
 
-  // ============ HOOK RETURN DEĞERLERİ ============
-  return {
+  // Context değerini oluştur
+  const contextValue: SearchContextValue = {
     // Mock veriler (geliştirme aşamasında kullanılıyor)
     institutions: mockInstitutions,
 
@@ -265,6 +252,21 @@ export function useInstitutionSearchHook({
     searchLoading, // Arama yükleniyor durumu
     searchError, // Arama hata durumu
   };
+
+  return (
+    <SearchContext.Provider value={contextValue}>
+      {children}
+    </SearchContext.Provider>
+  );
 }
 
-export default useInstitutionSearchHook;
+// Context'i kullanmak için custom hook
+export function useSearchContext() {
+  const context = useContext(SearchContext);
+  if (context === undefined) {
+    throw new Error("useSearchContext must be used within a SearchProvider");
+  }
+  return context;
+}
+
+export default SearchContext;

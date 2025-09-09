@@ -1,12 +1,10 @@
 "use client";
-import React, { useMemo } from "react";
-import { FormProvider } from "@/contexts";
+import React from "react";
 import { Form, Button } from "@/components";
 import { Accordion, AccordionItem } from "@/components/ui";
-import { useFormHook, useAccordion } from "@/hooks";
-import { useInstitutionSearchHook } from "../../_hooks";
+import { useAccordion, useFormHook } from "@/hooks";
+import { useSearchContext } from "../../_contexts";
 import { FormValues } from "@/types";
-import { initialValues, validationSchema } from "./_schemas";
 import {
   SearchSection,
   LocationSection,
@@ -21,15 +19,8 @@ import {
 } from "./_sections";
 
 const FormContent = () => {
-  const { values, resetForm, updateField, isDirty, areFieldsDirty } =
-    useFormHook();
-
-  const { options, search, sectionChanges } = useInstitutionSearchHook({
-    values,
-    updateField,
-    isDirty,
-    areFieldsDirty,
-  });
+  const { values, resetForm } = useFormHook();
+  const { options, search, sectionChanges } = useSearchContext();
 
   // Accordion hook'unu başlat - istediğiniz bölümleri varsayılan olarak açık yapabilirsiniz
   const { isOpen, toggleItem } = useAccordion({
@@ -39,7 +30,7 @@ const FormContent = () => {
 
   const formSections = [
     { ...SearchSection, forceOpen: true }, // Arama bölümü her zaman açık
-    { ...LocationSection({ values, options }), forceOpen: true }, // Arama bölümü her zaman açık
+    { ...LocationSection({ values, options }), forceOpen: true }, // Lokasyon bölümü her zaman açık
     InstitutionTypesSection({ options }),
     AgeRangeSection,
     FeeRangeSection,
@@ -219,14 +210,7 @@ const FormContent = () => {
 };
 
 const FilterForm = () => {
-  return (
-    <FormProvider
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-    >
-      <FormContent />
-    </FormProvider>
-  );
+  return <FormContent />;
 };
 
 export default FilterForm;

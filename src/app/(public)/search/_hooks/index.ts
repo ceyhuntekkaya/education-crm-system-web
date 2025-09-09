@@ -1,2 +1,2 @@
-export { default as useInstitutionSearch } from "./use-institution-search-hook";
-export { default as useInstitutionSearchHook } from "./use-institution-search-hook";
+// Hook dosyaları artık Context yapısına taşındı
+// Yeni kullanım: useSearchContext() hook'unu kullanın

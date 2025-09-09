@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import useInstitutionSearch from "../_hooks/use-institution-search-hook";
+import { useSearchContext } from "../_contexts";
 import { InstitutionCard } from "./institution-card";
 import Pagination from "./pagination";
 
@@ -10,7 +10,7 @@ const ANIMATION_DELAY_INCREMENT = 100;
 
 const Results = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const { institutions } = useInstitutionSearch();
+  const { institutions } = useSearchContext();
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
   // Helper functions

@@ -60,6 +60,7 @@ export const LocationSection = ({ values, options }: LocationSectionProps) => ({
         placeholder="Yarıçap (km)"
         min="1"
         max="100"
+        step="1"
       />
     </div>
   ),
