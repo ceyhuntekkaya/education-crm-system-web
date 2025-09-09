@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { FilterForm, Results } from "./_sections";
 import { Breadcrumb } from "@/components";
 

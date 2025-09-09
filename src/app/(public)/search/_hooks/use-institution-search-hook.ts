@@ -17,30 +17,48 @@ import {
 import type { LocationFilter, UseInstitutionSearchHookParams } from "../_types";
 import { mockInstitutions } from "../_mock";
 
-// Helper function to transform location data
+/**
+ * API'den gelen lokasyon verilerini select component'i için uygun formata dönüştürür
+ * @param data - API'den gelen lokasyon verileri (ülke, il, ilçe vb.)
+ * @param placeholder - Select'te gösterilecek placeholder metni
+ * @returns Select component'i için formatlanmış veri dizisi
+ */
 const transformLocationData = <T extends { id?: number; name?: string }>(
   data: T[] | undefined,
   placeholder: string
 ) => [
+  // İlk sırada placeholder'ı boş value ile ekle
   { value: "", label: placeholder },
+  // API verilerini select formatına dönüştür
   ...(data?.map((item) => ({
     value: item.id?.toString() || "",
     label: item.name || "",
   })) || []),
 ];
 
+/**
+ * Kurum arama sayfası için gerekli tüm verileri ve fonksiyonları sağlayan custom hook
+ * - Lokasyon verilerini (ülke, il, ilçe, mahalle) yönetir
+ * - Kurum türlerini getirir
+ * - Arama fonksiyonalitesi sağlar
+ * - Form alanları arası bağımlılıkları otomatik olarak yönetir
+ *
+ * @param values - Form değerleri (countryId, provinceId, districtId, neighborhoodId)
+ * @param updateField - Form alanlarını güncellemek için kullanılan fonksiyon
+ */
 export function useInstitutionSearchHook({
   values = {},
   updateField = async () => {},
 }: UseInstitutionSearchHookParams = {}) {
-  // Track previous values for cleanup
+  // Önceki değerleri takip etmek için ref kullanıyoruz
+  // Bu sayede hangi alanın değiştiğini tespit edip bağımlı alanları temizleyebiliriz
   const prevValues = useRef({
     countryId: values?.countryId,
     provinceId: values?.provinceId,
     districtId: values?.districtId,
   });
 
-  // Create location filter object
+  // API çağrıları için gerekli lokasyon filtre objesi
   const locationFilter: LocationFilter = {
     countryId: values?.countryId,
     provinceId: values?.provinceId,
@@ -48,13 +66,16 @@ export function useInstitutionSearchHook({
     neighborhoodId: values?.neighborhoodId,
   };
 
-  // API calls with conditional URLs
+  // ============ API ÇAĞRILARI ============
+
+  // Tüm ülkeleri getir - her zaman yüklenir
   const {
     data: countriesResponse,
     loading: countriesLoading,
     error: countriesError,
   } = useGet<ApiResponseDto<CountryDto[]>>(API_ENDPOINTS.LOCATION.COUNTRIES);
 
+  // İlleri getir - sadece ülke seçilmişse
   const {
     data: provincesResponse,
     loading: provincesLoading,
@@ -62,9 +83,10 @@ export function useInstitutionSearchHook({
   } = useGet<ApiResponseDto<ProvinceDto[]>>(
     locationFilter.countryId
       ? API_ENDPOINTS.LOCATION.PROVINCES(locationFilter.countryId)
-      : null
+      : null // Ülke seçilmemişse API çağrısı yapma
   );
 
+  // İlçeleri getir - sadece il seçilmişse
   const {
     data: districtsResponse,
     loading: districtsLoading,
@@ -72,9 +94,10 @@ export function useInstitutionSearchHook({
   } = useGet<ApiResponseDto<DistrictDto[]>>(
     locationFilter.provinceId
       ? API_ENDPOINTS.LOCATION.DISTRICTS(locationFilter.provinceId)
-      : null
+      : null // İl seçilmemişse API çağrısı yapma
   );
 
+  // Mahalleleri getir - sadece ilçe seçilmişse
   const {
     data: neighborhoodsResponse,
     loading: neighborhoodsLoading,
@@ -82,9 +105,10 @@ export function useInstitutionSearchHook({
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
     locationFilter.districtId
       ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(locationFilter.districtId)
-      : null
+      : null // İlçe seçilmemişse API çağrısı yapma
   );
 
+  // Kurum türlerini getir - her zaman yüklenir
   const {
     data: institutionTypesResponse,
     loading: institutionTypesLoading,
@@ -93,31 +117,38 @@ export function useInstitutionSearchHook({
     API_ENDPOINTS.INSTITUTIONS.INSTITUTION_TYPES
   );
 
-  // Transform data for select components
+  // ============ VERİ DÖNÜŞÜMLERI ============
+  // API'den gelen verileri select component'leri için uygun formata dönüştür
+
+  // Ülkeler - her zaman mevcut
   const countries = {
     data: transformLocationData(countriesResponse?.data, "Ülke seçin"),
     loading: countriesLoading,
     error: countriesError,
   };
 
+  // İller - ülke seçilmişse mevcut
   const provinces = {
     data: transformLocationData(provincesResponse?.data, "İl seçin"),
     loading: provincesLoading,
     error: provincesError,
   };
 
+  // İlçeler - il seçilmişse mevcut
   const districts = {
     data: transformLocationData(districtsResponse?.data, "İlçe seçin"),
     loading: districtsLoading,
     error: districtsError,
   };
 
+  // Mahalleler - ilçe seçilmişse mevcut
   const neighborhoods = {
     data: transformLocationData(neighborhoodsResponse?.data, "Mahalle seçin"),
     loading: neighborhoodsLoading,
     error: neighborhoodsError,
   };
 
+  // Kurum türleri - her zaman mevcut (placeholder olmadan)
   const institutionTypes = {
     data: [
       ...(institutionTypesResponse?.data?.map((type) => ({
@@ -129,9 +160,13 @@ export function useInstitutionSearchHook({
     error: institutionTypesError,
   };
 
-  // Handle location field cleanup on change
+  // ============ BAĞIMLI ALAN TEMİZLEME LOGİĞİ ============
+  // Üst seviye bir alan değiştiğinde, alt seviye alanları otomatik olarak temizle
+  // Örn: Ülke değişirse → il, ilçe, mahalle temizlenir
+  //      İl değişirse → ilçe, mahalle temizlenir
+  //      İlçe değişirse → mahalle temizlenir
   useEffect(() => {
-    // Country changed - clear dependent fields
+    // Ülke değişti - bağımlı alanları temizle
     if (prevValues.current.countryId !== values?.countryId) {
       prevValues.current.countryId = values?.countryId;
       if (values?.provinceId) updateField("provinceId", "");
@@ -139,21 +174,22 @@ export function useInstitutionSearchHook({
       if (values?.neighborhoodId) updateField("neighborhoodId", "");
     }
 
-    // Province changed - clear dependent fields
+    // İl değişti - bağımlı alanları temizle
     if (prevValues.current.provinceId !== values?.provinceId) {
       prevValues.current.provinceId = values?.provinceId;
       if (values?.districtId) updateField("districtId", "");
       if (values?.neighborhoodId) updateField("neighborhoodId", "");
     }
 
-    // District changed - clear dependent fields
+    // İlçe değişti - bağımlı alanları temizle
     if (prevValues.current.districtId !== values?.districtId) {
       prevValues.current.districtId = values?.districtId;
       if (values?.neighborhoodId) updateField("neighborhoodId", "");
     }
   }, [values, updateField]);
 
-  // Search functionality
+  // ============ ARAMA FONKSİYONALİTESİ ============
+  // Form verilerini kullanarak kurum araması yapar
   const {
     submitForm: search,
     loading: searchLoading,
@@ -162,34 +198,43 @@ export function useInstitutionSearchHook({
     API_ENDPOINTS.INSTITUTIONS.SCHOOLS_SEARCH,
     {
       onSuccess: (data) => {
-        console.log("Search successful:", data);
+        console.log("Arama başarılı:", data);
       },
       onError: (err) => {
-        console.error("Search error:", err);
+        console.error("Arama hatası:", err);
       },
     }
   );
 
+  // ============ SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ ============
   const options = {
-    institution: institutionTypes,
+    institution: institutionTypes, // Kurum türü seçenekleri
     location: {
-      countries,
-      provinces,
-      districts,
-      neighborhoods,
+      countries, // Ülke seçenekleri
+      provinces, // İl seçenekleri
+      districts, // İlçe seçenekleri
+      neighborhoods, // Mahalle seçenekleri
     },
   };
 
+  // ============ HOOK RETURN DEĞERLERİ ============
   return {
+    // Mock veriler (geliştirme aşamasında kullanılıyor)
     institutions: mockInstitutions,
+
+    // Lokasyon verileri (ayrı ayrı erişim için)
     countries,
     provinces,
     districts,
     neighborhoods,
+
+    // Gruplandırılmış seçenekler (component'lerde kolayca kullanım için)
     options,
-    search,
-    searchLoading,
-    searchError,
+
+    // Arama fonksiyonalitesi
+    search, // Arama fonksiyonu
+    searchLoading, // Arama yükleniyor durumu
+    searchError, // Arama hata durumu
   };
 }
 
