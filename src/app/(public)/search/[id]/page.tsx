@@ -20,7 +20,7 @@ import { TabContent, TabNavigation, type TabItem } from "@/components";
 import { formatCurrency, renderStars } from "./_utils";
 
 // Mock data
-import { institutionMockData, campaignMockData } from "./_mock";
+import { institutionMockData } from "./_mock";
 
 export default function InstitutionDetailPage() {
   const { school, campus, brand } = institutionMockData;
@@ -69,7 +69,7 @@ export default function InstitutionDetailPage() {
       id: "pills-campaigns",
       icon: "ph-bold ph-tag",
       title: "Kampanyalar",
-      children: <InstitutionCampaigns campaigns={campaignMockData} />,
+      children: <InstitutionCampaigns />,
     },
     {
       id: "pills-statistics",

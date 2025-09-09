@@ -1,5 +1,5 @@
 import { CampaignDto } from "@/types";
-import { EMPTY_STATE_CONFIG } from "../_utils";
+import { EMPTY_STATE_CONFIG } from "../_config";
 import { CampaignCard } from "./";
 
 interface CampaignListProps {

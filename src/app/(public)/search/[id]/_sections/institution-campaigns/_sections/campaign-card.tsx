@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { CampaignDto } from "@/types";
-import { getCampaignTypeDisplay, formatDate, calculateDaysRemaining, DISCOUNT_TYPE_CONFIG } from "../_utils";
+import {
+  getCampaignTypeDisplay,
+  formatDate,
+  calculateDaysRemaining,
+} from "../_utils";
+import { DISCOUNT_TYPE_CONFIG } from "../_config";
 
 interface CampaignCardProps {
   campaign: CampaignDto;
@@ -8,7 +13,10 @@ interface CampaignCardProps {
 
 const CampaignCard = ({ campaign }: CampaignCardProps) => {
   const renderDiscountInfo = () => {
-    const config = DISCOUNT_TYPE_CONFIG[campaign.discountType as keyof typeof DISCOUNT_TYPE_CONFIG];
+    const config =
+      DISCOUNT_TYPE_CONFIG[
+        campaign.discountType as keyof typeof DISCOUNT_TYPE_CONFIG
+      ];
     if (!config) return null;
 
     const colorClass = config.getColorClass(campaign.isActive || false);
@@ -100,9 +108,7 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
                 >
                   <span
                     className={`w-4 h-4 rounded-circle ${
-                      campaign.isActive
-                        ? "bg-success-600"
-                        : "bg-neutral-400"
+                      campaign.isActive ? "bg-success-600" : "bg-neutral-400"
                     }`}
                   ></span>
                   {campaign.isActive ? "Aktif" : "Pasif"}
@@ -135,9 +141,7 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
             {/* Campaign Title */}
             <h5
               className={`mb-6 fw-semibold line-height-1-3 ${
-                campaign.isActive
-                  ? "text-neutral-900"
-                  : "text-neutral-600"
+                campaign.isActive ? "text-neutral-900" : "text-neutral-600"
               }`}
             >
               {campaign.title}
@@ -146,9 +150,7 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
             {/* Campaign Description */}
             <p
               className={`text-sm mb-12 line-height-1-4 ${
-                campaign.isActive
-                  ? "text-neutral-600"
-                  : "text-neutral-500"
+                campaign.isActive ? "text-neutral-600" : "text-neutral-500"
               }`}
             >
               {campaign.description}
@@ -164,33 +166,11 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
                 <div className="d-flex align-items-center gap-6">
                   <i className="ph-bold ph-calendar text-neutral-400 text-sm"></i>
                   <span className="text-xs text-neutral-500">
-                    {campaign.startDate && formatDate(campaign.startDate)}{" "}
-                    - {campaign.endDate && formatDate(campaign.endDate)}
+                    {campaign.startDate && formatDate(campaign.startDate)} -{" "}
+                    {campaign.endDate && formatDate(campaign.endDate)}
                   </span>
                 </div>
               </div>
-
-              {/* Action Button */}
-              <button
-                className={`btn px-16 py-6 rounded-6 text-xs fw-medium ${
-                  campaign.isActive
-                    ? "btn-main-600"
-                    : "btn-outline-neutral-300"
-                }`}
-                disabled={!campaign.isActive}
-              >
-                {campaign.isActive ? (
-                  <>
-                    <i className="ph ph-eye me-4"></i>
-                    Detay Gör
-                  </>
-                ) : (
-                  <>
-                    <i className="ph ph-archive me-4"></i>
-                    Arşivlendi
-                  </>
-                )}
-              </button>
             </div>
           </div>
         </div>

@@ -1,0 +1,22 @@
+// Campaign type configurations
+export const CAMPAIGN_TYPE_CONFIG = {
+  DISCOUNT: "İndirim Kampanyası",
+  FREE_SERVICE: "Ücretsiz Hizmet",
+  BONUS_FEATURE: "Bonus Özellik",
+  EARLY_BIRD: "Erken Kayıt",
+  SUMMER_SCHOOL: "Yaz Okulu",
+  WINTER_CAMP: "Kış Kampı",
+  FREE_TRIAL: "Ücretsiz Deneme",
+  SIBLING_DISCOUNT: "Kardeş İndirimi",
+  LOYALTY_REWARD: "Sadakat Ödülü",
+  REFERRAL_BONUS: "Tavsiye Bonusu",
+  NEW_STUDENT: "Yeni Öğrenci",
+  SCHOLARSHIP: "Burs",
+  INSTALLMENT: "Taksit İmkanı",
+  SEASONAL: "Mevsimlik",
+  SPECIAL_EVENT: "Özel Etkinlik",
+  BUNDLE_DEAL: "Paket Anlaşma",
+  LIMITED_TIME: "Sınırlı Süre",
+  FLASH_SALE: "Flaş İndirim",
+  OTHER: "Diğer",
+} as const;

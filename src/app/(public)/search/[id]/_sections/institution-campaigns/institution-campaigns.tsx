@@ -1,24 +1,18 @@
-import { CampaignDto } from "@/types";
 import { TabContent, TabNavigation, type TabItem } from "@/components";
 import { useCampaigns } from "./_hooks";
 import { CampaignList, CampaignStats } from "./_sections";
+import { campaignMockData } from "./_mock";
 
-interface InstitutionCampaignsProps {
-  campaigns?: CampaignDto[];
-}
-
-const InstitutionCampaigns = ({
-  campaigns = [],
-}: InstitutionCampaignsProps) => {
-  const { activeCampaigns, inactiveCampaigns } = useCampaigns(campaigns);
+const InstitutionCampaigns = () => {
+  const { activeCampaigns, inactiveCampaigns } = useCampaigns(campaignMockData);
 
   // Tab items for campaigns
   const campaignTabs: TabItem[] = [
     {
       id: "pills-all-campaigns",
       icon: "ph-bold ph-list",
-      title: `Tümü (${campaigns.length})`,
-      children: <CampaignList campaigns={campaigns} type="all" />,
+      title: `Tümü (${campaignMockData.length})`,
+      children: <CampaignList campaigns={campaignMockData} type="all" />,
       isActive: true,
     },
     {
@@ -51,7 +45,7 @@ const InstitutionCampaigns = ({
           <TabContent tabs={campaignTabs} />
 
           {/* Campaign Statistics */}
-          <CampaignStats campaigns={campaigns} />
+          <CampaignStats campaigns={campaignMockData} />
         </div>
       </div>
     </div>
