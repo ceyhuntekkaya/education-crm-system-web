@@ -21,6 +21,11 @@
         padding: 13px 16px;
          
     }
+    &--sm {
+        padding: 8px 12px;
+        font-size: rem(14px);
+        line-height: 1.2;
+    }
     &--lg {
         padding: 23px 24px;
         @include sm-screen {

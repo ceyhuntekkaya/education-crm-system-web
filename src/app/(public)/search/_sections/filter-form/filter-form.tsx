@@ -155,11 +155,6 @@ const FormContent = () => {
                   forceOpen={(section as any).forceOpen || false}
                   className="mb-0"
                   titleClassName={titleClassName}
-                  contentClassName={
-                    (section as any).forceOpen
-                      ? ""
-                      : "max-h-300 overflow-y-auto scroll-thin"
-                  }
                 >
                   {section.component}
                 </AccordionItem>
