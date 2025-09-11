@@ -1,4 +1,4 @@
-import { KeyDataNumber } from "@/types/KeyDataNumber";
+import { KeyDataNumber } from "@/types/key-data-number";
 
 export interface SchoolStatisticsDto {
   /** Format: int64 */
