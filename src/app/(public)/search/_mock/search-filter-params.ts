@@ -22,7 +22,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Kurum Kategorisi",
         institutionTypeId: 1,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {

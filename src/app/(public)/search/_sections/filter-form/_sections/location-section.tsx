@@ -52,7 +52,7 @@ export const LocationSection = ({ values, options }: LocationSectionProps) => ({
         isLoading={options.location.neighborhoods.loading}
         disabled={!values.districtId}
       />
-      <FormInput
+      {/* <FormInput
         name="radiusKm"
         type="number"
         label="Yarıçap (km)"
@@ -61,7 +61,7 @@ export const LocationSection = ({ values, options }: LocationSectionProps) => ({
         min="1"
         max="100"
         step="1"
-      />
+      /> */}
     </div>
   ),
 });

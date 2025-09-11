@@ -2,6 +2,7 @@ import { FormValues } from "@/types";
 
 export const initialValues: FormValues = {
   searchTerm: "",
+  institutionTypeId: "", // Tekli seçim için
   institutionTypeIds: [] as any,
   ageRange: [1, 80] as any,
   feeRange: [0.1, 1000] as any,
@@ -19,4 +20,6 @@ export const initialValues: FormValues = {
   isSubscribed: false,
   sortBy: "name",
   sortDirection: "asc",
+  // Dinamik property grupları için
+  propertyFilters: {} as Record<string, string | string[]>,
 };

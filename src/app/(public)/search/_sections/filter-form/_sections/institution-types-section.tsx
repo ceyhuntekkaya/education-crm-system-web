@@ -1,5 +1,6 @@
 import React from "react";
-import { FormCheckbox } from "@/components";
+import { FormRadio } from "@/components";
+import { mockSearchFilterParams } from "@/app/(public)/search/_mock";
 
 interface InstitutionTypesSectionProps {
   options: any;
@@ -7,15 +8,31 @@ interface InstitutionTypesSectionProps {
 
 export const InstitutionTypesSection = ({
   options,
-}: InstitutionTypesSectionProps) => ({
-  id: "institutionTypes",
-  title: "Kurum Türü",
-  component: (
-    <FormCheckbox
-      name="institutionTypeIds"
-      label=""
-      options={options.institution.data}
-      multi={true}
-    />
-  ),
-});
+}: InstitutionTypesSectionProps) => {
+  // Kurum türleri için radio button seçenekleri
+  const institutionTypeOptions = mockSearchFilterParams
+    .filter(
+      (item) =>
+        item.institutionTypeDto?.id && item.institutionTypeDto?.displayName
+    )
+    .map((item) => ({
+      value: item.institutionTypeDto!.id!.toString(),
+      label: item.institutionTypeDto!.displayName!,
+    }));
+
+  return {
+    id: "institutionTypes",
+    title: "Kurum Türleri",
+    component: (
+      <div className="institution-types-section">
+        <FormRadio
+          name="institutionTypeId"
+          label=""
+          value=""
+          options={institutionTypeOptions}
+          multi={true}
+        />
+      </div>
+    ),
+  };
+};

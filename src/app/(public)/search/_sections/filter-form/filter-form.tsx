@@ -9,6 +9,7 @@ import {
   SearchSection,
   LocationSection,
   InstitutionTypesSection,
+  SektorSection,
   AgeRangeSection,
   FeeRangeSection,
   CurriculumSection,
@@ -16,6 +17,7 @@ import {
   RatingSection,
   AdditionalSection,
   SortingSection,
+  DynamicPropertySections,
 } from "./_sections";
 
 const FormContent = () => {
@@ -29,20 +31,26 @@ const FormContent = () => {
   });
 
   const formSections = [
-    { ...SearchSection, forceOpen: true }, // Arama bölümü her zaman açık
+    { ...InstitutionTypesSection({ options }), forceOpen: true },
     { ...LocationSection({ values, options }), forceOpen: true }, // Lokasyon bölümü her zaman açık
-    InstitutionTypesSection({ options }),
-    AgeRangeSection,
+    // SektorSection({ options }),
+    // AgeRangeSection,
     FeeRangeSection,
-    CurriculumSection,
-    LanguageSection,
-    RatingSection,
-    AdditionalSection,
-    SortingSection,
+    // CurriculumSection,
+    // LanguageSection,
+    // RatingSection,
+    // { ...SearchSection, forceOpen: true }, // Arama bölümü her zaman açık
+
+    // AdditionalSection,
+    // SortingSection,
+
+    ...DynamicPropertySections({ options }), // Dinamik section'ları ekle
   ];
 
   const onSubmit = (values: FormValues) => {
     console.log("Form Values:", values);
+
+    const apiParams = values;
 
     // API'ye gönderilecek parametreleri hazırla
     // const apiParams = {
@@ -75,32 +83,6 @@ const FormContent = () => {
     //   page: 1,
     //   size: 10,
     // };
-
-    const apiParams = {
-      searchTerm: "",
-      institutionTypeIds: undefined,
-      minAge: undefined,
-      maxAge: 0,
-      minFee: 0.1,
-      maxFee: 0,
-      curriculumType: "",
-      languageOfInstruction: "",
-      countryId: undefined,
-      provinceId: undefined,
-      districtId: undefined,
-      neighborhoodId: undefined,
-      latitude: undefined,
-      longitude: undefined,
-      radiusKm: undefined,
-      minRating: undefined,
-      hasActiveCampaigns: undefined,
-      isSubscribed: undefined,
-      propertyFilters: undefined,
-      sortBy: "",
-      sortDirection: "",
-      page: 0,
-      size: 10,
-    };
 
     // Undefined değerleri temizle
     const cleanParams = Object.fromEntries(

@@ -12,7 +12,11 @@ export const SECTION_FIELD_MAPPING = {
     "neighborhoodId",
     "radiusKm",
   ],
-  institutionTypes: ["institutionTypeIds"],
+  institutionTypes: [
+    "institutionTypeId",
+    "institutionTypeIds",
+    "propertyFilters",
+  ],
   ageRange: ["ageRange"],
   feeRange: ["feeRange"],
   curriculum: ["curriculumType"],
