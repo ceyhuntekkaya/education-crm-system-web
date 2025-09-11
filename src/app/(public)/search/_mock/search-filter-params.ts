@@ -60,7 +60,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Temel Bilgiler",
         institutionTypeId: 1,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -98,7 +98,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Eğitim Sistemi",
         institutionTypeId: 1,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -619,7 +619,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Kurum Kategorisi",
         institutionTypeId: 2,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -639,7 +639,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Temel Bilgiler",
         institutionTypeId: 2,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -677,7 +677,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Eğitim Sistemi",
         institutionTypeId: 2,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -1036,7 +1036,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Kurum Kategorisi",
         institutionTypeId: 3,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -1056,7 +1056,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Temel Bilgiler",
         institutionTypeId: 3,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -1094,7 +1094,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Eğitim Sistemi",
         institutionTypeId: 3,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -1453,7 +1453,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Kurum Kategorisi",
         institutionTypeId: 4,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -1527,7 +1527,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Temel Bilgiler",
         institutionTypeId: 4,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {
@@ -1565,7 +1565,7 @@ export const mockSearchFilterParams: InstitutionTypeListDto[] = [
         displayName: "Eğitim Sistemi",
         institutionTypeId: 4,
         isActive: true,
-        isMultiple: false,
+        isMultiple: true,
         createdAt: "2024-01-01T00:00:00Z",
         propertyTypes: [
           {

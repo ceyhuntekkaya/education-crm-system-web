@@ -23,6 +23,10 @@ import {
 
 import { SECTION_FIELD_MAPPING } from "../_sections/filter-form/_constants";
 import { mockInstitutions } from "../_mock";
+import {
+  calculateDynamicSectionChanges,
+  getDynamicPropertyGroups,
+} from "../_utils";
 import { SearchContextValue, SearchProviderProps } from "../_types";
 
 // Context'in varsayılan değeri
@@ -49,7 +53,8 @@ const transformLocationData = <T extends { id?: number; name?: string }>(
 
 export function SearchProvider({ children }: SearchProviderProps) {
   // Form hook'tan sadece gerekli değerleri al
-  const { values, updateField, isDirty, areFieldsDirty } = useFormHook();
+  const { values, updateField, isDirty, areFieldsDirty, initialValues } =
+    useFormHook();
   // Önceki değerleri takip etmek için ref kullanıyoruz
   const prevValues = useRef({
     countryId: values?.countryId,
@@ -160,6 +165,17 @@ export function SearchProvider({ children }: SearchProviderProps) {
       Object.keys(SECTION_FIELD_MAPPING).forEach((sectionId) => {
         changes[sectionId] = false;
       });
+
+      // Dinamik section'lar için de false olarak ayarla
+      const selectedInstitutionType = values?.institutionTypeId || "";
+      if (selectedInstitutionType) {
+        const dynamicGroups = getDynamicPropertyGroups(selectedInstitutionType);
+
+        dynamicGroups.forEach((group: any) => {
+          changes[`property-group-${group.id}`] = false;
+        });
+      }
+
       return changes;
     }
 
@@ -170,8 +186,21 @@ export function SearchProvider({ children }: SearchProviderProps) {
       changes[sectionId] = areFieldsDirty([...fields]); // readonly array'i mutable array'e dönüştür
     });
 
+    // Dinamik property section'ları için değişiklik kontrolü
+    const selectedInstitutionType = values?.institutionTypeId || "";
+    if (selectedInstitutionType) {
+      const dynamicChanges = calculateDynamicSectionChanges(
+        selectedInstitutionType,
+        values,
+        initialValues
+      );
+
+      // Dinamik değişiklikleri ana changes objesine ekle
+      Object.assign(changes, dynamicChanges);
+    }
+
     return changes;
-  }, [isDirty, areFieldsDirty]);
+  }, [isDirty, areFieldsDirty, values, initialValues]);
 
   // ============ BAĞIMLI ALAN TEMİZLEME LOGİĞİ ============
   // Üst seviye bir alan değiştiğinde, alt seviye alanları otomatik olarak temizle

@@ -6,23 +6,31 @@ import { useAccordion, useFormHook } from "@/hooks";
 import { useSearchContext } from "../../_contexts";
 import { FormValues } from "@/types";
 import {
-  SearchSection,
+  // SearchSection,
   LocationSection,
   InstitutionTypesSection,
-  SektorSection,
-  AgeRangeSection,
+  // SektorSection,
+  // AgeRangeSection,
   FeeRangeSection,
-  CurriculumSection,
-  LanguageSection,
-  RatingSection,
-  AdditionalSection,
-  SortingSection,
+  // CurriculumSection,
+  // LanguageSection,
+  // RatingSection,
+  // AdditionalSection,
+  // SortingSection,
   DynamicPropertySections,
 } from "./_sections";
 
+// Section tipi tanımlaması
+interface Section {
+  id: string;
+  title?: string | React.ReactElement;
+  component: React.ReactElement;
+  forceOpen?: boolean;
+}
+
 const FormContent = () => {
-  const { values, resetForm } = useFormHook();
-  const { options, search, sectionChanges } = useSearchContext();
+  const { resetForm } = useFormHook();
+  const { search, sectionChanges } = useSearchContext();
 
   // Accordion hook'unu başlat - istediğiniz bölümleri varsayılan olarak açık yapabilirsiniz
   const { isOpen, toggleItem } = useAccordion({
@@ -30,21 +38,21 @@ const FormContent = () => {
     allowMultiple: true, // Birden fazla bölüm aynı anda açık olabilir
   });
 
-  const formSections = [
-    { ...InstitutionTypesSection({ options }), forceOpen: true },
-    { ...LocationSection({ values, options }), forceOpen: true }, // Lokasyon bölümü her zaman açık
+  const formSections: Section[] = [
+    { ...InstitutionTypesSection(), forceOpen: true },
+    { ...LocationSection(), forceOpen: true }, // Lokasyon bölümü her zaman açık
     // SektorSection({ options }),
-    // AgeRangeSection,
-    FeeRangeSection,
-    // CurriculumSection,
-    // LanguageSection,
-    // RatingSection,
-    // { ...SearchSection, forceOpen: true }, // Arama bölümü her zaman açık
+    // AgeRangeSection(),
+    { ...FeeRangeSection, forceOpen: true },
+    // CurriculumSection(),
+    // LanguageSection(),
+    // RatingSection(),
+    // { ...SearchSection(), forceOpen: true }, // Arama bölümü her zaman açık
 
-    // AdditionalSection,
-    // SortingSection,
+    // AdditionalSection(),
+    // SortingSection(),
 
-    ...DynamicPropertySections({ options }), // Dinamik section'ları ekle
+    ...DynamicPropertySections(), // Dinamik section'ları spread et
   ];
 
   const onSubmit = (values: FormValues) => {

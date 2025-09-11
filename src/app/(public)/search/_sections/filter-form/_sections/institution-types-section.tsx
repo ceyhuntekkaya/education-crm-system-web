@@ -1,14 +1,8 @@
 import React from "react";
 import { FormRadio } from "@/components";
-import { mockSearchFilterParams } from "@/app/(public)/search/_mock";
+import { mockSearchFilterParams } from "../../../_mock";
 
-interface InstitutionTypesSectionProps {
-  options: any;
-}
-
-export const InstitutionTypesSection = ({
-  options,
-}: InstitutionTypesSectionProps) => {
+export const InstitutionTypesSection = () => {
   // Kurum türleri için radio button seçenekleri
   const institutionTypeOptions = mockSearchFilterParams
     .filter(

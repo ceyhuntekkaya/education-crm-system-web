@@ -156,6 +156,7 @@ export const useFormHook = () => {
     values,
     errors,
     isValid,
+    initialValues,
 
     // Field operations
     updateField,
