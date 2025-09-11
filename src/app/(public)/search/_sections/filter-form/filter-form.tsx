@@ -105,7 +105,7 @@ const FormContent = () => {
   return (
     <Form
       onSubmit={onSubmit}
-      className={`sidebar rounded-12 bg-white p-32 box-shadow-md `}
+      className={`search-sidebar-filter sidebar rounded-12 bg-white p-32 box-shadow-md `}
       data-aos="fade-up"
     >
       <div>
@@ -174,23 +174,29 @@ const FormContent = () => {
           })}
         </Accordion>
         <span className="d-block border border-neutral-30 border-dashed my-32" />
-        <div className="d-flex flex-column gap-12">
-          <Button
-            type="submit"
-            variant="inline"
-            leftIcon="ph-magnifying-glass"
-            fullWidth
-          >
-            Filtrele
-          </Button>
+      </div>
+
+      {/* Sticky Footer Buttons */}
+      <div className="search-sidebar-filter__sticky-footer">
+        <div className="d-flex flex-between gap-12">
           <Button
             type="reset"
             variant="outline"
             leftIcon="ph-arrow-clockwise"
             fullWidth
             onClick={() => resetForm()}
+            size="xxs"
           >
-            Filtreleri Temizle
+            {" "}
+          </Button>
+          <Button
+            type="submit"
+            variant="inline"
+            leftIcon="ph-magnifying-glass"
+            fullWidth
+            size="xxs"
+          >
+            Filtrele
           </Button>
         </div>
       </div>

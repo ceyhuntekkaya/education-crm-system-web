@@ -5,7 +5,7 @@ import Link from "next/link";
 
 // Button variant types
 type ButtonVariant = "inline" | "outline" | "error" | "success";
-type ButtonSize = "sm" | "md";
+type ButtonSize = "xxs" | "xs" | "sm" | "md";
 
 // Base button props interface
 interface BaseButtonProps {
@@ -73,6 +73,10 @@ const Button: React.FC<ButtonProps> = ({
   // Get size classes
   const getSizeClasses = (): string => {
     switch (size) {
+      case "xxs":
+        return "btn-xxs";
+      case "xs":
+        return "btn-xs";
       case "sm":
         return "btn-sm";
       case "md":

@@ -1,0 +1,15 @@
+.search-sidebar-filter {
+  &__sticky-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 16px 16px;
+    border-top: 1px solid #e5e7eb;
+    margin-left: -32px;
+    margin-right: -32px;
+    margin-bottom: -32px;
+    z-index: 10;
+  }
+}

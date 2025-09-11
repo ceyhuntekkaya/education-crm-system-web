@@ -53,13 +53,25 @@ const transformLocationData = <T extends { id?: number; name?: string }>(
 
 export function SearchProvider({ children }: SearchProviderProps) {
   // Form hook'tan sadece gerekli değerleri al
-  const { values, updateField, isDirty, areFieldsDirty, initialValues } =
-    useFormHook();
+  const {
+    values,
+    updateField,
+    isDirty,
+    areFieldsDirty,
+    initialValues,
+    clearAllFieldsExcept,
+  } = useFormHook();
+
+  // Kurum türü değişikliği için state
+  const [institutionTypeChangeCounter, setInstitutionTypeChangeCounter] =
+    useState(0);
+
   // Önceki değerleri takip etmek için ref kullanıyoruz
   const prevValues = useRef({
     countryId: values?.countryId,
     provinceId: values?.provinceId,
     districtId: values?.districtId,
+    institutionTypeId: values?.institutionTypeId, // Kurum türü takibi için eklendi
   });
   // ============ API ÇAĞRILARI ============
 
@@ -207,7 +219,35 @@ export function SearchProvider({ children }: SearchProviderProps) {
   // Örn: Ülke değişirse → il, ilçe, mahalle temizlenir
   //      İl değişirse → ilçe, mahalle temizlenir
   //      İlçe değişirse → mahalle temizlenir
+  //      Kurum türü değişirse → lokasyon ve ücret aralığı hariç tüm alanlar temizlenir
   useEffect(() => {
+    // Kurum türü değişti - lokasyon ve ücret aralığı hariç tüm alanları temizle
+    if (prevValues.current.institutionTypeId !== values?.institutionTypeId) {
+      prevValues.current.institutionTypeId = values?.institutionTypeId;
+
+      // Kurum türü değişiklik counter'ını artır (child component'lar için signal)
+      setInstitutionTypeChangeCounter((prev) => prev + 1);
+
+      // Kurum türü değiştiyse ve bir değer varsa, diğer alanları sıfırla
+      if (values?.institutionTypeId) {
+        const fieldsToKeep = [
+          "institutionTypeId", // Kurum türü kendisi
+          "countryId",
+          "provinceId",
+          "districtId",
+          "neighborhoodId",
+          "latitude",
+          "longitude",
+          "radiusKm", // Lokasyon alanları
+          "feeRange",
+          "minFee",
+          "maxFee", // Ücret aralığı
+        ];
+
+        clearAllFieldsExcept(fieldsToKeep);
+      }
+    }
+
     // Ülke değişti - bağımlı alanları temizle
     if (prevValues.current.countryId !== values?.countryId) {
       prevValues.current.countryId = values?.countryId;
@@ -228,7 +268,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
       prevValues.current.districtId = values?.districtId;
       if (values?.neighborhoodId) updateField("neighborhoodId", "");
     }
-  }, [values, updateField]);
+  }, [values, updateField, clearAllFieldsExcept]);
 
   // ============ ARAMA FONKSİYONALİTESİ ============
   // Form verilerini kullanarak kurum araması yapar
@@ -275,6 +315,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
     // Section değişiklik durumları
     sectionChanges,
+
+    // Kurum türü değişiklik counter'ı
+    institutionTypeChangeCounter,
 
     // Arama fonksiyonalitesi
     search, // Arama fonksiyonu

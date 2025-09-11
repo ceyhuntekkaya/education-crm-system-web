@@ -151,6 +151,17 @@ export const useFormHook = () => {
     [setValue]
   );
 
+  // Belirli alanlar hariç tüm formu sıfırlama
+  const clearAllFieldsExcept = useCallback(
+    async (excludeFields: string[] = []) => {
+      const fieldsToReset = Object.keys(values).filter(
+        (fieldName) => !excludeFields.includes(fieldName)
+      );
+      await clearFields(fieldsToReset);
+    },
+    [values, clearFields]
+  );
+
   return {
     // Form state
     values,
@@ -169,6 +180,7 @@ export const useFormHook = () => {
     updateFields,
     mergeFormValues,
     clearFields,
+    clearAllFieldsExcept,
 
     // Form operations
     resetForm,

@@ -62,6 +62,9 @@ export interface SearchContextValue {
   // Section değişiklik durumları (filter form'da yönetilecek)
   sectionChanges: Record<string, boolean>;
 
+  // Kurum türü değişiklik counter'ı (dynamic sections için signal)
+  institutionTypeChangeCounter: number;
+
   // Arama fonksiyonalitesi
   search: (data: SchoolSearchDto) => Promise<any>; // Arama fonksiyonu
   searchLoading: boolean; // Arama yükleniyor durumu

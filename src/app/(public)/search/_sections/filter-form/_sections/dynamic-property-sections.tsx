@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FormRadio, FormCheckbox } from "@/components";
 import { useFormHook } from "@/hooks";
+import { useSearchContext } from "../../../_contexts";
 import { getDynamicPropertyGroups } from "../../../_utils";
 
 export const DynamicPropertySections = () => {
   const { values } = useFormHook();
+  const { institutionTypeChangeCounter } = useSearchContext();
 
   // Her section için ayrı arama state'i
   const [searchTerms, setSearchTerms] = useState<{ [key: string]: string }>({});
+
+  // Kurum türü değiştiğinde arama terimlerini sıfırla
+  useEffect(() => {
+    setSearchTerms({});
+  }, [institutionTypeChangeCounter]);
 
   // Arama terimini güncelleme fonksiyonu
   const updateSearchTerm = (groupId: string, term: string) => {
