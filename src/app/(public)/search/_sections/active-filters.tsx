@@ -76,16 +76,15 @@ interface FilterGroup {
 
 const FilterChip: React.FC<FilterChipProps> = ({ label, value, onRemove }) => {
   return (
-    <div className="filter-chip d-inline-flex align-items-center gap-8 bg-main-50 text-main-600 px-12 py-6 rounded-8 me-8 mb-8">
-      <span className="text-sm fw-medium">{label}:</span>
-      <span className="text-sm">{value}</span>
+    <div className="filter-chip">
+      <span className="filter-chip__value">{value}</span>
       <button
         type="button"
         onClick={onRemove}
-        className="filter-chip__remove text-main-600 hover-text-main-800 ms-4"
-        style={{ background: "none", border: "none", cursor: "pointer" }}
+        className="filter-chip__remove"
+        title={`${label}: ${value} filtresini kaldır`}
       >
-        <i className="ph ph-x text-xs" />
+        <i className="ph ph-x" />
       </button>
     </div>
   );
@@ -98,13 +97,12 @@ const FilterGroupComponent: React.FC<{
   if (group.filters.length === 0) return null;
 
   return (
-    <div className="filter-group mb-16">
-      <div className="filter-group-header d-flex align-items-center gap-8 mb-12">
-        <i className={`${group.icon} text-main-600`} />
-        <h6 className="mb-0 text-main-600 fw-semibold">{group.title}</h6>
-        <span className="text-xs text-neutral-500">
-          ({group.filters.length})
-        </span>
+    <div className="filter-group">
+      <div className="filter-group-header">
+        <i className={`${group.icon}`} />
+        <h6>{group.title}</h6>
+        <span>({group.filters.length})</span>
+        <h6>:</h6>
       </div>
       <div className="filter-chips-container">
         {group.filters.map((filter) => (
@@ -470,38 +468,38 @@ const ActiveFilters: React.FC = () => {
   }
 
   return (
-    <div className="active-filters bg-white rounded-12 p-24 mb-24 box-shadow-sm border border-neutral-30">
-      <div className="d-flex flex-between align-items-start mb-16">
-        <div>
-          <h6 className="mb-4 text-neutral-700">
+    <div className="active-filters bg-white rounded-12 p-16 mb-24 box-shadow-sm border border-neutral-30">
+      <div className="d-flex flex-between align-items-center mb-12">
+        <div className="d-flex align-items-center gap-12">
+          <h6 className="mb-0 text-neutral-700">
             Aktif Filtreler ({totalActiveFilters})
           </h6>
-          <span className="text-neutral-600 text-sm">
+          <span className="text-neutral-600 text-xs">
             <strong>{resultCount}</strong> okul bulundu
           </span>
         </div>
-        <div className="d-flex align-items-center gap-12">
-          <Button
-            type="button"
-            variant="outline"
-            size="xs"
-            leftIcon="ph-trash"
-            onClick={resetForm}
-            className="text-neutral-500 hover-text-danger-600"
-          >
-            Tümünü Temizle
-          </Button>
-        </div>
+        <Button
+          type="button"
+          variant="outline"
+          size="xs"
+          leftIcon="ph-trash"
+          onClick={resetForm}
+          className="text-neutral-500 hover-text-danger-600"
+        >
+          Temizle
+        </Button>
       </div>
 
-      <div className="grouped-filters">
-        {filterGroups.map((group) => (
-          <FilterGroupComponent
-            key={group.title}
-            group={group}
-            onRemoveFilter={removeFilter}
-          />
-        ))}
+      <div className="grouped-filters-container">
+        <div className="grouped-filters">
+          {filterGroups.map((group) => (
+            <FilterGroupComponent
+              key={group.title}
+              group={group}
+              onRemoveFilter={removeFilter}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
