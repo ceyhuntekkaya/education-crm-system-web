@@ -65,11 +65,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
       </div>
 
       <div
-        className={`accordion-content overflow-hidden transition-all duration-500 ease-in-out`}
+        className={`accordion-content transition-all duration-500 ease-in-out`}
         style={{
           maxHeight: shouldShow ? "2000px" : "0px",
           opacity: shouldShow ? 1 : 0,
           transition: "all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          overflow: shouldShow ? "visible" : "hidden",
         }}
       >
         <div
