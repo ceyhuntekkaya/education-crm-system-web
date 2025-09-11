@@ -1,5 +1,5 @@
 "use client";
-import { FilterForm, Results } from "./_sections";
+import { FilterForm, Results, ActiveFilters } from "./_sections";
 import { Breadcrumb } from "@/components";
 
 const SearchPage = () => {
@@ -17,6 +17,7 @@ const SearchPage = () => {
               <FilterForm />
             </div>
             <div className="col-lg-9">
+              <ActiveFilters />
               <Results />
             </div>
           </div>

@@ -1,0 +1,115 @@
+// Active Filters Component Styles
+.active-filters {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .grouped-filters {
+    .filter-group {
+      border: 1px solid rgba(var(--neutral-30-rgb), 0.5);
+      border-radius: 8px;
+      padding: 16px;
+      background: rgba(var(--neutral-10-rgb), 0.3);
+      
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      .filter-group-header {
+        border-bottom: 1px solid rgba(var(--neutral-30-rgb), 0.3);
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+
+        i {
+          font-size: 1.1em;
+        }
+
+        h6 {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .filter-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .filter-chip {
+    transition: all 0.2s ease;
+    border: 1px solid rgba(var(--main-600-rgb), 0.2);
+    font-size: 0.875rem;
+    
+    &:hover {
+      background: rgba(var(--main-600-rgb), 0.1);
+      border-color: rgba(var(--main-600-rgb), 0.3);
+    }
+
+    &__remove {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.search-results-info {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .active-filters {
+    margin: 0 -16px 24px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    
+    .grouped-filters {
+      .filter-group {
+        margin-bottom: 12px;
+        padding: 12px;
+        
+        .filter-group-header {
+          margin-bottom: 8px;
+          
+          h6 {
+            font-size: 0.85rem;
+          }
+        }
+      }
+    }
+    
+    .filter-chips-container {
+      gap: 6px;
+    }
+    
+    .filter-chip {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+    }
+
+    .d-flex.flex-between {
+      flex-direction: column;
+      align-items: stretch !important;
+      gap: 16px;
+    }
+  }
+
+  .search-results-info {
+    margin: 0 -16px 24px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
