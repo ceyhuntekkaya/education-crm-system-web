@@ -5,4 +5,3 @@ export {
   default as InstitutionCard,
   InstitutionCard as InstitutionCardComponent,
 } from "./institution-card";
-export { default as Pagination } from "./pagination";
