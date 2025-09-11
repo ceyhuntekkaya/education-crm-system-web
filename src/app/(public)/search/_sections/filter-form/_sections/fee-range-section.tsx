@@ -5,6 +5,6 @@ export const FeeRangeSection = {
   id: "feeRange",
   title: "Ücret Aralığı",
   component: (
-    <FormRange name="feeRange" min={0.1} max={10000000} step={0.1} prefix="₺" />
+    <FormRange name="feeRange" min={1} max={1000000} step={1} prefix="₺" />
   ),
 };

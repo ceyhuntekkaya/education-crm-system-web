@@ -5,7 +5,7 @@ export const initialValues: FormValues = {
   institutionTypeId: "", // Tekli seçim için
   institutionTypeIds: [] as any,
   ageRange: [1, 80] as any,
-  feeRange: [0.1, 1000] as any,
+  feeRange: [0.1, 1000000] as any,
   curriculumType: "",
   languageOfInstruction: "",
   countryId: "",
