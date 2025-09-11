@@ -23,6 +23,9 @@
 .max-h-unset {
     max-height: unset !important;
 }
+.max-h-300 {
+    max-height: 300px !important;
+}
 .max-h-416 {
     max-height: 416px !important;
 }
@@ -181,4 +184,17 @@
 
 .h-6px{
   height: 6px;
+}
+
+// Overflow utilities
+.overflow-y-auto {
+  overflow-y: auto !important;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden !important;
+}
+
+.overflow-auto {
+  overflow: auto !important;
 }
