@@ -16,7 +16,7 @@ interface BaseIconProps {
   className?: string;
   disabled?: boolean;
   loading?: boolean;
-  animate?: boolean; // Enable/disable animations
+  animate?: boolean | string; // Enable/disable animations or specify custom AOS animation
 }
 
 // Icon props for regular div/span element
@@ -48,15 +48,15 @@ const Icon: React.FC<IconProps> = ({
 }) => {
   // Get variant-specific classes
   const getVariantClasses = (): string => {
-    const baseClasses = "rounded-circle flex-center";
+    const baseClasses = "rounded-circle flex-center transition-03";
 
     switch (variant) {
       case "inline":
-        return `${baseClasses} bg-main-25 hover-bg-main-600 border border-neutral-30 text-neutral-500 hover-text-white hover-border-main-600`;
+        return `${baseClasses} bg-main-25 hover-bg-main-600 border border-neutral-30 text-neutral-500 hover-text-white hover-border-main-600 transform hover:scale-105`;
       case "outline":
-        return `${baseClasses} bg-main-600 hover-bg-main-25 border border-main-600 text-white hover-text-neutral-500 hover-border-neutral-30`;
+        return `${baseClasses} bg-main-600 hover-bg-main-25 border border-main-600 text-white hover-text-neutral-500 hover-border-neutral-30 transform hover:scale-105`;
       default:
-        return `${baseClasses} bg-main-25 hover-bg-main-600 border border-neutral-30 text-neutral-500 hover-text-white hover-border-main-600`;
+        return `${baseClasses} bg-main-25 hover-bg-main-600 border border-neutral-30 text-neutral-500 hover-text-white hover-border-main-600 transform hover:scale-105`;
     }
   };
 
@@ -64,13 +64,13 @@ const Icon: React.FC<IconProps> = ({
   const getSizeClasses = (): string => {
     switch (size) {
       case "sm":
-        return "w-40 h-40 text-lg";
+        return "w-32 h-32 text-sm";
       case "md":
-        return "w-48 h-48 text-xl";
+        return "w-40 h-40 text-base";
       case "lg":
-        return "w-52 h-52 text-2xl";
+        return "w-48 h-48 text-lg";
       default:
-        return "w-48 h-48 text-xl";
+        return "w-40 h-40 text-base";
     }
   };
 
@@ -80,10 +80,18 @@ const Icon: React.FC<IconProps> = ({
     getSizeClasses(),
     disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
     loading ? "opacity-75" : "",
+    "shadow-sm hover:shadow-md", // Add shadow effects
     className,
   ]
     .filter(Boolean)
     .join(" ");
+
+  // Get AOS animation attribute
+  const getAOSAnimation = () => {
+    if (animate === false) return {};
+    if (typeof animate === "string") return { "data-aos": animate };
+    return { "data-aos": "fade-up" }; // Default animation
+  };
 
   // Render loading spinner
   const LoadingSpinner = () => (
@@ -102,7 +110,7 @@ const Icon: React.FC<IconProps> = ({
       <Link
         href={href}
         className={iconClasses}
-        data-aos="fade-up" // Default AOS animation
+        {...getAOSAnimation()}
         {...(rest as any)}
       >
         <IconElement />
@@ -117,7 +125,7 @@ const Icon: React.FC<IconProps> = ({
       onClick={disabled || loading ? undefined : onClick}
       role={onClick ? "button" : undefined}
       tabIndex={onClick && !disabled && !loading ? 0 : undefined}
-      data-aos="fade-up" // Default AOS animation
+      {...getAOSAnimation()}
       {...(rest as any)}
     >
       <IconElement />
