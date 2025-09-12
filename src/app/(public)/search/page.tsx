@@ -1,5 +1,5 @@
 "use client";
-import { FilterForm, Results, ActiveFilters } from "./_sections";
+import { FilterForm, Results, ActiveFilters } from "./_shared";
 import { Breadcrumb } from "@/components";
 
 const SearchPage = () => {

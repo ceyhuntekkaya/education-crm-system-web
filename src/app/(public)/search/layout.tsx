@@ -2,8 +2,7 @@
 
 import React from "react";
 import { FormProvider } from "@/contexts";
-import { SearchProvider } from "./_contexts";
-import { initialValues, validationSchema } from "./_sections";
+import { SearchProvider, initialValues, validationSchema } from "./_shared";
 
 export default function SearchLayout({
   children,
