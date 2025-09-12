@@ -459,29 +459,85 @@ const ActiveFilters: React.FC = () => {
   // Aktif filter yoksa sadece sonuç sayısını göster
   if (totalActiveFilters === 0) {
     return (
-      <div className="search-results-info bg-white rounded-12 p-16 mb-24 box-shadow-sm border border-neutral-30">
-        <span className="text-neutral-600 text-sm">
-          <strong>{resultCount}</strong> okul bulundu
-        </span>
+      <div className="search-results-info bg-white rounded-12 p-20 mb-24 box-shadow-sm border border-neutral-30">
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center gap-12">
+            <div className="search-icon-wrapper bg-primary-50 rounded-circle p-8 d-flex align-items-center justify-content-center">
+              <i className="ph ph-buildings text-primary-600 text-xl"></i>
+            </div>
+            <div>
+              <h6 className="mb-4 text-neutral-800 font-weight-600">
+                Arama Sonuçları
+              </h6>
+              <p className="mb-0 text-neutral-600 text-sm">
+                <strong className="text-primary-600">{resultCount}</strong> okul
+                bulundu
+              </p>
+            </div>
+          </div>
+          <div className="d-flex align-items-center gap-8">
+            <div className="result-badge bg-success-50 text-success-600 px-12 py-6 rounded-8 text-xs font-weight-500">
+              <i className="ph ph-check-circle me-4"></i>
+              Aktif
+            </div>
+            <div className="text-neutral-400 text-xs">
+              <i className="ph ph-clock me-4"></i>
+              Güncel
+            </div>
+          </div>
+        </div>
+
+        {resultCount > 0 && (
+          <div className="mt-16 pt-16 border-top border-neutral-100">
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center gap-16 text-xs text-neutral-500">
+                <span className="d-flex align-items-center gap-4">
+                  <i className="ph ph-funnel"></i>
+                  Filtre yok
+                </span>
+                <span className="d-flex align-items-center gap-4">
+                  <i className="ph ph-list"></i>
+                  Tüm sonuçlar
+                </span>
+              </div>
+              <div className="text-xs text-neutral-400">
+                {resultCount > 1 ? "Birden fazla seçenek mevcut" : "Tek sonuç"}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
   return (
-    <div className="active-filters bg-white rounded-12 p-16 mb-24 box-shadow-sm border border-neutral-30">
-      <div className="d-flex flex-between align-items-center mb-12">
+    <div className="active-filters bg-white rounded-12 p-20 mb-24 box-shadow-sm border border-neutral-30">
+      <div className="d-flex flex-between align-items-center mb-16">
         <div className="d-flex align-items-center gap-12">
-          <h6 className="mb-0 text-neutral-700">
-            Aktif Filtreler ({totalActiveFilters})
-          </h6>
-          <span className="text-neutral-600 text-xs">
-            <strong>{resultCount}</strong> okul bulundu
-          </span>
+          <div className="filter-icon-wrapper bg-warning-50 rounded-circle p-8 d-flex align-items-center justify-content-center">
+            <i className="ph ph-funnel text-warning-600 text-xl"></i>
+          </div>
+          <div>
+            <h6 className="mb-4 text-neutral-800 font-weight-600">
+              Aktif Filtreler ({totalActiveFilters})
+            </h6>
+            <div className="d-flex align-items-center gap-8">
+              <span className="text-neutral-600 text-sm">
+                <strong className="text-primary-600">{resultCount}</strong> okul
+                bulundu
+              </span>
+              <span className="text-neutral-300">•</span>
+              <span className="result-badge bg-info-50 text-info-600 px-8 py-2 rounded-6 text-xs font-weight-500">
+                <i className="ph ph-check-circle me-4"></i>
+                Filtrelenmiş
+              </span>
+            </div>
+          </div>
         </div>
         <Button
           type="button"
           variant="outline"
-          size="xs"
+          size="xxs"
           leftIcon="ph-trash"
           onClick={resetForm}
           className="text-neutral-500 hover-text-danger-600"
