@@ -2,7 +2,7 @@ import React from "react";
 import { FormRadio } from "@/components";
 import { ratingOptions } from "../_options";
 
-export const RatingSection = {
+export const RatingSection = () => ({
   id: "rating",
   title: "Minimum Puan",
   component: (
@@ -14,4 +14,4 @@ export const RatingSection = {
       multi={true}
     />
   ),
-};
+});

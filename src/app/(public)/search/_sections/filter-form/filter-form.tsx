@@ -14,7 +14,7 @@ import {
   FeeRangeSection,
   // CurriculumSection,
   // LanguageSection,
-  // RatingSection,
+  RatingSection,
   // AdditionalSection,
   // SortingSection,
   DynamicPropertySections,
@@ -46,13 +46,14 @@ const FormContent = () => {
     { ...FeeRangeSection, forceOpen: true },
     // CurriculumSection(),
     // LanguageSection(),
-    // RatingSection(),
+
     // { ...SearchSection(), forceOpen: true }, // Arama bölümü her zaman açık
 
     // AdditionalSection(),
     // SortingSection(),
 
     ...DynamicPropertySections(), // Dinamik section'ları spread et
+    RatingSection(),
   ];
 
   const onSubmit = (values: FormValues) => {
