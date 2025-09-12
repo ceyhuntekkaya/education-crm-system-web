@@ -1,0 +1,16 @@
+export { HeroImage } from "./hero-image";
+export { InstitutionHeader } from "./institution-header";
+export { Badges } from "./badges";
+export { StatsRow } from "./stats-row";
+export { Highlights } from "./highlights";
+export { Properties } from "./properties";
+export { CompactLayout } from "./compact-layout";
+export { ExpandedLayout } from "./expanded-layout";
+export { LocationInfo } from "./location-info";
+export { CompactLocationInfo } from "./compact-location-info";
+export { InstitutionIdentityCard } from "./institution-identity-card";
+export { AgeRangeInfo } from "./age-range-info";
+export { DescriptionSection } from "./description-section";
+export { ActionSection } from "./action-section";
+export { QuickHighlightsPills } from "./quick-highlights-pills";
+export { ExpandTrigger } from "./expand-trigger";

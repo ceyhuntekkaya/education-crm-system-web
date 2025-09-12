@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useSearchContext } from "../_contexts";
-import { InstitutionCard } from "./institution-card";
+import { InstitutionCard } from "./institution-card/institution-card";
 
 const CARDS_PER_ROW = 3;
 const ANIMATION_DELAY_INCREMENT = 100;
