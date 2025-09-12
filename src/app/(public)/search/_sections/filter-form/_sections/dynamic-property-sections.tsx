@@ -47,11 +47,7 @@ export const DynamicPropertySections = () => {
 
     return {
       id: `property-group-${group.id}`,
-      title: (
-        <div className="d-flex align-items-center justify-content-between w-100">
-          <span className="fw-medium">{group.displayName}</span>
-        </div>
-      ),
+      title: group.displayName,
       component: (
         <div className="property-types">
           {/* Küçük Arama Input'u */}
