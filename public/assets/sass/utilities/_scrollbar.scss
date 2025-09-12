@@ -25,3 +25,29 @@
         }
     }
 }
+
+// Daha ince ve zarif scrollbar
+.scroll-thin {
+    &::-webkit-scrollbar {
+        width: 3px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        transition: background 0.2s ease;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+    
+    // Firefox için
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+    
+    &:hover {
+        scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+}

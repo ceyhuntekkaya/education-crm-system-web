@@ -5,6 +5,7 @@ export { default as Popover } from "./popover";
 export { default as Loading } from "./loading";
 export { default as TabContent } from "./tab-content";
 export { default as TabNavigation } from "./tab-navigation";
+export { Accordion, AccordionItem } from "./accordion";
 
 // Types
 export type { TabItem, TabSystemProps } from "./types";

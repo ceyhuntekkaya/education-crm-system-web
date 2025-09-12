@@ -1,0 +1,12 @@
+export { SearchSection } from "./search-section";
+export { LocationSection } from "./location-section";
+export { InstitutionTypesSection } from "./institution-types-section";
+export { SektorSection } from "./sektor-section";
+export { AgeRangeSection } from "./age-range-section";
+export { FeeRangeSection } from "./fee-range-section";
+export { CurriculumSection } from "./curriculum-section";
+export { LanguageSection } from "./language-section";
+export { RatingSection } from "./rating-section";
+export { AdditionalSection } from "./additional-section";
+export { SortingSection } from "./sorting-section";
+export { DynamicPropertySections } from "./dynamic-property-sections";

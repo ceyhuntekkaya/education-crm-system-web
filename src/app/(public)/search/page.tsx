@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-import { FilterForm, Results } from "./_sections";
+import { FilterForm, Results, ActiveFilters } from "./_shared";
 import { Breadcrumb } from "@/components";
 
 const SearchPage = () => {
@@ -18,6 +17,7 @@ const SearchPage = () => {
               <FilterForm />
             </div>
             <div className="col-lg-9">
+              <ActiveFilters />
               <Results />
             </div>
           </div>

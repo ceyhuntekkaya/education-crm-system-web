@@ -121,6 +121,25 @@ export const useFormHook = () => {
     return JSON.stringify(values) !== JSON.stringify(initialValues);
   }, [values, initialValues]);
 
+  // Belirli field'ların dirty durumunu kontrol etme
+  const areFieldsDirty = useCallback(
+    (fieldNames: string[]) => {
+      return fieldNames.some((fieldName) => {
+        const currentValue = values[fieldName];
+        const initialValue = initialValues[fieldName];
+
+        // Array değerler için deep comparison
+        if (Array.isArray(currentValue) && Array.isArray(initialValue)) {
+          return JSON.stringify(currentValue) !== JSON.stringify(initialValue);
+        }
+
+        // Diğer değerler için basit karşılaştırma
+        return currentValue !== initialValue;
+      });
+    },
+    [values, initialValues]
+  );
+
   // Field'ları temizleme (belirli field'ları boşaltma)
   const clearFields = useCallback(
     async (fieldNames: string[]) => {
@@ -132,11 +151,23 @@ export const useFormHook = () => {
     [setValue]
   );
 
+  // Belirli alanlar hariç tüm formu sıfırlama
+  const clearAllFieldsExcept = useCallback(
+    async (excludeFields: string[] = []) => {
+      const fieldsToReset = Object.keys(values).filter(
+        (fieldName) => !excludeFields.includes(fieldName)
+      );
+      await clearFields(fieldsToReset);
+    },
+    [values, clearFields]
+  );
+
   return {
     // Form state
     values,
     errors,
     isValid,
+    initialValues,
 
     // Field operations
     updateField,
@@ -149,6 +180,7 @@ export const useFormHook = () => {
     updateFields,
     mergeFormValues,
     clearFields,
+    clearAllFieldsExcept,
 
     // Form operations
     resetForm,
@@ -159,5 +191,6 @@ export const useFormHook = () => {
     getFormDataAsFormData,
     getFieldsWithErrors,
     isDirty,
+    areFieldsDirty,
   };
 };

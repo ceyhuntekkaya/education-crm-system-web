@@ -163,3 +163,157 @@
     }
 }
 /* ================================= Accordion Css End =========================== */
+
+/* ================================= Custom Filter Accordion Start =========================== */
+.accordion {
+  .accordion-item {
+    margin-bottom: 0;
+    
+    .accordion-header {
+      padding: 0;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.5s ease;
+      
+      &:hover {
+        .ph-bold {
+          color: var(--main-600) !important;
+        }
+        h6 {
+          color: var(--main-600) !important;
+        }
+      }
+      
+      .ph-bold {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        font-size: 16px;
+      }
+    }
+    
+    .accordion-content {
+      overflow: hidden;
+      
+      &--open {
+        animation: slideDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+      
+      &--closed {
+        animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+    }
+  }
+
+  // No-style variant - sadece animasyon, border/padding yok
+  &--no-style {
+    .accordion-item {
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin-bottom: 0 !important;
+      
+      &--no-style {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+      }
+      
+      .accordion-header {
+        padding: 8px 0 !important;
+        border: none !important;
+        background: transparent !important;
+        
+        &:hover {
+          background: transparent !important;
+        }
+      }
+      
+      .accordion-content {
+        border: none !important;
+        background: transparent !important;
+        
+        .pt-16 {
+          padding-top: 8px !important;
+        }
+      }
+    }
+  }
+}
+
+// Bağımsız no-style sınıfı da ekleyelim
+.accordion-item--no-style {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  
+  .accordion-header {
+    padding: 8px 0 !important;
+    border: none !important;
+    background: transparent !important;
+    
+    &:hover {
+      background: transparent !important;
+    }
+  }
+  
+  .accordion-content {
+    border: none !important;
+    background: transparent !important;
+    
+    .pt-16 {
+      padding-top: 8px !important;
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 2000px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    max-height: 2000px;
+    opacity: 1;
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+/* Responsive accordion adjustments */
+@media (max-width: 768px) {
+  .accordion {
+    .accordion-item {
+      .accordion-header {
+        padding: 8px 0;
+        
+        h6 {
+          font-size: 16px;
+        }
+        
+        .ph-bold {
+          font-size: 14px;
+        }
+      }
+      
+      .accordion-content {
+        .pt-16 {
+          padding-top: 12px;
+        }
+      }
+    }
+  }
+}
+/* ================================= Custom Filter Accordion End =========================== */
