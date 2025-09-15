@@ -32,9 +32,9 @@ export function useInstitutionTypes(): InstitutionTypesReturn {
     error: institutionTypesError,
   };
 
-  console.log("institutionTypes", institutionTypes);
+  // console.log("institutionTypes", institutionTypes);
 
-  console.log("institutionTypesOptions", institutionTypesOptions);
+  // console.log("institutionTypesOptions", institutionTypesOptions);
 
   return { institutionTypes, institutionTypesOptions };
 }

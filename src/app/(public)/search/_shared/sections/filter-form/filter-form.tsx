@@ -5,6 +5,7 @@ import { Accordion, AccordionItem } from "@/components/ui";
 import { useAccordion, useFormHook } from "@/hooks";
 import { useSearchContext } from "../../contexts";
 import { FormValues } from "@/types";
+import { createApiParams, cleanApiParams } from "../../utils";
 import {
   // SearchSection,
   LocationSection,
@@ -30,7 +31,7 @@ interface Section {
 
 const FormContent = () => {
   const { resetForm } = useFormHook();
-  const { search, sectionChanges } = useSearchContext();
+  const { search, sectionChanges, institutionTypes } = useSearchContext();
 
   // Accordion hook'unu başlat - istediğiniz bölümleri varsayılan olarak açık yapabilirsiniz
   const { isOpen, toggleItem } = useAccordion({
@@ -59,68 +60,11 @@ const FormContent = () => {
   const onSubmit = (values: FormValues) => {
     console.log("Form Values:", values);
 
-    const apiParams = {
-      searchTerm: "",
-      institutionTypeIds: null,
-      minAge: 1,
-      maxAge: 80,
-      minFee: 0.1,
-      maxFee: 0,
-      curriculumType: "",
-      languageOfInstruction: "",
-      countryId: null,
-      provinceId: null,
-      districtId: null,
-      neighborhoodId: null,
-      latitude: null,
-      longitude: null,
-      radiusKm: null,
-      minRating: null,
-      hasActiveCampaigns: null,
-      isSubscribed: null,
-      propertyFilters: null,
-      sortBy: "",
-      sortDirection: "",
-      page: 0,
-      size: 10,
-    };
-
-    // API'ye gönderilecek parametreleri hazırla
-    // const apiParams = {
-    //   searchTerm: values.searchTerm || undefined,
-    //   institutionTypeIds:
-    //     Array.isArray(values.institutionTypeIds) &&
-    //     values.institutionTypeIds.length
-    //       ? values.institutionTypeIds
-    //       : undefined,
-    //   minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : undefined,
-    //   maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : undefined,
-    //   minFee: Array.isArray(values.feeRange) ? values.feeRange[0] : undefined,
-    //   maxFee: Array.isArray(values.feeRange) ? values.feeRange[1] : undefined,
-    //   curriculumType: values.curriculumType || undefined,
-    //   languageOfInstruction: values.languageOfInstruction || undefined,
-    //   countryId: values.countryId ? Number(values.countryId) : undefined,
-    //   provinceId: values.provinceId ? Number(values.provinceId) : undefined,
-    //   districtId: values.districtId ? Number(values.districtId) : undefined,
-    //   neighborhoodId: values.neighborhoodId
-    //     ? Number(values.neighborhoodId)
-    //     : undefined,
-    //   latitude: values.latitude || undefined,
-    //   longitude: values.longitude || undefined,
-    //   radiusKm: values.radiusKm || undefined,
-    //   minRating: values.minRating || undefined,
-    //   hasActiveCampaigns: values.hasActiveCampaigns || undefined,
-    //   isSubscribed: values.isSubscribed || undefined,
-    //   sortBy: values.sortBy || "name",
-    //   sortDirection: values.sortDirection || "asc",
-    //   page: 1,
-    //   size: 10,
-    // };
+    // API parametrelerini oluştur (propertyFilters dahil)
+    const apiParams = createApiParams(values, institutionTypes);
 
     // Undefined değerleri temizle
-    const cleanParams = Object.fromEntries(
-      Object.entries(apiParams).filter(([_, value]) => value !== undefined)
-    );
+    const cleanParams = cleanApiParams(apiParams);
 
     console.log("API Parametreleri:", cleanParams);
     // Search fonksiyonunu hook'tan kullan
