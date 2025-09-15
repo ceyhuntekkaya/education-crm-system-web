@@ -1,18 +1,11 @@
 import React from "react";
 import { FormRadio } from "@/components";
-import { mockSearchFilterParams } from "../../../mock";
+import { useSearchContext } from "../../../contexts";
 
 export const InstitutionTypesSection = () => {
   // Kurum türleri için radio button seçenekleri
-  const institutionTypeOptions = mockSearchFilterParams
-    .filter(
-      (item) =>
-        item.institutionTypeDto?.id && item.institutionTypeDto?.displayName
-    )
-    .map((item) => ({
-      value: item.institutionTypeDto!.id!.toString(),
-      label: item.institutionTypeDto!.displayName!,
-    }));
+
+  const { options } = useSearchContext();
 
   return {
     id: "institutionTypes",
@@ -23,7 +16,7 @@ export const InstitutionTypesSection = () => {
           name="institutionTypeId"
           label=""
           value=""
-          options={institutionTypeOptions}
+          options={options.institution.data}
           multi={true}
         />
       </div>

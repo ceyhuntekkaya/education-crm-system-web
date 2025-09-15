@@ -1,6 +1,10 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-import { ApiResponseDto, InstitutionTypeDto } from "@/types";
+import {
+  ApiResponseDto,
+  InstitutionTypeDto,
+  InstitutionTypeListDto,
+} from "@/types";
 import { InstitutionTypesReturn } from "../types";
 
 /**
@@ -11,20 +15,26 @@ export function useInstitutionTypes(): InstitutionTypesReturn {
     data: institutionTypesResponse,
     loading: institutionTypesLoading,
     error: institutionTypesError,
-  } = useGet<ApiResponseDto<InstitutionTypeDto[]>>(
+  } = useGet<ApiResponseDto<InstitutionTypeListDto[]>>(
     API_ENDPOINTS.INSTITUTIONS.INSTITUTION_TYPES
   );
 
-  const institutionTypes = {
+  const institutionTypes = institutionTypesResponse?.data || [];
+
+  const institutionTypesOptions = {
     data: [
       ...(institutionTypesResponse?.data?.map((type) => ({
-        value: type.id?.toString() || "",
-        label: type.displayName || "",
+        value: type.institutionTypeDto?.id?.toString() || "",
+        label: type.institutionTypeDto?.displayName || "",
       })) || []),
     ],
     loading: institutionTypesLoading,
     error: institutionTypesError,
   };
 
-  return institutionTypes;
+  console.log("institutionTypes", institutionTypes);
+
+  console.log("institutionTypesOptions", institutionTypesOptions);
+
+  return { institutionTypes, institutionTypesOptions };
 }

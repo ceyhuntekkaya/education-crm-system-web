@@ -6,7 +6,7 @@ import { getDynamicPropertyGroups } from "../../../utils";
 
 export const DynamicPropertySections = () => {
   const { values } = useFormHook();
-  const { institutionTypeChangeCounter } = useSearchContext();
+  const { institutionTypeChangeCounter, institutionTypes } = useSearchContext();
 
   // Her section için ayrı arama state'i
   const [searchTerms, setSearchTerms] = useState<{ [key: string]: string }>({});
@@ -35,7 +35,10 @@ export const DynamicPropertySections = () => {
 
   // Seçilen kurum tipine göre dinamik section'ları oluştur
   const selectedInstitutionType = values?.institutionTypeId || "";
-  const dynamicGroups = getDynamicPropertyGroups(selectedInstitutionType);
+  const dynamicGroups = getDynamicPropertyGroups(
+    selectedInstitutionType,
+    institutionTypes
+  );
 
   // Dinamik property grup section'larını oluştur
   const dynamicPropertySections = dynamicGroups.map((group: any) => {
@@ -66,8 +69,10 @@ export const DynamicPropertySections = () => {
           {/* Scrollable Options Container */}
           <div className="max-h-264-px overflow-y-auto scroll-thin">
             {filteredPropertyTypes && filteredPropertyTypes.length > 0 ? (
-              group.isMultiple ? (
-                // Çoklu seçim için checkbox
+              group.isMultiple === null ||
+              group.isMultiple === undefined ||
+              group.isMultiple === true ? (
+                // Çoklu seçim için checkbox (isMultiple: null, undefined, veya true)
                 <FormCheckbox
                   name={group.name} // name field'ını kullan (örn: "facilities")
                   label=""
@@ -82,7 +87,7 @@ export const DynamicPropertySections = () => {
                   multi={true}
                 />
               ) : (
-                // Tekli seçim için radio
+                // Tekli seçim için radio (isMultiple: false)
                 <FormRadio
                   name={group.name} // name field'ını kullan (örn: "education_system")
                   label=""

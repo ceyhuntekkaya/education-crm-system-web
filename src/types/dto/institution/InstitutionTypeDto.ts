@@ -1,4 +1,4 @@
-import { InstitutionPropertyDto } from './InstitutionPropertyDto';
+import { InstitutionPropertyDto } from "./InstitutionPropertyDto";
 
 export interface InstitutionTypeDto {
   id?: number;
@@ -11,5 +11,5 @@ export interface InstitutionTypeDto {
   defaultProperties?: string;
   properties?: InstitutionPropertyDto[];
   isActive?: boolean;
-  createdAt?: string;
+  createdAt?: string; // ISO date string (LocalDateTime in Java)
 }

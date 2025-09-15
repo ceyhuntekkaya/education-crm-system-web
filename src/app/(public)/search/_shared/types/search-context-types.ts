@@ -6,6 +6,9 @@ export interface SearchContextValue {
   // Mock veriler (geliştirme aşamasında kullanılıyor)
   institutions: typeof mockInstitutions;
 
+  // Kurum türleri ham verisi
+  institutionTypes: any[];
+
   // Lokasyon verileri (ayrı ayrı erişim için)
   countries: {
     data: { value: string; label: string }[];

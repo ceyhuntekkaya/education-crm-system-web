@@ -32,12 +32,13 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   // Modüler hooks'ları kullan
   const locationData = useLocationData(values);
-  const institutionTypes = useInstitutionTypes();
+  const { institutionTypes, institutionTypesOptions } = useInstitutionTypes();
   const sectionChanges = useSectionChanges(
     isDirty,
     areFieldsDirty,
     values,
-    initialValues
+    initialValues,
+    institutionTypes
   );
   const { search, searchLoading, searchError } = useSearch();
   const { institutionTypeChangeCounter } = useInstitutionChanges(
@@ -50,7 +51,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
   const options = {
-    institution: institutionTypes,
+    institution: institutionTypesOptions,
     location: locationData,
   };
 
@@ -58,6 +59,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
   const contextValue: SearchContextValue = {
     // Mock veriler (geliştirme aşamasında kullanılıyor)
     institutions: mockInstitutions,
+
+    // Kurum türleri ham verisi
+    institutionTypes,
 
     // Lokasyon verileri (ayrı ayrı erişim için)
     countries: locationData.countries,

@@ -22,13 +22,13 @@ export interface UseActiveFiltersReturn {
 }
 
 export const useActiveFilters = (): UseActiveFiltersReturn => {
-  const { options, institutions } = useSearchContext();
+  const { options, institutions, institutionTypes } = useSearchContext();
   const { values, updateField, resetForm, isDirty } = useFormHook();
 
   // Compute filter groups
   const filterGroups = useMemo(() => {
-    return getGroupedActiveFilters(values, isDirty, options);
-  }, [values, isDirty, options]);
+    return getGroupedActiveFilters(values, isDirty, options, institutionTypes);
+  }, [values, isDirty, options, institutionTypes]);
 
   // Compute totals
   const totalActiveFilters = useMemo(() => {

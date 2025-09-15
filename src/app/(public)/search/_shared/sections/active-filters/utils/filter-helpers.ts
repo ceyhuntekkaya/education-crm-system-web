@@ -13,12 +13,14 @@ import {
   createDynamicFilterGroups,
   combineFilterGroups,
 } from "./filter-group-helpers";
+import { InstitutionTypeListDto } from "@/types";
 
 // Ana aktif filtreleri gruplandırılmış şekilde hesaplama fonksiyonu
 export const getGroupedActiveFilters = (
   values: any,
   isDirty: boolean,
-  options: any
+  options: any,
+  institutionTypes: InstitutionTypeListDto[]
 ): FilterGroup[] => {
   if (!values || !isDirty) return [];
 
@@ -30,11 +32,13 @@ export const getGroupedActiveFilters = (
   const booleanFilters = processBooleanFields(values);
   const dynamicPropertyFilters = processDynamicPropertyFilters(
     values,
-    selectedInstitutionTypeId
+    selectedInstitutionTypeId,
+    institutionTypes
   );
   const dynamicFormFilters = processDynamicFormFields(
     values,
-    selectedInstitutionTypeId
+    selectedInstitutionTypeId,
+    institutionTypes
   );
 
   // Tüm filtreleri birleştir
@@ -50,7 +54,8 @@ export const getGroupedActiveFilters = (
   const staticGroups = createStaticFilterGroups(allFilters);
   const dynamicGroups = createDynamicFilterGroups(
     allFilters,
-    selectedInstitutionTypeId
+    selectedInstitutionTypeId,
+    institutionTypes
   );
 
   // Tüm grupları birleştir ve döndür
