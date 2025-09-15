@@ -132,7 +132,7 @@ export default function InstitutionSidebar({
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-main-600 text-xl hover-text-white w-40 h-40 rounded-circle border border-main-600 hover-bg-main-600 flex-center"
+                  className="text-main-600 text-xl hover-text-white w-40-px h-40-px rounded-circle border border-main-600 hover-bg-main-600 flex-center"
                   aria-label={social.platform}
                 >
                   <i className={`ph-bold ${social.icon}`} />
