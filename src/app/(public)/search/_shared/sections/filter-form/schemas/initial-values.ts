@@ -14,7 +14,7 @@ export const initialValues: FormValues = {
   neighborhoodId: "",
   latitude: 0,
   longitude: 0,
-  radiusKm: 5,
+  radiusKm: null,
   minRating: "",
   hasActiveCampaigns: false,
   isSubscribed: false,

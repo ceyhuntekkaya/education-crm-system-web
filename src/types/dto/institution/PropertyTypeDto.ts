@@ -4,6 +4,6 @@ export interface PropertyTypeDto {
   displayName?: string;
   propertyGroupTypeId?: number;
   isActive?: boolean;
+  createdAt?: string; // ISO date string (LocalDateTime in Java)
   isSelected?: boolean;
-  createdAt?: string; // ISO date string
 }

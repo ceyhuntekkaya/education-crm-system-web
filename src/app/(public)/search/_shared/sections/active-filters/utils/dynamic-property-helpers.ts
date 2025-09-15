@@ -1,9 +1,10 @@
-import { mockSearchFilterParams } from "../../../mock";
+import { InstitutionTypeListDto } from "@/types";
 
 // Dinamik property filtreleri için helper fonksiyonlar
 export const processDynamicPropertyFilters = (
   values: any,
-  selectedInstitutionTypeId: string
+  selectedInstitutionTypeId: string,
+  institutionTypes: InstitutionTypeListDto[]
 ): Array<{
   key: string;
   label: string;
@@ -24,8 +25,8 @@ export const processDynamicPropertyFilters = (
 
         // Seçili kurum tipine göre dinamik property gruplarını getir
         if (selectedInstitutionTypeId) {
-          // Mock data'dan property label'ını bul
-          const mockData = mockSearchFilterParams.find(
+          // InstitutionTypes data'dan property label'ını bul
+          const mockData = institutionTypes.find(
             (item: any) =>
               item.institutionTypeDto?.id?.toString() ===
               selectedInstitutionTypeId
@@ -59,7 +60,8 @@ export const processDynamicPropertyFilters = (
 // Direkt form field olarak dinamik property gruplarını işleme
 export const processDynamicFormFields = (
   values: any,
-  selectedInstitutionTypeId: string
+  selectedInstitutionTypeId: string,
+  institutionTypes: InstitutionTypeListDto[]
 ): Array<{
   key: string;
   label: string;
@@ -73,7 +75,7 @@ export const processDynamicFormFields = (
 
   if (!selectedInstitutionTypeId) return filters;
 
-  const mockData = mockSearchFilterParams.find(
+  const mockData = institutionTypes.find(
     (item: any) =>
       item.institutionTypeDto?.id?.toString() === selectedInstitutionTypeId
   );

@@ -5,6 +5,7 @@ import {
   getDynamicPropertyGroups,
 } from "../utils";
 import { SectionChangesReturn } from "../types";
+import { InstitutionTypeListDto } from "@/types";
 
 /**
  * Section değişiklik durumlarını yönetir
@@ -13,7 +14,8 @@ export function useSectionChanges(
   isDirty: boolean,
   areFieldsDirty: (fields: string[]) => boolean,
   values: any,
-  initialValues: any
+  initialValues: any,
+  institutionTypes: InstitutionTypeListDto[]
 ): SectionChangesReturn {
   const sectionChanges = useMemo(() => {
     const changes: Record<string, boolean> = {};
@@ -27,7 +29,10 @@ export function useSectionChanges(
       // Dinamik section'lar için de false olarak ayarla
       const selectedInstitutionType = values?.institutionTypeId || "";
       if (selectedInstitutionType) {
-        const dynamicGroups = getDynamicPropertyGroups(selectedInstitutionType);
+        const dynamicGroups = getDynamicPropertyGroups(
+          selectedInstitutionType,
+          institutionTypes
+        );
 
         dynamicGroups.forEach((group: any) => {
           changes[`property-group-${group.id}`] = false;
@@ -50,7 +55,8 @@ export function useSectionChanges(
       const dynamicChanges = calculateDynamicSectionChanges(
         selectedInstitutionType,
         values,
-        initialValues
+        initialValues,
+        institutionTypes
       );
 
       // Dinamik değişiklikleri ana changes objesine ekle
@@ -58,7 +64,7 @@ export function useSectionChanges(
     }
 
     return changes;
-  }, [isDirty, areFieldsDirty, values, initialValues]);
+  }, [isDirty, areFieldsDirty, values, initialValues, institutionTypes]);
 
   return sectionChanges;
 }

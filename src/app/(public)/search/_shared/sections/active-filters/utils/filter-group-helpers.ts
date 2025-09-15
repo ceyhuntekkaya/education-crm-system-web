@@ -1,7 +1,7 @@
 import { FILTER_GROUPS } from "../constants";
 import { FilterGroup } from "../types";
 import { getDynamicGroupIcon } from "./icon-helpers";
-import { mockSearchFilterParams } from "../../../mock";
+import { InstitutionTypeListDto } from "@/types";
 
 // Statik filter gruplarını oluşturma
 export const createStaticFilterGroups = (
@@ -45,13 +45,14 @@ export const createDynamicFilterGroups = (
     label: string;
     value: string;
   }>,
-  selectedInstitutionTypeId: string
+  selectedInstitutionTypeId: string,
+  institutionTypes: InstitutionTypeListDto[]
 ): FilterGroup[] => {
   const groups: FilterGroup[] = [];
 
   if (!selectedInstitutionTypeId) return groups;
 
-  const mockData = mockSearchFilterParams.find(
+  const mockData = institutionTypes.find(
     (item: any) =>
       item.institutionTypeDto?.id?.toString() === selectedInstitutionTypeId
   );

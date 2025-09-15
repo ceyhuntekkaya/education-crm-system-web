@@ -6,7 +6,7 @@ export interface PropertyGroupTypeDto {
   displayName?: string;
   institutionTypeId?: number;
   isActive?: boolean;
-  isMultiple?: boolean;
-  createdAt?: string; // ISO date string
+  createdAt?: string; // ISO date string (LocalDateTime in Java)
   propertyTypes?: PropertyTypeDto[];
+  isMultiple?: boolean;
 }
