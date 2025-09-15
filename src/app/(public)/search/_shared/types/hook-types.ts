@@ -1,3 +1,5 @@
+import { InstitutionTypeListDto } from "@/types";
+
 // Location hooks için tipler
 export interface LocationDataType {
   data: { value: string; label: string }[];
@@ -14,7 +16,7 @@ export interface LocationDataReturn {
 
 // Institution hooks için tipler
 export interface InstitutionTypesReturn {
-  institutionTypes: any[];
+  institutionTypes: InstitutionTypeListDto[];
   institutionTypesOptions: {
     data: { value: string; label: string }[];
     loading: boolean;

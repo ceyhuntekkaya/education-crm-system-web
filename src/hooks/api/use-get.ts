@@ -2,7 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 import { apiClient } from "@/lib/api/client";
-import { useApi } from "./useApi";
+import { useApi } from "./use-api";
 import { ApiOptions, PaginationParams } from "./types";
 
 // GET istekleri için hook

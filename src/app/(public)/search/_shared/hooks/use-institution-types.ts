@@ -8,6 +8,35 @@ import {
 import { InstitutionTypesReturn } from "../types";
 
 /**
+ * Kurum türü verilerini transform eder
+ */
+const transformInstitutionTypeData = (
+  data: InstitutionTypeListDto[] | undefined,
+  placeholder: string
+) => [
+  { value: "", label: placeholder },
+  ...(data
+    ?.map((type: InstitutionTypeListDto) => {
+      // Güvenli veri kontrolü
+      if (
+        !type.institutionTypeDto?.id ||
+        !type.institutionTypeDto?.displayName
+      ) {
+        return null;
+      }
+      return {
+        value: type.institutionTypeDto.id.toString(),
+        label: type.institutionTypeDto.displayName,
+      };
+    })
+    .filter(
+      (
+        option: { value: string; label: string } | null
+      ): option is { value: string; label: string } => option !== null
+    ) || []),
+];
+
+/**
  * Kurum türü verilerini yönetir
  */
 export function useInstitutionTypes(): InstitutionTypesReturn {
@@ -22,12 +51,10 @@ export function useInstitutionTypes(): InstitutionTypesReturn {
   const institutionTypes = institutionTypesResponse?.data || [];
 
   const institutionTypesOptions = {
-    data: [
-      ...(institutionTypesResponse?.data?.map((type) => ({
-        value: type.institutionTypeDto?.id?.toString() || "",
-        label: type.institutionTypeDto?.displayName || "",
-      })) || []),
-    ],
+    data: transformInstitutionTypeData(
+      institutionTypesResponse?.data,
+      "Kurum türü seçin"
+    ),
     loading: institutionTypesLoading,
     error: institutionTypesError,
   };
