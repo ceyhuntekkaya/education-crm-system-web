@@ -59,7 +59,31 @@ const FormContent = () => {
   const onSubmit = (values: FormValues) => {
     console.log("Form Values:", values);
 
-    const apiParams = values;
+    const apiParams = {
+      searchTerm: "",
+      institutionTypeIds: null,
+      minAge: 1,
+      maxAge: 80,
+      minFee: 0.1,
+      maxFee: 0,
+      curriculumType: "",
+      languageOfInstruction: "",
+      countryId: null,
+      provinceId: null,
+      districtId: null,
+      neighborhoodId: null,
+      latitude: null,
+      longitude: null,
+      radiusKm: null,
+      minRating: null,
+      hasActiveCampaigns: null,
+      isSubscribed: null,
+      propertyFilters: null,
+      sortBy: "",
+      sortDirection: "",
+      page: 0,
+      size: 10,
+    };
 
     // API'ye gönderilecek parametreleri hazırla
     // const apiParams = {
