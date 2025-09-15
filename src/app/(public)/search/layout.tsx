@@ -12,7 +12,7 @@ export default function SearchLayout({
   return (
     <FormProvider
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
     >
       <SearchBridge>{children}</SearchBridge>
     </FormProvider>
