@@ -2,6 +2,7 @@
 export { default as Button } from "./button";
 export { default as Icon } from "./icon";
 export { default as Popover } from "./popover";
+export { default as Modal } from "./modal";
 export { default as Loading } from "./loading";
 export { default as TabContent } from "./tab-content";
 export { default as TabNavigation } from "./tab-navigation";
@@ -13,6 +14,12 @@ export { DataGrid, DataGridExample } from "./data-grid";
 // Types
 export type { TabItem, TabSystemProps } from "./types";
 export type { GridColDef, DataGridProps } from "./data-grid";
+export type {
+  ModalProps,
+  ModalVariant,
+  ModalSize,
+  ModalPosition,
+} from "./modal";
 
 // Examples (for development/documentation)
 export { default as IconExamples } from "./icon-examples";

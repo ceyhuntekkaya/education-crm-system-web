@@ -1,5 +1,6 @@
 "use client";
 
+import ModalExamples from "@/docs/modal-examples";
 // Components
 import {
   InstitutionSidebar,
@@ -82,6 +83,7 @@ export default function InstitutionDetailPage() {
 
   return (
     <section className="tutor-details py-120">
+      <ModalExamples />
       <div className="container">
         <div className="row gy-4">
           {/* Sol Sidebar - Profil ve İletişim */}
