@@ -116,12 +116,10 @@ const ModalComponent: React.FC<ModalProps> = ({
       onClosed?.();
     }
 
-    // Cleanup
+    // Cleanup - Modal kapandığında her zaman scroll'u serbest bırak
     return () => {
-      if (!isOpen) {
-        document.body.style.overflow = "";
-        document.body.classList.remove("modal-open");
-      }
+      document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
     };
   }, [isOpen, onOpen, onClosed]);
 
@@ -132,6 +130,15 @@ const ModalComponent: React.FC<ModalProps> = ({
       return () => document.removeEventListener("keydown", handleEscapeKey);
     }
   }, [isOpen, closeOnEscape, handleEscapeKey]);
+
+  // Component unmount olduğunda body scroll'u serbest bırak
+  useEffect(() => {
+    return () => {
+      // Component unmount olurken her durumda scroll'u serbest bırak
+      document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
+    };
+  }, []);
 
   // Modal content'i render et
   const renderModalContent = () => (
