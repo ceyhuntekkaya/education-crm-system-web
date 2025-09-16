@@ -60,7 +60,7 @@ export default function TabNavigation({
         <li key={tab.id} className="nav-item flex-shrink-0" role="presentation">
           <button
             className={`nav-link rounded-pill bg-main-25 fw-medium text-neutral-500 flex-center gap-8 border-0 transition-all ${getButtonSizeClasses()} ${
-              tab.isActive || index === 0 ? "active" : ""
+              tab.isActive === true ? "active" : ""
             }`}
             id={`${tab.id}-tab`}
             data-bs-toggle="pill"
@@ -68,7 +68,7 @@ export default function TabNavigation({
             type="button"
             role="tab"
             aria-controls={tab.id}
-            aria-selected={tab.isActive || index === 0 ? "true" : "false"}
+            aria-selected={tab.isActive === true ? "true" : "false"}
           >
             <i
               className={`${

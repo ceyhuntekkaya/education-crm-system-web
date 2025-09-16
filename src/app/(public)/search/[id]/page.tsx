@@ -13,8 +13,29 @@ import {
   InstitutionCampaigns,
 } from "./_shared";
 
+// Appointment Table
+import {
+  AppointmentTable,
+  useAppointments,
+} from "./_shared/sections/appointment-table";
+
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
+
+// Appointment Table Wrapper with Mock Data
+const AppointmentTableWithData: React.FC = () => {
+  const { appointments, loading } = useAppointments({
+    schoolId: 1, // Mock school ID
+  });
+
+  return (
+    <AppointmentTable
+      appointments={appointments}
+      loading={loading}
+      title="Okul Randevuları"
+    />
+  );
+};
 
 export default function InstitutionDetailPage() {
   // Tab content dizisi
@@ -25,7 +46,6 @@ export default function InstitutionDetailPage() {
       icon: "ph-bold ph-info",
       title: "Genel Bilgiler 🔄", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
       children: <InstitutionGeneralInfo />,
-      isActive: true,
     },
     {
       id: "pills-campus",
@@ -69,6 +89,13 @@ export default function InstitutionDetailPage() {
       title: "Değerlendirmeler 🔄", // API (rating avg/count) + sabit yüzde değerleri + örnek yorumlar
       children: <InstitutionReviews />,
     },
+    {
+      id: "pills-appointments",
+      icon: "ph-bold ph-calendar-check",
+      title: "Randevular 🔄", // Randevu listesi ve yönetimi
+      children: <AppointmentTableWithData />,
+      isActive: true,
+    },
   ];
 
   return (
@@ -84,7 +111,7 @@ export default function InstitutionDetailPage() {
           <div className="col-lg-8">
             {/* Tab Navigation */}
             <div className="border border-neutral-30 rounded-12 bg-white p-8">
-              <TabNavigation tabs={tabItems} />
+              <TabNavigation tabs={tabItems} navigationId="" />
             </div>
 
             {/* Tab Content */}
