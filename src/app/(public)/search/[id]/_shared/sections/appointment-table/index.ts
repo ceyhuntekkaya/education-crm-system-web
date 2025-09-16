@@ -1,12 +1,6 @@
 // Main component export
 export { default as AppointmentTable } from "./appointment-table";
 
-// Types export
-export type {
-  AppointmentTableProps,
-  AppointmentTableConfig,
-} from "./types/appointment-table-types";
-
 // UI Components export
 export { Avatar, Badge, ActionButtons } from "./components";
 
@@ -26,6 +20,6 @@ export { useAppointments } from "./hooks";
 
 // Config export
 export { createAppointmentColumns } from "./config";
-export * from "./types/appointment-table-types";
+export * from "./types";
 export * from "./hooks";
 export * from "./mock";

@@ -8,7 +8,9 @@ export interface TabItem {
   id: string;
   icon: string;
   title: string;
-  children: React.ReactNode;
+  label: string;
+  content: React.ReactNode;
+  children?: React.ReactNode;
   isActive?: boolean;
 }
 

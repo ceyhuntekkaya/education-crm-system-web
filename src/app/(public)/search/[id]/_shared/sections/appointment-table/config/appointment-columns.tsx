@@ -9,6 +9,7 @@ import {
   getStatusBadgeVariant,
   getOutcomeBadgeVariant,
   getParticipantTypeBadgeVariant,
+  getAppointmentTypeDisplay,
 } from "../utils";
 
 export interface ColumnHandlers {
@@ -25,15 +26,43 @@ export const createAppointmentColumns = (
   {
     field: "appointmentNumber",
     headerName: "Randevu No",
-    width: 130,
+    width: 160,
     renderCell: (params) => (
       <div className="fw-medium">{params.value || "-"}</div>
     ),
   },
   {
+    field: "status",
+    headerName: "Durum",
+    width: 150,
+    renderCell: (params) => (
+      <div className="d-flex justify-content-center align-items-center h-100">
+        <Badge variant={getStatusBadgeVariant(params.value)}>
+          {params.row.statusDisplayName || params.value || "-"}
+        </Badge>
+      </div>
+    ),
+  },
+  {
+    field: "appointmentDate",
+    headerName: "Tarih & Saat",
+    width: 180,
+    renderCell: (params) => (
+      <div>
+        <div className="fw-medium">
+          {params.row.formattedDate || formatDateTime(params.value)}
+        </div>
+        <small className="text-muted">
+          {params.row.formattedTime ||
+            `${params.row.startTime} - ${params.row.endTime}`}
+        </small>
+      </div>
+    ),
+  },
+  {
     field: "student",
     headerName: "Öğrenci/Veli",
-    width: 200,
+    width: 250,
     renderCell: (params) => (
       <div className="d-flex align-items-center">
         <Avatar
@@ -53,26 +82,11 @@ export const createAppointmentColumns = (
       </div>
     ),
   },
-  {
-    field: "appointmentDate",
-    headerName: "Tarih & Saat",
-    width: 140,
-    renderCell: (params) => (
-      <div>
-        <div className="fw-medium">
-          {params.row.formattedDate || formatDateTime(params.value)}
-        </div>
-        <small className="text-muted">
-          {params.row.formattedTime ||
-            `${params.row.startTime} - ${params.row.endTime}`}
-        </small>
-      </div>
-    ),
-  },
+
   {
     field: "staff",
     headerName: "Personel",
-    width: 160,
+    width: 230,
     renderCell: (params) => (
       <div className="d-flex align-items-center overflow-hidden">
         <Avatar
@@ -88,127 +102,18 @@ export const createAppointmentColumns = (
   {
     field: "appointmentType",
     headerName: "Tür",
-    width: 120,
+    width: 170,
     renderCell: (params) => (
       <div className="text-truncate">
-        {params.value === "INFORMATION_MEETING" && "Bilgi Toplantısı"}
-        {params.value === "SCHOOL_TOUR" && "Okul Gezisi"}
-        {params.value === "ENROLLMENT_INTERVIEW" && "Kayıt Görüşmesi"}
-        {params.value === "PARENT_MEETING" && "Veli Görüşmesi"}
-        {params.value === "CONSULTATION" && "Danışmanlık"}
-        {params.value === "ASSESSMENT" && "Değerlendirme"}
-        {params.value === "ORIENTATION" && "Oryantasyon"}
-        {params.value === "ONLINE_MEETING" && "Online Görüşme"}
-        {params.value === "PHONE_CALL" && "Telefon Görüşmesi"}
-        {params.value === "GROUP_MEETING" && "Grup Toplantısı"}
-        {params.value === "OTHER" && "Diğer"}
-        {!params.value && "-"}
+        {getAppointmentTypeDisplay(params.value)}
       </div>
     ),
   },
-  {
-    field: "location",
-    headerName: "Konum",
-    width: 120,
-    renderCell: (params) => (
-      <div className="d-flex align-items-center">
-        {params.row.isOnline ? (
-          <>
-            <Badge variant="info" className="me-1">
-              Online
-            </Badge>
-            <span className="text-truncate small">
-              {params.value === "Online" ? "Online" : params.value || "-"}
-            </span>
-          </>
-        ) : (
-          <span className="text-truncate">{params.value || "-"}</span>
-        )}
-      </div>
-    ),
-  },
-  {
-    field: "status",
-    headerName: "Durum",
-    width: 110,
-    renderCell: (params) => (
-      <Badge variant={getStatusBadgeVariant(params.value)}>
-        {params.row.statusDisplayName || params.value || "-"}
-      </Badge>
-    ),
-  },
-  {
-    field: "outcome",
-    headerName: "Sonuç",
-    width: 120,
-    renderCell: (params) => {
-      if (!params.value) return <span className="text-muted">-</span>;
-      return (
-        <Badge variant={getOutcomeBadgeVariant(params.value)}>
-          {params.row.outcomeDisplayName || params.value}
-        </Badge>
-      );
-    },
-  },
-  {
-    field: "enrollmentLikelihood",
-    headerName: "Kayıt İhtimali",
-    width: 120,
-    renderCell: (params) => {
-      if (!params.value) return <span className="text-muted">-</span>;
-      let variant: "success" | "warning" | "danger" | "info" = "info";
-      if (params.value >= 80) variant = "success";
-      else if (params.value >= 60) variant = "info";
-      else if (params.value >= 40) variant = "warning";
-      else variant = "danger";
 
-      return <Badge variant={variant}>%{params.value}</Badge>;
-    },
-  },
-  {
-    field: "participantCount",
-    headerName: "Katılımcılar",
-    width: 100,
-    renderCell: (params) => {
-      const count = params.row.participants?.length || 0;
-      return (
-        <div className="d-flex align-items-center">
-          <Badge variant="secondary" className="me-1">
-            {count}
-          </Badge>
-          <small className="text-muted">kişi</small>
-        </div>
-      );
-    },
-  },
-  {
-    field: "noteCount",
-    headerName: "Notlar",
-    width: 80,
-    renderCell: (params) => {
-      const count = params.row.appointmentNotes?.length || 0;
-      return count > 0 ? (
-        <Badge variant="info">{count}</Badge>
-      ) : (
-        <span className="text-muted">-</span>
-      );
-    },
-  },
-  {
-    field: "followUpRequired",
-    headerName: "Takip",
-    width: 80,
-    renderCell: (params) =>
-      params.value ? (
-        <Badge variant="warning">Gerekli</Badge>
-      ) : (
-        <span className="text-muted">-</span>
-      ),
-  },
   {
     field: "actions",
     headerName: "İşlemler",
-    width: 150,
+    width: 180,
     sortable: false,
     renderCell: (params) => (
       <ActionButtons

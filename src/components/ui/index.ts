@@ -2,11 +2,13 @@
 export { default as Button } from "./button";
 export { default as Icon } from "./icon";
 export { default as Popover } from "./popover";
-export { default as Modal } from "./modal";
 export { default as Loading } from "./loading";
 export { default as TabContent } from "./tab-content";
 export { default as TabNavigation } from "./tab-navigation";
 export { Accordion, AccordionItem } from "./accordion";
+
+// Modal Components - Using the new modal structure
+export * from "./modal";
 
 // DataGrid Components
 export { DataGrid, DataGridExample } from "./data-grid";
@@ -16,9 +18,13 @@ export type { TabItem, TabSystemProps } from "./types";
 export type { GridColDef, DataGridProps } from "./data-grid";
 export type {
   ModalProps,
-  ModalVariant,
+  ModalHeaderProps,
+  ModalBodyProps,
+  ModalFooterProps,
+  ModalBackdropProps,
   ModalSize,
   ModalPosition,
+  ModalVariant,
 } from "./modal";
 
 // Examples (for development/documentation)

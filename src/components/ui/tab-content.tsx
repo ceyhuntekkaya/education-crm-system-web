@@ -31,7 +31,7 @@ export default function TabContent({
           aria-labelledby={`${tab.id}-tab`}
           tabIndex={0}
         >
-          {tab.children}
+          {tab.content || tab.children}
         </div>
       ))}
     </div>

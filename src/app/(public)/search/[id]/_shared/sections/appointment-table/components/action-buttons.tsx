@@ -48,7 +48,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <div className="d-flex gap-2 align-items-center">
+    <div className="d-flex gap-3 align-items-center justify-content-center">
       <Popover
         content="Randevu detaylarını görüntüle"
         trigger="hover"

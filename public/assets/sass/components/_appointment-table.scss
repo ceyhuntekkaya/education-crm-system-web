@@ -1,0 +1,166 @@
+// =============================================
+// Appointment Table & Detail Modal Styles
+// =============================================
+
+/* Timeline styles for Statistics Info component */
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+  
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 20px;
+    width: 2px;
+    height: calc(100% + 10px);
+    background-color: hsl(var(--neutral-200));
+    z-index: 1;
+  }
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -20px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  z-index: 2;
+  border: 2px solid hsl(var(--white));
+}
+
+.timeline-content {
+  padding-left: 16px;
+}
+
+/* Enhanced appointment table styles */
+.appointment-table-enhanced {
+  .table-header {
+    background: linear-gradient(135deg, hsl(var(--main-25)) 0%, hsl(var(--main-50)) 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 20px 24px;
+    border-bottom: 1px solid hsl(var(--neutral-30));
+  }
+  
+  .table-filters {
+    background-color: hsl(var(--neutral-25));
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .table-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    
+    .stat-card {
+      background: hsl(var(--white));
+      border: 1px solid hsl(var(--neutral-30));
+      border-radius: 8px;
+      padding: 16px;
+      flex: 1;
+      text-align: center;
+      
+      .stat-number {
+        font-size: 24px;
+        font-weight: 600;
+        color: hsl(var(--main-600));
+        display: block;
+      }
+      
+      .stat-label {
+        font-size: 12px;
+        color: hsl(var(--neutral-500));
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+/* Progress bar enhancements */
+.progress {
+  background-color: hsl(var(--neutral-100));
+  border-radius: 4px;
+  
+  .progress-bar {
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+}
+
+/* Hover effects for interactive elements */
+.modal-footer .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsla(var(--neutral-900) / 0.15);
+}
+
+/* Tab navigation enhancements */
+.nav-pills .nav-link:not(.active):hover {
+  background-color: hsl(var(--neutral-50)) !important;
+  color: hsl(var(--main-600)) !important;
+}
+
+.nav-pills .nav-link.active {
+  box-shadow: 0 2px 8px hsla(var(--main-600) / 0.25);
+}
+
+/* Copy button animation */
+@keyframes copy-success {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.btn-outline-info:active {
+  animation: copy-success 0.2s ease;
+}
+
+// Responsive enhancements
+@media (max-width: 768px) {
+  .appointment-table-enhanced {
+    .table-stats {
+      flex-direction: column;
+      gap: 12px;
+      
+      .stat-card {
+        .stat-number {
+          font-size: 20px;
+        }
+      }
+    }
+    
+    .table-filters {
+      .d-flex {
+        flex-direction: column;
+        gap: 12px;
+        
+        .ms-auto {
+          margin-left: 0 !important;
+          width: 100%;
+        }
+      }
+    }
+  }
+  
+  .timeline {
+    padding-left: 16px;
+    
+    .timeline-marker {
+      left: -16px;
+      width: 10px;
+      height: 10px;
+    }
+    
+    .timeline-item:not(:last-child)::before {
+      left: -12px;
+    }
+  }
+}

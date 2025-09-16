@@ -35,21 +35,21 @@ export const useAppointments = ({
       // Filter mock data based on parameters
       let filteredAppointments = mockAppointments;
 
-      if (schoolId) {
-        filteredAppointments = filteredAppointments.filter(
-          (apt: AppointmentDto) => apt.schoolId === schoolId
-        );
-      }
+      // if (schoolId) {
+      //   filteredAppointments = filteredAppointments.filter(
+      //     (apt: AppointmentDto) => apt.schoolId === schoolId
+      //   );
+      // }
 
-      if (status) {
-        filteredAppointments = filteredAppointments.filter(
-          (apt: AppointmentDto) => apt.status === status
-        );
-      }
+      // if (status) {
+      //   filteredAppointments = filteredAppointments.filter(
+      //     (apt: AppointmentDto) => apt.status === status
+      //   );
+      // }
 
-      if (limit) {
-        filteredAppointments = filteredAppointments.slice(0, limit);
-      }
+      // if (limit) {
+      //   filteredAppointments = filteredAppointments.slice(0, limit);
+      // }
 
       setAppointments(filteredAppointments);
     } catch (err) {
@@ -58,7 +58,7 @@ export const useAppointments = ({
     } finally {
       setLoading(false);
     }
-  }, [schoolId, status, limit]);
+  }, []);
 
   const refetch = () => {
     fetchAppointments();

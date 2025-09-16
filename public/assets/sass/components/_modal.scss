@@ -15,6 +15,7 @@ $modal-backdrop-z-index: 1040;
     height: 100%;
     z-index: $modal-backdrop-z-index;
     background-color: hsl(var(--black) / .6);
+    backdrop-filter: blur(4px);
     transition: opacity 0.15s linear;
     opacity: 0;
     visibility: hidden;
@@ -26,6 +27,27 @@ $modal-backdrop-z-index: 1040;
     &.modal-backdrop-show {
         opacity: 1;
         visibility: visible;
+    }
+}
+
+// Modal overlay container (contains backdrop and modal)
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $modal-z-index;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px); // Safari support
+    
+    @media (max-width: 576px) {
+        padding: 8px;
     }
 }
 

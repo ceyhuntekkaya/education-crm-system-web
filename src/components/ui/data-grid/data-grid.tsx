@@ -133,7 +133,7 @@ export function DataGrid<T extends Record<string, any>>({
         total += 120; // Default minimum width
       }
     });
-    return total;
+    return Math.max(total, 800); // Minimum table width to ensure scroll when needed
   }, [columns, checkboxSelection]);
 
   // Handle sorting
@@ -236,19 +236,38 @@ export function DataGrid<T extends Record<string, any>>({
   }
 
   return (
-    <div className={`data-grid card ${className}`} style={{ height }}>
+    <div
+      className={`data-grid card ${className}`}
+      style={{
+        height,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        border: "1px solid #e9ecef",
+      }}
+    >
       {/* Table Container */}
-      <div className="table-responsive">
+      <div
+        className="table-responsive"
+        style={{
+          borderRadius: "8px",
+          overflow: "auto",
+          maxHeight:
+            typeof height === "number"
+              ? `${height - 80}px`
+              : "calc(100% - 80px)",
+        }}
+      >
         <table
           className="table table-hover mb-0"
           style={{
             tableLayout: "fixed",
             width: `${totalWidth}px`,
             minWidth: "100%",
+            borderCollapse: "separate",
+            borderSpacing: "0",
           }}
         >
           <thead className="table-light">
-            <tr>
+            <tr style={{ height: "56px" }}>
               {checkboxSelection && (
                 <th
                   className="data-grid-checkbox-cell"
@@ -256,6 +275,9 @@ export function DataGrid<T extends Record<string, any>>({
                     width: "50px",
                     minWidth: "50px",
                     maxWidth: "50px",
+                    padding: "16px 20px",
+                    backgroundColor: "#f8f9fa",
+                    borderBottom: "2px solid #e9ecef",
                   }}
                 >
                   <div className="form-check">
@@ -286,10 +308,14 @@ export function DataGrid<T extends Record<string, any>>({
                       maxWidth: column.width ? `${column.width}px` : undefined,
                       textAlign: column.headerAlign || "left",
                       cursor: column.sortable !== false ? "pointer" : "default",
-                      padding: "8px 12px",
+                      padding: "16px 20px",
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      backgroundColor: "#f8f9fa",
+                      borderBottom: "2px solid #e9ecef",
                     }}
                     onClick={() =>
                       column.sortable !== false &&
@@ -334,6 +360,17 @@ export function DataGrid<T extends Record<string, any>>({
                     !disableRowSelectionOnClick && checkboxSelection
                       ? "pointer"
                       : "default",
+                  transition: "background-color 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (!selectedRows.has(row.id)) {
+                    e.currentTarget.style.backgroundColor = "#f8f9fa";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!selectedRows.has(row.id)) {
+                    e.currentTarget.style.backgroundColor = "";
+                  }
                 }}
               >
                 {checkboxSelection && (
@@ -343,7 +380,8 @@ export function DataGrid<T extends Record<string, any>>({
                       width: "50px",
                       minWidth: "50px",
                       maxWidth: "50px",
-                      padding: "8px 12px",
+                      padding: "16px 20px",
+                      borderBottom: "1px solid #e9ecef",
                     }}
                   >
                     <div className="form-check">
@@ -375,8 +413,11 @@ export function DataGrid<T extends Record<string, any>>({
                           ? `${column.width}px`
                           : undefined,
                         textAlign: column.align || "left",
-                        padding: "8px 12px",
+                        padding: "16px 20px",
                         overflow: "hidden",
+                        borderBottom: "1px solid #e9ecef",
+                        fontSize: "14px",
+                        lineHeight: "1.5",
                       }}
                     >
                       {column.renderCell ? (
