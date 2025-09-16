@@ -2,21 +2,14 @@ import { CampusDto, SchoolDto } from "@/types";
 import Image from "next/image";
 import { formatViewCount } from "../utils";
 import { ContactForm } from ".";
-
-interface InstitutionSidebarProps {
-  school: SchoolDto;
-  campus: CampusDto;
-  renderStars: (rating: number) => JSX.Element;
-}
+import { useInstitutionDetail } from "../contexts";
 
 const tempImgUrl =
   "https://static.vecteezy.com/system/resources/previews/004/641/880/non_2x/illustration-of-high-school-building-school-building-free-vector.jpg";
 
-export default function InstitutionSidebar({
-  school,
-  campus,
-  renderStars,
-}: InstitutionSidebarProps) {
+export default function InstitutionSidebar() {
+  const { school, campus, renderStars } = useInstitutionDetail();
+
   const socialMediaLinks = [
     {
       url: campus.facebookUrl,

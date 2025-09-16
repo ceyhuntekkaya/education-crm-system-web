@@ -1,12 +1,7 @@
-interface InstitutionReviewsProps {
-  school: any;
-  renderStars: (rating: number) => JSX.Element;
-}
+import { useInstitutionDetail } from "../contexts";
 
-export default function InstitutionReviews({
-  school,
-  renderStars,
-}: InstitutionReviewsProps) {
+export default function InstitutionReviews() {
+  const { school, renderStars } = useInstitutionDetail();
   return (
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">

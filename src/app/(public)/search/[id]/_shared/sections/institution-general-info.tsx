@@ -1,21 +1,14 @@
 import Image from "next/image";
-
-interface InstitutionGeneralInfoProps {
-  school: any;
-  campus: any;
-  renderStars: (rating: number) => JSX.Element;
-}
+import { useInstitutionDetail } from "../contexts";
 
 const tempUrl =
   "https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg";
 const tempIconUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
 
-export default function InstitutionGeneralInfo({
-  school,
-  campus,
-  renderStars,
-}: InstitutionGeneralInfoProps) {
+export default function InstitutionGeneralInfo() {
+  const { school, campus, renderStars } = useInstitutionDetail();
+
   const institutionInfoItems = [
     {
       label: "Kurum Adı",

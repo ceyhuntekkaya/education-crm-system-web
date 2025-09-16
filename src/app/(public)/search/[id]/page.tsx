@@ -11,82 +11,63 @@ import {
   InstitutionLocationInfo,
   InstitutionSeoInfo,
   InstitutionCampaigns,
-  formatCurrency,
-  renderStars,
-  institutionMockData,
 } from "./_shared";
 
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
 
 export default function InstitutionDetailPage() {
-  const { school, campus, brand } = institutionMockData;
-
   // Tab content dizisi
+  // * = API'ye bağlı (gerçek veri), ⚡ = Mock/Statik veri, 🔄 = Karışık (API + Mock)
   const tabItems: TabItem[] = [
     {
       id: "pills-tutionInfo",
       icon: "ph-bold ph-info",
-      title: "Genel Bilgiler",
-      children: (
-        <InstitutionGeneralInfo
-          school={school}
-          campus={campus}
-          renderStars={renderStars}
-        />
-      ),
+      title: "Genel Bilgiler 🔄", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
+      children: <InstitutionGeneralInfo />,
       isActive: true,
     },
     {
       id: "pills-campus",
       icon: "ph-bold ph-buildings",
-      title: "Kampüs & Okul Grubu",
-      children: (
-        <InstitutionCampusInfo school={school} campus={campus} brand={brand} />
-      ),
+      title: "Kampüs & Okul Grubu *", // Tamamen API'ye bağlı - useInstitutionDetail context
+      children: <InstitutionCampusInfo />,
     },
     {
       id: "pills-location",
       icon: "ph-bold ph-map-pin",
-      title: "Konum Bilgileri",
-      children: <InstitutionLocationInfo school={school} campus={campus} />,
+      title: "Konum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+      children: <InstitutionLocationInfo />,
     },
     {
       id: "pills-qualification",
       icon: "ph-bold ph-currency-circle-dollar",
-      title: "Ücretler",
-      children: (
-        <InstitutionPricingInfo
-          school={school}
-          formatCurrency={formatCurrency}
-        />
-      ),
+      title: "Ücretler 🔄", // API'ye bağlı + sabit yüzde değerleri (%3, %5 vb.)
+      children: <InstitutionPricingInfo />,
     },
     {
       id: "pills-campaigns",
       icon: "ph-bold ph-tag",
-      title: "Kampanyalar",
+      title: "Kampanyalar ⚡", // Tamamen mock veri - campaignMockData
       children: <InstitutionCampaigns />,
     },
     {
       id: "pills-statistics",
       icon: "ph-bold ph-chart-bar",
-      title: "İstatistikler",
-      children: <InstitutionStatistics school={school} campus={campus} />,
+      title: "İstatistikler *", // Tamamen API'ye bağlı - useInstitutionDetail context
+      children: <InstitutionStatistics />,
     },
     {
       id: "pills-seo",
       icon: "ph-bold ph-magnifying-glass",
-      title: "SEO Bilgileri",
-      children: <InstitutionSeoInfo school={school} />,
+      title: "SEO Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+      children: <InstitutionSeoInfo />,
     },
     {
       id: "pills-reviews",
       icon: "ph-bold ph-star",
-      title: "Değerlendirmeler",
-      children: (
-        <InstitutionReviews school={school} renderStars={renderStars} />
-      ),
+      title: "Değerlendirmeler 🔄", // API (rating avg/count) + sabit yüzde değerleri + örnek yorumlar
+      children: <InstitutionReviews />,
     },
   ];
 
@@ -96,11 +77,7 @@ export default function InstitutionDetailPage() {
         <div className="row gy-4">
           {/* Sol Sidebar - Profil ve İletişim */}
           <div className="col-lg-4">
-            <InstitutionSidebar
-              school={school as any}
-              campus={campus as any}
-              renderStars={renderStars}
-            />
+            <InstitutionSidebar />
           </div>
 
           {/* Sağ İçerik - Tab Yapısı */}

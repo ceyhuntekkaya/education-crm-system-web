@@ -1,14 +1,23 @@
+"use client";
+
 import { Breadcrumb } from "@/components";
+import { InstitutionDetailProvider } from "./_shared";
+import { useParams } from "next/navigation";
 
 export default function SearchDetailLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const params = useParams();
+  const id = params.id as string;
+
   return (
-    <div>
-      <Breadcrumb title={"Okul Detayı"} />
-      {children}
-    </div>
+    <InstitutionDetailProvider id={id}>
+      <div>
+        <Breadcrumb title={"Okul Detayı"} />
+        {children}
+      </div>
+    </InstitutionDetailProvider>
   );
 }

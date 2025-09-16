@@ -1,10 +1,7 @@
-interface InstitutionSeoInfoProps {
-  school: any;
-}
+import { useInstitutionDetail } from "../contexts";
 
-export default function InstitutionSeoInfo({
-  school,
-}: InstitutionSeoInfoProps) {
+export default function InstitutionSeoInfo() {
+  const { school } = useInstitutionDetail();
   return (
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
