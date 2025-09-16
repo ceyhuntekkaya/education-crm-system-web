@@ -1,2 +1,1 @@
-// Export all hooks
-export * from "./useAppointments";
+export { useAppointments } from "./use-appointments";

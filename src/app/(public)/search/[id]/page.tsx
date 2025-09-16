@@ -14,28 +14,10 @@ import {
 } from "./_shared";
 
 // Appointment Table
-import {
-  AppointmentTable,
-  useAppointments,
-} from "./_shared/sections/appointment-table";
+import { AppointmentTable } from "./_shared/sections/appointment-table";
 
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
-
-// Appointment Table Wrapper with Mock Data
-const AppointmentTableWithData: React.FC = () => {
-  const { appointments, loading } = useAppointments({
-    schoolId: 1, // Mock school ID
-  });
-
-  return (
-    <AppointmentTable
-      appointments={appointments}
-      loading={loading}
-      title="Okul Randevuları"
-    />
-  );
-};
 
 export default function InstitutionDetailPage() {
   // Tab content dizisi
@@ -93,7 +75,7 @@ export default function InstitutionDetailPage() {
       id: "pills-appointments",
       icon: "ph-bold ph-calendar-check",
       title: "Randevular 🔄", // Randevu listesi ve yönetimi
-      children: <AppointmentTableWithData />,
+      children: <AppointmentTable />,
       isActive: true,
     },
   ];

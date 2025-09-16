@@ -1,2 +1,1 @@
-// Export all mock data
-export * from "./appointment-mock-data";
+export { mockAppointments } from "./appointment-mock-data";

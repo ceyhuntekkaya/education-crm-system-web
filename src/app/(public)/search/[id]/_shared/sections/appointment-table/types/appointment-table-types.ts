@@ -1,42 +1,69 @@
-import { AppointmentDto } from "@/types/dto/appointment";
-import { AppointmentStatus } from "@/enums/AppointmentStatus";
+import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 
-// Appointment Table Props
+/**
+ * Props for the AppointmentTable component
+ */
 export interface AppointmentTableProps {
-  appointments?: AppointmentDto[];
-  loading?: boolean;
-  onAppointmentSelect?: (appointment: AppointmentDto) => void;
-  onStatusChange?: (
-    appointmentId: number,
-    newStatus: AppointmentStatus
-  ) => void;
-  showActions?: boolean;
+  /**
+   * Optional title for the table
+   */
   title?: string;
-}
 
-// Hook Options
-export interface UseAppointmentsOptions {
+  /**
+   * Optional school ID to filter appointments
+   */
   schoolId?: number;
-  initialAppointments?: AppointmentDto[];
-  autoRefresh?: boolean;
-  refreshInterval?: number;
+
+  /**
+   * Optional status to filter appointments
+   */
+  status?: string;
+
+  /**
+   * Maximum number of appointments to display
+   */
+  limit?: number;
+
+  /**
+   * Custom event handlers for appointment actions
+   */
+  onViewDetails?: (appointment: AppointmentDto) => void;
+  onEdit?: (appointment: AppointmentDto) => void;
+  onCancel?: (appointment: AppointmentDto) => void;
+  onSelectionChange?: (selectedAppointments: AppointmentDto[]) => void;
 }
 
-// Hook Return Type
-export interface UseAppointmentsReturn {
-  appointments: AppointmentDto[];
-  loading: boolean;
-  error: string | null;
-  refresh: () => Promise<void>;
-  updateAppointmentStatus: (
-    appointmentId: number,
-    status: AppointmentStatus
-  ) => Promise<void>;
-  deleteAppointment: (appointmentId: number) => Promise<void>;
+/**
+ * Configuration for appointment table behavior
+ */
+export interface AppointmentTableConfig {
+  /**
+   * Enable/disable row selection
+   */
+  enableSelection?: boolean;
+
+  /**
+   * Page size options for pagination
+   */
+  pageSizeOptions?: number[];
+
+  /**
+   * Initial page size
+   */
+  initialPageSize?: number;
+
+  /**
+   * Enable/disable click on row selection
+   */
+  disableRowSelectionOnClick?: boolean;
 }
 
-// Sort Direction
-export type SortDirection = "asc" | "desc";
-
-// Sort Field (AppointmentDto alanları)
-export type SortField = keyof AppointmentDto;
+/**
+ * Default configuration for the appointment table
+ */
+export const defaultAppointmentTableConfig: AppointmentTableConfig = {
+  enableSelection: true,
+  pageSizeOptions: [5, 10, 25, 50],
+  initialPageSize: 10,
+  disableRowSelectionOnClick: true,
+};

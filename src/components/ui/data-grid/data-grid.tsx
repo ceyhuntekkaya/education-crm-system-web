@@ -118,6 +118,24 @@ export function DataGrid<T extends Record<string, any>>({
     };
   }, [rows, sortState, pagination]);
 
+  // Calculate total table width
+  const totalWidth = useMemo(() => {
+    let total = 0;
+    if (checkboxSelection) {
+      total += 50; // Checkbox column width
+    }
+    columns.forEach((column) => {
+      if (column.width) {
+        total += column.width;
+      } else if (column.minWidth) {
+        total += column.minWidth;
+      } else {
+        total += 120; // Default minimum width
+      }
+    });
+    return total;
+  }, [columns, checkboxSelection]);
+
   // Handle sorting
   const handleSort = (field: string) => {
     const column = columns.find((col) => col.field === field);
@@ -221,11 +239,25 @@ export function DataGrid<T extends Record<string, any>>({
     <div className={`data-grid card ${className}`} style={{ height }}>
       {/* Table Container */}
       <div className="table-responsive">
-        <table className="table table-hover mb-0">
+        <table
+          className="table table-hover mb-0"
+          style={{
+            tableLayout: "fixed",
+            width: `${totalWidth}px`,
+            minWidth: "100%",
+          }}
+        >
           <thead className="table-light">
             <tr>
               {checkboxSelection && (
-                <th className="data-grid-checkbox-cell">
+                <th
+                  className="data-grid-checkbox-cell"
+                  style={{
+                    width: "50px",
+                    minWidth: "50px",
+                    maxWidth: "50px",
+                  }}
+                >
                   <div className="form-check">
                     <input
                       type="checkbox"
@@ -238,32 +270,53 @@ export function DataGrid<T extends Record<string, any>>({
                   </div>
                 </th>
               )}
-              {columns.map((column) => (
-                <th
-                  key={column.field as string}
-                  className={`${column.sortable !== false ? "sortable" : ""}`}
-                  style={{
-                    width: column.width,
-                    minWidth: column.minWidth,
-                    textAlign: column.headerAlign || "left",
-                    cursor: column.sortable !== false ? "pointer" : "default",
-                  }}
-                  onClick={() =>
-                    column.sortable !== false &&
-                    handleSort(column.field as string)
-                  }
-                  title={column.description}
-                >
-                  <div className="d-flex align-items-center justify-content-between">
-                    <span>{column.headerName}</span>
-                    {column.sortable !== false && (
-                      <span className="text-muted small ms-1">
-                        {getSortIcon(column.field as string) || "⇅"}
+              {columns.map((column) => {
+                const columnWidth = column.width || column.minWidth || 120;
+                const columnMinWidth =
+                  column.minWidth ||
+                  Math.max(80, Math.ceil(column.headerName.length * 8) + 40); // Dynamic min width based on header text
+
+                return (
+                  <th
+                    key={column.field as string}
+                    className={`${column.sortable !== false ? "sortable" : ""}`}
+                    style={{
+                      width: `${columnWidth}px`,
+                      minWidth: `${columnMinWidth}px`,
+                      maxWidth: column.width ? `${column.width}px` : undefined,
+                      textAlign: column.headerAlign || "left",
+                      cursor: column.sortable !== false ? "pointer" : "default",
+                      padding: "8px 12px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    onClick={() =>
+                      column.sortable !== false &&
+                      handleSort(column.field as string)
+                    }
+                    title={column.description || column.headerName}
+                  >
+                    <div className="d-flex align-items-center justify-content-between">
+                      <span
+                        style={{
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          flexGrow: 1,
+                        }}
+                      >
+                        {column.headerName}
                       </span>
-                    )}
-                  </div>
-                </th>
-              ))}
+                      {column.sortable !== false && (
+                        <span className="text-muted small ms-1 flex-shrink-0">
+                          {getSortIcon(column.field as string) || "⇅"}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
@@ -284,7 +337,15 @@ export function DataGrid<T extends Record<string, any>>({
                 }}
               >
                 {checkboxSelection && (
-                  <td className="data-grid-checkbox-cell">
+                  <td
+                    className="data-grid-checkbox-cell"
+                    style={{
+                      width: "50px",
+                      minWidth: "50px",
+                      maxWidth: "50px",
+                      padding: "8px 12px",
+                    }}
+                  >
                     <div className="form-check">
                       <input
                         type="checkbox"
@@ -298,18 +359,44 @@ export function DataGrid<T extends Record<string, any>>({
                     </div>
                   </td>
                 )}
-                {columns.map((column) => (
-                  <td
-                    key={column.field as string}
-                    style={{
-                      width: column.width,
-                      minWidth: column.minWidth,
-                      textAlign: column.align || "left",
-                    }}
-                  >
-                    {renderCellContent(row, column)}
-                  </td>
-                ))}
+                {columns.map((column) => {
+                  const columnWidth = column.width || column.minWidth || 120;
+                  const columnMinWidth =
+                    column.minWidth ||
+                    Math.max(80, Math.ceil(column.headerName.length * 8) + 40);
+
+                  return (
+                    <td
+                      key={column.field as string}
+                      style={{
+                        width: `${columnWidth}px`,
+                        minWidth: `${columnMinWidth}px`,
+                        maxWidth: column.width
+                          ? `${column.width}px`
+                          : undefined,
+                        textAlign: column.align || "left",
+                        padding: "8px 12px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {column.renderCell ? (
+                        <div className="custom-cell-content">
+                          {renderCellContent(row, column)}
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {renderCellContent(row, column)}
+                        </div>
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
