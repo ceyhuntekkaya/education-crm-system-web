@@ -21,4 +21,4 @@ export const STUDENT_GENDER_LABELS = {
   PREFER_NOT_TO_SAY: "Belirtmek İstemiyorum",
 } as const;
 
-export type StudentGender = keyof typeof STUDENT_GENDER_OPTIONS;
+export type StudentGenderOption = keyof typeof STUDENT_GENDER_OPTIONS;

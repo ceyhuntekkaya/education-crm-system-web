@@ -19,7 +19,8 @@ export type ModalVariant =
   | "success"
   | "warning"
   | "danger"
-  | "info";
+  | "info"
+  | "dark";
 
 /**
  * Ana Modal component'i için props
@@ -34,11 +35,23 @@ export interface ModalProps {
   /** Modal içeriği */
   children: ReactNode;
 
+  /** Modal başlığı */
+  title?: string;
+
+  /** Modal footer'ı göster */
+  showFooter?: boolean;
+
+  /** Modal footer içeriği */
+  footer?: ReactNode;
+
   /** Modal boyutu */
   size?: ModalSize;
 
   /** Modal pozisyonu */
   position?: ModalPosition;
+
+  /** Modal'ın ortalanması */
+  centered?: boolean;
 
   /** Modal varyantı */
   variant?: ModalVariant;

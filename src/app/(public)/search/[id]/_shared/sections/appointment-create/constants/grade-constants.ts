@@ -39,4 +39,4 @@ export const GRADE_LEVEL_LABELS = {
   SINIF_12: "12. Sınıf",
 } as const;
 
-export type GradeLevel = keyof typeof GRADE_LEVEL_OPTIONS;
+export type GradeLevelOption = keyof typeof GRADE_LEVEL_OPTIONS;

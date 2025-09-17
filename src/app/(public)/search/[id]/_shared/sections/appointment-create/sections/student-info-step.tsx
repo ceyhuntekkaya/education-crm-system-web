@@ -1,7 +1,7 @@
 import React from "react";
 import { FormInput, FormAutocomplete, FormTextarea } from "@/components/forms";
 import { FORM_OPTIONS } from "../constants/appointment-constants";
-import { StudentInfoStepProps } from "../types/component-types";
+import { StudentInfoStepProps } from "../types/component-props-types";
 
 export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
   className = "",

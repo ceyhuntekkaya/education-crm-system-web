@@ -9,7 +9,7 @@ import { VALIDATION_RULES, ERROR_MESSAGES } from "../constants";
  */
 export const validateEmail = (email: string): boolean => {
   if (!email) return false;
-  return VALIDATION_RULES.EMAIL_PATTERN.test(email);
+  return VALIDATION_RULES.EMAIL_REGEX.test(email);
 };
 
 /**
@@ -17,7 +17,7 @@ export const validateEmail = (email: string): boolean => {
  */
 export const validatePhone = (phone: string): boolean => {
   if (!phone) return false;
-  return VALIDATION_RULES.PHONE_PATTERN.test(phone);
+  return VALIDATION_RULES.PHONE_REGEX.test(phone);
 };
 
 /**
@@ -27,8 +27,8 @@ export const validateName = (name: string): boolean => {
   if (!name) return false;
   const trimmedName = name.trim();
   return (
-    trimmedName.length >= VALIDATION_RULES.MIN_NAME_LENGTH &&
-    trimmedName.length <= VALIDATION_RULES.MAX_NAME_LENGTH
+    trimmedName.length >= VALIDATION_RULES.NAME_MIN_LENGTH &&
+    trimmedName.length <= VALIDATION_RULES.NAME_MAX_LENGTH
   );
 };
 

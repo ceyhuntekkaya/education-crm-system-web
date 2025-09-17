@@ -12,20 +12,23 @@ const InstitutionCampaigns = () => {
       id: "pills-all-campaigns",
       icon: "ph-bold ph-list",
       title: `Tümü (${campaignMockData.length})`,
-      children: <CampaignList campaigns={campaignMockData} type="all" />,
+      label: `Tümü (${campaignMockData.length})`,
+      content: <CampaignList campaigns={campaignMockData} type="all" />,
       isActive: true,
     },
     {
       id: "pills-active-campaigns",
       icon: "ph-bold ph-check-circle",
       title: `Aktif (${activeCampaigns.length})`,
-      children: <CampaignList campaigns={activeCampaigns} type="active" />,
+      label: `Aktif (${activeCampaigns.length})`,
+      content: <CampaignList campaigns={activeCampaigns} type="active" />,
     },
     {
       id: "pills-inactive-campaigns",
       icon: "ph-bold ph-clock",
       title: `Geçmiş (${inactiveCampaigns.length})`,
-      children: <CampaignList campaigns={inactiveCampaigns} type="inactive" />,
+      label: `Geçmiş (${inactiveCampaigns.length})`,
+      content: <CampaignList campaigns={inactiveCampaigns} type="inactive" />,
     },
   ];
 
