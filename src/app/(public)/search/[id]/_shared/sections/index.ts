@@ -12,3 +12,6 @@ export { default as InstitutionCampaigns } from "./institution-campaigns/institu
 
 // Appointment Table
 export { AppointmentTable } from "./appointment-table";
+
+// Appointment Create
+export { AppointmentCreate } from "./appointment-create";

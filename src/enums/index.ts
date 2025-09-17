@@ -25,6 +25,7 @@ export * from "./EducationLevel";
 export * from "./GalleryType";
 export * from "./GalleryVisibility";
 export * from "./GenderType";
+export * from "./GradeLevel";
 export * from "./GuardType";
 export * from "./HousingType";
 export * from "./IncomeLevel";

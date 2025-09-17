@@ -12,6 +12,7 @@ import {
   InstitutionLocationInfo,
   InstitutionSeoInfo,
   InstitutionCampaigns,
+  AppointmentCreate,
 } from "./_shared";
 
 // Appointment Table
@@ -20,7 +21,13 @@ import { AppointmentTable } from "./_shared/sections/appointment-table";
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
 
-export default function InstitutionDetailPage() {
+export default function InstitutionDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const schoolId = parseInt(params.id);
+
   // Tab content dizisi
   // * = API'ye bağlı (gerçek veri), ⚡ = Mock/Statik veri, 🔄 = Karışık (API + Mock)
   const tabItems: TabItem[] = [
@@ -86,6 +93,13 @@ export default function InstitutionDetailPage() {
       title: "Randevular 🔄", // Randevu listesi ve yönetimi
       label: "Randevular 🔄",
       content: <AppointmentTable />,
+    },
+    {
+      id: "pills-appointment-create",
+      icon: "ph-bold ph-calendar-plus",
+      title: "Randevu Oluştur ✨", // Yeni randevu oluşturma
+      label: "Randevu Oluştur ✨",
+      content: <AppointmentCreate schoolId={schoolId} />,
       isActive: true, // Başlangıçta bu tab aktif olsun
     },
   ];

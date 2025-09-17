@@ -1,0 +1,260 @@
+// Appointment Create - Component Styles
+// ====================================
+
+.appointment-create {
+  &-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &-header {
+    text-align: center;
+    margin-bottom: 32px;
+
+    h3 {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.step-content {
+  h4 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .appointment-type-options {
+    display: grid;
+    gap: 16px;
+  }
+}
+
+.navigation-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e5e5;
+
+  .btn {
+    min-width: 120px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+
+    &.btn-outline {
+      background: transparent;
+      color: #6b7280;
+      border: 1px solid #d1d5db;
+
+      &:hover:not(:disabled) {
+        background: #f9fafb;
+        border-color: #9ca3af;
+      }
+    }
+
+    &.btn-primary {
+      background: #3b82f6;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: #2563eb;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Utility Classes
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mt-4 {
+  margin-top: 4px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.p-24 {
+  padding: 24px;
+}
+
+.rounded-8 {
+  border-radius: 8px;
+}
+
+.bg-neutral-50 {
+  background-color: #f9fafb;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -12px;
+
+  &.gy-3 > * {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 12px;
+}
+
+.col-md-6 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 12px;
+
+  @media (min-width: 768px) {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+// Specific appointment create styles
+.confirmation-summary {
+  border-left: 4px solid #4caf50;
+}
+
+.terms-checkbox {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+// Progress Bar
+.progress-bar {
+  &-container {
+    margin-bottom: 32px;
+  }
+
+  &-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 16px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      background: #e0e6ed;
+      z-index: 1;
+    }
+  }
+
+  &-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    &.clickable {
+      cursor: pointer;
+
+      &:hover .progress-bar-step-icon {
+        transform: scale(1.05);
+      }
+    }
+
+    &.active {
+      .progress-bar-step-icon {
+        background: #3366ff;
+        color: white;
+      }
+
+      .progress-bar-step-title {
+        color: #3366ff;
+        font-weight: 500;
+      }
+    }
+
+    &.completed {
+      .progress-bar-step-icon {
+        background: #4caf50;
+        color: white;
+      }
+
+      .progress-bar-step-title {
+        color: #4caf50;
+        font-weight: 500;
+      }
+    }
+
+    &-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e6ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      position: relative;
+      transition: all 0.2s;
+      color: #666;
+
+      .step-number {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    &-title {
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 4px;
+      max-width: 80px;
+      line-height: 1.2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &-step {
+      &-title {
+        font-size: 10px;
+        max-width: 60px;
+      }
+
+      &-icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    &-steps::before {
+      top: 16px;
+      left: 16px;
+      right: 16px;
+    }
+  }
+}
