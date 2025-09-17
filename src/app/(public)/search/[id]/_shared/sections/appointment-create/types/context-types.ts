@@ -3,7 +3,7 @@
  * Bu dosya context değerleri için interfaces içerir
  */
 
-import { FormStep } from "./form-data-types";
+import { FormStep, AppointmentCreateFormData } from "./form-data-types";
 import { AppointmentCreationResult } from "./form-result-types";
 import { FormStepConfig } from "./step-config-types";
 
