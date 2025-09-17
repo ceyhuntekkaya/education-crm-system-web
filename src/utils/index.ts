@@ -3,3 +3,4 @@ export * from "./format-date";
 export * from "./format-number";
 export * from "./format-unit";
 export * from "./format-text";
+export * from "./appointment-utils";
