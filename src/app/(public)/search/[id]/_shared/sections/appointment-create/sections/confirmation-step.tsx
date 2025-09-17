@@ -5,9 +5,8 @@ import {
   mockAvailableSlots,
   appointmentTypeOptions,
 } from "../mock/appointment-create-mock";
-import { AppointmentCreateFormData } from "../types/form-types";
-import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
-import { ConfirmationStepProps } from "../types/component-types";
+import { ConfirmationStepProps } from "../types";
+import { AvailableSlotDto } from "@/types";
 
 export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
   className = "",
@@ -23,53 +22,53 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
   );
 
   return (
-    <div className={`step-content ${className}`}>
-      <div className="bg-white rounded-16 box-shadow-md overflow-hidden">
-        <div className="bg-main-50 px-24 py-16 border-bottom border-main-100">
-          <h4 className="mb-0 text-main-800 d-flex align-items-center gap-2">
-            <i className="ph ph-check-circle text-main-600 text-xl"></i>
+    <div className={`tutor-details__content ${className}`}>
+      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
+        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+          {/* Ana Başlık */}
+          <h4 className="mb-16 d-flex align-items-center gap-4">
+            <i className="ph ph-check-circle text-neutral-900 text-xl"></i>
             Randevu Özeti
           </h4>
-        </div>
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
 
-        <div className="px-24 py-20 border-bottom border-neutral-100">
-          <div className="d-flex align-items-center gap-2 mb-16">
-            <i className="ph ph-calendar-check text-main-600 text-lg"></i>
-            <h5 className="mb-0 text-main-700">Randevu Detayları</h5>
-          </div>
-
-          <div className="row gy-3">
-            <div className="col-md-6">
-              <div className="info-item">
-                <span className="info-label text-neutral-600 fw-medium d-block mb-4">
-                  Randevu Türü
-                </span>
+          {/* Randevu Detayları Bölümü */}
+          <h5 className="mb-16 d-flex align-items-center gap-4">
+            <i className="ph ph-calendar-check text-neutral-900 text-lg"></i>
+            Randevu Detayları
+          </h5>
+          <ul className="tution-info-list bg-white rounded-8 mb-32">
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Randevu Türü
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="badge bg-main-600 text-white px-12 py-6 rounded-5">
                   {selectedAppointmentType?.label || "Belirtilmemiş"}
                 </span>
-              </div>
-            </div>
+              </span>
+            </li>
 
-            <div className="col-md-6">
-              <div className="info-item">
-                <span className="info-label text-neutral-600 fw-medium d-block mb-4">
-                  Tarih & Saat
-                </span>
-                <div className="text-neutral-900 fw-semibold">
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Tarih & Saat
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900 fw-semibold">
                   {getFieldValue("appointmentDate")}
                   <span className="text-neutral-600 ms-8">
                     {selectedSlot?.timeRange ||
                       `${selectedSlot?.startTime} - ${selectedSlot?.endTime}`}
                   </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="info-item">
-                <span className="info-label text-neutral-600 fw-medium d-block mb-4">
-                  Konum
                 </span>
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Konum
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <div className="d-flex align-items-center gap-2">
                   <span className="text-neutral-900">
                     {selectedSlot?.location}
@@ -80,252 +79,310 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
                     </span>
                   )}
                 </div>
-              </div>
-            </div>
+              </span>
+            </li>
 
-            <div className="col-md-6">
-              <div className="info-item">
-                <span className="info-label text-neutral-600 fw-medium d-block mb-4">
-                  Görüşmeci
-                </span>
-                <div className="text-neutral-900">
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Görüşmeci
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900">
                   {selectedSlot?.staffUserName}
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="info-item">
-                <span className="info-label text-neutral-600 fw-medium d-block mb-4">
-                  Süre
                 </span>
-                <div className="text-neutral-900">
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Süre
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900">
                   {selectedSlot?.durationMinutes} dakika
-                </div>
-              </div>
-            </div>
+                </span>
+              </span>
+            </li>
 
             {selectedSlot?.requiresApproval && (
-              <div className="col-md-6">
-                <div className="info-item">
-                  <span className="info-label text-neutral-600 fw-medium d-block mb-4">
-                    Durum
-                  </span>
+              <li className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  Durum
+                </span>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
                   <span className="badge bg-warning-600 text-white px-12 py-6 rounded-5">
                     Onay Gerekli
                   </span>
-                </div>
-              </div>
+                </span>
+              </li>
             )}
-          </div>
-        </div>
+          </ul>
 
-        <div className="px-24 py-20 border-bottom border-neutral-100">
-          <div className="d-flex align-items-center gap-2 mb-16">
-            <i className="ph ph-users text-main-600 text-lg"></i>
-            <h5 className="mb-0 text-main-700">Kişisel Bilgiler</h5>
-          </div>
+          {/* Kişisel Bilgiler Bölümü */}
+          <h5 className="mb-24 d-flex align-items-center gap-4">
+            <i className="ph ph-users text-neutral-900 text-lg"></i>
+            Kişisel Bilgiler
+          </h5>
 
-          <div className="bg-main-25 rounded-8 p-16 mb-16">
-            <h6 className="text-main-800 mb-12 d-flex align-items-center gap-2">
-              <i className="ph ph-user-circle text-main-600"></i>
-              Veli Bilgileri
-            </h6>
-            <div className="row gy-2">
-              <div className="col-md-4">
-                <span className="text-neutral-600 d-block mb-4 text-sm">
-                  Ad Soyad
-                </span>
-                <div className="text-neutral-900 fw-medium">
+          {/* Veli Bilgileri */}
+          <h6 className="text-main-800 mb-16 d-flex align-items-center gap-4 ps-8">
+            <i className="ph ph-user-circle text-main-600"></i>
+            Veli Bilgileri
+          </h6>
+          <ul className="tution-info-list bg-white rounded-8 mb-24 ms-8">
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Ad Soyad
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900 fw-medium">
                   {getFieldValue("parentName")}
-                </div>
-              </div>
-              <div className="col-md-4">
-                <span className="text-neutral-600 d-block mb-4 text-sm">
-                  E-posta
                 </span>
-                <div className="text-neutral-900 fw-medium">
+              </span>
+            </li>
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                E-posta
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900 fw-medium">
                   {getFieldValue("parentEmail")}
-                </div>
-              </div>
-              <div className="col-md-4">
-                <span className="text-neutral-600 d-block mb-4 text-sm">
-                  Telefon
                 </span>
-                <div className="text-neutral-900 fw-medium">
+              </span>
+            </li>
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Telefon
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900 fw-medium">
                   {getFieldValue("parentPhone")}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-neutral-25 rounded-8 p-16">
-            <h6 className="text-neutral-800 mb-12 d-flex align-items-center gap-2">
-              <i className="ph ph-student text-main-600"></i>
-              Öğrenci Bilgileri
-            </h6>
-            <div className="row gy-2">
-              <div className="col-md-3">
-                <span className="text-neutral-600 d-block mb-4 text-sm">
-                  Ad Soyad
                 </span>
-                <div className="text-neutral-900 fw-medium">
+              </span>
+            </li>
+          </ul>
+
+          {/* Öğrenci Bilgileri */}
+          <h6 className="text-main-800 mb-16 d-flex align-items-center gap-4 ps-8">
+            <i className="ph ph-student text-main-600"></i>
+            Öğrenci Bilgileri
+          </h6>
+          <ul className="tution-info-list bg-white rounded-8 mb-32 ms-8">
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Ad Soyad
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900 fw-medium">
                   {getFieldValue("studentName")}
-                </div>
-              </div>
+                </span>
+              </span>
+            </li>
 
-              {getFieldValue("studentAge") && (
-                <div className="col-md-3">
-                  <span className="text-neutral-600 d-block mb-4 text-sm">
-                    Yaş
-                  </span>
-                  <div className="text-neutral-900 fw-medium">
+            {getFieldValue("studentAge") && (
+              <li className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  Yaş
+                </span>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                  <span className="text-neutral-900 fw-medium">
                     {getFieldValue("studentAge")} yaş
-                  </div>
-                </div>
-              )}
-
-              {getFieldValue("studentGender") && (
-                <div className="col-md-3">
-                  <span className="text-neutral-600 d-block mb-4 text-sm">
-                    Cinsiyet
                   </span>
-                  <div className="text-neutral-900 fw-medium">
+                </span>
+              </li>
+            )}
+
+            {getFieldValue("studentGender") && (
+              <li className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  Cinsiyet
+                </span>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                  <span className="text-neutral-900 fw-medium">
                     {getFieldValue("studentGender") === "MALE" && "Erkek"}
                     {getFieldValue("studentGender") === "FEMALE" && "Kız"}
                     {getFieldValue("studentGender") === "OTHER" && "Diğer"}
                     {getFieldValue("studentGender") === "PREFER_NOT_TO_SAY" &&
                       "Belirtmek İstemiyorum"}
-                  </div>
-                </div>
-              )}
-
-              {getFieldValue("studentBirthDate") && (
-                <div className="col-md-3">
-                  <span className="text-neutral-600 d-block mb-4 text-sm">
-                    Doğum Tarihi
                   </span>
-                  <div className="text-neutral-900 fw-medium">
+                </span>
+              </li>
+            )}
+
+            {getFieldValue("studentBirthDate") && (
+              <li className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  Doğum Tarihi
+                </span>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                  <span className="text-neutral-900 fw-medium">
                     {getFieldValue("studentBirthDate")}
-                  </div>
-                </div>
-              )}
-
-              {getFieldValue("gradeInterested") && (
-                <div className="col-md-6">
-                  <span className="text-neutral-600 d-block mb-4 text-sm">
-                    İlgilenilen Sınıf
                   </span>
-                  <div className="text-neutral-900 fw-medium">
+                </span>
+              </li>
+            )}
+
+            {getFieldValue("gradeInterested") && (
+              <li className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  İlgilenilen Sınıf
+                </span>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                  <span className="text-neutral-900 fw-medium">
                     {getFieldValue("gradeInterested")}
-                  </div>
-                </div>
-              )}
-
-              {getFieldValue("currentSchool") && (
-                <div className="col-md-6">
-                  <span className="text-neutral-600 d-block mb-4 text-sm">
-                    Mevcut Okul
                   </span>
-                  <div className="text-neutral-900 fw-medium">
+                </span>
+              </li>
+            )}
+
+            {getFieldValue("currentSchool") && (
+              <li className="d-flex align-items-start px-32 py-16">
+                <span className="w-50-percent fw-semibold text-neutral-700">
+                  Mevcut Okul
+                </span>
+                <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                  <span className="text-neutral-900 fw-medium">
                     {getFieldValue("currentSchool")}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {(getFieldValue("title") ||
-          getFieldValue("description") ||
-          getFieldValue("specialRequests") ||
-          getFieldValue("notes")) && (
-          <div className="px-24 py-20 border-bottom border-neutral-100">
-            <div className="d-flex align-items-center gap-2 mb-16">
-              <i className="ph ph-note-pencil text-main-600 text-lg"></i>
-              <h5 className="mb-0 text-main-700">Ek Bilgiler</h5>
-            </div>
-
-            <div className="row gy-3">
-              {getFieldValue("title") && (
-                <div className="col-12">
-                  <span className="text-neutral-600 d-block mb-8 fw-medium">
-                    Randevu Başlığı
                   </span>
-                  <div className="bg-neutral-25 rounded-8 p-12 text-neutral-900">
-                    {getFieldValue("title")}
-                  </div>
-                </div>
+                </span>
+              </li>
+            )}
+          </ul>
+
+          {/* Ek Bilgiler Bölümü */}
+          {(getFieldValue("title") ||
+            getFieldValue("description") ||
+            getFieldValue("specialRequests") ||
+            getFieldValue("notes")) && (
+            <>
+              <h5 className="mb-24 d-flex align-items-center gap-4">
+                <i className="ph ph-note-pencil text-neutral-900 text-lg"></i>
+                Ek Bilgiler
+              </h5>
+
+              {/* İlk satır: Randevu Başlığı ve Açıklama */}
+              {(getFieldValue("title") || getFieldValue("description")) && (
+                <ul className="tution-info-list bg-white rounded-8 mb-24">
+                  {getFieldValue("title") && (
+                    <li className="d-flex align-items-start px-32 py-16">
+                      <span className="w-30-percent fw-semibold text-neutral-700">
+                        Randevu Başlığı
+                      </span>
+                      <span className="w-70-percent fw-normal text-neutral-500 text-md">
+                        <span className="text-neutral-900 fw-medium">
+                          {getFieldValue("title")}
+                        </span>
+                      </span>
+                    </li>
+                  )}
+
+                  {getFieldValue("description") && (
+                    <li className="d-flex align-items-start px-32 py-16">
+                      <span className="w-30-percent fw-semibold text-neutral-700">
+                        Açıklama
+                      </span>
+                      <span className="w-70-percent fw-normal text-neutral-500 text-md">
+                        <span className="text-neutral-900 fw-medium">
+                          {getFieldValue("description")}
+                        </span>
+                      </span>
+                    </li>
+                  )}
+                </ul>
               )}
 
-              {getFieldValue("description") && (
-                <div className="col-12">
-                  <span className="text-neutral-600 d-block mb-8 fw-medium">
-                    Açıklama
-                  </span>
-                  <div className="bg-neutral-25 rounded-8 p-12 text-neutral-900">
-                    {getFieldValue("description")}
-                  </div>
-                </div>
-              )}
-
+              {/* Özel İstekler */}
               {getFieldValue("specialRequests") && (
-                <div className="col-12">
-                  <span className="text-neutral-600 d-block mb-8 fw-medium">
+                <>
+                  <h6 className="text-main-800 mb-16 d-flex align-items-center gap-4 ps-8">
+                    <i className="ph ph-warning-circle text-warning-600"></i>
                     Özel İstekler
-                  </span>
-                  <div className="bg-warning-25 rounded-8 p-12 text-neutral-900">
-                    {getFieldValue("specialRequests")}
-                  </div>
-                </div>
+                  </h6>
+                  <ul className="tution-info-list bg-white rounded-8 mb-24 ms-8">
+                    <li className="d-flex align-items-start px-32 py-16">
+                      <span className="w-50-percent fw-semibold text-neutral-700">
+                        İstekler
+                      </span>
+                      <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                        <span className="bg-warning-25 rounded-6 px-12 py-8 text-neutral-900 fw-medium d-block">
+                          {getFieldValue("specialRequests")}
+                        </span>
+                      </span>
+                    </li>
+                  </ul>
+                </>
               )}
 
+              {/* Ek Notlar */}
               {getFieldValue("notes") && (
-                <div className="col-12">
-                  <span className="text-neutral-600 d-block mb-8 fw-medium">
+                <>
+                  <h6 className="text-main-800 mb-16 d-flex align-items-center gap-4 ps-8">
+                    <i className="ph ph-note-pencil text-main-600"></i>
                     Ek Notlar
-                  </span>
-                  <div className="bg-neutral-25 rounded-8 p-12 text-neutral-900">
-                    {getFieldValue("notes")}
-                  </div>
-                </div>
+                  </h6>
+                  <ul className="tution-info-list bg-white rounded-8 mb-24 ms-8">
+                    <li className="d-flex align-items-start px-32 py-16">
+                      <span className="w-50-percent fw-semibold text-neutral-700">
+                        Notlar
+                      </span>
+                      <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                        <span className="text-neutral-900 fw-medium">
+                          {getFieldValue("notes")}
+                        </span>
+                      </span>
+                    </li>
+                  </ul>
+                </>
               )}
-            </div>
-          </div>
-        )}
 
-        <div className="px-24 py-20">
-          <div className="text-center mb-20">
-            <i className="ph ph-check-circle text-success-600 text-4xl mb-12 d-block"></i>
-            <h5 className="text-neutral-900 mb-8">Son Adım</h5>
-            <p className="text-neutral-600 mb-0">
-              Randevu oluşturmak için aşağıdaki koşulları kabul etmeniz
-              gerekmektedir
-            </p>
-          </div>
+              {/* Son row'un bottom margin'ı */}
+              <div className="mb-8"></div>
+            </>
+          )}
 
-          <div className="bg-main-25 rounded-8 p-16 mb-16">
-            <FormCheckbox
-              name="agreedToTerms"
-              label="Kullanım şartlarını ve gizlilik politikasını okudum ve kabul ediyorum. Kişisel verilerimin işlenmesine onay veriyorum."
-            />
-            <div className="mt-8 d-flex align-items-center gap-2 text-neutral-600">
-              <i className="ph ph-shield-check text-main-600"></i>
-              <small>
-                Bu randevu KVKK kapsamında güvenli bir şekilde işlenmektedir.
-              </small>
-            </div>
-          </div>
+          {/* Son Adım - Onay Bölümü */}
+          <h5 className="mb-16 d-flex align-items-center gap-4">
+            <i className="ph ph-check-circle text-neutral-900 text-lg"></i>
+            Son Adım
+          </h5>
 
-          <div className="text-center">
-            <div className="alert alert-info d-inline-flex align-items-center px-16 py-12 rounded-8 border-0 bg-info-25">
-              <i className="ph ph-info text-info-600 me-8"></i>
-              <small className="text-info-700 mb-0">
-                Randevunuz onaylandıktan sonra size bilgilendirme e-postası
-                gönderilecektir.
-              </small>
-            </div>
-          </div>
+          <ul className="tution-info-list bg-white rounded-8 mb-32">
+            <li className="d-flex align-items-start px-32 py-24">
+              <span className="w-100-percent">
+                <div className="d-flex align-items-center gap-3 mb-16">
+                  <i className="ph ph-shield-check text-success-600 text-xl"></i>
+                  <h6 className="text-neutral-900 mb-0">Onay Gereklidir</h6>
+                </div>
+                <p className="text-neutral-600 mb-20 text-sm">
+                  Randevu oluşturmak için aşağıdaki koşulları kabul etmeniz
+                  gerekmektedir
+                </p>
+
+                <div className="bg-main-25 rounded-8 p-20 mb-16">
+                  <FormCheckbox
+                    name="agreedToTerms"
+                    label="Kullanım şartlarını ve gizlilik politikasını okudum ve kabul ediyorum. Kişisel verilerimin işlenmesine onay veriyorum."
+                  />
+                </div>
+
+                <div className="d-flex align-items-center gap-2 text-neutral-600 mb-16">
+                  <i className="ph ph-shield-check text-main-600"></i>
+                  <small>
+                    Bu randevu KVKK kapsamında güvenli bir şekilde
+                    işlenmektedir.
+                  </small>
+                </div>
+
+                <div className="alert alert-info d-flex align-items-center px-16 py-12 rounded-6 border-0 bg-info-25 mb-0">
+                  <i className="ph ph-info text-info-600 me-8"></i>
+                  <small className="text-info-700 mb-0">
+                    Randevunuz onaylandıktan sonra size bilgilendirme e-postası
+                    gönderilecektir.
+                  </small>
+                </div>
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
