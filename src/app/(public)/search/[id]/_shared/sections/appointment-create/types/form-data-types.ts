@@ -1,5 +1,14 @@
+/**
+ * Form data interface definitions for appointment creation
+ * Bu dosya form data types'larını içerir
+ */
+
 // Import DTO types from main types folder
 import { AppointmentCreateDto } from "@/types/dto/appointment/AppointmentCreateDto";
+
+// =============================================================================
+// FORM DATA TYPES - Form verisi için interfaces
+// =============================================================================
 
 /**
  * Form data interface - DTO'yu extend ederek form için ek alanlar
@@ -26,14 +35,4 @@ export enum FormStep {
   PERSONAL_INFO = "personal-info",
   STUDENT_INFO = "student-info",
   CONFIRMATION = "confirmation",
-}
-
-/**
- * Appointment creation result interface
- */
-export interface AppointmentCreationResult {
-  success: boolean;
-  appointmentNumber?: string;
-  message?: string;
-  error?: string;
 }

@@ -1,1 +1,2 @@
-export * from "./context-hooks";
+// Appointment create hooks
+// Context hooks removed - use useFormHook and useAppointment directly

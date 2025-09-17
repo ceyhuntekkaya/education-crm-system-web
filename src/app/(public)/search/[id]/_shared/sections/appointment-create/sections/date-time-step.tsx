@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FormInput, FormRadio } from "@/components/forms";
-import { useFormField } from "@/contexts";
+import { useFormHook } from "@/hooks/use-form-hook";
 import { mockAvailableSlots } from "../mock/appointment-create-mock";
 import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
 
 export const DateTimeStep = () => {
-  const { value: appointmentDate } = useFormField("appointmentDate");
+  const { getFieldValue } = useFormHook();
+  const appointmentDate = getFieldValue("appointmentDate");
   const [availableSlots, setAvailableSlots] = useState<AvailableSlotDto[]>([]);
 
   // Load available slots when date changes

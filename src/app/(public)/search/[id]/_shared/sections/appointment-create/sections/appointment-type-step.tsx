@@ -1,10 +1,7 @@
 import React from "react";
 import { appointmentTypeOptions } from "../mock/appointment-create-mock";
 import { useFormHook } from "@/hooks/use-form-hook";
-
-interface AppointmentTypeStepProps {
-  className?: string;
-}
+import { AppointmentTypeStepProps } from "../types";
 
 export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
   className = "",
@@ -19,9 +16,9 @@ export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
   return (
     <div className={`appointment-type-step ${className}`}>
       {/* Header */}
-      <div className="step-header mb-32">
-        <h4 className="h4 text-neutral-800 mb-8">Randevu Türünü Seçiniz</h4>
-        <p className="text-lg text-neutral-600 mb-0">
+      <div className="step-header mb-24">
+        <h5 className="text-neutral-800 mb-8">Randevu Türünü Seçiniz</h5>
+        <p className="text-md text-neutral-600 mb-0">
           Size en uygun randevu türünü seçerek devam edin
         </p>
       </div>

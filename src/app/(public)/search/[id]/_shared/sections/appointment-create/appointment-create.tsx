@@ -4,7 +4,8 @@ import React from "react";
 import { FormProvider, useForm } from "@/contexts";
 import { AppointmentProvider } from "./contexts";
 import { AppointmentFormContent } from "./components/appointment-form-content";
-import { AppointmentCreateFormData } from "./types/form-types";
+import { AppointmentCreateProps } from "./types";
+import { createInitialValues } from "./schemas/initial-values-schema";
 
 // Debug component to show form data
 const FormDebugger: React.FC = () => {
@@ -50,11 +51,6 @@ const FormDebugger: React.FC = () => {
   );
 };
 
-interface AppointmentCreateProps {
-  schoolId: number;
-  isOnline?: boolean;
-}
-
 /**
  * Main AppointmentCreate component with providers
  * This component serves as the entry point for appointment creation
@@ -63,48 +59,21 @@ export const AppointmentCreate: React.FC<AppointmentCreateProps> = ({
   schoolId,
   isOnline = false,
 }) => {
-  // AppointmentCreateDto formatına uygun initial values
-  const initialValues: AppointmentCreateFormData = {
-    // Required/essential fields from props
-    schoolId,
-    isOnline,
-
-    // DTO fields with default values
-    appointmentSlotId: undefined,
-    parentUserId: undefined,
-    appointmentDate: undefined,
-    startTime: undefined,
-    endTime: undefined,
-    appointmentType: undefined,
-    title: undefined,
-    description: undefined,
-    location: undefined,
-    parentName: undefined,
-    parentEmail: undefined,
-    parentPhone: undefined,
-    studentName: undefined,
-    studentAge: undefined,
-    studentBirthDate: undefined,
-    studentGender: undefined,
-    currentSchool: undefined,
-    gradeInterested: undefined,
-    specialRequests: undefined,
-    notes: undefined,
-    participants: undefined,
-
-    // Form-specific fields (not in DTO)
-    agreedToTerms: false,
-    communicationPreference: "EMAIL" as const,
-    selectedSlotId: undefined,
-    timeSlotData: undefined,
-  };
+  // Schema'dan initial values oluştur
+  const initialValues = createInitialValues(schoolId, isOnline);
 
   return (
-    <AppointmentProvider schoolId={schoolId} isOnline={isOnline}>
-      <FormProvider initialValues={initialValues}>
-        <FormDebugger />
-        <AppointmentFormContent />
-      </FormProvider>
-    </AppointmentProvider>
+    <div className="tutor-details__content">
+      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
+        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+          <AppointmentProvider schoolId={schoolId} isOnline={isOnline}>
+            <FormProvider initialValues={initialValues}>
+              {/* <FormDebugger /> */}
+              <AppointmentFormContent />
+            </FormProvider>
+          </AppointmentProvider>
+        </div>
+      </div>
+    </div>
   );
 };

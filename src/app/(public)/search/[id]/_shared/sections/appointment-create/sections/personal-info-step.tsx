@@ -1,9 +1,6 @@
 import React from "react";
 import { FormInput, FormAutocomplete } from "@/components/forms";
-
-interface PersonalInfoStepProps {
-  className?: string;
-}
+import { PersonalInfoStepProps } from "../types/component-types";
 
 const communicationOptions = [
   { value: "EMAIL", label: "E-posta" },

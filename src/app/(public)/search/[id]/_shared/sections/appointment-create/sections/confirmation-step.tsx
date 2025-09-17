@@ -7,10 +7,7 @@ import {
 } from "../mock/appointment-create-mock";
 import { AppointmentCreateFormData } from "../types/form-types";
 import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
-
-interface ConfirmationStepProps {
-  className?: string;
-}
+import { ConfirmationStepProps } from "../types/component-types";
 
 export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
   className = "",

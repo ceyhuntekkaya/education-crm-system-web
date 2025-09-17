@@ -1,47 +1,12 @@
 /**
- * Appointment form configuration
+ * Step configuration constants for appointment creation
+ * Bu dosya form adımları için sabit konfigürasyonları içerir
  */
 
-export interface AppointmentFormConfig {
-  // Form behavior
-  autoAdvanceOnValid: boolean;
-  showProgressBar: boolean;
-  enableValidation: boolean;
+// =============================================================================
+// STEP CONFIGURATIONS - Form adımları için sabit konfigürasyonlar
+// =============================================================================
 
-  // Navigation
-  allowSkipSteps: boolean;
-  allowBackNavigation: boolean;
-
-  // Submission
-  autoSubmitOnLastStep: boolean;
-  showConfirmationDialog: boolean;
-
-  // UI preferences
-  showStepNumbers: boolean;
-  compactMode: boolean;
-
-  // Communication defaults
-  defaultCommunicationPreference: "EMAIL" | "PHONE" | "SMS";
-  requireTermsAgreement: boolean;
-}
-
-export const DEFAULT_APPOINTMENT_CONFIG: AppointmentFormConfig = {
-  autoAdvanceOnValid: false,
-  showProgressBar: true,
-  enableValidation: true,
-  allowSkipSteps: false,
-  allowBackNavigation: true,
-  autoSubmitOnLastStep: false,
-  showConfirmationDialog: true,
-  showStepNumbers: true,
-  compactMode: false,
-  defaultCommunicationPreference: "EMAIL",
-  requireTermsAgreement: true,
-};
-
-/**
- * Step configuration for appointment form
- */
 export interface StepConfig {
   id: string;
   title: string;
@@ -81,4 +46,4 @@ export const APPOINTMENT_STEP_CONFIGS: Record<string, StepConfig> = {
     description: "Randevu detaylarını kontrol edin ve onaylayın",
     estimatedTimeMinutes: 1,
   },
-};
+} as const;

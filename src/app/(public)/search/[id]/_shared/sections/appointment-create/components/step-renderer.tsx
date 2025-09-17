@@ -5,7 +5,7 @@
 "use client";
 
 import React from "react";
-import { useAppointmentNavigation } from "../hooks/context-hooks";
+import { useAppointment } from "../contexts";
 import { FormStep } from "../types";
 import {
   AppointmentTypeStep,
@@ -13,16 +13,15 @@ import {
   PersonalInfoStep,
   StudentInfoStep,
   ConfirmationStep,
-} from "./";
+} from "../sections";
 
 export const StepRenderer: React.FC = () => {
-  const { currentStep } = useAppointmentNavigation();
+  const { currentStep } = useAppointment();
 
   const renderCurrentStep = () => {
     switch (currentStep) {
       case FormStep.APPOINTMENT_TYPE:
         return <AppointmentTypeStep />;
-
       case FormStep.STUDENT_INFO:
         return <StudentInfoStep />;
       case FormStep.DATE_TIME:
@@ -34,5 +33,5 @@ export const StepRenderer: React.FC = () => {
     }
   };
 
-  return <div className="step-container">{renderCurrentStep()}</div>;
+  return <div className="step-content">{renderCurrentStep()}</div>;
 };

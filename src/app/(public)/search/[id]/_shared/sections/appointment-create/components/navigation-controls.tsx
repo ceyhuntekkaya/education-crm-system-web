@@ -5,22 +5,24 @@
 "use client";
 
 import React from "react";
-import {
-  useAppointmentNavigation,
-  useAppointmentSubmission,
-} from "../hooks/context-hooks";
+import { useAppointment } from "../contexts";
 import { Button } from "@/components";
 
 export const NavigationControls: React.FC = () => {
-  const { next, previous, isFirstStep, isLastStep } =
-    useAppointmentNavigation();
-  const { submit, isSubmitting } = useAppointmentSubmission();
+  const {
+    goToNextStep,
+    goToPreviousStep,
+    isFirstStep,
+    isLastStep,
+    submitForm,
+    isSubmitting,
+  } = useAppointment();
 
   const handleNext = async () => {
     if (isLastStep) {
-      await submit();
+      await submitForm();
     } else {
-      await next();
+      await goToNextStep();
     }
   };
 
@@ -37,17 +39,19 @@ export const NavigationControls: React.FC = () => {
   };
 
   return (
-    <div className="navigation-controls">
+    <div className="d-flex justify-content-between align-items-center pt-24 mt-24 border-top border-neutral-30">
       {!isFirstStep && (
         <Button
           type="button"
           variant="outline"
-          onClick={previous}
+          onClick={goToPreviousStep}
           disabled={isSubmitting}
         >
           Önceki
         </Button>
       )}
+
+      {isFirstStep && <div></div>}
 
       <Button type="button" onClick={handleNext} disabled={isSubmitting}>
         {getButtonText()}

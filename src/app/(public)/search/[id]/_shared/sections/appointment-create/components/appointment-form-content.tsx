@@ -5,29 +5,34 @@
 "use client";
 
 import React from "react";
-import { useAppointmentNavigation } from "../hooks/context-hooks";
+import { useAppointment } from "../contexts";
 import { StepRenderer } from "./step-renderer";
 import { NavigationControls } from "./navigation-controls";
 import { ProgressBar } from "./progress-bar";
 
 export const AppointmentFormContent: React.FC = () => {
-  const { steps, currentStep, goTo } = useAppointmentNavigation();
+  const { steps, currentStep, goToStep } = useAppointment();
 
   return (
-    <div className="appointment-create-form">
-      <div className="appointment-create-header">
-        <h3>Randevu Oluştur</h3>
+    <>
+      {/* Header */}
+      <h4 className="mb-16">Randevu Oluştur</h4>
+      <span className="d-block border border-neutral-30 my-20 border-dashed" />
+
+      {/* Progress Bar */}
+      <div className="mb-24">
         <ProgressBar
           steps={steps}
           currentStep={currentStep}
-          onStepClick={goTo}
+          onStepClick={goToStep}
         />
       </div>
 
-      <div className="step-container">
+      {/* Form Content */}
+      <div className="bg-white rounded-8 p-24">
         <StepRenderer />
         <NavigationControls />
       </div>
-    </div>
+    </>
   );
 };

@@ -1,18 +1,6 @@
 import React from "react";
 import { FormStep } from "../types";
-
-interface FormStepConfig {
-  key: FormStep;
-  title: string;
-  icon: string;
-}
-
-interface ProgressBarProps {
-  steps: readonly FormStepConfig[];
-  currentStep: FormStep;
-  onStepClick?: (step: FormStep) => void;
-  className?: string;
-}
+import { FormStepConfig, ProgressBarProps } from "../types/component-types";
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   steps,
