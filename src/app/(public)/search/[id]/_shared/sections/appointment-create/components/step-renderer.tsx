@@ -22,12 +22,11 @@ export const StepRenderer: React.FC = () => {
     switch (currentStep) {
       case FormStep.APPOINTMENT_TYPE:
         return <AppointmentTypeStep />;
-      case FormStep.DATE_TIME:
-        return <DateTimeStep />;
-      case FormStep.PERSONAL_INFO:
-        return <PersonalInfoStep />;
+
       case FormStep.STUDENT_INFO:
         return <StudentInfoStep />;
+      case FormStep.DATE_TIME:
+        return <DateTimeStep />;
       case FormStep.CONFIRMATION:
         return <ConfirmationStep />;
       default:

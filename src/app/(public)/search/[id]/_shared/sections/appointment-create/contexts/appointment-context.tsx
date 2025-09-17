@@ -23,13 +23,14 @@ const STEP_CONFIG = [
     title: "Randevu Türü",
     icon: "ph-calendar",
   },
-  { key: FormStep.DATE_TIME, title: "Tarih & Saat", icon: "ph-clock" },
-  { key: FormStep.PERSONAL_INFO, title: "Veli Bilgileri", icon: "ph-user" },
   {
     key: FormStep.STUDENT_INFO,
     title: "Öğrenci Bilgileri",
     icon: "ph-student",
   },
+  { key: FormStep.DATE_TIME, title: "Tarih & Saat", icon: "ph-clock" },
+  // { key: FormStep.PERSONAL_INFO, title: "Veli Bilgileri", icon: "ph-user" },
+
   { key: FormStep.CONFIRMATION, title: "Onay", icon: "ph-check-circle" },
 ] as const;
 
@@ -204,19 +205,19 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
           }
           break;
 
-        case FormStep.PERSONAL_INFO:
-          if (!getFieldValue("parentName")?.trim()) {
-            stepErrors.parentName = "Ad soyad zorunludur.";
-          }
-          if (!getFieldValue("parentEmail")?.trim()) {
-            stepErrors.parentEmail = "E-posta zorunludur.";
-          } else if (!/\S+@\S+\.\S+/.test(getFieldValue("parentEmail"))) {
-            stepErrors.parentEmail = "Geçerli bir e-posta adresi giriniz.";
-          }
-          if (!getFieldValue("parentPhone")?.trim()) {
-            stepErrors.parentPhone = "Telefon numarası zorunludur.";
-          }
-          break;
+        // case FormStep.PERSONAL_INFO:
+        //   if (!getFieldValue("parentName")?.trim()) {
+        //     stepErrors.parentName = "Ad soyad zorunludur.";
+        //   }
+        //   if (!getFieldValue("parentEmail")?.trim()) {
+        //     stepErrors.parentEmail = "E-posta zorunludur.";
+        //   } else if (!/\S+@\S+\.\S+/.test(getFieldValue("parentEmail"))) {
+        //     stepErrors.parentEmail = "Geçerli bir e-posta adresi giriniz.";
+        //   }
+        //   if (!getFieldValue("parentPhone")?.trim()) {
+        //     stepErrors.parentPhone = "Telefon numarası zorunludur.";
+        //   }
+        //   break;
 
         case FormStep.STUDENT_INFO:
           if (!getFieldValue("studentName")?.trim()) {

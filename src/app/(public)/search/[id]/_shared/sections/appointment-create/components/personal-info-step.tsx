@@ -1,5 +1,5 @@
 import React from "react";
-import { FormInput, FormSelect } from "@/components/forms";
+import { FormInput, FormAutocomplete } from "@/components/forms";
 
 interface PersonalInfoStepProps {
   className?: string;
@@ -24,6 +24,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             name="parentName"
             label="Veli Adı Soyadı *"
             placeholder="Veli adını ve soyadını girin"
+            variant="inline"
           />
         </div>
 
@@ -33,6 +34,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             type="email"
             label="Veli E-posta *"
             placeholder="Veli e-posta adresini girin"
+            variant="inline"
           />
         </div>
 
@@ -42,14 +44,16 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             type="tel"
             label="Veli Telefon *"
             placeholder="Veli telefon numarasını girin"
+            variant="inline"
           />
         </div>
 
         <div className="col-12">
-          <FormSelect
+          <FormAutocomplete
             name="communicationPreference"
             label="İletişim Tercihi"
             options={communicationOptions}
+            variant="inline"
           />
         </div>
       </div>

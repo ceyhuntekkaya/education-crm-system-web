@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FormInput, FormRadio } from "@/components/forms";
-import { useFormHook } from "@/hooks/use-form-hook";
+import { useFormField } from "@/contexts";
 import { mockAvailableSlots } from "../mock/appointment-create-mock";
 import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
 
 export const DateTimeStep = () => {
-  const { getFieldValue, updateField } = useFormHook();
+  const { value: appointmentDate } = useFormField("appointmentDate");
   const [availableSlots, setAvailableSlots] = useState<AvailableSlotDto[]>([]);
-  const appointmentDate = getFieldValue("appointmentDate");
 
   // Load available slots when date changes
   useEffect(() => {
@@ -27,22 +26,16 @@ export const DateTimeStep = () => {
     }));
 
   return (
-    <div className={`step-content`}>
+    <div>
       <h4 className="mb-24">Tarih ve Saat Seçiniz</h4>
 
-      <div className="row gy-3">
-        <div className="col-md-6">
-          <label className="form-label">Randevu Tarihi</label>
-          <input
-            type="date"
-            name="appointmentDate"
-            className="form-control"
-            value={getFieldValue("appointmentDate") || ""}
-            onChange={(e) => updateField("appointmentDate", e.target.value)}
-            min={new Date().toISOString().split("T")[0]}
-          />
-        </div>
-      </div>
+      <FormInput
+        name="appointmentDate"
+        type="date"
+        label="Randevu Tarihi"
+        variant="inline"
+        min={new Date().toISOString().split("T")[0]}
+      />
 
       {appointmentDate && availableSlots.length > 0 && (
         <div className="mt-24">

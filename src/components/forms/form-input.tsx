@@ -12,6 +12,7 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   customStyle?: boolean;
   iconLeft?: string;
   iconRight?: string;
+  fullWidth?: boolean;
   type?:
     | "text"
     | "email"
@@ -20,7 +21,8 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "telephone"
     | "tel"
     | "url"
-    | "search";
+    | "search"
+    | "date";
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -34,6 +36,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   disabled = false,
   iconLeft,
   iconRight,
+  fullWidth = false,
   ...rest
 }) => {
   const { value, error, required, onChange } = useFormField(name);
@@ -109,7 +112,8 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   // Variant bazlı stil sınıfları
   const getVariantClasses = (): string => {
-    const baseClasses = "rounded-pill outline-0 w-100 h-48";
+    const baseClasses = "rounded-pill outline-0 h-48";
+    const widthClass = fullWidth ? "w-100" : "";
     const leftPadding = iconLeft ? "ps-60" : "px-16";
     const rightPadding = iconRight ? "pe-60" : "";
     const errorClasses = error
@@ -118,13 +122,13 @@ export const FormInput: React.FC<FormInputProps> = ({
 
     switch (variant) {
       case "inline":
-        return `${baseClasses} common-input bg-main-25 ${
+        return `${baseClasses} ${widthClass} common-input bg-main-25 ${
           iconLeft ? "ps-48" : ""
         } ${iconRight ? "pe-48" : ""} ${
           error ? "border-danger-600" : "border-neutral-30"
         } ${errorClasses}`;
       case "outline":
-        return `${baseClasses} bg-white ${
+        return `${baseClasses} ${widthClass} bg-white ${
           error ? "text-danger-600" : "text-black"
         } border ${
           error
@@ -134,9 +138,9 @@ export const FormInput: React.FC<FormInputProps> = ({
           error ? "placeholder-danger-600" : ""
         }`;
       default:
-        return `${baseClasses} common-input ${iconLeft ? "ps-48" : ""} ${
-          iconRight ? "pe-48" : ""
-        } ${
+        return `${baseClasses} ${widthClass} common-input ${
+          iconLeft ? "ps-48" : ""
+        } ${iconRight ? "pe-48" : ""} ${
           error
             ? "border-danger-600 focus-border-danger-600"
             : "border-transparent focus-border-main-600"
@@ -224,7 +228,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           <span
             className={`${
               variant === "outline"
-                ? "bg-white text-neutral-200 border border-main-25 border-4 w-48 h-48 text-2xl"
+                ? "bg-white text-neutral-200 border-4 border-main-25 w-48 h-48 text-2xl"
                 : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md ms-8"
             } rounded-circle flex-center position-absolute top-50 translate-middle-y inset-inline-start-0`}
           >
@@ -235,7 +239,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           <span
             className={`${
               variant === "outline"
-                ? "bg-white text-neutral-200 border border-main-25 border-4 w-48 h-48 text-2xl"
+                ? "bg-white text-neutral-200 border-4 border-main-25 w-48 h-48 text-2xl"
                 : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md me-8"
             } rounded-circle flex-center position-absolute top-50 translate-middle-y inset-inline-end-0`}
           >

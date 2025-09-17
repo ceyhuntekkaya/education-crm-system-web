@@ -1,5 +1,5 @@
 import React from "react";
-import { FormInput, FormSelect, FormTextarea } from "@/components/forms";
+import { FormInput, FormAutocomplete, FormTextarea } from "@/components/forms";
 import { FORM_OPTIONS } from "../constants/appointment-constants";
 
 interface StudentInfoStepProps {
@@ -19,6 +19,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             name="studentName"
             label="Öğrenci Adı Soyadı *"
             placeholder="Öğrenci adını ve soyadını girin"
+            variant="inline"
           />
         </div>
 
@@ -30,6 +31,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             placeholder="Öğrencinin yaşı"
             min={5}
             max={25}
+            variant="inline"
           />
         </div>
 
@@ -39,22 +41,27 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             type="text"
             label="Öğrenci Doğum Tarihi"
             placeholder="YYYY-MM-DD"
+            variant="inline"
           />
         </div>
 
         <div className="col-md-6">
-          <FormSelect
+          <FormAutocomplete
             name="studentGender"
             label="Öğrenci Cinsiyeti"
-            options={FORM_OPTIONS.GENDER}
+            placeholder="Cinsiyet seçiniz"
+            options={[...FORM_OPTIONS.GENDER]}
+            variant="inline"
           />
         </div>
 
         <div className="col-md-6">
-          <FormSelect
+          <FormAutocomplete
             name="gradeInterested"
             label="İlgilenilen Sınıf *"
-            options={FORM_OPTIONS.GRADE}
+            placeholder="Sınıf seçiniz"
+            options={[...FORM_OPTIONS.GRADE]}
+            variant="inline"
           />
         </div>
 
@@ -63,6 +70,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             name="currentSchool"
             label="Mevcut Okul"
             placeholder="Mevcut okul adını girin"
+            variant="inline"
           />
         </div>
 
@@ -73,6 +81,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             placeholder="Özel isteklerinizi belirtin"
             rows={3}
             maxLength={500}
+            variant="inline"
           />
         </div>
 
@@ -83,6 +92,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             placeholder="Ek notlar"
             rows={3}
             maxLength={1000}
+            variant="inline"
           />
         </div>
       </div>
