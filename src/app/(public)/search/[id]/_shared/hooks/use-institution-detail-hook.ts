@@ -31,8 +31,10 @@ export function useInstitutionDetailHook({
     }
   }, [institutionResponse, institutionError]);
 
+  console.log("institutionResponse", institutionResponse);
+
   return {
-    schoolDetail: institutionResponse?.data,
+    institutionDetail: institutionResponse?.data,
     loading: institutionLoading,
     error: institutionError,
     refetch: refetchInstitution,

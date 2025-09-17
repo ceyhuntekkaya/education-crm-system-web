@@ -1,12 +1,7 @@
-interface InstitutionStatisticsProps {
-  school: any;
-  campus: any;
-}
+import { useInstitutionDetail } from "../contexts";
 
-export default function InstitutionStatistics({
-  school,
-  campus,
-}: InstitutionStatisticsProps) {
+export default function InstitutionStatistics() {
+  const { school, campus } = useInstitutionDetail();
   return (
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">

@@ -1,14 +1,7 @@
-interface InstitutionCampusInfoProps {
-  school: any;
-  campus: any;
-  brand: any;
-}
+import { useInstitutionDetail } from "../contexts";
 
-export default function InstitutionCampusInfo({
-  school,
-  campus,
-  brand,
-}: InstitutionCampusInfoProps) {
+export default function InstitutionCampusInfo() {
+  const { school, campus, brand } = useInstitutionDetail();
   return (
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">

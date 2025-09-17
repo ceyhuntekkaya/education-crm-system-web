@@ -24,14 +24,14 @@ export default function TabContent({
         <div
           key={tab.id}
           className={`tab-pane fade ${
-            tab.isActive || index === 0 ? "show active" : ""
+            tab.isActive === true ? "show active" : ""
           }`}
           id={tab.id}
           role="tabpanel"
           aria-labelledby={`${tab.id}-tab`}
           tabIndex={0}
         >
-          {tab.children}
+          {tab.content || tab.children}
         </div>
       ))}
     </div>
