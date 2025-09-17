@@ -1,6 +1,5 @@
 import React from "react";
-import { FormStep } from "../types";
-import { FormStepConfig, ProgressBarProps } from "../types/component-types";
+import { ProgressBarProps } from "../types";
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   steps,
@@ -11,7 +10,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   const currentIndex = steps.findIndex((step) => step.key === currentStep);
 
   return (
-    <div className={`progress-bar-container ${className}`}>
+    <div
+      className={`progress-bar-container rounded-12 p-16 bg-white ${className}`}
+    >
       <div className="progress-bar-steps">
         {steps.map((step, index) => {
           const isActive = step.key === currentStep;
