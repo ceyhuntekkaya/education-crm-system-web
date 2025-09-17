@@ -47,6 +47,45 @@ export const DateTimeStep = () => {
         />
       </div>
 
+      {/* Date Selection Info - When no date selected */}
+      {!appointmentDate && (
+        <div className="date-time-empty-state">
+          <div className="empty-state-content">
+            <div className="empty-state-icon">
+              <i className="ph-bold ph-calendar-plus" />
+            </div>
+            <div className="empty-state-text">
+              <h6 className="empty-state-title">Tarih Seçimi Bekleniyor</h6>
+              <p className="empty-state-description">
+                Yukarıdan randevu tarihinizi seçtiğinizde müsait saatler burada
+                listelenir
+              </p>
+            </div>
+          </div>
+
+          <div className="date-selection-features">
+            <div className="feature-item">
+              <div className="feature-icon">
+                <i className="ph ph-clock" />
+              </div>
+              <span>Gerçek zamanlı müsaitlik</span>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">
+                <i className="ph ph-user-check" />
+              </div>
+              <span>Uzman eğitmen seçimi</span>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">
+                <i className="ph ph-video-camera" />
+              </div>
+              <span>Online & yüz yüze</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Available Slots */}
       {appointmentDate && availableSlots.length > 0 && (
         <div className="time-slots-section">
