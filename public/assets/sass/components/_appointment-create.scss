@@ -44,40 +44,6 @@
   padding-top: 24px;
   border-top: 1px solid #e5e5e5;
 
-  .btn {
-    min-width: 120px;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    border: none;
-
-    &.btn-outline {
-      background: transparent;
-      color: #6b7280;
-      border: 1px solid #d1d5db;
-
-      &:hover:not(:disabled) {
-        background: #f9fafb;
-        border-color: #9ca3af;
-      }
-    }
-
-    &.btn-primary {
-      background: #3b82f6;
-      color: white;
-
-      &:hover:not(:disabled) {
-        background: #2563eb;
-      }
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
 }
 
 // Utility Classes
@@ -190,6 +156,11 @@
       .progress-bar-step-icon {
         background: #3366ff;
         color: white;
+
+        .step-number {
+          color: white !important;
+          display: block;
+        }
       }
 
       .progress-bar-step-title {
@@ -202,6 +173,11 @@
       .progress-bar-step-icon {
         background: #4caf50;
         color: white;
+
+        .step-number {
+          color: white !important;
+          display: block;
+        }
       }
 
       .progress-bar-step-title {
@@ -226,6 +202,8 @@
       .step-number {
         font-size: 14px;
         font-weight: 600;
+        color: inherit;
+        display: block;
       }
     }
 

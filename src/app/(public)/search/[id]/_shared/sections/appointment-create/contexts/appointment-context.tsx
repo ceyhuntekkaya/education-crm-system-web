@@ -131,12 +131,42 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
 
   // Initialize form with default values
   React.useEffect(() => {
-    updateFields({
+    const initialFormData: Partial<AppointmentCreateFormData> = {
+      // Props from parent component
       schoolId,
       isOnline,
+
+      // DTO fields with defaults
+      appointmentSlotId: undefined,
+      parentUserId: undefined,
+      appointmentDate: undefined,
+      startTime: undefined,
+      endTime: undefined,
+      appointmentType: undefined,
+      title: undefined,
+      description: undefined,
+      location: undefined,
+      parentName: undefined,
+      parentEmail: undefined,
+      parentPhone: undefined,
+      studentName: undefined,
+      studentAge: undefined,
+      studentBirthDate: undefined,
+      studentGender: undefined,
+      currentSchool: undefined,
+      gradeInterested: undefined,
+      specialRequests: undefined,
+      notes: undefined,
+      participants: undefined,
+
+      // Form-specific fields
       communicationPreference: "EMAIL",
       agreedToTerms: false,
-    });
+      selectedSlotId: undefined,
+      timeSlotData: undefined,
+    };
+
+    updateFields(initialFormData);
   }, [schoolId, isOnline, updateFields]);
 
   // Computed values
@@ -260,6 +290,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
       // Create DTO
       const formData = values as AppointmentCreateFormData;
       const appointmentDto: AppointmentCreateDto = {
+        // Required fields
         schoolId: formData.schoolId!,
         appointmentType: formData.appointmentType!,
         appointmentSlotId: formData.selectedSlotId!,
@@ -268,9 +299,23 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
         parentPhone: formData.parentPhone!,
         studentName: formData.studentName!,
         studentAge: formData.studentAge!,
-        studentGender: formData.studentGender!,
         gradeInterested: formData.gradeInterested!,
         isOnline: formData.isOnline!,
+
+        // Optional fields from form
+        appointmentDate: formData.appointmentDate,
+        startTime: formData.startTime,
+        endTime: formData.endTime,
+        title: formData.title,
+        description: formData.description,
+        location: formData.location,
+        studentBirthDate: formData.studentBirthDate,
+        studentGender: formData.studentGender,
+        currentSchool: formData.currentSchool,
+        specialRequests: formData.specialRequests,
+        notes: formData.notes,
+        parentUserId: formData.parentUserId,
+        participants: formData.participants,
       };
 
       // TODO: Implement actual API call

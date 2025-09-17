@@ -46,7 +46,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
             >
               <div className="progress-bar-step-icon">
                 {isCompleted ? (
-                  <i className="ph-check"></i>
+                  <span className="step-number">{index + 1}</span>
                 ) : (
                   <span className="step-number">{index + 1}</span>
                 )}

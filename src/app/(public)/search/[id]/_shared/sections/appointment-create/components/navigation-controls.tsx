@@ -9,6 +9,7 @@ import {
   useAppointmentNavigation,
   useAppointmentSubmission,
 } from "../hooks/context-hooks";
+import { Button } from "@/components";
 
 export const NavigationControls: React.FC = () => {
   const { next, previous, isFirstStep, isLastStep } =
@@ -38,24 +39,19 @@ export const NavigationControls: React.FC = () => {
   return (
     <div className="navigation-controls">
       {!isFirstStep && (
-        <button
+        <Button
           type="button"
+          variant="outline"
           onClick={previous}
-          className="btn btn-outline"
           disabled={isSubmitting}
         >
           Önceki
-        </button>
+        </Button>
       )}
 
-      <button
-        type="button"
-        onClick={handleNext}
-        className="btn btn-primary"
-        disabled={isSubmitting}
-      >
+      <Button type="button" onClick={handleNext} disabled={isSubmitting}>
         {getButtonText()}
-      </button>
+      </Button>
     </div>
   );
 };

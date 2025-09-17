@@ -4,13 +4,7 @@ import { useFormHook } from "@/hooks/use-form-hook";
 import { mockAvailableSlots } from "../mock/appointment-create-mock";
 import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
 
-interface DateTimeStepProps {
-  className?: string;
-}
-
-export const DateTimeStep: React.FC<DateTimeStepProps> = ({
-  className = "",
-}) => {
+export const DateTimeStep = () => {
   const { getFieldValue, updateField } = useFormHook();
   const [availableSlots, setAvailableSlots] = useState<AvailableSlotDto[]>([]);
   const appointmentDate = getFieldValue("appointmentDate");
@@ -25,19 +19,6 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
     }
   }, [appointmentDate]);
 
-  const handleSlotSelect = async (slotId: string) => {
-    const selectedSlot = availableSlots.find(
-      (slot) => slot.slotId === parseInt(slotId)
-    );
-    if (selectedSlot) {
-      await updateField("selectedSlotId", selectedSlot.slotId);
-      await updateField("startTime", selectedSlot.startTime);
-      await updateField("endTime", selectedSlot.endTime);
-      await updateField("location", selectedSlot.location);
-      await updateField("isOnline", selectedSlot.isOnline);
-    }
-  };
-
   const slotOptions = availableSlots
     .filter((slot) => slot.slotId)
     .map((slot) => ({
@@ -46,7 +27,7 @@ export const DateTimeStep: React.FC<DateTimeStepProps> = ({
     }));
 
   return (
-    <div className={`step-content ${className}`}>
+    <div className={`step-content`}>
       <h4 className="mb-24">Tarih ve Saat Seçiniz</h4>
 
       <div className="row gy-3">
