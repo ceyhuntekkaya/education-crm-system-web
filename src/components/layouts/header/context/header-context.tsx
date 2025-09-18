@@ -1,6 +1,8 @@
 "use client";
 import { createContext, useContext, ReactNode } from "react";
 import { useScroll, useMobileMenu, useSubmenu } from "../hooks";
+import { menuItems } from "../config";
+import { MenuItem } from "../types";
 
 interface HeaderContextType {
   // Scroll hook'undan
@@ -14,6 +16,9 @@ interface HeaderContextType {
   // Submenu hook'undan
   activeSubmenu: number | null;
   handleSubmenuClick: (index: number) => void;
+
+  // Menu bilgileri (static)
+  menuItems: MenuItem[];
 }
 
 const HeaderContext = createContext<HeaderContextType | undefined>(undefined);
@@ -40,6 +45,9 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
     // Submenu durumu ve metodları
     activeSubmenu,
     handleSubmenuClick,
+
+    // Menu bilgileri (static)
+    menuItems,
   };
 
   return (

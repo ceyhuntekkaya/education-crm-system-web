@@ -1,14 +1,9 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useAuth } from "@/contexts/auth-context";
 import { useHeader } from "./context";
 import { Logo, Menu, UserMenu, MobileMenu } from "./sections";
-import { menuItems } from "./config";
 import { classNames } from "./utils";
 
 const Header = () => {
-  const { user, logout, currentRole } = useAuth();
-  const pathname = usePathname();
   const { scroll, isMenuActive, toggleMenu } = useHeader();
 
   return (
@@ -29,8 +24,8 @@ const Header = () => {
             {/* Header Right start */}
             <div className="header-right flex-align">
               {/* <SearchForm /> */}
-              <Menu menuItems={menuItems} pathname={pathname} />
-              <UserMenu user={user} currentRole={currentRole} logout={logout} />
+              <Menu />
+              <UserMenu />
               <button
                 type="button"
                 className="toggle-mobileMenu d-lg-none text-neutral-200 flex-center"
@@ -44,7 +39,7 @@ const Header = () => {
         </div>
       </header>
 
-      <MobileMenu menuItems={menuItems} pathname={pathname} />
+      <MobileMenu />
     </>
   );
 };

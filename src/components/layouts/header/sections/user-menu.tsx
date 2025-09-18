@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Button, Popover } from "@/components/ui";
-import { UserMenuProps } from "../types";
 import { HEADER_CONFIG } from "../config";
+import { useAuth } from "@/contexts/auth-context";
 
-const UserMenu = ({ user, currentRole, logout }: UserMenuProps) => {
+const UserMenu = () => {
+  const { user, currentRole, logout } = useAuth();
   if (!user) {
     return (
       <div className="d-flex gap-8">

@@ -1,13 +1,19 @@
 import Link from "next/link";
-import { MobileMenuProps } from "../types";
+import { usePathname } from "next/navigation";
 import { classNames, isActivePage, getMenuItemKey } from "../utils";
 import { categoryOptions } from "../config";
 import { useHeader } from "../context";
 import Logo from "./logo";
 
-const MobileMenu = ({ menuItems, pathname }: MobileMenuProps) => {
-  const { isMenuActive, closeMenu, activeSubmenu, handleSubmenuClick } =
-    useHeader();
+const MobileMenu = () => {
+  const {
+    isMenuActive,
+    closeMenu,
+    activeSubmenu,
+    handleSubmenuClick,
+    menuItems,
+  } = useHeader();
+  const pathname = usePathname();
   return (
     <div
       className={classNames(

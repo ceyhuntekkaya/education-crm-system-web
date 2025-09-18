@@ -1,8 +1,15 @@
 import Link from "next/link";
-import { MenuProps } from "../types";
+import { usePathname } from "next/navigation";
 import { isActivePage, getMenuItemKey } from "../utils";
+import { useHeader } from "../context";
 
-const Menu = ({ menuItems, pathname, className = "" }: MenuProps) => {
+interface MenuProps {
+  className?: string;
+}
+
+const Menu = ({ className = "" }: MenuProps) => {
+  const { menuItems } = useHeader();
+  const pathname = usePathname();
   return (
     <div className={`header-menu d-lg-block d-none ${className}`}>
       <ul className="nav-menu flex-align">
