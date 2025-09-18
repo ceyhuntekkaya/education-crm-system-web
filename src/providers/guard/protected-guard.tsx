@@ -7,11 +7,13 @@ import { PATHS } from "@/routes/paths";
 import { Role } from "@/enums/Role";
 import { ROUTES } from "@/routes/routes";
 import { Loading } from "@/components";
+import { GuardType } from "@/enums/GuardType";
 
 interface ProtectedGuardProps {
   children: React.ReactNode;
   allowedDepartments?: string[];
   allowedPermissions?: string[];
+  guardType?: GuardType;
 }
 
 function isUserAllowedOnRoute(userRoles: Role[], currentPath: string): boolean {
@@ -38,6 +40,7 @@ export default function ProtectedGuard({
   children,
   allowedDepartments,
   allowedPermissions,
+  guardType = GuardType.PUBLIC,
 }: ProtectedGuardProps) {
   const {
     user,
@@ -51,9 +54,13 @@ export default function ProtectedGuard({
 
   if (isLoading) return <Loading />;
 
-  // auth guard
-  if (!user) {
+  // auth guard - sadece PROTECTED guard type'ında çalışır
+  if (guardType === GuardType.PROTECTED && !user) {
     router.push(PATHS.AUTH.LOGIN);
+    return null;
+  }
+
+  if (guardType === GuardType.PUBLIC && !user) {
     return null;
   }
 

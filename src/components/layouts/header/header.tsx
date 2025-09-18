@@ -1,9 +1,11 @@
 "use client";
-import { useHeader } from "./context";
+import { ProtectedGuard } from "@/providers";
+import { HeaderProvider, useHeader } from "./context";
 import { Logo, Menu, UserMenu, MobileMenu } from "./sections";
 import { classNames } from "./utils";
+import Link from "next/link";
 
-const Header = () => {
+const HeaderContent = () => {
   const { scroll, isMenuActive, toggleMenu } = useHeader();
 
   return (
@@ -18,13 +20,18 @@ const Header = () => {
               {/* Logo End  */}
 
               {/* Menu Start  */}
-
+              <Link href={"/"} className="nav-menu__link">
+                Anasayfa
+              </Link>
               {/* Menu End  */}
             </div>
             {/* Header Right start */}
             <div className="header-right flex-align">
               {/* <SearchForm /> */}
-              <Menu />
+              <ProtectedGuard>
+                <Menu />
+              </ProtectedGuard>
+
               <UserMenu />
               <button
                 type="button"
@@ -41,6 +48,14 @@ const Header = () => {
 
       <MobileMenu />
     </>
+  );
+};
+
+const Header = () => {
+  return (
+    <HeaderProvider>
+      <HeaderContent />
+    </HeaderProvider>
   );
 };
 

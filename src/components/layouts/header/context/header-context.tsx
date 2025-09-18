@@ -3,6 +3,8 @@ import { createContext, useContext, ReactNode } from "react";
 import { useScroll, useMobileMenu, useSubmenu } from "../hooks";
 import { menuItems } from "../config";
 import { MenuItem } from "../types";
+import { Loading } from "@/components/ui";
+import { useAuth } from "@/contexts";
 
 interface HeaderContextType {
   // Scroll hook'undan
@@ -29,9 +31,14 @@ interface HeaderProviderProps {
 
 export const HeaderProvider = ({ children }: HeaderProviderProps) => {
   // Hook'ları burada çağırıyoruz
+
+  const { isLoading } = useAuth();
+
   const scroll = useScroll();
   const { isMenuActive, toggleMenu, closeMenu } = useMobileMenu();
   const { activeSubmenu, handleSubmenuClick } = useSubmenu();
+
+  if (isLoading) return <Loading />;
 
   const value: HeaderContextType = {
     // Scroll durumu

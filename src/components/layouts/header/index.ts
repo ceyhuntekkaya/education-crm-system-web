@@ -1,1 +1,1 @@
-export { default } from "./header-with-provider";
+export { default } from "./header";
