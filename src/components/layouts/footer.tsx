@@ -1,16 +1,21 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
     <footer className="footer bg-main-25 position-relative z-1">
-      <img
-        src="assets/images/shapes/shape2.png"
+      <Image
+        src="/assets/images/shapes/shape2.png"
         alt=""
+        width={50}
+        height={50}
         className="shape five animation-scalation"
       />
-      <img
-        src="assets/images/shapes/shape6.png"
+      <Image
+        src="/assets/images/shapes/shape6.png"
         alt=""
+        width={50}
+        height={50}
         className="shape one animation-scalation"
       />
       <div className="py-120 ">
@@ -21,7 +26,12 @@ const Footer = () => {
                 <div className="footer-item__logo">
                   <Link href="/">
                     {" "}
-                    <img src="assets/images/logo/logo.png" alt="" />
+                    <Image
+                      src="/assets/images/logo/logo.png"
+                      alt="Logo"
+                      width={120}
+                      height={40}
+                    />
                   </Link>
                 </div>
                 <p className="my-32">

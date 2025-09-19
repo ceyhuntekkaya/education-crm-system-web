@@ -422,7 +422,9 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
           </div>
         )}
       </div>
-      {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      {error && (
+        <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+      )}
     </div>
   );
 };

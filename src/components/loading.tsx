@@ -1,12 +1,15 @@
 import React from "react";
+import Image from "next/image";
 
 const Loading: React.FC = () => {
   return (
     <div className="preloader">
-      <img
+      <Image
         src="/assets/images/icons/preloader.gif"
-        loading="lazy"
         alt="Loading..."
+        width={50}
+        height={50}
+        priority
       />
     </div>
   );
