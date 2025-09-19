@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const ContactInner = () => {
   return (
     <>
@@ -76,10 +78,11 @@ const ContactInner = () => {
         </div>
       </section>
       <section className="contact-form-section py-240 bg-main-25 position-relative z-1">
-        <img
-          src="assets/images/bg/wave-bg.png"
+        <Image
+          src="/assets/images/bg/wave-bg.png"
           alt=""
-          className="position-absolute top-0 start-0 w-100 h-100 z-n1 d-lg-block d-none"
+          fill
+          className="position-absolute top-0 start-0 w-100 h-100 z-n1 d-lg-block d-none object-fit-cover"
         />
         <div className="container">
           <div className="row gy-5 align-items-center">
@@ -103,34 +106,46 @@ const ContactInner = () => {
               </div>
               <div className="flex-align gap-40 flex-wrap">
                 <div className="enrolled-students mt-12 d-block">
-                  <img
-                    src="assets/images/thumbs/enroll-student-img1.png"
+                  <Image
+                    src="/assets/images/thumbs/enroll-student-img1.png"
                     alt=""
+                    width={48}
+                    height={48}
                     className="w-48 h-48 rounded-circle object-fit-cover transition-2"
                   />
-                  <img
-                    src="assets/images/thumbs/enroll-student-img2.png"
+                  <Image
+                    src="/assets/images/thumbs/enroll-student-img2.png"
                     alt=""
+                    width={48}
+                    height={48}
                     className="w-48 h-48 rounded-circle object-fit-cover transition-2"
                   />
-                  <img
-                    src="assets/images/thumbs/enroll-student-img3.png"
+                  <Image
+                    src="/assets/images/thumbs/enroll-student-img3.png"
                     alt=""
+                    width={48}
+                    height={48}
                     className="w-48 h-48 rounded-circle object-fit-cover transition-2"
                   />
-                  <img
-                    src="assets/images/thumbs/enroll-student-img4.png"
+                  <Image
+                    src="/assets/images/thumbs/enroll-student-img4.png"
                     alt=""
+                    width={48}
+                    height={48}
                     className="w-48 h-48 rounded-circle object-fit-cover transition-2"
                   />
-                  <img
-                    src="assets/images/thumbs/enroll-student-img5.png"
+                  <Image
+                    src="/assets/images/thumbs/enroll-student-img5.png"
                     alt=""
+                    width={48}
+                    height={48}
                     className="w-48 h-48 rounded-circle object-fit-cover transition-2"
                   />
-                  <img
-                    src="assets/images/thumbs/enroll-student-img6.png"
+                  <Image
+                    src="/assets/images/thumbs/enroll-student-img6.png"
                     alt=""
+                    width={48}
+                    height={48}
                     className="w-48 h-48 rounded-circle object-fit-cover transition-2"
                   />
                 </div>
