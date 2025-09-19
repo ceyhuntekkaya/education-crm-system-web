@@ -1,18 +1,55 @@
 import { useRouter } from "next/navigation";
 import { FormValues } from "@/types";
 import { createFilterApiParams, cleanFilterApiParams } from "../utils";
+import { useFormHook } from "@/hooks/use-form-hook";
 
 /**
  * Filter form submit işlemlerini yönetir
  */
 export function useFilterSubmit() {
   const router = useRouter();
+  const { values, initialValues, isDirty, areFieldsDirty } = useFormHook();
 
-  const handleSubmit = (values: FormValues) => {
-    console.log("Form değerleri:", values);
+  /**
+   * Sadece değişen alanları filtreleyerek döndürür
+   */
+  const getChangedFields = (): FormValues => {
+    const changedFields: FormValues = {};
+
+    Object.keys(values).forEach((fieldName) => {
+      const currentValue = values[fieldName];
+      const initialValue = initialValues[fieldName];
+
+      // Array değerler için deep comparison
+      if (Array.isArray(currentValue) && Array.isArray(initialValue)) {
+        if (JSON.stringify(currentValue) !== JSON.stringify(initialValue)) {
+          changedFields[fieldName] = currentValue;
+        }
+      }
+      // Diğer değerler için basit karşılaştırma
+      else if (currentValue !== initialValue) {
+        changedFields[fieldName] = currentValue;
+      }
+    });
+
+    return changedFields;
+  };
+
+  const handleSubmit = (useOnlyChangedFields: boolean = true) => {
+    // Değişiklik kontrolü
+    if (!isDirty) {
+      console.log("Form değişikliği yok, submit işlemi yapılmıyor.");
+      return;
+    }
+
+    // Kullanılacak değerleri belirle
+    const formValues = useOnlyChangedFields ? getChangedFields() : values;
+
+    console.log("Form değerleri:", formValues);
+    console.log("Değişen alanlar:", getChangedFields());
 
     // API parametrelerini oluştur
-    const apiParams = createFilterApiParams(values);
+    const apiParams = createFilterApiParams(formValues);
     const cleanParams = cleanFilterApiParams(apiParams);
 
     console.log("API Parametreleri:", cleanParams);
@@ -32,5 +69,10 @@ export function useFilterSubmit() {
 
   return {
     handleSubmit,
+    getChangedFields,
+    isDirty,
+    areFieldsDirty,
+    values,
+    initialValues,
   };
 }

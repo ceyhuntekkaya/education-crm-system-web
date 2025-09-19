@@ -1,9 +1,6 @@
 import * as yup from "yup";
 
 export const validationSchema = yup.object({
-  searchTerm: yup.string(),
-  provinceId: yup.mixed(),
-  districtId: yup.mixed(),
-  institutionTypeId: yup.mixed(),
-  feeRange: yup.mixed(),
+  provinceId: yup.string().required("Şehir bilgisi gereklidir"),
+  institutionTypeId: yup.string().required("Kurum türü seçimi gereklidir"),
 });

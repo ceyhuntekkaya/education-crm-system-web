@@ -1,6 +1,6 @@
 "use client";
 import { FormProvider } from "@/contexts";
-import { Button, Form } from "@/components";
+import { Button, Form, FormValues } from "@/components";
 import { useFormHook } from "@/hooks";
 import { initialValues, validationSchema } from "./schemas";
 import { FilterSearchProvider, useFilterSearchContext } from "./contexts";
@@ -21,6 +21,7 @@ const FormContent = () => {
       data-aos="fade-up"
     >
       {/* Header */}
+      <FormValues />
       <div>
         <h4 className="mb-8 text-main-600 fw-semibold">Okulları Filtrele</h4>
         <p className="text-neutral-500 text-sm mb-0 d-none d-md-block">

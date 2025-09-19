@@ -1,7 +1,6 @@
 import { FormValues } from "@/types";
 
 export const initialValues: FormValues = {
-  searchTerm: "",
   provinceId: "",
   districtId: "",
   institutionTypeId: "",

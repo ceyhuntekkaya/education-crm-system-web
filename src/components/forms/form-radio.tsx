@@ -27,7 +27,7 @@ export const FormRadio: React.FC<FormRadioProps> = ({
   disabled = false,
   ...rest
 }) => {
-  const { value: formValue, onChange } = useFormField(name);
+  const { value: formValue, error, onChange } = useFormField(name);
 
   // Multi radio ile birden fazla seçenek göster
   if (options && multi) {
@@ -98,6 +98,9 @@ export const FormRadio: React.FC<FormRadioProps> = ({
             return <div key={option.value}>{radioElement}</div>;
           })}
         </div>
+        {error && (
+          <div className="text-danger-600 text-sm mt-24 ps-12">{error}</div>
+        )}
       </div>
     );
   }
@@ -131,6 +134,9 @@ export const FormRadio: React.FC<FormRadioProps> = ({
       >
         {label}
       </label>
+      {error && (
+        <div className="text-danger-600 text-sm mt-8 ps-0">{error}</div>
+      )}
     </div>
   );
 };
