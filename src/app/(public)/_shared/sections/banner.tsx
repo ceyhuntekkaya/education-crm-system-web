@@ -1,7 +1,7 @@
 import Link from "next/link";
-import FilterForSearchForm from "./filter-for-search-form";
 import Animation from "@/helper/animation";
 import Image from "next/image";
+import FilterForSearchForm from "./filter-for-search-form";
 
 export default function Banner() {
   return (
