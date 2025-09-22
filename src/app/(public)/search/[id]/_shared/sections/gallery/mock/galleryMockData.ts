@@ -16,8 +16,7 @@ export const galleryMockData: GalleryDto[] = [
     slug: "2024-bahar-festivali",
     galleryType: "EVENTS",
     visibility: "PUBLIC",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+    coverImageUrl: "https://picsum.photos/800/600?random=201",
     sortOrder: 1,
     isFeatured: true,
     allowComments: true,
@@ -200,8 +199,7 @@ export const galleryMockData: GalleryDto[] = [
     slug: "mezuniyet-toreni-2024",
     galleryType: "GRADUATION",
     visibility: "PUBLIC",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+    coverImageUrl: "https://picsum.photos/800/600?random=206",
     sortOrder: 6,
     isFeatured: true,
     allowComments: true,

@@ -6,8 +6,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "2024 Bahar Festivali",
     slug: "2024-bahar-festivali",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+    coverImageUrl: "https://picsum.photos/800/600?random=1",
     itemCount: 67, // Güncellenmiş item sayısı
     viewCount: 3250, // Arttırılmış görüntülenme sayısı
     isFeatured: true,
@@ -19,8 +18,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Kampüs Yaşamı",
     slug: "kampus-yasami",
     galleryType: "CAMPUS_LIFE",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop",
+    coverImageUrl: "https://picsum.photos/800/600?random=2",
     itemCount: 128,
     viewCount: 4250,
     isFeatured: true,
@@ -32,8 +30,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Fen Laboratuvarları",
     slug: "fen-laboratuvarlari",
     galleryType: "LABORATORY",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=3",
     itemCount: 32,
     viewCount: 1890,
     isFeatured: false,
@@ -45,8 +42,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Spor Tesisleri",
     slug: "spor-tesisleri",
     galleryType: "SPORTS_FACILITIES",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=4",
     itemCount: 67,
     viewCount: 3120,
     isFeatured: true,
@@ -58,8 +54,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Kütüphane",
     slug: "kutuphane",
     galleryType: "LIBRARY",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=5",
     itemCount: 28,
     viewCount: 1456,
     isFeatured: false,
@@ -71,8 +66,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Mezuniyet Töreni 2024",
     slug: "mezuniyet-toreni-2024",
     galleryType: "GRADUATION",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=6",
     itemCount: 156,
     viewCount: 8920,
     isFeatured: true,
@@ -84,8 +78,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Sınıflar",
     slug: "siniflar",
     galleryType: "CLASSROOMS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=7",
     itemCount: 89,
     viewCount: 2340,
     isFeatured: false,
@@ -97,8 +90,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Kafeterya",
     slug: "kafeterya",
     galleryType: "CAFETERIA",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=8",
     itemCount: 24,
     viewCount: 1678,
     isFeatured: false,
@@ -110,8 +102,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Öğrenci Çalışmaları",
     slug: "ogrenci-calismalari",
     galleryType: "STUDENT_WORK",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=9",
     itemCount: 73,
     viewCount: 2890,
     isFeatured: true,
@@ -123,8 +114,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Personel",
     slug: "personel",
     galleryType: "STAFF",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=10",
     itemCount: 41,
     viewCount: 1234,
     isFeatured: false,
@@ -136,8 +126,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Okul Turu",
     slug: "okul-turu",
     galleryType: "SCHOOL_TOUR",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=11",
     itemCount: 96,
     viewCount: 5670,
     isFeatured: true,
@@ -149,8 +138,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Başarılar",
     slug: "basarilar",
     galleryType: "ACHIEVEMENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=12",
     itemCount: 35,
     viewCount: 3450,
     isFeatured: true,
@@ -162,8 +150,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Açık Alanlar",
     slug: "acik-alanlar",
     galleryType: "OUTDOOR_AREAS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=13",
     itemCount: 52,
     viewCount: 2156,
     isFeatured: false,
@@ -175,8 +162,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Günlük Aktiviteler",
     slug: "gunluk-aktiviteler",
     galleryType: "DAILY_ACTIVITIES",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=14",
     itemCount: 84,
     viewCount: 3789,
     isFeatured: false,
@@ -188,8 +174,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Ulaşım",
     slug: "ulasim",
     galleryType: "TRANSPORTATION",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=15",
     itemCount: 18,
     viewCount: 987,
     isFeatured: false,
@@ -201,8 +186,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Bilim Fuarı 2024",
     slug: "bilim-fuari-2024",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=16",
     itemCount: 67,
     viewCount: 4567,
     isFeatured: true,
@@ -214,8 +198,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Sanat Atölyesi",
     slug: "sanat-atolyesi",
     galleryType: "CLASSROOMS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=17",
     itemCount: 34,
     viewCount: 1876,
     isFeatured: false,
@@ -227,8 +210,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Yaz Kampı Etkinlikleri",
     slug: "yaz-kampi-etkinlikleri",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1506629905069-5960d3285683?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=18",
     itemCount: 125,
     viewCount: 6789,
     isFeatured: true,
@@ -240,8 +222,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Müze Gezisi",
     slug: "muze-gezisi",
     galleryType: "DAILY_ACTIVITIES",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=19",
     itemCount: 42,
     viewCount: 2134,
     isFeatured: false,
@@ -253,8 +234,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Robotik Kulübü",
     slug: "robotik-kulubu",
     galleryType: "STUDENT_WORK",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=20",
     itemCount: 56,
     viewCount: 3421,
     isFeatured: true,
@@ -266,8 +246,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "2024 Güz Festivali",
     slug: "2024-guz-festivali",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=21",
     itemCount: 89,
     viewCount: 4567,
     isFeatured: true,
@@ -279,8 +258,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Kış Konseri 2024",
     slug: "kis-konseri-2024",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=22",
     itemCount: 52,
     viewCount: 2890,
     isFeatured: true,
@@ -292,8 +270,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "İngilizce Drama Festivali",
     slug: "ingilizce-drama-festivali",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=23",
     itemCount: 74,
     viewCount: 3456,
     isFeatured: true,
@@ -305,8 +282,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Teknoloji ve İnovasyon Fuarı",
     slug: "teknoloji-inovasyon-fuari",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=24",
     itemCount: 96,
     viewCount: 5234,
     isFeatured: true,
@@ -318,8 +294,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     title: "Çevre Günü Etkinlikleri",
     slug: "cevre-gunu-etkinlikleri",
     galleryType: "EVENTS",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop",
+    coverImageUrl: "https://picsum.photos/400/300?random=25",
     itemCount: 63,
     viewCount: 2145,
     isFeatured: false,

@@ -1136,9 +1136,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     altText: "Müdür festivalin açılışını yapıyor",
     itemType: "IMAGE",
     fileUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     fileName: "festival-opening-speech.jpg",
     originalFileName: "festival_acilis_konusmasi_2024.jpg",
     fileSizeBytes: 2456789,
@@ -1538,9 +1538,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     altText: "Havaya kep atan mezun öğrenciler",
     itemType: "IMAGE",
     fileUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     fileName: "graduation-cap-throwing.jpg",
     originalFileName: "mezuniyet_kep_atma_2024.jpg",
     fileSizeBytes: 4123456,
@@ -2059,9 +2059,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     altText: "Sahne önünde toplanmış öğrenci ve öğretmenler",
     itemType: "VIDEO",
     fileUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     fileName: "festival-closing-ceremony.mp4",
     originalFileName: "kapanış_toreni_2024.mp4",
     fileSizeBytes: 298765432,
@@ -2585,9 +2585,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     altText: "Podiumda konuşma yapan mezun öğrenci",
     itemType: "VIDEO",
     fileUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     fileName: "graduation-speech.mp4",
     originalFileName: "mezuniyet_konusmasi_2024.mp4",
     fileSizeBytes: 298765432,
@@ -2675,9 +2675,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     altText: "Amfi tarzı düzenlenmiş konferans salonunda ders",
     itemType: "IMAGE",
     fileUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop",
+      "https://picsum.photos/1200/800?random=301",
     fileName: "conference-hall.jpg",
     originalFileName: "konferans_salonu_2024.jpg",
     fileSizeBytes: 4567890,
