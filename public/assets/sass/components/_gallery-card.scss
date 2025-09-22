@@ -1,0 +1,314 @@
+// =============================================
+// Gallery Card Component Styles
+// =============================================
+
+.gallery-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+    
+    .gallery-card__image img {
+      transform: scale(1.05);
+    }
+  }
+  
+  // Gallery Image Container
+  &__image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    height: 180px; // Same as institution card hero image
+    
+    img {
+      transition: transform 0.3s ease;
+      object-fit: cover;
+    }
+    
+    // Gradient overlay for stats
+    &-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.4) 50%,
+        transparent 100%
+      );
+    }
+  }
+  
+  // Gallery Type Badge
+  &__type-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 8px;
+    max-width: 120px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    i {
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+    
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  // Featured Badge
+  &__featured-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff6b35;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    max-width: 70px;
+    white-space: nowrap;
+    
+    i {
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+    
+    span {
+      font-size: 8px;
+      font-weight: 600;
+    }
+  }
+
+  // Stats in overlay
+  &__stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: white;
+    
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      
+      i {
+        font-size: 0.75rem;
+      }
+    }
+  }
+  
+  // Card Content (similar to institution card structure)
+  &__content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  // Gallery Title
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: hsl(var(--heading-color));
+    margin-bottom: 4px;
+    line-height: 1.3;
+    
+    // Line clamp for 2 lines
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  // Institution Name (subtitle)
+  &__institution {
+    font-size: 0.875rem;
+    color: hsl(var(--neutral-600));
+    margin-bottom: 12px;
+    
+    // Line clamp for 1 line
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  // Footer with date and arrow
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    
+    &-date {
+      font-size: 0.75rem;
+      color: hsl(var(--neutral-500));
+    }
+    
+    &-arrow {
+      color: hsl(var(--main-600));
+      font-size: 0.875rem;
+      transition: transform 0.2s ease;
+    }
+  }
+  
+  // Hover effect for arrow
+  &:hover &__footer-arrow {
+    transform: translateX(2px);
+  }
+}
+
+// Gallery Container Styles
+.gallery-container {
+  // Header styling (similar to institution cards section)
+  &__header {
+    margin-bottom: 32px;
+    
+    .gallery-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: hsl(var(--heading-color));
+      margin-bottom: 0;
+    }
+    
+    .gallery-count {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: hsl(var(--neutral-600));
+      
+      i {
+        color: hsl(var(--main-600));
+      }
+    }
+  }
+  
+  // Grid layout
+  &__grid {
+    display: grid;
+    gap: 20px;
+    
+    // Responsive grid (same as institution cards)
+    grid-template-columns: repeat(1, 1fr);
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  // Empty state
+  &__empty {
+    text-align: center;
+    padding: 80px 0;
+    
+    i {
+      font-size: 4rem;
+      color: hsl(var(--neutral-300));
+      margin-bottom: 16px;
+    }
+    
+    h4 {
+      color: hsl(var(--neutral-600));
+      margin-bottom: 8px;
+    }
+    
+    p {
+      color: hsl(var(--neutral-500));
+    }
+  }
+  
+  // Footer section
+  &__footer {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid hsl(var(--neutral-200));
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    &-info {
+      font-size: 0.875rem;
+      color: hsl(var(--neutral-600));
+      margin-bottom: 0;
+    }
+  }
+}
+
+// =============================================
+// Featured Card Modifiers
+// =============================================
+
+.gallery-card--featured {
+  // Sadece hover efektini biraz güçlendir
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+  }
+  
+  // Featured kartlarda type badge'i biraz daha küçük yap
+  .gallery-card__type-badge {
+    top: 6px;
+    left: 6px;
+    padding: 3px 6px;
+    font-size: 0.65rem;
+    max-width: 100px;
+    
+    i {
+      font-size: 0.65rem;
+    }
+  }
+  
+  // Featured badge'i de küçült
+  .gallery-card__featured-badge {
+    top: 6px;
+    right: 6px;
+    max-width: 60px;
+  }
+}
+
+// =============================================
+// Keyframe Animations
+// =============================================
+// Animasyonları kaldırdık, minimalist tasarım için

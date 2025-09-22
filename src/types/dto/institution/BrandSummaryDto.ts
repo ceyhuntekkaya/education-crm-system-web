@@ -1,7 +1,13 @@
 export interface BrandSummaryDto {
+  /** Format: int64 */
   id?: number;
   name?: string;
-  description?: string;
+  slug?: string;
   logoUrl?: string;
-  colorCode?: string;
+  /** Format: double */
+  ratingAverage?: number;
+  /** Format: int32 */
+  campusCount?: number;
+  /** Format: int32 */
+  schoolCount?: number;
 }

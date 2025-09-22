@@ -634,8 +634,7 @@ export const campaignMockData: CampaignDto[] = [
     termsAndConditions:
       "Ücretsiz dönem sonrası otomatik ücretlendirme başlar. İptal için 30 gün önceden bildirim gerekir.",
     metaTitle: "3 Ay Ücretsiz Eğitim Fırsatı",
-    metaDescription:
-      "Eğitime kesintisiz devam et! İlk 3 ay tamamen ücretsiz.",
+    metaDescription: "Eğitime kesintisiz devam et! İlk 3 ay tamamen ücretsiz.",
     metaKeywords: "ücretsiz, 3 ay, deneme, eğitim, kampanya",
     viewCount: 9200,
     clickCount: 2800,
@@ -775,10 +774,8 @@ export const campaignMockData: CampaignDto[] = [
     freeServices: "1 aylık online kaynak erişimi",
     badgeText: "Mezuniyet Hediyesi",
     badgeColor: "#3F51B5",
-    thumbnailImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop&crop=center",
-    bannerImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop&crop=center",
+    thumbnailImageUrl: "https://picsum.photos/400/300?random=101",
+    bannerImageUrl: "https://picsum.photos/1200/400?random=102",
     startDate: "2025-06-01",
     endDate: "2025-09-30",
     academicYear: "2025-2026",
