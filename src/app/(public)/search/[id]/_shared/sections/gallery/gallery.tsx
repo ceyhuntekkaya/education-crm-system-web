@@ -19,16 +19,8 @@ const GalleryContent: React.FC = () => {
   return (
     <>
       <div className="gallery-section">
-        {/* Filter Form Section */}
-        <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <h3 className="text-neutral-700 text-xl fw-semibold mb-24">
-              <i className="ph-bold ph-funnel me-8" />
-              Galeri Filtreleri
-            </h3>
-            <GalleryFilterForm />
-          </div>
-        </div>
+        {/* Filter Form Section - Kompakt tasarım */}
+        <GalleryFilterForm />
 
         {/* Main Gallery Container with consistent styling */}
         <div className="border border-neutral-30 rounded-12 bg-white p-8">
