@@ -10,6 +10,9 @@ export { default as InstitutionSeoInfo } from "./institution-seo-info";
 export { default as ContactForm } from "./contact-form";
 export { default as InstitutionCampaigns } from "./institution-campaigns/institution-campaigns";
 
+// Gallery
+export { Gallery } from "./gallery";
+
 // Appointment Table
 export { AppointmentTable } from "./appointment-table";
 

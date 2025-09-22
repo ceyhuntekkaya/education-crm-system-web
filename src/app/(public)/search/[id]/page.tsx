@@ -1,6 +1,5 @@
 "use client";
 
-import ModalExamples from "@/docs/modal-examples";
 // Components
 import {
   InstitutionSidebar,
@@ -13,6 +12,7 @@ import {
   InstitutionSeoInfo,
   InstitutionCampaigns,
   AppointmentCreate,
+  Gallery,
 } from "./_shared";
 
 // Appointment Table
@@ -88,6 +88,14 @@ export default function InstitutionDetailPage({
       content: <InstitutionReviews />,
     },
     {
+      id: "pills-gallery",
+      icon: "ph-bold ph-images",
+      title: "Galeri 📸", // Kurum galerisi
+      label: "Galeri 📸",
+      content: <Gallery institutionId={params.id} />,
+      isActive: true, // Başlangıçta bu tab aktif olsun
+    },
+    {
       id: "pills-appointments",
       icon: "ph-bold ph-calendar-check",
       title: "Randevular 🔄", // Randevu listesi ve yönetimi
@@ -100,7 +108,6 @@ export default function InstitutionDetailPage({
       title: "Randevu Oluştur ✨", // Yeni randevu oluşturma
       label: "Randevu Oluştur ✨",
       content: <AppointmentCreate schoolId={schoolId} />,
-      isActive: true, // Başlangıçta bu tab aktif olsun
     },
   ];
 

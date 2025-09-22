@@ -1,11 +1,13 @@
 import { UserType } from "../../../enums/UserType";
 
 export interface UserSummaryDto {
-  id: number;
-  fullName: string;
-  email: string;
-  phone: string;
-  userType: UserType;
-  profileImageUrl: string;
-  isActive: boolean;
+  /** Format: int64 */
+  id?: number;
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  /** @enum {string} */
+  userType?: "INSTITUTION_USER" | "PARENT";
+  profileImageUrl?: string;
+  isActive?: boolean;
 }
