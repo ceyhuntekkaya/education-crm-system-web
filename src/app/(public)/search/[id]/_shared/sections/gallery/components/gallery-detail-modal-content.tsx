@@ -1,30 +1,32 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useGalleryContext } from "../context";
 import { galleryMockData } from "../mock";
-import { formatDate, formatViewCount, formatGalleryType, getGalleryTypeIcon } from "../utils";
+import {
+  formatDate,
+  formatViewCount,
+  formatGalleryType,
+  getGalleryTypeIcon,
+} from "../utils";
 
-interface GalleryDetailModalContentProps {
-  galleryId: number;
-  onClose: () => void;
-}
-
-const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({ 
-  galleryId, 
-  onClose 
-}) => {
-  const gallery = galleryMockData.find(g => g.id === galleryId);
+const GalleryDetailModalContent: React.FC = () => {
+  const { selectedGalleryId, close } = useGalleryContext();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const gallery = galleryMockData.find((g) => g.id === selectedGalleryId);
 
   if (!gallery) {
     return (
       <div className="text-center py-80">
-        <i className="ph ph-warning-circle text-warning-500 mb-16" style={{ fontSize: "48px" }}></i>
+        <i
+          className="ph ph-warning-circle text-warning-500 mb-16"
+          style={{ fontSize: "48px" }}
+        ></i>
         <h3 className="text-neutral-700 mb-8">Galeri Bulunamadı</h3>
-        <p className="text-neutral-500 mb-24">İstediğiniz galeri mevcut değil.</p>
-        <button 
-          onClick={onClose}
-          className="btn btn-primary-outline"
-        >
+        <p className="text-neutral-500 mb-24">
+          İstediğiniz galeri mevcut değil.
+        </p>
+        <button onClick={close} className="btn btn-primary-outline">
           Geri Dön
         </button>
       </div>
@@ -32,10 +34,15 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
   }
 
   const hasItems = gallery.items && gallery.items.length > 0;
-  const currentItem = hasItems && gallery.items ? gallery.items[currentImageIndex] : null;
+  const currentItem =
+    hasItems && gallery.items ? gallery.items[currentImageIndex] : null;
 
   const nextImage = () => {
-    if (hasItems && gallery.items && currentImageIndex < gallery.items.length - 1) {
+    if (
+      hasItems &&
+      gallery.items &&
+      currentImageIndex < gallery.items.length - 1
+    ) {
       setCurrentImageIndex(currentImageIndex + 1);
     }
   };
@@ -53,10 +60,7 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
   return (
     <div className="gallery-detail-modal">
       {/* Close Button */}
-      <button 
-        onClick={onClose}
-        className="modal-close-button"
-      >
+      <button onClick={close} className="modal-close-button">
         <i className="ph ph-x"></i>
       </button>
 
@@ -72,13 +76,16 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
                   <div className="main-image-container">
                     <Image
                       src={currentItem.fileUrl || "/placeholder-image.jpg"}
-                      alt={currentItem.title || `Galeri içeriği ${currentImageIndex + 1}`}
+                      alt={
+                        currentItem.title ||
+                        `Galeri içeriği ${currentImageIndex + 1}`
+                      }
                       fill
                       sizes="(max-width: 768px) 100vw, 60vw"
                       style={{ objectFit: "contain" }}
                       className="main-image"
                     />
-                    
+
                     {/* Navigation Controls */}
                     {gallery.items && gallery.items.length > 1 && (
                       <>
@@ -91,7 +98,9 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
                         </button>
                         <button
                           onClick={nextImage}
-                          disabled={currentImageIndex === gallery.items.length - 1}
+                          disabled={
+                            currentImageIndex === gallery.items.length - 1
+                          }
                           className="nav-button nav-next"
                         >
                           <i className="ph ph-caret-right"></i>
@@ -102,7 +111,9 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
                     {/* Image Counter */}
                     {gallery.items && (
                       <div className="image-counter">
-                        <span>{currentImageIndex + 1} / {gallery.items.length}</span>
+                        <span>
+                          {currentImageIndex + 1} / {gallery.items.length}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -117,7 +128,9 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
                       <div
                         key={`thumb-${item.id}`}
                         onClick={() => goToImage(index)}
-                        className={`thumbnail-item ${index === currentImageIndex ? 'active' : ''}`}
+                        className={`thumbnail-item ${
+                          index === currentImageIndex ? "active" : ""
+                        }`}
                       >
                         <Image
                           src={item.fileUrl || "/placeholder-image.jpg"}
@@ -149,11 +162,13 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
           {/* Gallery Header */}
           <div className="gallery-header">
             <div className="gallery-badge">
-              <i className={`ph ${getGalleryTypeIcon(gallery.galleryType)}`}></i>
+              <i
+                className={`ph ${getGalleryTypeIcon(gallery.galleryType)}`}
+              ></i>
               <span>{formatGalleryType(gallery.galleryType)}</span>
             </div>
             <h2 className="gallery-title">{gallery.title}</h2>
-            
+
             {/* Current Image Title */}
             {currentItem?.title && (
               <div className="current-image-title">
@@ -190,14 +205,18 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
             <div className="stat-item">
               <i className="ph ph-eye"></i>
               <div>
-                <span className="stat-value">{formatViewCount(gallery.viewCount)}</span>
+                <span className="stat-value">
+                  {formatViewCount(gallery.viewCount)}
+                </span>
                 <span className="stat-label">Görüntülenme</span>
               </div>
             </div>
             <div className="stat-item">
               <i className="ph ph-calendar"></i>
               <div>
-                <span className="stat-value">{formatDate(gallery.createdAt)}</span>
+                <span className="stat-value">
+                  {formatDate(gallery.createdAt)}
+                </span>
                 <span className="stat-label">Tarih</span>
               </div>
             </div>
@@ -213,7 +232,9 @@ const GalleryDetailModalContent: React.FC<GalleryDetailModalContentProps> = ({
             <div className="stat-item">
               <i className="ph ph-tag"></i>
               <div>
-                <span className="stat-value">{formatGalleryType(gallery.galleryType)}</span>
+                <span className="stat-value">
+                  {formatGalleryType(gallery.galleryType)}
+                </span>
                 <span className="stat-label">Kategori</span>
               </div>
             </div>

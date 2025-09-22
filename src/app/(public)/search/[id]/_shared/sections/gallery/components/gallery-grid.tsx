@@ -1,22 +1,17 @@
 import React from "react";
+import { useGalleryContext } from "../context";
 import GalleryCard from "./gallery-card";
 
-interface GalleryGridProps {
-  galleries: any[];
-  onCardClick?: (galleryId: number) => void;
-}
+const GalleryGrid: React.FC = () => {
+  const { galleryData, handleCardClick } = useGalleryContext();
 
-const GalleryGrid: React.FC<GalleryGridProps> = ({
-  galleries,
-  onCardClick,
-}) => {
   return (
     <div className="gallery-container__grid">
-      {galleries.map((gallery) => (
+      {galleryData.map((gallery) => (
         <GalleryCard
           key={gallery.id}
           gallery={gallery}
-          onCardClick={onCardClick}
+          onCardClick={handleCardClick}
         />
       ))}
     </div>

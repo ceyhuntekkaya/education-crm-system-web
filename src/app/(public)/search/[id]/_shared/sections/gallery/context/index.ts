@@ -1,2 +1,1 @@
-// Gallery context will be exported from here
-export {};
+export { GalleryProvider, useGalleryContext } from "./gallery-context";

@@ -1,15 +1,10 @@
 import React from "react";
-import { GalleryFooterProps } from "../types";
+import { useGalleryContext } from "../context";
 
-const GalleryFooter: React.FC<GalleryFooterProps> = ({
-  galleryCount,
-  onViewAllClick,
-}) => {
-  const handleViewAllClick = () => {
-    if (onViewAllClick) {
-      onViewAllClick();
-    }
-  };
+const GalleryFooter: React.FC = () => {
+  const { galleryData, handleViewAllClick } = useGalleryContext();
+
+  const galleryCount = galleryData.length;
 
   if (galleryCount === 0) {
     return null;
