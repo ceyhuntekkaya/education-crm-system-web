@@ -13,6 +13,7 @@ import {
   InstitutionCampaigns,
   AppointmentCreate,
   Gallery,
+  Posts,
 } from "./_shared";
 
 // Appointment Table
@@ -93,6 +94,13 @@ export default function InstitutionDetailPage({
       title: "Galeri 📸", // Kurum galerisi
       label: "Galeri 📸",
       content: <Gallery institutionId={params.id} />,
+    },
+    {
+      id: "pills-posts",
+      icon: "ph-bold ph-chat-circle-text",
+      title: "Sosyal Medya 📱", // Sosyal medya gönderileri
+      label: "Sosyal Medya 📱",
+      content: <Posts institutionId={params.id} />,
       isActive: true, // Başlangıçta bu tab aktif olsun
     },
     {

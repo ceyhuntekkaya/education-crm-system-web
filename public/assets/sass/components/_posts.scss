@@ -1,0 +1,451 @@
+// ==========================================
+// Instagram-Style Social Posts Components
+// ==========================================
+
+// Social Post Card
+.social-post-card {
+  background: hsl(var(--white));
+  border: 1px solid hsl(var(--neutral-200));
+  border-radius: 16px;
+  box-shadow: 0 2px 8px hsla(var(--neutral-900), 0.04);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: 0 8px 24px hsla(var(--neutral-900), 0.12);
+    border-color: hsl(var(--neutral-300));
+  }
+
+  // Card Header (Profile Section)
+  &__header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid hsl(var(--neutral-100));
+  }
+
+  &__avatar {
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, hsl(var(--main-500)), hsl(var(--main-600)));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__author-info {
+    flex: 1;
+    
+    .author-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: hsl(var(--neutral-900));
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+    
+    .author-school {
+      font-size: 12px;
+      color: hsl(var(--neutral-600));
+      line-height: 1.2;
+    }
+  }
+
+  &__badges {
+    display: flex;
+    gap: 6px;
+    
+    .badge {
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+
+  // Media Section
+  &__media {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: hsl(var(--neutral-50));
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.02);
+    }
+  }
+
+  &__media-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    
+    .media-type-badge {
+      background: hsla(var(--black), 0.7);
+      color: hsl(var(--white));
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  // Actions Section
+  &__actions {
+    padding: 12px 16px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__action-buttons {
+    display: flex;
+    gap: 12px;
+    
+    .btn {
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: hsl(var(--neutral-100));
+      }
+      
+      &.btn--liked {
+        color: hsl(var(--danger-500));
+      }
+      
+      &.btn--bookmarked {
+        color: hsl(var(--main-600));
+      }
+    }
+  }
+
+  // Content Section
+  &__content {
+    padding: 0 16px 16px;
+  }
+
+  &__engagement {
+    margin-bottom: 8px;
+    
+    .engagement-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: hsl(var(--neutral-900));
+    }
+  }
+
+  &__text {
+    .content-preview {
+      font-size: 14px;
+      line-height: 1.4;
+      color: hsl(var(--neutral-800));
+      margin-bottom: 8px;
+      
+      .hashtag {
+        color: hsl(var(--main-600));
+        text-decoration: none;
+        font-weight: 500;
+        
+        &:hover {
+          color: hsl(var(--main-700));
+        }
+      }
+    }
+    
+    .read-more-btn {
+      color: hsl(var(--neutral-500));
+      font-size: 13px;
+      padding: 0;
+      border: none;
+      background: none;
+      
+      &:hover {
+        color: hsl(var(--neutral-700));
+      }
+    }
+  }
+
+  &__meta {
+    font-size: 11px;
+    color: hsl(var(--neutral-500));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Social Posts Header
+.social-posts-header {
+  &__stats {
+    .social-stat-card {
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      
+      &:hover {
+        transform: translateY(-2px);
+      }
+      
+      &__icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+      
+      &__number {
+        line-height: 1;
+      }
+      
+      &__label {
+        line-height: 1;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Social Posts Feed
+.social-posts-feed {
+  &__container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &__item {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  &__load-more {
+    .btn {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px hsla(var(--main-500), 0.3);
+      }
+    }
+  }
+
+  &__fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    
+    .btn {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 24px hsla(var(--main-500), 0.4);
+      }
+    }
+  }
+}
+
+// Social Post Modal
+.social-post-modal {
+  &__media-section {
+    background: hsl(var(--black));
+  }
+
+  &__main-image {
+    transition: transform 0.3s ease;
+  }
+
+  &__content-section {
+    background: hsl(var(--white));
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  &__header {
+    background: hsl(var(--white));
+    border-bottom: 1px solid hsl(var(--neutral-200));
+  }
+
+  &__avatar {
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, hsl(var(--main-500)), hsl(var(--main-600)));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__content {
+    .post-content {
+      &--truncated {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+      
+      .hashtag {
+        color: hsl(var(--main-600));
+        text-decoration: none;
+        font-weight: 500;
+        
+        &:hover {
+          color: hsl(var(--main-700));
+        }
+      }
+    }
+  }
+
+  &__actions {
+    background: hsl(var(--white));
+    border-top: 1px solid hsl(var(--neutral-200));
+    
+    .btn {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: hsl(var(--neutral-100));
+      }
+    }
+  }
+
+  .social-attachment {
+    background: hsl(var(--neutral-100));
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}
+
+// Social Posts Empty State
+.social-posts-empty-state {
+  &__illustration {
+    .social-posts-empty-state__camera {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .social-posts-empty-state__sparkles {
+      animation: sparkle 2s ease-in-out infinite;
+    }
+  }
+
+  &__suggestions {
+    .social-suggestion {
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: hsl(var(--neutral-100));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+        
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .social-posts-feed {
+    &__fab {
+      bottom: 16px;
+      right: 16px;
+      
+      .btn {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  }
+
+  .social-post-modal {
+    .row {
+      flex-direction: column;
+    }
+    
+    .col-md-7,
+    .col-md-5 {
+      flex: none;
+      width: 100%;
+    }
+    
+    &__media-section {
+      height: 300px;
+    }
+    
+    &__content-section {
+      height: auto;
+      max-height: none;
+    }
+  }
+
+  .social-posts-header {
+    &__stats {
+      .row {
+        .col-6 {
+          margin-bottom: 12px;
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,9 @@ export { default as InstitutionCampaigns } from "./institution-campaigns/institu
 // Gallery
 export { Gallery } from "./gallery";
 
+// Posts
+export { default as Posts } from "./posts";
+
 // Appointment Table
 export { AppointmentTable } from "./appointment-table";
 
