@@ -7,7 +7,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     slug: "2024-bahar-festivali",
     galleryType: "EVENTS",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
     itemCount: 45,
     viewCount: 2580,
     isFeatured: true,
@@ -20,7 +20,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     slug: "kampus-yasami",
     galleryType: "CAMPUS_LIFE",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop",
     itemCount: 128,
     viewCount: 4250,
     isFeatured: true,
