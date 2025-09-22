@@ -7,39 +7,33 @@ const PostGrid: React.FC = () => {
   const { postData, handleCardClick } = usePostContext();
 
   return (
-    <div className="social-posts-feed">
-      {/* Instagram-style Feed Layout */}
-      <div className="social-posts-feed__container">
+    <div className="posts-content-wrapper">
+      {/* Grid Layout - Simetrik gap düzenlemesi */}
+      <div className="row g-20">
         {postData.map((post: PostSummaryDto, index: number) => (
           <div
             key={post.id}
-            className="social-posts-feed__item mb-40"
-            style={{ animationDelay: `${index * 0.1}s` }}
+            className="col-12 col-md-6 col-xl-4 mb-20"
+            style={{
+              animationDelay: `${index * 0.1}s`,
+              opacity: 0,
+              animation: `fadeInUp 0.6s ease forwards`,
+            }}
           >
             <PostCard post={post} onCardClick={handleCardClick} />
           </div>
         ))}
       </div>
 
-      {/* Load More Button - Instagram style */}
-      {postData.length > 0 && (
-        <div className="social-posts-feed__load-more text-center mt-40">
-          <button className="btn btn-outline-main btn-lg rounded-pill px-32">
-            <i className="ph ph-arrow-clockwise me-8"></i>
+      {/* Daha Fazla Yükle Butonu */}
+      {postData.length > 6 && (
+        <div className="text-center mt-32">
+          <button className="btn btn-outline-main btn-lg">
+            <i className="ph-bold ph-arrow-clockwise me-8"></i>
             Daha Fazla Gönderi Yükle
           </button>
         </div>
       )}
-
-      {/* Floating Action Button for Create Post */}
-      <div className="social-posts-feed__fab">
-        <button
-          className="btn btn-main rounded-circle shadow-lg"
-          style={{ width: "56px", height: "56px" }}
-        >
-          <i className="ph ph-plus-bold" style={{ fontSize: "24px" }}></i>
-        </button>
-      </div>
     </div>
   );
 };

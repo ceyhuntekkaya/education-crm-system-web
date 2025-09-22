@@ -98,7 +98,7 @@ export default function InstitutionDetailPage({
     {
       id: "pills-posts",
       icon: "ph-bold ph-chat-circle-text",
-      title: "Sosyal Medya 📱", // Sosyal medya gönderileri
+      title: "Sosyal Medya 📱", // Sosyal medya gönderileri - Diğer tablarla uyumlu tasarım
       label: "Sosyal Medya 📱",
       content: <Posts institutionId={params.id} />,
       isActive: true, // Başlangıçta bu tab aktif olsun

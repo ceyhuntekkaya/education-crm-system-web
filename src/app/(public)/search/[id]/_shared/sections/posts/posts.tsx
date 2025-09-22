@@ -3,7 +3,7 @@
 import React from "react";
 import { Modal } from "@/components/ui";
 import { PostProvider, usePostContext } from "./context/post-context";
-import { PostFilterForm } from "./sections";
+// import { PostFilterForm } from "./sections";
 import { PostProps } from "./types/index";
 import {
   PostHeader,
@@ -17,33 +17,50 @@ const PostContent: React.FC = () => {
   const { isOpen, close, selectedPostId, postData } = usePostContext();
 
   return (
-    <>
-      <div className="posts-section">
-        {/* Filter Form Section - Kompakt tasarım */}
-        <PostFilterForm />
+    <div className="tutor-details__content">
+      {/* Ana Container - Diğer tablarla uyumlu */}
+      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
+        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+          {/* Başlık ve Açıklama */}
+          <h4 className="mb-16">Sosyal Medya 📱</h4>
+          <span className="d-block border border-neutral-30 my-20 border-dashed" />
 
-        {/* Main Posts Container with consistent styling */}
-        <div className="border border-neutral-30 rounded-12 bg-white p-8">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+          {/* İçerik Alanı - Consistent padding */}
+          <div className="bg-white rounded-8 p-20">
+            {/* Header - İstatistikler */}
             <PostHeader />
 
-            {postData.length > 0 ? (
-              <>
-                <PostGrid />
-                <PostFooter />
-              </>
-            ) : (
-              <PostEmptyState />
-            )}
+            {/* Feed Content - Consistent spacing */}
+            <div className="social-feed-content mt-24">
+              {postData.length > 0 ? (
+                <>
+                  <PostGrid />
+                  <div className="social-feed-actions mt-24">
+                    <PostFooter />
+                  </div>
+                </>
+              ) : (
+                <div className="mt-16">
+                  <PostEmptyState />
+                </div>
+              )}
+            </div>
           </div>
         </div>
-
-        {/* Post Detail Modal */}
-        <Modal isOpen={isOpen} onClose={close} size="xl">
-          {selectedPostId && <PostDetailModalContent />}
-        </Modal>
       </div>
-    </>
+
+      {/* Modern Post Detail Modal */}
+      <Modal
+        isOpen={isOpen}
+        onClose={close}
+        size="xl"
+        className="social-post-modal"
+        closeOnBackdropClick={true}
+        scrollable={true}
+      >
+        {selectedPostId && <PostDetailModalContent />}
+      </Modal>
+    </div>
   );
 };
 
