@@ -32,8 +32,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, onCardClick }) => {
       {/* Kart Başlığı */}
       <div className="p-16 border-bottom border-neutral-30">
         <div className="d-flex align-items-start justify-content-between">
-          <div className="d-flex align-items-start gap-12 flex-1">
-            <div className="flex-shrink-0">
+          <div className="post-card__profile-section">
+            <div className="post-card__avatar-container">
               <Image
                 src={getProfileImage()}
                 alt={post.authorName || "User"}
@@ -42,14 +42,14 @@ const PostCard: React.FC<PostCardProps> = ({ post, onCardClick }) => {
                 className="rounded-8"
               />
             </div>
-            <div className="flex-1 min-width-0">
-              <h6 className="mb-4 fw-semibold text-neutral-800 text-truncate">
+            <div className="post-card__user-info">
+              <h6 className="mb-4 fw-semibold text-neutral-800 post-card__author-name">
                 {post.authorName}
               </h6>
-              <p className="mb-4 text-neutral-600 text-sm text-truncate">
+              <p className="mb-4 text-neutral-600 text-sm post-card__school-name">
                 {post.schoolName}
               </p>
-              <time className="text-neutral-500 text-xs">
+              <time className="text-neutral-500 text-xs post-card__timestamp">
                 {formatDate(post.publishedAt)}
               </time>
             </div>
