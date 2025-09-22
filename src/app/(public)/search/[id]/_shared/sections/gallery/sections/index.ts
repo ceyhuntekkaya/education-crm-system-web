@@ -1,2 +1,2 @@
 // Gallery sections will be exported from here
-export {};
+export * from "./filter-form";

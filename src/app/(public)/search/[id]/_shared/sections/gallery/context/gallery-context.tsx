@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useModal } from "@/hooks";
 import { gallerySummaryMockData } from "../mock";
+import { GallerySearchDto } from "@/types/dto/content/GallerySearchDto";
 
 // Types
 interface GalleryContextType {
@@ -19,6 +20,9 @@ interface GalleryContextType {
   // Actions
   handleCardClick: (galleryId: number) => void;
   handleViewAllClick: () => void;
+
+  // Filter action
+  filterSubmit: (filters: GallerySearchDto) => void;
 }
 
 interface GalleryProviderProps {
@@ -50,6 +54,12 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
     // Burada tüm galerileri göster sayfasına yönlendirme yapılabilir
   };
 
+  // Filter function
+  const filterSubmit = (filters: GallerySearchDto) => {
+    console.log("Gallery Filters Submitted:", filters);
+    // TODO: Implement filter logic (API call, state update, etc.)
+  };
+
   const value: GalleryContextType = {
     // Modal state
     isOpen,
@@ -64,6 +74,9 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
     // Actions
     handleCardClick,
     handleViewAllClick,
+
+    // Filter action
+    filterSubmit,
   };
   return (
     <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>
