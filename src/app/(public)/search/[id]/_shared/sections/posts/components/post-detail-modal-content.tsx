@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Modal } from "@/components/ui";
+import { Modal, Button } from "@/components/ui";
 import { usePostContext } from "../context";
 import { postMockData } from "../mock";
 import {
@@ -152,178 +152,128 @@ const PostDetailModalContent: React.FC = () => {
               </time>
             </div>
           </div>
-          {/* Post Type Badge */}
-          <div className="d-flex align-items-center gap-8">
-            <span className="badge bg-main-50 text-main-600 px-8 py-4 rounded-pill fs-12">
-              <i className={`${getPostTypeIcon(post.postType)} me-4`} />
-              {formatPostType(post.postType)}
-            </span>
-          </div>
         </div>
       </Modal.Header>
 
       {/* Minimal Body */}
-      <Modal.Body className="p-0" scrollable={true}>
-        {/* Content Section */}
-        <div className="p-24">
-          {/* Video Section */}
-          {currentMedia && currentMedia.type === "video" && (
-            <div className="video-section mb-20">
-              <div
-                className="position-relative"
-                style={{ aspectRatio: "16/9", maxHeight: "200px" }}
-              >
-                {isVideoPlaying ? (
-                  <video
-                    src={currentMedia.url}
-                    controls
-                    autoPlay
-                    className="w-100 h-100 rounded-8"
-                    style={{ objectFit: "cover" }}
-                  />
-                ) : currentMedia.thumbnailUrl ? (
-                  <div
-                    className="position-relative w-100 h-100"
-                    onClick={handleVideoPlay}
-                  >
-                    <Image
-                      src={currentMedia.thumbnailUrl}
-                      alt="Video thumbnail"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-8 cursor-pointer"
-                    />
-                    <div className="position-absolute top-50 start-50 translate-middle">
-                      <div className="bg-dark bg-opacity-75 rounded-circle p-12 d-flex align-items-center justify-content-center">
-                        <i className="ph ph-play-fill text-white fs-20" />
-                      </div>
-                    </div>
-                    {currentMedia.duration && (
-                      <div className="position-absolute bottom-8 end-8 bg-dark bg-opacity-75 text-white px-8 py-4 rounded-4 fs-12">
-                        {Math.floor(currentMedia.duration / 60)}:
-                        {(currentMedia.duration % 60)
-                          .toString()
-                          .padStart(2, "0")}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div
-                    className="bg-neutral-100 rounded-8 h-100 d-flex align-items-center justify-content-center cursor-pointer"
-                    onClick={handleVideoPlay}
-                  >
-                    <div className="text-center">
-                      <i className="ph ph-video text-neutral-400 fs-32 mb-8" />
-                      <p className="text-neutral-600 fs-12 mb-0">
-                        Video Mevcut
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-          {/* Current Image Section */}
-          {currentMedia && currentMedia.type === "image" && (
-            <div className="featured-image position-relative mb-20">
-              <div style={{ aspectRatio: "3/2", maxHeight: "240px" }}>
-                <Image
-                  src={currentMedia.url}
-                  alt={post.title || ""}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="w-100 rounded-8"
-                />
-              </div>
-            </div>
-          )}
-          {/* Media Attachments */}
-          {mediaAttachments && mediaAttachments.length > 0 && (
-            <div className="media-attachments mb-20">
-              <h6 className="text-neutral-700 fw-medium fs-13 mb-12">
-                <i className="ph ph-images me-8" />
-                Ek Medya ({mediaAttachments.length})
-              </h6>
-              <div className="d-flex gap-8 flex-wrap">
-                {/* Original Featured Image Thumbnail */}
-                {post.featuredImageUrl && (
-                  <div
-                    className="media-thumbnail position-relative cursor-pointer"
-                    onClick={handleOriginalImageClick}
-                  >
-                    <div style={{ width: "60px", height: "60px" }}>
-                      <Image
-                        src={post.featuredImageUrl}
-                        alt="Ana görsel"
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className="rounded-6"
-                      />
-                    </div>
-                    <div className="position-absolute bottom-2 end-2">
-                      <span
-                        className="badge bg-primary-500 text-white rounded-circle"
-                        style={{ fontSize: "8px", padding: "2px 4px" }}
-                      >
-                        <i className="ph ph-image-fill" />
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Original Video Thumbnail */}
-                {post.videoUrl && (
-                  <div
-                    className="media-thumbnail position-relative cursor-pointer"
-                    onClick={handleOriginalVideoClick}
-                  >
-                    <div style={{ width: "60px", height: "60px" }}>
-                      {post.videoThumbnailUrl ? (
-                        <Image
-                          src={post.videoThumbnailUrl}
-                          alt="Ana video"
-                          fill
+      <Modal.Body className="p-0">
+        {/* Two Column Layout */}
+        <div className="row g-0 post-detail-layout">
+          {/* Left Column - Media Gallery */}
+          <div className="col-6">
+            <div className="p-24 post-detail-media-column">
+              {/* Main Media Display */}
+              <div className="mb-20">
+                {/* Video Section */}
+                {currentMedia && currentMedia.type === "video" && (
+                  <div className="video-section">
+                    <div className="position-relative post-detail-video-container">
+                      {isVideoPlaying ? (
+                        <video
+                          src={currentMedia.url}
+                          controls
+                          autoPlay
+                          className="w-100 h-100 rounded-8"
                           style={{ objectFit: "cover" }}
-                          className="rounded-6"
                         />
+                      ) : currentMedia.thumbnailUrl ? (
+                        <div
+                          className="position-relative w-100 h-100"
+                          onClick={handleVideoPlay}
+                        >
+                          <Image
+                            src={currentMedia.thumbnailUrl}
+                            alt="Video thumbnail"
+                            fill
+                            style={{ objectFit: "cover" }}
+                            className="rounded-8 cursor-pointer"
+                          />
+                          <div className="position-absolute top-50 start-50 translate-middle">
+                            <div className="bg-dark bg-opacity-75 rounded-circle p-12 d-flex align-items-center justify-content-center">
+                              <i className="ph ph-play-fill text-white fs-20" />
+                            </div>
+                          </div>
+                          {currentMedia.duration && (
+                            <div className="position-absolute bottom-8 end-8 bg-dark bg-opacity-75 text-white px-8 py-4 rounded-4 fs-12">
+                              {Math.floor(currentMedia.duration / 60)}:
+                              {(currentMedia.duration % 60)
+                                .toString()
+                                .padStart(2, "0")}
+                            </div>
+                          )}
+                        </div>
                       ) : (
-                        <div className="bg-neutral-100 rounded-6 h-100 d-flex align-items-center justify-content-center">
-                          <i className="ph ph-video text-neutral-400 fs-16" />
+                        <div
+                          className="bg-neutral-100 rounded-8 h-100 d-flex align-items-center justify-content-center cursor-pointer"
+                          onClick={handleVideoPlay}
+                        >
+                          <div className="text-center">
+                            <i className="ph ph-video text-neutral-400 fs-32 mb-8" />
+                            <p className="text-neutral-600 fs-12 mb-0">
+                              Video Mevcut
+                            </p>
+                          </div>
                         </div>
                       )}
                     </div>
-                    <div className="position-absolute bottom-2 end-2">
-                      <span
-                        className="badge bg-danger-500 text-white rounded-circle"
-                        style={{ fontSize: "8px", padding: "2px 4px" }}
-                      >
-                        <i className="ph ph-play-fill" />
-                      </span>
-                    </div>
                   </div>
                 )}
 
-                {/* Media Attachments */}
-                {mediaAttachments.map((media: any, index: number) => (
-                  <div
-                    key={index}
-                    className="media-thumbnail position-relative cursor-pointer"
-                    onClick={() => handleMediaSwitch(media)}
-                  >
-                    <div style={{ width: "60px", height: "60px" }}>
-                      {media.type === "image" ? (
+                {/* Current Image Section */}
+                {currentMedia && currentMedia.type === "image" && (
+                  <div className="featured-image position-relative">
+                    <div className="post-detail-image-container">
+                      <Image
+                        src={currentMedia.url}
+                        alt={post.title || ""}
+                        fill
+                        className="w-100 rounded-8 post-detail-image"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Media Gallery Thumbnails */}
+              <div className="media-gallery">
+                <h6 className="text-neutral-700 fw-medium fs-13 mb-12">
+                  <i className="ph ph-images me-8" />
+                  Medya Galerisi
+                </h6>
+                <div className="d-flex gap-8 flex-wrap">
+                  {/* Original Featured Image Thumbnail */}
+                  {post.featuredImageUrl && (
+                    <div
+                      className="media-thumbnail position-relative cursor-pointer"
+                      onClick={handleOriginalImageClick}
+                    >
+                      <div className="post-detail-thumbnail">
                         <Image
-                          src={media.url}
-                          alt={`Ek medya ${index + 1}`}
+                          src={post.featuredImageUrl}
+                          alt="Ana görsel"
                           fill
-                          style={{ objectFit: "cover" }}
-                          className="rounded-6"
+                          className="rounded-6 post-detail-thumbnail-image"
                         />
-                      ) : media.type === "video" ? (
-                        media.thumbnailUrl ? (
+                      </div>
+                      <div className="position-absolute bottom-2 end-2">
+                        <span className="badge bg-primary-500 text-white rounded-circle post-detail-badge">
+                          <i className="ph ph-image-fill" />
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Original Video Thumbnail */}
+                  {post.videoUrl && (
+                    <div
+                      className="media-thumbnail position-relative cursor-pointer"
+                      onClick={handleOriginalVideoClick}
+                    >
+                      <div style={{ width: "80px", height: "80px" }}>
+                        {post.videoThumbnailUrl ? (
                           <Image
-                            src={media.thumbnailUrl}
-                            alt={`Video ${index + 1}`}
+                            src={post.videoThumbnailUrl}
+                            alt="Ana video"
                             fill
                             style={{ objectFit: "cover" }}
                             className="rounded-6"
@@ -332,338 +282,401 @@ const PostDetailModalContent: React.FC = () => {
                           <div className="bg-neutral-100 rounded-6 h-100 d-flex align-items-center justify-content-center">
                             <i className="ph ph-video text-neutral-400 fs-16" />
                           </div>
-                        )
-                      ) : null}
+                        )}
+                      </div>
+                      <div className="position-absolute bottom-2 end-2">
+                        <span
+                          className="badge bg-danger-500 text-white rounded-circle"
+                          style={{ fontSize: "8px", padding: "2px 4px" }}
+                        >
+                          <i className="ph ph-play-fill" />
+                        </span>
+                      </div>
                     </div>
-                    <div className="position-absolute bottom-2 end-2">
-                      <span
-                        className={`badge ${
-                          media.type === "video"
-                            ? "bg-danger-500"
-                            : "bg-info-500"
-                        } text-white rounded-circle`}
-                        style={{ fontSize: "8px", padding: "2px 4px" }}
-                      >
-                        <i
-                          className={`ph ${
+                  )}
+
+                  {/* Media Attachments */}
+                  {mediaAttachments.map((media: any, index: number) => (
+                    <div
+                      key={index}
+                      className="media-thumbnail position-relative cursor-pointer"
+                      onClick={() => handleMediaSwitch(media)}
+                    >
+                      <div style={{ width: "80px", height: "80px" }}>
+                        {media.type === "image" ? (
+                          <Image
+                            src={media.url}
+                            alt={`Ek medya ${index + 1}`}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            className="rounded-6"
+                          />
+                        ) : media.type === "video" ? (
+                          media.thumbnailUrl ? (
+                            <Image
+                              src={media.thumbnailUrl}
+                              alt={`Video ${index + 1}`}
+                              fill
+                              style={{ objectFit: "cover" }}
+                              className="rounded-6"
+                            />
+                          ) : (
+                            <div className="bg-neutral-100 rounded-6 h-100 d-flex align-items-center justify-content-center">
+                              <i className="ph ph-video text-neutral-400 fs-16" />
+                            </div>
+                          )
+                        ) : null}
+                      </div>
+                      <div className="position-absolute bottom-2 end-2">
+                        <span
+                          className={`badge ${
                             media.type === "video"
-                              ? "ph-play-fill"
-                              : "ph-image-fill"
-                          }`}
-                        />
-                      </span>
+                              ? "bg-danger-500"
+                              : "bg-info-500"
+                          } text-white rounded-circle`}
+                          style={{ fontSize: "8px", padding: "2px 4px" }}
+                        >
+                          <i
+                            className={`ph ${
+                              media.type === "video"
+                                ? "ph-play-fill"
+                                : "ph-image-fill"
+                            }`}
+                          />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {/* Title */}
-          {post.title && (
-            <div className="mb-16">
-              <div className="d-flex align-items-start justify-content-between gap-12 mb-8">
-                <h1 className="text-neutral-900 fw-semibold fs-18 lh-sm flex-1">
-                  {post.title}
-                </h1>
-                <div className="d-flex align-items-center gap-8 flex-shrink-0">
-                  {post.isPinned && (
-                    <span className="badge bg-info-100 text-info-700 px-8 py-4 rounded-pill fs-11">
-                      <i className="ph ph-push-pin-fill me-4" />
-                      Sabitlendi
-                    </span>
-                  )}
-                  {post.isFeatured && (
-                    <span className="badge bg-warning-100 text-warning-700 px-8 py-4 rounded-pill fs-11">
-                      <i className="ph ph-star-fill me-4" />
-                      Öne Çıkan
-                    </span>
-                  )}
+                  ))}
                 </div>
-              </div>
-            </div>
-          )}
-          {/* Content */}
-          {post.content && (
-            <div className="mb-20">
-              <div
-                className="text-neutral-700 fs-14 lh-lg"
-                dangerouslySetInnerHTML={{
-                  __html: showFullContent
-                    ? highlightHashtags(post.content)
-                    : highlightHashtags(
-                        stripHtmlTags(post.content).substring(0, 200) +
-                          (stripHtmlTags(post.content).length > 200
-                            ? "..."
-                            : "")
-                      ),
-                }}
-              />
-              {stripHtmlTags(post.content).length > 200 && (
-                <button
-                  className="btn btn-link btn-sm p-0 mt-8 text-main-600 fs-14"
-                  onClick={() => setShowFullContent(!showFullContent)}
-                >
-                  {showFullContent ? "daha az göster" : "devamını oku"}
-                </button>
-              )}
-            </div>
-          )}
-          {/* Hashtags */}
-          {post.hashtags && (
-            <div className="mb-20">
-              <div className="d-flex flex-wrap gap-8">
-                {post.hashtags.split(" ").map((hashtag, index) => (
-                  <span
-                    key={index}
-                    className="text-main-600 fs-13 hover-text-main-700 cursor-pointer"
-                  >
-                    {hashtag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          {/* Media Attachments */}
-          {mediaAttachments.length > 0 && (
-            <div className="media-attachments mb-20">
-              <div className="d-flex gap-8 overflow-auto">
-                {mediaAttachments.map((media: any, index: number) => (
-                  <div
-                    key={index}
-                    className="media-item flex-shrink-0"
-                    style={{ width: "80px", height: "80px" }}
-                  >
-                    <Image
-                      src={media.url}
-                      alt={`Ek ${index + 1}`}
-                      width={80}
-                      height={80}
-                      style={{ objectFit: "cover" }}
-                      className="rounded-6 border border-neutral-200 w-100 h-100"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {/* Call to Action */}
-          {post.callToAction && post.ctaUrl && (
-            <div className="mb-20">
-              <a
-                href={post.ctaUrl}
-                className="btn btn-main btn-sm rounded-8 px-16 py-8 text-decoration-none"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="ph ph-arrow-right me-8" />
-                {post.callToAction}
-              </a>
-            </div>
-          )}
-
-          {/* Engagement Section */}
-          <div className="border-top border-neutral-200 mt-24">
-            {/* Engagement Stats */}
-            <div className="py-20">
-              <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
-                <div className="d-flex align-items-center gap-20">
-                  <button
-                    className={`btn btn-sm px-12 py-8 rounded-pill d-flex align-items-center gap-8 transition-all ${
-                      isLiked
-                        ? "bg-danger-500 text-white border-danger-500"
-                        : "bg-neutral-25 text-neutral-600 border border-neutral-200 hover-bg-danger-50 hover-border-danger-200 hover-text-danger-600"
-                    }`}
-                    onClick={() => setIsLiked(!isLiked)}
-                  >
-                    <i
-                      className={`ph ${
-                        isLiked ? "ph-heart-fill" : "ph-heart"
-                      } fs-15`}
-                    />
-                    <span className="fs-13 fw-medium">
-                      {formatEngagementCount(
-                        (post.likeCount || 0) + (isLiked ? 1 : 0)
-                      )}
-                    </span>
-                  </button>
-
-                  <div className="d-flex align-items-center gap-8">
-                    <i className="ph ph-chat-circle text-info-500 fs-18" />
-                    <span className="text-neutral-700 fs-15 fw-semibold">
-                      {formatEngagementCount(post.commentCount || 0)}
-                    </span>
-                  </div>
-
-                  <div className="d-flex align-items-center gap-8">
-                    <i className="ph ph-eye text-neutral-500 fs-18" />
-                    <span className="text-neutral-700 fs-15 fw-semibold">
-                      {formatViewCount(post.viewCount)}
-                    </span>
-                  </div>
-
-                  {(post.shareCount || 0) > 0 && (
-                    <div className="d-flex align-items-center gap-8">
-                      <i className="ph ph-share text-neutral-500 fs-18" />
-                      <span className="text-neutral-700 fs-15 fw-semibold">
-                        {formatEngagementCount(post.shareCount || 0)}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {(post.engagementScore || 0) > 0 && (
-                  <div className="d-flex align-items-center gap-8">
-                    <i className="ph ph-chart-line text-success-500 fs-18" />
-                    <span className="text-success-600 fs-14 fw-medium">
-                      {post.engagementScore?.toFixed(1)} skor
-                    </span>
-                  </div>
-                )}
               </div>
             </div>
           </div>
 
-          {/* Post Details Section */}
-          <div className="border-top border-neutral-200 pt-20">
-            {/* Location and Tags */}
-            {(post.locationName || post.tags || post.slug) && (
-              <div className="mb-16">
-                <div className="d-flex align-items-center flex-wrap gap-16">
-                  {post.locationName && (
-                    <div className="d-flex align-items-center gap-6 text-neutral-600">
-                      <i className="ph ph-map-pin fs-14" />
-                      <span className="fs-13">{post.locationName}</span>
+          {/* Right Column - Post Information */}
+          <div className="col-6">
+            <div className="post-detail-content-column h-100 overflow-y-auto">
+              <div className="p-24">
+                {/* Title */}
+                {post.title && (
+                  <div className="mb-20">
+                    <div className="d-flex align-items-start justify-content-between gap-12 mb-12">
+                      <h1 className="text-neutral-900 fw-bold fs-20 lh-base flex-1">
+                        {post.title}
+                      </h1>
+                      <div className="d-flex flex-column gap-12 flex-shrink-0">
+                        {/* Post Type Badge - Moved here */}
+                        <span className="badge bg-main-50 text-main-600 px-12 py-6 rounded-pill fs-13 fw-medium">
+                          <i
+                            className={`${getPostTypeIcon(post.postType)} me-6`}
+                          />
+                          {formatPostType(post.postType)}
+                        </span>
+                        {post.isPinned && (
+                          <span className="badge bg-info-100 text-info-700 px-10 py-6 rounded-pill fs-11 fw-medium mt">
+                            <i className="ph ph-push-pin-fill me-4" />
+                            Sabitlendi
+                          </span>
+                        )}
+                        {post.isFeatured && (
+                          <span className="badge bg-warning-100 text-warning-700 px-10 py-6 rounded-pill fs-11 fw-medium">
+                            <i className="ph ph-star-fill me-4" />
+                            Öne Çıkan
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  )}
-                  {post.tags && (
-                    <div className="d-flex align-items-center gap-6 text-neutral-600">
-                      <i className="ph ph-tag fs-14" />
-                      <span
-                        className="fs-13 text-truncate"
-                        style={{ maxWidth: "200px" }}
-                      >
-                        {post.tags.replace(/,/g, " • ")}
-                      </span>
-                    </div>
-                  )}
-                  {post.slug && (
-                    <div className="d-flex align-items-center gap-6 text-neutral-600">
-                      <i className="ph ph-link fs-14" />
-                      <span
-                        className="fs-13 text-truncate"
-                        style={{ maxWidth: "150px" }}
-                      >
-                        {post.slug}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Advanced Analytics */}
-            {(post.reachCount ||
-              post.impressionCount ||
-              post.clickCount ||
-              post.averageReadTimeSeconds) && (
-              <div className="mb-16">
-                <div className="d-flex align-items-center gap-8 mb-12">
-                  <div className="bg-main-50 p-6 rounded-6">
-                    <i className="ph ph-chart-line-up text-main-600 fs-14" />
                   </div>
-                  <h6 className="text-neutral-700 fs-13 fw-semibold mb-0">
-                    Performans İstatistikleri
-                  </h6>
-                </div>
+                )}
 
-                <div className="bg-neutral-25 border border-neutral-100 rounded-8 p-16">
-                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
-                    {post.reachCount && (
-                      <div className="d-flex align-items-center gap-10">
-                        <div className="bg-gradient-primary-soft p-8 rounded-6">
-                          <i className="ph ph-users text-main-600 fs-16" />
-                        </div>
-                        <div>
-                          <div className="text-neutral-900 fs-15 fw-semibold">
-                            {formatEngagementCount(post.reachCount)}
+                {/* Engagement Section - Moved Up */}
+                <div className="engagement-section mb-24">
+                  <div className="engagement-header mb-16">
+                    <h6 className="text-neutral-800 fs-14 fw-semibold mb-0 d-flex align-items-center gap-10">
+                      <div className="engagement-icon">
+                        <i className="ph ph-heart fs-14" />
+                      </div>
+                      Etkileşim Metrikleri
+                    </h6>
+                  </div>
+
+                  <div className="engagement-card">
+                    <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
+                      <div className="engagement-actions">
+                        <button
+                          className={`like-button ${
+                            isLiked ? "liked" : "unliked"
+                          }`}
+                          onClick={() => setIsLiked(!isLiked)}
+                        >
+                          <i
+                            className={`ph ${
+                              isLiked ? "ph-heart" : "ph-heart"
+                            }`}
+                          />
+                          <span>
+                            {formatEngagementCount(
+                              (post.likeCount || 0) + (isLiked ? 1 : 0)
+                            )}
+                          </span>
+                        </button>
+
+                        <div className="engagement-metric">
+                          <div className="engagement-icon-circle engagement-view-icon">
+                            <i className="ph ph-eye fs-16" />
                           </div>
-                          <div className="text-neutral-500 fs-11">Erişim</div>
+                          <span className="metric-value">
+                            {formatViewCount(post.viewCount)}
+                          </span>
                         </div>
                       </div>
-                    )}
 
-                    {post.impressionCount && (
-                      <div className="d-flex align-items-center gap-10">
-                        <div className="bg-gradient-success-soft p-8 rounded-6">
-                          <i className="ph ph-eye text-success-600 fs-16" />
-                        </div>
-                        <div>
-                          <div className="text-neutral-900 fs-15 fw-semibold">
-                            {formatEngagementCount(post.impressionCount)}
+                      {(post.engagementScore || 0) > 0 && (
+                        <div className="engagement-score-container">
+                          <div className="engagement-icon-circle engagement-score-icon">
+                            <i className="ph ph-chart-line fs-16" />
                           </div>
-                          <div className="text-neutral-500 fs-11">Gösterim</div>
+                          <span className="score-value">
+                            {post.engagementScore?.toFixed(1)} skor
+                          </span>
                         </div>
-                      </div>
-                    )}
-
-                    {post.clickCount && (
-                      <div className="d-flex align-items-center gap-10">
-                        <div className="bg-gradient-warning-soft p-8 rounded-6">
-                          <i className="ph ph-cursor-click text-warning-600 fs-16" />
-                        </div>
-                        <div>
-                          <div className="text-neutral-900 fs-15 fw-semibold">
-                            {formatEngagementCount(post.clickCount)}
-                          </div>
-                          <div className="text-neutral-500 fs-11">Tıklama</div>
-                        </div>
-                      </div>
-                    )}
-
-                    {post.averageReadTimeSeconds && (
-                      <div className="d-flex align-items-center gap-10">
-                        <div className="bg-gradient-info-soft p-8 rounded-6">
-                          <i className="ph ph-timer text-info-600 fs-16" />
-                        </div>
-                        <div>
-                          <div className="text-neutral-900 fs-15 fw-semibold">
-                            {Math.floor(post.averageReadTimeSeconds / 60)}dk
-                          </div>
-                          <div className="text-neutral-500 fs-11">
-                            Okuma Süresi
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
 
-            {/* Post Status and Settings */}
-            <div className="border-top border-neutral-200 pt-16">
-              <div className="d-flex align-items-center justify-content-between flex-wrap gap-12">
-                <div className="d-flex align-items-center gap-16">
-                  {post.isModerated && (
-                    <div className="d-flex align-items-center gap-6">
-                      <i className="ph ph-shield-check text-success-500 fs-14" />
-                      <span className="text-neutral-600 fs-12">
-                        Moderasyonlu
-                      </span>
+                {/* Content */}
+                {post.content && (
+                  <div className="mb-24 content-section">
+                    <div className="content-header mb-16">
+                      <h6 className="text-neutral-800 fs-14 fw-semibold mb-0 d-flex align-items-center gap-10">
+                        <div className="content-icon">
+                          <i className="ph ph-article fs-14" />
+                        </div>
+                        İçerik
+                      </h6>
+                    </div>
+
+                    <div className="content-card">
+                      <div
+                        className="post-content"
+                        dangerouslySetInnerHTML={{
+                          __html: showFullContent
+                            ? highlightHashtags(post.content)
+                            : highlightHashtags(
+                                stripHtmlTags(post.content).substring(0, 250) +
+                                  (stripHtmlTags(post.content).length > 250
+                                    ? "..."
+                                    : "")
+                              ),
+                        }}
+                        data-aos={showFullContent ? "fade-in" : ""}
+                        data-aos-duration="500"
+                      />
+
+                      {stripHtmlTags(post.content).length > 250 && (
+                        <div className="position-relative">
+                          {/* Gradient Fade Effect */}
+                          {!showFullContent && <div className="content-fade" />}
+
+                          <div className="text-center mt-16">
+                            <span
+                              className="text-main-600 fw-medium fs-14 cursor-pointer hover-text-main-700 transition-all d-inline-flex align-items-center gap-6"
+                              onClick={() =>
+                                setShowFullContent(!showFullContent)
+                              }
+                              data-aos="fade-up"
+                              data-aos-duration="300"
+                            >
+                              {showFullContent
+                                ? "Daha Az Göster"
+                                : "Devamını Oku"}
+                              <i
+                                className={`ph ${
+                                  showFullContent
+                                    ? "ph-caret-up"
+                                    : "ph-caret-down"
+                                } transition-all`}
+                              />
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Hashtags */}
+                {post.hashtags && (
+                  <div className="mb-24">
+                    <div className="d-flex flex-wrap gap-8">
+                      {post.hashtags.split(" ").map((hashtag, index) => (
+                        <span
+                          key={index}
+                          className="badge bg-main-50 text-main-700 px-12 py-6 rounded-pill fs-13 fw-medium hover-bg-main-100 cursor-pointer transition-all"
+                        >
+                          {hashtag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Call to Action */}
+                {post.callToAction && post.ctaUrl && (
+                  <div className="mb-24">
+                    <Button
+                      href={post.ctaUrl}
+                      variant="inline"
+                      size="xs"
+                      rightIcon="ph-arrow-right"
+                      className="shadow-sm"
+                    >
+                      {post.callToAction}
+                    </Button>
+                  </div>
+                )}
+
+                {/* Post Details Section */}
+                <div className="border-top border-neutral-200 pt-20">
+                  {/* Location and Tags */}
+                  {(post.locationName || post.tags || post.slug) && (
+                    <div className="mb-20 post-details-section">
+                      <div className="details-header mb-16">
+                        <h6 className="text-neutral-800 fs-14 fw-semibold mb-0 d-flex align-items-center gap-10">
+                          <div className="details-icon">
+                            <i className="ph ph-info fs-14" />
+                          </div>
+                          Gönderi Detayları
+                        </h6>
+                      </div>
+
+                      <div className="details-card">
+                        <div className="d-flex flex-column gap-4">
+                          {post.locationName && (
+                            <div className="detail-item">
+                              <div className="detail-icon location-icon">
+                                <i className="ph ph-map-pin fs-14" />
+                              </div>
+                              <div className="detail-text">
+                                {post.locationName}
+                              </div>
+                            </div>
+                          )}
+
+                          {post.tags && (
+                            <div className="detail-item">
+                              <div className="detail-icon tag-icon">
+                                <i className="ph ph-tag fs-14" />
+                              </div>
+                              <div className="detail-text">
+                                {post.tags.replace(/,/g, " • ")}
+                              </div>
+                            </div>
+                          )}
+
+                          {post.slug && (
+                            <div className="detail-item">
+                              <div className="detail-icon link-icon">
+                                <i className="ph ph-link fs-14" />
+                              </div>
+                              <div className="detail-text">{post.slug}</div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   )}
-                  {post.allowLikes && (
-                    <div className="d-flex align-items-center gap-6">
-                      <i className="ph ph-heart text-danger-500 fs-14" />
-                      <span className="text-neutral-600 fs-12">
-                        Beğeniler Açık
-                      </span>
+
+                  {/* Advanced Analytics */}
+                  {(post.reachCount ||
+                    post.impressionCount ||
+                    post.clickCount ||
+                    post.averageReadTimeSeconds) && (
+                    <div className="mb-20 analytics-section">
+                      <div className="analytics-header mb-16">
+                        <h6 className="text-neutral-800 fs-14 fw-semibold mb-0 d-flex align-items-center gap-10">
+                          <div className="analytics-icon">
+                            <i className="ph ph-chart-line-up fs-14" />
+                          </div>
+                          Performans Metrikleri
+                        </h6>
+                      </div>
+
+                      <div className="analytics-grid">
+                        {post.reachCount && (
+                          <div className="analytics-card reach-card">
+                            <div className="analytics-value">
+                              {formatEngagementCount(post.reachCount)}
+                            </div>
+                            <div className="analytics-label">Erişim</div>
+                          </div>
+                        )}
+
+                        {post.impressionCount && (
+                          <div className="analytics-card impression-card">
+                            <div className="analytics-value">
+                              {formatEngagementCount(post.impressionCount)}
+                            </div>
+                            <div className="analytics-label">Gösterim</div>
+                          </div>
+                        )}
+
+                        {post.clickCount && (
+                          <div className="analytics-card click-card">
+                            <div className="analytics-value">
+                              {formatEngagementCount(post.clickCount)}
+                            </div>
+                            <div className="analytics-label">Tıklama</div>
+                          </div>
+                        )}
+
+                        {post.averageReadTimeSeconds && (
+                          <div className="analytics-card read-time-card">
+                            <div className="analytics-value">
+                              {Math.floor(post.averageReadTimeSeconds / 60)}dk
+                            </div>
+                            <div className="analytics-label">Okuma Süresi</div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
-                </div>
 
-                <div className="text-neutral-400 fs-11">
-                  Oluşturulma: {formatDate(post.createdAt)}
+                  {/* Post Status and Settings */}
+                  <div className="border-top border-neutral-200 pt-20 pb-60 post-status-section">
+                    <div className="status-card">
+                      <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
+                        <div className="d-flex flex-column gap-4">
+                          {post.isModerated && (
+                            <div className="status-item">
+                              <div className="status-icon moderated-icon">
+                                <i className="ph ph-shield-check fs-14" />
+                              </div>
+                              <span className="status-text">
+                                Moderasyonlu İçerik
+                              </span>
+                            </div>
+                          )}
+
+                          {post.allowLikes && (
+                            <div className="status-item">
+                              <div className="status-icon likes-icon">
+                                <i className="ph ph-heart fs-14" />
+                              </div>
+                              <span className="status-text">
+                                Beğeniler Aktif
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="creation-date">
+                          <i className="ph ph-calendar fs-12" />
+                          <span>{formatDate(post.createdAt)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
