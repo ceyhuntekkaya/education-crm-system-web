@@ -5,13 +5,14 @@ import { Modal } from "@/components/ui";
 import { PostProvider, usePostContext } from "./context/post-context";
 // import { PostFilterForm } from "./sections";
 import { PostProps } from "./types/index";
+
 import {
-  PostHeader,
-  PostGrid,
+  PostDetail,
   PostEmptyState,
   PostFooter,
-  PostDetailModalContent,
-} from "./components/index";
+  PostGrid,
+  PostHeader,
+} from "./sections";
 
 const PostContent: React.FC = () => {
   const { isOpen, close, selectedPostId, postData } = usePostContext();
@@ -58,7 +59,7 @@ const PostContent: React.FC = () => {
         closeOnBackdropClick={true}
         scrollable={true}
       >
-        {selectedPostId && <PostDetailModalContent />}
+        {selectedPostId && <PostDetail />}
       </Modal>
     </div>
   );
