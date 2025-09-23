@@ -200,5 +200,8 @@ export const extractHashtags = (text: string): string[] => {
 
 export const highlightHashtags = (text: string): string => {
   const hashtagRegex = /#([\w\u00c0-\u024f\u1e00-\u1eff]+)/gi;
-  return text.replace(hashtagRegex, '<span class="hashtag">#$1</span>');
+  return text.replace(
+    hashtagRegex,
+    '<span class="hashtag" style="color: var(--main-600); font-weight: 500; cursor: pointer;">#$1</span>'
+  );
 };

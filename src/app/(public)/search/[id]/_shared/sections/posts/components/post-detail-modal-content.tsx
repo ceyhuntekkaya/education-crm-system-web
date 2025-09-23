@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Modal } from "@/components/ui";
 import { usePostContext } from "../context";
@@ -17,28 +17,99 @@ const PostDetailModalContent: React.FC = () => {
   const { selectedPostId, close } = usePostContext();
   const [showFullContent, setShowFullContent] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [newComment, setNewComment] = useState("");
+  const [currentMedia, setCurrentMedia] = useState<{
+    type: "image" | "video";
+    url: string;
+    thumbnailUrl?: string;
+    duration?: number;
+  } | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const post = postMockData.find((p) => p.id === selectedPostId);
 
+  // Initialize current media on component mount
+  useEffect(() => {
+    if (post) {
+      if (post.videoUrl) {
+        setCurrentMedia({
+          type: "video",
+          url: post.videoUrl,
+          thumbnailUrl: post.videoThumbnailUrl,
+          duration: post.videoDurationSeconds,
+        });
+      } else if (post.featuredImageUrl) {
+        setCurrentMedia({
+          type: "image",
+          url: post.featuredImageUrl,
+        });
+      }
+    }
+  }, [post]);
+
+  // Handle media switching
+  const handleMediaSwitch = (mediaItem: any) => {
+    if (mediaItem.type === "video") {
+      setCurrentMedia({
+        type: "video",
+        url: mediaItem.url,
+        thumbnailUrl: mediaItem.thumbnailUrl,
+        duration: mediaItem.duration,
+      });
+      setIsVideoPlaying(false);
+    } else if (mediaItem.type === "image") {
+      setCurrentMedia({
+        type: "image",
+        url: mediaItem.url,
+      });
+      setIsVideoPlaying(false);
+    }
+  };
+
+  // Handle video play
+  const handleVideoPlay = () => {
+    setIsVideoPlaying(true);
+  };
+
+  // Handle thumbnail clicks (switch back to original)
+  const handleOriginalImageClick = () => {
+    if (post?.featuredImageUrl) {
+      setCurrentMedia({
+        type: "image",
+        url: post.featuredImageUrl,
+      });
+      setIsVideoPlaying(false);
+    }
+  };
+
+  const handleOriginalVideoClick = () => {
+    if (post?.videoUrl) {
+      setCurrentMedia({
+        type: "video",
+        url: post.videoUrl,
+        thumbnailUrl: post.videoThumbnailUrl,
+        duration: post.videoDurationSeconds,
+      });
+      setIsVideoPlaying(false);
+    }
+  };
+
   if (!post) {
     return (
-      <Modal.Body className="p-24">
+      <Modal.Body className="p-40">
         <div className="text-center">
-          <div className="mb-16">
+          <div className="mb-24">
             <i
               className="ph ph-warning-circle text-warning-500"
-              style={{ fontSize: "64px" }}
+              style={{ fontSize: "48px" }}
             />
           </div>
-          <h3 className="text-neutral-900 fs-24 fw-bold mb-8">
+          <h3 className="text-neutral-900 fs-20 fw-semibold mb-8">
             Gönderi Bulunamadı
           </h3>
-          <p className="text-neutral-600 mb-24">
+          <p className="text-neutral-600 fs-14 mb-24">
             İstediğiniz gönderi mevcut değil veya kaldırılmış olabilir.
           </p>
-          <button onClick={close} className="btn btn-main">
+          <button onClick={close} className="btn btn-outline-main btn-sm">
             <i className="ph ph-arrow-left me-8" />
             Geri Dön
           </button>
@@ -53,145 +124,546 @@ const PostDetailModalContent: React.FC = () => {
 
   return (
     <>
-      <Modal.Header onClose={close} className="border-bottom">
+      {/* Minimal Header */}
+      <Modal.Header onClose={close} className="border-bottom px-24 py-20">
         <div className="d-flex align-items-center gap-12">
-          <div className="avatar avatar-md">
-            <i
-              className="ph ph-user-circle text-main-600"
-              style={{ fontSize: "40px" }}
+          <div className="avatar avatar-sm">
+            <Image
+              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+                post.author?.fullName || "User"
+              )}&background=6366f1&color=fff&size=32&rounded=true`}
+              alt={post.author?.fullName || "User"}
+              width={32}
+              height={32}
+              className="rounded-circle"
             />
           </div>
-          <div>
-            <h4 className="text-neutral-900 fw-semibold mb-4">
+          <div className="flex-1">
+            <h4 className="text-neutral-900 fw-medium fs-14 mb-2">
               {post.author?.fullName || "Anonim Kullanıcı"}
             </h4>
-            <p className="text-neutral-600 fs-14 mb-0">
-              {post.school?.name || "Okul Belirtilmemiş"}
-            </p>
+            <div className="d-flex align-items-center gap-8">
+              <span className="text-neutral-500 fs-12">
+                {post.school?.name || "Okul Belirtilmemiş"}
+              </span>
+              <span className="text-neutral-400">•</span>
+              <time className="text-neutral-500 fs-12">
+                {formatDate(post.publishedAt)}
+              </time>
+            </div>
+          </div>
+          {/* Post Type Badge */}
+          <div className="d-flex align-items-center gap-8">
+            <span className="badge bg-main-50 text-main-600 px-8 py-4 rounded-pill fs-12">
+              <i className={`${getPostTypeIcon(post.postType)} me-4`} />
+              {formatPostType(post.postType)}
+            </span>
           </div>
         </div>
       </Modal.Header>
 
+      {/* Minimal Body */}
       <Modal.Body className="p-0" scrollable={true}>
-        <div className="container-fluid h-100">
-          <div className="row h-100">
-            <div className="col-md-7 col-lg-8">
-              <div className="d-flex align-items-center justify-content-center h-100 bg-neutral-50">
-                {post.featuredImageUrl ? (
-                  <div className="position-relative w-100 h-100">
+        {/* Content Section */}
+        <div className="p-24">
+          {/* Video Section */}
+          {currentMedia && currentMedia.type === "video" && (
+            <div className="video-section mb-20">
+              <div
+                className="position-relative"
+                style={{ aspectRatio: "16/9", maxHeight: "200px" }}
+              >
+                {isVideoPlaying ? (
+                  <video
+                    src={currentMedia.url}
+                    controls
+                    autoPlay
+                    className="w-100 h-100 rounded-8"
+                    style={{ objectFit: "cover" }}
+                  />
+                ) : currentMedia.thumbnailUrl ? (
+                  <div
+                    className="position-relative w-100 h-100"
+                    onClick={handleVideoPlay}
+                  >
                     <Image
-                      src={post.featuredImageUrl}
-                      alt={post.title || ""}
+                      src={currentMedia.thumbnailUrl}
+                      alt="Video thumbnail"
                       fill
-                      style={{ objectFit: "contain" }}
-                      className="rounded-8"
+                      style={{ objectFit: "cover" }}
+                      className="rounded-8 cursor-pointer"
                     />
+                    <div className="position-absolute top-50 start-50 translate-middle">
+                      <div className="bg-dark bg-opacity-75 rounded-circle p-12 d-flex align-items-center justify-content-center">
+                        <i className="ph ph-play-fill text-white fs-20" />
+                      </div>
+                    </div>
+                    {currentMedia.duration && (
+                      <div className="position-absolute bottom-8 end-8 bg-dark bg-opacity-75 text-white px-8 py-4 rounded-4 fs-12">
+                        {Math.floor(currentMedia.duration / 60)}:
+                        {(currentMedia.duration % 60)
+                          .toString()
+                          .padStart(2, "0")}
+                      </div>
+                    )}
                   </div>
                 ) : (
-                  <div className="text-center">
-                    <i
-                      className="ph ph-image text-neutral-400 mb-16"
-                      style={{ fontSize: "64px" }}
-                    />
-                    <p className="text-neutral-600">Görsel bulunmuyor</p>
+                  <div
+                    className="bg-neutral-100 rounded-8 h-100 d-flex align-items-center justify-content-center cursor-pointer"
+                    onClick={handleVideoPlay}
+                  >
+                    <div className="text-center">
+                      <i className="ph ph-video text-neutral-400 fs-32 mb-8" />
+                      <p className="text-neutral-600 fs-12 mb-0">
+                        Video Mevcut
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
             </div>
-            <div className="col-md-5 col-lg-4">
-              <div className="h-100 d-flex flex-column">
-                <div className="flex-1 p-24" style={{ overflowY: "auto" }}>
-                  <div className="mb-20">
-                    <h2 className="text-neutral-900 fw-bold fs-20 lh-base mb-12">
-                      {post.title}
-                    </h2>
-                    {post.content && (
-                      <div className="post-content">
-                        <div
-                          className="text-neutral-700 lh-lg"
-                          dangerouslySetInnerHTML={{
-                            __html: showFullContent
-                              ? highlightHashtags(post.content)
-                              : highlightHashtags(
-                                  post.content.substring(0, 300) +
-                                    (post.content.length > 300 ? "..." : "")
-                                ),
-                          }}
+          )}
+          {/* Current Image Section */}
+          {currentMedia && currentMedia.type === "image" && (
+            <div className="featured-image position-relative mb-20">
+              <div style={{ aspectRatio: "3/2", maxHeight: "240px" }}>
+                <Image
+                  src={currentMedia.url}
+                  alt={post.title || ""}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  className="w-100 rounded-8"
+                />
+              </div>
+            </div>
+          )}
+          {/* Media Attachments */}
+          {mediaAttachments && mediaAttachments.length > 0 && (
+            <div className="media-attachments mb-20">
+              <h6 className="text-neutral-700 fw-medium fs-13 mb-12">
+                <i className="ph ph-images me-8" />
+                Ek Medya ({mediaAttachments.length})
+              </h6>
+              <div className="d-flex gap-8 flex-wrap">
+                {/* Original Featured Image Thumbnail */}
+                {post.featuredImageUrl && (
+                  <div
+                    className="media-thumbnail position-relative cursor-pointer"
+                    onClick={handleOriginalImageClick}
+                  >
+                    <div style={{ width: "60px", height: "60px" }}>
+                      <Image
+                        src={post.featuredImageUrl}
+                        alt="Ana görsel"
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="rounded-6"
+                      />
+                    </div>
+                    <div className="position-absolute bottom-2 end-2">
+                      <span
+                        className="badge bg-primary-500 text-white rounded-circle"
+                        style={{ fontSize: "8px", padding: "2px 4px" }}
+                      >
+                        <i className="ph ph-image-fill" />
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Original Video Thumbnail */}
+                {post.videoUrl && (
+                  <div
+                    className="media-thumbnail position-relative cursor-pointer"
+                    onClick={handleOriginalVideoClick}
+                  >
+                    <div style={{ width: "60px", height: "60px" }}>
+                      {post.videoThumbnailUrl ? (
+                        <Image
+                          src={post.videoThumbnailUrl}
+                          alt="Ana video"
+                          fill
+                          style={{ objectFit: "cover" }}
+                          className="rounded-6"
                         />
-                        {post.content.length > 300 && (
-                          <button
-                            className="btn btn-link btn-sm p-0 mt-8 text-main-600"
-                            onClick={() => setShowFullContent(!showFullContent)}
-                          >
-                            {showFullContent
-                              ? "daha az göster"
-                              : "devamını oku"}
-                          </button>
-                        )}
+                      ) : (
+                        <div className="bg-neutral-100 rounded-6 h-100 d-flex align-items-center justify-content-center">
+                          <i className="ph ph-video text-neutral-400 fs-16" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="position-absolute bottom-2 end-2">
+                      <span
+                        className="badge bg-danger-500 text-white rounded-circle"
+                        style={{ fontSize: "8px", padding: "2px 4px" }}
+                      >
+                        <i className="ph ph-play-fill" />
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Media Attachments */}
+                {mediaAttachments.map((media: any, index: number) => (
+                  <div
+                    key={index}
+                    className="media-thumbnail position-relative cursor-pointer"
+                    onClick={() => handleMediaSwitch(media)}
+                  >
+                    <div style={{ width: "60px", height: "60px" }}>
+                      {media.type === "image" ? (
+                        <Image
+                          src={media.url}
+                          alt={`Ek medya ${index + 1}`}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          className="rounded-6"
+                        />
+                      ) : media.type === "video" ? (
+                        media.thumbnailUrl ? (
+                          <Image
+                            src={media.thumbnailUrl}
+                            alt={`Video ${index + 1}`}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            className="rounded-6"
+                          />
+                        ) : (
+                          <div className="bg-neutral-100 rounded-6 h-100 d-flex align-items-center justify-content-center">
+                            <i className="ph ph-video text-neutral-400 fs-16" />
+                          </div>
+                        )
+                      ) : null}
+                    </div>
+                    <div className="position-absolute bottom-2 end-2">
+                      <span
+                        className={`badge ${
+                          media.type === "video"
+                            ? "bg-danger-500"
+                            : "bg-info-500"
+                        } text-white rounded-circle`}
+                        style={{ fontSize: "8px", padding: "2px 4px" }}
+                      >
+                        <i
+                          className={`ph ${
+                            media.type === "video"
+                              ? "ph-play-fill"
+                              : "ph-image-fill"
+                          }`}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Title */}
+          {post.title && (
+            <div className="mb-16">
+              <div className="d-flex align-items-start justify-content-between gap-12 mb-8">
+                <h1 className="text-neutral-900 fw-semibold fs-18 lh-sm flex-1">
+                  {post.title}
+                </h1>
+                <div className="d-flex align-items-center gap-8 flex-shrink-0">
+                  {post.isPinned && (
+                    <span className="badge bg-info-100 text-info-700 px-8 py-4 rounded-pill fs-11">
+                      <i className="ph ph-push-pin-fill me-4" />
+                      Sabitlendi
+                    </span>
+                  )}
+                  {post.isFeatured && (
+                    <span className="badge bg-warning-100 text-warning-700 px-8 py-4 rounded-pill fs-11">
+                      <i className="ph ph-star-fill me-4" />
+                      Öne Çıkan
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          {/* Content */}
+          {post.content && (
+            <div className="mb-20">
+              <div
+                className="text-neutral-700 fs-14 lh-lg"
+                dangerouslySetInnerHTML={{
+                  __html: showFullContent
+                    ? highlightHashtags(post.content)
+                    : highlightHashtags(
+                        stripHtmlTags(post.content).substring(0, 200) +
+                          (stripHtmlTags(post.content).length > 200
+                            ? "..."
+                            : "")
+                      ),
+                }}
+              />
+              {stripHtmlTags(post.content).length > 200 && (
+                <button
+                  className="btn btn-link btn-sm p-0 mt-8 text-main-600 fs-14"
+                  onClick={() => setShowFullContent(!showFullContent)}
+                >
+                  {showFullContent ? "daha az göster" : "devamını oku"}
+                </button>
+              )}
+            </div>
+          )}
+          {/* Hashtags */}
+          {post.hashtags && (
+            <div className="mb-20">
+              <div className="d-flex flex-wrap gap-8">
+                {post.hashtags.split(" ").map((hashtag, index) => (
+                  <span
+                    key={index}
+                    className="text-main-600 fs-13 hover-text-main-700 cursor-pointer"
+                  >
+                    {hashtag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Media Attachments */}
+          {mediaAttachments.length > 0 && (
+            <div className="media-attachments mb-20">
+              <div className="d-flex gap-8 overflow-auto">
+                {mediaAttachments.map((media: any, index: number) => (
+                  <div
+                    key={index}
+                    className="media-item flex-shrink-0"
+                    style={{ width: "80px", height: "80px" }}
+                  >
+                    <Image
+                      src={media.url}
+                      alt={`Ek ${index + 1}`}
+                      width={80}
+                      height={80}
+                      style={{ objectFit: "cover" }}
+                      className="rounded-6 border border-neutral-200 w-100 h-100"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Call to Action */}
+          {post.callToAction && post.ctaUrl && (
+            <div className="mb-20">
+              <a
+                href={post.ctaUrl}
+                className="btn btn-main btn-sm rounded-8 px-16 py-8 text-decoration-none"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="ph ph-arrow-right me-8" />
+                {post.callToAction}
+              </a>
+            </div>
+          )}
+
+          {/* Engagement Section */}
+          <div className="border-top border-neutral-200 mt-24">
+            {/* Engagement Stats */}
+            <div className="py-20">
+              <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
+                <div className="d-flex align-items-center gap-20">
+                  <button
+                    className={`btn btn-sm px-12 py-8 rounded-pill d-flex align-items-center gap-8 transition-all ${
+                      isLiked
+                        ? "bg-danger-500 text-white border-danger-500"
+                        : "bg-neutral-25 text-neutral-600 border border-neutral-200 hover-bg-danger-50 hover-border-danger-200 hover-text-danger-600"
+                    }`}
+                    onClick={() => setIsLiked(!isLiked)}
+                  >
+                    <i
+                      className={`ph ${
+                        isLiked ? "ph-heart-fill" : "ph-heart"
+                      } fs-15`}
+                    />
+                    <span className="fs-13 fw-medium">
+                      {formatEngagementCount(
+                        (post.likeCount || 0) + (isLiked ? 1 : 0)
+                      )}
+                    </span>
+                  </button>
+
+                  <div className="d-flex align-items-center gap-8">
+                    <i className="ph ph-chat-circle text-info-500 fs-18" />
+                    <span className="text-neutral-700 fs-15 fw-semibold">
+                      {formatEngagementCount(post.commentCount || 0)}
+                    </span>
+                  </div>
+
+                  <div className="d-flex align-items-center gap-8">
+                    <i className="ph ph-eye text-neutral-500 fs-18" />
+                    <span className="text-neutral-700 fs-15 fw-semibold">
+                      {formatViewCount(post.viewCount)}
+                    </span>
+                  </div>
+
+                  {(post.shareCount || 0) > 0 && (
+                    <div className="d-flex align-items-center gap-8">
+                      <i className="ph ph-share text-neutral-500 fs-18" />
+                      <span className="text-neutral-700 fs-15 fw-semibold">
+                        {formatEngagementCount(post.shareCount || 0)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {(post.engagementScore || 0) > 0 && (
+                  <div className="d-flex align-items-center gap-8">
+                    <i className="ph ph-chart-line text-success-500 fs-18" />
+                    <span className="text-success-600 fs-14 fw-medium">
+                      {post.engagementScore?.toFixed(1)} skor
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Post Details Section */}
+          <div className="border-top border-neutral-200 pt-20">
+            {/* Location and Tags */}
+            {(post.locationName || post.tags || post.slug) && (
+              <div className="mb-16">
+                <div className="d-flex align-items-center flex-wrap gap-16">
+                  {post.locationName && (
+                    <div className="d-flex align-items-center gap-6 text-neutral-600">
+                      <i className="ph ph-map-pin fs-14" />
+                      <span className="fs-13">{post.locationName}</span>
+                    </div>
+                  )}
+                  {post.tags && (
+                    <div className="d-flex align-items-center gap-6 text-neutral-600">
+                      <i className="ph ph-tag fs-14" />
+                      <span
+                        className="fs-13 text-truncate"
+                        style={{ maxWidth: "200px" }}
+                      >
+                        {post.tags.replace(/,/g, " • ")}
+                      </span>
+                    </div>
+                  )}
+                  {post.slug && (
+                    <div className="d-flex align-items-center gap-6 text-neutral-600">
+                      <i className="ph ph-link fs-14" />
+                      <span
+                        className="fs-13 text-truncate"
+                        style={{ maxWidth: "150px" }}
+                      >
+                        {post.slug}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Advanced Analytics */}
+            {(post.reachCount ||
+              post.impressionCount ||
+              post.clickCount ||
+              post.averageReadTimeSeconds) && (
+              <div className="mb-16">
+                <div className="d-flex align-items-center gap-8 mb-12">
+                  <div className="bg-main-50 p-6 rounded-6">
+                    <i className="ph ph-chart-line-up text-main-600 fs-14" />
+                  </div>
+                  <h6 className="text-neutral-700 fs-13 fw-semibold mb-0">
+                    Performans İstatistikleri
+                  </h6>
+                </div>
+
+                <div className="bg-neutral-25 border border-neutral-100 rounded-8 p-16">
+                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
+                    {post.reachCount && (
+                      <div className="d-flex align-items-center gap-10">
+                        <div className="bg-gradient-primary-soft p-8 rounded-6">
+                          <i className="ph ph-users text-main-600 fs-16" />
+                        </div>
+                        <div>
+                          <div className="text-neutral-900 fs-15 fw-semibold">
+                            {formatEngagementCount(post.reachCount)}
+                          </div>
+                          <div className="text-neutral-500 fs-11">Erişim</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {post.impressionCount && (
+                      <div className="d-flex align-items-center gap-10">
+                        <div className="bg-gradient-success-soft p-8 rounded-6">
+                          <i className="ph ph-eye text-success-600 fs-16" />
+                        </div>
+                        <div>
+                          <div className="text-neutral-900 fs-15 fw-semibold">
+                            {formatEngagementCount(post.impressionCount)}
+                          </div>
+                          <div className="text-neutral-500 fs-11">Gösterim</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {post.clickCount && (
+                      <div className="d-flex align-items-center gap-10">
+                        <div className="bg-gradient-warning-soft p-8 rounded-6">
+                          <i className="ph ph-cursor-click text-warning-600 fs-16" />
+                        </div>
+                        <div>
+                          <div className="text-neutral-900 fs-15 fw-semibold">
+                            {formatEngagementCount(post.clickCount)}
+                          </div>
+                          <div className="text-neutral-500 fs-11">Tıklama</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {post.averageReadTimeSeconds && (
+                      <div className="d-flex align-items-center gap-10">
+                        <div className="bg-gradient-info-soft p-8 rounded-6">
+                          <i className="ph ph-timer text-info-600 fs-16" />
+                        </div>
+                        <div>
+                          <div className="text-neutral-900 fs-15 fw-semibold">
+                            {Math.floor(post.averageReadTimeSeconds / 60)}dk
+                          </div>
+                          <div className="text-neutral-500 fs-11">
+                            Okuma Süresi
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
                 </div>
-                <div className="border-top bg-white">
-                  <div className="px-24 pt-16">
-                    <div className="d-flex align-items-center gap-24 mb-12">
-                      <span className="fw-semibold text-neutral-900">
-                        {formatEngagementCount(
-                          (post.likeCount || 0) + (isLiked ? 1 : 0)
-                        )}{" "}
-                        beğeni
-                      </span>
-                      <span className="text-neutral-600">
-                        {formatEngagementCount(post.commentCount || 0)} yorum
+              </div>
+            )}
+
+            {/* Post Status and Settings */}
+            <div className="border-top border-neutral-200 pt-16">
+              <div className="d-flex align-items-center justify-content-between flex-wrap gap-12">
+                <div className="d-flex align-items-center gap-16">
+                  {post.isModerated && (
+                    <div className="d-flex align-items-center gap-6">
+                      <i className="ph ph-shield-check text-success-500 fs-14" />
+                      <span className="text-neutral-600 fs-12">
+                        Moderasyonlu
                       </span>
                     </div>
-                  </div>
-                  <div className="px-24 pb-16">
-                    <div className="d-flex align-items-center justify-content-between">
-                      <div className="d-flex align-items-center gap-20">
-                        <button
-                          className={`btn btn-ghost btn-sm ${
-                            isLiked ? "text-danger" : "text-neutral-600"
-                          }`}
-                          onClick={() => setIsLiked(!isLiked)}
-                        >
-                          <i
-                            className={`ph ${
-                              isLiked ? "ph-heart-fill" : "ph-heart"
-                            }`}
-                            style={{ fontSize: "24px" }}
-                          />
-                        </button>
-                        <button className="btn btn-ghost btn-sm text-neutral-600">
-                          <i
-                            className="ph ph-chat-circle"
-                            style={{ fontSize: "24px" }}
-                          />
-                        </button>
-                        <button className="btn btn-ghost btn-sm text-neutral-600">
-                          <i
-                            className="ph ph-paper-plane-tilt"
-                            style={{ fontSize: "24px" }}
-                          />
-                        </button>
-                      </div>
-                      <button
-                        className={`btn btn-ghost btn-sm ${
-                          isBookmarked ? "text-main-600" : "text-neutral-600"
-                        }`}
-                        onClick={() => setIsBookmarked(!isBookmarked)}
-                      >
-                        <i
-                          className={`ph ${
-                            isBookmarked
-                              ? "ph-bookmark-simple-fill"
-                              : "ph-bookmark-simple"
-                          }`}
-                          style={{ fontSize: "24px" }}
-                        />
-                      </button>
+                  )}
+                  {post.allowLikes && (
+                    <div className="d-flex align-items-center gap-6">
+                      <i className="ph ph-heart text-danger-500 fs-14" />
+                      <span className="text-neutral-600 fs-12">
+                        Beğeniler Açık
+                      </span>
                     </div>
-                  </div>
+                  )}
+                </div>
+
+                <div className="text-neutral-400 fs-11">
+                  Oluşturulma: {formatDate(post.createdAt)}
                 </div>
               </div>
             </div>
