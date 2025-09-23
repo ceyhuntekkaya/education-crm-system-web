@@ -31,7 +31,7 @@ const PostCard: React.FC<PostCardProps> = ({ postId }) => {
 
   return (
     <div
-      className="border border-neutral-30 rounded-12 bg-white hover-shadow-md transition-all cursor-pointer h-100 d-flex flex-column"
+      className="post-card border border-neutral-30 rounded-12 bg-white cursor-pointer h-100 d-flex flex-column"
       onClick={handleCardClickEvent}
     >
       {/* Kart Başlığı */}

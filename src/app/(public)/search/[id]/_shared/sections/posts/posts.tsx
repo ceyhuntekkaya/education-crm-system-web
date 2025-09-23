@@ -3,7 +3,6 @@
 import React from "react";
 import { Modal } from "@/components/ui";
 import { PostProvider, usePostContext } from "./context/post-context";
-// import { PostFilterForm } from "./sections";
 import { PostProps } from "./types/index";
 
 import {
@@ -12,6 +11,7 @@ import {
   PostFooter,
   PostGrid,
   PostHeader,
+  PostFilterForm,
 } from "./sections";
 
 const PostContent: React.FC = () => {
@@ -19,12 +19,15 @@ const PostContent: React.FC = () => {
 
   return (
     <div className="tutor-details__content">
+      <PostFilterForm />
       {/* Ana Container - Diğer tablarla uyumlu */}
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
+      <div className="border border-neutral-30 rounded-12 bg-white p-8 ">
         <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
           {/* Başlık ve Açıklama */}
           <h4 className="mb-16">Sosyal Medya 📱</h4>
           <span className="d-block border border-neutral-30 my-20 border-dashed" />
+
+          {/* Filter Form */}
 
           {/* İçerik Alanı - Consistent padding */}
           <div className="bg-white rounded-8 p-20">

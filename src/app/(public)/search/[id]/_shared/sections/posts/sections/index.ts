@@ -8,4 +8,5 @@ export { default as PostHeader } from "./post-header";
 // Post Detail Section
 export * from "./post-detail";
 
-// export { default as PostFilterForm } from "./filter-form";
+// Post Filter Form
+export * from "./filter-form";
