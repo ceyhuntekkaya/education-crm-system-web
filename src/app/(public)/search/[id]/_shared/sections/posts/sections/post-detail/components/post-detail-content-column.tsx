@@ -1,4 +1,5 @@
 import React from "react";
+import { usePostContext } from "../../../context";
 import {
   PostDetailTitle,
   PostDetailEngagement,
@@ -10,41 +11,38 @@ import {
   PostDetailStatus,
 } from ".";
 
-interface PostDetailContentColumnProps {
-  post: any;
-}
+const PostDetailContentColumn: React.FC = () => {
+  const { selectedPost } = usePostContext();
 
-const PostDetailContentColumn: React.FC<PostDetailContentColumnProps> = ({
-  post,
-}) => {
+  if (!selectedPost) return null;
   return (
     <div className="post-detail-content-column h-100 overflow-y-auto">
       <div className="p-24">
         {/* Title */}
-        <PostDetailTitle post={post} />
+        <PostDetailTitle />
 
         {/* Engagement Section */}
-        <PostDetailEngagement post={post} />
+        <PostDetailEngagement />
 
         {/* Content */}
-        <PostDetailContent post={post} />
+        <PostDetailContent />
 
         {/* Hashtags */}
-        <PostDetailHashtags post={post} />
+        <PostDetailHashtags />
 
         {/* Call to Action */}
-        <PostDetailCallToAction post={post} />
+        <PostDetailCallToAction />
 
         {/* Post Details Section */}
         <div className="border-top border-neutral-200 pt-20">
           {/* Location and Tags */}
-          <PostDetailDetails post={post} />
+          <PostDetailDetails />
 
           {/* Advanced Analytics */}
-          <PostDetailAnalytics post={post} />
+          <PostDetailAnalytics />
 
           {/* Post Status and Settings */}
-          <PostDetailStatus post={post} />
+          <PostDetailStatus />
         </div>
       </div>
     </div>

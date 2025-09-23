@@ -1,14 +1,12 @@
 import React, { useState } from "react";
+import { usePostContext } from "../../../context";
 import { formatEngagementCount, formatViewCount } from "../../../utils";
 
-interface PostDetailEngagementProps {
-  post: any;
-}
-
-const PostDetailEngagement: React.FC<PostDetailEngagementProps> = ({
-  post,
-}) => {
+const PostDetailEngagement: React.FC = () => {
+  const { selectedPost } = usePostContext();
   const [isLiked, setIsLiked] = useState(false);
+
+  if (!selectedPost) return null;
 
   return (
     <div className="engagement-section mb-24">
@@ -31,7 +29,7 @@ const PostDetailEngagement: React.FC<PostDetailEngagementProps> = ({
               <i className={`ph ${isLiked ? "ph-heart" : "ph-heart"}`} />
               <span>
                 {formatEngagementCount(
-                  (post.likeCount || 0) + (isLiked ? 1 : 0)
+                  (selectedPost.likeCount || 0) + (isLiked ? 1 : 0)
                 )}
               </span>
             </button>
@@ -41,18 +39,18 @@ const PostDetailEngagement: React.FC<PostDetailEngagementProps> = ({
                 <i className="ph ph-eye fs-16" />
               </div>
               <span className="metric-value">
-                {formatViewCount(post.viewCount)}
+                {formatViewCount(selectedPost.viewCount)}
               </span>
             </div>
           </div>
 
-          {(post.engagementScore || 0) > 0 && (
+          {(selectedPost.engagementScore || 0) > 0 && (
             <div className="engagement-score-container">
               <div className="engagement-icon-circle engagement-score-icon">
                 <i className="ph ph-chart-line fs-16" />
               </div>
               <span className="score-value">
-                {post.engagementScore?.toFixed(1)} skor
+                {selectedPost.engagementScore?.toFixed(1)} skor
               </span>
             </div>
           )}

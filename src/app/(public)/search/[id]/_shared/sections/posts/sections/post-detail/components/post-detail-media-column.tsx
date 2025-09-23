@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { usePostContext } from "../../../context";
 import { PostDetailVideoPlayer, PostDetailMediaGallery } from ".";
 
-interface PostDetailMediaColumnProps {
-  post: any;
-}
+const PostDetailMediaColumn: React.FC = () => {
+  const { selectedPost } = usePostContext();
 
-const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
-  post,
-}) => {
   const [currentMedia, setCurrentMedia] = useState<{
     type: "image" | "video";
     url: string;
@@ -19,22 +16,24 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
 
   // Initialize current media on component mount
   useEffect(() => {
-    if (post) {
-      if (post.videoUrl) {
+    if (selectedPost) {
+      if (selectedPost.videoUrl) {
         setCurrentMedia({
           type: "video",
-          url: post.videoUrl,
-          thumbnailUrl: post.videoThumbnailUrl,
-          duration: post.videoDurationSeconds,
+          url: selectedPost.videoUrl,
+          thumbnailUrl: selectedPost.videoThumbnailUrl,
+          duration: selectedPost.videoDurationSeconds,
         });
-      } else if (post.featuredImageUrl) {
+      } else if (selectedPost.featuredImageUrl) {
         setCurrentMedia({
           type: "image",
-          url: post.featuredImageUrl,
+          url: selectedPost.featuredImageUrl,
         });
       }
     }
-  }, [post]);
+  }, [selectedPost]);
+
+  if (!selectedPost) return null;
 
   // Handle media switching
   const handleMediaSwitch = (mediaItem: any) => {
@@ -62,29 +61,29 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
 
   // Handle thumbnail clicks (switch back to original)
   const handleOriginalImageClick = () => {
-    if (post?.featuredImageUrl) {
+    if (selectedPost?.featuredImageUrl) {
       setCurrentMedia({
         type: "image",
-        url: post.featuredImageUrl,
+        url: selectedPost.featuredImageUrl,
       });
       setIsVideoPlaying(false);
     }
   };
 
   const handleOriginalVideoClick = () => {
-    if (post?.videoUrl) {
+    if (selectedPost?.videoUrl) {
       setCurrentMedia({
         type: "video",
-        url: post.videoUrl,
-        thumbnailUrl: post.videoThumbnailUrl,
-        duration: post.videoDurationSeconds,
+        url: selectedPost.videoUrl,
+        thumbnailUrl: selectedPost.videoThumbnailUrl,
+        duration: selectedPost.videoDurationSeconds,
       });
       setIsVideoPlaying(false);
     }
   };
 
-  const mediaAttachments = post.mediaAttachments
-    ? JSON.parse(post.mediaAttachments)
+  const mediaAttachments = selectedPost.mediaAttachments
+    ? JSON.parse(selectedPost.mediaAttachments)
     : [];
 
   return (
@@ -106,7 +105,7 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
             <div className="post-detail-image-container">
               <Image
                 src={currentMedia.url}
-                alt={post.title || ""}
+                alt={selectedPost.title || ""}
                 fill
                 className="w-100 rounded-8 post-detail-image"
               />
@@ -117,7 +116,7 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
 
       {/* Media Gallery Thumbnails */}
       <PostDetailMediaGallery
-        post={post}
+        post={selectedPost}
         mediaAttachments={mediaAttachments}
         onMediaSwitch={handleMediaSwitch}
         onOriginalImageClick={handleOriginalImageClick}

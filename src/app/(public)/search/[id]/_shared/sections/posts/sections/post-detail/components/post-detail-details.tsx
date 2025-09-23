@@ -1,11 +1,11 @@
 import React from "react";
+import { usePostContext } from "../../../context/post-context";
 
-interface PostDetailDetailsProps {
-  post: any;
-}
+const PostDetailDetails: React.FC = () => {
+  const { selectedPost } = usePostContext();
 
-const PostDetailDetails: React.FC<PostDetailDetailsProps> = ({ post }) => {
-  if (!post.locationName && !post.tags && !post.slug) return null;
+  if (!selectedPost?.locationName && !selectedPost?.tags && !selectedPost?.slug)
+    return null;
 
   return (
     <div className="mb-20 post-details-section">
@@ -20,32 +20,32 @@ const PostDetailDetails: React.FC<PostDetailDetailsProps> = ({ post }) => {
 
       <div className="details-card">
         <div className="d-flex flex-column gap-4">
-          {post.locationName && (
+          {selectedPost?.locationName && (
             <div className="detail-item">
               <div className="detail-icon location-icon">
                 <i className="ph ph-map-pin fs-14" />
               </div>
-              <div className="detail-text">{post.locationName}</div>
+              <div className="detail-text">{selectedPost.locationName}</div>
             </div>
           )}
 
-          {post.tags && (
+          {selectedPost?.tags && (
             <div className="detail-item">
               <div className="detail-icon tag-icon">
                 <i className="ph ph-tag fs-14" />
               </div>
               <div className="detail-text">
-                {post.tags.replace(/,/g, " • ")}
+                {selectedPost.tags.replace(/,/g, " • ")}
               </div>
             </div>
           )}
 
-          {post.slug && (
+          {selectedPost?.slug && (
             <div className="detail-item">
               <div className="detail-icon link-icon">
                 <i className="ph ph-link fs-14" />
               </div>
-              <div className="detail-text">{post.slug}</div>
+              <div className="detail-text">{selectedPost.slug}</div>
             </div>
           )}
         </div>

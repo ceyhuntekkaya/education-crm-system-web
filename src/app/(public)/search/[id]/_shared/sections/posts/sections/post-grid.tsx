@@ -4,7 +4,7 @@ import PostCard from "./post-card";
 import { PostSummaryDto } from "@/types/dto/content";
 
 const PostGrid: React.FC = () => {
-  const { postData, handleCardClick } = usePostContext();
+  const { postData } = usePostContext();
 
   return (
     <div className="posts-content-wrapper">
@@ -20,7 +20,7 @@ const PostGrid: React.FC = () => {
               animation: `fadeInUp 0.6s ease forwards`,
             }}
           >
-            <PostCard post={post} onCardClick={handleCardClick} />
+            <PostCard postId={post.id} />
           </div>
         ))}
       </div>

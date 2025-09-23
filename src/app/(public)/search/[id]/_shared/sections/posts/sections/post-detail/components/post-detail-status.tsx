@@ -1,17 +1,18 @@
 import React from "react";
 import { formatDate } from "../../../utils";
+import { usePostContext } from "../../../context/post-context";
 
-interface PostDetailStatusProps {
-  post: any;
-}
+const PostDetailStatus: React.FC = () => {
+  const { selectedPost } = usePostContext();
 
-const PostDetailStatus: React.FC<PostDetailStatusProps> = ({ post }) => {
+  if (!selectedPost) return null;
+
   return (
     <div className="border-top border-neutral-200 pt-20 pb-60 post-status-section">
       <div className="status-card">
         <div className="d-flex align-items-center justify-content-between flex-wrap gap-16">
           <div className="d-flex flex-column gap-4">
-            {post.isModerated && (
+            {selectedPost.isModerated && (
               <div className="status-item">
                 <div className="status-icon moderated-icon">
                   <i className="ph ph-shield-check fs-14" />
@@ -20,7 +21,7 @@ const PostDetailStatus: React.FC<PostDetailStatusProps> = ({ post }) => {
               </div>
             )}
 
-            {post.allowLikes && (
+            {selectedPost.allowLikes && (
               <div className="status-item">
                 <div className="status-icon likes-icon">
                   <i className="ph ph-heart fs-14" />
@@ -32,7 +33,7 @@ const PostDetailStatus: React.FC<PostDetailStatusProps> = ({ post }) => {
 
           <div className="creation-date">
             <i className="ph ph-calendar fs-12" />
-            <span>{formatDate(post.createdAt)}</span>
+            <span>{formatDate(selectedPost.createdAt)}</span>
           </div>
         </div>
       </div>

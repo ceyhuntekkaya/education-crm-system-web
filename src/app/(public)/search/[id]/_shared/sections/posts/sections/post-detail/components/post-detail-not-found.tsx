@@ -1,11 +1,10 @@
 import React from "react";
 import { Modal } from "@/components/ui";
+import { usePostContext } from "../../../context";
 
-interface PostDetailNotFoundProps {
-  onClose: () => void;
-}
+const PostDetailNotFound: React.FC = () => {
+  const { close } = usePostContext();
 
-const PostDetailNotFound: React.FC<PostDetailNotFoundProps> = ({ onClose }) => {
   return (
     <Modal.Body className="p-40">
       <div className="text-center">
@@ -21,7 +20,7 @@ const PostDetailNotFound: React.FC<PostDetailNotFoundProps> = ({ onClose }) => {
         <p className="text-neutral-600 fs-14 mb-24">
           İstediğiniz gönderi mevcut değil veya kaldırılmış olabilir.
         </p>
-        <button onClick={onClose} className="btn btn-outline-main btn-sm">
+        <button onClick={close} className="btn btn-outline-main btn-sm">
           <i className="ph ph-arrow-left me-8" />
           Geri Dön
         </button>

@@ -1,17 +1,13 @@
 import React from "react";
+import { PostSummaryDto } from "@/types/dto/content";
 import { formatEngagementCount, formatViewCount } from "../../../utils/index";
 
 interface PostCardStatsProps {
-  likeCount?: number;
-  commentCount?: number;
-  viewCount?: number;
+  post: PostSummaryDto;
 }
 
-const PostCardStats: React.FC<PostCardStatsProps> = ({
-  likeCount,
-  commentCount,
-  viewCount,
-}) => {
+const PostCardStats: React.FC<PostCardStatsProps> = ({ post }) => {
+  const { likeCount, commentCount, viewCount } = post;
   return (
     <div className="d-flex align-items-center gap-16">
       {(likeCount || 0) > 0 && (

@@ -1,16 +1,15 @@
 import React from "react";
 import { formatEngagementCount } from "../../../utils";
+import { usePostContext } from "../../../context/post-context";
 
-interface PostDetailAnalyticsProps {
-  post: any;
-}
+const PostDetailAnalytics: React.FC = () => {
+  const { selectedPost } = usePostContext();
 
-const PostDetailAnalytics: React.FC<PostDetailAnalyticsProps> = ({ post }) => {
   const hasAnalytics =
-    post.reachCount ||
-    post.impressionCount ||
-    post.clickCount ||
-    post.averageReadTimeSeconds;
+    selectedPost?.reachCount ||
+    selectedPost?.impressionCount ||
+    selectedPost?.clickCount ||
+    selectedPost?.averageReadTimeSeconds;
 
   if (!hasAnalytics) return null;
 
@@ -26,37 +25,37 @@ const PostDetailAnalytics: React.FC<PostDetailAnalyticsProps> = ({ post }) => {
       </div>
 
       <div className="analytics-grid">
-        {post.reachCount && (
+        {selectedPost?.reachCount && (
           <div className="analytics-card reach-card">
             <div className="analytics-value">
-              {formatEngagementCount(post.reachCount)}
+              {formatEngagementCount(selectedPost.reachCount)}
             </div>
             <div className="analytics-label">Erişim</div>
           </div>
         )}
 
-        {post.impressionCount && (
+        {selectedPost?.impressionCount && (
           <div className="analytics-card impression-card">
             <div className="analytics-value">
-              {formatEngagementCount(post.impressionCount)}
+              {formatEngagementCount(selectedPost.impressionCount)}
             </div>
             <div className="analytics-label">Gösterim</div>
           </div>
         )}
 
-        {post.clickCount && (
+        {selectedPost?.clickCount && (
           <div className="analytics-card click-card">
             <div className="analytics-value">
-              {formatEngagementCount(post.clickCount)}
+              {formatEngagementCount(selectedPost.clickCount)}
             </div>
             <div className="analytics-label">Tıklama</div>
           </div>
         )}
 
-        {post.averageReadTimeSeconds && (
+        {selectedPost?.averageReadTimeSeconds && (
           <div className="analytics-card read-time-card">
             <div className="analytics-value">
-              {Math.floor(post.averageReadTimeSeconds / 60)}dk
+              {Math.floor(selectedPost.averageReadTimeSeconds / 60)}dk
             </div>
             <div className="analytics-label">Okuma Süresi</div>
           </div>

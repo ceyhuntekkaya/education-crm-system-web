@@ -1,11 +1,14 @@
 import React from "react";
+import { PostSummaryDto } from "@/types/dto/content";
 import { truncateText } from "../../../utils/index";
 
 interface PostCardContentProps {
-  title?: string;
+  post: PostSummaryDto;
 }
 
-const PostCardContent: React.FC<PostCardContentProps> = ({ title }) => {
+const PostCardContent: React.FC<PostCardContentProps> = ({ post }) => {
+  const { title } = post;
+
   if (!title) return null;
 
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { PostSummaryDto } from "@/types/dto/content";
 import {
   formatDate,
   formatPostType,
@@ -7,18 +8,11 @@ import {
 } from "../../../utils/index";
 
 interface PostCardHeaderProps {
-  authorName?: string;
-  schoolName?: string;
-  publishedAt?: string;
-  postType?: string;
+  post: PostSummaryDto;
 }
 
-const PostCardHeader: React.FC<PostCardHeaderProps> = ({
-  authorName,
-  schoolName,
-  publishedAt,
-  postType,
-}) => {
+const PostCardHeader: React.FC<PostCardHeaderProps> = ({ post }) => {
+  const { authorName, schoolName, publishedAt, postType } = post;
   const getProfileImage = () => {
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(
       authorName || "User"

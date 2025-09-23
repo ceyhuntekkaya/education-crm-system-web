@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useModal } from "@/hooks";
 import { postSummaryMockData } from "../mock/postSummaryMockData";
+import { postMockData } from "../mock";
 import { PostSearchDto } from "@/types/dto/content";
 
 // Types
@@ -16,6 +17,12 @@ interface PostContextType {
   selectedPostId: number | null;
   setSelectedPostId: (id: number | null) => void;
   postData: typeof postSummaryMockData;
+  selectedPost: any | null;
+
+  // Utility function to get post by ID
+  getPostById: (
+    id: number | undefined
+  ) => (typeof postSummaryMockData)[0] | null;
 
   // Actions
   handleCardClick: (postId: number) => void;
@@ -36,13 +43,30 @@ const PostContext = createContext<PostContextType | undefined>(undefined);
 export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const { isOpen, open, close } = useModal();
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [selectedPost, setSelectedPost] = useState<any | null>(null);
 
   // Institution ID'ye göre filtreleme yapabiliriz (şimdilik tüm data'yı gösteriyoruz)
   const postData = postSummaryMockData; // Tüm postları göster
 
+  // Utility function to get post by ID
+  const getPostById = (id: number | undefined) => {
+    if (!id) return null;
+    return postData.find((post) => post.id === id) || null;
+  };
+
   const handleCardClick = (postId: number) => {
     setSelectedPostId(postId);
+    // Set selected post when card is clicked
+    const post = postMockData.find((p) => p.id === postId);
+    setSelectedPost(post || null);
     open();
+  };
+
+  // Custom close function that also clears selected post
+  const handleModalClose = () => {
+    setSelectedPost(null);
+    setSelectedPostId(null);
+    close();
   };
 
   const handleViewAllClick = () => {
@@ -60,12 +84,16 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     // Modal state
     isOpen,
     open,
-    close,
+    close: handleModalClose,
 
     // Post state
     selectedPostId,
     setSelectedPostId,
     postData,
+    selectedPost,
+
+    // Utility function
+    getPostById,
 
     // Actions
     handleCardClick,

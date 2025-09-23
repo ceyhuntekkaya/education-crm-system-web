@@ -1,19 +1,14 @@
 import React from "react";
 import Image from "next/image";
+import { PostSummaryDto } from "@/types/dto/content";
 
 interface PostCardMediaProps {
-  featuredImageUrl?: string;
-  title?: string;
-  isPinned?: boolean;
-  isFeatured?: boolean;
+  post: PostSummaryDto;
 }
 
-const PostCardMedia: React.FC<PostCardMediaProps> = ({
-  featuredImageUrl,
-  title,
-  isPinned,
-  isFeatured,
-}) => {
+const PostCardMedia: React.FC<PostCardMediaProps> = ({ post }) => {
+  const { featuredImageUrl, title, isPinned, isFeatured } = post;
+
   if (!featuredImageUrl) return null;
 
   return (
