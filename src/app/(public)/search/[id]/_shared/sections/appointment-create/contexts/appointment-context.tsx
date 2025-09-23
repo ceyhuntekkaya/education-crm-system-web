@@ -5,6 +5,7 @@ import React, {
   useContext,
   useCallback,
   ReactNode,
+  useMemo,
 } from "react";
 import { FormStep, AppointmentCreationResult } from "../types";
 import {
@@ -40,28 +41,46 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
     submission.resetSubmission();
   }, [formData, steps, submission, schoolId, isOnline]);
 
-  // Context value combining all hooks
-  const contextValue: AppointmentContextValue = {
-    // Basic state
-    schoolId,
-    isOnline,
+  // Memoize the context value to prevent unnecessary re-renders
+  const contextValue: AppointmentContextValue = useMemo(
+    () => ({
+      // Basic state
+      schoolId,
+      isOnline,
 
-    // Steps management
-    currentStep: steps.currentStep,
-    steps: steps.steps,
-    currentStepIndex: steps.currentStepIndex,
-    isFirstStep: steps.isFirstStep,
-    isLastStep: steps.isLastStep,
-    goToStep: steps.goToStep,
-    goToNextStep: steps.goToNextStep,
-    goToPreviousStep: steps.goToPreviousStep,
+      // Steps management
+      currentStep: steps.currentStep,
+      steps: steps.steps,
+      currentStepIndex: steps.currentStepIndex,
+      isFirstStep: steps.isFirstStep,
+      isLastStep: steps.isLastStep,
+      goToStep: steps.goToStep,
+      goToNextStep: steps.goToNextStep,
+      goToPreviousStep: steps.goToPreviousStep,
 
-    // Submission management
-    isSubmitting: submission.isSubmitting,
-    submissionResult: submission.submissionResult,
-    submitForm: submission.submitForm,
-    resetAppointment,
-  };
+      // Submission management
+      isSubmitting: submission.isSubmitting,
+      submissionResult: submission.submissionResult,
+      submitForm: submission.submitForm,
+      resetAppointment,
+    }),
+    [
+      schoolId,
+      isOnline,
+      steps.currentStep,
+      steps.steps,
+      steps.currentStepIndex,
+      steps.isFirstStep,
+      steps.isLastStep,
+      steps.goToStep,
+      steps.goToNextStep,
+      steps.goToPreviousStep,
+      submission.isSubmitting,
+      submission.submissionResult,
+      submission.submitForm,
+      resetAppointment,
+    ]
+  );
 
   return (
     <AppointmentContext.Provider value={contextValue}>

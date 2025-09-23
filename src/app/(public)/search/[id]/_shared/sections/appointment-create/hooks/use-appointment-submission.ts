@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useFormHook } from "@/hooks/use-form-hook";
 import { AppointmentCreateFormData, AppointmentCreationResult } from "../types";
 import {
@@ -71,13 +71,17 @@ export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
     setIsSubmitting(false);
   }, []);
 
-  return {
-    // State
-    isSubmitting,
-    submissionResult,
+  // Memoize the return object to prevent unnecessary re-renders
+  return useMemo(
+    () => ({
+      // State
+      isSubmitting,
+      submissionResult,
 
-    // Actions
-    submitForm,
-    resetSubmission,
-  };
+      // Actions
+      submitForm,
+      resetSubmission,
+    }),
+    [isSubmitting, submissionResult, submitForm, resetSubmission]
+  );
 };

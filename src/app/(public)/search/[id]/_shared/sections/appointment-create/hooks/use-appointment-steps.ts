@@ -60,18 +60,31 @@ export const useAppointmentSteps = (
     setCurrentStep(FormStep.APPOINTMENT_TYPE);
   }, []);
 
-  return {
-    // State
-    currentStep,
-    steps: CONTEXT_STEP_CONFIG,
-    currentStepIndex,
-    isFirstStep,
-    isLastStep,
+  // Memoize the return object to prevent unnecessary re-renders
+  return useMemo(
+    () => ({
+      // State
+      currentStep,
+      steps: CONTEXT_STEP_CONFIG,
+      currentStepIndex,
+      isFirstStep,
+      isLastStep,
 
-    // Actions
-    goToStep,
-    goToNextStep,
-    goToPreviousStep,
-    resetToFirstStep,
-  };
+      // Actions
+      goToStep,
+      goToNextStep,
+      goToPreviousStep,
+      resetToFirstStep,
+    }),
+    [
+      currentStep,
+      currentStepIndex,
+      isFirstStep,
+      isLastStep,
+      goToStep,
+      goToNextStep,
+      goToPreviousStep,
+      resetToFirstStep,
+    ]
+  );
 };
