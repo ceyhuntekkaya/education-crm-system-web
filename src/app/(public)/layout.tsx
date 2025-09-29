@@ -6,9 +6,11 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="public-layout d-flex flex-column min-vh-100">
       <Header />
-      {children}
+      <main className="main-content flex-fill">
+        {children}
+      </main>
       <Footer />
     </div>
   );
