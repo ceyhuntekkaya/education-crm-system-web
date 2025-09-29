@@ -8,7 +8,7 @@ export const initialValues: FormValues = {
   feeRange: [0.1, 1000000] as any,
   curriculumType: "",
   languageOfInstruction: "",
-  countryId: "",
+  countryId: "1",
   provinceId: "",
   districtId: "",
   neighborhoodId: "",

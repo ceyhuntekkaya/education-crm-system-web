@@ -12,7 +12,7 @@ export const LocationSection = () => {
     title: "Lokasyon",
     component: (
       <div className="d-flex flex-column gap-16">
-        <FormAutocomplete
+        {/* <FormAutocomplete
           key={`country-${values.countryId || "empty"}`}
           name="countryId"
           variant="inline"
@@ -20,7 +20,8 @@ export const LocationSection = () => {
           options={options.location.countries.data}
           noOptionsText="Ülke bulunamadı"
           isLoading={options.location.countries.loading}
-        />
+          disabled={true}
+        /> */}
         <FormAutocomplete
           key={`province-${values.countryId}-${values.provinceId || "empty"}`}
           name="provinceId"

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Form, Button } from "@/components";
+import { Form, Button, FormValues as FormDebug } from "@/components";
 import { Accordion, AccordionItem } from "@/components/ui";
 import { useAccordion, useFormHook } from "@/hooks";
 import { useSearchContext } from "../../contexts";
@@ -77,6 +77,7 @@ const FormContent = () => {
       className={`search-sidebar-filter sidebar rounded-12 bg-white p-32 box-shadow-md `}
       data-aos="fade-up"
     >
+      <FormDebug />
       <div>
         <div className="flex-between">
           <div className="flex-grow-1">
