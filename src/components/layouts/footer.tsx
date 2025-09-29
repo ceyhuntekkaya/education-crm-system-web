@@ -4,7 +4,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="footer bg-main-25 position-relative z-1">
-      <Image
+      {/* <Image
         src="/assets/images/shapes/shape2.png"
         alt=""
         width={50}
@@ -17,8 +17,8 @@ const Footer = () => {
         width={50}
         height={50}
         className="shape one animation-scalation"
-      />
-      <div className="py-120 ">
+      /> */}
+      {/* <div className="py-120 ">
         <div className="container container-two">
           <div className="row row-cols-xxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-5">
             <div className="col" data-aos="fade-up" data-aos-duration={300}>
@@ -249,30 +249,77 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="container">
         {/* bottom Footer */}
         <div className="bottom-footer bg-main-25 border-top border-dashed border-main-100 border-0 py-32">
           <div className="container container-two">
             <div className="bottom-footer__inner flex-between gap-3 flex-wrap">
-              <p className="bottom-footer__text">
-                {" "}
-                Copyright © 2025 <span className="fw-semibold">EduAll </span>
-                All Rights Reserved.
-              </p>
-              <div className="footer-links">
-                <Link
-                  href="#"
-                  className="text-neutral-500 hover-text-main-600 hover-text-decoration-underline"
-                >
-                  Privacy Policy
-                </Link>
-                <Link
-                  href="#"
-                  className="text-neutral-500 hover-text-main-600 hover-text-decoration-underline"
-                >
-                  Terms &amp; Conditions
-                </Link>
+              <div className="left-section">
+                <p className="bottom-footer__text mb-2">
+                  Copyright © 2025 <span className="fw-semibold">EduAll </span>
+                  All Rights Reserved.
+                </p>
+                {/* <div className="footer-links">
+                  <Link
+                    href="#"
+                    className="text-neutral-500 hover-text-main-600 hover-text-decoration-underline me-3"
+                  >
+                    Privacy Policy
+                  </Link>
+                  <Link
+                    href="#"
+                    className="text-neutral-500 hover-text-main-600 hover-text-decoration-underline"
+                  >
+                    Terms &amp; Conditions
+                  </Link>
+                </div> */}
+              </div>
+              <div className="right-section flex-align gap-24">
+                <div className="footer-logo">
+                  <Link href="/">
+                    <Image
+                      src="/assets/images/logo/logo.png"
+                      alt="Logo"
+                      width={100}
+                      height={32}
+                    />
+                  </Link>
+                </div>
+                <ul className="social-list flex-align gap-16">
+                  <li className="social-list__item">
+                    <Link
+                      href="https://www.facebook.com"
+                      className="text-main-600 text-xl hover-text-main-two-600"
+                    >
+                      <i className="ph-bold ph-facebook-logo" />
+                    </Link>
+                  </li>
+                  <li className="social-list__item">
+                    <Link
+                      href="https://www.twitter.com"
+                      className="text-main-600 text-xl hover-text-main-two-600"
+                    >
+                      <i className="ph-bold ph-twitter-logo" />
+                    </Link>
+                  </li>
+                  <li className="social-list__item">
+                    <Link
+                      href="https://www.instagram.com"
+                      className="text-main-600 text-xl hover-text-main-two-600"
+                    >
+                      <i className="ph-bold ph-instagram-logo" />
+                    </Link>
+                  </li>
+                  <li className="social-list__item">
+                    <Link
+                      href="https://www.linkedin.com"
+                      className="text-main-600 text-xl hover-text-main-two-600"
+                    >
+                      <i className="ph-bold ph-linkedin-logo" />
+                    </Link>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
