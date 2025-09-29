@@ -16,7 +16,9 @@ const HeaderContent = () => {
           <nav className="header-inner flex-between gap-8">
             <div className="header-content-wrapper flex-align flex-grow-1">
               {/* Logo Start */}
+
               <Logo />
+
               {/* Logo End  */}
 
               {/* Menu Start  */}
