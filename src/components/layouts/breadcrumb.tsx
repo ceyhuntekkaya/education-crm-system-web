@@ -63,10 +63,10 @@ const Breadcrumb = ({ title }: { title: string }) => {
                 <li className="breadcrumb__item">
                   <Link
                     href="/"
-                    className="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"
+                    className="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium d-flex align-items-center gap-4"
                   >
                     <i className="text-lg d-inline-flex ph-bold ph-house" />
-                    Home
+                    Ana Sayfa
                   </Link>
                 </li>
 
