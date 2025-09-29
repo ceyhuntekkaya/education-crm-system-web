@@ -18,17 +18,42 @@ export interface SaveModalData {
 export const SAVE_OPTIONS = [
   {
     value: "favorites" as const,
-    label: "Favorilere Ekle",
-    description: "Okulu favori listenize ekleyin",
+    label: "Favori Okullarım",
+    icon: "ph-heart",
   },
   {
     value: "shortlist" as const,
-    label: "Kısa Listeye Ekle",
-    description: "Karşılaştırma için kısa listeye ekleyin",
+    label: "Aday Okullarım",
+    icon: "ph-list-bullets",
   },
   {
     value: "watchlist" as const,
-    label: "Takip Listesi",
-    description: "Okulun güncellemelerini takip edin",
+    label: "Takip Ettiğim Okullar",
+    icon: "ph-eye",
+  },
+  {
+    value: "applied" as const,
+    label: "Başvurduğum Okullar",
+    icon: "ph-paper-plane-tilt",
+  },
+  {
+    value: "visited" as const,
+    label: "Gezdiğim Okullar",
+    icon: "ph-map-pin",
+  },
+  {
+    value: "recommended" as const,
+    label: "Önerilen Okullar",
+    icon: "ph-thumbs-up",
+  },
+  {
+    value: "compare" as const,
+    label: "Karşılaştırmak İstediğim",
+    icon: "ph-scales",
+  },
+  {
+    value: "backup" as const,
+    label: "Yedek Seçeneklerim",
+    icon: "ph-shield-check",
   },
 ] as const;
