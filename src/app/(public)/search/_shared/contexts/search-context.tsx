@@ -11,6 +11,7 @@ import {
   useInstitutionChanges,
   useSectionChanges,
   useSearch,
+  useUrlToFormSync,
 } from "../hooks";
 
 import { mockInstitutions } from "../mock";
@@ -48,6 +49,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   // Lokasyon bağımlılıklarını yönet
   useLocationDependencies(values, updateField);
+
+  // URL parametrelerini form değerleriyle senkronize et
+  useUrlToFormSync();
 
   // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
   const options = {
