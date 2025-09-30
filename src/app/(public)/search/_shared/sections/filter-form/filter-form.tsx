@@ -2,8 +2,9 @@
 import React from "react";
 import { Form, Button, FormValues as FormDebug } from "@/components";
 import { Accordion, AccordionItem } from "@/components/ui";
-import { useAccordion, useFormHook } from "@/hooks";
+import { useAccordion, useFormHook, useModal } from "@/hooks";
 import { useSearchContext } from "../../contexts";
+import { SaveFavoriteSearchModal } from "../../components/save-favorite-search-modal";
 import { FormValues } from "@/types";
 import { createApiParams, cleanApiParams } from "../../utils";
 import {
@@ -32,6 +33,31 @@ interface Section {
 const FormContent = () => {
   const { resetForm } = useFormHook();
   const { search, sectionChanges, institutionTypes } = useSearchContext();
+
+  // Favori Modal için
+  const FavoriteSearchButton = () => {
+    const saveModal = useModal();
+
+    return (
+      <>
+        <Button
+          onClick={saveModal.open}
+          variant="outline"
+          leftIcon="ph-heart"
+          fullWidth
+          size="xxs"
+          className="text-main-600 border-main-200 hover-bg-main-50"
+        >
+          Favori Arama Kaydet
+        </Button>
+
+        <SaveFavoriteSearchModal
+          isOpen={saveModal.isOpen}
+          onClose={saveModal.close}
+        />
+      </>
+    );
+  };
 
   // Accordion hook'unu başlat - istediğiniz bölümleri varsayılan olarak açık yapabilirsiniz
   const { isOpen, toggleItem } = useAccordion({
@@ -148,26 +174,34 @@ const FormContent = () => {
 
       {/* Sticky Footer Buttons */}
       <div className="search-sidebar-filter__sticky-footer">
-        <div className="d-flex flex-between gap-12">
-          <Button
-            type="reset"
-            variant="outline"
-            leftIcon="ph-arrow-clockwise"
-            fullWidth
-            onClick={() => resetForm()}
-            size="xxs"
-          >
-            {" "}
-          </Button>
-          <Button
-            type="submit"
-            variant="inline"
-            leftIcon="ph-magnifying-glass"
-            fullWidth
-            size="xxs"
-          >
-            Filtrele
-          </Button>
+        <div className="d-flex flex-column gap-12">
+          {/* Ana butonlar */}
+          <div className="d-flex flex-between gap-12">
+            <Button
+              type="reset"
+              variant="outline"
+              leftIcon="ph-arrow-clockwise"
+              fullWidth
+              onClick={() => resetForm()}
+              size="xxs"
+            >
+              {" "}
+            </Button>
+            <Button
+              type="submit"
+              variant="inline"
+              leftIcon="ph-magnifying-glass"
+              fullWidth
+              size="xxs"
+            >
+              Filtrele
+            </Button>
+          </div>
+
+          {/* Favori Kaydet Butonu */}
+          <div className="pt-8 border-top border-neutral-30">
+            <FavoriteSearchButton />
+          </div>
         </div>
       </div>
     </Form>
