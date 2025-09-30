@@ -362,6 +362,26 @@ export const useFavFilterSync = (): FavFilterSyncReturn => {
     }
   }, [searchParams, setValue]);
 
+  // Reset initialization when favId changes in URL
+  useEffect(() => {
+    const favId = searchParams?.get("favId");
+
+    // If favId changed, reset initialization to allow reprocessing
+    if (lastProcessedFavId.current !== favId) {
+      console.log(
+        `[useFavFilterSync] favId changed from ${lastProcessedFavId.current} to ${favId}`
+      );
+      hasInitialized.current = false;
+      lastProcessedFavId.current = null; // Reset to force reprocessing
+
+      // Clear any pending processing
+      if (processingTimeout.current) {
+        clearTimeout(processingTimeout.current);
+        processingTimeout.current = null;
+      }
+    }
+  }, [searchParams]);
+
   useEffect(() => {
     syncFavFilterToForm();
 
@@ -373,19 +393,6 @@ export const useFavFilterSync = (): FavFilterSyncReturn => {
       }
     };
   }, [syncFavFilterToForm]);
-
-  // Reset initialization when searchParams change (page refresh or navigation)
-  useEffect(() => {
-    const favId = searchParams?.get("favId");
-    if (lastProcessedFavId.current !== favId) {
-      hasInitialized.current = false;
-      // Clear any pending processing
-      if (processingTimeout.current) {
-        clearTimeout(processingTimeout.current);
-        processingTimeout.current = null;
-      }
-    }
-  }, [searchParams]);
 
   return {
     isInitialized: hasInitialized.current,

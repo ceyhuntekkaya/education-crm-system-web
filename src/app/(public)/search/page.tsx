@@ -6,6 +6,8 @@ import {
   useSearchContext,
 } from "./_shared";
 import { Breadcrumb } from "@/components";
+import { useSearchParams } from "next/navigation";
+import { useForm } from "@/contexts";
 
 const SearchPage = () => {
   const { institutions } = useSearchContext();
