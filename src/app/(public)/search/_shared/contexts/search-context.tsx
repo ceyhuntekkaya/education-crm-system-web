@@ -1,7 +1,8 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, Suspense } from "react";
 import { useFormHook } from "@/hooks";
+import { Loading } from "@/components";
 
 // Yeni modüler hooks'ları import et
 import {
@@ -11,6 +12,8 @@ import {
   useInstitutionChanges,
   useSectionChanges,
   useSearch,
+  useUrlToFormSync,
+  useFavFilterSync,
 } from "../hooks";
 
 import { mockInstitutions } from "../mock";
@@ -19,7 +22,8 @@ import { SearchContextValue, SearchProviderProps } from "../types";
 // Context'in varsayılan değeri
 const SearchContext = createContext<SearchContextValue | undefined>(undefined);
 
-export function SearchProvider({ children }: SearchProviderProps) {
+// Suspense boundary gerektiren hooks için ayrı component
+const SearchProviderContent = ({ children }: SearchProviderProps) => {
   // Form hook'tan sadece gerekli değerleri al
   const {
     values,
@@ -48,6 +52,12 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   // Lokasyon bağımlılıklarını yönet
   useLocationDependencies(values, updateField);
+
+  // URL parametrelerini form değerleriyle senkronize et (useSearchParams kullanır)
+  useUrlToFormSync();
+
+  // Favori filtre senkronizasyonu (useSearchParams kullanır)
+  useFavFilterSync();
 
   // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
   const options = {
@@ -88,6 +98,14 @@ export function SearchProvider({ children }: SearchProviderProps) {
     <SearchContext.Provider value={contextValue}>
       {children}
     </SearchContext.Provider>
+  );
+};
+
+export function SearchProvider({ children }: SearchProviderProps) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SearchProviderContent>{children}</SearchProviderContent>
+    </Suspense>
   );
 }
 

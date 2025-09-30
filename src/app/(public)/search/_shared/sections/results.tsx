@@ -1,15 +1,19 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useSearchContext } from "../contexts";
 import { InstitutionCard } from "./institution-card/institution-card";
+import { SchoolSearchResultDto } from "@/types/dto/institution/InstitutionSearch.types";
 
 const CARDS_PER_ROW = 3;
 const ANIMATION_DELAY_INCREMENT = 100;
 
-const Results = () => {
+interface ResultsProps {
+  institutions: SchoolSearchResultDto[];
+}
+
+const Results = ({ institutions }: ResultsProps) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const { institutions } = useSearchContext();
+
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
   // Helper functions
@@ -45,12 +49,12 @@ const Results = () => {
   };
 
   // Split institutions into rows
-  const rows: (typeof institutions)[] = [];
+  const rows: SchoolSearchResultDto[][] = [];
   for (let i = 0; i < institutions.length; i += CARDS_PER_ROW) {
     rows.push(institutions.slice(i, i + CARDS_PER_ROW));
   }
 
-  const renderRow = (row: typeof institutions, rowIdx: number) => {
+  const renderRow = (row: SchoolSearchResultDto[], rowIdx: number) => {
     // Handle expanded card row
     if (expandedCardId && rowIdx === expandedRowIndex) {
       const expandedCard = row.find(
@@ -88,7 +92,7 @@ const Results = () => {
   return (
     <div>
       <div className="row">
-        {rows.map((row: typeof institutions, rowIdx: number) =>
+        {rows.map((row: SchoolSearchResultDto[], rowIdx: number) =>
           renderRow(row, rowIdx)
         )}
       </div>

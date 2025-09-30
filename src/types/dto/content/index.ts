@@ -10,3 +10,6 @@ export * from "./GalleryItemCreateDto";
 export * from "./GalleryItemDto";
 export * from "./GalleryItemUpdateDto";
 export * from "./GallerySearchDto";
+export * from "./PostDto";
+export * from "./PostSummaryDto";
+export * from "./PostSearchDto";

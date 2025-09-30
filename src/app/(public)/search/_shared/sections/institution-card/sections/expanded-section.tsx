@@ -1,4 +1,4 @@
-import { Button, Icon } from "@/components";
+import { Icon } from "@/components";
 import { useInstitutionCardContext } from "../context";
 import {
   HeroImage,
@@ -15,7 +15,7 @@ export const ExpandedSection = () => {
   const { onCardClick } = useInstitutionCardContext();
 
   return (
-    <div className="content-fade-in position-relative">
+    <div className="content-fade-in position-relative p-16">
       {/* Close Button - Top Right */}
       <div className="position-absolute top-0 end-0 p-16 z-3">
         <Icon icon="ph-x" variant="inline" size="sm" onClick={onCardClick} />

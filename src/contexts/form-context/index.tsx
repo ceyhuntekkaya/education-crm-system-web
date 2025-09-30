@@ -61,12 +61,15 @@ export const FormProvider: React.FC<FormProviderProps> = ({
       }));
 
       // Hata varsa temizle
-      if (errors[name]) {
-        setErrors((prev) => ({
-          ...prev,
-          [name]: undefined,
-        }));
-      }
+      setErrors((prev) => {
+        if (prev[name]) {
+          return {
+            ...prev,
+            [name]: undefined,
+          };
+        }
+        return prev;
+      });
 
       // Önce Yup schema ile kontrol et
       if (validationSchema) {
@@ -91,7 +94,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         }
       }
     },
-    [errors, validationRules, validationSchema, validateFieldWithSchema]
+    [validationRules, validationSchema, validateFieldWithSchema]
   );
 
   // Hata güncelleme

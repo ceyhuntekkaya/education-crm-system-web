@@ -20,7 +20,11 @@ export const InstitutionCard = memo(
           institution={institution}
           onCardClick={onCardClick}
         >
-          <div className={className} ref={ref}>
+          <div
+            className={className}
+            ref={ref}
+            style={{ marginBottom: isExpanded ? "16px" : undefined }}
+          >
             <div
               className="bg-white rounded-16 p-16 h-100 box-shadow-md cursor-pointer card-expand-transition position-relative overflow-hidden d-flex flex-column"
               style={{ animationDelay, transitionDelay: animationDelay }}

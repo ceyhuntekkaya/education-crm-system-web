@@ -3,9 +3,9 @@ import React from "react";
 
 const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div>
+    <div className="auth-layout d-flex flex-column min-vh-100">
       <Header />
-      {children}
+      <main className="main-content flex-fill">{children}</main>
       <Footer />
     </div>
   );

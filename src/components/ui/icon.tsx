@@ -64,13 +64,13 @@ const Icon: React.FC<IconProps> = ({
   const getSizeClasses = (): string => {
     switch (size) {
       case "sm":
-        return "w-32 h-32 text-sm";
+        return "w-32-px h-32-px text-sm";
       case "md":
-        return "w-40 h-40 text-base";
+        return "w-40-px h-40-px text-base";
       case "lg":
-        return "w-48 h-48 text-lg";
+        return "w-48-px h-48-px text-lg";
       default:
-        return "w-40 h-40 text-base";
+        return "w-40-px h-40-px text-base";
     }
   };
 

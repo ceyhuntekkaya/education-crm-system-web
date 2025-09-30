@@ -44,27 +44,43 @@ const LoginFormContent: React.FC = () => {
       ) => Promise<AuthenticationResponse>
     )(loginRequest);
 
+    // ** dashboard yönlendirme işlemi role göre yapılacak
+    // if (res?.accessToken) {
+    //   const userRoles = res.user?.userRoles;
+    //   const role =
+    //     Array.isArray(userRoles) && userRoles.length > 0
+    //       ? userRoles[0]?.role
+    //       : undefined;
+    //   switch (role) {
+    //     case Role.ADMIN:
+    //       router.push(PATHS.PROTECTED.ADMIN.HOME);
+    //       break;
+    //     case Role.USER:
+    //       router.push(PATHS.PROTECTED.USER.HOME);
+    //       break;
+    //     case Role.CANDIDATE:
+    //       router.push(PATHS.PROTECTED.CANDIDATE.HOME);
+    //       break;
+    //     case Role.COMPANY:
+    //       router.push(PATHS.PROTECTED.COMPANY.HOME);
+    //       break;
+    //     default:
+    //       router.push(PATHS.PUBLIC.HOME);
+    //   }
+    // }
+
+    // Login başarılı ise önceki sayfaya yönlendir
     if (res?.accessToken) {
-      const userRoles = res.user?.userRoles;
-      const role =
-        Array.isArray(userRoles) && userRoles.length > 0
-          ? userRoles[0]?.role
-          : undefined;
-      switch (role) {
-        case Role.ADMIN:
-          router.push(PATHS.PROTECTED.ADMIN.HOME);
-          break;
-        case Role.USER:
-          router.push(PATHS.PROTECTED.USER.HOME);
-          break;
-        case Role.CANDIDATE:
-          router.push(PATHS.PROTECTED.CANDIDATE.HOME);
-          break;
-        case Role.COMPANY:
-          router.push(PATHS.PROTECTED.COMPANY.HOME);
-          break;
-        default:
-          router.push(PATHS.PUBLIC.HOME);
+      // URL parametrelerinden returnUrl'i al
+      const urlParams = new URLSearchParams(window.location.search);
+      const returnUrl = urlParams.get("returnUrl");
+
+      if (returnUrl && returnUrl !== "/auth/login") {
+        // ReturnUrl varsa ve login sayfası değilse oraya yönlendir
+        router.push(decodeURIComponent(returnUrl));
+      } else {
+        // ReturnUrl yoksa browser history'den bir önceki sayfaya git
+        router.back();
       }
     }
   };

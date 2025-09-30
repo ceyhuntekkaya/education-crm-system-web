@@ -1,0 +1,16 @@
+// Layout Styles (Public & Auth)
+.public-layout,
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .main-content {
+    flex: 1;
+  }
+
+  // Footer always at bottom
+  footer {
+    margin-top: auto;
+  }
+}

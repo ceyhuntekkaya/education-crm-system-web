@@ -3,7 +3,7 @@ import { createPropertyFilters } from "./create-property-filters";
 
 /**
  * Form değerlerini API search parametrelerine dönüştürür
- * 
+ *
  * @param values - Form değerleri
  * @param institutionTypes - Kurum türleri verisi
  * @returns API search parametreleri
@@ -17,9 +17,12 @@ export const createApiParams = (
 
   const apiParams: SchoolSearchDto = {
     searchTerm: values.searchTerm || "",
-    institutionTypeIds: Array.isArray(values.institutionTypeIds) && values.institutionTypeIds.length 
-      ? values.institutionTypeIds 
-      : undefined,
+    institutionTypeIds:
+      Array.isArray(values.institutionTypeIds) &&
+      values.institutionTypeIds.length
+        ? values.institutionTypeIds
+        : [values.institutionTypeId],
+    // institutionTypeId: values.institutionTypeId ? Number(values.institutionTypeId) : undefined,
     minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : 1,
     maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : 80,
     minFee: Array.isArray(values.feeRange) ? values.feeRange[0] : 0.1,
@@ -29,7 +32,9 @@ export const createApiParams = (
     countryId: values.countryId ? Number(values.countryId) : undefined,
     provinceId: values.provinceId ? Number(values.provinceId) : undefined,
     districtId: values.districtId ? Number(values.districtId) : undefined,
-    neighborhoodId: values.neighborhoodId ? Number(values.neighborhoodId) : undefined,
+    neighborhoodId: values.neighborhoodId
+      ? Number(values.neighborhoodId)
+      : undefined,
     latitude: values.latitude || undefined,
     longitude: values.longitude || undefined,
     radiusKm: values.radiusKm || undefined,

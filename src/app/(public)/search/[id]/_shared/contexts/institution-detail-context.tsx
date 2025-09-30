@@ -46,7 +46,7 @@ export function InstitutionDetailProvider({
     id ? API_ENDPOINTS.INSTITUTIONS.SCHOOL_DETAIL(id) : null
   );
 
-  console.log("institutionResponse", institutionResponse);
+  // console.log("institutionResponse", institutionResponse);
 
   const institutionDetail = institutionResponse?.data || null;
   const { school, campus, brand } = institutionDetail || {};
