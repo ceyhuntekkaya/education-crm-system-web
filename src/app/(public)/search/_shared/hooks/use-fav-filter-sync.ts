@@ -4,397 +4,247 @@ import { useForm } from "@/contexts";
 import { mockFavSearchParams } from "../mock/fav-search-filters";
 import type { FavFilterSyncReturn } from "../types/fav-filter-types";
 
-// Types
 interface InstitutionTypeConfig {
   typeId: string;
   hasMultiple: boolean;
   allIds?: number[];
 }
 
-// Helper functions
-const findInstitutionTypesWithSelectedProperties = (
+// Temiz helper fonksiyonlar
+const getInstitutionTypesFromProperties = (
   propertyFilters: any[]
 ): number[] => {
-  const institutionTypesWithSelectedProperties: number[] = [];
-
-  propertyFilters.forEach((propertyFilter) => {
-    if (
-      !propertyFilter.propertyGroupTypeDtos ||
-      !Array.isArray(propertyFilter.propertyGroupTypeDtos)
-    ) {
-      return;
-    }
-
-    const hasSelectedProperties = propertyFilter.propertyGroupTypeDtos.some(
-      (groupType: any) =>
-        groupType.propertyTypes &&
-        Array.isArray(groupType.propertyTypes) &&
-        groupType.propertyTypes.some(
-          (propertyType: any) => propertyType.isSelected === true
-        )
-    );
-
-    if (hasSelectedProperties) {
-      institutionTypesWithSelectedProperties.push(
-        propertyFilter.institutionTypeDto.id
-      );
-    }
-  });
-
-  return institutionTypesWithSelectedProperties;
+  return propertyFilters
+    .filter((filter) =>
+      filter.propertyGroupTypeDtos?.some((group: any) =>
+        group.propertyTypes?.some((prop: any) => prop.isSelected)
+      )
+    )
+    .map((filter) => filter.institutionTypeDto.id);
 };
 
 const determineInstitutionType = (
   favFilter: any
 ): InstitutionTypeConfig | null => {
-  let finalInstitutionTypeId: string | undefined;
-  let hasMultipleTypes = false;
-  let allIds: number[] | undefined;
+  // İlk önce property filters'dan kontrol et
+  const propertyBasedIds = favFilter.propertyFilters
+    ? getInstitutionTypesFromProperties(favFilter.propertyFilters)
+    : [];
 
-  // Check property filters first
-  if (favFilter.propertyFilters && Array.isArray(favFilter.propertyFilters)) {
-    const institutionTypesWithSelectedProperties =
-      findInstitutionTypesWithSelectedProperties(favFilter.propertyFilters);
-
-    if (institutionTypesWithSelectedProperties.length > 0) {
-      finalInstitutionTypeId =
-        institutionTypesWithSelectedProperties[0].toString();
-      hasMultipleTypes = institutionTypesWithSelectedProperties.length > 1;
-      allIds = institutionTypesWithSelectedProperties;
-      console.log(
-        `Institution type determined from selected properties: ${finalInstitutionTypeId}`
-      );
-    }
+  if (propertyBasedIds.length > 0) {
+    return {
+      typeId: propertyBasedIds[0].toString(),
+      hasMultiple: propertyBasedIds.length > 1,
+      allIds: propertyBasedIds,
+    };
   }
 
-  // Fall back to institutionTypeIds if not found in properties
-  if (!finalInstitutionTypeId && favFilter.institutionTypeIds != null) {
-    const institutionTypeIds = Array.isArray(favFilter.institutionTypeIds)
+  // Fallback: institutionTypeIds'den kontrol et
+  if (favFilter.institutionTypeIds != null) {
+    const ids = Array.isArray(favFilter.institutionTypeIds)
       ? favFilter.institutionTypeIds
       : [favFilter.institutionTypeIds];
 
-    if (institutionTypeIds.length > 0) {
-      finalInstitutionTypeId = institutionTypeIds[0].toString();
-      hasMultipleTypes = institutionTypeIds.length > 1;
-      allIds = institutionTypeIds;
-      console.log(
-        `Institution type determined from institutionTypeIds: ${finalInstitutionTypeId}`
-      );
+    if (ids.length > 0) {
+      return {
+        typeId: ids[0].toString(),
+        hasMultiple: ids.length > 1,
+        allIds: ids,
+      };
     }
   }
 
-  if (!finalInstitutionTypeId) {
-    return null;
-  }
+  return null;
+};
 
-  return {
-    typeId: finalInstitutionTypeId,
-    hasMultiple: hasMultipleTypes,
-    allIds,
-  };
+// Utility fonksiyonlar
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const isValidFavId = (favId: string): boolean => {
+  const id = Number(favId);
+  return !isNaN(id) && id >= 0;
+};
+
+const getFavFilter = (favId: string) => {
+  const id = Number(favId);
+  return mockFavSearchParams[id] || null;
 };
 
 /**
  * URL'den gelen favId parametresine göre favori filtreyi form değerleriyle senkronize eden hook
- * favId değiştiğinde veya sayfa yenilendiğinde otomatik olarak yeniden çalışır
- *
- * @example
- * // URL: /search?favId=0
- * // Bu durumda mockFavSearchParams[0] index'indeki favori filtre yüklenir
- *
- * // URL değiştiğinde: /search?favId=1
- * // Yeni favori filtre otomatik olarak yüklenir
- *
- * // Context içinde kullanım:
- * useFavFilterSync();
- *
- * @returns Hook'un initialize durumu
  */
 export const useFavFilterSync = (): FavFilterSyncReturn => {
   const searchParams = useSearchParams();
   const { setValue } = useForm();
-  const hasInitialized = useRef(false);
-  const lastProcessedFavId = useRef<string | null>(null);
-  const processingTimeout = useRef<NodeJS.Timeout | null>(null);
+  const isInitialized = useRef(false);
+  const lastFavId = useRef<string | null>(null);
 
-  const syncFavFilterToForm = useCallback(async () => {
-    // Clear any existing processing timeout
-    if (processingTimeout.current) {
-      clearTimeout(processingTimeout.current);
-      processingTimeout.current = null;
-    }
+  // Ana senkronizasyon fonksiyonu
+  const syncFilter = useCallback(async () => {
+    const favId = searchParams?.get("favId");
 
-    if (!searchParams) {
-      return;
-    }
-
-    const favId = searchParams.get("favId");
-
-    // If no favId, reset initialization state and return
-    if (!favId) {
-      hasInitialized.current = true;
-      lastProcessedFavId.current = null;
-      return;
-    }
-
-    // Check if we need to process this favId
-    const shouldProcess =
-      !hasInitialized.current || lastProcessedFavId.current !== favId;
-
-    if (!shouldProcess) {
-      return;
-    }
-
-    console.log(`Starting to process favId: ${favId}`);
-
-    // Wait for dynamic properties to load with longer timeout
-    await new Promise((resolve) => {
-      setTimeout(resolve, 500);
-    });
-
-    const favIdNumber = Number(favId);
-    if (Number.isNaN(favIdNumber) || favIdNumber < 0) {
-      hasInitialized.current = true;
-      lastProcessedFavId.current = favId;
-      return;
-    }
-
-    const favFilter = mockFavSearchParams[favIdNumber];
-
-    if (!favFilter) {
-      console.warn(`Favorite filter not found: favId = ${favIdNumber}`);
-      hasInitialized.current = true;
-      lastProcessedFavId.current = favId;
-      return;
-    }
-
-    console.log(`Loading favorite filter: favId = ${favIdNumber}`, favFilter);
-
-    // Update the last processed favId to track changes
-    lastProcessedFavId.current = favId;
-
-    const updatePromises: Promise<void>[] = [];
-
-    // Set basic search parameters
-    const {
-      searchTerm,
-      minAge,
-      maxAge,
-      minFee,
-      maxFee,
-      curriculumType,
-      languageOfInstruction,
-      countryId,
-      provinceId,
-      districtId,
-      minRating,
-    } = favFilter;
-
-    if (searchTerm) {
-      updatePromises.push(setValue("searchTerm", searchTerm));
-    }
-
-    if (minAge != null && maxAge != null) {
-      updatePromises.push(setValue("ageRange", [minAge, maxAge]));
-    }
-
-    if (minFee != null && maxFee != null) {
-      updatePromises.push(setValue("feeRange", [minFee, maxFee]));
-    }
-
-    if (curriculumType) {
-      updatePromises.push(setValue("curriculumType", curriculumType));
-    }
-
-    if (languageOfInstruction) {
-      updatePromises.push(
-        setValue("languageOfInstruction", languageOfInstruction)
-      );
-    }
-
-    if (countryId != null) {
-      updatePromises.push(setValue("countryId", countryId.toString()));
-    }
-
-    if (provinceId != null) {
-      updatePromises.push(setValue("provinceId", provinceId.toString()));
-    }
-
-    if (districtId != null) {
-      updatePromises.push(setValue("districtId", districtId.toString()));
-    }
-
-    if (minRating) {
-      updatePromises.push(setValue("minRating", minRating));
-    }
-
-    // Set institution type
-    const institutionTypeConfig = determineInstitutionType(favFilter);
-
-    if (institutionTypeConfig) {
-      const { typeId, hasMultiple, allIds } = institutionTypeConfig;
-
-      if (hasMultiple && allIds) {
-        updatePromises.push(
-          setValue(
-            "institutionTypeIds",
-            allIds.map((id: number) => id.toString())
-          )
-        );
-        updatePromises.push(setValue("institutionTypeId", ""));
-      } else {
-        updatePromises.push(setValue("institutionTypeId", typeId));
-        updatePromises.push(setValue("institutionTypeIds", ""));
+    // FavId yoksa veya zaten işlenmişse çık
+    if (!favId || lastFavId.current === favId) {
+      if (!favId) {
+        isInitialized.current = true;
+        lastFavId.current = null;
       }
+      return;
     }
 
-    // Process property filters - load selected properties to form
-    if (favFilter.propertyFilters && Array.isArray(favFilter.propertyFilters)) {
-      // First, clear all existing property selections to ensure clean state
-      favFilter.propertyFilters.forEach((propertyFilter: any) => {
-        if (
-          propertyFilter.propertyGroupTypeDtos &&
-          Array.isArray(propertyFilter.propertyGroupTypeDtos)
-        ) {
-          propertyFilter.propertyGroupTypeDtos.forEach((groupType: any) => {
+    // Geçersiz favId kontrolü
+    if (!isValidFavId(favId)) {
+      isInitialized.current = true;
+      lastFavId.current = favId;
+      return;
+    }
+
+    // Filter verisini al
+    const filter = getFavFilter(favId);
+    if (!filter) {
+      console.warn(`Favorite filter not found: ${favId}`);
+      isInitialized.current = true;
+      lastFavId.current = favId;
+      return;
+    }
+
+    console.log(`Loading favorite filter: ${favId}`);
+    lastFavId.current = favId;
+
+    try {
+      // Dinamik component'lerin yüklenmesi için bekle
+      await wait(300);
+
+      // Temel alanları ayarla
+      const basicUpdates: Promise<void>[] = [];
+
+      // String alanlar
+      if (filter.searchTerm)
+        basicUpdates.push(setValue("searchTerm", filter.searchTerm));
+      if (filter.curriculumType)
+        basicUpdates.push(setValue("curriculumType", filter.curriculumType));
+      if (filter.languageOfInstruction)
+        basicUpdates.push(
+          setValue("languageOfInstruction", filter.languageOfInstruction)
+        );
+      if (filter.sortBy) basicUpdates.push(setValue("sortBy", filter.sortBy));
+      if (filter.sortDirection)
+        basicUpdates.push(setValue("sortDirection", filter.sortDirection));
+
+      // Sayısal alanlar (string'e çevir)
+      if (filter.countryId != null)
+        basicUpdates.push(setValue("countryId", filter.countryId.toString()));
+      if (filter.provinceId != null)
+        basicUpdates.push(setValue("provinceId", filter.provinceId.toString()));
+      if (filter.districtId != null)
+        basicUpdates.push(setValue("districtId", filter.districtId.toString()));
+      if (filter.page != null)
+        basicUpdates.push(setValue("page", filter.page.toString()));
+      if (filter.size != null)
+        basicUpdates.push(setValue("size", filter.size.toString()));
+
+      // Range alanları
+      if (filter.minAge != null && filter.maxAge != null) {
+        basicUpdates.push(setValue("ageRange", [filter.minAge, filter.maxAge]));
+      }
+      if (filter.minFee != null && filter.maxFee != null) {
+        basicUpdates.push(setValue("feeRange", [filter.minFee, filter.maxFee]));
+      }
+      if (filter.minRating) {
+        basicUpdates.push(setValue("minRating", filter.minRating));
+      }
+
+      await Promise.all(basicUpdates);
+
+      // Institution type ayarla
+      const config = determineInstitutionType(filter);
+      if (config) {
+        const { typeId, hasMultiple, allIds } = config;
+
+        if (hasMultiple && allIds) {
+          await Promise.all([
+            setValue(
+              "institutionTypeIds",
+              allIds.map((id) => id.toString())
+            ),
+            setValue("institutionTypeId", ""),
+          ]);
+        } else {
+          await Promise.all([
+            setValue("institutionTypeId", typeId),
+            setValue("institutionTypeIds", ""),
+          ]);
+        }
+      }
+
+      // Property filters ayarla
+      if (filter.propertyFilters?.length) {
+        // Önce temizle
+        const clearUpdates: Promise<void>[] = [];
+        filter.propertyFilters.forEach((propertyFilter: any) => {
+          propertyFilter.propertyGroupTypeDtos?.forEach((groupType: any) => {
             const fieldName =
               groupType.displayName ||
               groupType.name ||
               `property_group_${groupType.id}`;
-            updatePromises.push(setValue(fieldName, []));
+            clearUpdates.push(setValue(fieldName, []));
           });
-        }
-      });
-
-      // Wait a bit for the clear operations to complete
-      await Promise.all(updatePromises);
-      updatePromises.length = 0;
-
-      // Then set the selected properties
-      favFilter.propertyFilters.forEach((propertyFilter: any) => {
-        if (
-          !propertyFilter.propertyGroupTypeDtos ||
-          !Array.isArray(propertyFilter.propertyGroupTypeDtos)
-        ) {
-          return;
-        }
-
-        propertyFilter.propertyGroupTypeDtos.forEach((groupType: any) => {
-          if (
-            !groupType.propertyTypes ||
-            !Array.isArray(groupType.propertyTypes)
-          ) {
-            return;
-          }
-
-          const selectedPropertyIds = groupType.propertyTypes
-            .filter((propertyType: any) => propertyType.isSelected === true)
-            .map((propertyType: any) => propertyType.id.toString());
-
-          const fieldName =
-            groupType.displayName ||
-            groupType.name ||
-            `property_group_${groupType.id}`;
-
-          console.log(
-            `Setting dynamic property field: ${fieldName}`,
-            selectedPropertyIds
-          );
-
-          // Set the selected properties with a small delay to ensure proper rendering
-          updatePromises.push(
-            new Promise<void>((resolve) => {
-              setTimeout(() => {
-                setValue(fieldName, selectedPropertyIds).then(resolve);
-              }, 50);
-            })
-          );
         });
-      });
-    }
+        await Promise.all(clearUpdates);
+        await wait(50);
 
-    // Set sorting parameters
-    const { sortBy, sortDirection, page, size } = favFilter;
+        // Seçili property'leri ayarla
+        const setUpdates: Promise<void>[] = [];
+        filter.propertyFilters.forEach((propertyFilter: any) => {
+          propertyFilter.propertyGroupTypeDtos?.forEach((groupType: any) => {
+            const selectedIds =
+              groupType.propertyTypes
+                ?.filter((prop: any) => prop.isSelected)
+                .map((prop: any) => prop.id.toString()) || [];
 
-    if (sortBy) {
-      updatePromises.push(setValue("sortBy", sortBy));
-    }
+            if (selectedIds.length > 0) {
+              const fieldName =
+                groupType.displayName ||
+                groupType.name ||
+                `property_group_${groupType.id}`;
+              setUpdates.push(setValue(fieldName, selectedIds));
+            }
+          });
+        });
+        await Promise.all(setUpdates);
+      }
 
-    if (sortDirection) {
-      updatePromises.push(setValue("sortDirection", sortDirection));
-    }
+      // Ek alanları ayarla
+      await Promise.all([
+        setValue("propertyFilters", ""),
+        setValue("favId", favId),
+        setValue("_forceUpdate", Date.now().toString()),
+      ]);
 
-    // Set pagination parameters
-    if (page != null) {
-      updatePromises.push(setValue("page", page.toString()));
-    }
-
-    if (size != null) {
-      updatePromises.push(setValue("size", size.toString()));
-    }
-
-    // Set additional form fields
-    updatePromises.push(
-      setValue("propertyFilters", ""),
-      setValue("favId", favId)
-    );
-
-    try {
-      await Promise.all(updatePromises);
-
-      // Force a final update to ensure all dynamic components re-render
-      await new Promise<void>((resolve) => {
-        setTimeout(() => {
-          // Trigger a final state update to force re-render of dynamic components
-          setValue("_forceUpdate", Date.now().toString())
-            .then(() => resolve())
-            .catch(() => resolve());
-        }, 100);
-      });
-
-      console.log(
-        `Favorite filter loaded successfully: favId = ${favIdNumber}`
-      );
+      console.log(`Favorite filter loaded successfully: ${favId}`);
     } catch (error) {
       console.error("Error loading favorite filter:", error);
     } finally {
-      hasInitialized.current = true;
+      isInitialized.current = true;
     }
   }, [searchParams, setValue]);
 
-  // Reset initialization when favId changes in URL
+  // FavId değişikliklerini izle
   useEffect(() => {
     const favId = searchParams?.get("favId");
 
-    // If favId changed, reset initialization to allow reprocessing
-    if (lastProcessedFavId.current !== favId) {
-      console.log(
-        `[useFavFilterSync] favId changed from ${lastProcessedFavId.current} to ${favId}`
-      );
-      hasInitialized.current = false;
-      lastProcessedFavId.current = null; // Reset to force reprocessing
-
-      // Clear any pending processing
-      if (processingTimeout.current) {
-        clearTimeout(processingTimeout.current);
-        processingTimeout.current = null;
-      }
+    if (lastFavId.current !== favId) {
+      isInitialized.current = false;
+      lastFavId.current = null;
     }
   }, [searchParams]);
 
+  // Senkronizasyonu başlat
   useEffect(() => {
-    syncFavFilterToForm();
-
-    // Cleanup function
-    return () => {
-      if (processingTimeout.current) {
-        clearTimeout(processingTimeout.current);
-        processingTimeout.current = null;
-      }
-    };
-  }, [syncFavFilterToForm]);
+    syncFilter();
+  }, [syncFilter]);
 
   return {
-    isInitialized: hasInitialized.current,
+    isInitialized: isInitialized.current,
   };
 };
