@@ -5,10 +5,11 @@ import {
   ActiveFilters,
   useSearchContext,
 } from "./_shared";
-import { Breadcrumb } from "@/components";
+import { Breadcrumb, Loading } from "@/components";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-const SearchPage = () => {
+const SearchPageContent = () => {
   const { institutions } = useSearchContext();
   const searchParams = useSearchParams();
   const favId = searchParams.get("favId");
@@ -57,6 +58,14 @@ const SearchPage = () => {
         </div>
       </section>
     </div>
+  );
+};
+
+const SearchPage = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SearchPageContent />
+    </Suspense>
   );
 };
 

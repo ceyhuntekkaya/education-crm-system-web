@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import {
   Modal,
   ModalHeader,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui";
 import { Form, FormInput } from "@/components/forms";
 import { FormProvider } from "@/contexts";
+import { Loading } from "@/components";
 import { FormValues } from "@/types";
 import { useFormHook } from "@/hooks";
 import { useSearchParams } from "next/navigation";
@@ -126,7 +127,9 @@ export const SaveFavoriteSearchModal: React.FC<
       <ModalHeader title="Favori Arama Kaydet" onClose={onClose} />
       <ModalBody scrollable={true}>
         <FormProvider initialValues={initialValues}>
-          <SaveFavoriteSearchModalContent onClose={onClose} />
+          <Suspense fallback={<Loading />}>
+            <SaveFavoriteSearchModalContent onClose={onClose} />
+          </Suspense>
         </FormProvider>
       </ModalBody>
     </Modal>

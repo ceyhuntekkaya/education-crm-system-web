@@ -10,9 +10,8 @@ import { createAppointmentColumns, ColumnHandlers } from "./config";
 import { AppointmentTableError } from "./sections/appointment-table-error";
 import { AppointmentDetail } from "./sections/appointment-detail";
 import { useModal } from "@/hooks";
-import { AppointmentTableProps } from "./types";
 
-const Appointments: React.FC<AppointmentTableProps> = () => {
+const Appointments: React.FC = () => {
   // Hook kullanarak verileri al - sabit değerlerle
   const { appointments, loading, error } = useAppointments({
     schoolId: 1, // Sabit okul ID
