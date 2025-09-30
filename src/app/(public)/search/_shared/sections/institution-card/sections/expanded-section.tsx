@@ -1,4 +1,4 @@
-import { Button, Icon } from "@/components";
+import { Icon } from "@/components";
 import { useInstitutionCardContext } from "../context";
 import {
   HeroImage,

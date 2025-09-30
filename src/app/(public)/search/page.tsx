@@ -1,8 +1,14 @@
 "use client";
-import { FilterForm, Results, ActiveFilters } from "./_shared";
+import {
+  FilterForm,
+  Results,
+  ActiveFilters,
+  useSearchContext,
+} from "./_shared";
 import { Breadcrumb } from "@/components";
 
 const SearchPage = () => {
+  const { institutions } = useSearchContext();
   return (
     <div>
       <Breadcrumb title={"Okulları Listele"} />
@@ -18,7 +24,7 @@ const SearchPage = () => {
             </div>
             <div className="col-lg-9">
               <ActiveFilters />
-              <Results />
+              <Results institutions={institutions} />
             </div>
           </div>
         </div>

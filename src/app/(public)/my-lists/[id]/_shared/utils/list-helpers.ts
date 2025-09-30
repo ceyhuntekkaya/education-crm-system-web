@@ -1,4 +1,9 @@
-import { listOptions, ListType } from "../mock/list-options";
+import {
+  listOptions,
+  ListType,
+  getMockListDataWithSpecificDistribution,
+  MockListInstitution,
+} from "../mock";
 
 // Yardımcı fonksiyonlar
 export const getListById = (id: number) => {
@@ -19,4 +24,23 @@ export const getAllListIds = () => {
 
 export const getAllListValues = () => {
   return listOptions.map((option) => option.value);
+};
+
+// Liste filtreleme fonksiyonu
+export const getInstitutionsByListId = (
+  listId: number
+): MockListInstitution[] => {
+  const mockData = getMockListDataWithSpecificDistribution();
+  return mockData.filter((institution) => institution.listTypeId === listId);
+};
+
+// URL'den ID'yi parse etme fonksiyonu
+export const parseListIdFromUrl = (id: string): number => {
+  const numId = parseInt(id, 10);
+  return isNaN(numId) ? 1 : numId; // Geçersiz ID durumunda default olarak 1 döner
+};
+
+// Liste var mı kontrol etme
+export const isValidListId = (id: number): boolean => {
+  return listOptions.some((option) => option.id === id);
 };

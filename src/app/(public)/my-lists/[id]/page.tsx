@@ -1,22 +1,49 @@
 "use client";
 
-export default function MyListPage({ params }: { params: { id: string } }) {
-  return (
-    <div>
-      <div className="mb-24">
-        <h3>Listem: {params.id}</h3>
-        <p className="text-neutral-600">Liste içeriği buraya gelecek</p>
-      </div>
-      {/* Grid içeriği buraya eklenecek */}
-      <div className="row">
-        <div className="col-12">
-          <div className="bg-white rounded-8 p-24 shadow-sm">
-            <p className="text-center text-neutral-500">
-              Liste içeriği buraya eklenecek
-            </p>
-          </div>
+import { Results } from "../../search/_shared";
+import {
+  getInstitutionsByListId,
+  parseListIdFromUrl,
+  isValidListId,
+} from "./_shared/utils";
+import { useParams } from "next/navigation";
+
+export default function MyListPage() {
+  const params = useParams();
+  const listId = parseListIdFromUrl(params?.id as string);
+
+  // Geçersiz ID kontrolü
+  if (!isValidListId(listId)) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            Geçersiz Liste ID&apos;si
+          </h2>
+          <p className="text-gray-600">Belirtilen liste bulunamadı.</p>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  // Liste ID'sine göre filtrelenmiş kurumları al
+  const filteredInstitutions = getInstitutionsByListId(listId);
+
+  // Boş liste durumunda bilgi mesajı (artık olmamalı ama yine de kontrol edelim)
+  if (filteredInstitutions.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            Bu listede henüz kurum yok
+          </h2>
+          <p className="text-gray-600">
+            Liste ID: {listId} için kurum bulunamadı.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return <Results institutions={filteredInstitutions} />;
 }
