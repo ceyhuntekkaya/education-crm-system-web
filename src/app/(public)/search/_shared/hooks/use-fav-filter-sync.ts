@@ -75,7 +75,7 @@ const getFavFilter = (favId: string) => {
  */
 export const useFavFilterSync = (): FavFilterSyncReturn => {
   const searchParams = useSearchParams();
-  const { setValue } = useForm();
+  const { setValue, reset } = useForm();
   const isInitialized = useRef(false);
   const lastFavId = useRef<string | null>(null);
 
@@ -102,7 +102,11 @@ export const useFavFilterSync = (): FavFilterSyncReturn => {
     // Filter verisini al
     const filter = getFavFilter(favId);
     if (!filter) {
-      console.warn(`Favorite filter not found: ${favId}`);
+      console.warn(`Favorite filter not found: ${favId} - Resetting form`);
+
+      // Eşleşen favori filtre yoksa formu resetle
+      reset();
+
       isInitialized.current = true;
       lastFavId.current = favId;
       return;
@@ -227,7 +231,7 @@ export const useFavFilterSync = (): FavFilterSyncReturn => {
     } finally {
       isInitialized.current = true;
     }
-  }, [searchParams, setValue]);
+  }, [searchParams, setValue, reset]);
 
   // FavId değişikliklerini izle
   useEffect(() => {
