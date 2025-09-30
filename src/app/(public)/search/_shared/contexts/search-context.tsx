@@ -12,6 +12,7 @@ import {
   useSectionChanges,
   useSearch,
   useUrlToFormSync,
+  useFavFilterSync,
 } from "../hooks";
 
 import { mockInstitutions } from "../mock";
@@ -52,6 +53,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   // URL parametrelerini form değerleriyle senkronize et
   useUrlToFormSync();
+
+  // Favori filtre senkronizasyonu
+  useFavFilterSync();
 
   // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
   const options = {
