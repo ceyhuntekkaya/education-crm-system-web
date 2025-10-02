@@ -7,6 +7,8 @@ import {
   InstitutionPricingInfo,
   InstitutionReviews,
   InstitutionCampusInfo,
+  InstitutionCampusDetail,
+  InstitutionBrandDetail,
   InstitutionStatistics,
   InstitutionLocationInfo,
   InstitutionSeoInfo,
@@ -40,12 +42,20 @@ export default function InstitutionDetailPage({
       content: <InstitutionGeneralInfo />,
     },
     {
+      id: "pills-brand",
+      icon: "ph-bold ph-bank",
+      title: "Kurum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+      label: "Kurum Bilgileri *",
+      content: <InstitutionBrandDetail />,
+    },
+    {
       id: "pills-campus",
       icon: "ph-bold ph-buildings",
-      title: "Kampüs & Okul Grubu *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "Kampüs & Okul Grubu *",
-      content: <InstitutionCampusInfo />,
+      title: "Kampüs Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+      label: "Kampüs Bilgileri *",
+      content: <InstitutionCampusDetail />,
     },
+
     {
       id: "pills-location",
       icon: "ph-bold ph-map-pin",

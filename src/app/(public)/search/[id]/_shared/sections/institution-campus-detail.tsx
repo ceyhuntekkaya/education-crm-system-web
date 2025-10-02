@@ -1,16 +1,28 @@
-import { useState } from "react";
 import Image from "next/image";
 import { useInstitutionDetail } from "../contexts";
 
-export default function InstitutionCampusInfo() {
-  const { school, campus, brand, renderStars } = useInstitutionDetail();
-  const [activeTab, setActiveTab] = useState("campus");
+export default function InstitutionCampusDetail() {
+  const { campus, renderStars } = useInstitutionDetail();
 
   const campusInfoItems = [
+    {
+      label: "Kampüs ID",
+      value: <span className="text-neutral-600 fw-medium">#{campus.id}</span>,
+      isShowing: campus.id && campus.id > 0,
+    },
     {
       label: "Kampüs Adı",
       value: <span className="text-main-600 fw-semibold">{campus.name}</span>,
       isShowing: campus.name && campus.name.trim() !== "",
+    },
+    {
+      label: "Kampüs Slug",
+      value: (
+        <span className="text-neutral-500 font-mono text-sm">
+          {campus.slug}
+        </span>
+      ),
+      isShowing: campus.slug && campus.slug.trim() !== "",
     },
     {
       label: "Açıklama",
@@ -159,60 +171,39 @@ export default function InstitutionCampusInfo() {
       isShowing:
         campus.ratingAverage && campus.ratingCount && campus.ratingCount > 0,
     },
-  ];
-
-  const brandInfoItems = [
     {
-      label: "Okul Grubu Adı",
-      value: <span className="text-main-600 fw-semibold">{brand.name}</span>,
-      isShowing: brand.name && brand.name.trim() !== "",
-    },
-    {
-      label: "Kuruluş Yılı",
-      value: brand.foundedYear,
-      isShowing: brand.foundedYear && brand.foundedYear > 0,
-    },
-    {
-      label: "Grup Açıklaması",
-      value: brand.description,
-      isShowing: brand.description && brand.description.trim() !== "",
-    },
-    {
-      label: "Grup İletişim",
+      label: "Kampüsteki Okul Sayısı",
       value: (
-        <div className="d-flex flex-column gap-8">
-          {brand.phone && (
-            <div className="d-flex align-items-center gap-8">
-              <i className="ph-bold ph-phone text-main-600"></i>
-              <span>{brand.phone}</span>
-            </div>
-          )}
-          {brand.email && (
-            <div className="d-flex align-items-center gap-8">
-              <i className="ph-bold ph-envelope text-main-600"></i>
-              <a href={`mailto:${brand.email}`} className="text-main-600">
-                {brand.email}
-              </a>
-            </div>
+        <div className="d-flex align-items-center gap-8">
+          <i className="ph-bold ph-buildings text-main-600"></i>
+          <span className="fw-semibold text-main-600">
+            {campus.schoolCount} okul
+          </span>
+        </div>
+      ),
+      isShowing: campus.schoolCount && campus.schoolCount > 0,
+    },
+    {
+      label: "Abonelik Durumu",
+      value: (
+        <div className="d-flex align-items-center gap-8">
+          {campus.isSubscribed ? (
+            <>
+              <i className="ph-bold ph-check-circle text-success-600"></i>
+              <span className="text-success-600 fw-semibold">Abone</span>
+              <span className="px-8 py-2 bg-success-50 text-success-700 rounded-4 text-xs fw-medium">
+                Premium Üye
+              </span>
+            </>
+          ) : (
+            <>
+              <i className="ph-bold ph-x-circle text-neutral-500"></i>
+              <span className="text-neutral-500">Abone Değil</span>
+            </>
           )}
         </div>
       ),
-      isShowing: brand.phone || brand.email,
-    },
-    {
-      label: "Ana Web Sitesi",
-      value: brand.websiteUrl ? (
-        <a
-          href={brand.websiteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-main-600 d-flex align-items-center gap-8 hover-text-main-800"
-        >
-          <i className="ph-bold ph-globe"></i>
-          {brand.websiteUrl}
-        </a>
-      ) : null,
-      isShowing: brand.websiteUrl && brand.websiteUrl.trim() !== "",
+      isShowing: typeof campus.isSubscribed === "boolean",
     },
   ];
 
@@ -220,83 +211,26 @@ export default function InstitutionCampusInfo() {
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
         <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          {/* Tab Navigation */}
-          <div className="d-flex mb-24">
-            <button
-              className={`px-24 py-12 rounded-8 fw-semibold me-8 ${
-                activeTab === "campus"
-                  ? "bg-main-600 text-white"
-                  : "bg-neutral-100 text-neutral-700 hover-bg-neutral-200"
-              }`}
-              onClick={() => setActiveTab("campus")}
-            >
-              <i className="ph ph-buildings me-8"></i>
-              Kampüs Bilgileri
-            </button>
-            <button
-              className={`px-24 py-12 rounded-8 fw-semibold ${
-                activeTab === "brand"
-                  ? "bg-main-600 text-white"
-                  : "bg-neutral-100 text-neutral-700 hover-bg-neutral-200"
-              }`}
-              onClick={() => setActiveTab("brand")}
-            >
-              <i className="ph ph-bank me-8"></i>
-              Okul Grubu
-            </button>
-          </div>
+          <h4 className="mb-16">Kampüs Bilgileri</h4>
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
 
-          {/* Campus Tab Content */}
-          {activeTab === "campus" && (
-            <>
-              <h4 className="mb-16">Kampüs Bilgileri</h4>
-              <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-              <ul className="tution-info-list bg-white rounded-8">
-                {campusInfoItems
-                  .filter((item) => item.isShowing)
-                  .map((item, index) => (
-                    <li
-                      key={index}
-                      className="d-flex align-items-start px-32 py-16"
-                    >
-                      <span className="w-50-percent fw-semibold text-neutral-700">
-                        {item.label}
-                      </span>
-                      <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                        {item.value}
-                      </span>
-                    </li>
-                  ))}
-              </ul>
-            </>
-          )}
-
-          {/* Brand Tab Content */}
-          {activeTab === "brand" && (
-            <>
-              <h4 className="mb-16">Okul Grubu Bilgileri</h4>
-              <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-              <ul className="tution-info-list bg-white rounded-8">
-                {brandInfoItems
-                  .filter((item) => item.isShowing)
-                  .map((item, index) => (
-                    <li
-                      key={index}
-                      className="d-flex align-items-start px-32 py-16"
-                    >
-                      <span className="w-50-percent fw-semibold text-neutral-700">
-                        {item.label}
-                      </span>
-                      <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                        {item.value}
-                      </span>
-                    </li>
-                  ))}
-              </ul>
-            </>
-          )}
+          <ul className="tution-info-list bg-white rounded-8">
+            {campusInfoItems
+              .filter((item) => item.isShowing)
+              .map((item, index) => (
+                <li
+                  key={index}
+                  className="d-flex align-items-start px-32 py-16"
+                >
+                  <span className="w-50-percent fw-semibold text-neutral-700">
+                    {item.label}
+                  </span>
+                  <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                    {item.value}
+                  </span>
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
     </div>

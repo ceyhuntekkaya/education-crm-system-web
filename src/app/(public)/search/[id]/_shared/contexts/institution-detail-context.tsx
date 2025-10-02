@@ -13,6 +13,7 @@ interface InstitutionDetailState {
   school: any;
   campus: any;
   brand: any;
+  pricings: any;
   loading: boolean;
   error: string | null;
   refetch: () => void;
@@ -50,13 +51,14 @@ export function InstitutionDetailProvider({
 
   const institutionDetail =
     schoolDetailMockData || institutionResponse?.data || null;
-  const { school, campus, brand } = institutionDetail || {};
+  const { school, campus, brand, pricings } = institutionDetail || {};
 
   const contextValue: InstitutionDetailState = {
     institutionDetail,
     school: school || institutionMockData?.school,
     campus: campus || institutionMockData?.campus,
     brand: brand || institutionMockData?.brand,
+    pricings: pricings || [],
     loading: institutionLoading,
     error: institutionError,
     refetch: refetchInstitution,
