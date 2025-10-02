@@ -331,7 +331,7 @@ export default function InstitutionStatistics() {
                 {school.propertyValues.map(
                   (property: InstitutionPropertyValueDto, index: number) => (
                     <div key={index} className="col-md-6">
-                      <div className="d-flex align-items-center gap-12 bg-white rounded-8 p-16 border border-neutral-50">
+                      <div className="d-flex align-items-center gap-12 bg-white rounded-8 p-16 border border-neutral-50 mb-12">
                         <div className="w-40-px h-40-px bg-success-50 rounded-circle flex-center">
                           <i className="ph-bold ph-check text-success-600"></i>
                         </div>

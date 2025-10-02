@@ -78,6 +78,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
             label="İsim"
             placeholder="İsminizi girin..."
             variant="outline"
+            fullWidth
           />
 
           <FormInput
@@ -86,6 +87,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
             label="Email"
             placeholder="Email adresinizi girin..."
             variant="outline"
+            fullWidth
           />
 
           <FormInput
@@ -94,6 +96,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
             label="Telefon"
             placeholder="Telefon numaranızı girin..."
             variant="outline"
+            fullWidth
           />
 
           <FormTextarea
