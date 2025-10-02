@@ -5,7 +5,7 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, SchoolDetailDto } from "@/types";
 import { formatCurrency, renderStars } from "../utils";
-import { institutionMockData } from "../mock";
+import { institutionMockData, schoolDetailMockData } from "../mock";
 
 // Context State Interface
 interface InstitutionDetailState {
@@ -48,7 +48,8 @@ export function InstitutionDetailProvider({
 
   // console.log("institutionResponse", institutionResponse);
 
-  const institutionDetail = institutionResponse?.data || null;
+  const institutionDetail =
+    schoolDetailMockData || institutionResponse?.data || null;
   const { school, campus, brand } = institutionDetail || {};
 
   const contextValue: InstitutionDetailState = {
