@@ -6,6 +6,35 @@
     }
 }
 
+// Tab container için beyaz çizgi sorununu giderme
+.common-tab {
+    // Bootstrap ve diğer CSS çatışmalarını engelle
+    box-sizing: border-box !important;
+    
+    // Gereksiz border ve outline'ları kaldır
+    * {
+        outline: none !important;
+        box-shadow: none !important;
+        
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        &:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+    
+    // Scrollbar alanını temizle
+    &::before,
+    &::after {
+        display: none !important;
+        content: none !important;
+    }
+}
+
 .common-tab {
     border-radius: 24px;
     min-height: fit-content;
@@ -32,8 +61,26 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            border: 1px solid transparent;
+            border: 1px solid transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
             transition: all 0.3s ease;
+            
+            // Beyaz çizgi problemini tamamen gider
+            &::before,
+            &::after {
+                display: none !important;
+                content: none !important;
+            }
+            
+            // Focus ve active state'lerde de beyaz çizgi olmasin
+            &:focus,
+            &:active,
+            &:focus-visible {
+                outline: none !important;
+                box-shadow: none !important;
+                border-color: transparent !important;
+            }
             
             @include xl-screen {
                 padding: 10px 14px !important; 
@@ -78,18 +125,31 @@
                 color: hsl(var(--white)) !important; 
                 border-color: hsl(var(--main)) !important;
                 background-color: hsl(var(--main)) !important;
-                box-shadow: 0 2px 8px hsla(var(--main) / 0.2);
+                box-shadow: 0 2px 8px hsla(var(--main) / 0.2) !important;
+                outline: none !important;
+                
+                // Aktif tab'da da beyaz çizgi olmasın
+                &::before,
+                &::after {
+                    display: none !important;
+                    content: none !important;
+                }
                 
                 i {
                     color: hsl(var(--white)) !important; 
                 }
             }
             
-            &:hover {
-                color: hsl(var(--main));
-                border-color: hsl(var(--main-200));
-                background-color: hsl(var(--main-50));
+            &:hover:not(.active) {
+                color: hsl(var(--main)) !important;
+                // border-color: hsla(var(--main-300) / 0.2) !important;
+                // background-color: hsl(var(--main-100)) !important;
                 transform: translateY(-1px);
+                box-shadow: 0 2px 4px hsla(var(--main) / 0.1) !important;
+                
+                i {
+                    color: hsl(var(--main)) !important;
+                }
             }
             
             &:focus {
@@ -115,5 +175,112 @@
             }
         }
     }
+    
+    // Icon-only horizontal scroll styles - Zarif tasarım
+    &.overflow-x-auto {
+        // Modern scrollbar - initially hidden
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        // Smooth scroll behavior
+        scroll-behavior: smooth;
+        position: relative;
+        
+        // Drag scroll cursor states
+        &.scrollable {
+            cursor: grab;
+            
+            &:active {
+                cursor: grabbing;
+            }
+        }
+        
+        // Smooth transitions for drag scroll
+        transition: scroll-behavior 0.1s ease;
+        
+
+        
+        // Hover için minimal scrollbar - sadece gerektiğinde görünür
+        &:hover {
+            scrollbar-width: thin;
+            
+            &::-webkit-scrollbar {
+                display: block;
+                height: 2px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background: transparent;
+                border-radius: 0;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: hsl(var(--main-300));
+                border-radius: 1px;
+                
+                &:hover {
+                    background: hsl(var(--main-400));
+                }
+            }
+        }
+    }
 }
+
+// Tab Button Animations - Icon-only mode
+.tab-button-animate {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+    
+    // Icon animasyonu
+    .tab-icon {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+    }
+    
+    // Text animasyonu
+    .tab-text-animate {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: left center;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    
+    // Icon-only state (inactive)
+    &.tab-icon-only {
+        .tab-text-animate {
+            opacity: 0;
+            max-width: 0;
+            margin-left: 0;
+            transform: translateX(-8px) scaleX(0.8);
+        }
+    }
+    
+    // Full state (active)
+    &.tab-full {
+        .tab-text-animate {
+            opacity: 1;
+            max-width: 200px;
+            margin-left: 8px;
+            transform: translateX(0) scaleX(1);
+        }
+    }
+    
+    // Hover effect for icon-only tabs
+    &.tab-icon-only:hover:not(.active) {
+        .tab-text-animate {
+            opacity: 0.7;
+            max-width: 150px;
+            margin-left: 6px;
+            transform: translateX(0) scaleX(0.95);
+        }
+    }
+}
+
+
+
 /* ================================= Tab Css End =========================== */

@@ -142,7 +142,7 @@ export default function InstitutionDetailPage({
           <div className="col-lg-8">
             {/* Tab Navigation */}
             <div className="border border-neutral-30 rounded-12 bg-white p-8">
-              <TabNavigation tabs={tabItems} />
+              <TabNavigation tabs={tabItems} iconOnly />
             </div>
 
             {/* Tab Content */}
