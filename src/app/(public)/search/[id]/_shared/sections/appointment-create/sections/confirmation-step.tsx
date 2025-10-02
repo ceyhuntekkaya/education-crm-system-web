@@ -1,10 +1,7 @@
 import React from "react";
 import { FormCheckbox } from "@/components/forms";
 import { useFormHook } from "@/hooks/use-form-hook";
-import {
-  mockAvailableSlots,
-  appointmentTypeOptions,
-} from "../mock/appointment-create-mock";
+import { mockAvailableSlots, appointmentTypeOptions } from "../mock";
 import { ConfirmationStepProps } from "../types";
 import { AvailableSlotDto } from "@/types";
 
