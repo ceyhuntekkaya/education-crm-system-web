@@ -1,0 +1,99 @@
+"use client";
+
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
+import { MessageDto } from "@/types/dto/content/MessageDto";
+import {
+  useMessages,
+  useMessageHandlers,
+  useMessageStatistics,
+} from "@/app/(public)/messages/hooks";
+import { useModal } from "@/hooks";
+import { MessageContextType, MessageFilters } from "./types";
+
+const MessageContext = createContext<MessageContextType | undefined>(undefined);
+
+interface MessageProviderProps {
+  children: ReactNode;
+  initialFilters?: MessageFilters;
+}
+
+export const MessageProvider: React.FC<MessageProviderProps> = ({
+  children,
+  initialFilters = { limit: 50 },
+}) => {
+  // State management
+  const [filters, setFilters] = useState<MessageFilters>(initialFilters);
+  const [selectedMessage, setSelectedMessage] = useState<MessageDto | null>(
+    null
+  );
+
+  // Modal hook
+  const detailModal = useModal();
+
+  // Data hooks
+  const { messages, loading, error, refetch } = useMessages(filters);
+  const { stats, statsData } = useMessageStatistics(messages);
+  const handlers = useMessageHandlers({ setSelectedMessage, detailModal });
+
+  // Actions
+  const refreshMessages = useCallback(() => {
+    refetch();
+  }, [refetch]);
+
+  const handleSetFilters = useCallback((newFilters: MessageFilters) => {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+  }, []);
+
+  const handleSetSelectedMessage = useCallback((message: MessageDto | null) => {
+    setSelectedMessage(message);
+  }, []);
+
+  const contextValue: MessageContextType = {
+    // Data
+    messages,
+    loading,
+    error,
+
+    // Selected message
+    selectedMessage,
+    setSelectedMessage: handleSetSelectedMessage,
+
+    // Modal
+    detailModal,
+
+    // Statistics
+    stats,
+    statsData,
+
+    // Handlers
+    handlers,
+
+    // Filters
+    filters,
+    setFilters: handleSetFilters,
+
+    // Actions
+    refreshMessages,
+  };
+
+  return (
+    <MessageContext.Provider value={contextValue}>
+      {children}
+    </MessageContext.Provider>
+  );
+};
+
+// Custom hook to use message context
+export const useMessageContext = (): MessageContextType => {
+  const context = useContext(MessageContext);
+  if (context === undefined) {
+    throw new Error("useMessageContext must be used within a MessageProvider");
+  }
+  return context;
+};
