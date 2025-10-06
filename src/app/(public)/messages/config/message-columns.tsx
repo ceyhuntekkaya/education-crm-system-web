@@ -187,8 +187,8 @@ export const createMessageColumns = (
   },
   {
     field: "status",
-    headerName: "Durum",
-    width: 110,
+    headerName: "Mesaj Durumu",
+    width: 175,
     renderCell: (params) => (
       <div className="d-flex justify-content-center align-items-center h-100">
         <Badge variant={getStatusBadgeVariant(params.value)}>
@@ -196,6 +196,51 @@ export const createMessageColumns = (
         </Badge>
       </div>
     ),
+  },
+  {
+    field: "readAt",
+    headerName: "Görünürlük",
+    width: 160,
+    sortable: true,
+    renderCell: (params) => {
+      const isRead = !!params.row.readAt;
+      const readDate = params.row.readAt
+        ? formatDateTime(params.row.readAt)
+        : null;
+
+      return (
+        <div className="d-flex align-items-center justify-content-center h-100">
+          <div className="text-center">
+            <div className="d-flex align-items-center justify-content-center">
+              <Badge
+                variant={isRead ? "success" : "warning"}
+                className="d-flex align-items-center justify-content-center gap-1"
+              >
+                <span style={{ fontSize: "9px", lineHeight: "1" }}>
+                  {isRead ? "✓" : "●"}
+                </span>
+                <span style={{ fontSize: "11px" }}>
+                  {isRead ? "Okundu" : "Okunmadı"}
+                </span>
+              </Badge>
+            </div>
+            {isRead && readDate && (
+              <div
+                className="text-muted text-center mt-4"
+                style={{
+                  fontSize: "9px",
+                  // marginTop: "4px",
+                  lineHeight: "1.2",
+                }}
+                title={`Okunma tarihi: ${readDate}`}
+              >
+                {readDate}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    },
   },
   //   {
   //     field: "quickActions",
@@ -213,7 +258,7 @@ export const createMessageColumns = (
   {
     field: "actions",
     headerName: "İşlemler",
-    width: 80,
+    width: 120,
     sortable: false,
     renderCell: (params) => (
       <div className="d-flex justify-content-center">

@@ -20,52 +20,6 @@ export const MessageActionsPopover: React.FC<MessageActionsPopoverProps> = ({
   onForward,
   onDelete,
 }) => {
-  const actions = [
-    {
-      key: "details",
-      label: "Detayları Görüntüle",
-      icon: "ph-eye",
-      onClick: () => onViewDetails(message),
-      className: "text-primary",
-    },
-    {
-      key: "markAsRead",
-      label: !message.readAt
-        ? "Okundu Olarak İşaretle"
-        : "Okunmadı Olarak İşaretle",
-      icon: !message.readAt ? "ph-envelope-open" : "ph-envelope",
-      onClick: () => onMarkAsRead(message),
-      className: "text-info",
-    },
-    {
-      key: "reply",
-      label: "Yanıtla",
-      icon: "ph-arrow-u-up-left",
-      onClick: () => onReply(message),
-      className: "text-success",
-    },
-  ];
-
-  if (onForward) {
-    actions.push({
-      key: "forward",
-      label: "İlet",
-      icon: "ph-arrow-right",
-      onClick: () => onForward(message),
-      className: "text-warning",
-    });
-  }
-
-  if (onDelete) {
-    actions.push({
-      key: "delete",
-      label: "Sil",
-      icon: "ph-trash",
-      onClick: () => onDelete(message),
-      className: "text-danger",
-    });
-  }
-
   const handleAction = (actionFn: () => void) => (e: React.MouseEvent) => {
     e.stopPropagation();
     actionFn();
@@ -100,7 +54,7 @@ export const MessageActionsPopover: React.FC<MessageActionsPopoverProps> = ({
               </span>
             </div>
 
-            <div
+            {/* <div
               className="dropdown-menu-item"
               onClick={handleAction(() => onReply(message))}
             >
@@ -110,9 +64,9 @@ export const MessageActionsPopover: React.FC<MessageActionsPopoverProps> = ({
                 className="text-success"
               />
               <span className="text-sm">Yanıtla</span>
-            </div>
+            </div> */}
 
-            {onForward && (
+            {/* {onForward && (
               <div
                 className="dropdown-menu-item"
                 onClick={handleAction(() => onForward(message))}
@@ -124,9 +78,9 @@ export const MessageActionsPopover: React.FC<MessageActionsPopoverProps> = ({
                 />
                 <span className="text-sm">İlet</span>
               </div>
-            )}
+            )} */}
 
-            {onDelete && (
+            {/* {onDelete && (
               <>
                 <hr className="dropdown-divider" />
                 <div
@@ -137,7 +91,7 @@ export const MessageActionsPopover: React.FC<MessageActionsPopoverProps> = ({
                   <span className="text-sm">Sil</span>
                 </div>
               </>
-            )}
+            )} */}
           </div>
         }
         trigger="click"

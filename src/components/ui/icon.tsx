@@ -137,7 +137,7 @@ const Icon: React.FC<IconProps> = ({
       return (
         <>
           <i className={`ph ${icon} icon-element flex-shrink-0`} />
-          <span className="hover-text text-nowrap ms-2 opacity-0 transition-all duration-300 transform translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
+          <span className="hover-text text-nowrap ms-2 opacity-0 transition-all">
             {hoverText}
           </span>
         </>
