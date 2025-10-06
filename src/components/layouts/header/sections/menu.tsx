@@ -3,11 +3,11 @@ import { usePathname } from "next/navigation";
 import { isActivePage, getMenuItemKey } from "../utils";
 import { useHeader } from "../context";
 
-interface MenuProps {
+interface UserNavigationProps {
   className?: string;
 }
 
-const Menu = ({ className = "" }: MenuProps) => {
+const UserNavigation = ({ className = "" }: UserNavigationProps) => {
   const { menuItems } = useHeader();
   const pathname = usePathname();
   return (
@@ -60,4 +60,4 @@ const Menu = ({ className = "" }: MenuProps) => {
   );
 };
 
-export default Menu;
+export default UserNavigation;
