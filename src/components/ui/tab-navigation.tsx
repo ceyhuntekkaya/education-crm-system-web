@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { TabItem } from "./types";
+import { Icon } from "./icon";
+import { Button } from "./button";
 
 // TabNavigation component props
 interface TabNavigationProps {
@@ -185,32 +187,32 @@ export default function TabNavigation({
 
   const getButtonSizeClasses = () => {
     if (iconOnly) {
-      // Icon-only mode için daha küçük padding'ler
+      // Icon-only mode için optimize edilmiş padding'ler
       switch (size) {
         case "xxs":
-          return "px-6 py-4 text-xs";
+          return "px-4 py-3 text-xs min-w-fit transition-all duration-300";
         case "xs":
-          return "px-8 py-5 text-sm";
+          return "px-6 py-4 text-sm min-w-fit transition-all duration-300";
         case "sm":
-          return "px-10 py-6 text-sm";
+          return "px-8 py-5 text-sm min-w-fit transition-all duration-300";
         case "lg":
-          return "px-16 py-12 text-lg";
+          return "px-12 py-8 text-lg min-w-fit transition-all duration-300";
         default: // md
-          return "px-12 py-8 text-md";
+          return "px-10 py-6 text-md min-w-fit transition-all duration-300";
       }
     } else {
       // Normal mode
       switch (size) {
         case "xxs":
-          return "px-8 py-4 text-xs";
+          return "px-8 py-4 text-xs transition-all duration-300";
         case "xs":
-          return "px-10 py-5 text-sm";
+          return "px-10 py-5 text-sm transition-all duration-300";
         case "sm":
-          return "px-12 py-6 text-sm";
+          return "px-12 py-6 text-sm transition-all duration-300";
         case "lg":
-          return "px-20 py-12 text-lg";
+          return "px-20 py-12 text-lg transition-all duration-300";
         default: // md
-          return "px-16 py-8 text-md";
+          return "px-16 py-8 text-md transition-all duration-300";
       }
     }
   };
@@ -229,43 +231,74 @@ export default function TabNavigation({
       role="tablist"
     >
       {processedTabs.map((tab, index) => {
-        const buttonElement = (
-          <button
-            className={`nav-link rounded-pill bg-main-25 fw-medium text-neutral-500 d-flex align-items-center border-0 transition-all ${getButtonSizeClasses()} ${
-              tab.isActive === true ? "active" : ""
-            } ${
-              iconOnly
-                ? `tab-button-animate ${
-                    tab.isActive ? "tab-full" : "tab-icon-only"
-                  }`
-                : "gap-8"
-            }`}
-            id={`${tab.id}-tab`}
-            data-bs-toggle="pill"
-            data-bs-target={`#${tab.id}`}
-            type="button"
-            role="tab"
+        // Helper functions to avoid repetition
+        const getIconSize = (): "sm" | "md" | "lg" => {
+          return size === "xxs" || size === "xs"
+            ? "sm"
+            : size === "lg"
+            ? "lg"
+            : "md";
+        };
+
+        const getButtonSize = (): "xxs" | "xs" | "sm" | "md" => {
+          return size === "xxs"
+            ? "xxs"
+            : size === "xs"
+            ? "xs"
+            : size === "lg"
+            ? "md"
+            : "sm";
+        };
+
+        const getCommonProps = () => ({
+          onClick: () => handleTabClick(tab.id),
+          "data-bs-toggle": "pill",
+          "data-bs-target": `#${tab.id}`,
+        });
+
+        const getTabStyles = (isActiveButton = false) => ({
+          ...(isActiveButton && {
+            "--bs-nav-pills-link-active-bg": "var(--bs-main-600)",
+            "--bs-nav-pills-link-active-color": "white",
+          }),
+          ...(!isActiveButton && {
+            position: "relative" as const,
+            whiteSpace: "nowrap" as const,
+          }),
+        });
+
+        // Determine which component to render
+        const shouldUseIcon = iconOnly && !tab.isActive;
+
+        const buttonElement = shouldUseIcon ? (
+          <Icon
+            icon={tab.icon}
+            variant="inline"
+            size={getIconSize()}
+            hoverText={tab.label || tab.title}
+            className={`nav-link tab-button-animate tab-icon-only ${getButtonSizeClasses()}`}
+            aria-label={tab.label || tab.title}
+            animate="fade-up"
+            disabled={false}
+            loading={false}
+            style={getTabStyles(false)}
+            {...getCommonProps()}
+          />
+        ) : (
+          <Button
+            variant={tab.isActive ? "inline" : "outline"}
+            size={getButtonSize()}
+            leftIcon={tab.icon}
+            className={`nav-link ${
+              iconOnly && tab.isActive ? "tab-button-animate tab-full" : ""
+            } ${getButtonSizeClasses()} ${tab.isActive ? "active" : ""}`}
             aria-controls={tab.id}
-            aria-selected={tab.isActive === true ? "true" : "false"}
-            onClick={() => handleTabClick(tab.id)}
+            aria-selected={tab.isActive ? "true" : "false"}
+            style={getTabStyles(true)}
+            {...getCommonProps()}
           >
-            <i
-              className={`tab-icon ${
-                size === "xxs"
-                  ? "text-sm"
-                  : size === "xs"
-                  ? "text-md"
-                  : size === "sm"
-                  ? "text-lg"
-                  : size === "lg"
-                  ? "text-2xl"
-                  : "text-xl" // md
-              } text-main-600 d-flex ${tab.icon}`}
-            />
-            <span className={`text-nowrap tab-text-animate`}>
-              {tab.label || tab.title}
-            </span>
-          </button>
+            {tab.label || tab.title}
+          </Button>
         );
 
         return (

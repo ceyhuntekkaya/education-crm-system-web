@@ -156,7 +156,7 @@ export default function InstitutionDetailPage({
             {/* Tab Content */}
             <TabContent tabs={tabItems} />
 
-            <Notes className="mt-4" />
+            <Notes />
           </div>
         </div>
       </div>

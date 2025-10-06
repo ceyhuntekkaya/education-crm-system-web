@@ -283,4 +283,63 @@
 
 
 
+// Icon Hover Text Animations - Similar to tab animations
+.icon-with-hover-text {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+    
+    // Icon element
+    .icon-element {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+    }
+    
+    // Hover text animation
+    .hover-text {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: left center;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 0;
+        margin-left: 0;
+        transform: translateX(-8px) scaleX(0.8);
+    }
+    
+    // Hover state - show text with animation
+    &:hover {
+        .hover-text {
+            opacity: 1 !important;
+            max-width: 200px;
+            margin-left: 8px;
+            transform: translateX(0) scaleX(1);
+        }
+    }
+    
+    // Focus state for accessibility
+    &:focus {
+        .hover-text {
+            opacity: 1 !important;
+            max-width: 200px;
+            margin-left: 8px;
+            transform: translateX(0) scaleX(1);
+        }
+    }
+}
+
+// Icon hover animate class
+.icon-hover-animate {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow: 0 4px 12px hsla(var(--main) / 0.15) !important;
+    }
+    
+    &:active {
+        transform: translateY(0) scale(0.98);
+        transition: all 0.1s ease;
+    }
+}
+
 /* ================================= Tab Css End =========================== */

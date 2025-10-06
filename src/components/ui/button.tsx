@@ -18,6 +18,12 @@ interface BaseButtonProps {
   fullWidth?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  style?: React.CSSProperties;
+  "aria-label"?: string;
+  "aria-controls"?: string;
+  "aria-selected"?: string;
+  "data-bs-toggle"?: string;
+  "data-bs-target"?: string;
 }
 
 // Button props for regular button element
@@ -39,7 +45,7 @@ type ButtonProps = RegularButtonProps | LinkButtonProps;
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  variant = "main",
+  variant = "inline",
   size = "md",
   leftIcon,
   rightIcon,
@@ -50,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   href,
   fullWidth = false,
+  style,
   ...rest
 }) => {
   // Get variant-specific classes
@@ -136,6 +143,7 @@ const Button: React.FC<ButtonProps> = ({
       <Link
         href={href}
         className={buttonClasses}
+        style={style}
         data-aos="fade-up" // Default AOS animation
         {...(rest as any)}
       >
@@ -149,6 +157,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       className={buttonClasses}
+      style={style}
       disabled={disabled || loading}
       onClick={onClick}
       data-aos="fade-up" // Default AOS animation

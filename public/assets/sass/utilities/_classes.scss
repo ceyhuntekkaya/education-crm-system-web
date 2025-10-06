@@ -198,4 +198,21 @@
 .min-w-max {
     min-width: max-content;
 }
+
+/* Z-Index Utilities */
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+.z-999 { z-index: 999; }
+.z-9999 { z-index: 9999; }
+
+/* Save Button Position */
+.save-button-position {
+    top: 16px;
+    right: 16px;
+}
+
 /* ================================= Classes Css End =========================== */
