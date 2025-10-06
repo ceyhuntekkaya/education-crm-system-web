@@ -1,6 +1,6 @@
 "use client";
 
-import { Breadcrumb } from "@/components";
+// import { Breadcrumb } from "@/components";
 import { InstitutionDetailProvider } from "./_shared";
 import { useParams } from "next/navigation";
 
@@ -14,10 +14,12 @@ export default function SearchDetailLayout({
 
   return (
     <InstitutionDetailProvider id={id}>
-      <div>
+      {/* <div>
         <Breadcrumb title={"Okul Detayı"} />
         {children}
-      </div>
+      </div> */}
+
+      {children}
     </InstitutionDetailProvider>
   );
 }

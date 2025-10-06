@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 // Components
 import {
   InstitutionSidebar,
@@ -17,6 +18,7 @@ import {
   Gallery,
   Posts,
   Notes,
+  useInstitutionDetail,
 } from "./_shared";
 
 // Appointment Table
@@ -25,12 +27,17 @@ import {
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
 
+const tempUrl =
+  "https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg";
+
 export default function InstitutionDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
   const schoolId = parseInt(params.id);
+
+  const { school } = useInstitutionDetail();
 
   // Tab content dizisi
   // * = API'ye bağlı (gerçek veri), ⚡ = Mock/Statik veri, 🔄 = Karışık (API + Mock)
@@ -143,28 +150,53 @@ export default function InstitutionDetailPage({
   ];
 
   return (
-    <section className="tutor-details py-120">
-      <div className="container">
-        <div className="row gy-4">
-          {/* Sol Sidebar - Profil ve İletişim */}
-          <div className="col-lg-4">
-            <InstitutionSidebar />
-          </div>
+    <div>
+      {/* Cover Image */}
 
-          {/* Sağ İçerik - Tab Yapısı */}
-          <div className="col-lg-8">
-            {/* Tab Navigation */}
-            <div className="border border-neutral-30 rounded-12 bg-white p-8">
-              <TabNavigation tabs={tabItems} iconOnly />
+      <section className="tutor-details">
+        <div className="container">
+          {school.coverImageUrl && (
+            <div
+              className="position-relative rounded-16 overflow-hidden my-24 "
+              style={{ height: "300px" }}
+            >
+              <Image
+                src={tempUrl || school.coverImageUrl}
+                alt={school.name}
+                fill
+                className="object-cover"
+              />
+              <div className="position-absolute inset-0 bg-gradient-to-t from-black-50 to-transparent"></div>
+              <div className="position-absolute bottom-0 left-0 p-24 text-white">
+                <h2 className="h3 fw-bold mb-8">{school.name}</h2>
+                <p className="text-white text-opacity-90 mb-0">
+                  {school.institutionType.displayName}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <div className="row gy-4">
+            {/* Sol Sidebar - Profil ve İletişim */}
+            <div className="col-lg-4">
+              <InstitutionSidebar />
             </div>
 
-            {/* Tab Content */}
-            <TabContent tabs={tabItems} />
+            {/* Sağ İçerik - Tab Yapısı */}
+            <div className="col-lg-8">
+              {/* Tab Navigation */}
+              <div className="border border-neutral-30 rounded-12 bg-white p-8">
+                <TabNavigation tabs={tabItems} iconOnly />
+              </div>
 
-            <Notes />
+              {/* Tab Content */}
+              <TabContent tabs={tabItems} />
+
+              <Notes />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
