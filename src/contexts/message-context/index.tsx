@@ -33,8 +33,9 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
     null
   );
 
-  // Modal hook
+  // Modal hooks
   const detailModal = useModal();
+  const infoModal = useModal();
 
   // Data hooks
   const { messages, loading, error, refetch } = useMessages(filters);
@@ -66,6 +67,9 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
 
     // Modal
     detailModal,
+
+    // Info Modal
+    infoModal,
 
     // Statistics
     stats,

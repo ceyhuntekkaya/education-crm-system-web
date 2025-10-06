@@ -9,3 +9,6 @@ export * from "./get-priority-badge-variant";
 
 // Date/time formatters
 export * from "./format-date-time";
+
+// Row styling utilities
+export * from "./message-row-utils";

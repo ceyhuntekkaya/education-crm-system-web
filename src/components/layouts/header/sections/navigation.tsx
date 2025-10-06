@@ -31,7 +31,7 @@ const MainNavigation = ({ className = "", navItems }: NavigationProps) => {
 
   return (
     <div className={`header-navigation d-lg-block d-none ${className}`}>
-      <ul className="nav-menu flex-align">
+      <ul className="nav-menu flex-align ms-16">
         {items.map((item, index) => (
           <li
             key={`nav-item-${index}`}

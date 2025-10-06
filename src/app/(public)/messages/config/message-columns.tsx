@@ -27,217 +27,130 @@ export interface MessageColumnHandlers {
 export const createMessageColumns = (
   handlers: MessageColumnHandlers
 ): GridColDef<MessageDto>[] => [
-  {
-    field: "referenceNumber",
-    headerName: "Referans No",
-    width: 160,
-    renderCell: (params) => (
-      <div className="fw-medium">{params.value || "-"}</div>
-    ),
-  },
-  {
-    field: "createdAt",
-    headerName: "Tarih",
-    width: 140,
-    renderCell: (params) => (
-      <div className="text-neutral-700">
-        {params.value ? formatDateTime(params.value) : "-"}
-      </div>
-    ),
-  },
+  // {
+  //   field: "referenceNumber",
+  //   headerName: "Referans No",
+  //   width: 160,
+  //   renderCell: (params) => (
+  //     <div className="fw-medium">{params.value || "-"}</div>
+  //   ),
+  // },
   {
     field: "school",
     headerName: "Okul",
-    width: 180,
-    sortable: false,
+    width: 200,
     renderCell: (params) => {
       const schoolName = params.row.school?.name || "";
-      const truncatedSchoolName =
-        schoolName.length > 20
-          ? schoolName.substring(0, 20) + "..."
-          : schoolName;
 
       if (!schoolName) {
         return <div className="text-muted">Bilinmeyen Okul</div>;
       }
 
       return (
-        <Popover
-          content={
-            <div className="p-8" style={{ maxWidth: "300px" }}>
-              <div className="fw-medium text-heading mb-6">Okul Bilgisi</div>
-              <div className="text-neutral-700 lh-lg">{schoolName}</div>
-            </div>
-          }
-          trigger="hover"
-          placement="bottom"
+        <div
+          className="text-neutral-700 school-name message-school-text"
+          title={schoolName}
         >
-          <div
-            className="text-truncate text-neutral-700"
-            style={{ cursor: "pointer", maxWidth: "160px" }}
-            title="Tüm okul adını görmek için üzerine gelin"
-          >
-            {truncatedSchoolName}
-          </div>
-        </Popover>
+          {schoolName}
+        </div>
       );
     },
   },
+
   {
     field: "subject",
     headerName: "Konu",
-    width: 200,
-    sortable: false,
+    width: 230,
     renderCell: (params) => {
       const subject = params.value || "";
-      const truncatedSubject =
-        subject.length > 40 ? subject.substring(0, 40) + "..." : subject;
 
       if (!subject) {
         return <div className="text-muted">-</div>;
       }
 
       return (
-        <Popover
-          content={
-            <div className="p-8" style={{ maxWidth: "350px" }}>
-              <div className="fw-medium text-heading mb-6">Mesaj Konusu</div>
-              <div className="text-neutral-700 lh-lg">{subject}</div>
-            </div>
-          }
-          trigger="hover"
-          placement="bottom"
+        <div
+          className="text-neutral-700 subject-text message-subject-text"
+          title={subject}
         >
-          <div
-            className="text-truncate text-neutral-700"
-            style={{ maxWidth: "160px", cursor: "pointer" }}
-            // title="Tüm konuyu görmek için üzerine gelin"
-          >
-            {truncatedSubject}
-          </div>
-        </Popover>
+          {subject}
+        </div>
       );
     },
   },
   {
     field: "content",
     headerName: "İçerik",
-    width: 200,
-    sortable: false,
+    width: 250,
     renderCell: (params) => {
       const content = params.value || "";
-      const truncatedContent =
-        content.length > 50 ? content.substring(0, 50) + "..." : content;
 
       if (!content) {
         return <div className="text-muted">-</div>;
       }
 
       return (
-        <Popover
-          content={
-            <div className="p-8" style={{ maxWidth: "400px" }}>
-              <div className="fw-medium text-heading mb-6">Mesaj İçeriği</div>
-              <div
-                className="text-neutral-700 lh-lg"
-                style={{ whiteSpace: "pre-wrap" }}
-              >
-                {content}
-              </div>
-            </div>
-          }
-          trigger="hover"
-          placement="bottom"
+        <div
+          className="text-neutral-700 subject-text message-content-text"
+          title={content}
         >
-          <div
-            className="text-truncate text-neutral-700"
-            style={{ maxWidth: "180px", cursor: "pointer" }}
-            // title="Tüm içeriği görmek için üzerine gelin"
-          >
-            {truncatedContent}
-          </div>
-        </Popover>
+          {content}
+        </div>
       );
     },
   },
-  {
-    field: "messageType",
-    headerName: "Tür",
-    width: 175,
-    renderCell: (params) => (
-      <div
-        className="text-truncate"
-        title={getMessageTypeDisplay(params.value)}
-      >
-        {getMessageTypeDisplay(params.value)}
-      </div>
-    ),
-  },
-  {
-    field: "priority",
-    headerName: "Öncelik",
-    width: 120,
-    renderCell: (params) => (
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <Badge variant={getPriorityBadgeVariant(params.value)}>
-          {getPriorityDisplay(params.value)}
-        </Badge>
-      </div>
-    ),
-  },
-  {
-    field: "status",
-    headerName: "Mesaj Durumu",
-    width: 175,
-    renderCell: (params) => (
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <Badge variant={getStatusBadgeVariant(params.value)}>
-          {getStatusDisplay(params.value)}
-        </Badge>
-      </div>
-    ),
-  },
+  // {
+  //   field: "messageType",
+  //   headerName: "Mesaj Türü",
+  //   width: 175,
+  //   renderCell: (params) => (
+  //     <div
+  //       className="text-truncate"
+  //       title={getMessageTypeDisplay(params.value)}
+  //     >
+  //       {getMessageTypeDisplay(params.value)}
+  //     </div>
+  //   ),
+  // },
+  // {
+  //   field: "priority",
+  //   headerName: "Öncelik",
+  //   width: 120,
+  //   renderCell: (params) => (
+  //     <div className="d-flex justify-content-center align-items-center h-100">
+  //       <Badge variant={getPriorityBadgeVariant(params.value)}>
+  //         {getPriorityDisplay(params.value)}
+  //       </Badge>
+  //     </div>
+  //   ),
+  // },
+  // {
+  //   field: "status",
+  //   headerName: "Mesaj Durumu",
+  //   width: 175,
+  //   renderCell: (params) => (
+  //     <div className="d-flex justify-content-center align-items-center h-100">
+  //       <Badge variant={getStatusBadgeVariant(params.value)}>
+  //         {getStatusDisplay(params.value)}
+  //       </Badge>
+  //     </div>
+  //   ),
+  // },
   {
     field: "readAt",
-    headerName: "Görünürlük",
-    width: 160,
+    headerName: "Durum",
+    width: 100,
     sortable: true,
     renderCell: (params) => {
       const isRead = !!params.row.readAt;
-      const readDate = params.row.readAt
-        ? formatDateTime(params.row.readAt)
-        : null;
 
       return (
         <div className="d-flex align-items-center justify-content-center h-100">
-          <div className="text-center">
-            <div className="d-flex align-items-center justify-content-center">
-              <Badge
-                variant={isRead ? "success" : "warning"}
-                className="d-flex align-items-center justify-content-center gap-1"
-              >
-                <span style={{ fontSize: "9px", lineHeight: "1" }}>
-                  {isRead ? "✓" : "●"}
-                </span>
-                <span style={{ fontSize: "11px" }}>
-                  {isRead ? "Okundu" : "Okunmadı"}
-                </span>
-              </Badge>
-            </div>
-            {isRead && readDate && (
-              <div
-                className="text-muted text-center mt-4"
-                style={{
-                  fontSize: "9px",
-                  // marginTop: "4px",
-                  lineHeight: "1.2",
-                }}
-                title={`Okunma tarihi: ${readDate}`}
-              >
-                {readDate}
-              </div>
-            )}
-          </div>
+          {isRead ? (
+            <span className="message-read-badge">Okundu</span>
+          ) : (
+            <span className="message-unread-badge">Yeni</span>
+          )}
         </div>
       );
     },
@@ -255,22 +168,78 @@ export const createMessageColumns = (
   //       />
   //     ),
   //   },
+  // {
+  //   field: "actions",
+  //   headerName: "İşlemler",
+  //   width: 120,
+  //   sortable: false,
+  //   renderCell: (params) => (
+  //     <div className="d-flex justify-content-center">
+  //       <MessageActionsPopover
+  //         message={params.row}
+  //         onViewDetails={handlers.onViewDetails}
+  //         onMarkAsRead={handlers.onMarkAsRead}
+  //         onReply={handlers.onReply}
+  //         onForward={handlers.onForward}
+  //         onDelete={handlers.onDelete}
+  //       />
+  //     </div>
+  //   ),
+  // },
   {
-    field: "actions",
-    headerName: "İşlemler",
-    width: 120,
-    sortable: false,
-    renderCell: (params) => (
-      <div className="d-flex justify-content-center">
-        <MessageActionsPopover
-          message={params.row}
-          onViewDetails={handlers.onViewDetails}
-          onMarkAsRead={handlers.onMarkAsRead}
-          onReply={handlers.onReply}
-          onForward={handlers.onForward}
-          onDelete={handlers.onDelete}
-        />
-      </div>
-    ),
+    field: "createdAt",
+    headerName: "Tarih",
+    width: 160,
+    renderCell: (params) => {
+      if (!params.value) return <div className="text-muted">-</div>;
+
+      // Import here to avoid circular dependency
+      const getMessageAge = (message: any): string => {
+        if (!message.createdAt) return "";
+
+        const created = new Date(message.createdAt);
+        const now = new Date();
+        const diffMs = now.getTime() - created.getTime();
+
+        const diffMinutes = Math.floor(diffMs / (1000 * 60));
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+        if (diffMinutes < 60) {
+          return `${diffMinutes}dk önce`;
+        } else if (diffHours < 24) {
+          return `${diffHours}sa önce`;
+        } else if (diffDays < 7) {
+          return `${diffDays}g önce`;
+        } else {
+          return created.toLocaleDateString("tr-TR");
+        }
+      };
+
+      const isMessageFresh = (message: any): boolean => {
+        if (!message.createdAt) return false;
+
+        const created = new Date(message.createdAt);
+        const now = new Date();
+        const diffMs = now.getTime() - created.getTime();
+        const diffHours = diffMs / (1000 * 60 * 60);
+
+        return diffHours <= 1;
+      };
+
+      const messageAge = getMessageAge(params.row);
+      const isFresh = isMessageFresh(params.row);
+      const fullDate = formatDateTime(params.value);
+
+      return (
+        <div className="text-neutral-700 message-date-column">
+          <div className="fw-medium message-date-main">{fullDate}</div>
+          <div className="text-muted small d-flex align-items-center gap-1 message-date-relative">
+            {/* <span>{messageAge}</span> */}
+            {isFresh && <span className="message-fresh-indicator">✨</span>}
+          </div>
+        </div>
+      );
+    },
   },
 ];

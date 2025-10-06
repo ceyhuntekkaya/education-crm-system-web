@@ -12,7 +12,7 @@ const UserNavigation = ({ className = "" }: UserNavigationProps) => {
   const pathname = usePathname();
   return (
     <div className={`header-menu d-lg-block d-none ${className}`}>
-      <ul className="nav-menu flex-align">
+      <ul className="nav-menu flex-align me-16">
         {menuItems.map((item, index) =>
           item.links ? (
             <li

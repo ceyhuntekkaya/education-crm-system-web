@@ -53,10 +53,16 @@ export interface DataGridProps<T = any> {
   checkboxSelection?: boolean;
   disableRowSelectionOnClick?: boolean;
   onRowSelectionChange?: (selectedRows: T[]) => void;
+  onRowClick?: (params: {
+    row: T;
+    field: string;
+    event: React.MouseEvent;
+  }) => void;
   loading?: LoadingState;
   emptyState?: EmptyStateConfig;
   className?: string;
   height?: number | string;
+  rowClassName?: (row: T, index: number) => string;
   initialState?: {
     pagination?: {
       paginationModel?: {
@@ -87,10 +93,12 @@ export function DataGrid<T extends Record<string, any>>({
   checkboxSelection = false,
   disableRowSelectionOnClick = false,
   onRowSelectionChange,
+  onRowClick,
   loading = false,
   emptyState,
   className = "",
   height = "auto",
+  rowClassName,
   initialState,
 }: DataGridProps<T>) {
   // State management
@@ -558,100 +566,124 @@ export function DataGrid<T extends Record<string, any>>({
             </tr>
           </thead>
           <tbody>
-            {processedData.data.map((row, index) => (
-              <tr
-                key={row.id || index}
-                className={`${selectedRows.has(row.id) ? "table-active" : ""}`}
-                onClick={() => {
-                  if (!disableRowSelectionOnClick && checkboxSelection) {
-                    handleRowSelection(row.id, !selectedRows.has(row.id));
-                  }
-                }}
-                style={{
-                  cursor:
-                    !disableRowSelectionOnClick && checkboxSelection
-                      ? "pointer"
-                      : "default",
-                  transition: "background-color 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  if (!selectedRows.has(row.id)) {
-                    e.currentTarget.style.backgroundColor = "#f8f9fa";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!selectedRows.has(row.id)) {
-                    e.currentTarget.style.backgroundColor = "";
-                  }
-                }}
-              >
-                {checkboxSelection && (
-                  <td
-                    className="data-grid-checkbox-cell"
-                    style={{
-                      width: "50px",
-                      minWidth: "50px",
-                      maxWidth: "50px",
-                      padding: "16px 20px",
-                      borderBottom: "1px solid #e9ecef",
-                    }}
-                  >
-                    <div className="form-check">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        checked={selectedRows.has(row.id)}
-                        onChange={(e) =>
-                          handleRowSelection(row.id, e.target.checked)
-                        }
-                        onClick={(e) => e.stopPropagation()}
-                      />
-                    </div>
-                  </td>
-                )}
-                {columns.map((column) => {
-                  const columnWidth = column.width || column.minWidth || 120;
-                  const columnMinWidth =
-                    column.minWidth ||
-                    Math.max(80, Math.ceil(column.headerName.length * 8) + 40);
+            {processedData.data.map((row, index) => {
+              const customRowClass = rowClassName
+                ? rowClassName(row, index)
+                : "";
+              const baseRowClass = selectedRows.has(row.id)
+                ? "table-active"
+                : "";
+              const finalRowClass = `${baseRowClass} ${customRowClass}`.trim();
 
-                  return (
+              return (
+                <tr
+                  key={row.id || index}
+                  className={finalRowClass}
+                  onClick={(event) => {
+                    // Handle row selection for checkbox mode
+                    if (!disableRowSelectionOnClick && checkboxSelection) {
+                      handleRowSelection(row.id, !selectedRows.has(row.id));
+                    }
+
+                    // Handle custom row click
+                    if (onRowClick) {
+                      onRowClick({
+                        row,
+                        field: "",
+                        event,
+                      });
+                    }
+                  }}
+                  style={{
+                    cursor:
+                      (!disableRowSelectionOnClick && checkboxSelection) ||
+                      onRowClick
+                        ? "pointer"
+                        : "default",
+                    transition: "background-color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!selectedRows.has(row.id)) {
+                      e.currentTarget.style.backgroundColor = "#f8f9fa";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!selectedRows.has(row.id)) {
+                      e.currentTarget.style.backgroundColor = "";
+                    }
+                  }}
+                >
+                  {checkboxSelection && (
                     <td
-                      key={column.field as string}
+                      className="data-grid-checkbox-cell"
                       style={{
-                        width: `${columnWidth}px`,
-                        minWidth: `${columnMinWidth}px`,
-                        maxWidth: column.width
-                          ? `${column.width}px`
-                          : undefined,
-                        textAlign: column.align || "left",
+                        width: "50px",
+                        minWidth: "50px",
+                        maxWidth: "50px",
                         padding: "16px 20px",
-                        overflow: "hidden",
                         borderBottom: "1px solid #e9ecef",
-                        fontSize: "14px",
-                        lineHeight: "1.5",
                       }}
                     >
-                      {column.renderCell ? (
-                        <div className="custom-cell-content">
-                          {renderCellContent(row, column)}
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {renderCellContent(row, column)}
-                        </div>
-                      )}
+                      <div className="form-check">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          checked={selectedRows.has(row.id)}
+                          onChange={(e) =>
+                            handleRowSelection(row.id, e.target.checked)
+                          }
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </div>
                     </td>
-                  );
-                })}
-              </tr>
-            ))}
+                  )}
+                  {columns.map((column) => {
+                    const columnWidth = column.width || column.minWidth || 120;
+                    const columnMinWidth =
+                      column.minWidth ||
+                      Math.max(
+                        80,
+                        Math.ceil(column.headerName.length * 8) + 40
+                      );
+
+                    return (
+                      <td
+                        key={column.field as string}
+                        style={{
+                          width: `${columnWidth}px`,
+                          minWidth: `${columnMinWidth}px`,
+                          maxWidth: column.width
+                            ? `${column.width}px`
+                            : undefined,
+                          textAlign: column.align || "left",
+                          padding: "16px 20px",
+                          overflow: "hidden",
+                          borderBottom: "1px solid #e9ecef",
+                          fontSize: "14px",
+                          lineHeight: "1.5",
+                        }}
+                      >
+                        {column.renderCell ? (
+                          <div className="custom-cell-content">
+                            {renderCellContent(row, column)}
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {renderCellContent(row, column)}
+                          </div>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

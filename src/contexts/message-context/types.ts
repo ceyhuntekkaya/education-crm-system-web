@@ -41,6 +41,13 @@ export interface MessageContextType {
     close: () => void;
   };
 
+  // Info Modal
+  infoModal: {
+    isOpen: boolean;
+    open: () => void;
+    close: () => void;
+  };
+
   // Statistics
   stats: MessageStats;
   statsData: StatCardData[];

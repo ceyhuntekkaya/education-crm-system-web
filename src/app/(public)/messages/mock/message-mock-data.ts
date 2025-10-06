@@ -25,7 +25,7 @@ export const mockMessages: MessageDto[] = [
     isActive: true,
     school: {
       id: 1,
-      name: "Anadolu Lisesi",
+      name: "İstanbul Atatürk Anadolu Lisesi",
     },
   },
   {
@@ -55,7 +55,7 @@ export const mockMessages: MessageDto[] = [
     isActive: true,
     school: {
       id: 1,
-      name: "Anadolu Lisesi",
+      name: "İstanbul Atatürk Anadolu Lisesi",
     },
     assignedToUser: {
       id: 1,
@@ -89,7 +89,7 @@ export const mockMessages: MessageDto[] = [
     isActive: true,
     school: {
       id: 2,
-      name: "Fen Lisesi",
+      name: "Ankara Bilkent Fen Lisesi",
     },
     assignedToUser: {
       id: 2,
@@ -123,7 +123,7 @@ export const mockMessages: MessageDto[] = [
     isActive: true,
     school: {
       id: 1,
-      name: "Anadolu Lisesi",
+      name: "İstanbul Atatürk Anadolu Lisesi",
     },
     assignedToUser: {
       id: 3,
@@ -160,7 +160,7 @@ export const mockMessages: MessageDto[] = [
     isActive: true,
     school: {
       id: 3,
-      name: "Sosyal Bilimler Lisesi",
+      name: "İzmir Bornova Sosyal Bilimler Lisesi",
     },
     assignedToUser: {
       id: 4,
