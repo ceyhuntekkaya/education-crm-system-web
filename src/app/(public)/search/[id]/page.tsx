@@ -88,9 +88,14 @@ export default function InstitutionDetailPage({
     {
       id: "pills-statistics",
       icon: "ph-bold ph-chart-bar",
-      title: "İstatistikler",
-      label: "İstatistikler",
-      content: <InstitutionStatistics />,
+      title: "Analiz & Değerlendirme",
+      label: "Analiz & Değerlendirme",
+      content: (
+        <div>
+          <InstitutionReviews />
+          <InstitutionStatistics />
+        </div>
+      ),
     },
     // {
     //   id: "pills-seo",
@@ -99,13 +104,13 @@ export default function InstitutionDetailPage({
     //   label: "SEO Bilgileri",
     //   content: <InstitutionSeoInfo />,
     // },
-    {
-      id: "pills-reviews",
-      icon: "ph-bold ph-star",
-      title: "Değerlendirmeler",
-      label: "Değerlendirmeler",
-      content: <InstitutionReviews />,
-    },
+    // {
+    //   id: "pills-reviews",
+    //   icon: "ph-bold ph-star",
+    //   title: "Değerlendirmeler",
+    //   label: "Değerlendirmeler",
+    //   content: <InstitutionReviews />,
+    // },
     {
       id: "pills-gallery",
       icon: "ph-bold ph-images",
