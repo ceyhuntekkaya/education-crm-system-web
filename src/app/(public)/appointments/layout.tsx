@@ -1,4 +1,4 @@
-import { Breadcrumb, Footer, Header } from "@/components";
+// import { Breadcrumb, Footer, Header } from "@/components";
 
 export default function AppointmentsLayout({
   children,
@@ -7,7 +7,7 @@ export default function AppointmentsLayout({
 }) {
   return (
     <div>
-      <Breadcrumb title={"Randevularım"} />
+      {/* <Breadcrumb title={"Randevularım"} /> */}
       {children}
     </div>
   );

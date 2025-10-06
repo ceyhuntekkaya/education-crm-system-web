@@ -5,7 +5,7 @@ import {
   ActiveFilters,
   useSearchContext,
 } from "./_shared";
-import { Breadcrumb, Loading } from "@/components";
+import { Loading } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -39,9 +39,9 @@ const SearchPageContent = () => {
 
   return (
     <div>
-      <Breadcrumb title={breadcrumbTitle} />
+      {/* <Breadcrumb title={breadcrumbTitle} /> */}
       <section
-        className="course-list-view py-120 background-img bg-img"
+        className="course-list-view py-40 background-img bg-img"
         data-background-image="assets/images/bg/gradient-bg.png"
       >
         <div className={`side-overlay`}></div>
