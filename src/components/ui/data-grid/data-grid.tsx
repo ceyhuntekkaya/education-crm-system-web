@@ -23,6 +23,27 @@ export interface GridColDef<T = any> {
   headerAlign?: "left" | "center" | "right";
 }
 
+// Loading state types
+export type LoadingState =
+  | boolean
+  | {
+      type: "skeleton" | "overlay" | "spinner";
+      message?: string;
+      showProgress?: boolean;
+    };
+
+// Empty state configuration
+export interface EmptyStateConfig {
+  icon?: string;
+  title?: string;
+  description?: string;
+  showActions?: boolean;
+  onAddNew?: () => void;
+  onRefresh?: () => void;
+  addButtonText?: string;
+  refreshButtonText?: string;
+}
+
 // DataGrid props interface
 export interface DataGridProps<T = any> {
   rows: T[];
@@ -32,7 +53,8 @@ export interface DataGridProps<T = any> {
   checkboxSelection?: boolean;
   disableRowSelectionOnClick?: boolean;
   onRowSelectionChange?: (selectedRows: T[]) => void;
-  loading?: boolean;
+  loading?: LoadingState;
+  emptyState?: EmptyStateConfig;
   className?: string;
   height?: number | string;
   initialState?: {
@@ -66,6 +88,7 @@ export function DataGrid<T extends Record<string, any>>({
   disableRowSelectionOnClick = false,
   onRowSelectionChange,
   loading = false,
+  emptyState,
   className = "",
   height = "auto",
   initialState,
@@ -82,6 +105,27 @@ export function DataGrid<T extends Record<string, any>>({
   });
 
   const [selectedRows, setSelectedRows] = useState<Set<any>>(new Set());
+
+  // Loading state helpers
+  const isLoading = useMemo(() => {
+    return typeof loading === "boolean" ? loading : !!loading;
+  }, [loading]);
+
+  const loadingConfig = useMemo(() => {
+    if (typeof loading === "boolean") {
+      return { type: "skeleton" as const, message: "Veriler yükleniyor..." };
+    }
+    return (
+      loading || { type: "skeleton" as const, message: "Veriler yükleniyor..." }
+    );
+  }, [loading]);
+
+  const showSkeletonLoading = isLoading && loadingConfig.type === "skeleton";
+  const showOverlayLoading = isLoading && loadingConfig.type === "overlay";
+  const showSpinnerLoading = isLoading && loadingConfig.type === "spinner";
+
+  // Empty state helper
+  const isEmpty = !isLoading && rows.length === 0;
 
   // Memoized sorted and paginated data
   const processedData = useMemo(() => {
@@ -222,14 +266,181 @@ export function DataGrid<T extends Record<string, any>>({
     return sortState.direction === "asc" ? "↑" : "↓";
   };
 
-  if (loading) {
+  if (showSkeletonLoading) {
+    return (
+      <div className="card">
+        <div className="card-body">
+          {/* Header skeleton */}
+          <div className="d-flex align-items-center justify-content-between mb-4">
+            <div className="d-flex align-items-center gap-3">
+              <div
+                className="skeleton-loader skeleton-circle"
+                style={{ width: "24px", height: "24px" }}
+              ></div>
+              <div
+                className="skeleton-loader"
+                style={{ width: "120px", height: "20px" }}
+              ></div>
+            </div>
+            <div
+              className="skeleton-loader"
+              style={{ width: "80px", height: "32px" }}
+            ></div>
+          </div>
+
+          {/* Table skeleton */}
+          <div className="table-responsive">
+            <table className="table mb-0">
+              <thead className="table-light">
+                <tr>
+                  {checkboxSelection && (
+                    <th style={{ width: "50px", padding: "16px 20px" }}>
+                      <div
+                        className="skeleton-loader skeleton-circle"
+                        style={{ width: "16px", height: "16px" }}
+                      ></div>
+                    </th>
+                  )}
+                  {columns.map((column, index) => (
+                    <th key={index} style={{ padding: "16px 20px" }}>
+                      <div
+                        className="skeleton-loader"
+                        style={{
+                          width: `${Math.min(
+                            column.headerName.length * 8 + 40,
+                            150
+                          )}px`,
+                          height: "16px",
+                        }}
+                      ></div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[...Array(Math.min(pageSize, 5))].map((_, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {checkboxSelection && (
+                      <td style={{ padding: "16px 20px" }}>
+                        <div
+                          className="skeleton-loader skeleton-circle"
+                          style={{ width: "16px", height: "16px" }}
+                        ></div>
+                      </td>
+                    )}
+                    {columns.map((column, colIndex) => (
+                      <td key={colIndex} style={{ padding: "16px 20px" }}>
+                        <div
+                          className="skeleton-loader"
+                          style={{
+                            width: `${Math.floor(Math.random() * 80) + 60}px`,
+                            height: "16px",
+                            animationDelay: `${
+                              (rowIndex * columns.length + colIndex) * 0.1
+                            }s`,
+                          }}
+                        ></div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Loading indicator */}
+          <div className="d-flex align-items-center justify-content-center py-4">
+            <div className="d-flex align-items-center gap-3">
+              <i
+                className="ph-bold ph-spinner-gap animate-spin text-main-600"
+                style={{ fontSize: "20px" }}
+              ></i>
+              <span className="text-neutral-600 fw-medium">
+                Veriler yükleniyor...
+              </span>
+            </div>
+          </div>
+
+          {/* Pagination skeleton */}
+          <div className="d-flex align-items-center justify-content-end gap-4 pt-3 border-top">
+            <div className="d-flex align-items-center gap-2">
+              <div
+                className="skeleton-loader"
+                style={{ width: "100px", height: "16px" }}
+              ></div>
+              <div
+                className="skeleton-loader"
+                style={{ width: "60px", height: "32px" }}
+              ></div>
+            </div>
+            <div
+              className="skeleton-loader"
+              style={{ width: "120px", height: "16px" }}
+            ></div>
+            <div className="d-flex gap-1">
+              <div
+                className="skeleton-loader skeleton-circle"
+                style={{ width: "32px", height: "32px" }}
+              ></div>
+              <div
+                className="skeleton-loader skeleton-circle"
+                style={{ width: "32px", height: "32px" }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state render
+  if (isEmpty) {
+    const emptyConfig = {
+      icon: "ph-database",
+      title: "Veri Bulunamadı",
+      description:
+        "Henüz görüntülenecek veri bulunmuyor. Filtreleri kontrol edin veya yeni veri ekleyin.",
+      showActions: true,
+      addButtonText: "Yeni Ekle",
+      refreshButtonText: "Yenile",
+      ...emptyState,
+    };
+
     return (
       <div className="card">
         <div className="card-body text-center py-5">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
+          <div className="mb-4">
+            <i
+              className={`ph-bold ${emptyConfig.icon} text-neutral-400`}
+              style={{ fontSize: "48px" }}
+            ></i>
           </div>
-          <p className="mt-3 mb-0">Loading...</p>
+          <h5 className="text-neutral-600 mb-2">{emptyConfig.title}</h5>
+          <p className="text-neutral-500 mb-4">{emptyConfig.description}</p>
+          {emptyConfig.showActions && (
+            <div className="d-flex justify-content-center gap-2">
+              {emptyConfig.onAddNew && (
+                <Button
+                  leftIcon="ph-plus"
+                  size="sm"
+                  className="btn-main"
+                  onClick={emptyConfig.onAddNew}
+                >
+                  {emptyConfig.addButtonText}
+                </Button>
+              )}
+              {emptyConfig.onRefresh && (
+                <Button
+                  variant="outline"
+                  leftIcon="ph-arrow-clockwise"
+                  size="sm"
+                  onClick={emptyConfig.onRefresh}
+                >
+                  {emptyConfig.refreshButtonText}
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );
@@ -237,11 +448,12 @@ export function DataGrid<T extends Record<string, any>>({
 
   return (
     <div
-      className={`data-grid card ${className}`}
+      className={`data-grid card ${className} ${isLoading ? "loading" : ""}`}
       style={{
         height,
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         border: "1px solid #e9ecef",
+        position: "relative",
       }}
     >
       {/* Table Container */}
@@ -492,6 +704,76 @@ export function DataGrid<T extends Record<string, any>>({
           </div>
         </div>
       </div>
+
+      {/* Overlay Loading */}
+      {showOverlayLoading && (
+        <div
+          className="data-grid-overlay-loading"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10,
+            borderRadius: "12px",
+          }}
+        >
+          <div className="d-flex flex-column align-items-center gap-3">
+            <i
+              className="ph-bold ph-spinner-gap animate-spin text-main-600"
+              style={{ fontSize: "32px" }}
+            ></i>
+            <div className="text-center">
+              <p className="mb-1 fw-medium text-neutral-700">
+                {loadingConfig.message}
+              </p>
+              {loadingConfig.showProgress && (
+                <div
+                  className="progress"
+                  style={{ width: "200px", height: "4px" }}
+                >
+                  <div
+                    className="progress-bar bg-main-600"
+                    role="progressbar"
+                    style={{
+                      width: "60%",
+                      animation: "progress-indeterminate 1.5s infinite linear",
+                    }}
+                  ></div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Spinner Loading (minimal) */}
+      {showSpinnerLoading && (
+        <div
+          className="data-grid-spinner-loading"
+          style={{
+            position: "absolute",
+            top: "16px",
+            right: "16px",
+            zIndex: 10,
+          }}
+        >
+          <div className="d-flex align-items-center gap-2 bg-white px-3 py-2 rounded-pill shadow-sm border">
+            <i
+              className="ph-bold ph-circle-notch animate-spin text-main-600"
+              style={{ fontSize: "16px" }}
+            ></i>
+            <span className="text-sm text-neutral-600">
+              {loadingConfig.message}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

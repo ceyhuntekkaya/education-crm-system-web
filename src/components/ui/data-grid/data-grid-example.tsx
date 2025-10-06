@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { DataGrid, GridColDef } from "./data-grid";
+import React, { useState } from "react";
+import { DataGrid, GridColDef, LoadingState } from "./data-grid";
 import { Button } from "../button";
 
 // Sample data interface
@@ -267,6 +267,31 @@ const sampleRows: Course[] = [
 ];
 
 export function DataGridExample() {
+  // Loading states
+  const [loadingState, setLoadingState] = useState<LoadingState>(false);
+  const [showEmptyState, setShowEmptyState] = useState(false);
+
+  // Loading control functions
+  const simulateLoading = (
+    type: "skeleton" | "overlay" | "spinner",
+    duration = 3000
+  ) => {
+    setLoadingState({
+      type,
+      message:
+        type === "skeleton"
+          ? "Veriler yükleniyor..."
+          : type === "overlay"
+          ? "Veriler güncelleniyor..."
+          : "Yenileniyor...",
+      showProgress: type === "overlay",
+    });
+
+    setTimeout(() => {
+      setLoadingState(false);
+    }, duration);
+  };
+
   // Star rating component
   const StarRating = ({
     rating,
@@ -580,12 +605,82 @@ export function DataGridExample() {
                   </ul>
                 </div>
               </div>
+
+              {/* Loading State Controls */}
+              <div className="mb-4">
+                <h6 className="fw-semibold mb-3">Loading State Examples:</h6>
+                <div className="d-flex gap-2 flex-wrap">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    leftIcon="ph-skeleton"
+                    onClick={() => simulateLoading("skeleton")}
+                    disabled={!!loadingState}
+                  >
+                    Skeleton Loading
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    leftIcon="ph-overlay"
+                    onClick={() => simulateLoading("overlay")}
+                    disabled={!!loadingState}
+                  >
+                    Overlay Loading
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    leftIcon="ph-spinner-gap"
+                    onClick={() => simulateLoading("spinner")}
+                    disabled={!!loadingState}
+                  >
+                    Spinner Loading
+                  </Button>
+                  {loadingState && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      leftIcon="ph-x"
+                      onClick={() => setLoadingState(false)}
+                      className="btn-outline-danger"
+                    >
+                      Stop Loading
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    leftIcon="ph-database"
+                    onClick={() => setShowEmptyState(!showEmptyState)}
+                    disabled={!!loadingState}
+                  >
+                    {showEmptyState ? "Show Data" : "Show Empty State"}
+                  </Button>
+                </div>
+                <small className="text-muted d-block mt-2">
+                  Test farklı loading durumlarını ve empty state&apos;i görmek
+                  için yukarıdaki butonları kullanın.
+                </small>
+              </div>
             </div>
           </div>
 
           <DataGrid
-            rows={sampleRows}
+            rows={showEmptyState ? [] : sampleRows}
             columns={columns}
+            loading={loadingState}
+            emptyState={{
+              icon: "ph-graduation-cap",
+              title: "Henüz Kurs Bulunmuyor",
+              description:
+                "Öğrencileriniz için harika kurslar oluşturmaya başlayın.",
+              showActions: true,
+              onAddNew: () => alert("Yeni kurs ekleme formu açılacak"),
+              onRefresh: () => setShowEmptyState(false),
+              addButtonText: "İlk Kursu Oluştur",
+              refreshButtonText: "Kursları Göster",
+            }}
             initialState={{
               pagination: {
                 paginationModel: {

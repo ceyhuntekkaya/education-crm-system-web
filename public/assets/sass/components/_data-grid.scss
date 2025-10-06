@@ -543,4 +543,71 @@
       }
     }
   }
+
+  // Skeleton Loader Styles
+  .skeleton-loader {
+    background: linear-gradient(90deg, #F0F2F5 25%, #E4E6EA 50%, #F0F2F5 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+    
+    &.skeleton-circle {
+      border-radius: 50%;
+    }
+  }
+
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  // Animate spin for loading icon
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // Progress bar animation for overlay loading
+  @keyframes progress-indeterminate {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
+  }
+
+  // Loading overlay styles
+  .data-grid-overlay-loading {
+    backdrop-filter: blur(2px);
+    
+    .progress {
+      background-color: rgba(107, 177, 255, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+      
+      .progress-bar {
+        transition: none;
+      }
+    }
+  }
+
+  // Spinner loading styles
+  .data-grid-spinner-loading {
+    .rounded-pill {
+      border: 1px solid #E9ECEF;
+    }
+  }
 }
