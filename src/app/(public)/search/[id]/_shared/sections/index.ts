@@ -23,3 +23,6 @@ export { AppointmentTable } from "./appointment-table";
 
 // Appointment Create
 export { AppointmentCreate } from "./appointment-create";
+
+// Notes
+export { default as Notes } from "./notes";

@@ -16,6 +16,7 @@ import {
   AppointmentCreate,
   Gallery,
   Posts,
+  Notes,
 } from "./_shared";
 
 // Appointment Table
@@ -154,6 +155,8 @@ export default function InstitutionDetailPage({
 
             {/* Tab Content */}
             <TabContent tabs={tabItems} />
+
+            <Notes className="mt-4" />
           </div>
         </div>
       </div>
