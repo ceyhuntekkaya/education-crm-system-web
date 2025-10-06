@@ -1,0 +1,100 @@
+// Navigation Badge Styles
+.nav-badge {
+  display: inline-block;
+  position: relative;
+  background-color: #ff4757;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 8px;
+  margin-left: 4px;
+  padding: 0 3px;
+  top: -6px;
+  
+  // Animasyon efekti
+  animation: badgePulse 2s infinite;
+  
+  // Küçük sayılar için daha iyi görünüm
+  &:empty {
+    display: none;
+  }
+  
+  // Responsive tasarım
+  @media (max-width: 768px) {
+    font-size: 9px;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 8px;
+  }
+}
+
+// Badge animasyonu
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Farklı badge varyantları
+.nav-badge {
+  // Success badge
+  &--success {
+    background-color: #2ed573;
+  }
+  
+  // Warning badge
+  &--warning {
+    background-color: #ffa502;
+  }
+  
+  // Info badge
+  &--info {
+    background-color: #3742fa;
+  }
+  
+  // Secondary badge
+  &--secondary {
+    background-color: #57606f;
+  }
+}
+
+// Menu item içinde badge positioning
+.nav-menu__link,
+.nav-submenu__link {
+  position: relative;
+  
+  .nav-badge {
+    position: absolute;
+    top: 4px;
+    right: -10px;
+    transform: translateX(50%);
+    
+    // Submenu için farklı positioning
+    .nav-submenu__link & {
+      position: relative;
+      top: -6px;
+      right: auto;
+      transform: none;
+      margin-left: 4px;
+      margin-right: 0;
+    }
+  }
+}
+
+// Hover efektleri
+.nav-menu__item:hover .nav-badge,
+.nav-submenu__item:hover .nav-badge {
+  animation-play-state: paused;
+  transform: scale(1.05);
+}

@@ -2,8 +2,9 @@
 .header {
     transition: .2s linear;
     border-bottom: 1px solid hsl(var(--main)/.08);
+    padding: 8px 0; // Daha minimal padding
     @include md-screen {
-        padding: 10px 0;
+        padding: 6px 0; // Mobile'da daha da küçük
     }
     &.fixed-header {
         position: sticky;
@@ -14,14 +15,14 @@
         z-index: 99;
         backdrop-filter: blur(24px);
         animation: slideDown 0.35s ease-out;    
-        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
-        background-color: hsl(var(--white) / .9);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); // Daha hafif shadow
+        background-color: hsl(var(--white) / .95); // Biraz daha opak
         @include md-screen {
             inset-block-start: -1px;
         }
     }
     &-content-wrapper {
-        gap: clampCal(16, 40, 1199, 1599);
+        gap: clampCal(12, 24, 1199, 1599); // Daha küçük gap'ler
     }   
 }
 @keyframes slideDown {
@@ -35,21 +36,30 @@
 
 .logo {
     img {
-        max-width: 200px;
+        max-width: 160px; // Logo daha küçük
+        height: auto;
+        @include md-screen {
+            max-width: 140px; // Mobile'da daha da küçük
+        }
     }
 }
 
 .toggle-mobileMenu {
     line-height: 1;
-    font-size: 36px;
+    font-size: 24px; // Daha küçük toggle button
     color: var(--neutral-700);
+    padding: 8px; // Minimal padding
+    @include md-screen {
+        font-size: 22px;
+        padding: 6px;
+    }
 }
 
 /* Header Menu and Submenu Css Start */
 .nav-menu {
-    gap: 24px;
+    gap: 16px; // Daha küçük gap
     @include xl-screen {
-        gap: 20px;
+        gap: 12px; // XL ekranlarda daha da küçük
     }
     &__item {
         &.activePage {
@@ -73,10 +83,15 @@
         color: var(--neutral-700);
         font-weight: 500;
         width: 100%;
-        padding: 38px 0;
+        padding: 20px 0; // Çok daha küçük padding (38px'den 20px'e)
         width: 100%;
+        font-size: rem(14px); // Standart font boyutu
         @include xl-screen {
-            font-size: rem(14px) !important;
+            padding: 18px 0; // XL'de biraz daha küçük
+            font-size: rem(13px) !important;
+        }
+        @include lg-screen {
+            padding: 16px 0; // LG'de daha da küçük
         }
     }   
 }
@@ -132,7 +147,7 @@
     }
 }
 
-/* Submenu Start */
+/* Submenu Start - Minimalist Version */
 .nav-submenu {
     position: absolute;
     inset-inline-start: 0;
@@ -140,17 +155,18 @@
     inset-block-start: 100%;
     width: max-content;
     background-color: hsl(var(--white));
-    border-radius: 6px;
-    min-width: 190px;
+    border-radius: 8px; // Biraz daha yuvarlak
+    min-width: 180px; // Biraz daha küçük
     overflow: hidden;
-    padding: 8px;
+    padding: 6px; // Daha minimal padding
     visibility: hidden;
     opacity: 0;
-    margin-block-start: 16px;
+    margin-block-start: 8px; // Daha yakın
     transition: .2s linear;
     z-index: 99;
+    border: 1px solid hsl(var(--neutral-100)); // Hafif border
     @media (min-width: 992px) {
-        max-height: 400px;
+        max-height: 320px; // Biraz daha küçük max-height
         overflow-y: auto;
     }
     &__item {
@@ -175,14 +191,17 @@
         color: var(--neutral-700);
         font-weight: 500;
         width: 100%;
-        padding-inline-end: 16px;
-        width: 100%;
         display: block;
-        padding: 8px 14px;
-        border-radius: inherit;
-        font-size: rem(14px);
+        padding: 6px 12px; // Daha kompakt padding
+        border-radius: 4px; // Küçük border radius
+        font-size: rem(13px); // Biraz daha küçük font
+        line-height: 1.4; // Daha kompakt line-height
+        transition: all .15s ease; // Hızlı geçiş
         &::before {
             position: absolute;
+        }
+        &:hover {
+            background-color: hsl(var(--neutral-25)); // Hafif hover efekti
         }
     }
 }
@@ -191,7 +210,7 @@
 
 .header {
     &-right {
-        gap: clampCal(8, 24, 1199, 1599);
+        gap: clampCal(6, 16, 1199, 1599); // Daha küçük gap'ler
     }
     &-select {
         @include md-screen {
@@ -253,5 +272,48 @@
     }
 }
 
+
+/* Header Minimalist Enhancements */
+.header-inner {
+    min-height: 60px; // Minimum yükseklik belirleme
+    
+    @include lg-screen {
+        min-height: 56px; // Desktop'ta biraz daha küçük
+    }
+    
+    @include md-screen {
+        min-height: 52px; // Mobile'da daha da küçük
+    }
+}
+
+.header-content-wrapper {
+    align-items: center;
+    
+    .nav-menu {
+        height: auto; // Otomatik yükseklik
+    }
+}
+
+.header-right {
+    gap: 12px; // Sağ taraftaki elementler arası gap
+    
+    @include md-screen {
+        gap: 8px; // Mobile'da daha küçük gap
+    }
+}
+
+/* User Menu ve Navigation için compakt stil */
+.user-menu,
+.user-navigation {
+    .nav-menu__link {
+        padding: 12px 8px; // Daha kompakt padding
+        font-size: 13px; // Biraz daha küçük font
+        
+        @include md-screen {
+            padding: 10px 6px;
+            font-size: 12px;
+        }
+    }
+}
 
 /* ================================= Header Css End =========================== */

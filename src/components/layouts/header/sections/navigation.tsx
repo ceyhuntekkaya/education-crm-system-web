@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface NavigationProps {
-  className?: string;
+interface NavigationItem {
+  href: string;
+  label: string;
+  count?: number;
 }
 
-const MainNavigation = ({ className = "" }: NavigationProps) => {
+interface NavigationProps {
+  className?: string;
+  navItems?: NavigationItem[];
+}
+
+const MainNavigation = ({ className = "", navItems }: NavigationProps) => {
   const pathname = usePathname();
 
-  const navItems = [
+  const defaultNavItems: NavigationItem[] = [
     {
       href: "/",
       label: "Anasayfa",
@@ -16,13 +23,16 @@ const MainNavigation = ({ className = "" }: NavigationProps) => {
     {
       href: "/search",
       label: "Okul Arama",
+      count: 12,
     },
   ];
+
+  const items = navItems || defaultNavItems;
 
   return (
     <div className={`header-navigation d-lg-block d-none ${className}`}>
       <ul className="nav-menu flex-align">
-        {navItems.map((item, index) => (
+        {items.map((item, index) => (
           <li
             key={`nav-item-${index}`}
             className={`nav-menu__item ${
@@ -31,6 +41,11 @@ const MainNavigation = ({ className = "" }: NavigationProps) => {
           >
             <Link href={item.href} className="nav-menu__link">
               {item.label}
+              {item.count !== undefined && item.count > 0 && (
+                <span className="nav-badge nav-badge--warning">
+                  {item.count > 99 ? "99+" : item.count}
+                </span>
+              )}
             </Link>
           </li>
         ))}

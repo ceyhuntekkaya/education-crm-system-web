@@ -21,6 +21,11 @@ const UserNavigation = ({ className = "" }: UserNavigationProps) => {
             >
               <Link href={item.href || "#"} className="nav-menu__link">
                 {item.label}
+                {item.count !== undefined && item.count > 0 && (
+                  <span className="nav-badge nav-badge--warning">
+                    {item.count > 99 ? "99+" : item.count}
+                  </span>
+                )}
               </Link>
               <ul className="nav-submenu scroll-sm">
                 {item.links.map((link, linkIndex) => (
@@ -35,6 +40,11 @@ const UserNavigation = ({ className = "" }: UserNavigationProps) => {
                       className="nav-submenu__link hover-bg-neutral-30"
                     >
                       {link.label}
+                      {link.count !== undefined && link.count > 0 && (
+                        <span className="nav-badge nav-badge--warning">
+                          {link.count > 99 ? "99+" : link.count}
+                        </span>
+                      )}
                     </Link>
                   </li>
                 ))}
@@ -51,6 +61,11 @@ const UserNavigation = ({ className = "" }: UserNavigationProps) => {
             >
               <Link href={item.href || "#"} className="nav-menu__link">
                 {item.label}
+                {item.count !== undefined && item.count > 0 && (
+                  <span className="nav-badge nav-badge--warning">
+                    {item.count > 99 ? "99+" : item.count}
+                  </span>
+                )}
               </Link>
             </li>
           )

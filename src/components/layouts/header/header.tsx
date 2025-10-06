@@ -18,7 +18,7 @@ const HeaderContent = () => {
       <div className={classNames("side-overlay", isMenuActive && "show")}></div>
       <header className={classNames("header", scroll && "fixed-header")}>
         <div className="container container--xl">
-          <nav className="header-inner flex-between gap-8">
+          <nav className="header-inner flex-between gap-4">
             <div className="header-content-wrapper flex-align flex-grow-1">
               {/* Logo Start */}
 
