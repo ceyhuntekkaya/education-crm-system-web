@@ -6,12 +6,12 @@ import {
   InstitutionGeneralInfo,
   InstitutionPricingInfo,
   InstitutionReviews,
-  InstitutionCampusInfo,
+  // InstitutionCampusInfo,
   InstitutionCampusDetail,
   InstitutionBrandDetail,
   InstitutionStatistics,
   InstitutionLocationInfo,
-  InstitutionSeoInfo,
+  // InstitutionSeoInfo,
   InstitutionCampaigns,
   AppointmentCreate,
   Gallery,
@@ -19,7 +19,7 @@ import {
 } from "./_shared";
 
 // Appointment Table
-import { AppointmentTable } from "./_shared/sections/appointment-table";
+// import { AppointmentTable } from "./_shared/sections/appointment-table";
 
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
@@ -37,94 +37,101 @@ export default function InstitutionDetailPage({
     {
       id: "pills-tutionInfo",
       icon: "ph-bold ph-info",
-      title: "Genel Bilgiler 🔄", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
-      label: "Genel Bilgiler 🔄",
-      content: <InstitutionGeneralInfo />,
+      title: "Genel Bilgiler", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
+      label: "Genel Bilgiler",
+      content: (
+        <div>
+          <InstitutionGeneralInfo />
+          <InstitutionBrandDetail />
+          <InstitutionCampusDetail />
+          <InstitutionLocationInfo />
+        </div>
+      ),
     },
-    {
-      id: "pills-brand",
-      icon: "ph-bold ph-bank",
-      title: "Kurum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "Kurum Bilgileri *",
-      content: <InstitutionBrandDetail />,
-    },
-    {
-      id: "pills-campus",
-      icon: "ph-bold ph-buildings",
-      title: "Kampüs Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "Kampüs Bilgileri *",
-      content: <InstitutionCampusDetail />,
-    },
+    // {
+    //   id: "pills-brand",
+    //   icon: "ph-bold ph-bank",
+    //   title: "Kurum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+    //   label: "Kurum Bilgileri *",
+    //   content: <InstitutionBrandDetail />,
+    // },
+    // {
+    //   id: "pills-campus",
+    //   icon: "ph-bold ph-buildings",
+    //   title: "Kampüs Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+    //   label: "Kampüs Bilgileri *",
+    //   content: <InstitutionCampusDetail />,
+    // },
 
-    {
-      id: "pills-location",
-      icon: "ph-bold ph-map-pin",
-      title: "Konum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "Konum Bilgileri *",
-      content: <InstitutionLocationInfo />,
-    },
+    // {
+    //   id: "pills-location",
+    //   icon: "ph-bold ph-map-pin",
+    //   title: "Konum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+    //   label: "Konum Bilgileri *",
+    //   content: <InstitutionLocationInfo />,
+    // },
     {
       id: "pills-qualification",
       icon: "ph-bold ph-currency-circle-dollar",
-      title: "Ücretler 🔄", // API'ye bağlı + sabit yüzde değerleri (%3, %5 vb.)
-      label: "Ücretler 🔄",
+      title: "Ücretler",
+      label: "Ücretler",
       content: <InstitutionPricingInfo />,
     },
     {
       id: "pills-campaigns",
       icon: "ph-bold ph-tag",
-      title: "Kampanyalar ⚡", // Tamamen mock veri - campaignMockData
-      label: "Kampanyalar ⚡",
+      title: "Kampanyalar",
+      label: "Kampanyalar",
       content: <InstitutionCampaigns />,
     },
     {
       id: "pills-statistics",
       icon: "ph-bold ph-chart-bar",
-      title: "İstatistikler *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "İstatistikler *",
+      title: "İstatistikler",
+      label: "İstatistikler",
       content: <InstitutionStatistics />,
     },
-    {
-      id: "pills-seo",
-      icon: "ph-bold ph-magnifying-glass",
-      title: "SEO Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "SEO Bilgileri *",
-      content: <InstitutionSeoInfo />,
-    },
+    // {
+    //   id: "pills-seo",
+    //   icon: "ph-bold ph-magnifying-glass",
+    //   title: "SEO Bilgileri",
+    //   label: "SEO Bilgileri",
+    //   content: <InstitutionSeoInfo />,
+    // },
     {
       id: "pills-reviews",
       icon: "ph-bold ph-star",
-      title: "Değerlendirmeler 🔄", // API (rating avg/count) + sabit yüzde değerleri + örnek yorumlar
-      label: "Değerlendirmeler 🔄",
+      title: "Değerlendirmeler",
+      label: "Değerlendirmeler",
       content: <InstitutionReviews />,
     },
     {
       id: "pills-gallery",
       icon: "ph-bold ph-images",
-      title: "Galeri 📸", // Kurum galerisi
-      label: "Galeri 📸",
+      title: "Galeri",
+      label: "Galeri",
       content: <Gallery institutionId={params.id} />,
     },
     {
       id: "pills-posts",
       icon: "ph-bold ph-chat-circle-text",
-      title: "Sosyal Medya 📱", // Sosyal medya gönderileri - Diğer tablarla uyumlu tasarım
-      label: "Sosyal Medya 📱",
+      title: "Sosyal Medya",
+      label: "Sosyal Medya",
       content: <Posts institutionId={params.id} />,
-      isActive: true, // Başlangıçta bu tab aktif olsun
+      isActive: true,
     },
-    {
-      id: "pills-appointments",
-      icon: "ph-bold ph-calendar-check",
-      title: "Randevular 🔄", // Randevu listesi ve yönetimi
-      label: "Randevular 🔄",
-      content: <AppointmentTable />,
-    },
+    // {
+    //   id: "pills-appointments",
+    //   icon: "ph-bold ph-calendar-check",
+    //   title: "Randevular",
+    //   label: "Randevular",
+    //   content: <AppointmentTable />,
+    // },
     {
       id: "pills-appointment-create",
       icon: "ph-bold ph-calendar-plus",
-      title: "Randevu Oluştur ✨", // Yeni randevu oluşturma
-      label: "Randevu Oluştur ✨",
+      title: "Randevu Oluştur",
+      label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
     },
   ];
