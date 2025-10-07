@@ -692,7 +692,7 @@ export function DataGrid<T extends Record<string, any>>({
       <div className="data-grid-pagination">
         <div className="pagination-controls">
           <div className="page-size-control">
-            <span className="pagination-label">Rows per page:</span>
+            <span className="pagination-label">Sayfa Başına:</span>
             <select
               className="pagination-select"
               value={pagination.pageSize}

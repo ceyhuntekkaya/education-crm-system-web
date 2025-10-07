@@ -1,5 +1,5 @@
 // import { Breadcrumb } from "@/components";
-import { MessageProvider } from "@/contexts";
+import { MessageProvider } from "./context";
 
 export default function MessagesLayout({
   children,

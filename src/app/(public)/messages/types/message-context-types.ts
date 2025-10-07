@@ -1,5 +1,5 @@
 import { MessageDto } from "@/types/dto/content/MessageDto";
-import { MessageColumnHandlers } from "@/app/(public)/messages/config";
+import { MessageColumnHandlers } from "../config";
 
 export interface MessageStats {
   total: number;

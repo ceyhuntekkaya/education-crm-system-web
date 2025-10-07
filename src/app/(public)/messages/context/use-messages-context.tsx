@@ -12,9 +12,9 @@ import {
   useMessages,
   useMessageHandlers,
   useMessageStatistics,
-} from "@/app/(public)/messages/hooks";
+} from "../hooks";
 import { useModal } from "@/hooks";
-import { MessageContextType, MessageFilters } from "./types";
+import { MessageContextType, MessageFilters } from "../types";
 
 const MessageContext = createContext<MessageContextType | undefined>(undefined);
 
@@ -40,15 +40,20 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
   // Data hooks
   const { messages, loading, error, refetch } = useMessages(filters);
   const { stats, statsData } = useMessageStatistics(messages);
-  const handlers = useMessageHandlers({ setSelectedMessage, detailModal });
 
   // Actions
   const refreshMessages = useCallback(() => {
     refetch();
   }, [refetch]);
 
+  const handlers = useMessageHandlers({
+    setSelectedMessage,
+    detailModal,
+    refreshMessages,
+  });
+
   const handleSetFilters = useCallback((newFilters: MessageFilters) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
+    setFilters((prev: MessageFilters) => ({ ...prev, ...newFilters }));
   }, []);
 
   const handleSetSelectedMessage = useCallback((message: MessageDto | null) => {

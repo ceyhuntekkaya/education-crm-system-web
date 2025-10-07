@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from "@/components/ui/icon";
-import { useMessageContext } from "@/contexts";
+import { useMessageContext } from "../context";
+import { StatCardData } from "../types";
 
 export const MessageStatistics: React.FC = () => {
   const { statsData } = useMessageContext();
@@ -10,7 +11,7 @@ export const MessageStatistics: React.FC = () => {
       <div className="col-12">
         <div className="stats-overview bg-white rounded-12 p-24 shadow-sm">
           <div className="d-flex align-items-center">
-            {statsData.map((stat, index) => (
+            {statsData.map((stat: StatCardData, index: number) => (
               <React.Fragment key={stat.key}>
                 <div className="stat-item d-flex align-items-center flex-fill">
                   <div className="me-12">

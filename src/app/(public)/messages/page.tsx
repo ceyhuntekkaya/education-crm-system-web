@@ -9,7 +9,7 @@ import {
   MessageInfoModal,
   MessageStatistics,
 } from "@/app/(public)/messages/sections";
-import { useMessageContext } from "@/contexts";
+import { useMessageContext } from "./context";
 import { getMessageRowClasses } from "./utils/message-row-utils";
 
 const Messages: React.FC = () => {
@@ -60,6 +60,8 @@ const Messages: React.FC = () => {
               disableRowSelectionOnClick
               onRowClick={(params) => {
                 setSelectedMessage(params.row);
+                // Mesajı okundu olarak işaretle
+                handlers.onMarkAsRead(params.row);
                 infoModal.open();
               }}
               rowClassName={(row) => {
