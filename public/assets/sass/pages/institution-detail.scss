@@ -60,6 +60,15 @@
   background: var(--main-25);
 }
 
+// Override zebra striping for appointment sections
+.no-zebra-striping .info-item:nth-child(even) {
+  background: transparent !important;
+}
+
+.no-zebra-striping .info-item {
+  background: transparent !important;
+}
+
 /* Social media buttons */
 .social-btn {
   width: 40px;

@@ -18,11 +18,11 @@ export { Gallery } from "./gallery";
 // Posts
 export { default as Posts } from "./posts";
 
-// Appointment Table
-export { AppointmentTable } from "./appointment-table";
-
 // Appointment Create
 export { AppointmentCreate } from "./appointment-create";
+
+// Current Appointment (My Current Appointment)
+export { CurrentAppointment } from "./current-appointment";
 
 // Notes
 export { default as Notes } from "./notes";

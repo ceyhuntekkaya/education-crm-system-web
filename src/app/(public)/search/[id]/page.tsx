@@ -15,14 +15,12 @@ import {
   // InstitutionSeoInfo,
   InstitutionCampaigns,
   AppointmentCreate,
+  CurrentAppointment,
   Gallery,
   Posts,
   Notes,
   useInstitutionDetail,
 } from "./_shared";
-
-// Appointment Table
-// import { AppointmentTable } from "./_shared/sections/appointment-table";
 
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
@@ -131,18 +129,18 @@ export default function InstitutionDetailPage({
       title: "Sosyal Medya",
       label: "Sosyal Medya",
       content: <Posts institutionId={params.id} />,
+    },
+    {
+      id: "pills-current-appointment",
+      icon: "ph-bold ph-clock",
+      title: "Randevum",
+      label: "Randevum",
+      content: <CurrentAppointment institutionId={params.id} />,
       isActive: true,
     },
-    // {
-    //   id: "pills-appointments",
-    //   icon: "ph-bold ph-calendar-check",
-    //   title: "Randevular",
-    //   label: "Randevular",
-    //   content: <AppointmentTable />,
-    // },
     {
       id: "pills-appointment-create",
-      icon: "ph-bold ph-calendar-plus",
+      icon: "ph-bold ph-plus-circle",
       title: "Randevu Oluştur",
       label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
