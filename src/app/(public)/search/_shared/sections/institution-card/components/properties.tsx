@@ -20,7 +20,7 @@ export const Properties = () => {
     <div className="mb-32">
       <div className="d-flex align-items-center justify-content-between mb-16">
         <div className="d-flex align-items-center gap-12">
-          <div className="w-8 h-8 rounded-circle bg-main-600"></div>
+          <div className="w-8 h-8 rounded-circle bg-warning-600"></div>
           <h4 className="h6 mb-0 text-heading fw-bold">Teknik Detaylar</h4>
         </div>
         {hasMore && onToggle && (
@@ -37,7 +37,7 @@ export const Properties = () => {
           </button>
         )}
       </div>
-      <div className="ps-20">
+      <div className="ps-20 pt-12">
         <div className="row g-8">
           {visiblePropertiesFiltered.map((property: any) => (
             <div key={property.id} className="col-6">

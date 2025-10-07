@@ -9,3 +9,6 @@ export * from "./location-helpers";
 
 // Badge style related utilities
 export * from "./badge-style-helpers";
+
+// Appointment related utilities
+export * from "./appointment-helpers";

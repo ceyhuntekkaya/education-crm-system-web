@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FormInput } from "@/components/forms";
+import { FormAutocomplete } from "@/components/forms";
 import { useFormHook } from "@/hooks/use-form-hook";
 import { getSlotTypeIcon, getTypeDisplayName } from "@/utils";
-import { mockAvailableSlots } from "../mock/appointment-create-mock";
+import { mockSchoolAvailability } from "../mock";
 import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
 
 export const DateTimeStep = () => {
@@ -11,11 +11,24 @@ export const DateTimeStep = () => {
   const selectedSlotId = values.selectedSlotId || "";
   const [availableSlots, setAvailableSlots] = useState<AvailableSlotDto[]>([]);
 
+  // Autocomplete için tarih seçenekleri oluştur
+  const dateOptions = mockSchoolAvailability.map((availability) => ({
+    value: availability.date || "",
+    label: `${availability.date} (${availability.availableCount} müsait slot)`,
+  }));
+
   // Load available slots when date changes
   useEffect(() => {
     if (appointmentDate) {
-      // In real implementation, call API with date
-      setAvailableSlots(mockAvailableSlots);
+      // Seçilen tarihe göre available slots'ları bul
+      const selectedAvailability = mockSchoolAvailability.find(
+        (availability) => availability.date === appointmentDate
+      );
+      if (selectedAvailability && selectedAvailability.availableSlots) {
+        setAvailableSlots(selectedAvailability.availableSlots);
+      } else {
+        setAvailableSlots([]);
+      }
     } else {
       setAvailableSlots([]);
     }
@@ -38,12 +51,14 @@ export const DateTimeStep = () => {
 
       {/* Date Selection */}
       <div className="date-selection-container mb-32">
-        <FormInput
+        <FormAutocomplete
           name="appointmentDate"
-          type="date"
           label="Randevu Tarihi"
+          placeholder="Tarihi seçiniz..."
           variant="inline"
-          min={new Date().toISOString().split("T")[0]}
+          options={dateOptions}
+          iconLeft="ph-calendar"
+          noOptionsText="Müsait tarih bulunamadı"
         />
       </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Breadcrumb } from "@/components";
+// import { Breadcrumb } from "@/components";
 import ListSidebar from "./_shared/sections/list-sidebar";
 import { useParams } from "next/navigation";
 import { getListById } from "./_shared/utils";
@@ -18,8 +18,8 @@ export default function MyListLayout({
   return (
     <>
       <div>
-        <Breadcrumb title={`Listem: ${listTitle}`} />
-        <div className="container py-120">
+        {/* <Breadcrumb title={`Listem: ${listTitle}`} /> */}
+        <div className="container py-40">
           <div className="row">
             <div className="col-lg-3">
               <ListSidebar listId={id} />

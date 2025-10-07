@@ -1,8 +1,10 @@
 "use client";
 import * as yup from "yup";
 import { Button, Form, FormInput, FormTextarea } from "@/components";
-import { FormProvider } from "@/contexts";
+import { FormProvider, useAuth } from "@/contexts";
 import { FormValues } from "@/types";
+import { useFormHook } from "@/hooks";
+import { useEffect } from "react";
 
 const validationSchema = yup.object({
   name: yup.string().required("İsim zorunludur"),
@@ -41,6 +43,20 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
   schoolId,
   campusId,
 }) => {
+  const { user } = useAuth();
+
+  const { updateField } = useFormHook();
+
+  // Kullanıcı bilgileri yüklendiğinde form alanlarını güncelle
+  useEffect(() => {
+    if (user) {
+      updateField("name", user.fullName || "");
+      updateField("email", user.email || "");
+      updateField("phone", user.phone || "");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   const onSubmit = async (values: FormValues) => {
     const contactRequest = {
       name: String(values.name ?? ""),
@@ -78,6 +94,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
             label="İsim"
             placeholder="İsminizi girin..."
             variant="outline"
+            fullWidth
           />
 
           <FormInput
@@ -86,6 +103,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
             label="Email"
             placeholder="Email adresinizi girin..."
             variant="outline"
+            fullWidth
           />
 
           <FormInput
@@ -94,6 +112,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
             label="Telefon"
             placeholder="Telefon numaranızı girin..."
             variant="outline"
+            fullWidth
           />
 
           <FormTextarea

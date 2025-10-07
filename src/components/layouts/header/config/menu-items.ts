@@ -1,10 +1,11 @@
 import { MenuItem } from "../types";
 
 export const menuItems: MenuItem[] = [
-  { href: "/appointments", label: "Randevularım" },
+  { href: "/appointments", label: "Randevularım", count: 3 },
   {
     label: "Listelerim",
     href: "/my-lists",
+
     links: [
       { href: "/my-lists/1", label: "Favori Okullarım" },
       { href: "/my-lists/2", label: "Aday Okullarım" },
@@ -27,5 +28,5 @@ export const menuItems: MenuItem[] = [
       { href: "/search?favId=4", label: "Özel Kurslar" },
     ],
   },
-  { href: "/messages", label: "Mesajlarım" },
+  { href: "/messages", label: "Mesajlarım", count: 7 },
 ];

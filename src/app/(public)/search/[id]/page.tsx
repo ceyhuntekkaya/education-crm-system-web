@@ -1,26 +1,32 @@
 "use client";
 
+import Image from "next/image";
 // Components
 import {
   InstitutionSidebar,
   InstitutionGeneralInfo,
   InstitutionPricingInfo,
   InstitutionReviews,
-  InstitutionCampusInfo,
+  // InstitutionCampusInfo,
+  InstitutionCampusDetail,
+  InstitutionBrandDetail,
   InstitutionStatistics,
   InstitutionLocationInfo,
-  InstitutionSeoInfo,
+  // InstitutionSeoInfo,
   InstitutionCampaigns,
   AppointmentCreate,
+  CurrentAppointment,
   Gallery,
   Posts,
+  Notes,
+  useInstitutionDetail,
 } from "./_shared";
-
-// Appointment Table
-import { AppointmentTable } from "./_shared/sections/appointment-table";
 
 // UI Components
 import { TabContent, TabNavigation, type TabItem } from "@/components";
+
+const tempUrl =
+  "https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg";
 
 export default function InstitutionDetailPage({
   params,
@@ -29,117 +35,166 @@ export default function InstitutionDetailPage({
 }) {
   const schoolId = parseInt(params.id);
 
+  const { school } = useInstitutionDetail();
+
   // Tab content dizisi
   // * = API'ye bağlı (gerçek veri), ⚡ = Mock/Statik veri, 🔄 = Karışık (API + Mock)
   const tabItems: TabItem[] = [
     {
       id: "pills-tutionInfo",
       icon: "ph-bold ph-info",
-      title: "Genel Bilgiler 🔄", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
-      label: "Genel Bilgiler 🔄",
-      content: <InstitutionGeneralInfo />,
+      title: "Genel Bilgiler", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
+      label: "Genel Bilgiler",
+      content: (
+        <div>
+          <InstitutionGeneralInfo />
+          <InstitutionBrandDetail />
+          <InstitutionCampusDetail />
+          <InstitutionLocationInfo />
+        </div>
+      ),
     },
-    {
-      id: "pills-campus",
-      icon: "ph-bold ph-buildings",
-      title: "Kampüs & Okul Grubu *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "Kampüs & Okul Grubu *",
-      content: <InstitutionCampusInfo />,
-    },
-    {
-      id: "pills-location",
-      icon: "ph-bold ph-map-pin",
-      title: "Konum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "Konum Bilgileri *",
-      content: <InstitutionLocationInfo />,
-    },
+    // {
+    //   id: "pills-brand",
+    //   icon: "ph-bold ph-bank",
+    //   title: "Kurum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+    //   label: "Kurum Bilgileri *",
+    //   content: <InstitutionBrandDetail />,
+    // },
+    // {
+    //   id: "pills-campus",
+    //   icon: "ph-bold ph-buildings",
+    //   title: "Kampüs Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+    //   label: "Kampüs Bilgileri *",
+    //   content: <InstitutionCampusDetail />,
+    // },
+
+    // {
+    //   id: "pills-location",
+    //   icon: "ph-bold ph-map-pin",
+    //   title: "Konum Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
+    //   label: "Konum Bilgileri *",
+    //   content: <InstitutionLocationInfo />,
+    // },
     {
       id: "pills-qualification",
       icon: "ph-bold ph-currency-circle-dollar",
-      title: "Ücretler 🔄", // API'ye bağlı + sabit yüzde değerleri (%3, %5 vb.)
-      label: "Ücretler 🔄",
+      title: "Ücretler",
+      label: "Ücretler",
       content: <InstitutionPricingInfo />,
     },
     {
       id: "pills-campaigns",
       icon: "ph-bold ph-tag",
-      title: "Kampanyalar ⚡", // Tamamen mock veri - campaignMockData
-      label: "Kampanyalar ⚡",
+      title: "Kampanyalar",
+      label: "Kampanyalar",
       content: <InstitutionCampaigns />,
     },
     {
       id: "pills-statistics",
       icon: "ph-bold ph-chart-bar",
-      title: "İstatistikler *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "İstatistikler *",
-      content: <InstitutionStatistics />,
+      title: "Analiz & Değerlendirme",
+      label: "Analiz & Değerlendirme",
+      content: (
+        <div>
+          <InstitutionReviews />
+          <InstitutionStatistics />
+        </div>
+      ),
     },
-    {
-      id: "pills-seo",
-      icon: "ph-bold ph-magnifying-glass",
-      title: "SEO Bilgileri *", // Tamamen API'ye bağlı - useInstitutionDetail context
-      label: "SEO Bilgileri *",
-      content: <InstitutionSeoInfo />,
-    },
-    {
-      id: "pills-reviews",
-      icon: "ph-bold ph-star",
-      title: "Değerlendirmeler 🔄", // API (rating avg/count) + sabit yüzde değerleri + örnek yorumlar
-      label: "Değerlendirmeler 🔄",
-      content: <InstitutionReviews />,
-    },
+    // {
+    //   id: "pills-seo",
+    //   icon: "ph-bold ph-magnifying-glass",
+    //   title: "SEO Bilgileri",
+    //   label: "SEO Bilgileri",
+    //   content: <InstitutionSeoInfo />,
+    // },
+    // {
+    //   id: "pills-reviews",
+    //   icon: "ph-bold ph-star",
+    //   title: "Değerlendirmeler",
+    //   label: "Değerlendirmeler",
+    //   content: <InstitutionReviews />,
+    // },
     {
       id: "pills-gallery",
       icon: "ph-bold ph-images",
-      title: "Galeri 📸", // Kurum galerisi
-      label: "Galeri 📸",
+      title: "Galeri",
+      label: "Galeri",
       content: <Gallery institutionId={params.id} />,
     },
     {
       id: "pills-posts",
       icon: "ph-bold ph-chat-circle-text",
-      title: "Sosyal Medya 📱", // Sosyal medya gönderileri - Diğer tablarla uyumlu tasarım
-      label: "Sosyal Medya 📱",
+      title: "Sosyal Medya",
+      label: "Sosyal Medya",
       content: <Posts institutionId={params.id} />,
-      isActive: true, // Başlangıçta bu tab aktif olsun
     },
     {
-      id: "pills-appointments",
-      icon: "ph-bold ph-calendar-check",
-      title: "Randevular 🔄", // Randevu listesi ve yönetimi
-      label: "Randevular 🔄",
-      content: <AppointmentTable />,
+      id: "pills-current-appointment",
+      icon: "ph-bold ph-clock",
+      title: "Randevum",
+      label: "Randevum",
+      content: <CurrentAppointment institutionId={params.id} />,
+      isActive: true,
     },
     {
       id: "pills-appointment-create",
-      icon: "ph-bold ph-calendar-plus",
-      title: "Randevu Oluştur ✨", // Yeni randevu oluşturma
-      label: "Randevu Oluştur ✨",
+      icon: "ph-bold ph-plus-circle",
+      title: "Randevu Oluştur",
+      label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
     },
   ];
 
   return (
-    <section className="tutor-details py-120">
-      <div className="container">
-        <div className="row gy-4">
-          {/* Sol Sidebar - Profil ve İletişim */}
-          <div className="col-lg-4">
-            <InstitutionSidebar />
-          </div>
+    <div>
+      {/* Cover Image */}
 
-          {/* Sağ İçerik - Tab Yapısı */}
-          <div className="col-lg-8">
-            {/* Tab Navigation */}
-            <div className="border border-neutral-30 rounded-12 bg-white p-8">
-              <TabNavigation tabs={tabItems} />
+      <section className="tutor-details">
+        <div className="container">
+          {school.coverImageUrl && (
+            <div
+              className="position-relative rounded-16 overflow-hidden my-24 "
+              style={{ height: "300px" }}
+            >
+              <Image
+                src={tempUrl || school.coverImageUrl}
+                alt={school.name}
+                fill
+                className="object-cover"
+              />
+              <div className="position-absolute inset-0 bg-gradient-to-t from-black-50 to-transparent"></div>
+              <div className="position-absolute bottom-0 left-0 p-24 text-white">
+                <h2 className="h3 fw-bold mb-8">{school.name}</h2>
+                <p className="text-white text-opacity-90 mb-0">
+                  {school.institutionType.displayName}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <div className="row gy-4">
+            {/* Sol Sidebar - Profil ve İletişim */}
+            <div className="col-lg-4">
+              <InstitutionSidebar />
             </div>
 
-            {/* Tab Content */}
-            <TabContent tabs={tabItems} />
+            {/* Sağ İçerik - Tab Yapısı */}
+            <div className="col-lg-8">
+              {/* Tab Navigation */}
+              <div className="border border-neutral-30 rounded-12 bg-white p-8">
+                <TabNavigation tabs={tabItems} iconOnly />
+              </div>
+
+              {/* Tab Content */}
+              <TabContent tabs={tabItems} />
+
+              <Notes />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

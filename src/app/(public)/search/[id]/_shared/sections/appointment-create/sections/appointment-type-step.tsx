@@ -1,5 +1,5 @@
 import React from "react";
-import { appointmentTypeOptions } from "../mock/appointment-create-mock";
+import { appointmentTypeOptions } from "../mock";
 import { useFormHook } from "@/hooks/use-form-hook";
 import { AppointmentTypeStepProps } from "../types";
 

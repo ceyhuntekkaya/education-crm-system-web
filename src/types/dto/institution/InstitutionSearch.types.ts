@@ -67,4 +67,11 @@ export interface SchoolSearchResultDto {
   hasActiveCampaigns?: boolean;
   isSubscribed?: boolean;
   isFavorite?: boolean;
+  // Appointment bilgileri
+  appointment?: {
+    isActiveAppointment?: boolean;
+    appointmentDate?: string | null;
+  };
+  // Notlar için
+  isActiveNotes?: boolean;
 }

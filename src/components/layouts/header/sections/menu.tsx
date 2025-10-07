@@ -3,16 +3,16 @@ import { usePathname } from "next/navigation";
 import { isActivePage, getMenuItemKey } from "../utils";
 import { useHeader } from "../context";
 
-interface MenuProps {
+interface UserNavigationProps {
   className?: string;
 }
 
-const Menu = ({ className = "" }: MenuProps) => {
+const UserNavigation = ({ className = "" }: UserNavigationProps) => {
   const { menuItems } = useHeader();
   const pathname = usePathname();
   return (
     <div className={`header-menu d-lg-block d-none ${className}`}>
-      <ul className="nav-menu flex-align">
+      <ul className="nav-menu flex-align me-16">
         {menuItems.map((item, index) =>
           item.links ? (
             <li
@@ -21,6 +21,11 @@ const Menu = ({ className = "" }: MenuProps) => {
             >
               <Link href={item.href || "#"} className="nav-menu__link">
                 {item.label}
+                {item.count !== undefined && item.count > 0 && (
+                  <span className="nav-badge nav-badge--warning">
+                    {item.count > 99 ? "99+" : item.count}
+                  </span>
+                )}
               </Link>
               <ul className="nav-submenu scroll-sm">
                 {item.links.map((link, linkIndex) => (
@@ -35,6 +40,11 @@ const Menu = ({ className = "" }: MenuProps) => {
                       className="nav-submenu__link hover-bg-neutral-30"
                     >
                       {link.label}
+                      {link.count !== undefined && link.count > 0 && (
+                        <span className="nav-badge nav-badge--warning">
+                          {link.count > 99 ? "99+" : link.count}
+                        </span>
+                      )}
                     </Link>
                   </li>
                 ))}
@@ -51,6 +61,11 @@ const Menu = ({ className = "" }: MenuProps) => {
             >
               <Link href={item.href || "#"} className="nav-menu__link">
                 {item.label}
+                {item.count !== undefined && item.count > 0 && (
+                  <span className="nav-badge nav-badge--warning">
+                    {item.count > 99 ? "99+" : item.count}
+                  </span>
+                )}
               </Link>
             </li>
           )
@@ -60,4 +75,4 @@ const Menu = ({ className = "" }: MenuProps) => {
   );
 };
 
-export default Menu;
+export default UserNavigation;

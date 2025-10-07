@@ -25,7 +25,18 @@ export const mockInstitutions: SchoolSearchResultDto[] = [
     district: "Kadıköy",
     city: "İstanbul",
     distanceKm: 2.5,
-    highlights: ["İngilizce Eğitim", "Teknoloji Odaklı", "Spor Merkezi"],
+    highlights: [
+      "İngilizce Eğitim",
+      "Teknoloji Odaklı",
+      "Spor Merkezi",
+      "Sanat Atölyesi",
+      "Müzik Dersleri",
+    ],
+    appointment: {
+      isActiveAppointment: true,
+      appointmentDate: "2024-10-15T10:30:00",
+    },
+    isActiveNotes: true,
     cardProperties: [
       {
         id: 1,
@@ -97,7 +108,18 @@ export const mockInstitutions: SchoolSearchResultDto[] = [
     district: "Üsküdar",
     city: "İstanbul",
     distanceKm: 1.2,
-    highlights: ["Montessori Yöntemi", "Organik Beslenme", "Oyun Alanı"],
+    highlights: [
+      "Montessori Yöntemi",
+      "Organik Beslenme",
+      "Oyun Alanı",
+      "Doğa Eğitimi",
+      "Bireysel Gelişim",
+    ],
+    appointment: {
+      isActiveAppointment: false,
+      appointmentDate: null,
+    },
+    isActiveNotes: false,
     cardProperties: [
       {
         id: 3,
@@ -169,7 +191,18 @@ export const mockInstitutions: SchoolSearchResultDto[] = [
     district: "Pendik",
     city: "İstanbul",
     distanceKm: 8.7,
-    highlights: ["Laboratuvar", "Staj İmkanı", "İş Garantisi"],
+    highlights: [
+      "Laboratuvar",
+      "Staj İmkanı",
+      "İş Garantisi",
+      "Sektör Uzmanları",
+      "Proje Odaklı",
+    ],
+    appointment: {
+      isActiveAppointment: true,
+      appointmentDate: "2024-10-20T14:00:00",
+    },
+    isActiveNotes: true,
     cardProperties: [
       {
         id: 5,
@@ -214,6 +247,11 @@ export const mockInstitutions: SchoolSearchResultDto[] = [
     city: "İstanbul",
     distanceKm: 3.8,
     highlights: ["STEM Eğitimi", "Sanat Atölyesi", "Yüzme Havuzu"],
+    appointment: {
+      isActiveAppointment: false,
+      appointmentDate: null,
+    },
+    isActiveNotes: true,
     cardProperties: [
       {
         id: 6,
@@ -274,6 +312,11 @@ export const mockInstitutions: SchoolSearchResultDto[] = [
     city: "İstanbul",
     distanceKm: 5.2,
     highlights: ["Olimpiyat Hazırlık", "Araştırma Lab", "Üniversite İşbirliği"],
+    appointment: {
+      isActiveAppointment: true,
+      appointmentDate: "2024-10-12T16:30:00",
+    },
+    isActiveNotes: false,
     cardProperties: [
       {
         id: 7,
@@ -319,6 +362,11 @@ export const mockInstitutions: SchoolSearchResultDto[] = [
     city: "İstanbul",
     distanceKm: 6.1,
     highlights: ["Resim Atölyesi", "Müzik Odası", "Sergi Alanı"],
+    appointment: {
+      isActiveAppointment: false,
+      appointmentDate: null,
+    },
+    isActiveNotes: true,
     cardProperties: [
       {
         id: 8,

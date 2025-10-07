@@ -86,7 +86,7 @@ const LoginFormContent: React.FC = () => {
   };
 
   return (
-    <div className="account py-120 position-relative">
+    <div className="account py-40 position-relative">
       <div className="container">
         <div className="row gy-4 align-items-center">
           <div className="col-lg-6">

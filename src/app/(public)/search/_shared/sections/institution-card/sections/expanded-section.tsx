@@ -9,6 +9,7 @@ import {
   Badges,
   Description,
   Actions,
+  StatusIndicators,
 } from "../components";
 
 export const ExpandedSection = () => {
@@ -18,7 +19,7 @@ export const ExpandedSection = () => {
     <div className="content-fade-in position-relative p-16">
       {/* Close Button - Top Right */}
       <div className="position-absolute top-0 end-0 p-16 z-3">
-        <Icon icon="ph-x" variant="inline" size="sm" onClick={onCardClick} />
+        <Icon icon="ph-x" variant="inline" size="md" onClick={onCardClick} />
       </div>
 
       <div className="row g-0">
@@ -45,6 +46,9 @@ export const ExpandedSection = () => {
 
             {/* Açıklama Bölümü */}
             <Description />
+
+            {/* Durum Bilgileri */}
+            <StatusIndicators />
 
             {/* Yaş Aralığı */}
             <AgeRangeInfo />

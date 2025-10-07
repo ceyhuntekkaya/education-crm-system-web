@@ -1,5 +1,5 @@
 import React from "react";
-import { FormRadio } from "@/components";
+import { FormRadio, LoadingSpinner } from "@/components";
 import { useFilterSearchContext } from "../contexts";
 
 export const InstitutionTypesSection = () => {
@@ -17,12 +17,11 @@ export const InstitutionTypesSection = () => {
         col={6}
       />
       {options.institutionTypes.loading && (
-        <div className="d-flex align-items-center justify-content-center py-2">
-          <div className="spinner-border spinner-border-sm me-2" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <small className="text-muted">Kurum türleri yükleniyor...</small>
-        </div>
+        <LoadingSpinner
+          message="Kurum türleri yükleniyor..."
+          size="sm"
+          variant="dots"
+        />
       )}
       {options.institutionTypes.error && (
         <div className="text-center py-2">

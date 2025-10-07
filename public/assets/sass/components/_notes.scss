@@ -1,0 +1,77 @@
+// Notes Section Styles
+.notes-section {
+  .section-header {
+    border-bottom: 1px solid var(--neutral-200);
+    padding-bottom: 16px;
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    
+    .section-description {
+      font-size: 0.875rem;
+      margin-bottom: 0;
+    }
+  }
+  
+  .notes-form {
+    .note-content-section {
+      .note-textarea {
+        min-height: 300px;
+        resize: vertical;
+        font-family: inherit;
+        line-height: 1.5;
+        
+        &:focus {
+          box-shadow: 0 0 0 2px rgba(var(--main-600-rgb), 0.2);
+        }
+      }
+    }
+    
+    .note-details-section {
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      .btn {
+        font-weight: 500;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          transform: translateY(-1px);
+        }
+      }
+    }
+    
+    .note-info {
+      border: 1px solid var(--neutral-200);
+      
+      small {
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .notes-form {
+      .row {
+        margin: 0 -8px;
+        
+        .col-md-8,
+        .col-md-4 {
+          padding: 0 8px;
+          margin-bottom: 1rem;
+        }
+      }
+      
+      .note-content-section .note-textarea {
+        min-height: 200px;
+      }
+    }
+  }
+}

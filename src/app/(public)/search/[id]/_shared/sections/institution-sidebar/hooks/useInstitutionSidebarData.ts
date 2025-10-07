@@ -50,6 +50,11 @@ export const useInstitutionSidebarData = () => {
         colorClass: "text-success-600",
       },
       {
+        value: `${school.capacity}`,
+        label: "Kapasite",
+        colorClass: "text-info-600",
+      },
+      {
         value: formatViewCount(school.viewCount),
         label: "Görüntülenme",
         colorClass: "text-warning-600",
@@ -59,12 +64,19 @@ export const useInstitutionSidebarData = () => {
         label: "Beğeni",
         colorClass: "text-danger-600",
       },
+      {
+        value: school.postCount,
+        label: "Gönderi",
+        colorClass: "text-purple-600",
+      },
     ],
     [
       school.currentStudentCount,
       school.classSizeAverage,
+      school.capacity,
       school.viewCount,
       school.likeCount,
+      school.postCount,
     ]
   );
 

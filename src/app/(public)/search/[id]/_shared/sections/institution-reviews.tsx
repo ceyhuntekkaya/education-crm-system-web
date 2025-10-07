@@ -1,5 +1,69 @@
 import { useInstitutionDetail } from "../contexts";
 
+// Detailed rating categories data
+const ratingCategories = [
+  {
+    id: "temizlik",
+    title: "Temizlik",
+    description: "Genel temizlik standartları ve hijyen",
+    icon: "ph-fill ph-broom",
+    bgColor: "bg-main-100",
+    textColor: "text-main-600",
+    progressColor: "bg-main-600",
+    rating: 5.0,
+  },
+  {
+    id: "dogruluk",
+    title: "Doğruluk",
+    description: "Bilgi doğruluğu ve güvenilirlik",
+    icon: "ph-fill ph-check-circle",
+    bgColor: "bg-success-100",
+    textColor: "text-success-600",
+    progressColor: "bg-success-600",
+    rating: 5.0,
+  },
+  {
+    id: "giris",
+    title: "Giriş",
+    description: "Erişim kolaylığı ve giriş süreci",
+    icon: "ph-fill ph-magnifying-glass",
+    bgColor: "bg-info-100",
+    textColor: "text-info-600",
+    progressColor: "bg-info-600",
+    rating: 5.0,
+  },
+  {
+    id: "iletisim",
+    title: "İletişim",
+    description: "İletişim kalitesi ve erişilebilirlik",
+    icon: "ph-fill ph-chat-centered-text",
+    bgColor: "bg-purple-100",
+    textColor: "text-purple-600",
+    progressColor: "bg-purple-600",
+    rating: 5.0,
+  },
+  {
+    id: "konum",
+    title: "Konum",
+    description: "Konum avantajları ve ulaşım",
+    icon: "ph-fill ph-map-pin",
+    bgColor: "bg-warning-100",
+    textColor: "text-warning-600",
+    progressColor: "bg-warning-600",
+    rating: 5.0,
+  },
+  {
+    id: "kalite",
+    title: "Kalite/Fiyat Oranı",
+    description: "Verilen hizmetin fiyat değeri",
+    icon: "ph-fill ph-tag",
+    bgColor: "bg-danger-100",
+    textColor: "text-danger-600",
+    progressColor: "bg-danger-600",
+    rating: 5.0,
+  },
+];
+
 export default function InstitutionReviews() {
   const { school, renderStars } = useInstitutionDetail();
   return (
@@ -59,332 +123,54 @@ export default function InstitutionReviews() {
 
           <span className="d-block border border-neutral-30 my-32 border-dashed" />
 
-          {/* Reviews Header */}
-          <div className="flex-between gap-16 flex-wrap mb-24">
-            <h6 className="mb-0">Tüm Değerlendirmeler</h6>
-            <div className="flex-align gap-16">
-              <div className="flex-align gap-8">
-                <span className="text-neutral-500 flex-shrink-0">Sırala :</span>
-                <select className="form-select ps-20 pe-28 py-8 fw-medium rounded-pill bg-main-25 border border-neutral-30 text-neutral-700">
-                  <option value={1}>En Yeni</option>
-                  <option value={1}>Trend</option>
-                  <option value={1}>Popüler</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          {/* Detailed Category Ratings - Card Grid */}
+          <div className="mt-32">
+            <h6 className="mb-24 fw-semibold text-neutral-900">
+              Detaylı Değerlendirmeler
+            </h6>
 
-          {/* Sample Reviews */}
-          <div className="border border-neutral-30 rounded-12 bg-white p-32">
-            <div className="flex-align gap-8 mb-16">{renderStars(5)}</div>
-            <p className="text-neutral-700">
-              &ldquo;Bu okul gerçekten harika! Çocuğumun gelişimi için mükemmel
-              bir ortam sağlıyorlar. Öğretmenlerin yaklaşımı çok profesyonel ve
-              samimi.&rdquo;
-            </p>
-            <span className="d-block border border-neutral-30 my-24 border-dashed" />
-            <div className="flex-align gap-24">
-              <div className="w-60 h-60 bg-main-100 rounded-circle flex-center">
-                <i className="ph-bold ph-user text-main-600 text-2xl"></i>
-              </div>
-              <div className="">
-                <h6 className="text-xl mb-8 fw-medium">Ayşe Yılmaz</h6>
-                <span className="text-neutral-700 text-sm">Veli</span>
-              </div>
-            </div>
-            <span className="d-block border border-neutral-30 my-24 border-dashed" />
-            <div className="flex-align flex-wrap gap-40">
-              <button
-                type="button"
-                className="like-button flex-align gap-8 text-neutral-500 hover-text-main-600"
-              >
-                <span className="like-button__icon text-xl d-flex">
-                  <i className="ph-bold ph-thumbs-up" />
-                </span>
-                <span className="like-button__text">18</span>
-              </button>
-              <a
-                href="#commentForm"
-                className="flex-align gap-8 text-neutral-500 hover-text-main-600"
-              >
-                <i className="text-xl d-flex ph-bold ph-chat-centered-text" />
-                Yanıtla
-              </a>
-            </div>
-          </div>
+            <div className="row">
+              {ratingCategories.map((category) => (
+                <div key={category.id} className="col-lg-6 mb-24">
+                  <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100">
+                    <div className="d-flex align-items-center justify-content-between mb-20">
+                      <div className="d-flex align-items-center gap-12">
+                        <div
+                          className={`w-48 h-48 ${category.bgColor} rounded-circle flex-center`}
+                          style={{ minWidth: "48px", minHeight: "48px" }}
+                        >
+                          <i
+                            className={`${category.icon} ${category.textColor} text-lg`}
+                          ></i>
+                        </div>
+                        <div>
+                          <h6 className="mb-4 fw-semibold">{category.title}</h6>
+                          <p className="text-neutral-500 text-xs mb-0">
+                            {category.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-end">
+                        <h4 className={`${category.textColor} fw-bold mb-4`}>
+                          {category.rating.toFixed(1)}
+                        </h4>
+                        <div className="flex-center gap-2">
+                          {renderStars(category.rating)}
+                        </div>
+                      </div>
+                    </div>
 
-          <div className="border border-neutral-30 rounded-12 bg-white p-32 mt-24">
-            <div className="flex-align gap-8 mb-16">{renderStars(4)}</div>
-            <p className="text-neutral-700">
-              &ldquo;Çocuğum burada çok mutlu. Oyun alanları ve etkinlikler
-              gerçekten çok güzel düzenlenmiş. Montessori eğitimi de çok
-              etkili.&rdquo;
-            </p>
-            <span className="d-block border border-neutral-30 my-24 border-dashed" />
-            <div className="flex-align gap-24">
-              <div className="w-60 h-60 bg-success-100 rounded-circle flex-center">
-                <i className="ph-bold ph-user text-success-600 text-2xl"></i>
-              </div>
-              <div className="">
-                <h6 className="text-xl mb-8 fw-medium">Mehmet Demir</h6>
-                <span className="text-neutral-700 text-sm">Veli</span>
-              </div>
-            </div>
-            <span className="d-block border border-neutral-30 my-24 border-dashed" />
-            <div className="flex-align flex-wrap gap-40">
-              <button
-                type="button"
-                className="like-button flex-align gap-8 text-neutral-500 hover-text-main-600"
-              >
-                <span className="like-button__icon text-xl d-flex">
-                  <i className="ph-bold ph-thumbs-up" />
-                </span>
-                <span className="like-button__text">25</span>
-              </button>
-              <a
-                href="#commentForm"
-                className="flex-align gap-8 text-neutral-500 hover-text-main-600"
-              >
-                <i className="text-xl d-flex ph-bold ph-chat-centered-text" />
-                Yanıtla
-              </a>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className="btn btn-main rounded-pill flex-center gap-8 mt-40"
-          >
-            Tüm Değerlendirmeleri Gör
-            <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-          </button>
-        </div>
-
-        {/* Comment Form */}
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32 mt-24">
-          <form action="#" id="commentForm">
-            <h5 className="mb-0">Değerlendirme Yaz</h5>
-            <span className="d-block border border-neutral-30 my-32 border-dashed" />
-
-            <div className="mb-24">
-              <label
-                htmlFor="nameee"
-                className="text-neutral-700 text-lg fw-medium mb-12"
-              >
-                İsim{" "}
-              </label>
-              <input
-                type="text"
-                className="common-input rounded-pill"
-                id="nameee"
-                placeholder="İsminizi girin..."
-              />
-            </div>
-
-            <div className="mb-24">
-              <label
-                htmlFor="email"
-                className="text-neutral-700 text-lg fw-medium mb-12"
-              >
-                Email{" "}
-              </label>
-              <input
-                type="text"
-                className="common-input rounded-pill"
-                id="email"
-                placeholder="Email adresinizi girin..."
-              />
-            </div>
-
-            <div className="mb-24">
-              <label className="text-neutral-700 text-lg fw-medium mb-12">
-                Yıldız Değerlendirmesi
-              </label>
-              <div id="half-star-rating">
-                <div className="rating-group">
-                  <input
-                    className="rating__input rating__input--none"
-                    name="rating2"
-                    id="rating2-0"
-                    defaultValue={0}
-                    type="radio"
-                  />
-                  <label
-                    aria-label="0 stars"
-                    className="rating__label"
-                    htmlFor="rating2-0"
-                  >
-                    &nbsp;
-                  </label>
-                  <label
-                    aria-label="0.5 stars"
-                    className="rating__label rating__label--half"
-                    htmlFor="rating2-05"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star-half" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-05"
-                    defaultValue="0.5"
-                    type="radio"
-                  />
-                  <label
-                    aria-label="1 star"
-                    className="rating__label"
-                    htmlFor="rating2-10"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-10"
-                    defaultValue={1}
-                    type="radio"
-                  />
-                  <label
-                    aria-label="1.5 stars"
-                    className="rating__label rating__label--half"
-                    htmlFor="rating2-15"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star-half" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-15"
-                    defaultValue="1.5"
-                    type="radio"
-                  />
-                  <label
-                    aria-label="2 stars"
-                    className="rating__label"
-                    htmlFor="rating2-20"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-20"
-                    defaultValue={2}
-                    type="radio"
-                  />
-                  <label
-                    aria-label="2.5 stars"
-                    className="rating__label rating__label--half"
-                    htmlFor="rating2-25"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star-half" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-25"
-                    defaultValue="2.5"
-                    type="radio"
-                  />
-                  <label
-                    aria-label="3 stars"
-                    className="rating__label"
-                    htmlFor="rating2-30"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-30"
-                    defaultValue={3}
-                    type="radio"
-                  />
-                  <label
-                    aria-label="3.5 stars"
-                    className="rating__label rating__label--half"
-                    htmlFor="rating2-35"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star-half" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-35"
-                    defaultValue="3.5"
-                    type="radio"
-                  />
-                  <label
-                    aria-label="4 stars"
-                    className="rating__label"
-                    htmlFor="rating2-40"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-40"
-                    defaultValue={4}
-                    type="radio"
-                  />
-                  <label
-                    aria-label="4.5 stars"
-                    className="rating__label rating__label--half"
-                    htmlFor="rating2-45"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star-half" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-45"
-                    defaultValue="4.5"
-                    type="radio"
-                  />
-                  <label
-                    aria-label="5 stars"
-                    className="rating__label"
-                    htmlFor="rating2-50"
-                  >
-                    <i className="rating__icon rating__icon--star ph-fill ph-star" />
-                  </label>
-                  <input
-                    className="rating__input"
-                    name="rating2"
-                    id="rating2-50"
-                    defaultValue={5}
-                    type="radio"
-                  />
+                    <div className="progress bg-neutral-200 rounded-pill h-8 mb-0">
+                      <div
+                        className={`progress-bar ${category.progressColor} rounded-pill`}
+                        style={{ width: `${(category.rating / 5) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-
-            <div className="mb-24">
-              <label
-                htmlFor="desc"
-                className="text-neutral-700 text-lg fw-medium mb-12"
-              >
-                Yorumunuz{" "}
-              </label>
-              <textarea
-                id="desc"
-                className="common-input rounded-24"
-                placeholder="Yorumunuzu yazın..."
-                defaultValue={""}
-              />
-            </div>
-
-            <div className="mb-0">
-              <button
-                type="submit"
-                className="btn btn-main rounded-pill flex-center gap-8 mt-40"
-              >
-                Değerlendirme Gönder
-                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
