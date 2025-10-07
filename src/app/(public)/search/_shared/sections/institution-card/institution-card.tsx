@@ -26,7 +26,11 @@ export const InstitutionCard = memo(
             style={{ marginBottom: isExpanded ? "16px" : undefined }}
           >
             <div
-              className="bg-white rounded-16 p-16 h-100 box-shadow-md cursor-pointer card-expand-transition position-relative overflow-hidden d-flex flex-column"
+              className={`bg-white rounded-16 p-16 h-100 cursor-pointer card-expand-transition position-relative overflow-hidden d-flex flex-column ${
+                institution.isFavorite
+                  ? "border-2 border-danger-300 shadow-lg shadow-danger-100"
+                  : "box-shadow-md"
+              }`}
               style={{ animationDelay, transitionDelay: animationDelay }}
             >
               {/* Compact Layout */}

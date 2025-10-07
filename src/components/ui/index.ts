@@ -2,7 +2,8 @@
 export { default as Button } from "./button";
 export { default as Icon } from "./icon";
 export { default as Popover } from "./popover";
-export { default as Loading } from "./loading";
+export { default as Loading } from "./loadings/loading-layout";
+export { LoadingSpinner } from "./loadings";
 export { default as TabContent } from "./tab-content";
 export { default as TabNavigation } from "./tab-navigation";
 export { Accordion, AccordionItem } from "./accordion";

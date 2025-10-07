@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // app/loading.js
-export default function Loading() {
+export default function LoadingLayout() {
   return (
     <div className="preloader">
       <Image

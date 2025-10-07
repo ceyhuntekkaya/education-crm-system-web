@@ -12,3 +12,4 @@ export { QuickHighlightsPills } from "./quick-highlights-pills";
 export { ExpandTrigger } from "./expand-trigger";
 export { Description } from "./description";
 export { Actions } from "./actions";
+export { StatusIndicators } from "./status-indicators";

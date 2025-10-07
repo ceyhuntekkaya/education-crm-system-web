@@ -23,7 +23,7 @@ const MainNavigation = ({ className = "", navItems }: NavigationProps) => {
     {
       href: "/search",
       label: "Okul Arama",
-      count: 12,
+      // count: 12,
     },
   ];
 

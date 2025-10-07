@@ -30,6 +30,9 @@ export const CompactSection = () => {
         {/* Stats Row */}
         <StatsRow />
 
+        {/* Spacer to push QuickHighlightsPills to bottom */}
+        <div className="flex-grow-1"></div>
+
         {/* Quick Highlights Pills */}
         <QuickHighlightsPills />
       </div>

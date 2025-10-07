@@ -4,7 +4,15 @@ import React from "react";
 import Link from "next/link";
 
 // Icon variant types
-type IconVariant = "inline" | "outline";
+type IconVariant =
+  | "inline"
+  | "outline"
+  | "inline-danger"
+  | "inline-success"
+  | "inline-warning"
+  | "outline-danger"
+  | "outline-success"
+  | "outline-warning";
 
 type IconSize = "sm" | "md" | "lg";
 
@@ -60,14 +68,46 @@ const Icon: React.FC<IconProps> = ({
       : "rounded-circle flex-center transition-03";
 
     switch (variant) {
+      // Standard inline variants
       case "inline":
         return `${baseClasses} bg-main-25 hover-bg-main-600 border border-neutral-30 text-neutral-500 hover-text-white hover-border-main-600 ${
           !hoverText ? "transform hover:scale-105" : ""
         }`;
+
+      // Standard outline variants
       case "outline":
         return `${baseClasses} bg-main-600 hover-bg-main-25 border border-main-600 text-white hover-text-neutral-500 hover-border-neutral-30 ${
           !hoverText ? "transform hover:scale-105" : ""
         }`;
+
+      // Inline color variants (light background → solid on hover)
+      case "inline-danger":
+        return `${baseClasses} bg-danger-25 hover-bg-danger-600 border border-danger-200 text-danger-600 hover-text-white hover-border-danger-600 ${
+          !hoverText ? "transform hover:scale-105" : ""
+        }`;
+      case "inline-success":
+        return `${baseClasses} bg-success-25 hover-bg-success-600 border border-success-200 text-success-600 hover-text-white hover-border-success-600 ${
+          !hoverText ? "transform hover:scale-105" : ""
+        }`;
+      case "inline-warning":
+        return `${baseClasses} bg-warning-25 hover-bg-warning-600 border border-warning-200 text-warning-600 hover-text-white hover-border-warning-600 ${
+          !hoverText ? "transform hover:scale-105" : ""
+        }`;
+
+      // Outline color variants (solid background → light on hover)
+      case "outline-danger":
+        return `${baseClasses} bg-danger-600 hover-bg-danger-25 border border-danger-600 text-white hover-text-white hover-border-danger-200 ${
+          !hoverText ? "transform hover:scale-105" : ""
+        }`;
+      case "outline-success":
+        return `${baseClasses} bg-success-600 hover-bg-success-25 border border-success-600 text-white hover-text-white hover-border-success-200 ${
+          !hoverText ? "transform hover:scale-105" : ""
+        }`;
+      case "outline-warning":
+        return `${baseClasses} bg-warning-600 hover-bg-warning-25 border border-warning-600 text-white hover-text-white hover-border-warning-200 ${
+          !hoverText ? "transform hover:scale-105" : ""
+        }`;
+
       default:
         return `${baseClasses} bg-main-25 hover-bg-main-600 border border-neutral-30 text-neutral-500 hover-text-white hover-border-main-600 ${
           !hoverText ? "transform hover:scale-105" : ""

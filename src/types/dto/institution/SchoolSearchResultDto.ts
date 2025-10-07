@@ -1,5 +1,5 @@
-import { InstitutionPropertyValueDto } from './InstitutionPropertyValueDto';
-import { CampaignSummaryDto } from './CampaignSummaryDto';
+import { InstitutionPropertyValueDto } from "./InstitutionPropertyValueDto";
+import { CampaignSummaryDto } from "./CampaignSummaryDto";
 
 export interface SchoolSearchResultDto {
   id?: number;
@@ -29,4 +29,11 @@ export interface SchoolSearchResultDto {
   hasActiveCampaigns?: boolean;
   isSubscribed?: boolean;
   isFavorite?: boolean;
+  // Appointment bilgileri
+  appointment?: {
+    isActiveAppointment?: boolean;
+    appointmentDate?: string | null;
+  };
+  // Notlar için
+  isActiveNotes?: boolean;
 }

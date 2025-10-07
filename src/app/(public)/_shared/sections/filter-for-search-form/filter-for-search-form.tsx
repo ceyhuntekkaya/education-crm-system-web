@@ -21,7 +21,7 @@ const FormContent = () => {
       data-aos="fade-up"
     >
       {/* Header */}
-      <FormValues />
+      {/* <FormValues /> */}
       <div>
         <h4 className="mb-8 text-main-600 fw-semibold">Okulları Filtrele</h4>
         <p className="text-neutral-500 text-sm mb-0 d-none d-md-block">
