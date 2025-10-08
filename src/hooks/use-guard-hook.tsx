@@ -7,7 +7,7 @@ import { MenuItem } from "@/types/routes/menu";
 export function useGuardHook() {
   const { currentDepartments, currentPermissions } = useAuth();
 
-  console.log(currentDepartments, currentPermissions);
+  // console.log(currentDepartments, currentPermissions);
 
   // Menü öğelerini filtreleyen fonksiyon
   const filterMenuItems = useMemo(() => {

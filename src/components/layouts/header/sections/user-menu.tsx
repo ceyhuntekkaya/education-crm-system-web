@@ -1,10 +1,26 @@
 import Image from "next/image";
 import { Button, Loading, Popover } from "@/components/ui";
 import { HEADER_CONFIG } from "../config";
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
+import { Role } from "@/enums/Role";
 
 const UserMenu = () => {
   const { user, currentRole, logout } = useAuth();
+
+  const getDashboardUrl = () => {
+    switch (currentRole) {
+      case Role.COMPANY:
+        return "/company";
+      // case Role.ADMIN:
+      //   return "/admin";
+      // case Role.USER:
+      //   return "/user";
+      // case Role.CANDIDATE:
+      //   return "/candidate";
+      default:
+        return "/";
+    }
+  };
 
   if (!user) {
     return (
@@ -40,6 +56,15 @@ const UserMenu = () => {
             </span>
           </div>
           <div className="d-flex flex-column gap-8 mt-16">
+            <Button
+              href={getDashboardUrl()}
+              variant="inline"
+              size="sm"
+              fullWidth
+              className="transition-2"
+            >
+              Dashboard
+            </Button>
             <Button
               onClick={logout}
               variant="error"

@@ -9,26 +9,7 @@ const ProtectedLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <ProtectedGuard guardType={GuardType.PROTECTED}>
-      <div>
-        <Sidebar
-          menuItems={userLayoutNavigation}
-          companyName="EduAll"
-          userName="Henry"
-          userRole="Admin"
-        />
-        <div
-          style={{
-            marginLeft: "320px",
-            transition: "margin-left 0.3s ease",
-            minHeight: "100vh",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          {children}
-        </div>
-      </div>
-    </ProtectedGuard>
+    <ProtectedGuard guardType={GuardType.PROTECTED}>{children}</ProtectedGuard>
   );
 };
 

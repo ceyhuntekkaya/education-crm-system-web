@@ -253,7 +253,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const WelcomeSection = () =>
     !isCollapsed ? (
       <div className="sidebar-welcome px-24 py-16">
-        <p className="text-neutral-600 mb-0 text-sm">Welcome {userName},</p>
+        <p className="text-neutral-600 mb-0 text-sm">Hoşgeldin {userName},</p>
       </div>
     ) : null;
 
@@ -362,7 +362,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <ul className="sidebar-menu list-unstyled">
             {filteredMenuItems.map((item) => renderMenuItem(item))}
           </ul>
-          <AdminSection />
+          {/* <AdminSection /> */}
         </nav>
 
         <SidebarFooter />

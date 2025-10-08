@@ -44,6 +44,8 @@ const LoginFormContent: React.FC = () => {
       ) => Promise<AuthenticationResponse>
     )(loginRequest);
 
+    console.log("Login response:", res);
+
     // ** dashboard yönlendirme işlemi role göre yapılacak
     // if (res?.accessToken) {
     //   const userRoles = res.user?.userRoles;
