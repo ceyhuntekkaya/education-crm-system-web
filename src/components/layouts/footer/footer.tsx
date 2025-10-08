@@ -1,9 +1,10 @@
 "use client";
-import { FooterLogo, SocialLinks, Copyright } from "./footer/sections";
+import { FooterLogo, SocialLinks, Copyright } from "./sections";
+import { FooterProps } from "./types";
 
-const Footer = () => {
+const Footer = ({ className = "" }: FooterProps) => {
   return (
-    <footer className="footer bg-main-25 position-relative z-1">
+    <footer className={`footer bg-main-25 position-relative z-1 ${className}`}>
       <div className="container">
         {/* Minimal Footer */}
         <div className="bottom-footer bg-main-25 border-top border-dashed border-main-100 border-0 py-16">
