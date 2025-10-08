@@ -1,9 +1,16 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { CampaignTable } from "./_shared";
 import { Button } from "@/components";
 
 const CampaignsPage: React.FC = () => {
+  const router = useRouter();
+
+  const handleAddCampaign = () => {
+    router.push("/company/campaigns/add-edit/new");
+  };
+
   return (
     <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
       <div className="border border-neutral-30 rounded-12 bg-main-25 p-24">
@@ -15,7 +22,12 @@ const CampaignsPage: React.FC = () => {
               edin
             </p>
           </div>
-          <Button variant="inline" size="sm" rightIcon="ph-plus">
+          <Button
+            variant="inline"
+            size="sm"
+            rightIcon="ph-plus"
+            onClick={handleAddCampaign}
+          >
             Yeni Kampanya
           </Button>
         </div>
