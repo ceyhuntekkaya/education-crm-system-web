@@ -221,11 +221,11 @@ export const createCampaignColumns = (
 
   // Status & Actions Columns
 
-  {
-    field: "actions",
-    headerName: "",
-    width: 70,
-    sortable: false,
-    renderCell: (params) => renderActionButtons(params, handlers),
-  },
+  // {
+  //   field: "actions",
+  //   headerName: "",
+  //   width: 70,
+  //   sortable: false,
+  //   renderCell: (params) => renderActionButtons(params, handlers),
+  // },
 ];

@@ -36,32 +36,32 @@ export const companyLayoutNavigation: MenuItem[] = [
   {
     href: "/company/gallery",
     label: "Galeri",
-    icon: "ph-school",
+    icon: "ph-images",
   },
   {
     href: "/company/social-media",
     label: "Sosyal Medya",
-    icon: "ph-school",
+    icon: "ph-chat-circle",
   },
   {
     href: "/company/survey",
     label: "Anketler",
-    icon: "ph-school",
+    icon: "ph-clipboard-text",
   },
   {
     href: "/company/reports",
-    label: "Raporlar",
-    icon: "ph-school",
+    label: "Analitik Raporları",
+    icon: "ph-chart-line",
   },
   {
     href: "/company/users",
     label: "Kullanıcılar",
-    icon: "ph-school",
+    icon: "ph-users",
   },
   {
     href: "/company/subscription",
-    label: "Üyelik",
-    icon: "ph-school",
+    label: "Üyelik Planları",
+    icon: "ph-crown",
   },
   {
     href: "/company/brand",

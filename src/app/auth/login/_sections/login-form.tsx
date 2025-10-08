@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 });
 
 const initialValues: FormValues = {
-  username: "admin@egitimara.com",
+  username: "sirket@egitimara.com",
   password: "genixo123",
 };
 

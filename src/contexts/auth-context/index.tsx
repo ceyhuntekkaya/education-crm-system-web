@@ -47,8 +47,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             );
           } else {
             setUser(decoded as UserDto);
-            // setCurrentRole(decoded.userRoles?.[0]?.role || "");
-            setCurrentRole("COMPANY");
+            setCurrentRole(decoded.userRoles?.[0]?.role || "");
+            // setCurrentRole("COMPANY");
             setCurrentDepartments(
               decoded.userRoles?.[0]?.departments?.map((dep: any) =>
                 typeof dep === "string" ? dep : dep.name || dep
@@ -83,8 +83,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(data.user || null); // Handle undefined case
         setAccessToken(data.accessToken ?? null);
         localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
-        // setCurrentRole(data.user?.userRoles?.[0]?.role || "");
-        setCurrentRole("COMPANY");
+        setCurrentRole(data.user?.userRoles?.[0]?.role || "");
+        // setCurrentRole("COMPANY");
         setCurrentDepartments(
           data.user?.userRoles?.[0]?.departments?.map((dep: any) =>
             typeof dep === "string" ? dep : dep.name || dep
