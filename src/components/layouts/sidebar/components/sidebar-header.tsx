@@ -32,7 +32,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     };
   }, []);
   return (
-    <div className="sidebar-header px-8">
+    <div className="sidebar-header px-8 mt-16">
       <div className="border border-neutral-30 rounded-12 bg-white p-6 position-relative">
         <div className="border border-neutral-30 rounded-12 bg-main-25 px-8 py-12">
           {/* Logo Bölümü - Kompakt */}

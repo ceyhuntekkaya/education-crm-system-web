@@ -56,21 +56,14 @@ const UserMenu = () => {
             </span>
           </div>
           <div className="d-flex flex-column gap-8 mt-16">
-            <Button
-              href={getDashboardUrl()}
-              variant="inline"
-              size="sm"
-              fullWidth
-              className="transition-2"
-            >
+            <Button href={getDashboardUrl()} variant="inline" size="xxs">
               Dashboard
             </Button>
             <Button
               onClick={logout}
               variant="error"
-              size="sm"
-              fullWidth
-              className="transition-2"
+              size="xxs"
+              rightIcon="ph-sign-out"
             >
               Çıkış Yap
             </Button>
