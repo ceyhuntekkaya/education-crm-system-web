@@ -7,10 +7,66 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-squares-four",
     // Bu menü tüm kullanıcılar için görünür (departments/permissions yok)
   },
+  //
+  {
+    href: "/company/school-list",
+    label: "Okul Listesi",
+    icon: "ph-school",
+  }, 
+  {
+    href: "/company/school",
+    label: "Okul Bilgileri",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/price",
+    label: "Fiyat Bilgileri",
+    icon: "ph-school",
+  },
   {
     href: "/company/campaigns",
     label: "Kampanyalar",
     icon: "ph-briefcase",
+  },
+  {
+    href: "/company/appointment",
+    label: "Randevu Bilgileri",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/gallery",
+    label: "Galeri",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/social-media",
+    label: "Sosyal Medya",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/survey",
+    label: "Anketler",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/reports",
+    label: "Raporlar",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/users",
+    label: "Kullanıcılar",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/subscription",
+    label: "Üyelik",
+    icon: "ph-school",
+  },
+  {
+    href: "/company/brand",
+    label: "Marka Bilgileri",
+    icon: "ph-school",
   },
   // {
   //   href: "/profile",

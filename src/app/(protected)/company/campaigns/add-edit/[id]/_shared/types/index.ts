@@ -1,15 +1,10 @@
 // Campaign Add/Edit Types
 // Export all campaign-related types and interfaces here
 
-export interface CampaignFormData {
+import { CampaignCreateDto } from "@/types/dto/campaign/CampaignCreateDto";
+
+export interface CampaignFormData extends CampaignCreateDto {
   id?: string;
-  name: string;
-  description: string;
-  startDate: Date;
-  endDate: Date;
-  status: string;
-  targetAudience: string[];
-  budget?: number;
 }
 
 export interface CampaignAddEditContextType {

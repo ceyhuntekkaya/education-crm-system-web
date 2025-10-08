@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@/components";
 import { useCampaignAddEdit } from "./_shared/context";
+import { CampaignForm } from "./_shared/sections";
 
 interface CampaignAddEditPageProps {}
 
@@ -48,19 +49,16 @@ const CampaignAddEditPage: React.FC<CampaignAddEditPageProps> = () => {
 
         {/* Form Content */}
         <div className="row">
-          <div className="col-12">
-            <div className="bg-white rounded-8 p-24">
-              <h4 className="mb-16">Kampanya Bilgileri</h4>
-
-              {/* Campaign Form will be implemented here */}
-              <div className="text-center py-40">
-                <p className="text-neutral-500 mb-16">
-                  {isEditMode
-                    ? `Kampanya ID: ${campaignId} düzenleniyor...`
-                    : "Yeni kampanya formu burada yer alacak..."}
-                </p>
-                <p className="text-sm text-neutral-400">
-                  Form bileşenleri yakında eklenecek
+          <div className="col-6">
+            <CampaignForm />
+          </div>
+          <div className="col-6">
+            {/* Sağ alan - sonradan doldurulacak */}
+            <div className="sticky-top" style={{ top: "20px" }}>
+              <div className="bg-white rounded-8 p-24">
+                <h4 className="mb-16 text-neutral-400">Sağ Panel</h4>
+                <p className="text-neutral-400 text-center py-40">
+                  Bu alan sonradan doldurulacak
                 </p>
               </div>
             </div>
