@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { CampaignTable } from "./_shared";
+import { Button } from "@/components";
 
 const CampaignsPage: React.FC = () => {
   return (
@@ -14,6 +15,9 @@ const CampaignsPage: React.FC = () => {
               edin
             </p>
           </div>
+          <Button variant="inline" size="sm" rightIcon="ph-plus">
+            Yeni Kampanya
+          </Button>
         </div>
 
         <span className="d-block border border-neutral-30 my-20 border-dashed" />
