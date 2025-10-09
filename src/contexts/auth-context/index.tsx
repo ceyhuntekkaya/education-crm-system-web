@@ -1,129 +1,76 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import { UserDto } from "@/types/dto/user/UserDto";
-import { usePostForm } from "@/hooks";
-import { jwtDecode } from "jwt-decode";
-import { API_ENDPOINTS } from "@/lib";
+import { createContext, useContext, ReactNode } from "react";
 import { AuthContextType } from "./types";
 import { AuthenticationRequest, AuthenticationResponse } from "@/types";
+import {
+  useAuthState,
+  useAuthToken,
+  useAuthRolePermissions,
+  useAuthLogin,
+  useAuthLogout,
+  useAuthInitialization,
+} from "./hooks";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserDto | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [currentRole, setCurrentRole] = useState<string>("");
-  const [currentDepartments, setCurrentDepartments] = useState<string[]>([]);
-  const [currentPermissions, setCurrentPermissions] = useState<string[]>([]);
-
-  useEffect(() => {
-    const checkAuth = () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-          const parsedToken = JSON.parse(token);
-          const decoded: any = jwtDecode(parsedToken);
-          if (decoded && decoded.user) {
-            setUser(decoded.user as UserDto);
-            // setCurrentRole(decoded.user.userRoles?.[0]?.role || "");
-            setCurrentRole("COMPANY");
-            setCurrentDepartments(
-              decoded.user.userRoles?.[0]?.departments?.map((dep: any) =>
-                typeof dep === "string" ? dep : dep.name || dep
-              ) || []
-            );
-            setCurrentPermissions(
-              decoded.user.userRoles?.[0]?.permissions?.map((perm: any) =>
-                typeof perm === "string" ? perm : perm.name || perm
-              ) || []
-            );
-          } else {
-            setUser(decoded as UserDto);
-            setCurrentRole(decoded.userRoles?.[0]?.role || "");
-            // setCurrentRole("COMPANY");
-            setCurrentDepartments(
-              decoded.userRoles?.[0]?.departments?.map((dep: any) =>
-                typeof dep === "string" ? dep : dep.name || dep
-              ) || []
-            );
-            setCurrentPermissions(
-              decoded.userRoles?.[0]?.permissions?.map((perm: any) =>
-                typeof perm === "string" ? perm : perm.name || perm
-              ) || []
-            );
-          }
-        }
-      } catch (error) {
-        console.error("Auth check error:", error);
-        localStorage.removeItem("accessToken");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkAuth();
-  }, []);
-
+  // Initialize all hooks
+  const { user, setUser, isLoading, setIsLoading, isAuthenticated } =
+    useAuthState();
+  const { accessToken, saveToken, removeToken, getStoredToken } =
+    useAuthToken();
   const {
-    submitForm: login,
-    loading: loginLoading,
-    error: loginError,
-  } = usePostForm<AuthenticationRequest, AuthenticationResponse>(
-    API_ENDPOINTS.AUTH.LOGIN,
-    {
-      onSuccess: (data) => {
-        console.log("login başarılı:", data);
-        setUser(data.user || null); // Handle undefined case
-        setAccessToken(data.accessToken ?? null);
-        localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
-        setCurrentRole(data.user?.userRoles?.[0]?.role || "");
-        // setCurrentRole("COMPANY");
-        setCurrentDepartments(
-          data.user?.userRoles?.[0]?.departments?.map((dep: any) =>
-            typeof dep === "string" ? dep : dep.name || dep
-          ) || []
-        );
-        setCurrentPermissions(
-          data.user?.userRoles?.[0]?.permissions?.map((perm: any) =>
-            typeof perm === "string" ? perm : perm.name || perm
-          ) || []
-        );
-      },
-      onError: (err) => {
-        const msg = typeof err === "string" ? err : String(err);
-        console.error("Login hatası:", {
-          error: err,
-          message: msg,
-          timestamp: new Date().toISOString(),
-        });
-      },
+    currentRole,
+    currentDepartments,
+    currentPermissions,
+    updateRolePermissions,
+    resetRolePermissions,
+  } = useAuthRolePermissions();
+
+  // Handle login success
+  const handleLoginSuccess = (data: AuthenticationResponse) => {
+    setUser(data.user || null);
+    if (data.accessToken) {
+      saveToken(data.accessToken);
     }
-  );
+    updateRolePermissions(data.user || null);
+  };
 
-  const {
-    submitForm: logout,
-    loading: logoutLoading,
-    error: logoutError,
-  } = usePostForm<null, null>(API_ENDPOINTS.AUTH.LOGOUT, {
-    onSuccess: (data) => {
-      setUser(null);
-      setCurrentRole("");
-      setCurrentDepartments([]);
-      setCurrentPermissions([]);
-      setAccessToken(null);
-      localStorage.removeItem("accessToken");
-    },
-    onError: (err) => {
-      const msg = typeof err === "string" ? err : String(err);
-      console.log("login başarısız:", msg);
-    },
+  // Handle login error
+  const handleLoginError = (error: any) => {
+    // Error is already logged in the hook
+  };
+
+  // Handle logout success
+  const handleLogoutSuccess = () => {
+    setUser(null);
+    resetRolePermissions();
+    removeToken();
+  };
+
+  // Handle logout error
+  const handleLogoutError = (error: any) => {
+    // Error is already logged in the hook
+  };
+
+  // Initialize hooks for login and logout
+  const { login, loginLoading } = useAuthLogin({
+    onLoginSuccess: handleLoginSuccess,
+    onLoginError: handleLoginError,
+  });
+
+  const { performLogout, logoutLoading } = useAuthLogout({
+    onLogoutSuccess: handleLogoutSuccess,
+    onLogoutError: handleLogoutError,
+  });
+
+  // Initialize auth on app startup
+  useAuthInitialization({
+    getStoredToken,
+    setUser,
+    updateRolePermissions,
+    setIsLoading,
   });
 
   const value: AuthContextType = {
@@ -131,8 +78,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading,
     isLoading: isLoading || loginLoading || logoutLoading,
     login,
-    logout: () => logout(null),
-    isAuthenticated: !!user,
+    logout: performLogout,
+    isAuthenticated,
     currentRole,
     currentDepartments,
     currentPermissions,
