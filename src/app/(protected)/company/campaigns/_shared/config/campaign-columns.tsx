@@ -1,5 +1,6 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
+import { CampaignSummaryDto } from "@/types/dto/campaign/CampaignSummaryDto";
 import { formatDate, formatNumber } from "@/utils";
 import {
   getStatusBadgeVariant,
@@ -164,7 +165,7 @@ const renderActionButtons = (params: any, handlers: CampaignColumnHandlers) => (
 // Main column definitions
 export const createCampaignColumns = (
   handlers: CampaignColumnHandlers
-): GridColDef<CampaignDto>[] => [
+): GridColDef<CampaignDto | CampaignSummaryDto>[] => [
   // Basic Information Columns
   {
     field: "featured",

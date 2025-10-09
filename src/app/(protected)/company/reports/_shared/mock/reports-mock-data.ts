@@ -41,12 +41,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -79,12 +77,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -111,12 +107,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -138,12 +132,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -164,12 +156,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -205,12 +195,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -246,12 +234,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -271,12 +257,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -300,12 +284,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -331,12 +313,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -362,12 +342,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   },
   {
@@ -392,12 +370,10 @@ export const mockReports: AnalyticsDto[] = [
     brand: {
       id: 1,
       name: "Eğitim Plus",
-      displayName: "Eğitim Plus Kurumları"
     },
     school: {
       id: 1,
       name: "Merkez Kampüs",
-      displayName: "Eğitim Plus Merkez Kampüs"
     }
   }
 ];

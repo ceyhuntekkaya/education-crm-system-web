@@ -1,3 +1,5 @@
+import { SchoolDto } from "../institution";
+
 export interface UserRoleDto {
     /** Format: int64 */
     id?: number;
@@ -11,4 +13,5 @@ export interface UserRoleDto {
     roleLevel?: "BRAND" | "CAMPUS" | "SCHOOL" | "SYSTEM";
     /** Format: date-time */
     expiresAt?: string;
+    schools?: SchoolDto[];
 };

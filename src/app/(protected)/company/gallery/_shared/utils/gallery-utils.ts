@@ -75,12 +75,12 @@ export const getGalleryStatusDisplay = (isActive: boolean): string => {
 
 // Check if gallery allows downloads
 export const canDownloadGallery = (gallery: GalleryDto): boolean => {
-  return gallery.allowDownloads && gallery.isActive;
+  return !!(gallery.allowDownloads && gallery.isActive);
 };
 
 // Check if gallery allows comments
 export const canCommentOnGallery = (gallery: GalleryDto): boolean => {
-  return gallery.allowComments && gallery.isActive;
+  return !!(gallery.allowComments && gallery.isActive);
 };
 
 // Get gallery URL slug
@@ -100,12 +100,12 @@ export const sortGalleries = (
     
     switch (sortBy) {
       case "title":
-        aValue = a.title.toLowerCase();
-        bValue = b.title.toLowerCase();
+        aValue = (a.title || "").toLowerCase();
+        bValue = (b.title || "").toLowerCase();
         break;
       case "createdAt":
-        aValue = new Date(a.createdAt).getTime();
-        bValue = new Date(b.createdAt).getTime();
+        aValue = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        bValue = b.createdAt ? new Date(b.createdAt).getTime() : 0;
         break;
       case "viewCount":
         aValue = a.viewCount || 0;

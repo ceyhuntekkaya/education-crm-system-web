@@ -92,7 +92,7 @@ export const ReportsActionButtons: React.FC<ReportsActionButtonsProps> = ({
                 handleDropdownItemClick(() => onViewReport?.(report))
               }
             >
-              <Icon name="ph-chart-line" className="me-2" />
+              <Icon icon="ph-chart-line" className="me-2" />
               Raporu Görüntüle
             </button>
 
@@ -100,7 +100,7 @@ export const ReportsActionButtons: React.FC<ReportsActionButtonsProps> = ({
               className="d-flex align-items-center w-100 px-3 py-2 border-0 bg-transparent text-start hover-bg-neutral-25"
               onClick={() => handleDropdownItemClick(() => onExport?.(report))}
             >
-              <Icon name="ph-download" className="me-2" />
+              <Icon icon="ph-download" className="me-2" />
               Raporu İndir
             </button>
 
@@ -108,7 +108,7 @@ export const ReportsActionButtons: React.FC<ReportsActionButtonsProps> = ({
               className="d-flex align-items-center w-100 px-3 py-2 border-0 bg-transparent text-start hover-bg-neutral-25"
               onClick={() => handleDropdownItemClick(() => onRefresh?.(report))}
             >
-              <Icon name="ph-arrow-clockwise" className="me-2" />
+              <Icon icon="ph-arrow-clockwise" className="me-2" />
               Raporu Yenile
             </button>
 
@@ -118,7 +118,7 @@ export const ReportsActionButtons: React.FC<ReportsActionButtonsProps> = ({
                 handleDropdownItemClick(() => onDuplicate?.(report))
               }
             >
-              <Icon name="ph-copy" className="me-2" />
+              <Icon icon="ph-copy" className="me-2" />
               Raporu Kopyala
             </button>
 
@@ -131,7 +131,7 @@ export const ReportsActionButtons: React.FC<ReportsActionButtonsProps> = ({
               }
             >
               <Icon
-                name={report.isActive ? "ph-pause" : "ph-play"}
+                icon={report.isActive ? "ph-pause" : "ph-play"}
                 className="me-2"
               />
               {report.isActive ? "Pasif Yap" : "Aktif Yap"}
@@ -143,7 +143,7 @@ export const ReportsActionButtons: React.FC<ReportsActionButtonsProps> = ({
               className="d-flex align-items-center w-100 px-3 py-2 border-0 bg-transparent text-start hover-bg-neutral-25 text-danger"
               onClick={() => handleDropdownItemClick(() => onDelete?.(report))}
             >
-              <Icon name="ph-trash" className="me-2" />
+              <Icon icon="ph-trash" className="me-2" />
               Sil
             </button>
           </div>

@@ -94,7 +94,7 @@ export const SubscriptionActionButtons: React.FC<
                 handleDropdownItemClick(() => onViewPlan?.(subscription))
               }
             >
-              <Icon name="ph-info" className="me-2" />
+              <Icon icon="ph-info" className="me-2" />
               Plan Detayları
             </button>
 
@@ -104,7 +104,7 @@ export const SubscriptionActionButtons: React.FC<
                 handleDropdownItemClick(() => onDuplicate?.(subscription))
               }
             >
-              <Icon name="ph-copy" className="me-2" />
+              <Icon icon="ph-copy" className="me-2" />
               Planı Kopyala
             </button>
 
@@ -119,7 +119,7 @@ export const SubscriptionActionButtons: React.FC<
               }
             >
               <Icon
-                name={subscription.isVisible ? "ph-eye-slash" : "ph-eye"}
+                icon={subscription.isVisible ? "ph-eye-slash" : "ph-eye"}
                 className="me-2"
               />
               {subscription.isVisible ? "Gizle" : "Göster"}
@@ -132,7 +132,7 @@ export const SubscriptionActionButtons: React.FC<
               }
             >
               <Icon
-                name={subscription.isPopular ? "ph-star-fill" : "ph-star"}
+                icon={subscription.isPopular ? "ph-star-fill" : "ph-star"}
                 className="me-2"
               />
               {subscription.isPopular ? "Popülerlikten Çıkar" : "Popüler Yap"}
@@ -145,7 +145,7 @@ export const SubscriptionActionButtons: React.FC<
               }
             >
               <Icon
-                name={subscription.isActive ? "ph-pause" : "ph-play"}
+                icon={subscription.isActive ? "ph-pause" : "ph-play"}
                 className="me-2"
               />
               {subscription.isActive ? "Pasif Yap" : "Aktif Yap"}
@@ -159,7 +159,7 @@ export const SubscriptionActionButtons: React.FC<
                 handleDropdownItemClick(() => onDelete?.(subscription))
               }
             >
-              <Icon name="ph-trash" className="me-2" />
+              <Icon icon="ph-trash" className="me-2" />
               Sil
             </button>
           </div>

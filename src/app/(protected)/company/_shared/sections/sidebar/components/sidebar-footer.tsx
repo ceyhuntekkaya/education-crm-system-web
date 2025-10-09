@@ -44,7 +44,7 @@ const SidebarFooter: React.FC<SidebarFooterProps> = () => {
           {/* Çıkış Yap Butonu - Fixed Layout */}
           <div className="sidebar-footer-item">
             <button
-              onClick={() => logout(null)}
+              onClick={() => logout()}
               className="d-flex align-items-center p-3 rounded-8 w-100 border-0 bg-transparent sidebar-footer-link transition-all"
               title="Çıkış Yap"
             >

@@ -42,7 +42,7 @@ const UserMenu = () => {
           <div className="flex-center flex-column gap-16 mb-16">
             <Image
               src={HEADER_CONFIG.LOGO_PATH}
-              alt={user.fullName}
+              alt={user.fullName || "User"}
               className="rounded-50 box-shadow-md"
               width={HEADER_CONFIG.USER_AVATAR_SIZE}
               height={HEADER_CONFIG.USER_AVATAR_SIZE}

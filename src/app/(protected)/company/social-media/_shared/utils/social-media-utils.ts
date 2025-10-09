@@ -138,12 +138,12 @@ export const sortPosts = (
     
     switch (sortBy) {
       case "title":
-        aValue = a.title.toLowerCase();
-        bValue = b.title.toLowerCase();
+        aValue = (a.title || "").toLowerCase();
+        bValue = (b.title || "").toLowerCase();
         break;
       case "createdAt":
-        aValue = new Date(a.createdAt).getTime();
-        bValue = new Date(b.createdAt).getTime();
+        aValue = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        bValue = b.createdAt ? new Date(b.createdAt).getTime() : 0;
         break;
       case "publishedAt":
         aValue = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;

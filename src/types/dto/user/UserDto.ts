@@ -39,6 +39,6 @@ export interface UserDto {
   institutionAccess?: UserInstitutionAccessDto[];
   roles?: string[];
   authorities?: string[];
-  subscription?: SubscriptionDto;
-  schools?: SchoolDto[];
+  // subscription?: SubscriptionDto;
+  // schools?: SchoolDto[];
 };

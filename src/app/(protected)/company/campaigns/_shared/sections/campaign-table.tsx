@@ -44,7 +44,7 @@ export const CampaignTable: React.FC<CampaignTableProps> = ({
 
   return (
     <div>
-      <DataGrid
+      <DataGrid<CampaignDto | CampaignSummaryDto>
         rows={campaigns}
         columns={columns}
         loading={loading}

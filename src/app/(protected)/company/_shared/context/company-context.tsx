@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { CompanyContextType, CompanyProviderProps } from "../types";
 import { useSelectedSchool } from "../hooks";
+import { useAuth } from "@/contexts";
 
 // Context oluşturma
 const CompanyContext = createContext<CompanyContextType | undefined>(undefined);
@@ -18,6 +19,7 @@ const defaultSchools = [
 export const CompanyProvider: React.FC<CompanyProviderProps> = ({
   children,
 }) => {
+  const { user } = useAuth();
   // Sadece sidebar için gerekli state'ler
   const [schools, setSchools] = useState(defaultSchools);
 

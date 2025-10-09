@@ -40,13 +40,18 @@ export const CampaignActionButtons: React.FC<CampaignActionButtonsProps> = ({
     onDuplicate?.(campaign);
   };
 
-  const isActive = campaign.status === CampaignStatus.ACTIVE;
+  // Type guard to check if campaign has status property
+  const hasStatus = "status" in campaign;
+
+  const isActive = hasStatus && campaign.status === CampaignStatus.ACTIVE;
   const canToggle =
-    campaign.status === CampaignStatus.ACTIVE ||
-    campaign.status === CampaignStatus.PAUSED;
+    hasStatus &&
+    (campaign.status === CampaignStatus.ACTIVE ||
+      campaign.status === CampaignStatus.PAUSED);
   const canDelete =
-    campaign.status === CampaignStatus.DRAFT ||
-    campaign.status === CampaignStatus.EXPIRED;
+    hasStatus &&
+    (campaign.status === CampaignStatus.DRAFT ||
+      campaign.status === CampaignStatus.EXPIRED);
 
   return (
     <div className="w-50 d-flex align-items-center justify-content-center">
