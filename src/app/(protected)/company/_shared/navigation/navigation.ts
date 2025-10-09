@@ -3,7 +3,7 @@ import { MenuItem } from "@/types";
 export const companyLayoutNavigation: MenuItem[] = [
   {
     href: "/company",
-    label: "Dashboard",
+    label: "Giriş",
     icon: "ph-squares-four",
     // Bu menü tüm kullanıcılar için görünür (departments/permissions yok)
   },
@@ -11,47 +11,47 @@ export const companyLayoutNavigation: MenuItem[] = [
   {
     href: "/company/school-list",
     label: "Okul Listesi",
-    icon: "ph-school",
-  }, 
+    icon: "ph-buildings",
+  },
   {
     href: "/company/school",
     label: "Okul Bilgileri",
-    icon: "ph-school",
+    icon: "ph-graduation-cap",
   },
   {
     href: "/company/pricing",
     label: "Fiyat Bilgileri",
-    icon: "ph-school",
+    icon: "ph-coins",
   },
   {
     href: "/company/campaigns",
     label: "Kampanyalar",
-    icon: "ph-briefcase",
+    icon: "ph-megaphone",
   },
   {
     href: "/company/appointment",
     label: "Randevu Bilgileri",
-    icon: "ph-school",
+    icon: "ph-calendar",
   },
   {
     href: "/company/gallery",
     label: "Galeri",
-    icon: "ph-images",
+    icon: "ph-image",
   },
   {
     href: "/company/social-media",
     label: "Sosyal Medya",
-    icon: "ph-chat-circle",
+    icon: "ph-share-network",
   },
   {
     href: "/company/survey",
     label: "Anketler",
-    icon: "ph-clipboard-text",
+    icon: "ph-clipboard",
   },
   {
     href: "/company/reports",
     label: "Analitik Raporları",
-    icon: "ph-chart-line",
+    icon: "ph-chart-bar",
   },
   {
     href: "/company/users",
@@ -66,7 +66,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   {
     href: "/company/brand",
     label: "Marka Bilgileri",
-    icon: "ph-school",
+    icon: "ph-tag",
   },
   // {
   //   href: "/profile",
