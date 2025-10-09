@@ -42,7 +42,13 @@ export interface PricingTableProps {
  * Pricing context type
  */
 export interface PricingContextType {
-  // Pricing context properties will be added here
+  // Pricing data
+  schoolPricings: SchoolPricingDto[];
+  pricingLoading: boolean;
+  pricingError: string | null;
+  
+  // Actions
+  refetchPricings: () => void;
 }
 
 /**

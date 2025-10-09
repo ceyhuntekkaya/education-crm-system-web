@@ -24,6 +24,11 @@ export const API_ENDPOINTS = {
     INSTITUTION_TYPES: "/institutions/institution-types",
   },
 
+  PRICING: {
+    SCHOOL_PRICING: (schoolId: string | number) =>
+      `/pricing/school-pricing/school/${schoolId}`,
+  },
+
   TEMP: {
     CARTS: "/carts",
   },

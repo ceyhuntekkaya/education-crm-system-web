@@ -104,7 +104,7 @@ export const calculateTotalCosts = (pricing: SchoolPricingDto) => {
     pricing.privateLessonFee || 0,
   ].reduce((sum, fee) => sum + fee, 0);
 
-  const customFeesTotal = pricing.customFees?.reduce((sum, fee) => sum + (fee.amount || 0), 0) || 0;
+  const customFeesTotal = pricing.customFees?.reduce((sum, fee) => sum + (fee.feeAmount || 0), 0) || 0;
 
   return {
     oneTimeFees,

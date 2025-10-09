@@ -5,12 +5,12 @@ import { DataGrid } from "@/components/ui/data-grid";
 import { SchoolPricingDto } from "@/types/dto/pricing/SchoolPricingDto";
 import { createPricingColumns } from "../config/pricing-columns";
 import { PricingColumnHandlers, PricingTableProps } from "../types";
-import { mockPricings, getPricingStats } from "../mock/pricing-mock-data";
+import { usePricing } from "../context/pricing-context";
 
-export const PricingTable: React.FC<PricingTableProps> = ({
-  pricings = mockPricings,
-  loading = false,
-}) => {
+export const PricingTable = () => {
+  // Pricing context'ten veri al
+  const { schoolPricings, pricingLoading } = usePricing();
+
   // Event handler'lar - sadece detay görüntüleme
   const handlers: PricingColumnHandlers = {
     onViewDetails: (pricing: SchoolPricingDto) => {
@@ -41,9 +41,9 @@ export const PricingTable: React.FC<PricingTableProps> = ({
   return (
     <div>
       <DataGrid
-        rows={pricings}
+        rows={schoolPricings || []}
         columns={columns}
-        loading={loading}
+        loading={pricingLoading}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },

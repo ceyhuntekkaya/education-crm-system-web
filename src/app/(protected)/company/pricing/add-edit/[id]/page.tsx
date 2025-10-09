@@ -15,14 +15,14 @@ const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
   const pageTitle = isEditing ? "Fiyat Bilgisi Düzenle" : "Yeni Fiyat Bilgisi";
 
   const handleGoBack = () => {
-    router.push("/company/price");
+    router.push("/company/pricing");
   };
 
   const handleSave = () => {
     // Save logic will be implemented here
     console.log("Saving pricing data...");
     // After save, redirect to list
-    router.push("/company/price");
+    router.push("/company/pricing");
   };
 
   return (

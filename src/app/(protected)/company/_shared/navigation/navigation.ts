@@ -19,7 +19,7 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-school",
   },
   {
-    href: "/company/price",
+    href: "/company/pricing",
     label: "Fiyat Bilgileri",
     icon: "ph-school",
   },

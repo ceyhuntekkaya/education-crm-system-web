@@ -8,7 +8,7 @@ const PricePage: React.FC = () => {
   const router = useRouter();
 
   const handleAddPricing = () => {
-    router.push("/company/price/add-edit/new");
+    router.push("/company/pricing/add-edit/new");
   };
 
   return (

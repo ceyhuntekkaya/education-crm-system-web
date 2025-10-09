@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { PricingContextType } from "../types";
+import { useSchoolPricing } from "../hooks";
+import { useCompany } from "../../../_shared";
 
 const PricingContext = createContext<PricingContextType | undefined>(undefined);
 
@@ -12,8 +14,18 @@ interface PricingProviderProps {
 export const PricingProvider: React.FC<PricingProviderProps> = ({
   children,
 }) => {
+  // Company context'ten seçili okul ID'sini al
+  const { selectedSchool } = useCompany();
+
+  // Pricing hook'unu kullan
+  const { schoolPricings, pricingLoading, pricingError, refetchPricings } =
+    useSchoolPricing(selectedSchool?.id || null);
+
   const contextValue: PricingContextType = {
-    // Context properties will be added here as needed
+    schoolPricings,
+    pricingLoading,
+    pricingError,
+    refetchPricings,
   };
 
   return (
