@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { CompanyContextType, CompanyProviderProps } from "../types";
 import { useSelectedSchool } from "../hooks";
 import { useAuth } from "@/contexts";
@@ -8,24 +8,23 @@ import { useAuth } from "@/contexts";
 // Context oluşturma
 const CompanyContext = createContext<CompanyContextType | undefined>(undefined);
 
-// Fake okul verileri
-const defaultSchools = [
-  { id: 1, name: "İlkokul", type: "İlkokul" },
-  { id: 2, name: "Ortaokul", type: "Ortaokul" },
-  { id: 3, name: "Lise", type: "Lise" },
-];
-
 // Company Provider
 export const CompanyProvider: React.FC<CompanyProviderProps> = ({
   children,
 }) => {
   const { user } = useAuth();
-  // Sadece sidebar için gerekli state'ler
-  const [schools, setSchools] = useState(defaultSchools);
+
+  const schools = useMemo(() => {
+    const userSchools = user?.userRoles?.[0]?.schools || [];
+    return userSchools.map((school) => ({
+      id: school.id || 0,
+      name: school.name || "",
+    }));
+  }, [user?.userRoles]);
 
   // Custom hook ile seçili okul yönetimi
   const { selectedSchool, setSelectedSchool, isInitialized } =
-    useSelectedSchool(defaultSchools);
+    useSelectedSchool(schools);
 
   const value: CompanyContextType = {
     // State
@@ -34,7 +33,6 @@ export const CompanyProvider: React.FC<CompanyProviderProps> = ({
     isInitialized,
 
     // Setters
-    setSchools,
     setSelectedSchool,
   };
 

@@ -7,6 +7,8 @@ import { Role } from "@/enums/Role";
 const UserMenu = () => {
   const { user, currentRole, logout } = useAuth();
 
+  console.log("user in user menu:", user);
+
   const getDashboardUrl = () => {
     switch (currentRole) {
       case Role.COMPANY:

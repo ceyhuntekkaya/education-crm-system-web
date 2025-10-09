@@ -19,8 +19,7 @@ export const API_ENDPOINTS = {
   INSTITUTIONS: {
     SCHOOLS: "/institutions/schools",
     SCHOOLS_SEARCH: "/institutions/schools/search",
-    SCHOOL_DETAIL: (id: string | number) =>
-      `/institutions/schools/${id}/detail`,
+    SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
     INSTITUTION_TYPES: "/institutions/institution-types",
   },
 

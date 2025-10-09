@@ -11,7 +11,6 @@ export interface CompanyState {
 export interface CompanyContextType extends CompanyState {
   // Sidebar için metodlar
   setSelectedSchool: (school: School) => void;
-  setSchools: (schools: School[]) => void;
 }
 
 // Company Provider Props

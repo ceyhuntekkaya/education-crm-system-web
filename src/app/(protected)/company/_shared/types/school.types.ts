@@ -3,7 +3,7 @@
 export interface School {
   id: number;
   name: string;
-  type: string;
+  type?: string;
 }
 
 // School ile ilgili diğer type'lar buraya eklenebilir
