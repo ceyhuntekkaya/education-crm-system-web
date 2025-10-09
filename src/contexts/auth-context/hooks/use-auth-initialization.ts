@@ -31,5 +31,6 @@ export function useAuthInitialization({
     };
 
     checkAuth();
-  }, [getStoredToken, setUser, updateRolePermissions, setIsLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array - only run once on mount
 }

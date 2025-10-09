@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { UserDto } from "@/types/dto/user/UserDto";
 
 export function useAuthRolePermissions() {
@@ -6,7 +6,7 @@ export function useAuthRolePermissions() {
   const [currentDepartments, setCurrentDepartments] = useState<string[]>([]);
   const [currentPermissions, setCurrentPermissions] = useState<string[]>([]);
 
-  const extractRoleData = (user: UserDto | null) => {
+  const extractRoleData = useCallback((user: UserDto | null) => {
     if (!user?.userRoles?.[0]) {
       return {
         role: "",
@@ -26,20 +26,20 @@ export function useAuthRolePermissions() {
         typeof perm === "string" ? perm : perm.name || perm
       ) || [],
     };
-  };
+  }, []);
 
-  const updateRolePermissions = (user: UserDto | null) => {
+  const updateRolePermissions = useCallback((user: UserDto | null) => {
     const { role, departments, permissions } = extractRoleData(user);
     setCurrentRole(role);
     setCurrentDepartments(departments);
     setCurrentPermissions(permissions);
-  };
+  }, [extractRoleData]);
 
-  const resetRolePermissions = () => {
+  const resetRolePermissions = useCallback(() => {
     setCurrentRole("");
     setCurrentDepartments([]);
     setCurrentPermissions([]);
-  };
+  }, []);
 
   return {
     currentRole,

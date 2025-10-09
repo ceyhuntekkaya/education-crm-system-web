@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import { UserDto } from "@/types/dto/user/UserDto";
 
 export function useAuthToken() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
-  const saveToken = (token: string) => {
+  const saveToken = useCallback((token: string) => {
     setAccessToken(token);
     localStorage.setItem("accessToken", JSON.stringify(token));
-  };
+  }, []);
 
-  const removeToken = () => {
+  const removeToken = useCallback(() => {
     setAccessToken(null);
     localStorage.removeItem("accessToken");
-  };
+  }, []);
 
-  const getStoredToken = (): { token: string | null; decodedUser: UserDto | null } => {
+  const getStoredToken = useCallback((): { token: string | null; decodedUser: UserDto | null } => {
     try {
       const token = localStorage.getItem("accessToken");
       if (token) {
@@ -36,7 +36,7 @@ export function useAuthToken() {
     }
     
     return { token: null, decodedUser: null };
-  };
+  }, [removeToken]);
 
   return {
     accessToken,
