@@ -1,17 +1,17 @@
+import { School } from "./school.types";
+
 // Company Context için tip tanımları
 export interface CompanyState {
-  selectedCompanyId: string | null;
-  companyData: any | null;
-  isLoading: boolean;
-  sidebarCollapsed: boolean;
+  // Sidebar için gerekli bilgiler
+  selectedSchool: School | null;
+  schools: School[];
+  isInitialized: boolean; // localStorage'dan veri çekilip çekilmediğini kontrol etmek için
 }
 
 export interface CompanyContextType extends CompanyState {
-  setSelectedCompanyId: (id: string | null) => void;
-  setCompanyData: (data: any) => void;
-  setIsLoading: (loading: boolean) => void;
-  setSidebarCollapsed: (collapsed: boolean) => void;
-  refreshCompanyData: () => Promise<void>;
+  // Sidebar için metodlar
+  setSelectedSchool: (school: School) => void;
+  setSchools: (schools: School[]) => void;
 }
 
 // Company Provider Props

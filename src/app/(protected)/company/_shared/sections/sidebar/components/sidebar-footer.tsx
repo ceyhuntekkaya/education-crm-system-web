@@ -4,8 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui";
 import { SidebarFooterProps } from "../types";
+import { useAuth } from "@/contexts";
 
-const SidebarFooter: React.FC<SidebarFooterProps> = ({ onLogout }) => {
+const SidebarFooter: React.FC<SidebarFooterProps> = () => {
+  const { logout } = useAuth();
   return (
     <div className="sidebar-footer px-8 pb-8">
       <div className="border border-neutral-30 rounded-12 bg-white p-6">
@@ -42,7 +44,7 @@ const SidebarFooter: React.FC<SidebarFooterProps> = ({ onLogout }) => {
           {/* Çıkış Yap Butonu - Fixed Layout */}
           <div className="sidebar-footer-item">
             <button
-              onClick={onLogout}
+              onClick={() => logout(null)}
               className="d-flex align-items-center p-3 rounded-8 w-100 border-0 bg-transparent sidebar-footer-link transition-all"
               title="Çıkış Yap"
             >

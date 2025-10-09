@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar } from "@/components";
+import { Sidebar } from "./_shared";
 import React from "react";
 import { useAuth } from "@/contexts";
 import { companyLayoutNavigation, CompanyProvider } from "./_shared";
@@ -8,16 +8,10 @@ import { companyLayoutNavigation, CompanyProvider } from "./_shared";
 const CompanyLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { user, currentRole } = useAuth();
   return (
     <CompanyProvider>
       <div>
-        <Sidebar
-          menuItems={companyLayoutNavigation}
-          companyName={"Eğitim CRM"}
-          userName={user?.fullName || "Kullanıcı"}
-          userRole={currentRole || "Kullanıcı"}
-        />
+        <Sidebar menuItems={companyLayoutNavigation} />
         <div
           style={{
             marginLeft: "280px",

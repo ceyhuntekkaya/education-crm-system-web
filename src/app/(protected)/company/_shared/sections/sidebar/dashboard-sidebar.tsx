@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/contexts";
 import { useGuardHook } from "@/hooks";
 import { SidebarProps } from "./types";
 import { findActiveParents, getSidebarClasses } from "./utils";
@@ -11,7 +10,6 @@ import {
   SidebarFooter,
   SidebarMenuItem,
   SidebarDashboardHeader,
-  MobileControls,
 } from "./components";
 
 // SASS stilleri public/assets/sass/layout/_sidebar.scss içinde tanımlı
@@ -19,18 +17,11 @@ import {
 const DashboardSidebar: React.FC<SidebarProps> = ({
   menuItems,
   className = "",
-  companyName = "EduAll",
-  userName = "Henry",
-  userRole = "Admin",
-  userAvatar,
-  companyLogo,
 }) => {
-  const { logout } = useAuth();
   const { filterMenuItems } = useGuardHook();
   const filteredMenuItems = filterMenuItems(menuItems);
   const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Aktif menü öğelerini otomatik genişlet
   useEffect(() => {
@@ -50,34 +41,17 @@ const DashboardSidebar: React.FC<SidebarProps> = ({
     });
   };
 
-  // Mobile menu toggle
-  const handleMobileMenuToggle = (open: boolean) => {
-    setIsMobileMenuOpen(open);
-  };
-
   return (
     <>
-      <MobileControls
-        isMobileMenuOpen={isMobileMenuOpen}
-        onToggleMobileMenu={handleMobileMenuToggle}
-      />
-
       {/* Ana Sidebar */}
       <aside
-        className={getSidebarClasses(isMobileMenuOpen, className)}
+        className={getSidebarClasses(false, className)}
         style={{
           width: "280px",
-          left: isMobileMenuOpen ? "0" : "",
           transition: "all 0.3s ease",
         }}
       >
-        <SidebarHeader
-          companyName={companyName}
-          userName={userName}
-          userRole={userRole}
-          userAvatar={userAvatar}
-          companyLogo={companyLogo}
-        />
+        <SidebarHeader />
 
         <SidebarDashboardHeader />
 
@@ -98,7 +72,7 @@ const DashboardSidebar: React.FC<SidebarProps> = ({
           </div>
         </nav>
 
-        <SidebarFooter onLogout={logout} />
+        <SidebarFooter />
       </aside>
     </>
   );
