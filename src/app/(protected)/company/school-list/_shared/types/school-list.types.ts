@@ -1,4 +1,4 @@
-import { SchoolSearchResultDto } from "@/types";
+import { SchoolDto } from "@/types";
 import { ReactNode } from "react";
 
 /**
@@ -6,37 +6,41 @@ import { ReactNode } from "react";
  * Defines the callback functions for school table actions
  */
 export interface SchoolColumnHandlers {
-  onViewDetails: (school: SchoolSearchResultDto) => void;
-  onEdit: (school: SchoolSearchResultDto) => void;
-  onToggleStatus: (school: SchoolSearchResultDto) => void;
-  onDelete?: (school: SchoolSearchResultDto) => void;
-  onDuplicate?: (school: SchoolSearchResultDto) => void;
-  onViewAppointments?: (school: SchoolSearchResultDto) => void;
+  onViewDetails: (school: SchoolDto) => void;
+  onEdit: (school: SchoolDto) => void;
+  onToggleStatus: (school: SchoolDto) => void;
+  onDelete?: (school: SchoolDto) => void;
+  onDuplicate?: (school: SchoolDto) => void;
+  onViewAppointments?: (school: SchoolDto) => void;
 }
 
 /**
  * Badge variant types for school status display
  */
-export type BadgeVariant = "success" | "warning" | "danger" | "secondary" | "info";
+export type BadgeVariant =
+  | "success"
+  | "warning"
+  | "danger"
+  | "secondary"
+  | "info";
 
 /**
  * School action buttons component props
  */
 export interface SchoolActionButtonsProps {
-  school: SchoolSearchResultDto;
-  onViewDetails?: (school: SchoolSearchResultDto) => void;
-  onEdit?: (school: SchoolSearchResultDto) => void;
-  onToggleStatus?: (school: SchoolSearchResultDto) => void;
-  onDelete?: (school: SchoolSearchResultDto) => void;
-  onDuplicate?: (school: SchoolSearchResultDto) => void;
-  onViewAppointments?: (school: SchoolSearchResultDto) => void;
+  school: SchoolDto;
+  onViewDetails?: (school: SchoolDto) => void;
+  onEdit?: (school: SchoolDto) => void;
+  onToggleStatus?: (school: SchoolDto) => void;
+  onDelete?: (school: SchoolDto) => void;
+  onDuplicate?: (school: SchoolDto) => void;
+  onViewAppointments?: (school: SchoolDto) => void;
 }
 
 /**
  * School table component props
  */
 export interface SchoolTableProps {
-  schools?: SchoolSearchResultDto[];
   loading?: boolean;
 }
 
@@ -44,7 +48,8 @@ export interface SchoolTableProps {
  * School List context type
  */
 export interface SchoolListContextType {
-  // School List context properties will be added here
+  schools: SchoolDto[];
+  loading?: boolean;
 }
 
 /**

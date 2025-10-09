@@ -2,38 +2,39 @@
 
 import React, { useState } from "react";
 import { DataGrid } from "@/components/ui/data-grid";
-import { SchoolSearchResultDto } from "@/types";
+import { SchoolDto } from "@/types";
 import { createSchoolColumns } from "../config/school-columns";
 import { SchoolColumnHandlers, SchoolTableProps } from "../types";
-import { mockSchools, getSchoolStats } from "../mock/school-list-mock-data";
+import { useSchoolList } from "../context";
 
 export const SchoolTable: React.FC<SchoolTableProps> = ({
-  schools = mockSchools,
-  loading = false,
+  loading: propLoading = false,
 }) => {
+  const { schools, loading: contextLoading } = useSchoolList();
+  const loading = propLoading || contextLoading;
   // Event handler'lar - sadece detay görüntüleme
   const handlers: SchoolColumnHandlers = {
-    onViewDetails: (school: SchoolSearchResultDto) => {
+    onViewDetails: (school: SchoolDto) => {
       console.log("View details school:", school);
       // Burada detay modal açılabilir
     },
-    onEdit: (school: SchoolSearchResultDto) => {
+    onEdit: (school: SchoolDto) => {
       console.log("Edit school:", school);
       // Düzenleme sayfasına yönlendirme
     },
-    onToggleStatus: (school: SchoolSearchResultDto) => {
+    onToggleStatus: (school: SchoolDto) => {
       console.log("Toggle subscription status school:", school);
       // Abonelik durumu değiştirme işlemi
     },
-    onDelete: (school: SchoolSearchResultDto) => {
+    onDelete: (school: SchoolDto) => {
       console.log("Delete school:", school);
       // Silme işlemi
     },
-    onDuplicate: (school: SchoolSearchResultDto) => {
+    onDuplicate: (school: SchoolDto) => {
       console.log("Duplicate school:", school);
       // Kopyalama işlemi
     },
-    onViewAppointments: (school: SchoolSearchResultDto) => {
+    onViewAppointments: (school: SchoolDto) => {
       console.log("View appointments for school:", school);
       // Randevu listesi sayfasına yönlendirme
     },

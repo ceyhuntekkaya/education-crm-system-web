@@ -1,271 +1,321 @@
+import Image from "next/image";
 import { GridColDef } from "@/components/ui/data-grid";
-import { SchoolSearchResultDto } from "@/types";
-import { formatDate } from "@/utils";
-import {
-  getStatusBadgeVariant,
-  getInstitutionTypeDisplay,
-  formatDistance,
-  formatRating,
-} from "../utils";
+import { SchoolDto } from "@/types";
 import { SchoolColumnHandlers } from "../types";
 import { SchoolActionButtons } from "../components/school-action-buttons";
 import { Badge } from "@/components";
 
-// Column render helper functions
-const renderSchoolInfo = (params: any) => (
-  <div className="d-flex align-items-center gap-3">
-    {params.row.logoUrl && (
-      <div className="flex-shrink-0">
-        <img
-          src={params.row.logoUrl}
-          alt={params.row.name}
-          className="rounded-circle"
-          style={{ width: "40px", height: "40px", objectFit: "cover" }}
-        />
-      </div>
-    )}
-    <div className="overflow-hidden">
-      <div className="fw-medium text-truncate" title={params.row.name}>
-        {params.row.name || "-"}
-      </div>
-      {params.row.campusName && (
-        <small
-          className="text-muted text-truncate d-block"
-          title={params.row.campusName}
-        >
-          {params.row.campusName}
-        </small>
-      )}
-    </div>
-  </div>
-);
-
-const renderInstitutionType = (params: any) => (
-  <div className="d-flex align-items-center gap-2">
-    {params.row.institutionTypeIcon && (
-      <i
-        className={`${params.row.institutionTypeIcon} text-sm`}
-        style={{ color: params.row.institutionTypeColor || "#6B7280" }}
-      />
-    )}
-    <span className="text-truncate">
-      {getInstitutionTypeDisplay(params.row.institutionTypeName)}
-    </span>
-  </div>
-);
-
-const renderLocation = (params: any) => (
-  <div>
-    <div className="fw-medium">{params.row.district || "-"}</div>
-    {params.row.city && (
-      <small className="text-muted d-block">{params.row.city}</small>
-    )}
-    {params.row.distanceKm && (
-      <small className="text-info d-block">
-        {formatDistance(params.row.distanceKm)}
-      </small>
-    )}
-  </div>
-);
-
-const renderAgeRange = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">{params.row.ageRange || "-"}</div>
-    {params.row.minAge && params.row.maxAge && (
-      <small className="text-muted d-block">
-        {params.row.minAge}-{params.row.maxAge} yaş
-      </small>
-    )}
-  </div>
-);
-
-const renderPricing = (params: any) => (
-  <div>
-    {params.row.formattedPrice && (
-      <div className="fw-medium text-success">{params.row.formattedPrice}</div>
-    )}
-    <small className="text-muted d-block">Aylık</small>
-  </div>
-);
-
-const renderRating = (params: any) => (
-  <div className="text-center">
-    {params.row.ratingAverage ? (
-      <>
-        <div className="fw-medium d-flex align-items-center justify-content-center gap-1">
-          <i className="ph-fill ph-star text-warning text-sm" />
-          <span>{params.row.ratingAverage.toFixed(1)}</span>
-        </div>
-        {params.row.ratingCount && (
-          <small className="text-muted d-block">
-            ({params.row.ratingCount} değerlendirme)
-          </small>
-        )}
-      </>
-    ) : (
-      <div className="text-muted">-</div>
-    )}
-  </div>
-);
-
-const renderAppointmentStatus = (params: any) => (
-  <div className="d-flex justify-content-center align-items-center h-100">
-    <Badge
-      variant={getStatusBadgeVariant(
-        params.row.appointment?.isActiveAppointment
-      )}
-    >
-      {params.row.appointment?.isActiveAppointment
-        ? "Aktif Randevu"
-        : "Randevu Yok"}
-    </Badge>
-  </div>
-);
-
-const renderCampaignStatus = (params: any) => (
-  <div className="d-flex justify-content-center">
-    {params.row.hasActiveCampaigns ? (
-      <div className="d-flex align-items-center gap-1">
-        <i className="ph-fill ph-megaphone text-success text-sm" />
-        <span className="text-success text-sm fw-medium">
-          {params.row.activeCampaigns?.length || 0} Kampanya
-        </span>
-      </div>
-    ) : (
-      <div className="text-muted text-sm">Kampanya Yok</div>
-    )}
-  </div>
-);
-
-const renderSubscriptionStatus = (params: any) => (
-  <div className="d-flex justify-content-center gap-2">
-    {/* {params.row.isSubscribed && (
-      <i
-        className="ph-fill ph-bell text-primary"
-        style={{ fontSize: "16px" }}
-        title="Abone"
-      />
-    )} */}
-    {params.row.isFavorite && (
-      <i
-        className="ph-fill ph-heart text-danger"
-        style={{ fontSize: "16px" }}
-        title="Favori"
-      />
-    )}
-    {!params.row.isFavorite && <span className="text-muted text-sm">-</span>}
-  </div>
-);
-
-const renderHighlights = (params: any) => {
-  const highlights = params.row.highlights || [];
-
-  if (highlights.length === 0) {
-    return <div className="text-muted">-</div>;
-  }
-
-  return (
-    <div>
-      {highlights.slice(0, 2).map((highlight: string, index: number) => (
-        <small key={index} className="d-block text-truncate" title={highlight}>
-          • {highlight}
-        </small>
-      ))}
-      {highlights.length > 2 && (
-        <small className="text-muted">+{highlights.length - 2} daha</small>
-      )}
-    </div>
-  );
-};
-
-const renderActionButtons = (params: any, handlers: SchoolColumnHandlers) => (
-  <SchoolActionButtons
-    school={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-    onViewAppointments={handlers.onViewAppointments}
-  />
-);
-
-// Main column definitions
 export const createSchoolColumns = (
   handlers: SchoolColumnHandlers
-): GridColDef<SchoolSearchResultDto>[] => [
-  // Basic Information Columns
-  // {
-  //   field: "subscriptionStatus",
-  //   headerName: "Durum",
-  //   width: 100,
-  //   renderCell: renderSubscriptionStatus,
-  // },
+): GridColDef<SchoolDto>[] => [
+  // Logo
+  {
+    field: "logoUrl",
+    headerName: "",
+    width: 80,
+    sortable: false,
+    renderCell: (params) => (
+      <div className="d-flex align-items-center justify-content-center h-100">
+        {params?.row?.logoUrl ? (
+          <Image
+            src={params.row.logoUrl}
+            alt={params?.row?.name || "Okul Logosu"}
+            width={36}
+            height={36}
+            className="rounded-circle"
+            style={{ objectFit: "cover", border: "1px solid #e9ecef" }}
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              const parent = img.parentElement;
+
+              // Eğer zaten bir fallback element varsa, yenisini ekleme
+              if (parent?.querySelector(".fallback-icon")) {
+                img.style.display = "none";
+                return;
+              }
+
+              img.style.display = "none";
+              const fallback = document.createElement("div");
+              fallback.className =
+                "rounded-circle d-flex align-items-center justify-content-center fallback-icon";
+              fallback.style.cssText = `width: 36px; height: 36px; background-color: ${
+                params?.row?.institutionType?.colorCode || "#8B5CF6"
+              }; color: white;`;
+              fallback.innerHTML =
+                '<i class="ph ph-graduation-cap" style="font-size: 18px;"></i>';
+              parent?.appendChild(fallback);
+            }}
+          />
+        ) : (
+          <div
+            className="rounded-circle d-flex align-items-center justify-content-center"
+            style={{
+              width: "36px",
+              height: "36px",
+              backgroundColor:
+                params?.row?.institutionType?.colorCode || "#8B5CF6",
+              color: "white",
+            }}
+          >
+            <i className="ph ph-graduation-cap" style={{ fontSize: "18px" }} />
+          </div>
+        )}
+      </div>
+    ),
+  },
+
+  // Temel Bilgiler
   {
     field: "name",
-    headerName: "Okul Bilgileri",
+    headerName: "Okul Adı",
+    width: 260,
+    renderCell: (params) => (
+      <div className="fw-semibold text-truncate" title={params?.row?.name}>
+        {params?.row?.name || "-"}
+      </div>
+    ),
+  },
+  {
+    field: "campus",
+    headerName: "Kampüs",
     width: 300,
-    renderCell: renderSchoolInfo,
+    valueGetter: (params) => params?.row?.campus?.name || "",
+    renderCell: (params) => params?.row?.campus?.name || "-",
   },
   {
-    field: "institutionTypeName",
-    headerName: "Tür",
-    width: 150,
-    renderCell: renderInstitutionType,
+    field: "institutionType",
+    headerName: "Kurum Türü",
+    width: 170,
+    valueGetter: (params) => params?.row?.institutionType?.displayName || "",
+    renderCell: (params) => (
+      <div className="d-flex align-items-center gap-2">
+        {params?.row?.institutionType?.iconUrl && (
+          <i
+            className="ph-school text-sm"
+            style={{
+              color: params?.row?.institutionType?.colorCode || "#6B7280",
+            }}
+          />
+        )}
+        <span className="text-truncate">
+          {params?.row?.institutionType?.displayName || "-"}
+        </span>
+      </div>
+    ),
   },
   {
-    field: "location",
-    headerName: "Konum",
-    width: 180,
-    renderCell: renderLocation,
+    field: "province",
+    headerName: "İl",
+    width: 100,
+    valueGetter: (params) => params?.row?.campus?.province?.name || "",
+    renderCell: (params) => params?.row?.campus?.province?.name || "-",
   },
+  {
+    field: "district",
+    headerName: "İlçe",
+    width: 120,
+    valueGetter: (params) => params?.row?.campus?.district?.name || "",
+    renderCell: (params) => params?.row?.campus?.district?.name || "-",
+  },
+
+  // Eğitim Bilgileri
   {
     field: "ageRange",
     headerName: "Yaş Aralığı",
-    width: 120,
-    renderCell: renderAgeRange,
+    width: 160,
+    renderCell: (params) => (
+      <div className="text-center">
+        {params?.row?.minAge && params?.row?.maxAge
+          ? `${params.row.minAge}-${params.row.maxAge} yaş`
+          : "-"}
+      </div>
+    ),
+  },
+  {
+    field: "curriculumType",
+    headerName: "Müfredat",
+    width: 150,
+    renderCell: (params) => params?.row?.curriculumType || "-",
+  },
+  {
+    field: "languageOfInstruction",
+    headerName: "Eğitim Dili",
+    width: 150,
+    renderCell: (params) => params?.row?.languageOfInstruction || "-",
+  },
+  {
+    field: "foreignLanguages",
+    headerName: "Yabancı Dil",
+    width: 150,
+    renderCell: (params) => params?.row?.foreignLanguages || "-",
   },
 
-  // Pricing & Rating Columns
+  // Kapasite ve Ücretler
+  {
+    field: "capacity",
+    headerName: "Kapasite",
+    width: 140,
+    type: "number",
+    renderCell: (params) => (
+      <div className="text-center fw-medium">
+        {params?.row?.currentStudentCount || 0} / {params?.row?.capacity || 0}
+      </div>
+    ),
+  },
   {
     field: "monthlyFee",
-    headerName: "Ücret",
+    headerName: "Aylık Ücret",
+    width: 160,
+    type: "number",
+    renderCell: (params) =>
+      params?.row?.monthlyFee ? (
+        <span className="fw-semibold text-success">
+          ₺{params.row.monthlyFee.toLocaleString()}
+        </span>
+      ) : (
+        "-"
+      ),
+  },
+  {
+    field: "registrationFee",
+    headerName: "Kayıt Ücreti",
+    width: 160,
+    type: "number",
+    renderCell: (params) =>
+      params?.row?.registrationFee ? (
+        <span className="fw-medium text-warning">
+          ₺{params.row.registrationFee.toLocaleString()}
+        </span>
+      ) : (
+        "-"
+      ),
+  },
+
+  // Değerlendirme ve İstatistikler
+  {
+    field: "ratingAverage",
+    headerName: "Puan",
     width: 120,
-    renderCell: renderPricing,
+    type: "number",
+    renderCell: (params) => (
+      <div className="text-center">
+        {params?.row?.ratingAverage ? (
+          <div className="fw-medium d-flex align-items-center gap-1">
+            <i className="ph-fill ph-star text-warning" />
+            {params.row.ratingAverage.toFixed(1)}
+          </div>
+        ) : (
+          "-"
+        )}
+      </div>
+    ),
   },
   {
-    field: "rating",
+    field: "ratingCount",
     headerName: "Değerlendirme",
-    width: 150,
-    renderCell: renderRating,
+    width: 190,
+    type: "number",
+    renderCell: (params) =>
+      params?.row?.ratingCount ? `${params.row.ratingCount}` : "-",
   },
-
-  // Status Columns
   {
-    field: "appointmentStatus",
-    headerName: "Randevu Durumu",
+    field: "viewCount",
+    headerName: "Görüntülenme",
+    width: 180,
+    type: "number",
+    renderCell: (params) => {
+      const value = params?.row?.viewCount || 0;
+      return (
+        <span className="fw-medium text-primary">
+          {value > 1000 ? `${Math.round(value / 1000)}k` : value}
+        </span>
+      );
+    },
+  },
+  {
+    field: "likeCount",
+    headerName: "Beğeni",
     width: 140,
-    renderCell: renderAppointmentStatus,
+    type: "number",
+    renderCell: (params) => {
+      const value = params?.row?.likeCount || 0;
+      return (
+        <span className="fw-medium text-danger">
+          {value > 1000 ? `${Math.round(value / 1000)}k` : value}
+        </span>
+      );
+    },
   },
   {
-    field: "campaignStatus",
-    headerName: "Kampanyalar",
-    width: 130,
-    renderCell: renderCampaignStatus,
+    field: "postCount",
+    headerName: "İçerik",
+    width: 140,
+    type: "number",
+    renderCell: (params) => (
+      <span className="fw-medium text-info">{params?.row?.postCount || 0}</span>
+    ),
   },
 
-  // Additional Info & Actions
+  // İletişim
   {
-    field: "highlights",
-    headerName: "Özellikler",
+    field: "phone",
+    headerName: "Telefon",
     width: 200,
-    renderCell: renderHighlights,
+    renderCell: (params) => params?.row?.phone || "-",
   },
-  // {
-  //   field: "actions",
-  //   headerName: "",
-  //   width: 70,
-  //   sortable: false,
-  //   renderCell: (params) => renderActionButtons(params, handlers),
-  // },
+  {
+    field: "extension",
+    headerName: "Dahili",
+    width: 120,
+    renderCell: (params) => params?.row?.extension || "-",
+  },
+  {
+    field: "email",
+    headerName: "E-posta",
+    width: 300,
+    renderCell: (params) =>
+      params?.row?.email ? (
+        <span
+          className="text-muted text-truncate d-block"
+          title={params.row.email}
+        >
+          {params.row.email}
+        </span>
+      ) : (
+        "-"
+      ),
+  },
+
+  // Durum ve Kampanyalar
+  {
+    field: "isActive",
+    headerName: "Durum",
+    width: 100,
+    type: "boolean",
+    renderCell: (params) => (
+      <Badge variant={params?.row?.isActive ? "success" : "secondary"}>
+        {params?.row?.isActive ? "Aktif" : "Pasif"}
+      </Badge>
+    ),
+  },
+  {
+    field: "activeCampaigns",
+    headerName: "Kampanyalar",
+    width: 200,
+    renderCell: (params) => {
+      const campaignCount = params?.row?.activeCampaigns?.length || 0;
+      return (
+        <div>
+          {campaignCount > 0 ? (
+            <div className="d-flex align-items-center gap-1">
+              <i className="ph-fill ph-megaphone text-success" />
+              <span className="text-success fw-medium">{campaignCount}</span>
+            </div>
+          ) : (
+            <span className="text-muted">-</span>
+          )}
+        </div>
+      );
+    },
+  },
 ];
