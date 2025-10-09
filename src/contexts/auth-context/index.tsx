@@ -6,6 +6,7 @@ import { AuthenticationRequest, AuthenticationResponse } from "@/types";
 import {
   useAuthState,
   useAuthToken,
+  useAuthUserStorage,
   useAuthRolePermissions,
   useAuthLogin,
   useAuthLogout,
@@ -20,6 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useAuthState();
   const { accessToken, saveToken, removeToken, getStoredToken } =
     useAuthToken();
+  const { saveUser, removeUser, getStoredUser } = useAuthUserStorage();
   const {
     currentRole,
     currentDepartments,
@@ -30,11 +32,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Handle login success
   const handleLoginSuccess = (data: AuthenticationResponse) => {
-    setUser(data.user || null);
+    const userData = data.user || null;
+
+    // Save both user and token
+    if (userData) {
+      setUser(userData);
+      saveUser(userData);
+      updateRolePermissions(userData);
+    }
+
     if (data.accessToken) {
       saveToken(data.accessToken);
     }
-    updateRolePermissions(data.user || null);
   };
 
   // Handle login error
@@ -47,6 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     resetRolePermissions();
     removeToken();
+    removeUser();
   };
 
   // Handle logout error
@@ -67,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Initialize auth on app startup
   useAuthInitialization({
+    getStoredUser,
     getStoredToken,
     setUser,
     updateRolePermissions,

@@ -1,28 +1,37 @@
-import { usePostForm } from "@/hooks";
-import { API_ENDPOINTS } from "@/lib";
+import { useState } from "react";
 
 interface UseAuthLogoutProps {
   onLogoutSuccess: () => void;
   onLogoutError: (error: any) => void;
 }
 
-export function useAuthLogout({ onLogoutSuccess, onLogoutError }: UseAuthLogoutProps) {
-  const {
-    submitForm: logout,
-    loading: logoutLoading,
-    error: logoutError,
-  } = usePostForm<null, null>(API_ENDPOINTS.AUTH.LOGOUT, {
-    onSuccess: () => {
-      onLogoutSuccess();
-    },
-    onError: (err) => {
-      const msg = typeof err === "string" ? err : String(err);
-      console.log("logout başarısız:", msg);
-      onLogoutError(err);
-    },
-  });
+export function useAuthLogout({
+  onLogoutSuccess,
+  onLogoutError,
+}: UseAuthLogoutProps) {
+  const [logoutLoading, setLogoutLoading] = useState(false);
+  const [logoutError, setLogoutError] = useState<any>(null);
 
-  const performLogout = () => logout(null);
+  const performLogout = async () => {
+    try {
+      setLogoutLoading(true);
+      setLogoutError(null);
+
+      // Tüm localStorage'ı temizle
+      localStorage.clear();
+
+      // Auth state'leri temizle
+      onLogoutSuccess();
+
+      console.log("Logout başarılı - Tüm localStorage temizlendi");
+    } catch (error) {
+      console.error("Logout error:", error);
+      setLogoutError(error);
+      onLogoutError(error);
+    } finally {
+      setLogoutLoading(false);
+    }
+  };
 
   return {
     performLogout,

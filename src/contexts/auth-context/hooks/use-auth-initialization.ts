@@ -2,13 +2,15 @@ import { useEffect } from "react";
 import { UserDto } from "@/types/dto/user/UserDto";
 
 interface UseAuthInitializationProps {
-  getStoredToken: () => { token: string | null; decodedUser: UserDto | null };
+  getStoredUser: () => UserDto | null;
+  getStoredToken: () => string | null;
   setUser: (user: UserDto | null) => void;
   updateRolePermissions: (user: UserDto | null) => void;
   setIsLoading: (loading: boolean) => void;
 }
 
 export function useAuthInitialization({
+  getStoredUser,
   getStoredToken,
   setUser,
   updateRolePermissions,
@@ -17,14 +19,22 @@ export function useAuthInitialization({
   useEffect(() => {
     const checkAuth = () => {
       try {
-        const { decodedUser } = getStoredToken();
-        
-        if (decodedUser) {
-          setUser(decodedUser);
-          updateRolePermissions(decodedUser);
+        const storedUser = getStoredUser();
+        const token = getStoredToken();
+
+        // Only set user if both user and token exist
+        if (storedUser && token) {
+          setUser(storedUser);
+          updateRolePermissions(storedUser);
+        } else {
+          // If either is missing, clear both
+          setUser(null);
+          updateRolePermissions(null);
         }
       } catch (error) {
         console.error("Auth check error:", error);
+        setUser(null);
+        updateRolePermissions(null);
       } finally {
         setIsLoading(false);
       }

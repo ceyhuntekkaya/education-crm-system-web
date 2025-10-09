@@ -1,6 +1,4 @@
 import { useState, useCallback } from "react";
-import { jwtDecode } from "jwt-decode";
-import { UserDto } from "@/types/dto/user/UserDto";
 
 export function useAuthToken() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -15,27 +13,20 @@ export function useAuthToken() {
     localStorage.removeItem("accessToken");
   }, []);
 
-  const getStoredToken = useCallback((): { token: string | null; decodedUser: UserDto | null } => {
+  const getStoredToken = useCallback((): string | null => {
     try {
       const token = localStorage.getItem("accessToken");
       if (token) {
         const parsedToken = JSON.parse(token);
-        const decoded: any = jwtDecode(parsedToken);
-        
-        // Handle both nested user object and direct user data
-        const userData = decoded.user || decoded;
-        
-        return {
-          token: parsedToken,
-          decodedUser: userData as UserDto,
-        };
+        setAccessToken(parsedToken);
+        return parsedToken;
       }
     } catch (error) {
-      console.error("Token decode error:", error);
+      console.error("Token get error:", error);
       removeToken();
     }
-    
-    return { token: null, decodedUser: null };
+
+    return null;
   }, [removeToken]);
 
   return {
