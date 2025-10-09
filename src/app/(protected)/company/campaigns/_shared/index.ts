@@ -2,6 +2,7 @@
 export * from './context';
 export * from './components';
 export * from './config';
+export * from './hooks';
 export * from './mock';
 export * from './sections';
 export * from './types';

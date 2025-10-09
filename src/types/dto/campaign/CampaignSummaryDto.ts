@@ -1,20 +1,18 @@
 export interface CampaignSummaryDto {
+  /** Format: int64 */
   id?: number;
   title?: string;
-  shortDescription?: string;
+  description?: string;
   campaignType?: string;
   discountType?: string;
-  displayDiscount?: string;
-  startDate?: string;
-  endDate?: string;
-  status?: string;
+  /** Format: double */
+  discountAmount?: number;
+  /** Format: double */
+  discountPercentage?: number;
   badgeText?: string;
   badgeColor?: string;
   thumbnailImageUrl?: string;
+  startDate?: string;
+  endDate?: string;
   isActive?: boolean;
-  isExpired?: boolean;
-  daysRemaining?: number;
-  schoolCount?: number;
-  applicationCount?: number;
-  conversionRate?: number;
-}
+};

@@ -29,6 +29,10 @@ export const API_ENDPOINTS = {
       `/pricing/school-pricing/school/${schoolId}`,
   },
 
+  CAMPAIGNS: {
+    ACTIVE: "/campaigns/active",
+  },
+
   TEMP: {
     CARTS: "/carts",
   },

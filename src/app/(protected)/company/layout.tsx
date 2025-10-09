@@ -2,7 +2,6 @@
 
 import { Sidebar } from "./_shared";
 import React from "react";
-import { useAuth } from "@/contexts";
 import { companyLayoutNavigation, CompanyProvider } from "./_shared";
 
 const CompanyLayout: React.FC<{ children: React.ReactNode }> = ({

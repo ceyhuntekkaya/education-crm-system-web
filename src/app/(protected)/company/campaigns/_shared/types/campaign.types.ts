@@ -1,4 +1,5 @@
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
+import { CampaignSummaryDto } from "@/types/dto/campaign/CampaignSummaryDto";
 import { ReactNode } from "react";
 
 /**
@@ -6,11 +7,11 @@ import { ReactNode } from "react";
  * Defines the callback functions for campaign table actions
  */
 export interface CampaignColumnHandlers {
-  onViewDetails: (campaign: CampaignDto) => void;
-  onEdit: (campaign: CampaignDto) => void;
-  onToggleStatus: (campaign: CampaignDto) => void;
-  onDelete?: (campaign: CampaignDto) => void;
-  onDuplicate?: (campaign: CampaignDto) => void;
+  onViewDetails: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onEdit: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onToggleStatus: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onDelete?: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onDuplicate?: (campaign: CampaignDto | CampaignSummaryDto) => void;
 }
 
 /**
@@ -22,19 +23,19 @@ export type BadgeVariant = "success" | "warning" | "danger" | "secondary" | "inf
  * Campaign action buttons component props
  */
 export interface CampaignActionButtonsProps {
-  campaign: CampaignDto;
-  onViewDetails?: (campaign: CampaignDto) => void;
-  onEdit?: (campaign: CampaignDto) => void;
-  onToggleStatus?: (campaign: CampaignDto) => void;
-  onDelete?: (campaign: CampaignDto) => void;
-  onDuplicate?: (campaign: CampaignDto) => void;
+  campaign: CampaignDto | CampaignSummaryDto;
+  onViewDetails?: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onEdit?: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onToggleStatus?: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onDelete?: (campaign: CampaignDto | CampaignSummaryDto) => void;
+  onDuplicate?: (campaign: CampaignDto | CampaignSummaryDto) => void;
 }
 
 /**
  * Campaign table component props
  */
 export interface CampaignTableProps {
-  campaigns?: CampaignDto[];
+  campaigns?: (CampaignDto | CampaignSummaryDto)[];
   loading?: boolean;
 }
 
@@ -42,7 +43,13 @@ export interface CampaignTableProps {
  * Campaigns context type
  */
 export interface CampaignsContextType {
-  // Campaign context properties will be added here
+  // Campaign data
+  activeCampaigns: CampaignSummaryDto[];
+  campaignsLoading: boolean;
+  campaignsError: string | null;
+  
+  // Actions
+  refetchCampaigns: () => void;
 }
 
 /**

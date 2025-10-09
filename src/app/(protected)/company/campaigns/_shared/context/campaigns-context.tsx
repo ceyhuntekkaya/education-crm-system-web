@@ -2,20 +2,36 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { CampaignsContextType } from "../types";
+import { useActiveCampaigns } from "../hooks";
 
 const CampaignsContext = createContext<CampaignsContextType | undefined>(
   undefined
 );
 
-export const CampaignsProvider: React.FC<{ children: ReactNode }> = ({
+interface CampaignsProviderProps {
+  children: ReactNode;
+}
+
+export const CampaignsProvider: React.FC<CampaignsProviderProps> = ({
   children,
 }) => {
-  const value: CampaignsContextType = {
-    // Context implementation will be added here
+  // Active campaigns hook'unu kullan
+  const {
+    activeCampaigns,
+    campaignsLoading,
+    campaignsError,
+    refetchCampaigns,
+  } = useActiveCampaigns();
+
+  const contextValue: CampaignsContextType = {
+    activeCampaigns,
+    campaignsLoading,
+    campaignsError,
+    refetchCampaigns,
   };
 
   return (
-    <CampaignsContext.Provider value={value}>
+    <CampaignsContext.Provider value={contextValue}>
       {children}
     </CampaignsContext.Provider>
   );
