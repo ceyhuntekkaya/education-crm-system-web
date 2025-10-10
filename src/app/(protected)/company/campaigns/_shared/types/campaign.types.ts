@@ -17,7 +17,12 @@ export interface CampaignColumnHandlers {
 /**
  * Badge variant types for campaign status display
  */
-export type BadgeVariant = "success" | "warning" | "danger" | "secondary" | "info";
+export type BadgeVariant =
+  | "success"
+  | "warning"
+  | "danger"
+  | "secondary"
+  | "info";
 
 /**
  * Campaign action buttons component props
@@ -44,10 +49,10 @@ export interface CampaignTableProps {
  */
 export interface CampaignsContextType {
   // Campaign data
-  activeCampaigns: CampaignSummaryDto[];
+  campaigns: CampaignDto[];
   campaignsLoading: boolean;
   campaignsError: string | null;
-  
+
   // Actions
   refetchCampaigns: () => void;
 }

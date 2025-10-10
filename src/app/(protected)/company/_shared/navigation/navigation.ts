@@ -25,7 +25,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/campaigns",
-    label: "Kampanyalar",
+    label: "Kampanyalar *",
     icon: "ph-megaphone",
   },
   {

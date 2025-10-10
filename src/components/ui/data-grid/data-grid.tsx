@@ -97,7 +97,7 @@ export function DataGrid<T extends Record<string, any>>({
   loading = false,
   emptyState,
   className = "",
-  height = 500,
+  height = 600,
   rowClassName,
   initialState,
 }: DataGridProps<T>) {

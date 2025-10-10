@@ -3,6 +3,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { CampaignTable } from "./_shared";
 import { Button } from "@/components";
+import { SchoolSelector } from "../_shared";
+import { useCompany } from "../_shared";
 
 const CampaignsPage: React.FC = () => {
   const router = useRouter();
@@ -22,14 +24,16 @@ const CampaignsPage: React.FC = () => {
               edin
             </p>
           </div>
-          <Button
-            variant="inline"
-            size="sm"
-            rightIcon="ph-plus"
-            onClick={handleAddCampaign}
-          >
-            Yeni Kampanya
-          </Button>
+          <div className="d-flex align-items-center gap-16">
+            <Button
+              variant="inline"
+              size="sm"
+              rightIcon="ph-plus"
+              onClick={handleAddCampaign}
+            >
+              Yeni Kampanya
+            </Button>
+          </div>
         </div>
 
         <span className="d-block border border-neutral-30 my-20 border-dashed" />

@@ -30,6 +30,7 @@ export const API_ENDPOINTS = {
 
   CAMPAIGNS: {
     ACTIVE: "/campaigns/active",
+    BY_SCHOOL: (schoolId: string | number) => `/campaigns/schools/${schoolId}`,
   },
 
   CONTENT: {

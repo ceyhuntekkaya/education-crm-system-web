@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { CampaignsContextType } from "../types";
-import { useActiveCampaigns } from "../hooks";
+import { useSchoolCampaigns } from "../hooks";
+import { useCompany } from "../../../_shared";
 
 const CampaignsContext = createContext<CampaignsContextType | undefined>(
   undefined
@@ -15,16 +16,19 @@ interface CampaignsProviderProps {
 export const CampaignsProvider: React.FC<CampaignsProviderProps> = ({
   children,
 }) => {
-  // Active campaigns hook'unu kullan
+  // Company context'ten seçili okul bilgisini al
+  const { selectedSchool } = useCompany();
+
+  // School campaigns hook'unu kullan
   const {
-    activeCampaigns,
+    schoolCampaigns,
     campaignsLoading,
     campaignsError,
     refetchCampaigns,
-  } = useActiveCampaigns();
+  } = useSchoolCampaigns(selectedSchool?.id || null);
 
   const contextValue: CampaignsContextType = {
-    activeCampaigns,
+    campaigns: schoolCampaigns,
     campaignsLoading,
     campaignsError,
     refetchCampaigns,

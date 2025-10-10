@@ -1,6 +1,7 @@
 import { CampaignStatus, CampaignType } from "@/enums";
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
 import { BadgeVariant, CampaignStats } from "../types";
+import { formatNumber } from "@/utils";
 
 /**
  * Get badge variant based on campaign status
@@ -112,53 +113,146 @@ export const getStatusDisplay = (status?: string): string => {
  * Filter campaigns by status
  */
 export const getActiveCampaigns = (campaigns: CampaignDto[]): CampaignDto[] => {
-  return campaigns.filter(campaign => campaign.status === CampaignStatus.ACTIVE);
+  return campaigns.filter(
+    (campaign) => campaign.status === CampaignStatus.ACTIVE
+  );
 };
 
-export const getPendingCampaigns = (campaigns: CampaignDto[]): CampaignDto[] => {
-  return campaigns.filter(campaign => campaign.status === CampaignStatus.PENDING_APPROVAL);
+export const getPendingCampaigns = (
+  campaigns: CampaignDto[]
+): CampaignDto[] => {
+  return campaigns.filter(
+    (campaign) => campaign.status === CampaignStatus.PENDING_APPROVAL
+  );
 };
 
-export const getExpiredCampaigns = (campaigns: CampaignDto[]): CampaignDto[] => {
-  return campaigns.filter(campaign => campaign.status === CampaignStatus.EXPIRED);
+export const getExpiredCampaigns = (
+  campaigns: CampaignDto[]
+): CampaignDto[] => {
+  return campaigns.filter(
+    (campaign) => campaign.status === CampaignStatus.EXPIRED
+  );
 };
 
-export const getFeaturedCampaigns = (campaigns: CampaignDto[]): CampaignDto[] => {
-  return campaigns.filter(campaign => campaign.isFeatured === true);
+export const getFeaturedCampaigns = (
+  campaigns: CampaignDto[]
+): CampaignDto[] => {
+  return campaigns.filter((campaign) => campaign.isFeatured === true);
 };
 
 /**
  * Filter campaigns by type
  */
-export const getCampaignsByType = (campaigns: CampaignDto[], type: CampaignType): CampaignDto[] => {
-  return campaigns.filter(campaign => campaign.campaignType === type);
+export const getCampaignsByType = (
+  campaigns: CampaignDto[],
+  type: CampaignType
+): CampaignDto[] => {
+  return campaigns.filter((campaign) => campaign.campaignType === type);
 };
 
 /**
  * Find campaign by ID
  */
-export const getCampaignById = (campaigns: CampaignDto[], id: number): CampaignDto | undefined => {
-  return campaigns.find(campaign => campaign.id === id);
+export const getCampaignById = (
+  campaigns: CampaignDto[],
+  id: number
+): CampaignDto | undefined => {
+  return campaigns.find((campaign) => campaign.id === id);
+};
+
+/**
+ * Get discount display information for campaign
+ * @param row - Campaign data row
+ * @returns Object containing display text, color class and type
+ */
+export const getCampaignDiscountInfo = (row: any) => {
+  const { discountType, discountPercentage, discountAmount, displayDiscount } =
+    row;
+
+  // Switch case yapısı ile indirim tipine göre bilgileri döndür
+  switch (discountType) {
+    case "PERCENTAGE":
+      if (discountPercentage) {
+        return {
+          text: `%${discountPercentage}`,
+          colorClass: "text-success",
+          showDiscount: true,
+        };
+      }
+      break;
+
+    case "FIXED_AMOUNT":
+      if (discountAmount) {
+        return {
+          text: `${formatNumber(discountAmount)}₺`,
+          colorClass: "text-success",
+          showDiscount: true,
+        };
+      }
+      break;
+
+    case "NO_DISCOUNT":
+      return {
+        text: "-",
+        colorClass: "text-muted",
+        showDiscount: false,
+      };
+
+    default:
+      // Eğer displayDiscount varsa onu göster
+      if (displayDiscount) {
+        return {
+          text: displayDiscount,
+          colorClass: "text-success",
+          showDiscount: true,
+        };
+      }
+      break;
+  }
+
+  // Varsayılan durumda
+  return {
+    text: "-",
+    colorClass: "text-muted",
+    showDiscount: false,
+  };
 };
 
 /**
  * Calculate campaign statistics
  */
-export const calculateCampaignStats = (campaigns: CampaignDto[]): CampaignStats => {
+export const calculateCampaignStats = (
+  campaigns: CampaignDto[]
+): CampaignStats => {
   const total = campaigns.length;
-  const active = campaigns.filter(c => c.status === CampaignStatus.ACTIVE).length;
-  const pending = campaigns.filter(c => c.status === CampaignStatus.PENDING_APPROVAL).length;
-  const expired = campaigns.filter(c => c.status === CampaignStatus.EXPIRED).length;
-  const paused = campaigns.filter(c => c.status === CampaignStatus.PAUSED).length;
-  
+  const active = campaigns.filter(
+    (c) => c.status === CampaignStatus.ACTIVE
+  ).length;
+  const pending = campaigns.filter(
+    (c) => c.status === CampaignStatus.PENDING_APPROVAL
+  ).length;
+  const expired = campaigns.filter(
+    (c) => c.status === CampaignStatus.EXPIRED
+  ).length;
+  const paused = campaigns.filter(
+    (c) => c.status === CampaignStatus.PAUSED
+  ).length;
+
   return {
     total,
     active,
     pending,
     expired,
     paused,
-    totalApplications: campaigns.reduce((sum, c) => sum + (c.applicationCount || 0), 0),
-    totalConversions: campaigns.reduce((sum, c) => sum + (c.conversionCount || 0), 0),
-    averageConversionRate: campaigns.reduce((sum, c) => sum + (c.conversionRate || 0), 0) / total
+    totalApplications: campaigns.reduce(
+      (sum, c) => sum + (c.applicationCount || 0),
+      0
+    ),
+    totalConversions: campaigns.reduce(
+      (sum, c) => sum + (c.conversionCount || 0),
+      0
+    ),
+    averageConversionRate:
+      campaigns.reduce((sum, c) => sum + (c.conversionRate || 0), 0) / total,
   };
 };

@@ -5,19 +5,18 @@ import { DataGrid } from "@/components/ui/data-grid";
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
 import { CampaignSummaryDto } from "@/types/dto/campaign/CampaignSummaryDto";
 import { createCampaignColumns } from "../config/campaign-columns";
-import { CampaignColumnHandlers, CampaignTableProps } from "../types";
-import { mockCampaigns, getCampaignStats } from "../mock/campaigns-mock-data";
+import { CampaignTableProps } from "../types";
 import { useCampaigns } from "../context";
 
 export const CampaignTable: React.FC<CampaignTableProps> = ({
   campaigns: propCampaigns,
   loading: propLoading,
 }) => {
-  // Context'ten aktif kampanyaları al
-  const { activeCampaigns, campaignsLoading } = useCampaigns();
+  // Context'ten kampanya verilerini al
+  const { campaigns: contextCampaigns, campaignsLoading } = useCampaigns();
 
   // Props'tan gelen veriler varsa onları kullan, yoksa context'ten al
-  const campaigns = propCampaigns || activeCampaigns;
+  const campaigns = propCampaigns || contextCampaigns;
   const loading = propLoading !== undefined ? propLoading : campaignsLoading;
 
   // Kolonları oluştur
@@ -43,9 +42,6 @@ export const CampaignTable: React.FC<CampaignTableProps> = ({
             "İlk kampanyanızı oluşturmak için 'Yeni Kampanya' butonuna tıklayın.",
           showActions: true,
           addButtonText: "Yeni Kampanya",
-          onAddNew: () => {
-            console.log("Yeni Kampanya ekleme formu açılacak");
-          },
         }}
       />
     </div>
