@@ -1,41 +1,37 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { PostDto } from "@/types/dto/content/PostDto";
+import React, { createContext, useContext, ReactNode } from "react";
 import { SocialMediaContextType } from "../types";
-import { mockSocialMediaPosts } from "../mock/social-media-mock-data";
+import { useSchoolPosts } from "../hooks";
+import { useCompany } from "../../../_shared";
 
-// Create context
 const SocialMediaContext = createContext<SocialMediaContextType | undefined>(
   undefined
 );
 
-// Provider component
-export const SocialMediaProvider: React.FC<{ children: React.ReactNode }> = ({
+interface SocialMediaProviderProps {
+  children: ReactNode;
+}
+
+export const SocialMediaProvider: React.FC<SocialMediaProviderProps> = ({
   children,
 }) => {
-  const [posts] = useState<PostDto[]>(mockSocialMediaPosts);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [selectedPost, setSelectedPost] = useState<PostDto | null>(null);
+  // Company context'ten seçili okul ID'sini al
+  const { selectedSchool } = useCompany();
 
-  const refreshPosts = useCallback(() => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
+  // Posts hook'unu kullan
+  const { schoolPosts, postsLoading, postsError, refetchPosts } =
+    useSchoolPosts(selectedSchool?.id || null);
 
-  const value: SocialMediaContextType = {
-    posts,
-    loading,
-    selectedPost,
-    setSelectedPost,
-    refreshPosts,
+  const contextValue: SocialMediaContextType = {
+    schoolPosts,
+    postsLoading,
+    postsError,
+    refetchPosts: refetchPosts,
   };
 
   return (
-    <SocialMediaContext.Provider value={value}>
+    <SocialMediaContext.Provider value={contextValue}>
       {children}
     </SocialMediaContext.Provider>
   );

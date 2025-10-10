@@ -56,7 +56,8 @@ export const formatNumber = (num: number): string => {
 
 // Calculate engagement rate
 export const calculateEngagementRate = (post: PostDto): number => {
-  const totalEngagements = (post.likeCount || 0) + (post.commentCount || 0) + (post.shareCount || 0);
+  const totalEngagements =
+    (post.likeCount || 0) + (post.commentCount || 0) + (post.shareCount || 0);
   const views = post.viewCount || 1;
   return (totalEngagements / views) * 100;
 };
@@ -65,16 +66,18 @@ export const calculateEngagementRate = (post: PostDto): number => {
 export const calculatePostStats = (posts: PostDto[]): SocialMediaStats => {
   const stats: SocialMediaStats = {
     totalPosts: posts.length,
-    publishedPosts: posts.filter(p => p.status === "PUBLISHED").length,
+    publishedPosts: posts.filter((p) => p.status === "PUBLISHED").length,
     totalViews: posts.reduce((sum, p) => sum + (p.viewCount || 0), 0),
     totalLikes: posts.reduce((sum, p) => sum + (p.likeCount || 0), 0),
     totalComments: posts.reduce((sum, p) => sum + (p.commentCount || 0), 0),
     totalShares: posts.reduce((sum, p) => sum + (p.shareCount || 0), 0),
-    featuredPosts: posts.filter(p => p.isFeatured).length,
-    pinnedPosts: posts.filter(p => p.isPinned).length,
-    averageEngagement: posts.reduce((sum, p) => sum + (p.engagementScore || 0), 0) / posts.length,
+    featuredPosts: posts.filter((p) => p.isFeatured).length,
+    pinnedPosts: posts.filter((p) => p.isPinned).length,
+    averageEngagement:
+      posts.reduce((sum, p) => sum + (p.engagementScore || 0), 0) /
+      posts.length,
   };
-  
+
   return stats;
 };
 
@@ -129,13 +132,19 @@ export const getPostMediaType = (post: PostDto): string => {
 // Sort posts by different criteria
 export const sortPosts = (
   posts: PostDto[],
-  sortBy: "title" | "createdAt" | "publishedAt" | "viewCount" | "likeCount" | "engagementScore",
+  sortBy:
+    | "title"
+    | "createdAt"
+    | "publishedAt"
+    | "viewCount"
+    | "likeCount"
+    | "engagementScore",
   order: "asc" | "desc" = "desc"
 ): PostDto[] => {
   return [...posts].sort((a, b) => {
     let aValue: any;
     let bValue: any;
-    
+
     switch (sortBy) {
       case "title":
         aValue = (a.title || "").toLowerCase();
@@ -164,7 +173,7 @@ export const sortPosts = (
       default:
         return 0;
     }
-    
+
     if (order === "asc") {
       return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
     } else {
@@ -175,14 +184,30 @@ export const sortPosts = (
 
 // Get time ago display
 export const getTimeAgo = (date: string): string => {
+  if (!date) return "-";
+
   const now = new Date();
   const postDate = new Date(date);
+
+  // Geçersiz tarih kontrolü
+  if (isNaN(postDate.getTime())) return "-";
+
   const diffInSeconds = Math.floor((now.getTime() - postDate.getTime()) / 1000);
-  
+
+  // Negatif değer kontrolü (gelecekteki tarih)
+  if (diffInSeconds < 0) return "Gelecek tarih";
+
   if (diffInSeconds < 60) return "Az önce";
-  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} dakika önce`;
-  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} saat önce`;
-  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} gün önce`;
-  
-  return postDate.toLocaleDateString("tr-TR");
+  if (diffInSeconds < 3600)
+    return `${Math.floor(diffInSeconds / 60)} dakika önce`;
+  if (diffInSeconds < 86400)
+    return `${Math.floor(diffInSeconds / 3600)} saat önce`;
+  if (diffInSeconds < 604800)
+    return `${Math.floor(diffInSeconds / 86400)} gün önce`; // 7 gün
+  if (diffInSeconds < 2629746)
+    return `${Math.floor(diffInSeconds / 604800)} hafta önce`; // 1 ay
+  if (diffInSeconds < 31556952)
+    return `${Math.floor(diffInSeconds / 2629746)} ay önce`; // 1 yıl
+
+  return `${Math.floor(diffInSeconds / 31556952)} yıl önce`;
 };

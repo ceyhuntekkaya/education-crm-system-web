@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { GridColDef } from "@/components/ui/data-grid";
 import { PostDto } from "@/types/dto/content/PostDto";
-import { formatDate } from "@/utils";
+import { formatDate, formatDateTime } from "@/utils";
 import {
   getStatusBadgeVariant,
   getPostTypeDisplay,
@@ -11,182 +12,7 @@ import {
   getTimeAgo,
 } from "../utils";
 import { SocialMediaColumnHandlers } from "../types";
-import { SocialMediaActionButtons } from "../components/social-media-action-buttons";
-import { Badge } from "@/components";
-
-// Column render helper functions
-const renderPostInfo = (params: any) => (
-  <div className="d-flex align-items-center">
-    <div className="me-3">
-      <img
-        src={params.row.featuredImageUrl}
-        alt={params.row.title}
-        className="rounded"
-        style={{
-          width: "48px",
-          height: "36px",
-          objectFit: "cover",
-        }}
-        onError={(e) => {
-          (e.target as HTMLImageElement).src =
-            "https://via.placeholder.com/48x36?text=No+Image";
-        }}
-      />
-    </div>
-    <div className="overflow-hidden">
-      <div className="fw-medium text-truncate" title={params.row.title}>
-        {params.row.title || "-"}
-      </div>
-      {params.row.slug && (
-        <small
-          className="text-muted text-truncate d-block"
-          title={params.row.slug}
-        >
-          {params.row.slug}
-        </small>
-      )}
-    </div>
-  </div>
-);
-
-const renderPostType = (params: any) => (
-  <div className="text-truncate">{getPostTypeDisplay(params.row.postType)}</div>
-);
-
-const renderStatus = (params: any) => (
-  <div className="d-flex justify-content-center align-items-center h-100">
-    <Badge variant={getStatusBadgeVariant(params.row.status)}>
-      {getPostStatusDisplay(params.row.status)}
-    </Badge>
-  </div>
-);
-
-const renderSchoolInfo = (params: any) => (
-  <div className="text-truncate" title={params.row.school?.name}>
-    {params.row.school?.name || "-"}
-  </div>
-);
-
-const renderAuthorInfo = (params: any) => (
-  <div className="text-truncate" title={params.row.author?.fullName}>
-    {params.row.author?.fullName || "-"}
-  </div>
-);
-
-const renderMediaType = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">{getPostMediaType(params.row)}</div>
-  </div>
-);
-
-const renderEngagement = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">{formatNumber(params.row.likeCount || 0)}</div>
-    <small className="text-muted">beğeni</small>
-  </div>
-);
-
-const renderComments = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">
-      {formatNumber(params.row.commentCount || 0)}
-    </div>
-    <small className="text-muted">yorum</small>
-  </div>
-);
-
-const renderViews = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">{formatNumber(params.row.viewCount || 0)}</div>
-    <small className="text-muted">görüntülenme</small>
-  </div>
-);
-
-const renderShares = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">{formatNumber(params.row.shareCount || 0)}</div>
-    <small className="text-muted">paylaşım</small>
-  </div>
-);
-
-const renderEngagementScore = (params: any) => (
-  <div className="text-center">
-    <div className="fw-medium">
-      {formatEngagement(params.row.engagementScore || 0)}
-    </div>
-    <small className="text-muted">skor</small>
-  </div>
-);
-
-const renderFlags = (params: any) => (
-  <div className="d-flex justify-content-center gap-1">
-    {params.row.isFeatured && (
-      <div title="Öne Çıkan">
-        <i
-          className="ph-fill ph-star text-warning"
-          style={{ fontSize: "14px" }}
-        />
-      </div>
-    )}
-    {params.row.isPinned && (
-      <div title="Sabitlenmiş">
-        <i
-          className="ph-fill ph-push-pin text-info"
-          style={{ fontSize: "14px" }}
-        />
-      </div>
-    )}
-    {params.row.isModerated && (
-      <div title="Moderasyonlu">
-        <i
-          className="ph ph-shield-check text-success"
-          style={{ fontSize: "14px" }}
-        />
-      </div>
-    )}
-    {params.row.isFlagged && (
-      <div title="Bayraklanmış">
-        <i className="ph ph-flag text-danger" style={{ fontSize: "14px" }} />
-      </div>
-    )}
-    {!params.row.isFeatured &&
-      !params.row.isPinned &&
-      !params.row.isModerated &&
-      !params.row.isFlagged && <span className="text-muted">-</span>}
-  </div>
-);
-
-const renderPublishedAt = (params: any) => (
-  <div className="text-center">
-    {params.row.publishedAt ? (
-      <>
-        <div className="fw-medium">{formatDate(params.row.publishedAt)}</div>
-        <small className="text-muted">
-          {getTimeAgo(params.row.publishedAt)}
-        </small>
-      </>
-    ) : (
-      <div className="text-muted">-</div>
-    )}
-  </div>
-);
-
-const renderActionButtons = (
-  params: any,
-  handlers: SocialMediaColumnHandlers
-) => (
-  <SocialMediaActionButtons
-    post={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-    onViewPost={handlers.onViewPost}
-    onPin={handlers.onPin}
-    onFeature={handlers.onFeature}
-  />
-);
+import { Badge, Popover } from "@/components";
 
 // Main column definitions
 export const createSocialMediaColumns = (
@@ -194,34 +20,112 @@ export const createSocialMediaColumns = (
 ): GridColDef<PostDto>[] => [
   // Basic Information Columns
   {
+    field: "featuredImageUrl",
+    headerName: "",
+    width: 70,
+    sortable: false,
+    renderCell: (params: any) => (
+      <div className="d-flex align-items-center justify-content-center h-100">
+        {params?.row?.featuredImageUrl ? (
+          <Image
+            src={params.row.featuredImageUrl}
+            alt={params?.row?.title || "Post Görseli"}
+            width={44}
+            height={32}
+            className="rounded"
+            style={{ objectFit: "cover", border: "1px solid #e5e7eb" }}
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              const parent = img.parentElement;
+
+              // Eğer zaten bir fallback element varsa, yenisini ekleme
+              if (parent?.querySelector(".fallback-icon")) {
+                img.style.display = "none";
+                return;
+              }
+
+              img.style.display = "none";
+              const fallback = document.createElement("div");
+              fallback.className =
+                "rounded d-flex align-items-center justify-content-center fallback-icon";
+              fallback.style.cssText = `width: 44px; height: 32px; background-color: #9ca3af; color: white;`;
+              fallback.innerHTML =
+                '<i class="ph ph-image" style="font-size: 16px;"></i>';
+              parent?.appendChild(fallback);
+            }}
+          />
+        ) : (
+          <div
+            className="rounded d-flex align-items-center justify-content-center"
+            style={{
+              width: "44px",
+              height: "32px",
+              backgroundColor: "#9ca3af",
+              color: "white",
+            }}
+          >
+            <i className="ph ph-image" style={{ fontSize: "16px" }} />
+          </div>
+        )}
+      </div>
+    ),
+  },
+  {
     field: "title",
-    headerName: "Gönderi Bilgileri",
+    headerName: "Başlık",
     width: 280,
-    renderCell: renderPostInfo,
-  },
-  {
-    field: "postType",
-    headerName: "Tür",
-    width: 120,
-    renderCell: renderPostType,
-  },
-  {
-    field: "status",
-    headerName: "Durum",
-    width: 100,
-    renderCell: renderStatus,
+    renderCell: (params: any) => (
+      <div className="fw-semibold text-truncate" title={params.row.title}>
+        {params.row.title || "-"}
+      </div>
+    ),
   },
   {
     field: "school",
     headerName: "Okul",
-    width: 180,
-    renderCell: renderSchoolInfo,
+    width: 300,
+    renderCell: (params: any) => (
+      <div className="text-truncate" title={params.row.school?.name}>
+        {params.row.school?.name || "-"}
+      </div>
+    ),
   },
+  {
+    field: "postType",
+    headerName: "Tür",
+    width: 100,
+    renderCell: (params: any) => (
+      <div
+        className="text-truncate fw-medium"
+        title={getPostTypeDisplay(params.row.postType)}
+      >
+        {getPostTypeDisplay(params.row.postType)}
+      </div>
+    ),
+  },
+  {
+    field: "status",
+    headerName: "Durum",
+    width: 120,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="d-flex justify-content-center align-items-center h-100">
+        <Badge variant={getStatusBadgeVariant(params.row.status)}>
+          {getPostStatusDisplay(params.row.status)}
+        </Badge>
+      </div>
+    ),
+  },
+
   {
     field: "author",
     headerName: "Yazar",
     width: 140,
-    renderCell: renderAuthorInfo,
+    renderCell: (params: any) => (
+      <div className="text-truncate" title={params.row.author?.fullName}>
+        {params.row.author?.fullName || "-"}
+      </div>
+    ),
   },
 
   // Media & Engagement Columns
@@ -229,57 +133,191 @@ export const createSocialMediaColumns = (
     field: "mediaType",
     headerName: "Medya",
     width: 100,
-    renderCell: renderMediaType,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        <span className="fw-medium">{getPostMediaType(params.row)}</span>
+      </div>
+    ),
   },
   {
     field: "likeCount",
     headerName: "Beğeni",
-    width: 90,
-    renderCell: renderEngagement,
+    width: 120,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        <span className="fw-semibold text-success">
+          {formatNumber(params.row.likeCount || 0)}
+        </span>
+      </div>
+    ),
   },
-  //   {
-  //     field: "commentCount",
-  //     headerName: "Yorum",
-  //     width: 90,
-  //     renderCell: renderComments,
-  //   },
   {
     field: "viewCount",
-    headerName: "Görüntülenme",
-    width: 160,
-    renderCell: renderViews,
+    headerName: "Görüntüleme",
+    width: 180,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        <span className="fw-semibold text-primary">
+          {formatNumber(params.row.viewCount || 0)}
+        </span>
+      </div>
+    ),
   },
   {
     field: "shareCount",
     headerName: "Paylaşım",
-    width: 120,
-    renderCell: renderShares,
+    width: 150,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        <span className="fw-semibold text-info">
+          {formatNumber(params.row.shareCount || 0)}
+        </span>
+      </div>
+    ),
   },
   {
     field: "engagementScore",
     headerName: "Etkileşim",
-    width: 90,
-    renderCell: renderEngagementScore,
+    width: 140,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        <span className="fw-semibold text-warning">
+          {formatEngagement(params.row.engagementScore || 0)}
+        </span>
+      </div>
+    ),
   },
 
   // Additional Info Columns
   {
     field: "flags",
     headerName: "Etiketler",
-    width: 90,
-    renderCell: renderFlags,
+    width: 150,
+    renderCell: (params: any) => (
+      <div className="d-flex justify-content-center gap-1">
+        {params.row.isFeatured && (
+          <Popover
+            content="Bu gönderi öne çıkarılmıştır"
+            placement="top"
+            trigger="hover"
+            size="sm"
+          >
+            <div className="cursor-pointer">
+              <i
+                className="ph-fill ph-star text-warning"
+                style={{ fontSize: "14px" }}
+              />
+            </div>
+          </Popover>
+        )}
+        {params.row.isPinned && (
+          <Popover
+            content="Bu gönderi sabitlenmiştir"
+            placement="top"
+            trigger="hover"
+            size="sm"
+          >
+            <div className="cursor-pointer">
+              <i
+                className="ph-fill ph-push-pin text-info"
+                style={{ fontSize: "14px" }}
+              />
+            </div>
+          </Popover>
+        )}
+        {params.row.isModerated && (
+          <Popover
+            content="Bu gönderi moderatör onayından geçmiştir"
+            placement="top"
+            trigger="hover"
+            size="sm"
+          >
+            <div className="cursor-pointer">
+              <i
+                className="ph ph-shield-check text-success"
+                style={{ fontSize: "14px" }}
+              />
+            </div>
+          </Popover>
+        )}
+        {params.row.isFlagged && (
+          <Popover
+            content="Bu gönderi rapor edilmiş veya bayraklanmıştır"
+            placement="top"
+            trigger="hover"
+            size="sm"
+          >
+            <div className="cursor-pointer">
+              <i
+                className="ph ph-flag text-danger"
+                style={{ fontSize: "14px" }}
+              />
+            </div>
+          </Popover>
+        )}
+        {!params.row.isFeatured &&
+          !params.row.isPinned &&
+          !params.row.isModerated &&
+          !params.row.isFlagged && <span className="text-muted">-</span>}
+      </div>
+    ),
   },
   {
     field: "publishedAt",
     headerName: "Yayın Tarihi",
-    width: 130,
-    renderCell: renderPublishedAt,
+    width: 180,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        {params.row.publishedAt ? (
+          <div className="fw-semibold" style={{ fontSize: "0.85rem" }}>
+            {formatDateTime(params.row.publishedAt)}
+          </div>
+        ) : (
+          <span className="text-muted">-</span>
+        )}
+      </div>
+    ),
+  },
+  {
+    field: "timeAgo",
+    headerName: "Geçen Süre",
+    width: 160,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-center">
+        {params.row.publishedAt ? (
+          <small className="text-muted" style={{ fontSize: "0.75rem" }}>
+            {getTimeAgo(params.row.publishedAt)}
+          </small>
+        ) : (
+          <span className="text-muted">-</span>
+        )}
+      </div>
+    ),
   },
   //   {
   //     field: "actions",
   //     headerName: "",
   //     width: 120,
   //     sortable: false,
-  //     renderCell: (params) => renderActionButtons(params, handlers),
+  //     renderCell: (params: any) => (
+  //       <SocialMediaActionButtons
+  //         post={params.row}
+  //         onViewDetails={handlers.onViewDetails}
+  //         onEdit={handlers.onEdit}
+  //         onToggleStatus={handlers.onToggleStatus}
+  //         onDelete={handlers.onDelete}
+  //         onDuplicate={handlers.onDuplicate}
+  //         onViewPost={handlers.onViewPost}
+  //         onPin={handlers.onPin}
+  //         onFeature={handlers.onFeature}
+  //       />
+  //     ),
   //   },
 ];

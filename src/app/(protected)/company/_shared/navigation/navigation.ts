@@ -10,7 +10,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   //
   {
     href: "/company/school-list",
-    label: "Okul Listesi",
+    label: "Okul Listesi *",
     icon: "ph-buildings",
   },
   {
@@ -20,7 +20,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/pricing",
-    label: "Fiyat Bilgileri",
+    label: "Fiyat Bilgileri *",
     icon: "ph-coins",
   },
   {

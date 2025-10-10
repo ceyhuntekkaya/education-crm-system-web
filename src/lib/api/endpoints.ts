@@ -32,6 +32,11 @@ export const API_ENDPOINTS = {
     ACTIVE: "/campaigns/active",
   },
 
+  CONTENT: {
+    POSTS_BY_SCHOOL: (schoolId: string | number) =>
+      `/content/posts/school/${schoolId}`,
+  },
+
   TEMP: {
     CARTS: "/carts",
   },

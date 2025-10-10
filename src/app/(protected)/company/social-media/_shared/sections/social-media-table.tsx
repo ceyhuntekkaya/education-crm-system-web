@@ -4,16 +4,15 @@ import React, { useState } from "react";
 import { DataGrid } from "@/components/ui/data-grid";
 import { PostDto } from "@/types/dto/content/PostDto";
 import { createSocialMediaColumns } from "../config/social-media-columns";
-import { SocialMediaColumnHandlers, SocialMediaTableProps } from "../types";
-import {
-  mockSocialMediaPosts,
-  calculatePostStats,
-} from "../mock/social-media-mock-data";
+import { SocialMediaColumnHandlers } from "../types";
+import { useSocialMedia } from "../context";
 
-export const SocialMediaTable: React.FC<SocialMediaTableProps> = ({
-  posts = mockSocialMediaPosts,
-  loading = false,
-}) => {
+export const SocialMediaTable: React.FC = () => {
+  // Context'ten verileri al
+  const { schoolPosts, postsLoading } = useSocialMedia();
+
+  console.log("schoolPosts:", schoolPosts);
+
   // Event handler'lar
   const handlers: SocialMediaColumnHandlers = {
     onViewPost: (post: PostDto) => {
@@ -54,30 +53,30 @@ export const SocialMediaTable: React.FC<SocialMediaTableProps> = ({
   const columns = createSocialMediaColumns(handlers);
 
   return (
-    <div>
-      <DataGrid
-        rows={posts}
-        columns={columns}
-        loading={loading}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[5, 10, 25, 50]}
-        disableRowSelectionOnClick
-        emptyState={{
-          icon: "ph-chat-circle",
-          title: "Henüz Gönderi Yok",
-          description:
-            "İlk sosyal medya gönderinizi oluşturmak için 'Yeni Gönderi' butonuna tıklayın.",
-          showActions: true,
-          addButtonText: "Yeni Gönderi",
-          onAddNew: () => {
-            console.log("Yeni Gönderi ekleme formu açılacak");
-          },
-        }}
-      />
+    <div className="social-media-table-container">
+      {/* Table Content */}
+      <div className="table-wrapper">
+        <DataGrid
+          rows={schoolPosts}
+          columns={columns}
+          loading={postsLoading}
+          // height={600}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 15 },
+            },
+          }}
+          pageSizeOptions={[10, 15, 25, 50]}
+          disableRowSelectionOnClick
+          checkboxSelection={false}
+          emptyState={{
+            icon: "ph-chat-circle-dots",
+            title: "Gönderi Bulunamadı",
+            description: "Henüz hiçbir sosyal medya gönderisi bulunmamaktadır.",
+            showActions: false,
+          }}
+        />
+      </div>
     </div>
   );
 };

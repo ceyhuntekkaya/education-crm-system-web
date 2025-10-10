@@ -1,14 +1,14 @@
 import { PostDto } from "@/types/dto/content/PostDto";
 
 // Badge variant type
-export type BadgeVariant = 
-  | "primary" 
-  | "secondary" 
-  | "success" 
-  | "danger" 
-  | "warning" 
-  | "info" 
-  | "light" 
+export type BadgeVariant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "light"
   | "dark";
 
 // Social Media column handlers
@@ -44,11 +44,13 @@ export interface SocialMediaTableProps {
 
 // Social Media context type
 export interface SocialMediaContextType {
-  posts: PostDto[];
-  loading: boolean;
-  selectedPost: PostDto | null;
-  setSelectedPost: (post: PostDto | null) => void;
-  refreshPosts: () => void;
+  // Post data
+  schoolPosts: PostDto[];
+  postsLoading: boolean;
+  postsError: string | null;
+
+  // Actions
+  refetchPosts: () => void;
 }
 
 // Social Media stats type
