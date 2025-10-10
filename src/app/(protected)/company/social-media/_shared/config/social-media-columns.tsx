@@ -73,7 +73,7 @@ export const createSocialMediaColumns = (
   {
     field: "title",
     headerName: "Başlık",
-    width: 280,
+    width: 300,
     renderCell: (params: any) => (
       <div className="fw-semibold text-truncate" title={params.row.title}>
         {params.row.title || "-"}
