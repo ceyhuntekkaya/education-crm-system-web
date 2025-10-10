@@ -7,8 +7,6 @@ import {
   getCampaignTypeDisplay,
   getStatusDisplay,
 } from "../utils";
-import { CampaignColumnHandlers } from "../types";
-import { CampaignActionButtons } from "../components/campaign-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -151,21 +149,10 @@ const renderFeaturedStatus = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (params: any, handlers: CampaignColumnHandlers) => (
-  <CampaignActionButtons
-    campaign={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-  />
-);
-
 // Main column definitions
-export const createCampaignColumns = (
-  handlers: CampaignColumnHandlers
-): GridColDef<CampaignDto | CampaignSummaryDto>[] => [
+export const createCampaignColumns = (): GridColDef<
+  CampaignDto | CampaignSummaryDto
+>[] => [
   // Basic Information Columns
   {
     field: "featured",

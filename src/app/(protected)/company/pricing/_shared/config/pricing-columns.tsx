@@ -6,8 +6,6 @@ import {
   getPricingStatusDisplay,
   formatCurrency,
 } from "../utils";
-import { PricingColumnHandlers } from "../types";
-import { PricingActionButtons } from "../components/pricing-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -190,21 +188,8 @@ const renderCurrentStatus = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (params: any, handlers: PricingColumnHandlers) => (
-  <PricingActionButtons
-    pricing={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-  />
-);
-
 // Main column definitions
-export const createPricingColumns = (
-  handlers: PricingColumnHandlers
-): GridColDef<SchoolPricingDto>[] => [
+export const createPricingColumns = (): GridColDef<SchoolPricingDto>[] => [
   // Basic Information Columns
   {
     field: "current",

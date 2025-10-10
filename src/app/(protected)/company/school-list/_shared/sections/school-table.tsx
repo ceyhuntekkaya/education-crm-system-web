@@ -12,36 +12,9 @@ export const SchoolTable: React.FC<SchoolTableProps> = ({
 }) => {
   const { schools, loading: contextLoading } = useSchoolList();
   const loading = propLoading || contextLoading;
-  // Event handler'lar - sadece detay görüntüleme
-  const handlers: SchoolColumnHandlers = {
-    onViewDetails: (school: SchoolDto) => {
-      console.log("View details school:", school);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (school: SchoolDto) => {
-      console.log("Edit school:", school);
-      // Düzenleme sayfasına yönlendirme
-    },
-    onToggleStatus: (school: SchoolDto) => {
-      console.log("Toggle subscription status school:", school);
-      // Abonelik durumu değiştirme işlemi
-    },
-    onDelete: (school: SchoolDto) => {
-      console.log("Delete school:", school);
-      // Silme işlemi
-    },
-    onDuplicate: (school: SchoolDto) => {
-      console.log("Duplicate school:", school);
-      // Kopyalama işlemi
-    },
-    onViewAppointments: (school: SchoolDto) => {
-      console.log("View appointments for school:", school);
-      // Randevu listesi sayfasına yönlendirme
-    },
-  };
 
   // Kolonları oluştur
-  const columns = createSchoolColumns(handlers);
+  const columns = createSchoolColumns();
 
   return (
     <div>

@@ -14,36 +14,8 @@ export const AppointmentTable: React.FC<AppointmentTableProps> = ({
   appointments = mockAppointments,
   loading = false,
 }) => {
-  // Event handler'lar
-  const handlers: AppointmentColumnHandlers = {
-    onViewDetails: (appointment: AppointmentDto) => {
-      console.log("View details appointment:", appointment);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (appointment: AppointmentDto) => {
-      console.log("Edit appointment:", appointment);
-      // Düzenleme sayfasına yönlendirme
-    },
-    onComplete: (appointment: AppointmentDto) => {
-      console.log("Complete appointment:", appointment);
-      // Randevu tamamlama işlemi
-    },
-    onCancel: (appointment: AppointmentDto) => {
-      console.log("Cancel appointment:", appointment);
-      // Randevu iptal etme işlemi
-    },
-    onReschedule: (appointment: AppointmentDto) => {
-      console.log("Reschedule appointment:", appointment);
-      // Randevu yeniden planlama işlemi
-    },
-    onAddNote: (appointment: AppointmentDto) => {
-      console.log("Add note to appointment:", appointment);
-      // Not ekleme işlemi
-    },
-  };
-
   // Kolonları oluştur
-  const columns = createAppointmentColumns(handlers);
+  const columns = createAppointmentColumns();
 
   return (
     <div>

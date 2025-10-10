@@ -13,44 +13,8 @@ export const SocialMediaTable: React.FC = () => {
 
   console.log("schoolPosts:", schoolPosts);
 
-  // Event handler'lar
-  const handlers: SocialMediaColumnHandlers = {
-    onViewPost: (post: PostDto) => {
-      console.log("View post:", post);
-      // Gönderi görüntüleme sayfasına yönlendirme
-    },
-    onViewDetails: (post: PostDto) => {
-      console.log("View details post:", post);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (post: PostDto) => {
-      console.log("Edit post:", post);
-      // Düzenleme sayfasına yönlendirme
-    },
-    onToggleStatus: (post: PostDto) => {
-      console.log("Toggle status post:", post);
-      // Gönderi durumu değiştirme işlemi
-    },
-    onDelete: (post: PostDto) => {
-      console.log("Delete post:", post);
-      // Gönderi silme işlemi
-    },
-    onDuplicate: (post: PostDto) => {
-      console.log("Duplicate post:", post);
-      // Gönderi kopyalama işlemi
-    },
-    onPin: (post: PostDto) => {
-      console.log("Pin post:", post);
-      // Gönderi sabitleme işlemi
-    },
-    onFeature: (post: PostDto) => {
-      console.log("Feature post:", post);
-      // Gönderi öne çıkarma işlemi
-    },
-  };
-
   // Kolonları oluştur
-  const columns = createSocialMediaColumns(handlers);
+  const columns = createSocialMediaColumns();
 
   return (
     <div className="social-media-table-container">

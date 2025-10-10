@@ -7,8 +7,6 @@ import {
   formatAppointmentTime,
   getOutcomeDisplay,
 } from "../utils";
-import { AppointmentColumnHandlers } from "../types";
-import { AppointmentActionButtons } from "../components/appointment-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -161,25 +159,8 @@ const renderNotes = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (
-  params: any,
-  handlers: AppointmentColumnHandlers
-) => (
-  <AppointmentActionButtons
-    appointment={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onComplete={handlers.onComplete}
-    onCancel={handlers.onCancel}
-    onReschedule={handlers.onReschedule}
-    onAddNote={handlers.onAddNote}
-  />
-);
-
 // Main column definitions
-export const createAppointmentColumns = (
-  handlers: AppointmentColumnHandlers
-): GridColDef<AppointmentDto>[] => [
+export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   // Basic Information Columns
   {
     field: "title",

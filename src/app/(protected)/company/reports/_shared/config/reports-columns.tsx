@@ -16,8 +16,6 @@ import {
   getTimeAgo,
   getReportSummary,
 } from "../utils";
-import { ReportsColumnHandlers } from "../types";
-import { ReportsActionButtons } from "../components/reports-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -321,24 +319,8 @@ const renderCreatedAt = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (params: any, handlers: ReportsColumnHandlers) => (
-  <ReportsActionButtons
-    report={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-    onViewReport={handlers.onViewReport}
-    onExport={handlers.onExport}
-    onRefresh={handlers.onRefresh}
-  />
-);
-
 // Main column definitions
-export const createReportsColumns = (
-  handlers: ReportsColumnHandlers
-): GridColDef<AnalyticsDto>[] => [
+export const createReportsColumns = (): GridColDef<AnalyticsDto>[] => [
   // Report Information
 
   {

@@ -19,28 +19,9 @@ export const CampaignTable: React.FC<CampaignTableProps> = ({
   // Props'tan gelen veriler varsa onları kullan, yoksa context'ten al
   const campaigns = propCampaigns || activeCampaigns;
   const loading = propLoading !== undefined ? propLoading : campaignsLoading;
-  // Event handler'lar - sadece detay görüntüleme
-  const handlers: CampaignColumnHandlers = {
-    onViewDetails: (campaign: CampaignDto | CampaignSummaryDto) => {
-      console.log("View details campaign:", campaign);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (campaign: CampaignDto | CampaignSummaryDto) => {
-      // Boş bırakıldı
-    },
-    onToggleStatus: (campaign: CampaignDto | CampaignSummaryDto) => {
-      // Boş bırakıldı
-    },
-    onDelete: (campaign: CampaignDto | CampaignSummaryDto) => {
-      // Boş bırakıldı
-    },
-    onDuplicate: (campaign: CampaignDto | CampaignSummaryDto) => {
-      // Boş bırakıldı
-    },
-  };
 
   // Kolonları oluştur
-  const columns = createCampaignColumns(handlers);
+  const columns = createCampaignColumns();
 
   return (
     <div>

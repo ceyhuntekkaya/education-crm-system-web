@@ -12,8 +12,6 @@ import {
   hasMultipleInstitutionAccess,
   getTimeAgo,
 } from "../utils";
-import { UsersColumnHandlers } from "../types";
-import { UsersActionButtons } from "../components/users-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -191,24 +189,8 @@ const renderCreatedAt = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (params: any, handlers: UsersColumnHandlers) => (
-  <UsersActionButtons
-    user={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onResetPassword={handlers.onResetPassword}
-    onViewProfile={handlers.onViewProfile}
-    onSendInvitation={handlers.onSendInvitation}
-    onManageRoles={handlers.onManageRoles}
-  />
-);
-
 // Main column definitions
-export const createUsersColumns = (
-  handlers: UsersColumnHandlers
-): GridColDef<UserListDto>[] => [
+export const createUsersColumns = (): GridColDef<UserListDto>[] => [
   // Basic Information Columns
   {
     field: "fullName",

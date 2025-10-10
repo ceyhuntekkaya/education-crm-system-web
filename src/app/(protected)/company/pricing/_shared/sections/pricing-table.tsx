@@ -11,32 +11,8 @@ export const PricingTable = () => {
   // Pricing context'ten veri al
   const { schoolPricings, pricingLoading } = usePricing();
 
-  // Event handler'lar - sadece detay görüntüleme
-  const handlers: PricingColumnHandlers = {
-    onViewDetails: (pricing: SchoolPricingDto) => {
-      console.log("View details pricing:", pricing);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (pricing: SchoolPricingDto) => {
-      console.log("Edit pricing:", pricing);
-      // Düzenleme sayfasına yönlendirme
-    },
-    onToggleStatus: (pricing: SchoolPricingDto) => {
-      console.log("Toggle status pricing:", pricing);
-      // Durum değiştirme işlemi
-    },
-    onDelete: (pricing: SchoolPricingDto) => {
-      console.log("Delete pricing:", pricing);
-      // Silme işlemi
-    },
-    onDuplicate: (pricing: SchoolPricingDto) => {
-      console.log("Duplicate pricing:", pricing);
-      // Kopyalama işlemi
-    },
-  };
-
   // Kolonları oluştur
-  const columns = createPricingColumns(handlers);
+  const columns = createPricingColumns();
 
   return (
     <div>

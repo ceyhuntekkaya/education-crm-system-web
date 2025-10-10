@@ -11,8 +11,6 @@ import {
   getEstimatedDurationDisplay,
   getTimeAgo,
 } from "../utils";
-import { SurveyColumnHandlers } from "../types";
-import { SurveyActionButtons } from "../components/survey-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -184,24 +182,8 @@ const renderCreatedAt = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (params: any, handlers: SurveyColumnHandlers) => (
-  <SurveyActionButtons
-    survey={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-    onViewSurvey={handlers.onViewSurvey}
-    onViewResults={handlers.onViewResults}
-    onSendSurvey={handlers.onSendSurvey}
-  />
-);
-
 // Main column definitions
-export const createSurveyColumns = (
-  handlers: SurveyColumnHandlers
-): GridColDef<SurveyDto>[] => [
+export const createSurveyColumns = (): GridColDef<SurveyDto>[] => [
   // Basic Information Columns
   {
     field: "title",

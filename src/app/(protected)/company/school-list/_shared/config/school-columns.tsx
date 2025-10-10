@@ -1,13 +1,9 @@
 import Image from "next/image";
 import { GridColDef } from "@/components/ui/data-grid";
 import { SchoolDto } from "@/types";
-import { SchoolColumnHandlers } from "../types";
-import { SchoolActionButtons } from "../components/school-action-buttons";
 import { Badge } from "@/components";
 
-export const createSchoolColumns = (
-  handlers: SchoolColumnHandlers
-): GridColDef<SchoolDto>[] => [
+export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   // Logo
   {
     field: "logoUrl",

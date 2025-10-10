@@ -14,36 +14,8 @@ export const GalleryTable: React.FC<GalleryTableProps> = ({
   galleries = mockGalleries,
   loading = false,
 }) => {
-  // Event handler'lar
-  const handlers: GalleryColumnHandlers = {
-    onViewGallery: (gallery: GalleryDto) => {
-      console.log("View gallery:", gallery);
-      // Galeri görüntüleme sayfasına yönlendirme
-    },
-    onViewDetails: (gallery: GalleryDto) => {
-      console.log("View details gallery:", gallery);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (gallery: GalleryDto) => {
-      console.log("Edit gallery:", gallery);
-      // Düzenleme sayfasına yönlendirme
-    },
-    onToggleStatus: (gallery: GalleryDto) => {
-      console.log("Toggle status gallery:", gallery);
-      // Galeri durumu değiştirme işlemi
-    },
-    onDelete: (gallery: GalleryDto) => {
-      console.log("Delete gallery:", gallery);
-      // Galeri silme işlemi
-    },
-    onDuplicate: (gallery: GalleryDto) => {
-      console.log("Duplicate gallery:", gallery);
-      // Galeri kopyalama işlemi
-    },
-  };
-
   // Kolonları oluştur
-  const columns = createGalleryColumns(handlers);
+  const columns = createGalleryColumns();
 
   return (
     <div>

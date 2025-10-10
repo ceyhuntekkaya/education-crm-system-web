@@ -14,8 +14,6 @@ import {
   getFeatureList,
   getTimeAgo,
 } from "../utils";
-import { SubscriptionColumnHandlers } from "../types";
-import { SubscriptionActionButtons } from "../components/subscription-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -185,105 +183,87 @@ const renderSortOrder = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (
-  params: any,
-  handlers: SubscriptionColumnHandlers
-) => (
-  <SubscriptionActionButtons
-    subscription={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-    onViewPlan={handlers.onViewPlan}
-    onToggleVisibility={handlers.onToggleVisibility}
-    onTogglePopular={handlers.onTogglePopular}
-  />
-);
-
 // Main column definitions
-export const createSubscriptionColumns = (
-  handlers: SubscriptionColumnHandlers
-): GridColDef<SubscriptionPlanDto>[] => [
-  // Plan Information
-  {
-    field: "displayName",
-    headerName: "Plan Bilgileri",
-    width: 280,
-    renderCell: renderPlanInfo,
-  },
-  {
-    field: "price",
-    headerName: "Fiyat",
-    width: 140,
-    renderCell: renderPrice,
-  },
-  {
-    field: "tier",
-    headerName: "Seviye",
-    width: 120,
-    renderCell: renderTier,
-  },
-  {
-    field: "isActive",
-    headerName: "Durum",
-    width: 100,
-    renderCell: renderStatus,
-  },
-  {
-    field: "isVisible",
-    headerName: "Görünürlük",
-    width: 100,
-    renderCell: renderVisibility,
-  },
+export const createSubscriptionColumns =
+  (): GridColDef<SubscriptionPlanDto>[] => [
+    // Plan Information
+    {
+      field: "displayName",
+      headerName: "Plan Bilgileri",
+      width: 280,
+      renderCell: renderPlanInfo,
+    },
+    {
+      field: "price",
+      headerName: "Fiyat",
+      width: 140,
+      renderCell: renderPrice,
+    },
+    {
+      field: "tier",
+      headerName: "Seviye",
+      width: 120,
+      renderCell: renderTier,
+    },
+    {
+      field: "isActive",
+      headerName: "Durum",
+      width: 100,
+      renderCell: renderStatus,
+    },
+    {
+      field: "isVisible",
+      headerName: "Görünürlük",
+      width: 100,
+      renderCell: renderVisibility,
+    },
 
-  // Limits & Features
-  {
-    field: "limits",
-    headerName: "Limitler",
-    width: 140,
-    renderCell: renderLimits,
-  },
-  {
-    field: "features",
-    headerName: "Özellikler",
-    width: 120,
-    renderCell: renderFeatures,
-  },
-  {
-    field: "storageGb",
-    headerName: "Depolama",
-    width: 100,
-    renderCell: renderStorage,
-  },
-  {
-    field: "trialDays",
-    headerName: "Deneme",
-    width: 100,
-    renderCell: renderTrial,
-  },
+    // Limits & Features
+    {
+      field: "limits",
+      headerName: "Limitler",
+      width: 140,
+      renderCell: renderLimits,
+    },
+    {
+      field: "features",
+      headerName: "Özellikler",
+      width: 120,
+      renderCell: renderFeatures,
+    },
+    {
+      field: "storageGb",
+      headerName: "Depolama",
+      width: 100,
+      renderCell: renderStorage,
+    },
+    {
+      field: "trialDays",
+      headerName: "Deneme",
+      width: 100,
+      renderCell: renderTrial,
+    },
 
-  // Meta Information
-  {
-    field: "sortOrder",
-    headerName: "Sıra",
-    width: 80,
-    renderCell: renderSortOrder,
-  },
-  {
-    field: "createdAt",
-    headerName: "Oluşturma",
-    width: 130,
-    renderCell: renderCreatedAt,
-  },
+    // Meta Information
+    {
+      field: "sortOrder",
+      headerName: "Sıra",
+      width: 80,
+      renderCell: renderSortOrder,
+    },
+    {
+      field: "createdAt",
+      headerName: "Oluşturma",
+      width: 130,
+      renderCell: renderCreatedAt,
+    },
 
-  // Actions
-  //   {
-  //     field: "actions",
-  //     headerName: "",
-  //     width: 120,
-  //     sortable: false,
-  //     renderCell: (params) => renderActionButtons(params, handlers),
-  //   },
-];
+    // Actions
+    //   {
+    //     field: "actions",
+    //     headerName: "",
+    //     width: 120,
+    //     sortable: false,
+    //     renderCell: (params) => renderActionButtons(params, handlers),
+    //   },
+  ];

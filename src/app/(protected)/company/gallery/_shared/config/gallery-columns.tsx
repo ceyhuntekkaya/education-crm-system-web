@@ -8,8 +8,6 @@ import {
   formatFileSize,
   formatNumber,
 } from "../utils";
-import { GalleryColumnHandlers } from "../types";
-import { GalleryActionButtons } from "../components/gallery-action-buttons";
 import { Badge } from "@/components";
 
 // Column render helper functions
@@ -142,22 +140,8 @@ const renderCreatedAt = (params: any) => (
   </div>
 );
 
-const renderActionButtons = (params: any, handlers: GalleryColumnHandlers) => (
-  <GalleryActionButtons
-    gallery={params.row}
-    onViewDetails={handlers.onViewDetails}
-    onEdit={handlers.onEdit}
-    onToggleStatus={handlers.onToggleStatus}
-    onDelete={handlers.onDelete}
-    onDuplicate={handlers.onDuplicate}
-    onViewGallery={handlers.onViewGallery}
-  />
-);
-
 // Main column definitions
-export const createGalleryColumns = (
-  handlers: GalleryColumnHandlers
-): GridColDef<GalleryDto>[] => [
+export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   // Basic Information Columns
   {
     field: "title",

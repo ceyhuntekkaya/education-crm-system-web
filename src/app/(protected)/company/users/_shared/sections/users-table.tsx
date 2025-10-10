@@ -11,44 +11,8 @@ export const UsersTable: React.FC<UsersTableProps> = ({
   users = mockUsers,
   loading = false,
 }) => {
-  // Event handler'lar
-  const handlers: UsersColumnHandlers = {
-    onViewProfile: (user: UserListDto) => {
-      console.log("View profile user:", user);
-      // Kullanıcı profil sayfasına yönlendirme
-    },
-    onViewDetails: (user: UserListDto) => {
-      console.log("View details user:", user);
-      // Burada detay modal açılabilir
-    },
-    onEdit: (user: UserListDto) => {
-      console.log("Edit user:", user);
-      // Düzenleme sayfasına yönlendirme
-    },
-    onToggleStatus: (user: UserListDto) => {
-      console.log("Toggle status user:", user);
-      // Kullanıcı durumu değiştirme işlemi
-    },
-    onDelete: (user: UserListDto) => {
-      console.log("Delete user:", user);
-      // Kullanıcı silme işlemi
-    },
-    onResetPassword: (user: UserListDto) => {
-      console.log("Reset password user:", user);
-      // Şifre sıfırlama işlemi
-    },
-    onSendInvitation: (user: UserListDto) => {
-      console.log("Send invitation user:", user);
-      // Davetiye gönderme işlemi
-    },
-    onManageRoles: (user: UserListDto) => {
-      console.log("Manage roles user:", user);
-      // Rol yönetimi sayfasına yönlendirme
-    },
-  };
-
   // Kolonları oluştur
-  const columns = createUsersColumns(handlers);
+  const columns = createUsersColumns();
 
   return (
     <div>

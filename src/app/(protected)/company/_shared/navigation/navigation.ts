@@ -44,6 +44,11 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-share-network",
   },
   {
+    href: "/company/messages",
+    label: "Mesajlar *",
+    icon: "ph-chat-circle",
+  },
+  {
     href: "/company/survey",
     label: "Anketler",
     icon: "ph-clipboard",

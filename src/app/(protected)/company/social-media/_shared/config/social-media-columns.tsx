@@ -11,13 +11,10 @@ import {
   getPostMediaType,
   getTimeAgo,
 } from "../utils";
-import { SocialMediaColumnHandlers } from "../types";
 import { Badge, Popover } from "@/components";
 
 // Main column definitions
-export const createSocialMediaColumns = (
-  handlers: SocialMediaColumnHandlers
-): GridColDef<PostDto>[] => [
+export const createSocialMediaColumns = (): GridColDef<PostDto>[] => [
   // Basic Information Columns
   {
     field: "featuredImageUrl",
