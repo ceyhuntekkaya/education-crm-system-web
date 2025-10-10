@@ -1,28 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { DataGrid } from "@/components/ui/data-grid";
-import { GalleryDto } from "@/types/dto/content/GalleryDto";
 import { createGalleryColumns } from "../config/gallery-columns";
-import { GalleryColumnHandlers, GalleryTableProps } from "../types";
-import {
-  mockGalleries,
-  calculateGalleryStats,
-} from "../mock/gallery-mock-data";
+import { useGallery } from "../context";
+import { mockGalleries } from "../mock";
 
-export const GalleryTable: React.FC<GalleryTableProps> = ({
-  galleries = mockGalleries,
-  loading = false,
-}) => {
+export const GalleryTable: React.FC = () => {
+  // Gallery context'ten verileri al
+  const { schoolGalleries, galleriesLoading } = useGallery();
+
   // Kolonları oluştur
   const columns = createGalleryColumns();
 
   return (
     <div>
       <DataGrid
-        rows={galleries}
+        rows={schoolGalleries}
         columns={columns}
-        loading={loading}
+        loading={galleriesLoading}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },

@@ -1,10 +1,9 @@
 // Survey shared exports
-export * from './context/survey-context';
-export * from './components';
-export * from './config';
-export * from './mock';
-export * from './sections';
-export * from './types';
+export * from "./context/survey-context";
+export * from "./config";
+export * from "./mock";
+export * from "./sections";
+export * from "./types";
 
 // Utils exports (avoiding conflicts with mock)
 export {
@@ -12,5 +11,5 @@ export {
   getSurveyTypeDisplay,
   getTriggerEventDisplay,
   formatCompletionRate,
-  calculateSurveyStats
-} from './utils/survey-utils';
+  calculateSurveyStats,
+} from "./utils/survey-utils";

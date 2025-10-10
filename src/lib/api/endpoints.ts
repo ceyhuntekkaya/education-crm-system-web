@@ -37,6 +37,8 @@ export const API_ENDPOINTS = {
       `/content/posts/school/${schoolId}`,
     MESSAGES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/messages/school/${schoolId}`,
+    GALLERIES_BY_SCHOOL: (schoolId: string | number) =>
+      `/content/galleries/school/${schoolId}`,
   },
 
   TEMP: {

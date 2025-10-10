@@ -11,31 +11,6 @@ export type BadgeVariant =
   | "light"
   | "dark";
 
-// Social Media column handlers
-export interface SocialMediaColumnHandlers {
-  onViewDetails?: (post: PostDto) => void;
-  onEdit?: (post: PostDto) => void;
-  onToggleStatus?: (post: PostDto) => void;
-  onDelete?: (post: PostDto) => void;
-  onDuplicate?: (post: PostDto) => void;
-  onViewPost?: (post: PostDto) => void;
-  onPin?: (post: PostDto) => void;
-  onFeature?: (post: PostDto) => void;
-}
-
-// Social Media action buttons props
-export interface SocialMediaActionButtonsProps {
-  post: PostDto;
-  onViewDetails?: (post: PostDto) => void;
-  onEdit?: (post: PostDto) => void;
-  onToggleStatus?: (post: PostDto) => void;
-  onDelete?: (post: PostDto) => void;
-  onDuplicate?: (post: PostDto) => void;
-  onViewPost?: (post: PostDto) => void;
-  onPin?: (post: PostDto) => void;
-  onFeature?: (post: PostDto) => void;
-}
-
 // Social Media table props
 export interface SocialMediaTableProps {
   posts?: PostDto[];

@@ -1,9 +1,6 @@
 // Campaign Add/Edit Shared Resources
 // Main export file for all shared resources
 
-// Components
-export * from "./components";
-
 // Sections
 export * from "./sections";
 

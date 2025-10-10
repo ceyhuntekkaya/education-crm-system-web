@@ -4,14 +4,11 @@ import React, { useState } from "react";
 import { DataGrid } from "@/components/ui/data-grid";
 import { PostDto } from "@/types/dto/content/PostDto";
 import { createSocialMediaColumns } from "../config/social-media-columns";
-import { SocialMediaColumnHandlers } from "../types";
 import { useSocialMedia } from "../context";
 
 export const SocialMediaTable: React.FC = () => {
   // Context'ten verileri al
   const { schoolPosts, postsLoading } = useSocialMedia();
-
-  console.log("schoolPosts:", schoolPosts);
 
   // Kolonları oluştur
   const columns = createSocialMediaColumns();

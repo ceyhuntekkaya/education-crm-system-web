@@ -1,41 +1,41 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { GalleryDto } from "@/types/dto/content/GalleryDto";
+import React, { createContext, useContext, ReactNode } from "react";
 import { GalleryContextType } from "../types";
-import { mockGalleries } from "../mock/gallery-mock-data";
+import { useSchoolGalleries } from "../hooks";
+import { useCompany } from "../../../_shared";
 
-// Create context
 const GalleryContext = createContext<GalleryContextType | undefined>(undefined);
 
-// Provider component
-export const GalleryProvider: React.FC<{ children: React.ReactNode }> = ({
+interface GalleryProviderProps {
+  children: ReactNode;
+}
+
+export const GalleryProvider: React.FC<GalleryProviderProps> = ({
   children,
 }) => {
-  const [galleries] = useState<GalleryDto[]>(mockGalleries);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [selectedGallery, setSelectedGallery] = useState<GalleryDto | null>(
-    null
-  );
+  // Company context'ten seçili okul ID'sini al
+  const { selectedSchool } = useCompany();
 
-  const refreshGalleries = useCallback(() => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
+  // Galleries hook'unu kullan
+  const {
+    schoolGalleries,
+    galleriesLoading,
+    galleriesError,
+    refetchGalleries,
+  } = useSchoolGalleries(selectedSchool?.id || null);
 
-  const value: GalleryContextType = {
-    galleries,
-    loading,
-    selectedGallery,
-    setSelectedGallery,
-    refreshGalleries,
+  const contextValue: GalleryContextType = {
+    schoolGalleries,
+    galleriesLoading,
+    galleriesError,
+    refetchGalleries: refetchGalleries,
   };
 
   return (
-    <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>
+    <GalleryContext.Provider value={contextValue}>
+      {children}
+    </GalleryContext.Provider>
   );
 };
 

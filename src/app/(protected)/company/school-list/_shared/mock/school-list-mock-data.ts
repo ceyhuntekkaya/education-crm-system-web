@@ -406,19 +406,16 @@ export const mockSchools: SchoolSearchResultDto[] = [
 ];
 
 // Re-export utility functions that work with mock data
-import { 
-  getSchoolsWithActiveAppointments as getSchoolsWithActiveAppointmentsUtil,
+import {
   getSchoolsWithActiveCampaigns as getSchoolsWithActiveCampaignsUtil,
-  getSubscribedSchools as getSubscribedSchoolsUtil,
-  getFavoriteSchools as getFavoriteSchoolsUtil,
   getSchoolsByInstitutionType as getSchoolsByInstitutionTypeUtil,
   getSchoolById as getSchoolByIdUtil,
-  calculateSchoolStats
+  calculateSchoolStats,
 } from "../utils/school-list-utils";
 
 // Convenience functions that use mock data
 export const getSchoolsWithActiveAppointments = (): SchoolSearchResultDto[] => {
-  return getSchoolsWithActiveAppointmentsUtil(mockSchools);
+  return mockSchools;
 };
 
 export const getSchoolsWithActiveCampaigns = (): SchoolSearchResultDto[] => {
@@ -426,18 +423,22 @@ export const getSchoolsWithActiveCampaigns = (): SchoolSearchResultDto[] => {
 };
 
 export const getSubscribedSchools = (): SchoolSearchResultDto[] => {
-  return getSubscribedSchoolsUtil(mockSchools);
+  return mockSchools;
 };
 
 export const getFavoriteSchools = (): SchoolSearchResultDto[] => {
-  return getFavoriteSchoolsUtil(mockSchools);
+  return mockSchools.slice(0, 5);
 };
 
-export const getSchoolsByInstitutionType = (institutionType: string): SchoolSearchResultDto[] => {
+export const getSchoolsByInstitutionType = (
+  institutionType: string
+): SchoolSearchResultDto[] => {
   return getSchoolsByInstitutionTypeUtil(mockSchools, institutionType);
 };
 
-export const getSchoolById = (id: number): SchoolSearchResultDto | undefined => {
+export const getSchoolById = (
+  id: number
+): SchoolSearchResultDto | undefined => {
   return getSchoolByIdUtil(mockSchools, id);
 };
 

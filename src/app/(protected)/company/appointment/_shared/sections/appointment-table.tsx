@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { DataGrid } from "@/components/ui/data-grid";
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { createAppointmentColumns } from "../config/appointment-columns";
-import { AppointmentColumnHandlers, AppointmentTableProps } from "../types";
+import { AppointmentTableProps } from "../types";
 import {
   mockAppointments,
   getAppointmentStats,
