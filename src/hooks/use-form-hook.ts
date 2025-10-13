@@ -116,6 +116,11 @@ export const useFormHook = () => {
     return Object.keys(errors).filter((fieldName) => errors[fieldName]);
   }, [errors]);
 
+  // Form'da herhangi bir hata olup olmadığını kontrol etme
+  const hasErrors = useMemo(() => {
+    return Object.keys(errors).some((fieldName) => errors[fieldName]);
+  }, [errors]);
+
   // Form dirty durumunu kontrol etme (değiştirilip değiştirilmediği)
   const isDirty = useMemo(() => {
     return JSON.stringify(values) !== JSON.stringify(initialValues);
@@ -191,6 +196,7 @@ export const useFormHook = () => {
     getFormDataAsJson,
     getFormDataAsFormData,
     getFieldsWithErrors,
+    hasErrors,
     isDirty,
     areFieldsDirty,
   };
