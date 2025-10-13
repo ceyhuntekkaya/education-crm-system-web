@@ -15,7 +15,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/school-detail",
-    label: "Okul Bilgileri",
+    label: "Okul Bilgileri *",
     icon: "ph-graduation-cap",
   },
   {

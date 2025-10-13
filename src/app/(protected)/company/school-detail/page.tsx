@@ -2,12 +2,26 @@
 import React from "react";
 
 import { useSchoolDetail } from "./_shared/context/school-detail-context";
+import {
+  SchoolGeneralInfo,
+  SchoolCampusDetail,
+  SchoolLocationInfo,
+  SchoolBrandDetail,
+  SchoolLoadingSection,
+  SchoolNotFoundSection,
+} from "./_shared/sections";
 
 const SchoolDetailPage: React.FC = () => {
-  const { currentSchool, isLoading, error, refreshSchool, selectedSchool } =
+  const { currentSchool, isLoading, refreshSchool, selectedSchool } =
     useSchoolDetail();
 
-  console.log("currentSchool in school detail page:", currentSchool);
+  if (isLoading) {
+    return <SchoolLoadingSection />;
+  }
+
+  if (!currentSchool) {
+    return <SchoolNotFoundSection refreshSchool={refreshSchool} />;
+  }
 
   return (
     <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
@@ -19,10 +33,28 @@ const SchoolDetailPage: React.FC = () => {
               Okul detaylarını görüntüleyin ve bilgileri yönetin
             </p>
           </div>
+          <div className="d-flex align-items-center gap-12">
+            <span className="text-sm text-neutral-500">
+              Seçili Okul: <strong>{selectedSchool?.name}</strong>
+            </span>
+            <button
+              onClick={refreshSchool}
+              className="btn btn-outline-main btn-sm"
+              title="Bilgileri Yenile"
+            >
+              <i className="ph-bold ph-arrows-clockwise"></i>
+            </button>
+          </div>
         </div>
 
         <span className="d-block border border-neutral-30 my-20 border-dashed" />
       </div>
+
+      {/* Okul Detay Bileşenleri */}
+      <SchoolGeneralInfo />
+      <SchoolBrandDetail />
+      <SchoolCampusDetail />
+      <SchoolLocationInfo />
     </div>
   );
 };

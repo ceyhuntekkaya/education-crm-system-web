@@ -1,60 +1,58 @@
-import { useInstitutionDetail } from "../contexts";
+import { useSchoolDetail } from "../context/school-detail-context";
 
-export default function InstitutionBrandDetail() {
-  const { brand } = useInstitutionDetail();
+export default function SchoolBrandDetail() {
+  const { currentSchool } = useSchoolDetail();
 
+  if (!currentSchool) {
+    return null;
+  }
+
+  const school = currentSchool;
+  // School verilerini kullanarak brand benzeri bilgileri oluşturuyoruz
   const brandInfoItems = [
     {
       label: "Kurum Adı",
-      value: <span className="text-main-600 fw-semibold">{brand.name}</span>,
-      isShowing: brand.name && brand.name.trim() !== "",
+      value: <span className="text-main-600 fw-semibold">{school.name}</span>,
+      isShowing: school.name && school.name.trim() !== "",
     },
     {
-      label: "Kuruluş Yılı",
-      value: brand.foundedYear,
-      isShowing: brand.foundedYear && brand.foundedYear > 0,
+      label: "Açıklama",
+      value: school.description,
+      isShowing: school.description && school.description.trim() !== "",
     },
     {
-      label: "Kurum Açıklaması",
-      value: brand.description,
-      isShowing: brand.description && brand.description.trim() !== "",
-    },
-    {
-      label: "Kurum İletişim",
+      label: "İletişim",
       value: (
         <div className="d-flex flex-column gap-8">
-          {brand.phone && (
+          {school.phone && (
             <div className="d-flex align-items-center gap-8">
               <i className="ph-bold ph-phone text-main-600"></i>
-              <span>{brand.phone}</span>
+              <span>{school.phone}</span>
             </div>
           )}
-          {brand.email && (
+          {school.email && (
             <div className="d-flex align-items-center gap-8">
               <i className="ph-bold ph-envelope text-main-600"></i>
-              <a href={`mailto:${brand.email}`} className="text-main-600">
-                {brand.email}
+              <a href={`mailto:${school.email}`} className="text-main-600">
+                {school.email}
               </a>
             </div>
           )}
         </div>
       ),
-      isShowing: brand.phone || brand.email,
+      isShowing: school.phone || school.email,
     },
     {
-      label: "Ana Web Sitesi",
-      value: brand.websiteUrl ? (
-        <a
-          href={brand.websiteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-main-600 d-flex align-items-center gap-8 hover-text-main-800"
-        >
-          <i className="ph-bold ph-globe"></i>
-          {brand.websiteUrl}
-        </a>
-      ) : null,
-      isShowing: brand.websiteUrl && brand.websiteUrl.trim() !== "",
+      label: "Türü",
+      value: school.institutionType?.displayName,
+      isShowing:
+        school.institutionType?.displayName &&
+        school.institutionType.displayName.trim() !== "",
+    },
+    {
+      label: "Kampüs",
+      value: school.campus?.name,
+      isShowing: school.campus?.name && school.campus.name.trim() !== "",
     },
   ];
 
