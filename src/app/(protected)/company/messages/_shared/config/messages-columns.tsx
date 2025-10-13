@@ -285,7 +285,7 @@ export const createMessagesColumns = (): GridColDef<MessageDto>[] => [
   {
     field: "createdAt",
     headerName: "Oluşturulma Tarihi",
-    width: 180,
+    width: 230,
     align: "center",
     renderCell: (params: any) => (
       <div className="text-center">

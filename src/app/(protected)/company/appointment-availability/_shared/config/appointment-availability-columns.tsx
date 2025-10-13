@@ -183,8 +183,8 @@ export const appointmentAvailabilityColumns: GridColDef<AppointmentAvailabilityD
     },
     {
       field: "availabilityPercentage",
-      headerName: "Seans Yüzdesi",
-      width: 160,
+      headerName: "Doluluk Yüzdesi",
+      width: 180,
       sortable: false,
       renderCell: renderAvailabilityPercentage,
     },
