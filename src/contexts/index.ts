@@ -1,5 +1,5 @@
 // Auth Context Exports
-export * from "./auth-context";
+export { AuthProvider, useAuth } from "./auth-context";
 
 // Form Context Exports
 export * from "./form-context";

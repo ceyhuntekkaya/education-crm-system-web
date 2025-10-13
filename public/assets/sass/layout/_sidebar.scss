@@ -191,40 +191,525 @@
   }
 }
 
-// Footer logout
+// Footer styles - Balanced Design
 .sidebar-footer {
-  .logout-link {
-    color: map-get($colors, "neutral", "600");
+  // Ortak link stilleri
+  .sidebar-footer-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 0, 0, 0.02), 
+        transparent);
+      transition: left 0.5s ease;
+    }
     
     &:hover {
-      background-color: map-get($colors, "neutral", "20");
-      color: map-get($colors, "neutral", "700");
-      text-decoration: none;
+      background-color: map-get($colors, "neutral", "25") !important;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      
+      &::before {
+        left: 100%;
+      }
+      
+      .sidebar-footer-icon-wrapper {
+        transform: scale(1.05);
+        
+        i {
+          color: map-get($colors, "neutral", "700") !important;
+          transform: scale(1.1);
+        }
+      }
+      
+      span {
+        color: map-get($colors, "neutral", "800") !important;
+        transform: translateX(1px);
+      }
+      
+      .ph-arrow-right {
+        color: map-get($colors, "neutral", "600") !important;
+        transform: translateX(3px);
+      }
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s ease;
     }
   }
 
-  .logout-button {
-    background-color: map-get($colors, "neutral", "20");
-    color: map-get($colors, "neutral", "600");
-    border: none;
-    transition: all 0.2s ease;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+  // Icon wrapper stilleri
+  .sidebar-footer-icon-wrapper {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    i {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  // Text ve arrow geçiş efektleri
+  span {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ph-arrow-right {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Footer item stilleri
+  .sidebar-footer-item {
+    &:first-child {
+      margin-bottom: 2px;
+    }
+  }
+
+  // Ayırıcı çizgi stilleri
+  .sidebar-footer-separator {
+    margin: 4px 0;
+    opacity: 0.6;
+    
+    .border-top {
+      border-color: map-get($colors, "neutral", "100") !important;
+    }
+  }
+}
+
+
+// =======================================
+//     Sidebar Animation Styles
+// =======================================
+
+// Main sidebar link animations
+.sidebar-link-animate {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  
+  &:hover:not(.sidebar-tab-link--active) {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 12px hsla(var(--main) / 0.15) !important;
+    background-color: map-get($colors, "main", "25") !important;
+    
+    .sidebar-icon-animate {
+      transform: scale(1.1);
+      color: map-get($colors, "main", "600") !important;
+    }
+    
+    .sidebar-text-animate {
+      color: map-get($colors, "main", "700") !important;
+      transform: translateX(2px);
+    }
+    
+    .sidebar-dropdown-icon {
+      transform: scale(1.1);
+      color: map-get($colors, "main", "600") !important;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.98);
+    transition: all 0.1s ease;
+  }
+  
+  &.sidebar-tab-link--active {
+    .sidebar-icon-animate {
+      transform: scale(1.05);
+    }
+    
+    .sidebar-dropdown-icon {
+      transform: scale(1.05);
+    }
+    
+    .sidebar-indicator-animate {
+      animation: slideInFromLeft 0.3s ease-out;
+    }
+  }
+}
+
+// Icon animations
+.sidebar-icon-animate {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+// Text animations
+.sidebar-text-animate {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left center;
+}
+
+// Caret animations
+.sidebar-caret-animate {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+// Dropdown icon container
+.sidebar-dropdown-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  margin-left: auto !important;
+  
+  i {
+    font-size: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+// Active indicator animations
+.sidebar-indicator-animate {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Submenu animations
+.sidebar-submenu-animate {
+  animation: slideDownFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+  
+  .sidebar-tab-item {
+    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+    
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
+  }
+}
+
+// Keyframe animations
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%) translateY(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateY(-50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Enhanced hover effects for different states
+.sidebar-tab-link--default {
+  &:hover {
+    background: linear-gradient(135deg, 
+      map-get($colors, "main", "25") 0%, 
+      map-get($colors, "main", "50") 100%) !important;
+    border-color: map-get($colors, "main", "200") !important;
+  }
+}
+
+.sidebar-tab-link--has-active {
+  &:hover {
+    background: linear-gradient(135deg, 
+      map-get($colors, "main", "50") 0%, 
+      map-get($colors, "main", "100") 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px hsla(var(--main) / 0.2) !important;
+  }
+}
+
+// Pulse animation for active items
+@keyframes subtlePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsla(var(--main) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px hsla(var(--main) / 0.1);
+  }
+}
+
+// Enhanced active state
+.sidebar-tab-link--active {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      hsla(var(--main) / 0.1) 0%, 
+      hsla(var(--main) / 0.05) 100%);
+    border-radius: inherit;
+    z-index: -1;
+    animation: subtlePulse 3s ease-in-out infinite;
+  }
+}
+
+// Stagger animation for menu items on load
+.sidebar-tab-menu {
+  .sidebar-tab-item {
+    animation: fadeInSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+    
+    @for $i from 1 through 15 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.08}s;
+      }
+    }
+  }
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Loading state animation
+.sidebar-loading {
+  .sidebar-tab-item {
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+    
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+      }
+    }
+  }
+}
+
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+// Dashboard Header Component Styles - Lightweight
+.sidebar-dashboard-header {
+  padding: 12px 24px;
+  // margin-bottom: 8px;
+  
+  .dashboard-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-
-    &:hover {
-      background-color: map-get($colors, "neutral", "30");
-      color: map-get($colors, "neutral", "700");
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: hsla(var(--main) / 0.04);
+    border: 1px solid hsla(var(--main) / 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        hsla(var(--main) / 0.2), 
+        transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
+    
+    &:hover {
+      background: hsla(var(--main) / 0.08);
+      border-color: hsla(var(--main) / 0.15);
+      transform: translateY(-1px);
+      
+      &::before {
+        opacity: 1;
+      }
+      
+      .dashboard-icon {
+        color: map-get($colors, "main", "600");
+        transform: scale(1.05);
+      }
+      
+      .dashboard-title {
+        color: map-get($colors, "main", "700");
+      }
+    }
+  }
+  
+  .dashboard-icon {
+    font-size: 14px;
+    color: map-get($colors, "main", "500");
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+  
+  .dashboard-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: map-get($colors, "neutral", "700");
+    margin: 0;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+}
 
+// Mobile responsive
+@media (max-width: 991.98px) {
+  .sidebar-dashboard-header {
+    padding: 8px 16px;
+    margin-bottom: 6px;
+    
+    .dashboard-content {
+      padding: 6px 12px;
+      gap: 6px;
+    }
+    
+    .dashboard-icon {
+      font-size: 12px;
+    }
+    
+    .dashboard-title {
+      font-size: 12px;
+    }
+  }
+}
+
+.sidebar-home-link {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid map-get($colors, "main", "200") !important;
+  background: transparent !important;
+  color: map-get($colors, "main", "600") !important;
+  padding: 6px 12px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  
+  &:hover {
+    background: map-get($colors, "main", "600") !important;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsla(var(--main) / 0.25) !important;
+    
     i {
-      font-size: 18px;
+      transform: scale(1.1);
+    }
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.98);
+    transition: all 0.1s ease;
+  }
+  
+  i {
+    transition: all 0.2s ease;
+  }
+  
+  span {
+    font-weight: 500;
+  }
+}
+
+// Profile dropdown styles
+.sidebar-profile-dropdown {
+  background: white !important;
+  border: 1px solid map-get($colors, "neutral", "100") !important;
+  border-radius: 6px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background: map-get($colors, "main", "25") !important;
+    border-color: map-get($colors, "main", "200") !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsla(var(--main) / 0.15) !important;
+  }
+}
+
+.sidebar-profile-dropdown-menu {
+  animation: slideDownFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  
+  a {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      background: map-get($colors, "main", "25") !important;
+      color: map-get($colors, "main", "700") !important;
+      transform: translateX(2px);
+      
+      i {
+        color: map-get($colors, "main", "600") !important;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Mobile responsive animations
+@media (max-width: 991.98px) {
+  .sidebar-link-animate {
+    &:hover:not(.sidebar-tab-link--active) {
+      transform: none;
+      box-shadow: none !important;
+    }
+  }
+  
+  // Reduce animation complexity on mobile
+  .sidebar-submenu-animate {
+    animation-duration: 0.2s;
+  }
+  
+  .sidebar-tab-menu .sidebar-tab-item {
+    animation-duration: 0.3s;
+  }
+  
+  .sidebar-profile-dropdown {
+    &:hover {
+      transform: none;
+      box-shadow: none !important;
     }
   }
 }

@@ -1,10 +1,28 @@
 import Image from "next/image";
 import { Button, Loading, Popover } from "@/components/ui";
 import { HEADER_CONFIG } from "../config";
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts";
+import { Role } from "@/enums/Role";
 
 const UserMenu = () => {
   const { user, currentRole, logout } = useAuth();
+
+  console.log("user in user menu:", user);
+
+  const getDashboardUrl = () => {
+    switch (currentRole) {
+      case Role.COMPANY:
+        return "/company";
+      // case Role.ADMIN:
+      //   return "/admin";
+      // case Role.USER:
+      //   return "/user";
+      // case Role.CANDIDATE:
+      //   return "/candidate";
+      default:
+        return "/";
+    }
+  };
 
   if (!user) {
     return (
@@ -26,7 +44,7 @@ const UserMenu = () => {
           <div className="flex-center flex-column gap-16 mb-16">
             <Image
               src={HEADER_CONFIG.LOGO_PATH}
-              alt={user.fullName}
+              alt={user.fullName || "User"}
               className="rounded-50 box-shadow-md"
               width={HEADER_CONFIG.USER_AVATAR_SIZE}
               height={HEADER_CONFIG.USER_AVATAR_SIZE}
@@ -40,12 +58,14 @@ const UserMenu = () => {
             </span>
           </div>
           <div className="d-flex flex-column gap-8 mt-16">
+            <Button href={getDashboardUrl()} variant="inline" size="xxs">
+              Dashboard
+            </Button>
             <Button
               onClick={logout}
               variant="error"
-              size="sm"
-              fullWidth
-              className="transition-2"
+              size="xxs"
+              rightIcon="ph-sign-out"
             >
               Çıkış Yap
             </Button>

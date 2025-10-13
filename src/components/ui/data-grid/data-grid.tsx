@@ -97,7 +97,7 @@ export function DataGrid<T extends Record<string, any>>({
   loading = false,
   emptyState,
   className = "",
-  height = "auto",
+  height = 600,
   rowClassName,
   initialState,
 }: DataGridProps<T>) {
@@ -276,8 +276,21 @@ export function DataGrid<T extends Record<string, any>>({
 
   if (showSkeletonLoading) {
     return (
-      <div className="card">
-        <div className="card-body">
+      <div
+        className="card"
+        style={{
+          height,
+          minHeight: typeof height === "number" ? `${height}px` : "400px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          border: "1px solid #e9ecef",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          className="card-body"
+          style={{ flex: 1, display: "flex", flexDirection: "column" }}
+        >
           {/* Header skeleton */}
           <div className="d-flex align-items-center justify-content-between mb-4">
             <div className="d-flex align-items-center gap-3">
@@ -297,7 +310,7 @@ export function DataGrid<T extends Record<string, any>>({
           </div>
 
           {/* Table skeleton */}
-          <div className="table-responsive">
+          <div className="table-responsive" style={{ flex: 1 }}>
             <table className="table mb-0">
               <thead className="table-light">
                 <tr>
@@ -370,7 +383,14 @@ export function DataGrid<T extends Record<string, any>>({
           </div>
 
           {/* Pagination skeleton */}
-          <div className="d-flex align-items-center justify-content-end gap-4 pt-3 border-top">
+          <div
+            className="d-flex align-items-center justify-content-end gap-4 border-top"
+            style={{
+              flexShrink: 0,
+              padding: "16px 20px",
+              marginTop: "auto",
+            }}
+          >
             <div className="d-flex align-items-center gap-2">
               <div
                 className="skeleton-loader"
@@ -415,40 +435,151 @@ export function DataGrid<T extends Record<string, any>>({
     };
 
     return (
-      <div className="card">
-        <div className="card-body text-center py-5">
-          <div className="mb-4">
-            <i
-              className={`ph-bold ${emptyConfig.icon} text-neutral-400`}
-              style={{ fontSize: "48px" }}
-            ></i>
-          </div>
-          <h5 className="text-neutral-600 mb-2">{emptyConfig.title}</h5>
-          <p className="text-neutral-500 mb-4">{emptyConfig.description}</p>
-          {emptyConfig.showActions && (
-            <div className="d-flex justify-content-center gap-2">
-              {emptyConfig.onAddNew && (
-                <Button
-                  leftIcon="ph-plus"
-                  size="sm"
-                  className="btn-main"
-                  onClick={emptyConfig.onAddNew}
-                >
-                  {emptyConfig.addButtonText}
-                </Button>
-              )}
-              {emptyConfig.onRefresh && (
-                <Button
-                  variant="outline"
-                  leftIcon="ph-arrow-clockwise"
-                  size="sm"
-                  onClick={emptyConfig.onRefresh}
-                >
-                  {emptyConfig.refreshButtonText}
-                </Button>
-              )}
+      <div
+        className="data-grid card"
+        style={{
+          height,
+          minHeight: typeof height === "number" ? `${height}px` : "400px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          border: "1px solid #e9ecef",
+          borderRadius: "12px",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {/* Table header for consistency */}
+        <div
+          className="table-responsive"
+          style={{ borderRadius: "12px 12px 0 0" }}
+        >
+          <table className="table mb-0">
+            <thead className="table-light">
+              <tr style={{ height: "56px" }}>
+                {checkboxSelection && (
+                  <th
+                    className="data-grid-checkbox-cell"
+                    style={{
+                      width: "50px",
+                      backgroundColor: "#f8f9fa",
+                      borderBottom: "1px solid #e9ecef",
+                    }}
+                  ></th>
+                )}
+                {columns.map((column, index) => (
+                  <th
+                    key={String(column.field)}
+                    style={{
+                      width: column.width || column.minWidth || 120,
+                      backgroundColor: "#f8f9fa",
+                      borderBottom: "1px solid #e9ecef",
+                      padding: "16px 12px",
+                      fontWeight: 600,
+                      fontSize: "13px",
+                      color: "#798090",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                    }}
+                  >
+                    {column.headerName}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        {/* Empty state content */}
+        <div
+          className="data-grid-empty-state"
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "400px",
+            backgroundColor: "#ffffff",
+          }}
+        >
+          <div className="text-center" style={{ padding: "60px 40px" }}>
+            <div className="mb-4">
+              <div
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  borderRadius: "50%",
+                  backgroundColor: "#f8f9fa",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 24px",
+                  border: "1px solid #e9ecef",
+                }}
+              >
+                <i
+                  className={`ph-bold ${emptyConfig.icon}`}
+                  style={{
+                    fontSize: "32px",
+                    color: "#9ca3af",
+                  }}
+                ></i>
+              </div>
             </div>
-          )}
+            <h5
+              style={{
+                color: "#343e56",
+                marginBottom: "12px",
+                fontWeight: 600,
+                fontSize: "18px",
+              }}
+            >
+              {emptyConfig.title}
+            </h5>
+            <p
+              style={{
+                color: "#798090",
+                marginBottom: "32px",
+                fontSize: "14px",
+                lineHeight: "1.5",
+                maxWidth: "400px",
+                margin: "0 auto 32px",
+              }}
+            >
+              {emptyConfig.description}
+            </p>
+            {emptyConfig.showActions && (
+              <div className="d-flex justify-content-center gap-3">
+                {emptyConfig.onAddNew && (
+                  <Button
+                    leftIcon="ph-plus"
+                    size="md"
+                    className="btn-main"
+                    onClick={emptyConfig.onAddNew}
+                    style={{
+                      padding: "12px 24px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {emptyConfig.addButtonText}
+                  </Button>
+                )}
+                {emptyConfig.onRefresh && (
+                  <Button
+                    variant="outline"
+                    leftIcon="ph-arrow-clockwise"
+                    size="md"
+                    onClick={emptyConfig.onRefresh}
+                    style={{
+                      padding: "12px 24px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {emptyConfig.refreshButtonText}
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -459,9 +590,12 @@ export function DataGrid<T extends Record<string, any>>({
       className={`data-grid card ${className} ${isLoading ? "loading" : ""}`}
       style={{
         height,
+        minHeight: typeof height === "number" ? `${height}px` : "400px",
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         border: "1px solid #e9ecef",
         position: "relative",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {/* Table Container */}
@@ -470,6 +604,7 @@ export function DataGrid<T extends Record<string, any>>({
         style={{
           borderRadius: "8px",
           overflow: "auto",
+          flex: 1,
           maxHeight:
             typeof height === "number"
               ? `${height - 80}px`
@@ -689,14 +824,49 @@ export function DataGrid<T extends Record<string, any>>({
       </div>
 
       {/* Pagination positioned at bottom right - Based on attachment */}
-      <div className="data-grid-pagination">
-        <div className="pagination-controls">
-          <div className="page-size-control">
-            <span className="pagination-label">Sayfa Başına:</span>
+      <div
+        className="data-grid-pagination"
+        style={{
+          flexShrink: 0,
+          padding: "16px 20px",
+          borderTop: "1px solid #e9ecef",
+          backgroundColor: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: "20px",
+        }}
+      >
+        <div
+          className="pagination-controls"
+          style={{ display: "flex", alignItems: "center", gap: "20px" }}
+        >
+          <div
+            className="page-size-control"
+            style={{ display: "flex", alignItems: "center", gap: "8px" }}
+          >
+            <span
+              className="pagination-label"
+              style={{
+                fontSize: "14px",
+                color: "#6b7280",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Sayfa Başına:
+            </span>
             <select
               className="pagination-select"
               value={pagination.pageSize}
               onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+              style={{
+                padding: "4px 8px",
+                border: "1px solid #d1d5db",
+                borderRadius: "6px",
+                fontSize: "14px",
+                backgroundColor: "#fff",
+                cursor: "pointer",
+              }}
             >
               {pageSizeOptions.map((size) => (
                 <option key={size} value={size}>
@@ -706,7 +876,10 @@ export function DataGrid<T extends Record<string, any>>({
             </select>
           </div>
 
-          <div className="pagination-info">
+          <div
+            className="pagination-info"
+            style={{ fontSize: "14px", color: "#6b7280", whiteSpace: "nowrap" }}
+          >
             {pagination.page * pagination.pageSize + 1}–
             {Math.min(
               (pagination.page + 1) * pagination.pageSize,
@@ -715,14 +888,30 @@ export function DataGrid<T extends Record<string, any>>({
             of {processedData.total}
           </div>
 
-          <div className="pagination-buttons">
+          <div
+            className="pagination-buttons"
+            style={{ display: "flex", alignItems: "center", gap: "4px" }}
+          >
             <button
               className="pagination-nav-btn"
               disabled={pagination.page === 0}
               onClick={() => handlePageChange(pagination.page - 1)}
               title="Previous page"
+              style={{
+                width: "32px",
+                height: "32px",
+                border: "1px solid #d1d5db",
+                borderRadius: "6px",
+                backgroundColor: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: pagination.page === 0 ? "not-allowed" : "pointer",
+                opacity: pagination.page === 0 ? 0.5 : 1,
+                transition: "all 0.2s ease",
+              }}
             >
-              <i className="ph ph-caret-left"></i>
+              <i className="ph ph-caret-left" style={{ fontSize: "16px" }}></i>
             </button>
 
             <button
@@ -730,8 +919,25 @@ export function DataGrid<T extends Record<string, any>>({
               disabled={pagination.page >= processedData.totalPages - 1}
               onClick={() => handlePageChange(pagination.page + 1)}
               title="Next page"
+              style={{
+                width: "32px",
+                height: "32px",
+                border: "1px solid #d1d5db",
+                borderRadius: "6px",
+                backgroundColor: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor:
+                  pagination.page >= processedData.totalPages - 1
+                    ? "not-allowed"
+                    : "pointer",
+                opacity:
+                  pagination.page >= processedData.totalPages - 1 ? 0.5 : 1,
+                transition: "all 0.2s ease",
+              }}
             >
-              <i className="ph ph-caret-right"></i>
+              <i className="ph ph-caret-right" style={{ fontSize: "16px" }}></i>
             </button>
           </div>
         </div>

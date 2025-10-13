@@ -1,5 +1,6 @@
 // UI Components
 export { default as Button } from "./button";
+export { Badge } from "./badge";
 export { default as Icon } from "./icon";
 export { default as Popover } from "./popover";
 export { default as Loading } from "./loadings/loading-layout";
@@ -15,6 +16,7 @@ export * from "./modal";
 export { DataGrid, DataGridExample } from "./data-grid";
 
 // Types
+export type { BadgeProps, BadgeVariant } from "./badge";
 export type { TabItem, TabSystemProps } from "./types";
 export type { GridColDef, DataGridProps } from "./data-grid";
 export type {

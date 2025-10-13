@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 });
 
 const initialValues: FormValues = {
-  username: "admin@egitimara.com",
+  username: "sirket@egitimara.com",
   password: "genixo123",
 };
 
@@ -43,6 +43,8 @@ const LoginFormContent: React.FC = () => {
         formData: typeof loginRequest
       ) => Promise<AuthenticationResponse>
     )(loginRequest);
+
+    console.log("Login response:", res);
 
     // ** dashboard yönlendirme işlemi role göre yapılacak
     // if (res?.accessToken) {

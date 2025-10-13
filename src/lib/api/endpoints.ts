@@ -19,9 +19,36 @@ export const API_ENDPOINTS = {
   INSTITUTIONS: {
     SCHOOLS: "/institutions/schools",
     SCHOOLS_SEARCH: "/institutions/schools/search",
-    SCHOOL_DETAIL: (id: string | number) =>
-      `/institutions/schools/${id}/detail`,
+    SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
     INSTITUTION_TYPES: "/institutions/institution-types",
+  },
+
+  PRICING: {
+    SCHOOL_PRICING: (schoolId: string | number) =>
+      `/pricing/school-pricing/school/${schoolId}`,
+  },
+
+  CAMPAIGNS: {
+    ACTIVE: "/campaigns/active",
+    BY_SCHOOL: (schoolId: string | number) => `/campaigns/schools/${schoolId}`,
+  },
+
+  APPOINTMENTS: {
+    SCHOOL_AVAILABILITY: (schoolId: string | number) =>
+      `/appointments/schools/${schoolId}/availability`,
+    SCHOOL_AVAILABILITY_RANGE: (schoolId: string | number) =>
+      `/appointments/schools/${schoolId}/availability-range`,
+    SCHOOL_STATISTICS: (schoolId: string | number) =>
+      `/appointments/schools/${schoolId}/statistics`,
+  },
+
+  CONTENT: {
+    POSTS_BY_SCHOOL: (schoolId: string | number) =>
+      `/content/posts/school/${schoolId}`,
+    MESSAGES_BY_SCHOOL: (schoolId: string | number) =>
+      `/content/messages/school/${schoolId}`,
+    GALLERIES_BY_SCHOOL: (schoolId: string | number) =>
+      `/content/galleries/school/${schoolId}`,
   },
 
   TEMP: {

@@ -7,8 +7,8 @@ const Loading: React.FC = () => {
       <Image
         src="/assets/images/icons/preloader.gif"
         alt="Loading..."
-        width={50}
-        height={50}
+        width={340}
+        height={340}
         priority
       />
     </div>

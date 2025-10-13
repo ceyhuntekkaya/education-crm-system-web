@@ -4,3 +4,4 @@ export * from "./format-number";
 export * from "./format-unit";
 export * from "./format-text";
 export * from "./appointment-utils";
+export * from "./appointment-availability";

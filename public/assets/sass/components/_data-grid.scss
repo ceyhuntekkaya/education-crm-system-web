@@ -610,4 +610,50 @@
       border: 1px solid #E9ECEF;
     }
   }
+
+  // Empty state styles - Modern and consistent design
+  .data-grid-empty-state {
+    background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+    border-top: 1px solid var(--data-grid-border-color);
+    
+    .text-center {
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    // Icon container styling
+    .mb-4 > div {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+    }
+    
+    // Button hover effects
+    .btn {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      &.btn-main:hover {
+        box-shadow: 0 4px 15px rgba(107, 177, 255, 0.3);
+      }
+    }
+  }
+}
+
+// Animation for empty state
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

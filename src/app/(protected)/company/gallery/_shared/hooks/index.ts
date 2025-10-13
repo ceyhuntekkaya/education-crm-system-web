@@ -1,0 +1,1 @@
+export { useSchoolGalleries } from "./useSchoolGalleries";

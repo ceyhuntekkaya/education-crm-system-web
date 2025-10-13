@@ -22,7 +22,8 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "tel"
     | "url"
     | "search"
-    | "date";
+    | "date"
+    | "color";
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
