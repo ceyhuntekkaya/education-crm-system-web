@@ -1,6 +1,7 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { SurveyDto } from "@/types/dto/survey/SurveyDto";
 import { formatDate } from "@/utils";
+import Image from "next/image";
 import {
   getStatusBadgeVariant,
   getSurveyTypeDisplay,
@@ -18,18 +19,14 @@ const renderSurveyInfo = (params: any) => (
   <div className="d-flex align-items-center">
     <div className="me-3">
       {params.row.logoUrl ? (
-        <img
+        <Image
           src={params.row.logoUrl}
           alt={params.row.title}
           className="rounded"
+          width={48}
+          height={24}
           style={{
-            width: "48px",
-            height: "24px",
             objectFit: "cover",
-          }}
-          onError={(e) => {
-            (e.target as HTMLImageElement).src =
-              "https://via.placeholder.com/48x24?text=Survey";
           }}
         />
       ) : (

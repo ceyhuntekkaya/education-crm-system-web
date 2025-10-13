@@ -2,19 +2,6 @@ import { SchoolDto } from "@/types";
 import { ReactNode } from "react";
 
 /**
- * School Detail Context Type
- * Defines the context interface for school detail management
- */
-export interface SchoolDetailContextType {
-  currentSchool: SchoolDto | null;
-  isLoading: boolean;
-  isEditing: boolean;
-  setIsEditing: (editing: boolean) => void;
-  updateSchool: (school: SchoolDto) => void;
-  refreshSchool: () => void;
-}
-
-/**
  * School Detail Provider Props
  */
 export interface SchoolDetailProviderProps {

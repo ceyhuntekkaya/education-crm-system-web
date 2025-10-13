@@ -1,6 +1,7 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { UserListDto } from "@/types/dto/user/UserListDto";
 import { formatDate } from "@/utils";
+import Image from "next/image";
 import {
   getStatusBadgeVariant,
   getUserTypeDisplay,
@@ -18,21 +19,14 @@ import { Badge } from "@/components";
 const renderUserInfo = (params: any) => (
   <div className="d-flex align-items-center">
     <div className="me-3">
-      <img
+      <Image
         src={getUserProfileImage(params.row)}
         alt={params.row.fullName}
         className="rounded-circle"
+        width={40}
+        height={40}
         style={{
-          width: "40px",
-          height: "40px",
           objectFit: "cover",
-        }}
-        onError={(e) => {
-          (
-            e.target as HTMLImageElement
-          ).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-            params.row.fullName || "User"
-          )}&background=random`;
         }}
       />
     </div>
