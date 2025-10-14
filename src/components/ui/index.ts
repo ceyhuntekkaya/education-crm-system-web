@@ -8,6 +8,7 @@ export { LoadingSpinner } from "./loadings";
 export { default as TabContent } from "./tab-content";
 export { default as TabNavigation } from "./tab-navigation";
 export { Accordion, AccordionItem } from "./accordion";
+export { default as CustomImage } from "./custom-image";
 
 // Modal Components - Using the new modal structure
 export * from "./modal";
