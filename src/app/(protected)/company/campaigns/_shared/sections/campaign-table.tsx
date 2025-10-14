@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
 import { CampaignSummaryDto } from "@/types/dto/campaign/CampaignSummaryDto";
@@ -12,12 +13,21 @@ export const CampaignTable: React.FC<CampaignTableProps> = ({
   campaigns: propCampaigns,
   loading: propLoading,
 }) => {
+  const router = useRouter();
+
   // Context'ten kampanya verilerini al
   const { campaigns: contextCampaigns, campaignsLoading } = useCampaigns();
 
   // Props'tan gelen veriler varsa onları kullan, yoksa context'ten al
   const campaigns = propCampaigns || contextCampaigns;
   const loading = propLoading !== undefined ? propLoading : campaignsLoading;
+
+  // Row tıklama handler'ı
+  const handleRowClick = (params: any) => {
+    if (params.row?.id) {
+      router.push(`/company/campaigns/detail/${params.row.id}`);
+    }
+  };
 
   // Kolonları oluştur
   const columns = createCampaignColumns();
@@ -28,6 +38,7 @@ export const CampaignTable: React.FC<CampaignTableProps> = ({
         rows={campaigns}
         columns={columns}
         loading={loading}
+        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
