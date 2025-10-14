@@ -1,9 +1,10 @@
 import { LoadingSpinner } from "@/components/ui/loadings";
+import { CustomCard } from "@/components/ui";
 
 export default function SchoolLoadingSection() {
   return (
-    <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
-      <div className="border border-neutral-30 rounded-12 bg-main-25 p-24">
+    <CustomCard title="Okul Detayları" subtitle="Veriler yükleniyor...">
+      <div className="text-center py-24">
         <LoadingSpinner
           message="Okul bilgileri yükleniyor..."
           size="lg"
@@ -11,6 +12,6 @@ export default function SchoolLoadingSection() {
           className="py-5"
         />
       </div>
-    </div>
+    </CustomCard>
   );
 }

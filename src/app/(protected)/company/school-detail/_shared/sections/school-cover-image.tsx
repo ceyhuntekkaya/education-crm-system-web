@@ -11,14 +11,24 @@ export default function SchoolCoverImage() {
   const { currentSchool } = useSchoolDetail();
 
   if (!currentSchool) {
-    return null;
+    return (
+      <div
+        className="position-relative rounded-16 overflow-hidden bg-neutral-100 d-flex align-items-center justify-content-center"
+        style={{ height: "300px" }}
+      >
+        <div className="text-center text-neutral-500">
+          <i className="ph ph-image text-5xl mb-12"></i>
+          <p className="mb-0">Okul görseli henüz mevcut değil</p>
+        </div>
+      </div>
+    );
   }
 
   const school = currentSchool;
 
   return (
     <div
-      className="position-relative rounded-16 overflow-hidden my-24"
+      className="position-relative rounded-16 overflow-hidden"
       style={{ height: "300px" }}
     >
       {/* Cover Image */}

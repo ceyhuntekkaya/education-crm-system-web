@@ -1,10 +1,15 @@
 import { useSchoolDetail } from "../context/school-detail-context";
+import { CustomCard } from "@/components/ui";
 
 export default function SchoolLocationInfo() {
   const { currentSchool } = useSchoolDetail();
 
   if (!currentSchool) {
-    return null;
+    return (
+      <CustomCard title="Konum Bilgileri">
+        <p className="text-neutral-500">Konum bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
   }
 
   const school = currentSchool;
@@ -12,18 +17,12 @@ export default function SchoolLocationInfo() {
 
   if (!campus) {
     return (
-      <div className="tutor-details__content">
-        <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <h4 className="mb-16 text-main-600">
-              <i className="ph-bold ph-city me-8"></i>
-              Konum Bilgileri
-            </h4>
-            <span className="d-block border border-neutral-30 my-24 border-dashed" />
-            <p className="text-neutral-500">Konum bilgisi bulunmamaktadır.</p>
-          </div>
-        </div>
-      </div>
+      <CustomCard
+        title="Konum Bilgileri"
+        headerAction={<i className="ph-bold ph-city text-main-600"></i>}
+      >
+        <p className="text-neutral-500">Konum bilgisi bulunmamaktadır.</p>
+      </CustomCard>
     );
   }
 
@@ -249,86 +248,41 @@ export default function SchoolLocationInfo() {
     },
   ];
 
-  // İl bilgilerini filtrele
-  const provinceItems = locationInfoItems
-    .slice(0, 6)
-    .filter((item) => item.isShowing);
+  // Sections array oluştur
+  const locationSections = [
+    {
+      title: "İl Bilgileri",
+      titleColor: "text-main-600",
+      titleIcon: "ph-bold ph-city",
+      items: locationInfoItems.slice(0, 6),
+    },
+    {
+      title: "İlçe Bilgileri",
+      titleColor: "text-success-600",
+      titleIcon: "ph-bold ph-map-pin-area",
+      items: locationInfoItems.slice(6, 13),
+    },
+    {
+      title: "Bölge Özeti",
+      titleColor: "text-warning-600",
+      titleIcon: "ph-bold ph-map-pin",
+      items: locationInfoItems.slice(13),
+    },
+  ];
 
-  // İlçe bilgilerini filtrele
-  const districtItems = locationInfoItems
-    .slice(6, 13)
-    .filter((item) => item.isShowing);
+  // Eğer görüntülenecek herhangi bir bilgi yoksa boş state göster
+  const visibleItems = locationInfoItems.filter((item) => item.isShowing);
 
-  // Bölge özeti bilgilerini filtrele
-  const summaryItems = locationInfoItems
-    .slice(13)
-    .filter((item) => item.isShowing);
+  if (visibleItems.length === 0) {
+    return (
+      <CustomCard
+        title="Konum Bilgileri"
+        headerAction={<i className="ph-bold ph-city text-main-600"></i>}
+      >
+        <p className="text-neutral-500">Konum bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
+  }
 
-  return (
-    <div className="tutor-details__content">
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          {/* İl Bilgileri */}
-          <h4 className="mb-16 text-main-600">
-            <i className="ph-bold ph-city me-8"></i>
-            İl Bilgileri
-          </h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-          <ul className="tution-info-list bg-white rounded-8 mb-32">
-            {provinceItems.map((item, index) => (
-              <li key={index} className="d-flex align-items-start px-32 py-16">
-                <span className="w-50-percent fw-semibold text-neutral-700">
-                  {item.label}
-                </span>
-                <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                  {item.value}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          {/* İlçe Bilgileri */}
-          <h4 className="mb-16 text-success-600">
-            <i className="ph-bold ph-map-pin-area me-8"></i>
-            İlçe Bilgileri
-          </h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-          <ul className="tution-info-list bg-white rounded-8 mb-32">
-            {districtItems.map((item, index) => (
-              <li key={index} className="d-flex align-items-start px-32 py-16">
-                <span className="w-50-percent fw-semibold text-neutral-700">
-                  {item.label}
-                </span>
-                <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                  {item.value}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Bölge Özeti */}
-          <h4 className="mb-16 text-warning-600">
-            <i className="ph-bold ph-map-pin me-8"></i>
-            Bölge Özeti
-          </h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-          <ul className="tution-info-list bg-white rounded-8">
-            {summaryItems.map((item, index) => (
-              <li key={index} className="d-flex align-items-start px-32 py-16">
-                <span className="w-50-percent fw-semibold text-neutral-700">
-                  {item.label}
-                </span>
-                <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                  {item.value}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+  return <CustomCard title="Konum Bilgileri" multiItems={locationSections} />;
 }

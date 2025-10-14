@@ -1,59 +1,27 @@
 import Image from "next/image";
+import { CustomCard } from "@/components/ui";
+import { renderStars } from "@/utils/rating-utils";
 import { useSchoolDetail } from "../context/school-detail-context";
 
 export default function SchoolCampusDetail() {
   const { currentSchool } = useSchoolDetail();
 
   if (!currentSchool) {
-    return null;
+    return (
+      <CustomCard title="Kampüs Bilgileri">
+        <p className="text-neutral-500">Kampüs bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
   }
 
   const school = currentSchool;
   const campus = school.campus;
 
-  const renderStars = (rating: number): JSX.Element => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-
-    return (
-      <div className="flex-align gap-4">
-        {[...Array(fullStars)].map((_, i) => (
-          <span
-            key={`full-${i}`}
-            className="text-lg fw-medium text-warning-600 d-flex"
-          >
-            <i className="ph-fill ph-star" />
-          </span>
-        ))}
-        {hasHalfStar && (
-          <span className="text-lg fw-medium text-warning-600 d-flex">
-            <i className="ph-fill ph-star-half" />
-          </span>
-        )}
-        {[...Array(emptyStars)].map((_, i) => (
-          <span
-            key={`empty-${i}`}
-            className="text-lg fw-medium text-neutral-300 d-flex"
-          >
-            <i className="ph-fill ph-star" />
-          </span>
-        ))}
-      </div>
-    );
-  };
-
   if (!campus) {
     return (
-      <div className="tutor-details__content">
-        <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <h4 className="mb-16">Kampüs Bilgileri</h4>
-            <span className="d-block border border-neutral-30 my-24 border-dashed" />
-            <p className="text-neutral-500">Kampüs bilgisi bulunmamaktadır.</p>
-          </div>
-        </div>
-      </div>
+      <CustomCard title="Kampüs Bilgileri">
+        <p className="text-neutral-500">Kampüs bilgisi bulunmamaktadır.</p>
+      </CustomCard>
     );
   }
 
@@ -140,32 +108,16 @@ export default function SchoolCampusDetail() {
     },
   ];
 
-  return (
-    <div className="tutor-details__content">
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          <h4 className="mb-16">Kampüs Bilgileri</h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
+  // Eğer görüntülenecek herhangi bir bilgi yoksa boş state göster
+  const visibleItems = campusInfoItems.filter((item) => item.isShowing);
 
-          <ul className="tution-info-list bg-white rounded-8">
-            {campusInfoItems
-              .filter((item) => item.isShowing)
-              .map((item, index) => (
-                <li
-                  key={index}
-                  className="d-flex align-items-start px-32 py-16"
-                >
-                  <span className="w-50-percent fw-semibold text-neutral-700">
-                    {item.label}
-                  </span>
-                  <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                    {item.value}
-                  </span>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+  if (visibleItems.length === 0) {
+    return (
+      <CustomCard title="Kampüs Bilgileri">
+        <p className="text-neutral-500">Kampüs bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
+  }
+
+  return <CustomCard title="Kampüs Bilgileri" items={campusInfoItems} />;
 }

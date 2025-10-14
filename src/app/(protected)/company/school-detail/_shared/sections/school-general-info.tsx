@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { useSchoolDetail } from "../context/school-detail-context";
+import { CustomCard } from "@/components/ui";
+import { renderStars } from "@/utils";
 
 const tempIconUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
@@ -8,43 +10,15 @@ export default function SchoolGeneralInfo() {
   const { currentSchool } = useSchoolDetail();
 
   if (!currentSchool) {
-    return null;
+    return (
+      <CustomCard title="Okul Bilgileri">
+        <p className="text-neutral-500">Okul bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
   }
 
   const school = currentSchool;
   const campus = school.campus;
-
-  const renderStars = (rating: number): JSX.Element => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-
-    return (
-      <div className="flex-align gap-4">
-        {[...Array(fullStars)].map((_, i) => (
-          <span
-            key={`full-${i}`}
-            className="text-lg fw-medium text-warning-600 d-flex"
-          >
-            <i className="ph-fill ph-star" />
-          </span>
-        ))}
-        {hasHalfStar && (
-          <span className="text-lg fw-medium text-warning-600 d-flex">
-            <i className="ph-fill ph-star-half" />
-          </span>
-        )}
-        {[...Array(emptyStars)].map((_, i) => (
-          <span
-            key={`empty-${i}`}
-            className="text-lg fw-medium text-neutral-300 d-flex"
-          >
-            <i className="ph-fill ph-star" />
-          </span>
-        ))}
-      </div>
-    );
-  };
 
   const institutionInfoItems = [
     {
@@ -278,45 +252,27 @@ export default function SchoolGeneralInfo() {
     },
   ];
 
+  // Eğer görüntülenecek herhangi bir bilgi yoksa boş state göster
+  const visibleItems = institutionInfoItems.filter((item) => item.isShowing);
+
   return (
-    <div className="tutor-details__content mt-24">
+    <div className="d-flex flex-column gap-24">
       {/* Okul Açıklaması */}
       {school.description && (
-        <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <h4 className="mb-16">Okul Hakkında</h4>
-            <span className="d-block border border-neutral-30 my-20 border-dashed" />
-            <p className="text-neutral-700 text-md leading-relaxed mb-0">
-              {school.description}
-            </p>
-          </div>
-        </div>
+        <CustomCard title="Okul Hakkında">
+          <p className="text-neutral-700 text-md leading-relaxed mb-0">
+            {school.description}
+          </p>
+        </CustomCard>
       )}
 
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32 bg-main-25">
-          <h4 className="mb-16">Okul Bilgileri</h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-          <ul className="tution-info-list bg-white rounded-8">
-            {institutionInfoItems
-              .filter((item) => item.isShowing)
-              .map((item, index) => (
-                <li
-                  key={index}
-                  className="d-flex align-items-start px-32 py-16"
-                >
-                  <span className="w-50-percent fw-semibold text-neutral-700">
-                    {item.label}
-                  </span>
-                  <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                    {item.value}
-                  </span>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
+      {visibleItems.length > 0 ? (
+        <CustomCard title="Okul Bilgileri" items={institutionInfoItems} />
+      ) : (
+        <CustomCard title="Okul Bilgileri">
+          <p className="text-neutral-500">Okul bilgileri henüz mevcut değil.</p>
+        </CustomCard>
+      )}
     </div>
   );
 }

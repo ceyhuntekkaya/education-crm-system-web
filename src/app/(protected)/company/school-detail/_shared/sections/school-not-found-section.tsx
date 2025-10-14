@@ -1,23 +1,26 @@
-interface SchoolNotFoundSectionProps {
-  refreshSchool: () => void;
-}
+import { useSchoolDetail } from "../context/school-detail-context";
+import { CustomCard } from "@/components/ui";
 
-export default function SchoolNotFoundSection({
-  refreshSchool,
-}: SchoolNotFoundSectionProps) {
+export default function SchoolNotFoundSection() {
+  const { refreshSchool } = useSchoolDetail();
+
   return (
-    <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
-      <div className="border border-neutral-30 rounded-12 bg-warning-25 p-32">
-        <h4 className="mb-16 text-warning-600">
-          <i className="ph-bold ph-info me-8"></i>
-          Okul Bilgisi Bulunamadı
-        </h4>
-        <span className="d-block border border-neutral-30 my-20 border-dashed" />
-        <p className="text-warning-600 mb-16">
-          Okul seçilmemiş veya okul bilgisi bulunamadı. Lütfen bir okul seçin
-          veya okul listesini kontrol edin.
-        </p>
-        <div className="d-flex align-items-center gap-12">
+    <CustomCard
+      title="Okul Bilgisi Bulunamadı"
+      subtitle="Okul seçilmemiş veya bilgi mevcut değil"
+      headerAction={<i className="ph-bold ph-warning text-warning-600"></i>}
+    >
+      <div className="text-center py-24">
+        <div className="mb-24">
+          <i className="ph ph-magnifying-glass-minus text-6xl text-warning-500 mb-16 d-block"></i>
+          <h5 className="text-warning-600 mb-12">Okul Bilgisi Bulunamadı</h5>
+          <p className="text-neutral-600 mb-24">
+            Okul seçilmemiş veya okul bilgisi bulunamadı. Lütfen bir okul seçin
+            veya okul listesini kontrol edin.
+          </p>
+        </div>
+
+        <div className="d-flex justify-content-center align-items-center gap-12">
           <button
             onClick={() => window.history.back()}
             className="btn btn-outline-warning btn-sm"
@@ -31,6 +34,6 @@ export default function SchoolNotFoundSection({
           </button>
         </div>
       </div>
-    </div>
+    </CustomCard>
   );
 }

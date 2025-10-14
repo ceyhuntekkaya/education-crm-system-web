@@ -1,22 +1,17 @@
 import { PricingSummaryDto } from "@/types";
 import { useSchoolDetail } from "../context/school-detail-context";
 import { formatCurrency } from "@/utils";
+import { CustomCard } from "@/components/ui";
+import { schoolDetailMockData } from "@/app/(public)/search/[id]/_shared";
 
 export default function SchoolPricingInfo() {
   const { currentSchool } = useSchoolDetail();
 
   if (!currentSchool?.pricings || currentSchool.pricings.length === 0) {
     return (
-      <div className="tutor-details__content">
-        <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <h4 className="mb-16">Ücret Bilgileri</h4>
-            <p className="text-neutral-500">
-              Ücret bilgileri henüz mevcut değil.
-            </p>
-          </div>
-        </div>
-      </div>
+      <CustomCard title="Ücret Bilgileri">
+        <p className="text-neutral-500">Ücret bilgileri henüz mevcut değil.</p>
+      </CustomCard>
     );
   }
 
@@ -180,110 +175,51 @@ export default function SchoolPricingInfo() {
     (item) => item.category === "summary" && item.isShowing
   );
 
-  return (
-    <div className="tutor-details__content">
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          {/* Temel Ücretler */}
-          {basicItems.length > 0 && (
-            <>
-              <h4 className="mb-16 text-main-600">
-                <i className="ph-bold ph-currency-circle-dollar me-8"></i>
-                Temel Ücretler
-              </h4>
-              <span className="d-block border border-neutral-30 my-24 border-dashed" />
+  // Pricing sections array oluştur
+  const pricingSections = [
+    {
+      title: "Temel Ücretler",
+      titleColor: "text-main-600",
+      titleIcon: "ph-bold ph-currency-circle-dollar",
+      items: basicItems.map((item) => ({
+        label: item.label,
+        sublabel:
+          item.pricing?.gradeLevel && item.pricing?.academicYear
+            ? `${item.pricing.gradeLevel} - ${item.pricing.academicYear}`
+            : undefined,
+        value: item.value,
+        isShowing: item.isShowing,
+      })),
+    },
+    {
+      title: "Ek Ücretler",
+      titleColor: "text-success-600",
+      titleIcon: "ph-bold ph-plus-circle",
+      items: additionalItems.map((item) => ({
+        label: item.label,
+        sublabel:
+          item.pricing?.gradeLevel && item.pricing?.academicYear
+            ? `${item.pricing.gradeLevel} - ${item.pricing.academicYear}`
+            : undefined,
+        value: item.value,
+        isShowing: item.isShowing,
+      })),
+    },
+    {
+      title: "Ödeme ve Maliyet Özeti",
+      titleColor: "text-primary-600",
+      titleIcon: "ph-bold ph-calculator",
+      items: summaryItems.map((item) => ({
+        label: item.label,
+        sublabel:
+          item.pricing?.gradeLevel && item.pricing?.academicYear
+            ? `${item.pricing.gradeLevel} - ${item.pricing.academicYear}`
+            : undefined,
+        value: item.value,
+        isShowing: item.isShowing,
+      })),
+    },
+  ];
 
-              <ul className="tution-info-list bg-white rounded-8 mb-32">
-                {basicItems.map((item, index: number) => (
-                  <li
-                    key={index}
-                    className="d-flex align-items-start px-32 py-16"
-                  >
-                    <span className="w-50-percent fw-semibold text-neutral-700">
-                      {item.label}
-                      {item.pricing && item.pricing.gradeLevel && (
-                        <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
-                          {item.pricing.gradeLevel} -{" "}
-                          {item.pricing.academicYear}
-                        </span>
-                      )}
-                    </span>
-                    <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                      {item.value}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          {/* Ek Ücretler */}
-          {additionalItems.length > 0 && (
-            <>
-              <h4 className="mb-16 text-success-600">
-                <i className="ph-bold ph-plus-circle me-8"></i>
-                Ek Ücretler
-              </h4>
-              <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-              <ul className="tution-info-list bg-white rounded-8 mb-32">
-                {additionalItems.map((item, index: number) => (
-                  <li
-                    key={index}
-                    className="d-flex align-items-start px-32 py-16"
-                  >
-                    <span className="w-50-percent fw-semibold text-neutral-700">
-                      {item.label}
-                      {item.pricing && item.pricing.gradeLevel && (
-                        <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
-                          {item.pricing.gradeLevel} -{" "}
-                          {item.pricing.academicYear}
-                        </span>
-                      )}
-                    </span>
-                    <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                      {item.value}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          {/* Toplam ve Ödeme Bilgileri */}
-          {summaryItems.length > 0 && (
-            <>
-              <h4 className="mb-16 text-primary-600">
-                <i className="ph-bold ph-calculator me-8"></i>
-                Ödeme ve Maliyet Özeti
-              </h4>
-              <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-              <ul className="tution-info-list bg-white rounded-8">
-                {summaryItems.map((item, index: number) => (
-                  <li
-                    key={index}
-                    className="d-flex align-items-start px-32 py-16"
-                  >
-                    <span className="w-50-percent fw-semibold text-neutral-700">
-                      {item.label}
-                      {item.pricing && item.pricing.gradeLevel && (
-                        <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
-                          {item.pricing.gradeLevel} -{" "}
-                          {item.pricing.academicYear}
-                        </span>
-                      )}
-                    </span>
-                    <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                      {item.value}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  return <CustomCard title="Ücret Bilgileri" multiItems={pricingSections} />;
 }

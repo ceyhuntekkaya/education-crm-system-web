@@ -1,10 +1,15 @@
+import { CustomCard } from "@/components/ui";
 import { useSchoolDetail } from "../context/school-detail-context";
 
 export default function SchoolBrandDetail() {
   const { currentSchool } = useSchoolDetail();
 
   if (!currentSchool) {
-    return null;
+    return (
+      <CustomCard title="Kurum Bilgileri">
+        <p className="text-neutral-500">Kurum bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
   }
 
   const school = currentSchool;
@@ -56,32 +61,16 @@ export default function SchoolBrandDetail() {
     },
   ];
 
-  return (
-    <div className="tutor-details__content">
-      <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-        <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-          <h4 className="mb-16">Kurum Bilgileri</h4>
-          <span className="d-block border border-neutral-30 my-24 border-dashed" />
+  // Eğer görüntülenecek herhangi bir bilgi yoksa boş state göster
+  const visibleItems = brandInfoItems.filter((item) => item.isShowing);
 
-          <ul className="tution-info-list bg-white rounded-8">
-            {brandInfoItems
-              .filter((item) => item.isShowing)
-              .map((item, index) => (
-                <li
-                  key={index}
-                  className="d-flex align-items-start px-32 py-16"
-                >
-                  <span className="w-50-percent fw-semibold text-neutral-700">
-                    {item.label}
-                  </span>
-                  <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                    {item.value}
-                  </span>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+  if (visibleItems.length === 0) {
+    return (
+      <CustomCard title="Kurum Bilgileri">
+        <p className="text-neutral-500">Kurum bilgileri henüz mevcut değil.</p>
+      </CustomCard>
+    );
+  }
+
+  return <CustomCard title="Kurum Bilgileri" items={brandInfoItems} />;
 }
