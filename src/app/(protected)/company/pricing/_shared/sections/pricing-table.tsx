@@ -1,15 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
-import { SchoolPricingDto } from "@/types/dto/pricing/SchoolPricingDto";
 import { createPricingColumns } from "../config/pricing-columns";
-import { PricingColumnHandlers, PricingTableProps } from "../types";
 import { usePricing } from "../context/pricing-context";
 
 export const PricingTable = () => {
+  const router = useRouter();
+
   // Pricing context'ten veri al
   const { schoolPricings, pricingLoading } = usePricing();
+
+  // Row tıklama handler'ı
+  const handleRowClick = (params: any) => {
+    if (params.row?.id) {
+      router.push(`/company/pricing/detail/${params.row.id}`);
+    }
+  };
 
   // Kolonları oluştur
   const columns = createPricingColumns();
@@ -20,6 +28,7 @@ export const PricingTable = () => {
         rows={schoolPricings || []}
         columns={columns}
         loading={pricingLoading}
+        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
