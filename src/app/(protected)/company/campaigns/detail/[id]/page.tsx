@@ -51,8 +51,6 @@ const CampaignDetailPage: React.FC = () => {
     );
   }
 
-  console.log("campaign detail:", campaign);
-
   return (
     <CustomCard
       title="Kampanya Detayı"
