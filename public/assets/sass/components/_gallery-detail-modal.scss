@@ -51,7 +51,7 @@
       flex-direction: column;
       gap: 16px;
       overflow: hidden;
-      padding: 20px;
+      // padding: 20px;
 
       .gallery-main-viewer {
         flex: 1;
@@ -216,7 +216,7 @@
     .gallery-info-column {
       background: var(--main-25);
       border-radius: 12px;
-      padding: 20px;
+      // padding: 20px;
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: var(--primary-300) transparent;

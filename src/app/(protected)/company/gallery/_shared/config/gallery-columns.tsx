@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { GridColDef } from "@/components/ui/data-grid";
 import { GalleryDto } from "@/types/dto/content/GalleryDto";
 import { formatDate, formatDateTime } from "@/utils";
@@ -239,6 +240,31 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
         <div className="fw-semibold" style={{ fontSize: "0.85rem" }}>
           {formatDateTime(params.row.createdAt)}
         </div>
+      </div>
+    ),
+  },
+  {
+    field: "actions",
+    headerName: "İşlemler",
+    width: 120,
+    sortable: false,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="d-flex align-items-center justify-content-center gap-2">
+        <Link
+          href={`/company/gallery/detail/${params.row.id}`}
+          className="btn btn-sm btn-outline-primary"
+          title="Detay Görüntüle"
+        >
+          <i className="ph ph-eye" style={{ fontSize: "14px" }}></i>
+        </Link>
+        <Link
+          href={`/company/gallery/add-edit/${params.row.id}`}
+          className="btn btn-sm btn-outline-info"
+          title="Düzenle"
+        >
+          <i className="ph ph-pencil-simple" style={{ fontSize: "14px" }}></i>
+        </Link>
       </div>
     ),
   },
