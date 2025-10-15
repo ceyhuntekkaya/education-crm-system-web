@@ -40,6 +40,7 @@ export interface PostFooterProps {
 
 export interface PostDetailProps {
   post: PostDto;
+  onClose?: () => void;
 }
 
 export interface PostContentProps {

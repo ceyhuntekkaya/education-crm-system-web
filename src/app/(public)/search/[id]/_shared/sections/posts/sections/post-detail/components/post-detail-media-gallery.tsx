@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { CustomImage } from "@/components/ui";
 
 interface PostDetailMediaGalleryProps {
   post: any;
@@ -30,7 +30,7 @@ const PostDetailMediaGallery: React.FC<PostDetailMediaGalleryProps> = ({
             onClick={onOriginalImageClick}
           >
             <div className="post-detail-thumbnail">
-              <Image
+              <CustomImage
                 src={post.featuredImageUrl}
                 alt="Ana görsel"
                 fill
@@ -53,7 +53,7 @@ const PostDetailMediaGallery: React.FC<PostDetailMediaGalleryProps> = ({
           >
             <div style={{ width: "80px", height: "80px" }}>
               {post.videoThumbnailUrl ? (
-                <Image
+                <CustomImage
                   src={post.videoThumbnailUrl}
                   alt="Ana video"
                   fill
@@ -86,7 +86,7 @@ const PostDetailMediaGallery: React.FC<PostDetailMediaGalleryProps> = ({
           >
             <div style={{ width: "80px", height: "80px" }}>
               {media.type === "image" ? (
-                <Image
+                <CustomImage
                   src={media.url}
                   alt={`Ek medya ${index + 1}`}
                   fill
@@ -95,7 +95,7 @@ const PostDetailMediaGallery: React.FC<PostDetailMediaGalleryProps> = ({
                 />
               ) : media.type === "video" ? (
                 media.thumbnailUrl ? (
-                  <Image
+                  <CustomImage
                     src={media.thumbnailUrl}
                     alt={`Video ${index + 1}`}
                     fill

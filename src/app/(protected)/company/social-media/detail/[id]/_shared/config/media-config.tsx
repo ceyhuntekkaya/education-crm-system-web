@@ -16,10 +16,8 @@ export const mediaConfig: MediaItemConfig[] = [
             <CustomImage
               src={post.featuredImageUrl}
               alt={post.title || "Öne çıkan görsel"}
-              width={500}
-              height={280}
-              className="w-100 h-auto"
-              style={{ objectFit: "cover" }}
+              width={140}
+              height={120}
             />
             <div className="position-absolute top-0 end-0 m-3">
               <span className="badge bg-dark bg-opacity-75 text-white px-2 py-1">
@@ -124,29 +122,29 @@ export const mediaConfig: MediaItemConfig[] = [
     ),
     isShowing: () => true,
   },
-  {
-    label: "Medya Ekleri",
-    value: (post: PostDto | null) => (
-      <div>
-        {post?.mediaAttachments ? (
-          <div className="p-3 bg-success-25 rounded-8 border border-success-100">
-            <div className="d-flex align-items-center gap-2 mb-2">
-              <i className="ph ph-paperclip text-success"></i>
-              <span className="fw-semibold text-success">
-                Ek Medya Dosyaları
-              </span>
-            </div>
-            <div className="text-neutral-700 fs-14 font-monospace">
-              {post.mediaAttachments}
-            </div>
-          </div>
-        ) : (
-          <span className="text-neutral-500">Ek medya dosyası yok</span>
-        )}
-      </div>
-    ),
-    isShowing: (post: PostDto | null) => !!post?.mediaAttachments,
-  },
+  // {
+  //   label: "Medya Ekleri",
+  //   value: (post: PostDto | null) => (
+  //     <div>
+  //       {post?.mediaAttachments ? (
+  //         <div className="p-3 bg-success-25 rounded-8 border border-success-100">
+  //           <div className="d-flex align-items-center gap-2 mb-2">
+  //             <i className="ph ph-paperclip text-success"></i>
+  //             <span className="fw-semibold text-success">
+  //               Ek Medya Dosyaları
+  //             </span>
+  //           </div>
+  //           <div className="text-neutral-700 fs-14 font-monospace">
+  //             {post.mediaAttachments}
+  //           </div>
+  //         </div>
+  //       ) : (
+  //         <span className="text-neutral-500">Ek medya dosyası yok</span>
+  //       )}
+  //     </div>
+  //   ),
+  //   isShowing: (post: PostDto | null) => !!post?.mediaAttachments,
+  // },
   {
     label: "Dış Bağlantı",
     value: (post: PostDto | null) => (

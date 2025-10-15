@@ -178,7 +178,7 @@ export const statisticsConfig: StatisticsItemConfig[] = [
             <small className="text-success-600">Tıklama</small>
           </div>
         </div>
-        <div className="col-12 col-lg-4">
+        <div className="col-6 col-lg-4">
           <div className="text-center p-2 bg-warning-50 rounded border">
             <div className="fw-bold text-warning-600 fs-5">
               {post?.engagementScore?.toFixed(1) || "0.0"}%

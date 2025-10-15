@@ -7,7 +7,8 @@ import { mediaConfig } from "./media-config";
 import { ctaConfig } from "./cta-config";
 import { timestampConfig } from "./timestamp-config";
 import { metaInfoConfig } from "./meta-info-config";
-import { authorInfoConfig } from "./author-info-config";
+import { authorDetailsConfig } from "./author-details-config";
+import { institutionDetailsConfig } from "./institution-details-config";
 
 /**
  * Tüm post section konfigürasyonlarını tanımlar
@@ -30,15 +31,23 @@ export const POST_SECTIONS: SectionConfig[] = [
     config: timestampConfig,
   },
 
-  // 3. YAZAR VE KURUM DETAYLARI - Kim tarafından yayınlandığı (İçerik sahibi bilgisi)
+  // 3. YAZAR DETAYLARI - Kim tarafından yayınlandığı (Gönderi yazarı bilgisi)
   {
-    title: "Yazar & Kurum Detayları",
-    titleColor: "text-teal-600",
-    titleIcon: "ph-bold ph-graduation-cap",
-    config: authorInfoConfig,
+    title: "Yazar Detayları",
+    titleColor: "text-blue-600",
+    titleIcon: "ph-bold ph-user",
+    config: authorDetailsConfig,
   },
 
-  // 4. MEDYA İÇERİKLERİ - Görsel, video ve medya dosyaları (İçerik komponenti)
+  // 4. KURUM DETAYLARI - Hangi kurumdan yayınlandığı (Kurum bilgisi)
+  {
+    title: "Kurum Detayları",
+    titleColor: "text-teal-600",
+    titleIcon: "ph-bold ph-graduation-cap",
+    config: institutionDetailsConfig,
+  },
+
+  // 5. MEDYA İÇERİKLERİ - Görsel, video ve medya dosyaları (İçerik komponenti)
   {
     title: "Medya İçerikleri",
     titleColor: "text-purple-600",
@@ -46,31 +55,7 @@ export const POST_SECTIONS: SectionConfig[] = [
     config: mediaConfig,
   },
 
-  // 5. ÖZEL ÖZELLİKLER - Öne çıkarma, sabitleme, moderasyon (Yayınlama ayarları)
-  {
-    title: "Özel Özellikler",
-    titleColor: "text-warning-600",
-    titleIcon: "ph-bold ph-star",
-    config: featuresConfig,
-  },
-
-  // 6. ETKİLEŞİM AYARLARI - Yorum ve beğeni izinleri (Kullanıcı etkileşim kuralları)
-  {
-    title: "Etkileşim Ayarları",
-    titleColor: "text-info-600",
-    titleIcon: "ph-bold ph-chat-circle",
-    config: interactionConfig,
-  },
-
-  // 7. HAREKETE GEÇİRİCİ ELEMENTLER - CTA ve bağlantılar (Kullanıcı aksiyonları)
-  {
-    title: "Harekete Geçirici Elementler",
-    titleColor: "text-orange-600",
-    titleIcon: "ph-bold ph-megaphone",
-    config: ctaConfig,
-  },
-
-  // 8. PERFORMANS İSTATİSTİKLERİ - Etkileşim metrikleri (Analiz)
+  // 6. PERFORMANS İSTATİSTİKLERİ - Etkileşim metrikleri (Analiz)
   {
     title: "Performans İstatistikleri",
     titleColor: "text-success-600",
@@ -78,7 +63,31 @@ export const POST_SECTIONS: SectionConfig[] = [
     config: statisticsConfig,
   },
 
-  // 9. SEO VE METAVERİ - Etiketler, hashtag'ler, lokasyon (En son, teknik detaylar)
+  // 7. ÖZEL ÖZELLİKLER - Öne çıkarma, sabitleme, moderasyon (Yayınlama ayarları)
+  {
+    title: "Özel Özellikler",
+    titleColor: "text-warning-600",
+    titleIcon: "ph-bold ph-star",
+    config: featuresConfig,
+  },
+
+  // 8. ETKİLEŞİM AYARLARI - Yorum ve beğeni izinleri (Kullanıcı etkileşim kuralları)
+  {
+    title: "Etkileşim Ayarları",
+    titleColor: "text-info-600",
+    titleIcon: "ph-bold ph-chat-circle",
+    config: interactionConfig,
+  },
+
+  // 9. HAREKETE GEÇİRİCİ ELEMENTLER - CTA ve bağlantılar (Kullanıcı aksiyonları)
+  {
+    title: "Harekete Geçirici Elementler",
+    titleColor: "text-orange-600",
+    titleIcon: "ph-bold ph-megaphone",
+    config: ctaConfig,
+  },
+
+  // 10. SEO VE METAVERİ - Etiketler, hashtag'ler, lokasyon (En son, teknik detaylar)
   {
     title: "SEO & Metaveri",
     titleColor: "text-indigo-600",

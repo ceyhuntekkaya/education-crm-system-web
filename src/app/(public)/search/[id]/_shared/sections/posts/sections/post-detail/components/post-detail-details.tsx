@@ -1,11 +1,12 @@
 import React from "react";
-import { usePostContext } from "../../../context/post-context";
+import { PostDto } from "@/types/dto/content";
 
-const PostDetailDetails: React.FC = () => {
-  const { selectedPost } = usePostContext();
+interface PostDetailDetailsProps {
+  post: PostDto;
+}
 
-  if (!selectedPost?.locationName && !selectedPost?.tags && !selectedPost?.slug)
-    return null;
+const PostDetailDetails: React.FC<PostDetailDetailsProps> = ({ post }) => {
+  if (!post?.locationName && !post?.tags && !post?.slug) return null;
 
   return (
     <div className="mb-20 post-details-section">
@@ -20,32 +21,32 @@ const PostDetailDetails: React.FC = () => {
 
       <div className="details-card">
         <div className="d-flex flex-column gap-4">
-          {selectedPost?.locationName && (
+          {post?.locationName && (
             <div className="detail-item">
               <div className="detail-icon location-icon">
                 <i className="ph ph-map-pin fs-14" />
               </div>
-              <div className="detail-text">{selectedPost.locationName}</div>
+              <div className="detail-text">{post.locationName}</div>
             </div>
           )}
 
-          {selectedPost?.tags && (
+          {post?.tags && (
             <div className="detail-item">
               <div className="detail-icon tag-icon">
                 <i className="ph ph-tag fs-14" />
               </div>
               <div className="detail-text">
-                {selectedPost.tags.replace(/,/g, " • ")}
+                {post.tags.replace(/,/g, " • ")}
               </div>
             </div>
           )}
 
-          {selectedPost?.slug && (
+          {post?.slug && (
             <div className="detail-item">
               <div className="detail-icon link-icon">
                 <i className="ph ph-link fs-14" />
               </div>
-              <div className="detail-text">{selectedPost.slug}</div>
+              <div className="detail-text">{post.slug}</div>
             </div>
           )}
         </div>

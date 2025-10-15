@@ -1,22 +1,28 @@
 import React from "react";
-import Image from "next/image";
-import { Modal } from "@/components/ui";
-import { usePostContext } from "../../../context";
+import { CustomImage } from "@/components/ui";
 import { formatDate } from "../../../utils";
+import { PostDto } from "@/types/dto/content";
 
-const PostDetailHeader: React.FC = () => {
-  const { selectedPost, close } = usePostContext();
+interface PostDetailHeaderProps {
+  post: PostDto;
+  onClose?: () => void;
+}
 
-  if (!selectedPost) return null;
+const PostDetailHeader: React.FC<PostDetailHeaderProps> = ({
+  post,
+  onClose,
+}) => {
+  if (!post) return null;
+
   return (
-    <Modal.Header onClose={close} className="border-bottom px-24 py-20">
+    <div className="d-flex align-items-center justify-content-between  border-bottom border-neutral-200 px-24 py-20">
       <div className="d-flex align-items-center gap-12">
         <div className="avatar avatar-sm">
-          <Image
+          <CustomImage
             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-              selectedPost.author?.fullName || "User"
+              post.author?.fullName || "User"
             )}&background=6366f1&color=fff&size=32&rounded=true`}
-            alt={selectedPost.author?.fullName || "User"}
+            alt={post.author?.fullName || "User"}
             width={32}
             height={32}
             className="rounded-circle"
@@ -24,20 +30,30 @@ const PostDetailHeader: React.FC = () => {
         </div>
         <div className="flex-1">
           <h4 className="text-neutral-900 fw-medium fs-14 mb-2">
-            {selectedPost.author?.fullName || "Anonim Kullanıcı"}
+            {post.author?.fullName || "Anonim Kullanıcı"}
           </h4>
           <div className="d-flex align-items-center gap-8">
             <span className="text-neutral-500 fs-12">
-              {selectedPost.school?.name || "Okul Belirtilmemiş"}
+              {post.school?.name || "Okul Belirtilmemiş"}
             </span>
             <span className="text-neutral-400">•</span>
             <time className="text-neutral-500 fs-12">
-              {formatDate(selectedPost.publishedAt)}
+              {formatDate(post.publishedAt)}
             </time>
           </div>
         </div>
       </div>
-    </Modal.Header>
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="btn btn-icon btn-sm text-neutral-400 hover:text-neutral-600"
+          type="button"
+          aria-label="Kapat"
+        >
+          <i className="ph ph-x fs-18"></i>
+        </button>
+      )}
+    </div>
   );
 };
 

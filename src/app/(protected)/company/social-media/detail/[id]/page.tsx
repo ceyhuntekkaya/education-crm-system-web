@@ -4,6 +4,7 @@ import React from "react";
 import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { CustomImage } from "@/components";
 import { usePostDetail, usePostSections } from "./_shared";
+import { PostDetail } from "@/app/(public)/search/[id]/_shared/sections/posts";
 
 /**
  * Post detay bilgilerini gösteren kart bileşeni
@@ -52,10 +53,12 @@ const PostDetailPage: React.FC = () => {
 
   return (
     <CustomCard
-      title="Post Detayı"
-      subtitle="Post bilgilerini detaylı olarak görüntüleyin"
+      title="Sosyal Medya Detayı"
+      subtitle="Sosyal medya gönderisi bilgilerini detaylı olarak görüntüleyin"
       multiItems={allSections}
-    ></CustomCard>
+    >
+      <PostDetail post={post} variant="inPage" />
+    </CustomCard>
   );
 };
 

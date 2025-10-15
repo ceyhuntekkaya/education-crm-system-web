@@ -15,7 +15,8 @@ import {
 } from "./sections";
 
 const PostContent: React.FC = () => {
-  const { isOpen, close, selectedPostId, postData } = usePostContext();
+  const { isOpen, close, selectedPostId, postData, selectedPost } =
+    usePostContext();
 
   return (
     <div className="tutor-details__content">
@@ -62,7 +63,7 @@ const PostContent: React.FC = () => {
         closeOnBackdropClick={true}
         scrollable={true}
       >
-        {selectedPostId && <PostDetail />}
+        {selectedPostId && <PostDetail post={selectedPost} onClose={close} />}
       </Modal>
     </div>
   );

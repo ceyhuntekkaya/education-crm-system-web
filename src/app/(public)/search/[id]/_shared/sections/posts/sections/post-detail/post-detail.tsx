@@ -1,6 +1,5 @@
 import React from "react";
-import { Modal } from "@/components/ui";
-import { usePostContext } from "../../context";
+import { PostDetailProps } from "../../types";
 import {
   PostDetailHeader,
   PostDetailMediaColumn,
@@ -8,29 +7,71 @@ import {
   PostDetailNotFound,
 } from "./components";
 
-const PostDetail: React.FC = () => {
-  const { selectedPost } = usePostContext();
+interface ExtendedPostDetailProps extends PostDetailProps {
+  variant?: "inPage" | "modal";
+}
 
-  if (!selectedPost) {
-    return <PostDetailNotFound />;
+const PostDetail: React.FC<ExtendedPostDetailProps> = ({
+  post,
+  onClose,
+  variant = "modal",
+}) => {
+  if (!post) {
+    return (
+      <div>
+        <div className="text-center p-40">
+          <i
+            className="ph ph-warning-circle text-warning-500"
+            style={{ fontSize: "48px" }}
+          />
+          <h3 className="text-neutral-900 fs-20 fw-semibold mb-8 mt-24">
+            Gönderi Bulunamadı
+          </h3>
+          <p className="text-neutral-600 fs-14">
+            İstediğiniz gönderi mevcut değil veya kaldırılmış olabilir.
+          </p>
+        </div>
+      </div>
+    );
   }
 
-  return (
-    <>
-      <PostDetailHeader />
-
-      <Modal.Body className="p-0">
-        <div className="row g-0 post-detail-layout">
+  // InPage variant için farklı layout structure
+  if (variant === "inPage") {
+    return (
+      <div className="bg-white border rounded-12 overflow-hidden post-detail-in-page">
+        <PostDetailHeader post={post} onClose={onClose} />
+        <div className="row g-0 post-detail-layout post-detail-in-page-layout">
           <div className="col-6">
-            <PostDetailMediaColumn />
+            <PostDetailMediaColumn post={post} />
           </div>
-
           <div className="col-6">
-            <PostDetailContentColumn />
+            <div className="post-detail-content-wrapper">
+              <PostDetailContentColumn post={post} variant={variant} />
+            </div>
           </div>
         </div>
-      </Modal.Body>
-    </>
+      </div>
+    );
+  }
+
+  // Modal variant (default)
+  const content = (
+    <div className="row g-0 post-detail-layout">
+      <div className="col-6">
+        <PostDetailMediaColumn post={post} />
+      </div>
+
+      <div className="col-6">
+        <PostDetailContentColumn post={post} variant={variant} />
+      </div>
+    </div>
+  );
+
+  return (
+    <div>
+      <PostDetailHeader post={post} onClose={onClose} />
+      <div>{content}</div>
+    </div>
   );
 };
 
