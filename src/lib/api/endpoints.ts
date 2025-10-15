@@ -26,11 +26,14 @@ export const API_ENDPOINTS = {
   PRICING: {
     SCHOOL_PRICING: (schoolId: string | number) =>
       `/pricing/school-pricing/school/${schoolId}`,
+    SCHOOL_PRICING_BY_ID: (id: string | number) =>
+      `/pricing/school-pricing/${id}`,
   },
 
   CAMPAIGNS: {
     ACTIVE: "/campaigns/active",
     BY_SCHOOL: (schoolId: string | number) => `/campaigns/schools/${schoolId}`,
+    BY_ID: (id: string | number) => `/campaigns/${id}`,
   },
 
   APPOINTMENTS: {
@@ -49,6 +52,8 @@ export const API_ENDPOINTS = {
       `/content/messages/school/${schoolId}`,
     GALLERIES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/galleries/school/${schoolId}`,
+    GALLERIES: "/content/galleries",
+    GALLERY_BY_ID: (id: string | number) => `/content/galleries/${id}`,
   },
 
   TEMP: {

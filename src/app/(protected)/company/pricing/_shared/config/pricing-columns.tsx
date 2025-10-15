@@ -244,18 +244,11 @@ export const createPricingColumns = (): GridColDef<SchoolPricingDto>[] => [
     renderCell: renderDiscountInfo,
   },
 
-  // Validity & Actions Columns
+  // Validity Column
   {
     field: "validity",
     headerName: "Geçerlilik",
     width: 180,
     renderCell: renderValidityPeriod,
   },
-  // {
-  //   field: "actions",
-  //   headerName: "",
-  //   width: 70,
-  //   sortable: false,
-  //   renderCell: (params) => renderActionButtons(params, handlers),
-  // },
 ];

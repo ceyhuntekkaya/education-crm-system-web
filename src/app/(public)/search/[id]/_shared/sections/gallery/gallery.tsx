@@ -5,12 +5,13 @@ import { Modal } from "@/components/ui";
 import { GalleryProvider, useGalleryContext } from "./context";
 import { GalleryFilterForm } from "./sections/filter-form";
 import { GalleryProps } from "./types";
+import { galleryMockData } from "./mock";
 import {
   GalleryHeader,
   GalleryGrid,
   GalleryEmptyState,
   GalleryFooter,
-  GalleryDetailModalContent,
+  GalleryDetailContent,
 } from "./components";
 
 const GalleryContent: React.FC = () => {
@@ -40,7 +41,11 @@ const GalleryContent: React.FC = () => {
 
         {/* Gallery Detail Modal */}
         <Modal isOpen={isOpen} onClose={close} size="xl">
-          {selectedGalleryId && <GalleryDetailModalContent />}
+          {selectedGalleryId && (
+            <GalleryDetailContent
+              gallery={galleryMockData.find((g) => g.id === selectedGalleryId)}
+            />
+          )}
         </Modal>
       </div>
     </>

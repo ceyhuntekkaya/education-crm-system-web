@@ -9,12 +9,12 @@ export default function InstitutionGeneralInfo() {
 
   const institutionInfoItems = [
     {
-      label: "Kurum Adı",
+      label: "Okul Adı",
       value: <span className="text-main-600 fw-semibold">{school.name}</span>,
       isShowing: school.name && school.name.trim() !== "",
     },
     {
-      label: "Kurum Türü",
+      label: "Okul Türü",
       value: (
         <span className="fw-semibold text-warning-600 text-md">
           <div className="d-flex align-items-center gap-8">
@@ -288,11 +288,11 @@ export default function InstitutionGeneralInfo() {
 
   return (
     <div className="tutor-details__content mt-24">
-      {/* Kurum Açıklaması */}
+      {/* Okul Açıklaması */}
       {school.description && (
         <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
           <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <h4 className="mb-16">Kurum Hakkında</h4>
+            <h4 className="mb-16">Okul Hakkında</h4>
             <span className="d-block border border-neutral-30 my-20 border-dashed" />
             <p className="text-neutral-700 text-md leading-relaxed mb-0">
               {school.description}
@@ -303,7 +303,7 @@ export default function InstitutionGeneralInfo() {
 
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
         <div className="border border-neutral-30 rounded-12 bg-main-25 p-32 bg-main-25">
-          <h4 className="mb-16">Kurum Bilgileri</h4>
+          <h4 className="mb-16">Okul Bilgileri</h4>
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
 
           <ul className="tution-info-list bg-white rounded-8">

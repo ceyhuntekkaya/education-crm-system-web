@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { CustomImage } from "@/components/ui";
 import { GalleryCardProps } from "../types";
 import {
   getGalleryTypeIcon,
@@ -26,15 +26,12 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ gallery, onCardClick }) => {
       <div className="gallery-card__image">
         {gallery.coverImageUrl ? (
           <div className="position-relative w-100 h-100">
-            <Image
+            <CustomImage
               src={gallery.coverImageUrl}
               alt={gallery.title || ""}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              onError={(e) => {
-                // Görsel yüklenemezse placeholder göster
-                e.currentTarget.style.display = "none";
-              }}
+              className="object-cover"
             />
           </div>
         ) : (

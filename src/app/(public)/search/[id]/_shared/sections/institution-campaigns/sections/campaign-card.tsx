@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { CampaignDto } from "@/types";
+import { CustomImage } from "@/components/ui";
 import {
   getCampaignTypeDisplay,
   formatDate,
@@ -46,16 +46,12 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
               style={{ height: "100px", width: "100%" }}
             >
               {campaign.thumbnailImageUrl ? (
-                <Image
+                <CustomImage
                   src={campaign.thumbnailImageUrl}
                   alt={campaign.title || "Campaign"}
                   width={160}
                   height={100}
-                  className="w-100 h-100 object-cover"
-                  onError={(e) => {
-                    const target = e.currentTarget as HTMLImageElement;
-                    target.style.display = "none";
-                  }}
+                  className="w-100 h-100 object-contain"
                 />
               ) : (
                 <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-main-25">

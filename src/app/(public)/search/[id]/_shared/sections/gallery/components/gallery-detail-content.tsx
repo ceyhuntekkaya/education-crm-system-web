@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import { useGalleryContext } from "../context";
-import { galleryMockData } from "../mock";
+import { CustomImage } from "@/components/ui";
 import {
   formatDate,
   formatViewCount,
@@ -9,11 +7,16 @@ import {
   getGalleryTypeIcon,
 } from "../utils";
 
-const GalleryDetailModalContent: React.FC = () => {
-  const { selectedGalleryId, close } = useGalleryContext();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+interface GalleryDetailContentProps {
+  gallery: any; // Gallery data'sının type'ını buraya ekleyebilirsiniz
+  variant?: "inPage" | "modal"; // Galeri görünümü türü
+}
 
-  const gallery = galleryMockData.find((g) => g.id === selectedGalleryId);
+const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
+  gallery,
+  variant = "modal", // Varsayılan olarak modal
+}) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (!gallery) {
     return (
@@ -26,9 +29,6 @@ const GalleryDetailModalContent: React.FC = () => {
         <p className="text-neutral-500 mb-24">
           İstediğiniz galeri mevcut değil.
         </p>
-        <button onClick={close} className="btn btn-primary-outline">
-          Geri Dön
-        </button>
       </div>
     );
   }
@@ -58,12 +58,9 @@ const GalleryDetailModalContent: React.FC = () => {
   };
 
   return (
-    <div className="gallery-detail-modal">
-      {/* Close Button */}
-      <button onClick={close} className="modal-close-button">
-        <i className="ph ph-x"></i>
-      </button>
-
+    <div
+      className={`gallery-detail-modal ${variant === "modal" ? "p-20" : ""}`}
+    >
       {/* Main Content Grid */}
       <div className="gallery-modal-grid">
         {/* Left Column - Gallery Viewer */}
@@ -74,8 +71,8 @@ const GalleryDetailModalContent: React.FC = () => {
               <div className="gallery-main-viewer">
                 {currentItem && (
                   <div className="main-image-container">
-                    <Image
-                      src={currentItem.fileUrl || "/placeholder-image.jpg"}
+                    <CustomImage
+                      src={currentItem.fileUrl}
                       alt={
                         currentItem.title ||
                         `Galeri içeriği ${currentImageIndex + 1}`
@@ -124,7 +121,7 @@ const GalleryDetailModalContent: React.FC = () => {
               {gallery.items && gallery.items.length > 1 && (
                 <div className="thumbnail-strip">
                   <div className="thumbnail-container">
-                    {gallery.items.map((item, index) => (
+                    {gallery.items.map((item: any, index: number) => (
                       <div
                         key={`thumb-${item.id}`}
                         onClick={() => goToImage(index)}
@@ -132,8 +129,8 @@ const GalleryDetailModalContent: React.FC = () => {
                           index === currentImageIndex ? "active" : ""
                         }`}
                       >
-                        <Image
-                          src={item.fileUrl || "/placeholder-image.jpg"}
+                        <CustomImage
+                          src={item.fileUrl}
                           alt={`Thumbnail ${index + 1}`}
                           fill
                           sizes="80px"
@@ -182,8 +179,8 @@ const GalleryDetailModalContent: React.FC = () => {
           {gallery.school && (
             <div className="institution-card">
               <div className="institution-avatar">
-                <Image
-                  src={gallery.school.logoUrl || "/placeholder-logo.png"}
+                <CustomImage
+                  src={gallery.school.logoUrl}
                   alt={gallery.school.name || "School logo"}
                   width={40}
                   height={40}
@@ -256,4 +253,4 @@ const GalleryDetailModalContent: React.FC = () => {
   );
 };
 
-export default GalleryDetailModalContent;
+export default GalleryDetailContent;

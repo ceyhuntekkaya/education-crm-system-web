@@ -8,6 +8,8 @@ export { LoadingSpinner } from "./loadings";
 export { default as TabContent } from "./tab-content";
 export { default as TabNavigation } from "./tab-navigation";
 export { Accordion, AccordionItem } from "./accordion";
+export { default as CustomImage } from "./custom-image";
+export { default as CustomCard } from "./custom-card";
 
 // Modal Components - Using the new modal structure
 export * from "./modal";
@@ -18,6 +20,7 @@ export { DataGrid, DataGridExample } from "./data-grid";
 // Types
 export type { BadgeProps, BadgeVariant } from "./badge";
 export type { TabItem, TabSystemProps } from "./types";
+export type { CustomCardProps } from "./custom-card";
 export type { GridColDef, DataGridProps } from "./data-grid";
 export type {
   ModalProps,

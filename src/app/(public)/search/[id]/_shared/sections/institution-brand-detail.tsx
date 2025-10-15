@@ -15,12 +15,12 @@ export default function InstitutionBrandDetail() {
       isShowing: brand.foundedYear && brand.foundedYear > 0,
     },
     {
-      label: "Grup Açıklaması",
+      label: "Kurum Açıklaması",
       value: brand.description,
       isShowing: brand.description && brand.description.trim() !== "",
     },
     {
-      label: "Grup İletişim",
+      label: "Kurum İletişim",
       value: (
         <div className="d-flex flex-column gap-8">
           {brand.phone && (
