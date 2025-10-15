@@ -65,7 +65,7 @@ export const statisticsConfig: StatisticsItemConfig[] = [
   {
     label: "Başvuru / Dönüşüm",
     value: (campaign) => (
-      <div className="row g-2">
+      <div className="row g-2 mb-1">
         <div className="col-6">
           <div className="text-center p-2 bg-info-50 rounded">
             <div className="fw-bold text-info-600 fs-5">
@@ -91,7 +91,7 @@ export const statisticsConfig: StatisticsItemConfig[] = [
   {
     label: "Görüntülenme / Tıklama",
     value: (campaign) => (
-      <div className="row g-2">
+      <div className="row g-2 mb-1">
         <div className="col-6">
           <div className="text-center p-2 bg-primary-50 rounded">
             <div className="fw-bold text-primary-600 fs-5">
@@ -116,7 +116,7 @@ export const statisticsConfig: StatisticsItemConfig[] = [
   {
     label: "Performans Özeti",
     value: (campaign) => (
-      <div className="row g-2">
+      <div className="row g-2 mb-1">
         <div className="col-6 col-lg-3">
           <div className="text-center p-2 bg-primary-50 rounded border">
             <div className="fw-bold text-primary-600 fs-5">
