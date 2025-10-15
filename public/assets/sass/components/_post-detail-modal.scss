@@ -1277,3 +1277,150 @@
     }
   }
 }
+
+// InPage Variant Özel Stilleri
+.post-detail-in-page {
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  
+  // Header fixed position
+  .d-flex.align-items-center.justify-content-between {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    border-bottom: 1px solid var(--neutral-200);
+    flex-shrink: 0;
+  }
+  
+  // Layout container
+  .post-detail-in-page-layout {
+    flex: 1;
+    height: calc(80vh - 80px); // Header yüksekliğini çıkar
+    max-height: calc(80vh - 80px);
+    overflow: hidden;
+    
+    .col-6 {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    // Sol sütun - Medya
+    .post-detail-media-column {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-right: 1px solid var(--neutral-200);
+      
+      // Custom scrollbar
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: var(--neutral-50);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--neutral-300);
+        border-radius: 3px;
+        
+        &:hover {
+          background: var(--neutral-400);
+        }
+      }
+    }
+    
+    // Sağ sütun wrapper
+    .post-detail-content-wrapper {
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      
+      .post-detail-content-column {
+        flex: 1;
+        height: 100%;
+        overflow-y: scroll; // scroll kullan auto yerine
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        
+        // Custom scrollbar
+        &::-webkit-scrollbar {
+          width: 8px; // Biraz daha genişlet
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: var(--neutral-50);
+          border-radius: 4px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: var(--neutral-400);
+          border-radius: 4px;
+          
+          &:hover {
+            background: var(--neutral-500);
+          }
+        }
+      }
+    }
+  }
+  
+  // Content bölümüne özel düzenlemeler
+  .post-detail-content-column .p-24 {
+    // min-height: calc(100% - 48px); // Full height kullan
+    // padding-bottom: 80px !important; // Daha fazla alt boşluk
+    box-sizing: border-box;
+    
+    // Son element için margin kaldır
+    > *:last-child {
+      margin-bottom: 0 !important;
+    }
+    
+    // Post details section için
+    .border-top {
+      margin-bottom: 0 !important;
+      padding-bottom: 20px;
+    }
+  }
+  
+  // Responsive inPage
+  @media (max-width: 768px) {
+    max-height: 90vh;
+    
+    .post-detail-in-page-layout {
+      height: auto;
+      max-height: none;
+      flex-direction: column;
+      
+      .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .post-detail-media-column {
+        height: auto;
+        max-height: 30vh;
+        border-right: none;
+        border-bottom: 1px solid var(--neutral-200);
+      }
+      
+      .post-detail-content-wrapper {
+        height: auto;
+        
+        .post-detail-content-column {
+          height: auto;
+          max-height: 55vh;
+          
+          .p-24 {
+            padding-bottom: 40px !important;
+          }
+        }
+      }
+    }
+  }
+}

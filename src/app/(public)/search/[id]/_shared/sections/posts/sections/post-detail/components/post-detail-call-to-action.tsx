@@ -1,22 +1,26 @@
 import React from "react";
 import { Button } from "@/components/ui";
-import { usePostContext } from "../../../context/post-context";
+import { PostDto } from "@/types/dto/content";
 
-const PostDetailCallToAction: React.FC = () => {
-  const { selectedPost } = usePostContext();
+interface PostDetailCallToActionProps {
+  post: PostDto;
+}
 
-  if (!selectedPost?.callToAction || !selectedPost?.ctaUrl) return null;
+const PostDetailCallToAction: React.FC<PostDetailCallToActionProps> = ({
+  post,
+}) => {
+  if (!post?.callToAction || !post?.ctaUrl) return null;
 
   return (
     <div className="mb-24">
       <Button
-        href={selectedPost.ctaUrl}
+        href={post.ctaUrl}
         variant="inline"
         size="xs"
         rightIcon="ph-arrow-right"
         className="shadow-sm"
       >
-        {selectedPost.callToAction}
+        {post.callToAction}
       </Button>
     </div>
   );

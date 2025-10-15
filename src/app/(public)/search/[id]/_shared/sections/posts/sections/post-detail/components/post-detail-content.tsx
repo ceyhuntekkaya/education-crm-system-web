@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { usePostContext } from "../../../context";
 import { stripHtmlTags, highlightHashtags } from "../../../utils";
+import { PostDto } from "@/types/dto/content";
 
-const PostDetailContent: React.FC = () => {
-  const { selectedPost } = usePostContext();
+interface PostDetailContentProps {
+  post: PostDto;
+}
+
+const PostDetailContent: React.FC<PostDetailContentProps> = ({ post }) => {
   const [showFullContent, setShowFullContent] = useState(false);
 
-  if (!selectedPost?.content) return null;
+  if (!post?.content) return null;
 
   return (
     <div className="mb-24 content-section">
@@ -24,19 +27,17 @@ const PostDetailContent: React.FC = () => {
           className="post-content"
           dangerouslySetInnerHTML={{
             __html: showFullContent
-              ? highlightHashtags(selectedPost.content)
+              ? highlightHashtags(post.content)
               : highlightHashtags(
-                  stripHtmlTags(selectedPost.content).substring(0, 250) +
-                    (stripHtmlTags(selectedPost.content).length > 250
-                      ? "..."
-                      : "")
+                  stripHtmlTags(post.content).substring(0, 250) +
+                    (stripHtmlTags(post.content).length > 250 ? "..." : "")
                 ),
           }}
           data-aos={showFullContent ? "fade-in" : ""}
           data-aos-duration="500"
         />
 
-        {stripHtmlTags(selectedPost.content).length > 250 && (
+        {stripHtmlTags(post.content).length > 250 && (
           <div className="position-relative">
             {/* Gradient Fade Effect */}
             {!showFullContent && <div className="content-fade" />}

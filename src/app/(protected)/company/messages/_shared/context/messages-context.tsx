@@ -19,9 +19,9 @@ export const MessagesProvider: React.FC<MessagesProviderProps> = ({
   // Company context'ten seçili okul ID'sini al
   const { selectedSchool } = useCompany();
 
-  // Messages hook'unu kullan
+  // Messages hook'unu kullan - selectedSchool varsa o okula ait, yoksa tüm mesajları getir
   const { schoolMessages, messagesLoading, messagesError, refetchMessages } =
-    useSchoolMessages(selectedSchool?.id || null);
+    useSchoolMessages(selectedSchool?.id);
 
   const contextValue: MessagesContextType = {
     schoolMessages,

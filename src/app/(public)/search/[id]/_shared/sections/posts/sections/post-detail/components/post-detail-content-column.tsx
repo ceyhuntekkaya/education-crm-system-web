@@ -1,5 +1,5 @@
 import React from "react";
-import { usePostContext } from "../../../context";
+import { PostDto } from "@/types/dto/content";
 import {
   PostDetailTitle,
   PostDetailEngagement,
@@ -11,38 +11,44 @@ import {
   PostDetailStatus,
 } from ".";
 
-const PostDetailContentColumn: React.FC = () => {
-  const { selectedPost } = usePostContext();
+interface PostDetailContentColumnProps {
+  post: PostDto;
+  variant?: "inPage" | "modal";
+}
 
-  if (!selectedPost) return null;
+const PostDetailContentColumn: React.FC<PostDetailContentColumnProps> = ({
+  post,
+  variant = "modal",
+}) => {
+  if (!post) return null;
   return (
     <div className="post-detail-content-column h-100 overflow-y-auto">
-      <div className="p-24">
+      <div className={`p-24`}>
         {/* Title */}
-        <PostDetailTitle />
+        <PostDetailTitle post={post} />
 
         {/* Engagement Section */}
-        <PostDetailEngagement />
+        <PostDetailEngagement post={post} />
 
         {/* Content */}
-        <PostDetailContent />
+        <PostDetailContent post={post} />
 
         {/* Hashtags */}
-        <PostDetailHashtags />
+        <PostDetailHashtags post={post} />
 
         {/* Call to Action */}
-        <PostDetailCallToAction />
+        <PostDetailCallToAction post={post} />
 
         {/* Post Details Section */}
         <div className="border-top border-neutral-200 pt-20">
           {/* Location and Tags */}
-          <PostDetailDetails />
+          <PostDetailDetails post={post} />
 
           {/* Advanced Analytics */}
-          <PostDetailAnalytics />
+          <PostDetailAnalytics post={post} />
 
           {/* Post Status and Settings */}
-          <PostDetailStatus />
+          <PostDetailStatus post={post} />
         </div>
       </div>
     </div>

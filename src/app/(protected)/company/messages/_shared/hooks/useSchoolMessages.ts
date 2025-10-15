@@ -14,25 +14,26 @@ interface UseSchoolMessagesReturn {
 
 /**
  * Seçili okul için mesaj verilerini yöneten hook
- * @param schoolId - Okul ID'si
+ * @param schoolId - Okul ID'si (opsiyonel)
  * @returns Mesaj verileri ve yönetim fonksiyonları
  */
 export const useSchoolMessages = (
-  schoolId: number | null
+  schoolId?: number | null
 ): UseSchoolMessagesReturn => {
+  // Eğer schoolId yoksa, tüm mesajları getir
+  const endpoint = schoolId
+    ? API_ENDPOINTS.CONTENT.MESSAGES_BY_SCHOOL(schoolId)
+    : "/content/messages"; // Tüm mesajlar için endpoint
+
   const {
     data: schoolMessageResponse,
     loading: messagesLoading,
     error: messagesError,
     refetch: refetchMessages,
-  } = useGet<ApiResponseDto<MessageDto[]>>(
-    schoolId ? API_ENDPOINTS.CONTENT.MESSAGES_BY_SCHOOL(schoolId) : null
-  );
+  } = useGet<ApiResponseDto<MessageDto[]>>(endpoint);
 
   return {
-    schoolMessages: schoolMessageResponse?.data
-      ? schoolMessageResponse.data
-      : [],
+    schoolMessages: schoolMessageResponse?.data || [],
     messagesLoading,
     messagesError,
     refetchMessages,

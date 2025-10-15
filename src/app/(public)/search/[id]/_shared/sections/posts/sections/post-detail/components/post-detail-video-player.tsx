@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { CustomImage } from "@/components/ui";
 
 interface PostDetailVideoPlayerProps {
   currentMedia: {
@@ -30,7 +30,7 @@ const PostDetailVideoPlayer: React.FC<PostDetailVideoPlayerProps> = ({
           />
         ) : currentMedia.thumbnailUrl ? (
           <div className="position-relative w-100 h-100" onClick={onVideoPlay}>
-            <Image
+            <CustomImage
               src={currentMedia.thumbnailUrl}
               alt="Video thumbnail"
               fill

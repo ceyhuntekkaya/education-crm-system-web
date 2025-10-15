@@ -45,12 +45,12 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/social-media",
-    label: "Sosyal Medya *",
+    label: "Sosyal Medya **",
     icon: "ph-share-network",
   },
   {
     href: "/company/messages",
-    label: "Mesajlar *",
+    label: "Mesajlar **",
     icon: "ph-chat-circle",
   },
   {

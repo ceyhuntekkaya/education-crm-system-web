@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CustomImage } from "@/components";
 import { GridColDef } from "@/components/ui/data-grid";
 import { PostDto } from "@/types/dto/content/PostDto";
 import { formatDate, formatDateTime } from "@/utils";
@@ -24,32 +24,13 @@ export const createSocialMediaColumns = (): GridColDef<PostDto>[] => [
     renderCell: (params: any) => (
       <div className="d-flex align-items-center justify-content-center h-100">
         {params?.row?.featuredImageUrl ? (
-          <Image
+          <CustomImage
             src={params.row.featuredImageUrl}
             alt={params?.row?.title || "Post Görseli"}
             width={44}
             height={32}
             className="rounded"
             style={{ objectFit: "cover", border: "1px solid #e5e7eb" }}
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              const parent = img.parentElement;
-
-              // Eğer zaten bir fallback element varsa, yenisini ekleme
-              if (parent?.querySelector(".fallback-icon")) {
-                img.style.display = "none";
-                return;
-              }
-
-              img.style.display = "none";
-              const fallback = document.createElement("div");
-              fallback.className =
-                "rounded d-flex align-items-center justify-content-center fallback-icon";
-              fallback.style.cssText = `width: 44px; height: 32px; background-color: #9ca3af; color: white;`;
-              fallback.innerHTML =
-                '<i class="ph ph-image" style="font-size: 16px;"></i>';
-              parent?.appendChild(fallback);
-            }}
           />
         ) : (
           <div
