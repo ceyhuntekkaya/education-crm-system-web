@@ -50,7 +50,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/messages",
-    label: "Mesajlar *",
+    label: "Mesajlar **",
     icon: "ph-chat-circle",
   },
   {

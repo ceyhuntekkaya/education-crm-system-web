@@ -316,24 +316,4 @@ export const createMessagesColumns = (): GridColDef<MessageDto>[] => [
       </div>
     ),
   },
-  //   {
-  //     field: "actions",
-  //     headerName: "",
-  //     width: 120,
-  //     sortable: false,
-  //     renderCell: (params: any) => (
-  //       <MessagesActionButtons
-  //         message={params.row}
-  //         onViewDetails={handlers.onViewDetails}
-  //         onEdit={handlers.onEdit}
-  //         onToggleStatus={handlers.onToggleStatus}
-  //         onDelete={handlers.onDelete}
-  //         onReply={handlers.onReply}
-  //         onForward={handlers.onForward}
-  //         onMarkAsRead={handlers.onMarkAsRead}
-  //         onMarkAsResolved={handlers.onMarkAsResolved}
-  //         onAssign={handlers.onAssign}
-  //       />
-  //     ),
-  //   },
 ];

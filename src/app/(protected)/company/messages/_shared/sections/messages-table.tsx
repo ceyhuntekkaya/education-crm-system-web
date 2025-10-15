@@ -1,19 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
-import { MessageDto } from "@/types/dto/content/MessageDto";
 import { createMessagesColumns } from "../config/messages-columns";
-import { MessagesColumnHandlers } from "../types";
 import { useMessages } from "../context";
-import { mockMessages } from "../mock";
 
 export const MessagesTable: React.FC = () => {
+  const router = useRouter();
+
   // Context'ten verileri al
   const { schoolMessages, messagesLoading } = useMessages();
 
   // Kolonları oluştur
   const columns = createMessagesColumns();
+
+  // Satır tıklama işleyicisi - detay sayfasına yönlendir
+  const handleRowClick = (params: any) => {
+    router.push(`/company/messages/detail/${params.row.id}`);
+  };
 
   return (
     <div className="messages-table-container">
@@ -23,6 +28,7 @@ export const MessagesTable: React.FC = () => {
           rows={schoolMessages}
           columns={columns}
           loading={messagesLoading}
+          onRowClick={handleRowClick}
           // height={600}
           initialState={{
             pagination: {

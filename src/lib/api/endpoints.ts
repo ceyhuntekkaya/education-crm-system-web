@@ -55,6 +55,7 @@ export const API_ENDPOINTS = {
     GALLERIES: "/content/galleries",
     GALLERY_BY_ID: (id: string | number) => `/content/galleries/${id}`,
     POST_BY_ID: (id: string | number) => `/content/posts/${id}`,
+    MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
   },
 
   TEMP: {
