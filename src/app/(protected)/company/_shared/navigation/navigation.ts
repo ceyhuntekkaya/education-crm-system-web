@@ -45,7 +45,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/social-media",
-    label: "Sosyal Medya *",
+    label: "Sosyal Medya **",
     icon: "ph-share-network",
   },
   {
