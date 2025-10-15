@@ -1,4 +1,5 @@
 import { SectionConfig } from "../types";
+import { campaignInfoConfig } from "./campaign-info-config";
 import { basicInfoConfig } from "./basic-info-config";
 import { discountConfig } from "./discount-config";
 import { targetAudienceConfig } from "./target-audience-config";
@@ -19,7 +20,15 @@ import { ctaInfoConfig } from "./cta-info-config";
  * Tüm section konfigürasyonlarını tanımlar
  */
 export const CAMPAIGN_SECTIONS: SectionConfig[] = [
-  // 1. EN ÖNEMLİ - Temel kampanya bilgileri
+  // 1. HIZLI BİLGİLER - Kalan süre ve tür
+  {
+    title: "Hızlı Bilgiler",
+    titleColor: "text-primary-600",
+    titleIcon: "ph-bold ph-lightning",
+    config: campaignInfoConfig,
+  },
+
+  // 2. DETAYLI - Temel kampanya bilgileri
   {
     title: "Temel Bilgiler",
     titleColor: "text-primary-600",

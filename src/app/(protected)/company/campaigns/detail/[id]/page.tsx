@@ -4,6 +4,7 @@ import React from "react";
 
 import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useCampaignDetail, useCampaignSections } from "./_shared";
+import { CampaignCard } from "@/app/(public)/search/[id]/_shared/sections/institution-campaigns";
 
 /**
  * Campaign detay bilgilerini gösteren kart bileşeni
@@ -57,7 +58,9 @@ const CampaignDetailPage: React.FC = () => {
       title="Kampanya Detayı"
       subtitle="Kampanya bilgilerini detaylı olarak görüntüleyin"
       multiItems={allSections}
-    />
+    >
+      <CampaignCard campaign={campaign} />
+    </CustomCard>
   );
 };
 

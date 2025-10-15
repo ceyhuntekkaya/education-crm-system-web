@@ -123,6 +123,11 @@ export default function CustomCard({
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
         )}
 
+        {/* Children Content */}
+        {children && (
+          <div className={items || multiItems ? "mb-24" : ""}>{children}</div>
+        )}
+
         {/* Custom Items List */}
         {items && (
           <ul className="tution-info-list bg-white rounded-8">
@@ -199,9 +204,6 @@ export default function CustomCard({
               </div>
             );
           })}
-
-        {/* Children Content */}
-        {children}
       </div>
     </div>
   );

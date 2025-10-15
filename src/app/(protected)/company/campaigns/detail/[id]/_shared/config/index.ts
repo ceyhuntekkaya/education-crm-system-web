@@ -13,4 +13,5 @@ export * from "./campaign-schools-config";
 export * from "./campaign-contents-config";
 export * from "./bonuses-gifts-config";
 export * from "./cta-info-config";
+export * from "./campaign-info-config";
 export * from "./section-definitions";
