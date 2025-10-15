@@ -40,7 +40,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/gallery",
-    label: "Galeri *",
+    label: "Galeri **",
     icon: "ph-image",
   },
   {
