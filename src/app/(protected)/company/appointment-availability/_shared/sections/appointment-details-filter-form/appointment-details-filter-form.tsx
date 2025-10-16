@@ -11,6 +11,8 @@ import { AppointmentDetailsFilterFormProps } from "./types";
 import { useAppointment } from "../../context/appointment-context";
 import CustomCard from "@/components/ui/custom-card";
 import Button from "@/components/ui/button";
+import { getFilterSubtitle } from "./utils";
+import { cleanFilters, getActiveFilterCount } from "@/utils/filter-utils";
 
 /**
  * Appointment details filter form component
@@ -35,39 +37,23 @@ export const AppointmentDetailsFilterForm: React.FC<
   }
 
   const handleSubmit = (filters: any) => {
-    // Boş değerleri temizle
-    const cleanFilters = Object.entries(filters).reduce((acc, [key, value]) => {
-      if (value !== "" && value !== null && value !== undefined) {
-        // Array ise ve boş değilse ekle
-        if (Array.isArray(value) && value.length > 0) {
-          acc[key] = value;
-        }
-        // String ise ve boş değilse ekle
-        else if (typeof value === "string" && value.trim() !== "") {
-          acc[key] = value.trim();
-        }
-        // Boolean ise ekle
-        else if (typeof value === "boolean") {
-          acc[key] = value;
-        }
-      }
-      return acc;
-    }, {} as any);
+    // Boş değerleri temizle - genel utility kullan (tüm default seçeneklerle)
+    const processedFilters = cleanFilters(filters);
 
     // Context'teki filter fonksiyonunu çağır
     if (setAppointmentFilters) {
-      setAppointmentFilters(cleanFilters);
+      setAppointmentFilters(processedFilters);
     }
 
     // Callback varsa çağır
     if (onFilter) {
-      onFilter(cleanFilters);
+      onFilter(processedFilters);
     }
   };
 
   // Header action component
   const headerAction =
-    appointmentFilters && Object.keys(appointmentFilters).length > 0 ? (
+    getActiveFilterCount(appointmentFilters) > 0 ? (
       <Button
         variant="outline"
         size="sm"
@@ -79,42 +65,26 @@ export const AppointmentDetailsFilterForm: React.FC<
       </Button>
     ) : undefined;
 
-  // Active filters info
-  const subtitle = availabilities?.length
-    ? `${availabilities.length} randevu içerisinde filtreleme yapabilirsiniz`
-    : "Randevular yükleniyor...";
-
-  const activeFiltersInfo =
-    appointmentFilters && Object.keys(appointmentFilters).length > 0 ? (
-      <div className="d-flex align-items-center gap-2 mt-2">
-        <span className="badge bg-info-subtle text-info px-2 py-1">
-          <i className="ph-check-circle me-1" style={{ fontSize: "12px" }}></i>
-          {Object.keys(appointmentFilters).length} aktif filtre uygulandı
-        </span>
-      </div>
-    ) : null;
-
   return (
     <div className={className}>
       <CustomCard
         variant="outline"
         title="Randevu Detayları Filtreleme"
-        subtitle={subtitle}
+        subtitle={getFilterSubtitle(
+          appointmentFilters,
+          availabilities?.length || 0,
+          "Randevular yükleniyor..."
+        )}
+        size="sm"
         headerAction={headerAction}
-        className="mb-6"
+        type="accordion"
       >
-        {/* Active Filters Info */}
-        {activeFiltersInfo}
-
         {/* Filter Form */}
         <FormProvider
           initialValues={appointmentDetailsInitialValues}
           //   validationSchema={appointmentDetailsValidationSchema}
         >
-          <AppointmentDetailsFormContent
-            onSubmit={handleSubmit}
-            loading={loading || availabilityLoading}
-          />
+          <AppointmentDetailsFormContent onSubmit={handleSubmit} />
         </FormProvider>
       </CustomCard>
     </div>

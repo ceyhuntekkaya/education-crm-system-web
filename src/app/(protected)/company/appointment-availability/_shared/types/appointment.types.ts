@@ -73,6 +73,7 @@ export interface AppointmentAvailabilityContextType {
   // Appointment details filtering
   setAppointmentFilters?: (filters: any) => void;
   clearAppointmentFilters?: () => void;
+  removeAppointmentFilter?: (key: string) => void;
 }
 
 /**

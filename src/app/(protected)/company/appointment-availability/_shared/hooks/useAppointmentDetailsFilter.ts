@@ -176,10 +176,19 @@ export const useAppointmentDetailsFilter = (appointments: AppointmentDto[]) => {
     setFilters({});
   };
 
+  const removeAppointmentFilter = (key: string) => {
+    setFilters((prevFilters: any) => {
+      const newFilters = { ...prevFilters };
+      delete newFilters[key];
+      return newFilters;
+    });
+  };
+
   return {
     appointmentFilters,
     filteredAppointments,
     setAppointmentFilters,
     clearAppointmentFilters,
+    removeAppointmentFilter,
   };
 };

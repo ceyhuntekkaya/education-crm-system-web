@@ -14,5 +14,4 @@ export interface AppointmentDetailsFilterFormProps {
  */
 export interface AppointmentDetailsFormContentProps {
   onSubmit?: (filters: AppointmentDetailsFilters) => void;
-  loading?: boolean;
 }

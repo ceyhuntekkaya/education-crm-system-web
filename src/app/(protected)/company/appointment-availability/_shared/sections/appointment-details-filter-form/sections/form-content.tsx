@@ -14,6 +14,8 @@ import {
   outcomeOptions,
   booleanOptions,
 } from "../options";
+import { ActiveFilters } from "./active-filters";
+import { useAppointment } from "../../../context/appointment-context";
 
 /**
  * Appointment details filter form content component
@@ -21,9 +23,12 @@ import {
  */
 export const AppointmentDetailsFormContent: React.FC<
   AppointmentDetailsFormContentProps
-> = ({ onSubmit, loading = false }) => {
+> = ({ onSubmit }) => {
   // Form hook - validation ve error kontrolü için
   const { hasErrors } = useFormHook();
+
+  // Context'ten sadece loading state'i al
+  const { availabilityLoading } = useAppointment();
 
   const handleSubmit = (values: any) => {
     // Boolean değerleri düzenle
@@ -53,9 +58,12 @@ export const AppointmentDetailsFormContent: React.FC<
 
   return (
     <div>
+      {/* Active Filters Display */}
+      <ActiveFilters />
+
       <Form onSubmit={handleSubmit}>
         {/* Form Layout - Columns sırasına göre düzenlenmiş */}
-        <div className="row g-3">
+        <div className="row row-gap-16">
           {/* 1. Randevu Bilgileri */}
           <div className="col-md-3">
             <FormInput
@@ -228,15 +236,15 @@ export const AppointmentDetailsFormContent: React.FC<
           </div>
 
           {/* Action Buttons */}
-          <div className="col-12 ">
-            <div className="d-flex justify-content-end gap-3">
+          <div className="col-12 mb-12">
+            <div className="d-flex justify-content-end gap-16">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 leftIcon="ph-broom"
                 onClick={handleClear}
-                disabled={loading}
+                disabled={availabilityLoading}
               >
                 Filtreleri Temizle
               </Button>
@@ -244,8 +252,8 @@ export const AppointmentDetailsFormContent: React.FC<
                 type="submit"
                 size="sm"
                 leftIcon="ph-funnel"
-                loading={loading}
-                disabled={loading}
+                loading={availabilityLoading}
+                disabled={availabilityLoading}
               >
                 Filtrele
               </Button>

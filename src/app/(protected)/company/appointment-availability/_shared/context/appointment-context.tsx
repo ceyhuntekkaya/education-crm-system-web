@@ -55,6 +55,7 @@ export const AppointmentAvailabilityProvider: React.FC<
     filteredAppointments,
     setAppointmentFilters,
     clearAppointmentFilters,
+    removeAppointmentFilter,
   } = useAppointmentDetailsFilter(availabilities);
 
   // Veri durumunu hesapla
@@ -86,6 +87,7 @@ export const AppointmentAvailabilityProvider: React.FC<
     // Appointment details filtering
     setAppointmentFilters,
     clearAppointmentFilters,
+    removeAppointmentFilter,
   };
 
   return (
