@@ -11,53 +11,27 @@ import {
 import { Badge } from "@/components";
 
 // Column render helper functions
-const renderAppointmentInfo = (params: any) => (
-  <div className="d-flex align-items-center">
-    <div className="overflow-hidden">
-      <div className="fw-medium text-truncate" title={params.row.title}>
-        {params.row.title || "-"}
-      </div>
-      {params.row.appointmentNumber && (
-        <small
-          className="text-muted text-truncate d-block"
-          title={params.row.appointmentNumber}
-        >
-          {params.row.appointmentNumber}
-        </small>
-      )}
-    </div>
+const renderAppointmentTitle = (params: any) => (
+  <div className="text-truncate" title={params.row.title}>
+    {params.row.title || "-"}
   </div>
 );
 
-const renderSchoolInfo = (params: any) => (
-  <div>
-    <div className="fw-medium text-truncate" title={params.row.schoolName}>
-      {params.row.schoolName || "-"}
-    </div>
-    {params.row.campusName && (
-      <small
-        className="text-muted d-block text-truncate"
-        title={params.row.campusName}
-      >
-        {params.row.campusName}
-      </small>
-    )}
+const renderAppointmentNumber = (params: any) => (
+  <div className="text-truncate" title={params.row.appointmentNumber}>
+    {params.row.appointmentNumber || "-"}
   </div>
 );
 
 const renderParentInfo = (params: any) => (
-  <div>
-    <div className="fw-medium text-truncate" title={params.row.parentName}>
-      {params.row.parentName || "-"}
-    </div>
-    {params.row.studentName && (
-      <small
-        className="text-muted d-block text-truncate"
-        title={params.row.studentName}
-      >
-        Öğrenci: {params.row.studentName}
-      </small>
-    )}
+  <div className="text-truncate" title={params.row.parentName}>
+    {params.row.parentName || "-"}
+  </div>
+);
+
+const renderStudentInfo = (params: any) => (
+  <div className="text-truncate" title={params.row.studentName}>
+    {params.row.studentName || "-"}
   </div>
 );
 
@@ -75,17 +49,16 @@ const renderAppointmentStatus = (params: any) => (
   </div>
 );
 
-const renderAppointmentDateTime = (params: any) => (
-  <div>
-    <div className="fw-medium">{params.row.formattedDate || "-"}</div>
-    {params.row.formattedTime && (
-      <small className="text-muted d-block">{params.row.formattedTime}</small>
-    )}
-  </div>
+const renderAppointmentDate = (params: any) => (
+  <div className="text-truncate">{params.row.formattedDate || "-"}</div>
+);
+
+const renderAppointmentTime = (params: any) => (
+  <div className="text-truncate">{params.row.formattedTime || "-"}</div>
 );
 
 const renderLocation = (params: any) => (
-  <div className="d-flex align-items-center gap-1">
+  <div className="d-flex align-items-center gap-4">
     {params.row.isOnline === true ? (
       <>
         <i className="ph ph-video-camera text-info text-sm" />
@@ -118,38 +91,44 @@ const renderStaffInfo = (params: any) => (
 const renderOutcome = (params: any) => (
   <div className="text-center">
     {params.row.outcome ? (
-      <>
-        <div className="fw-medium">{getOutcomeDisplay(params.row.outcome)}</div>
-        {params.row.enrollmentLikelihood && (
-          <small className="text-info d-block">
-            %{params.row.enrollmentLikelihood} olasılık
-          </small>
-        )}
-      </>
+      <div className="fw-medium">{getOutcomeDisplay(params.row.outcome)}</div>
     ) : (
       <div className="text-muted">-</div>
     )}
   </div>
 );
 
-const renderFollowUp = (params: any) => (
+const renderEnrollmentLikelihood = (params: any) => (
+  <div className="text-center">
+    {params.row.enrollmentLikelihood ? (
+      <div className="text-info">%{params.row.enrollmentLikelihood}</div>
+    ) : (
+      <div className="text-muted">-</div>
+    )}
+  </div>
+);
+
+const renderFollowUpRequired = (params: any) => (
   <div className="d-flex justify-content-center">
     {params.row.followUpRequired === true ? (
-      <div className="text-center">
-        <i
-          className="ph-fill ph-bell text-warning"
-          style={{ fontSize: "16px" }}
-        />
-        {params.row.followUpDate && (
-          <small className="text-muted d-block">
-            {formatDate(params.row.followUpDate)}
-          </small>
-        )}
-      </div>
+      <i
+        className="ph-fill ph-bell text-warning"
+        style={{ fontSize: "16px" }}
+      />
     ) : params.row.followUpRequired === false ? (
-      <div className="text-center">
-        <i className="ph ph-x text-muted" style={{ fontSize: "16px" }} />
-      </div>
+      <i className="ph ph-x text-muted" style={{ fontSize: "16px" }} />
+    ) : (
+      <span className="text-muted">-</span>
+    )}
+  </div>
+);
+
+const renderFollowUpDate = (params: any) => (
+  <div className="text-center">
+    {params.row.followUpDate ? (
+      <small className="text-muted">
+        {formatDate(params.row.followUpDate)}
+      </small>
     ) : (
       <span className="text-muted">-</span>
     )}
@@ -176,21 +155,27 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   // Basic Information Columns
   {
     field: "title",
-    headerName: "Randevu Bilgileri",
-    width: 250,
-    renderCell: renderAppointmentInfo,
+    headerName: "Randevu Başlığı",
+    width: 200,
+    renderCell: renderAppointmentTitle,
   },
   {
-    field: "schoolName",
-    headerName: "Okul",
-    width: 200,
-    renderCell: renderSchoolInfo,
+    field: "appointmentNumber",
+    headerName: "Randevu No",
+    width: 150,
+    renderCell: renderAppointmentNumber,
   },
   {
     field: "parentName",
-    headerName: "Veli/Öğrenci",
-    width: 180,
+    headerName: "Veli",
+    width: 150,
     renderCell: renderParentInfo,
+  },
+  {
+    field: "studentName",
+    headerName: "Öğrenci",
+    width: 150,
+    renderCell: renderStudentInfo,
   },
   {
     field: "appointmentType",
@@ -208,9 +193,15 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   // Date & Time Columns
   {
     field: "appointmentDate",
-    headerName: "Tarih & Saat",
-    width: 160,
-    renderCell: renderAppointmentDateTime,
+    headerName: "Tarih",
+    width: 150,
+    renderCell: renderAppointmentDate,
+  },
+  {
+    field: "appointmentTime",
+    headerName: "Saat",
+    width: 130,
+    renderCell: renderAppointmentTime,
   },
   {
     field: "location",
@@ -223,7 +214,7 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   {
     field: "staffUserName",
     headerName: "Personel",
-    width: 150,
+    width: 200,
     renderCell: renderStaffInfo,
   },
   {
@@ -232,18 +223,30 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
     width: 120,
     renderCell: renderOutcome,
   },
+  {
+    field: "enrollmentLikelihood",
+    headerName: "Olasılık",
+    width: 130,
+    renderCell: renderEnrollmentLikelihood,
+  },
 
-  // Additional Info & Actions
+  // Follow-up Columns
   {
     field: "followUpRequired",
-    headerName: "Takip",
-    width: 120,
-    renderCell: renderFollowUp,
+    headerName: "Takip Gerekli",
+    width: 180,
+    renderCell: renderFollowUpRequired,
+  },
+  {
+    field: "followUpDate",
+    headerName: "Takip Tarihi",
+    width: 160,
+    renderCell: renderFollowUpDate,
   },
   {
     field: "appointmentNotes",
     headerName: "Notlar",
-    width: 100,
+    width: 120,
     renderCell: renderNotes,
   },
   //   {

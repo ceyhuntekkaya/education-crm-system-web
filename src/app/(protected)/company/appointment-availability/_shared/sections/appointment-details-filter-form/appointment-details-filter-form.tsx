@@ -31,10 +31,10 @@ export const AppointmentDetailsFilterForm: React.FC<
     hasDataToFilter,
   } = useAppointment();
 
-  // Eğer filtrelenecek veri yoksa component'i gösterme
-  //   if (!hasDataToFilter) {
-  //     return null;
-  //   }
+  //   Eğer filtrelenecek veri yoksa component'i gösterme
+  if (!hasDataToFilter) {
+    return null;
+  }
 
   const handleSubmit = (filters: any) => {
     // Boş değerleri temizle - genel utility kullan (tüm default seçeneklerle)
