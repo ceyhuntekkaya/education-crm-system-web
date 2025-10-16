@@ -20,7 +20,7 @@ import { useAppointment } from "../../../context/appointment-context";
 
 /**
  * Appointment details filter form content component
- * Columns'taki gösterilen bilgilere göre optimize edilmiş form
+ * Okul/kampüs bilgileri ve tarih aralığı filtreleri kaldırılmış optimize form
  */
 export const AppointmentDetailsFormContent: React.FC<
   AppointmentDetailsFormContentProps
@@ -72,9 +72,9 @@ export const AppointmentDetailsFormContent: React.FC<
       <ActiveFilters />
 
       <Form onSubmit={handleSubmit}>
-        {/* Form Layout - Columns sırasına göre düzenlenmiş */}
+        {/* Form Layout - İstenen sıralamayla düzenlenmiş */}
         <div className="row row-gap-16">
-          {/* 1. Randevu Bilgileri */}
+          {/* 1. Randevu Başlığı */}
           <div className="col-md-3">
             <FormInput
               name="title"
@@ -83,6 +83,8 @@ export const AppointmentDetailsFormContent: React.FC<
               placeholder="Randevu başlığını giriniz"
             />
           </div>
+
+          {/* 2. Randevu No */}
           <div className="col-md-3">
             <FormInput
               name="appointmentNumber"
@@ -92,25 +94,7 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 2. Okul Bilgileri */}
-          <div className="col-md-3">
-            <FormInput
-              name="schoolName"
-              label="Okul Adı"
-              variant="inline"
-              placeholder="Okul adını giriniz"
-            />
-          </div>
-          <div className="col-md-3">
-            <FormInput
-              name="campusName"
-              label="Kampüs"
-              variant="inline"
-              placeholder="Kampüs adı"
-            />
-          </div>
-
-          {/* 3. Veli/Öğrenci Bilgileri */}
+          {/* 3. Veli Adı */}
           <div className="col-md-3">
             <FormInput
               name="parentName"
@@ -119,6 +103,8 @@ export const AppointmentDetailsFormContent: React.FC<
               placeholder="Veli adını giriniz"
             />
           </div>
+
+          {/* 4. Öğrenci Adı */}
           <div className="col-md-3">
             <FormInput
               name="studentName"
@@ -128,7 +114,7 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 4. Tür */}
+          {/* 5. Randevu Türü */}
           <div className="col-md-3">
             <FormAutocomplete
               name="appointmentType"
@@ -139,7 +125,7 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 5. Durum */}
+          {/* 6. Durum */}
           <div className="col-md-3">
             <FormAutocomplete
               name="status"
@@ -147,32 +133,6 @@ export const AppointmentDetailsFormContent: React.FC<
               variant="inline"
               options={statusOptions}
               placeholder="Durum seçiniz"
-            />
-          </div>
-
-          {/* 6. Tarih & Saat */}
-          <div className="col-md-3">
-            <FormInput
-              name="appointmentDate"
-              label="Randevu Tarihi"
-              type="date"
-              variant="inline"
-            />
-          </div>
-          <div className="col-md-3">
-            <FormInput
-              name="startTime"
-              label="Başlangıç Saati"
-              variant="inline"
-              placeholder="09:30"
-            />
-          </div>
-          <div className="col-md-3">
-            <FormInput
-              name="endTime"
-              label="Bitiş Saati"
-              variant="inline"
-              placeholder="17:30"
             />
           </div>
 
@@ -185,6 +145,8 @@ export const AppointmentDetailsFormContent: React.FC<
               placeholder="Konum bilgisi giriniz"
             />
           </div>
+
+          {/* 8. Online/Fiziksel */}
           <div className="col-md-3">
             <FormAutocomplete
               name="isOnline"
@@ -195,7 +157,37 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 8. Personel */}
+          {/* 9. Randevu Tarihi */}
+          <div className="col-md-3">
+            <FormInput
+              name="appointmentDate"
+              label="Randevu Tarihi"
+              type="date"
+              variant="inline"
+            />
+          </div>
+
+          {/* 10. Başlangıç Saati */}
+          <div className="col-md-3">
+            <FormInput
+              name="startTime"
+              label="Başlangıç Saati"
+              variant="inline"
+              placeholder="09:30"
+            />
+          </div>
+
+          {/* 11. Bitiş Saati */}
+          <div className="col-md-3">
+            <FormInput
+              name="endTime"
+              label="Bitiş Saati"
+              variant="inline"
+              placeholder="17:30"
+            />
+          </div>
+
+          {/* 12. Personel */}
           <div className="col-md-3">
             <FormInput
               name="staffUserName"
@@ -205,7 +197,7 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 9. Sonuç */}
+          {/* 13. Sonuç */}
           <div className="col-md-3">
             <FormAutocomplete
               name="outcome"
@@ -216,7 +208,7 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 10. Takip */}
+          {/* 14. Takip Gerekli */}
           <div className="col-md-3">
             <FormAutocomplete
               name="followUpRequired"
@@ -224,24 +216,6 @@ export const AppointmentDetailsFormContent: React.FC<
               variant="inline"
               options={booleanOptions}
               placeholder="Seçiniz"
-            />
-          </div>
-
-          {/* 11. Tarih Aralığı (Ek Filtreleme) */}
-          <div className="col-md-3">
-            <FormInput
-              name="startDate"
-              label="Başlangıç Tarihi"
-              type="date"
-              variant="inline"
-            />
-          </div>
-          <div className="col-md-3">
-            <FormInput
-              name="endDate"
-              label="Bitiş Tarihi"
-              type="date"
-              variant="inline"
             />
           </div>
 

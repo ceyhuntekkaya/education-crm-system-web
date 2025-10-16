@@ -7,8 +7,6 @@ import { AppointmentDetailsFilters } from "../types";
 export const initialValues: AppointmentDetailsFilters = {
   title: "",
   appointmentNumber: "",
-  schoolName: "",
-  campusName: "",
   parentName: "",
   studentName: "",
   staffUserName: "",
@@ -16,8 +14,6 @@ export const initialValues: AppointmentDetailsFilters = {
   status: "",
   outcome: "",
   appointmentDate: "",
-  startDate: "",
-  endDate: "",
   startTime: "",
   endTime: "",
   location: "",

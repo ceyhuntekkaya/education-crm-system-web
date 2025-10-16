@@ -9,77 +9,48 @@ export const validationSchema = Yup.object({
   title: Yup.string()
     .optional()
     .max(200, "Randevu başlığı en fazla 200 karakter olabilir"),
-  
+
   appointmentNumber: Yup.string()
     .optional()
     .max(50, "Randevu numarası en fazla 50 karakter olabilir"),
-  
-  // Okul bilgileri
-  schoolName: Yup.string()
-    .optional()
-    .max(100, "Okul adı en fazla 100 karakter olabilir"),
-  
-  campusName: Yup.string()
-    .optional()
-    .max(100, "Kampüs adı en fazla 100 karakter olabilir"),
-  
+
   // Kişi bilgileri
   parentName: Yup.string()
     .optional()
     .max(100, "Veli adı en fazla 100 karakter olabilir"),
-  
+
   studentName: Yup.string()
     .optional()
     .max(100, "Öğrenci adı en fazla 100 karakter olabilir"),
-  
+
   staffUserName: Yup.string()
     .optional()
     .max(100, "Personel adı en fazla 100 karakter olabilir"),
-  
+
   // Durum bilgileri (string values, not arrays)
-  appointmentType: Yup.string()
-    .optional(),
-  
-  status: Yup.string()
-    .optional(),
-  
-  outcome: Yup.string()
-    .optional(),
-  
+  appointmentType: Yup.string().optional(),
+
+  status: Yup.string().optional(),
+
+  outcome: Yup.string().optional(),
+
   // Tarih validasyonları
-  appointmentDate: Yup.string()
-    .nullable()
-    .optional(),
-  
-  startDate: Yup.string()
-    .nullable()
-    .optional(),
-  
-  endDate: Yup.string()
-    .nullable()
-    .when("startDate", {
-      is: (val: string) => val && val.length > 0,
-      then: (schema) =>
-        schema.test(
-          "endDateAfterStartDate",
-          "Bitiş tarihi başlangıç tarihinden sonra olmalıdır",
-          function (value) {
-            const { startDate } = this.parent;
-            if (!value || !startDate) return true;
-            return new Date(value) >= new Date(startDate);
-          }
-        ),
-      otherwise: (schema) => schema,
-    }),
-  
+  appointmentDate: Yup.string().nullable().optional(),
+
   // Zaman alanları
   startTime: Yup.string()
     .optional()
-    .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Geçerli bir saat formatı giriniz (HH:MM)"),
-  
+    .matches(
+      /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,
+      "Geçerli bir saat formatı giriniz (HH:MM)"
+    ),
+
   endTime: Yup.string()
     .optional()
-    .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Geçerli bir saat formatı giriniz (HH:MM)")
+    .matches(
+      /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,
+      "Geçerli bir saat formatı giriniz (HH:MM)"
+    )
     .when("startTime", {
       is: (val: string) => val && val.length > 0,
       then: (schema) =>
@@ -89,30 +60,26 @@ export const validationSchema = Yup.object({
           function (value) {
             const { startTime } = this.parent;
             if (!value || !startTime) return true;
-            
+
             const [startHour, startMinute] = startTime.split(":").map(Number);
             const [endHour, endMinute] = value.split(":").map(Number);
-            
+
             const startTotalMinutes = startHour * 60 + startMinute;
             const endTotalMinutes = endHour * 60 + endMinute;
-            
+
             return endTotalMinutes > startTotalMinutes;
           }
         ),
       otherwise: (schema) => schema,
     }),
-  
+
   // Konum
   location: Yup.string()
     .optional()
     .max(200, "Konum en fazla 200 karakter olabilir"),
-  
+
   // Boolean alanlar
-  isOnline: Yup.boolean()
-    .optional()
-    .nullable(),
-  
-  followUpRequired: Yup.boolean()
-    .optional()
-    .nullable(),
+  isOnline: Yup.boolean().optional().nullable(),
+
+  followUpRequired: Yup.boolean().optional().nullable(),
 });

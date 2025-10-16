@@ -8,10 +8,6 @@ export interface AppointmentDetailsFilters {
   title?: string;
   appointmentNumber?: string;
 
-  // Okul bilgileri (columns: schoolName, campusName)
-  schoolName?: string;
-  campusName?: string;
-
   // Kişi bilgileri (columns: parentName, studentName, staffUserName)
   parentName?: string;
   studentName?: string;
@@ -24,8 +20,6 @@ export interface AppointmentDetailsFilters {
 
   // Tarih ve zaman (columns: appointmentDate, startTime, endTime)
   appointmentDate?: string;
-  startDate?: string;
-  endDate?: string;
   startTime?: string;
   endTime?: string;
 

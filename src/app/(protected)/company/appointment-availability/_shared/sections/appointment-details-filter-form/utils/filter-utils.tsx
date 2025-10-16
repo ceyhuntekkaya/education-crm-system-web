@@ -77,8 +77,6 @@ export const getFieldLabel = (fieldKey: string): string => {
   const labelMap: Record<string, string> = {
     title: "Başlık",
     appointmentNumber: "Randevu No",
-    schoolName: "Okul",
-    campusName: "Kampüs",
     parentName: "Veli",
     studentName: "Öğrenci",
     appointmentType: "Tür",
@@ -91,8 +89,6 @@ export const getFieldLabel = (fieldKey: string): string => {
     staffUserName: "Personel",
     outcome: "Sonuç",
     followUpRequired: "Takip Gerekli",
-    startDate: "Başlangıç Tarihi",
-    endDate: "Bitiş Tarihi",
   };
   return labelMap[fieldKey] || fieldKey;
 };
