@@ -5,6 +5,7 @@ import {
   AppointmentAvailabilityRangeFilterForm,
   AppointmentAvailabilityTable,
   AppointmentAvailabilityProvider,
+  AppointmentDetailsFilterForm,
 } from "./_shared";
 import TabNavigation from "@/components/ui/tab-navigation";
 import { TabItem } from "@/components/ui/types";
@@ -59,6 +60,9 @@ const AppointmentAvailabilityPageContent: React.FC = () => {
         <div className="my-8">
           {tabs.find((tab) => tab.id === activeTab)?.content}
         </div>
+
+        {/* Appointment Details Filter - API'den veri çekildikten sonra göster */}
+        <AppointmentDetailsFilterForm />
 
         {/* Results Table - Context'ten otomatik */}
         <AppointmentAvailabilityTable />

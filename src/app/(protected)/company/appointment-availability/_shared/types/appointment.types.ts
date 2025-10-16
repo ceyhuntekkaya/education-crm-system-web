@@ -50,6 +50,13 @@ export interface AppointmentAvailabilityContextType {
   // Filter parameters
   filters: AppointmentAvailabilityFilters | AppointmentAvailabilityRangeFilters;
 
+  // Frontend appointment filters
+  appointmentFilters?: any;
+  filteredAppointments?: AppointmentDto[];
+
+  // Data state
+  hasDataToFilter?: boolean;
+
   // Actions (unified method for both single and range)
   fetchAvailabilities: (
     filters:
@@ -62,6 +69,10 @@ export interface AppointmentAvailabilityContextType {
     >
   ) => void;
   clearFilters: () => void;
+
+  // Appointment details filtering
+  setAppointmentFilters?: (filters: any) => void;
+  clearAppointmentFilters?: () => void;
 }
 
 /**

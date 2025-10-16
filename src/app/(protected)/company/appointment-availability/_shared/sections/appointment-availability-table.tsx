@@ -8,7 +8,13 @@ import { createAppointmentColumns } from "../config";
 
 export const AppointmentAvailabilityTable: React.FC = () => {
   // Context'ten veri ve loading state'i al
-  const { availabilities, availabilityLoading, filters } = useAppointment();
+  const {
+    availabilities,
+    availabilityLoading,
+    filters,
+    filteredAppointments,
+    appointmentFilters,
+  } = useAppointment();
 
   const columns = createAppointmentColumns();
 
@@ -16,6 +22,16 @@ export const AppointmentAvailabilityTable: React.FC = () => {
   const hasSearchCriteria = React.useMemo(() => {
     return hasValidSearchCriteria(filters);
   }, [filters]);
+
+  // Hangi veriyi kullanacağımızı belirle
+  const dataToDisplay = React.useMemo(() => {
+    // Eğer appointment details filtresi varsa, filtrelenmiş veriyi kullan
+    if (appointmentFilters && Object.keys(appointmentFilters).length > 0) {
+      return filteredAppointments || [];
+    }
+    // Aksi halde normal availability verisini kullan
+    return availabilities || [];
+  }, [appointmentFilters, filteredAppointments, availabilities]);
 
   // Loading state
   const loading = availabilityLoading;
@@ -60,7 +76,7 @@ export const AppointmentAvailabilityTable: React.FC = () => {
       /> */}
 
       <DataGrid
-        rows={availabilities || []}
+        rows={dataToDisplay}
         columns={columns}
         loading={loading}
         initialState={{
