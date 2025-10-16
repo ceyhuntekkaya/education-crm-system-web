@@ -7,6 +7,8 @@ interface CustomCardProps {
   subtitle?: string;
   /** Header action component (buttons, etc.) */
   headerAction?: ReactNode;
+  /** Card variant (default: "default") */
+  variant?: "default" | "outline";
   /** Card background color class (default: bg-white) */
   bgColor?: string;
   /** Card padding class (default: p-8) */
@@ -72,6 +74,7 @@ export default function CustomCard({
   title,
   subtitle,
   headerAction,
+  variant = "default",
   bgColor = "bg-white",
   padding = "p-8",
   border = "border border-neutral-30",
@@ -100,15 +103,23 @@ export default function CustomCard({
     .filter(Boolean)
     .join(" ");
 
+  // Determine colors based on variant
+  const cardBgColor = variant === "outline" ? headerBgColor : bgColor;
+  const headerColor = variant === "outline" ? bgColor : headerBgColor;
+
   const hasHeader = title || subtitle || headerAction;
   const hasContent = children || items || multiItems;
 
   return (
     <div
-      className={`${border} ${borderRadius} ${bgColor} ${padding} ${spacingClasses} ${className}`}
+      className={
+        variant === "outline"
+          ? ``
+          : `${border} ${borderRadius} ${cardBgColor} ${padding} ${spacingClasses} ${className}`
+      }
     >
       <div
-        className={`${border} ${borderRadius} ${headerBgColor} ${headerPadding}`}
+        className={`${border} ${borderRadius} ${headerColor} ${headerPadding}`}
       >
         {hasHeader && (
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">

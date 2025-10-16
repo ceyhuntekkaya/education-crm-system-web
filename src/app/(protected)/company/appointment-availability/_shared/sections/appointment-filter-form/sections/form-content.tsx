@@ -3,6 +3,7 @@
 import React from "react";
 import { Form, FormInput } from "@/components/forms";
 import { Button } from "@/components/ui/button";
+import CustomCard from "@/components/ui/custom-card";
 import { AppointmentAvailabilityFilters } from "../types";
 import { useAppointment } from "../../../context/appointment-context";
 import { useFormHook } from "@/hooks";
@@ -39,42 +40,35 @@ export const AppointmentAvailabilityFormContent: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className="border border-neutral-30 rounded-12 p-20 bg-white">
-        <h4 className="text-neutral-700 text-lg fw-semibold mb-8 d-flex align-items-center">
-          <i className="ph-bold ph-calendar me-8" />
-          Randevu Müsaitlik Sorgulama
-        </h4>
-
-        <Form onSubmit={handleSubmit}>
-          {/* Form Fields ve Button Tek Satırda */}
-          <div className={`row g-3 ${alignClass}`}>
-            <div className="col-8">
-              <FormInput
-                name="date"
-                type="date"
-                label="Tarih"
-                placeholder="Müsaitlik sorgulanacak tarihi seçin"
-                variant="inline"
-                iconLeft="ph-calendar"
-                required
-                disabled={loading}
-              />
-            </div>
-            <div className="col-4">
-              <Button
-                type="submit"
-                variant="inline"
-                disabled={loading}
-                leftIcon="ph-magnifying-glass"
-                fullWidth
-              >
-                {loading ? "Sorgulanıyor..." : "Müsaitlik Sorgula"}
-              </Button>
-            </div>
+    <CustomCard variant="outline">
+      <Form onSubmit={handleSubmit}>
+        {/* Form Fields ve Button Tek Satırda */}
+        <div className={`row ${alignClass}`}>
+          <div className="col-8">
+            <FormInput
+              name="date"
+              type="date"
+              label="Tarih"
+              placeholder="Müsaitlik sorgulanacak tarihi seçin"
+              variant="inline"
+              iconLeft="ph-calendar"
+              required
+              disabled={loading}
+            />
           </div>
-        </Form>
-      </div>
-    </div>
+          <div className="col-4">
+            <Button
+              type="submit"
+              variant="inline"
+              disabled={loading}
+              leftIcon="ph-magnifying-glass"
+              fullWidth
+            >
+              {loading ? "Sorgulanıyor..." : "Müsaitlik Sorgula"}
+            </Button>
+          </div>
+        </div>
+      </Form>
+    </CustomCard>
   );
 };
