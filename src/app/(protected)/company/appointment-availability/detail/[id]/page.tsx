@@ -52,11 +52,29 @@ const AppointmentDetailPage: React.FC = () => {
   }
 
   return (
-    <CustomCard
-      title="Randevu Detayı"
-      subtitle="Randevu bilgilerini detaylı olarak görüntüleyin"
-      multiItems={allSections}
-    />
+    <div className="row g-4">
+      <div className="col-6">
+        <CustomCard
+          title="Randevu Detayı"
+          subtitle="Randevu bilgilerini detaylı olarak görüntüleyin"
+          multiItems={allSections}
+          itemDirection="column"
+        />
+      </div>
+      <div className="col-6">
+        <CustomCard
+          title="Sağ Panel"
+          subtitle="Buraya sağ taraftaki içerik gelecek"
+        >
+          <div className="text-center py-8">
+            <i className="ph ph-info text-neutral-500 fs-2 mb-3"></i>
+            <p className="text-neutral-600 mb-0">
+              Sağ taraf içeriği buraya eklenecek.
+            </p>
+          </div>
+        </CustomCard>
+      </div>
+    </div>
   );
 };
 

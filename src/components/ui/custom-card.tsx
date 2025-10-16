@@ -55,6 +55,8 @@ interface CustomCardProps {
   headerPadding?: string;
   /** Show divider line after header (default: true) */
   showDivider?: boolean;
+  /** Item layout direction (default: "row") */
+  itemDirection?: "row" | "column";
 
   // Margin props
   /** Margin top (mt-4, mt-8, mt-16, etc.) */
@@ -96,6 +98,7 @@ export default function CustomCard({
   headerBgColor = "bg-main-25",
   headerPadding = "p-32",
   showDivider = true,
+  itemDirection = "row",
   // Margin props
   mt,
   mb,
@@ -249,9 +252,19 @@ export default function CustomCard({
                     .map((item, index) => (
                       <li
                         key={index}
-                        className="d-flex align-items-start px-32 py-16"
+                        className={`d-flex px-32 py-16 ${
+                          itemDirection === "column"
+                            ? "flex-column align-items-start"
+                            : "align-items-start"
+                        }`}
                       >
-                        <span className="w-50-percent fw-semibold text-neutral-700">
+                        <span
+                          className={`fw-semibold text-neutral-700 ${
+                            itemDirection === "column"
+                              ? "w-100 mb-8"
+                              : "w-50-percent"
+                          }`}
+                        >
                           {item.label}
                           {item.sublabel && (
                             <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
@@ -259,7 +272,13 @@ export default function CustomCard({
                             </span>
                           )}
                         </span>
-                        <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                        <span
+                          className={`fw-normal text-neutral-500 text-md ${
+                            itemDirection === "column"
+                              ? "w-100"
+                              : "w-50-percent"
+                          }`}
+                        >
                           {item.value}
                         </span>
                       </li>
@@ -300,9 +319,19 @@ export default function CustomCard({
                         {filteredItems.map((item, index) => (
                           <li
                             key={index}
-                            className="d-flex align-items-start px-32 py-16"
+                            className={`d-flex px-32 py-16 ${
+                              itemDirection === "column"
+                                ? "flex-column align-items-start"
+                                : "align-items-start"
+                            }`}
                           >
-                            <span className="w-50-percent fw-semibold text-neutral-700">
+                            <span
+                              className={`fw-semibold text-neutral-700 ${
+                                itemDirection === "column"
+                                  ? "w-100 mb-8"
+                                  : "w-50-percent"
+                              }`}
+                            >
                               {item.label}
                               {item.sublabel && (
                                 <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
@@ -310,7 +339,13 @@ export default function CustomCard({
                                 </span>
                               )}
                             </span>
-                            <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                            <span
+                              className={`fw-normal text-neutral-500 text-md ${
+                                itemDirection === "column"
+                                  ? "w-100"
+                                  : "w-50-percent"
+                              }`}
+                            >
                               {item.value}
                             </span>
                           </li>

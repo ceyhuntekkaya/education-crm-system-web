@@ -133,3 +133,53 @@ export const formatBoolean = (value?: boolean): string => {
   if (value === undefined || value === null) return "Belirtilmemiş";
   return value ? "Evet" : "Hayır";
 };
+
+/**
+ * Katılımcı türü çevirisi
+ */
+export const translateParticipantType = (type?: string): string => {
+  switch (type) {
+    case "STUDENT":
+      return "Öğrenci";
+    case "PARENT":
+      return "Veli";
+    case "STAFF":
+      return "Personel";
+    case "TEACHER":
+      return "Öğretmen";
+    case "ADMIN":
+      return "Yönetici";
+    case "COUNSELOR":
+      return "Danışman";
+    case "COORDINATOR":
+      return "Koordinatör";
+    case "OTHER":
+      return "Diğer";
+    default:
+      return "Belirtilmemiş";
+  }
+};
+
+/**
+ * Katılım durumu çevirisi
+ */
+export const translateAttendanceStatus = (status?: string): string => {
+  switch (status) {
+    case "ATTENDED":
+      return "Katıldı";
+    case "NOT_ATTENDED":
+      return "Katılmadı";
+    case "PARTIALLY_ATTENDED":
+      return "Kısmen Katıldı";
+    case "LATE":
+      return "Geç Geldi";
+    case "LEFT_EARLY":
+      return "Erken Ayrıldı";
+    case "PENDING":
+      return "Beklemede";
+    case "CANCELLED":
+      return "İptal Edildi";
+    default:
+      return "Belirtilmemiş";
+  }
+};
