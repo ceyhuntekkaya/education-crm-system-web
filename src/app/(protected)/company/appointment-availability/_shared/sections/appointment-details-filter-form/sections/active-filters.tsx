@@ -1,5 +1,5 @@
 import React from "react";
-import { getFieldLabel } from "../utils/filter-utils";
+import { getFieldLabel, getEnumLabel } from "../utils/filter-utils";
 import { useAppointment } from "../../../context/appointment-context";
 
 /**
@@ -15,7 +15,7 @@ export const ActiveFilters: React.FC = () => {
   }
 
   return (
-    <div className="mb-3">
+    <div className="mb-24">
       <div className="d-flex flex-wrap gap-2 align-items-center">
         <small className="text-muted fw-medium">Aktif Filtreler:</small>
         {Object.entries(appointmentFilters).map(([key, value]) => {
@@ -25,15 +25,20 @@ export const ActiveFilters: React.FC = () => {
           let displayValue = value;
           if (typeof value === "boolean") {
             displayValue = value ? "Evet" : "Hayır";
-          }
-          if (Array.isArray(value)) {
-            displayValue = value.join(", ");
+          } else if (Array.isArray(value)) {
+            // Array değerler için her birini enum'a çevirip join et
+            displayValue = value
+              .map((item) => getEnumLabel(key, String(item)))
+              .join(", ");
+          } else {
+            // Tek değerler için enum karşılığını kontrol et
+            displayValue = getEnumLabel(key, String(value));
           }
 
           return (
             <span
               key={key}
-              className="badge bg-primary-subtle text-primary px-2 py-1 d-inline-flex align-items-center gap-1"
+              className="badge bg-primary-subtle text-primary px-8 py-4 d-inline-flex align-items-center gap-4"
               style={{ fontSize: "11px" }}
             >
               <strong>{getFieldLabel(key)}:</strong> {String(displayValue)}

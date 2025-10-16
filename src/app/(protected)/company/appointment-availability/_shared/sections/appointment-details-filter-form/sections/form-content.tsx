@@ -8,6 +8,7 @@ import {
   AppointmentDetailsFormContentProps,
 } from "../types";
 import { useFormHook } from "@/hooks";
+import { useForm } from "@/contexts/form-context";
 import {
   statusOptions,
   appointmentTypeOptions,
@@ -27,8 +28,11 @@ export const AppointmentDetailsFormContent: React.FC<
   // Form hook - validation ve error kontrolü için
   const { hasErrors } = useFormHook();
 
-  // Context'ten sadece loading state'i al
-  const { availabilityLoading } = useAppointment();
+  // Form reset hook'u
+  const { reset } = useForm();
+
+  // Context'ten sadece loading state'i ve clear fonksiyonu al
+  const { availabilityLoading, clearAppointmentFilters } = useAppointment();
 
   const handleSubmit = (values: any) => {
     // Boolean değerleri düzenle
@@ -52,7 +56,13 @@ export const AppointmentDetailsFormContent: React.FC<
   };
 
   const handleClear = () => {
-    // Form'u temizle
+    // Form'u initial values'a reset et
+    reset();
+
+    // Context'teki filtreleri temizle
+    clearAppointmentFilters?.();
+
+    // Parent component'e boş filtre gönder
     onSubmit?.({});
   };
 

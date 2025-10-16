@@ -32,9 +32,9 @@ export const AppointmentDetailsFilterForm: React.FC<
   } = useAppointment();
 
   // Eğer filtrelenecek veri yoksa component'i gösterme
-  if (!hasDataToFilter) {
-    return null;
-  }
+  //   if (!hasDataToFilter) {
+  //     return null;
+  //   }
 
   const handleSubmit = (filters: any) => {
     // Boş değerleri temizle - genel utility kullan (tüm default seçeneklerle)
@@ -51,6 +51,17 @@ export const AppointmentDetailsFilterForm: React.FC<
     }
   };
 
+  // Filtreleri tamamen temizleme fonksiyonu
+  const handleClearAllFilters = () => {
+    // Context'teki filtreleri temizle
+    clearAppointmentFilters?.();
+
+    // Form'daki callback'i de çağır (boş filtreler ile)
+    if (onFilter) {
+      onFilter({});
+    }
+  };
+
   // Header action component
   const headerAction =
     getActiveFilterCount(appointmentFilters) > 0 ? (
@@ -58,7 +69,7 @@ export const AppointmentDetailsFilterForm: React.FC<
         variant="outline"
         size="sm"
         leftIcon="ph-x"
-        onClick={() => clearAppointmentFilters?.()}
+        onClick={handleClearAllFilters}
         aria-label="Tüm filtreleri temizle"
       >
         Temizle
@@ -81,6 +92,7 @@ export const AppointmentDetailsFilterForm: React.FC<
       >
         {/* Filter Form */}
         <FormProvider
+          //   key={`appointment-filter-${JSON.stringify(appointmentFilters)}`}
           initialValues={appointmentDetailsInitialValues}
           //   validationSchema={appointmentDetailsValidationSchema}
         >

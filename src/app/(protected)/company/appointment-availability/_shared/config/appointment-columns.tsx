@@ -3,6 +3,7 @@ import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { formatDate } from "@/utils";
 import {
   getStatusBadgeVariant,
+  getStatusDisplay,
   getAppointmentTypeDisplay,
   formatAppointmentTime,
   getOutcomeDisplay,
@@ -69,7 +70,7 @@ const renderAppointmentType = (params: any) => (
 const renderAppointmentStatus = (params: any) => (
   <div className="d-flex justify-content-center align-items-center h-100">
     <Badge variant={getStatusBadgeVariant(params.row.status)}>
-      {params.row.statusDisplayName || params.row.status}
+      {getStatusDisplay(params.row.status)}
     </Badge>
   </div>
 );
@@ -85,14 +86,21 @@ const renderAppointmentDateTime = (params: any) => (
 
 const renderLocation = (params: any) => (
   <div className="d-flex align-items-center gap-1">
-    {params.row.isOnline ? (
+    {params.row.isOnline === true ? (
       <>
         <i className="ph ph-video-camera text-info text-sm" />
         <span className="text-sm">Online</span>
       </>
-    ) : (
+    ) : params.row.isOnline === false ? (
       <>
         <i className="ph ph-map-pin text-muted text-sm" />
+        <span className="text-sm text-truncate" title={params.row.location}>
+          {params.row.location || "Fiziksel Konum"}
+        </span>
+      </>
+    ) : (
+      <>
+        <i className="ph ph-question text-muted text-sm" />
         <span className="text-sm text-truncate" title={params.row.location}>
           {params.row.location || "Belirtilmemiş"}
         </span>
@@ -126,7 +134,7 @@ const renderOutcome = (params: any) => (
 
 const renderFollowUp = (params: any) => (
   <div className="d-flex justify-content-center">
-    {params.row.followUpRequired ? (
+    {params.row.followUpRequired === true ? (
       <div className="text-center">
         <i
           className="ph-fill ph-bell text-warning"
@@ -137,6 +145,10 @@ const renderFollowUp = (params: any) => (
             {formatDate(params.row.followUpDate)}
           </small>
         )}
+      </div>
+    ) : params.row.followUpRequired === false ? (
+      <div className="text-center">
+        <i className="ph ph-x text-muted" style={{ fontSize: "16px" }} />
       </div>
     ) : (
       <span className="text-muted">-</span>
