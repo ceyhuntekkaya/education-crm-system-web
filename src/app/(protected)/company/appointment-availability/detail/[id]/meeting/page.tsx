@@ -1,7 +1,11 @@
 "use client";
 
 import React from "react";
-import { AppointmentNotesSection, AppointmentDetailSection } from "../_shared";
+import {
+  AppointmentNotesSection,
+  AppointmentDetailSection,
+  AppointmentNoteForm,
+} from "../_shared";
 
 /**
  * Randevu toplantı detaylarını gösteren sayfa
@@ -13,7 +17,8 @@ const MeetingPage: React.FC = () => {
         <AppointmentDetailSection direction="column" />
       </div>
       <div className="col-6">
-        <div className="sticky-top" style={{ top: "20px" }}>
+        <div className="d-flex flex-column gap-16">
+          <AppointmentNoteForm />
           <AppointmentNotesSection />
         </div>
       </div>

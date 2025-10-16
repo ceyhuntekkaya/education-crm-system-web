@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from "react";
 import { useAppointmentById } from "../hooks/use-appointment-by-id";
 import { useAppointmentSections } from "../hooks/use-appointment-sections";
+import { useAppointmentNote } from "../hooks/use-appointment-note";
 import {
   AppointmentDetailContextValue,
   AppointmentDetailProviderProps,
@@ -20,6 +21,12 @@ export const AppointmentDetailProvider: React.FC<
 
   const allSections = useAppointmentSections(appointment);
 
+  const {
+    addNote,
+    isLoading: noteLoading,
+    error: noteError,
+  } = useAppointmentNote(appointmentId);
+
   const contextValue: AppointmentDetailContextValue = {
     appointmentId,
     appointment,
@@ -27,6 +34,9 @@ export const AppointmentDetailProvider: React.FC<
     error,
     refetch,
     allSections,
+    addNote,
+    noteLoading,
+    noteError,
   };
 
   return (

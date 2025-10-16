@@ -1,4 +1,5 @@
 import { AppointmentDto } from "@/types";
+import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
 
 /**
  * Appointment detail context değeri
@@ -10,6 +11,12 @@ export interface AppointmentDetailContextValue {
   error: string | null;
   refetch: () => void;
   allSections: any[];
+  // Note işlemleri
+  addNote: (
+    noteData: Omit<AppointmentNoteCreateDto, "appointmentId" | "authorUserId">
+  ) => Promise<boolean>;
+  noteLoading: boolean;
+  noteError: string | null;
 }
 
 /**
