@@ -183,3 +183,78 @@ export const translateAttendanceStatus = (status?: string): string => {
       return "Belirtilmemiş";
   }
 };
+
+/**
+ * Note type çevirisi ve badge konfigürasyonu
+ */
+export const getNoteTypeConfig = (noteType?: string) => {
+  switch (noteType) {
+    case "OUTCOME":
+      return {
+        displayName: "Sonuç",
+        variant: "success" as const,
+        icon: "ph-target",
+      };
+    case "INTERNAL":
+      return {
+        displayName: "İç Not",
+        variant: "secondary" as const,
+        icon: "ph-lock-simple",
+      };
+    case "PREPARATION":
+      return {
+        displayName: "Hazırlık",
+        variant: "info" as const,
+        icon: "ph-list-checks",
+      };
+    case "FOLLOW_UP":
+      return {
+        displayName: "Takip",
+        variant: "primary" as const,
+        icon: "ph-arrow-clockwise",
+      };
+    case "COMPLAINT":
+      return {
+        displayName: "Şikayet",
+        variant: "danger" as const,
+        icon: "ph-warning-circle",
+      };
+    case "COMPLIMENT":
+      return {
+        displayName: "Övgü",
+        variant: "success" as const,
+        icon: "ph-smiley",
+      };
+    case "TECHNICAL_ISSUE":
+      return {
+        displayName: "Teknik Sorun",
+        variant: "warning" as const,
+        icon: "ph-gear",
+      };
+    case "REMINDER":
+      return {
+        displayName: "Hatırlatma",
+        variant: "info" as const,
+        icon: "ph-bell",
+      };
+    case "CANCELLATION":
+      return {
+        displayName: "İptal",
+        variant: "danger" as const,
+        icon: "ph-x-circle",
+      };
+    case "RESCHEDULING":
+      return {
+        displayName: "Erteleme",
+        variant: "warning" as const,
+        icon: "ph-calendar-x",
+      };
+    case "GENERAL":
+    default:
+      return {
+        displayName: "Genel Not",
+        variant: "light" as const,
+        icon: "ph-note",
+      };
+  }
+};
