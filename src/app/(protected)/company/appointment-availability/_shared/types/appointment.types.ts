@@ -43,7 +43,7 @@ export interface AppointmentTableProps {
  */
 export interface AppointmentAvailabilityContextType {
   // Availability data
-  availabilities: AppointmentAvailabilityDto[];
+  availabilities: AppointmentDto[];
   availabilityLoading: boolean;
   availabilityError: string | null;
 

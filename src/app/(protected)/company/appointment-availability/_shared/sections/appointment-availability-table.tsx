@@ -2,13 +2,15 @@
 
 import React from "react";
 import { DataGrid } from "@/components/ui/data-grid";
-import { appointmentAvailabilityColumns } from "../config/appointment-availability-columns";
 import { useAppointment } from "../context/appointment-context";
 import { hasValidSearchCriteria } from "../utils";
+import { createAppointmentColumns } from "../config";
 
 export const AppointmentAvailabilityTable: React.FC = () => {
   // Context'ten veri ve loading state'i al
   const { availabilities, availabilityLoading, filters } = useAppointment();
+
+  const columns = createAppointmentColumns();
 
   // Filter durumunu kontrol et - henüz arama yapılmadı mı?
   const hasSearchCriteria = React.useMemo(() => {
@@ -42,18 +44,34 @@ export const AppointmentAvailabilityTable: React.FC = () => {
   }, [hasSearchCriteria]);
 
   return (
-    <DataGrid
-      rows={availabilities || []}
-      columns={appointmentAvailabilityColumns}
-      loading={loading}
-      initialState={{
-        pagination: {
-          paginationModel: { page: 0, pageSize: 10 },
-        },
-      }}
-      pageSizeOptions={[5, 10, 25, 50]}
-      disableRowSelectionOnClick
-      emptyState={emptyStateConfig}
-    />
+    <>
+      {/* <DataGrid
+        rows={availabilities || []}
+        columns={appointmentAvailabilityColumns}
+        loading={loading}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 10 },
+          },
+        }}
+        pageSizeOptions={[5, 10, 25, 50]}
+        disableRowSelectionOnClick
+        emptyState={emptyStateConfig}
+      /> */}
+
+      <DataGrid
+        rows={availabilities || []}
+        columns={columns}
+        loading={loading}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 10 },
+          },
+        }}
+        pageSizeOptions={[5, 10, 25, 50]}
+        disableRowSelectionOnClick
+        emptyState={emptyStateConfig}
+      />
+    </>
   );
 };
