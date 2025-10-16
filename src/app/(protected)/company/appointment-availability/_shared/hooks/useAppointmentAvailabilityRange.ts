@@ -67,7 +67,7 @@ export const useAppointmentAvailabilityRange =
     };
 
     return {
-      availabilities: availabilityResponse?.data || mockAppointments,
+      availabilities: mockAppointments || availabilityResponse?.data || [],
       availabilityLoading,
       availabilityError,
       fetchAvailabilityRange,

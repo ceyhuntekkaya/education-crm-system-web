@@ -62,7 +62,7 @@ export const useAppointmentAvailability =
     };
 
     return {
-      availability: availabilityResponse?.data || mockAppointments,
+      availability: mockAppointments || availabilityResponse?.data || [],
       availabilityLoading,
       availabilityError,
       fetchAvailability,
