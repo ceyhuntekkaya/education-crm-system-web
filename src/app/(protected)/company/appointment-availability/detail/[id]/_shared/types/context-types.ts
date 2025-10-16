@@ -9,6 +9,7 @@ export interface AppointmentDetailContextValue {
   isLoading: boolean;
   error: string | null;
   refetch: () => void;
+  allSections: any[];
 }
 
 /**

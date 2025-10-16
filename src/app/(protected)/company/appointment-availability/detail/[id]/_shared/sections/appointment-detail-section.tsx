@@ -2,17 +2,11 @@ import React from "react";
 import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useAppointmentDetail } from "../context";
 
-interface AppointmentDetailSectionProps {
-  allSections: any[];
-}
-
 /**
  * Randevu detay bilgilerini gösteren section bileşeni
  */
-export const AppointmentDetailSection: React.FC<
-  AppointmentDetailSectionProps
-> = ({ allSections }) => {
-  const { appointment, isLoading, error } = useAppointmentDetail();
+export const AppointmentDetailSection: React.FC = () => {
+  const { appointment, isLoading, error, allSections } = useAppointmentDetail();
   // Loading durumu
   if (isLoading) {
     return (

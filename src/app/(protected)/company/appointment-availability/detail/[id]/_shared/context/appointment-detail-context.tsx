@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext } from "react";
 import { useAppointmentById } from "../hooks/use-appointment-by-id";
+import { useAppointmentSections } from "../hooks/use-appointment-sections";
 import {
   AppointmentDetailContextValue,
   AppointmentDetailProviderProps,
@@ -17,12 +18,15 @@ export const AppointmentDetailProvider: React.FC<
   const { appointment, isLoading, error, refetch } =
     useAppointmentById(appointmentId);
 
+  const allSections = useAppointmentSections(appointment);
+
   const contextValue: AppointmentDetailContextValue = {
     appointmentId,
     appointment,
     isLoading,
     error,
     refetch,
+    allSections,
   };
 
   return (
