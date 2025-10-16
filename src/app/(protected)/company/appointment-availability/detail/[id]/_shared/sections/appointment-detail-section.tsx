@@ -2,10 +2,16 @@ import React from "react";
 import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useAppointmentDetail } from "../context";
 
+interface AppointmentDetailSectionProps {
+  direction?: "row" | "column";
+}
+
 /**
  * Randevu detay bilgilerini gösteren section bileşeni
  */
-export const AppointmentDetailSection: React.FC = () => {
+export const AppointmentDetailSection: React.FC<
+  AppointmentDetailSectionProps
+> = ({ direction }) => {
   const { appointment, isLoading, error, allSections } = useAppointmentDetail();
   // Loading durumu
   if (isLoading) {
@@ -52,7 +58,7 @@ export const AppointmentDetailSection: React.FC = () => {
       title="Randevu Detayı"
       subtitle="Randevu bilgilerini detaylı olarak görüntüleyin"
       multiItems={allSections}
-      itemDirection="column"
+      itemDirection={direction}
     />
   );
 };
