@@ -1,12 +1,15 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
 import { useAppointment } from "../context/appointment-context";
 import { hasValidSearchCriteria } from "../utils";
 import { createAppointmentColumns } from "../config";
 
 export const AppointmentAvailabilityTable: React.FC = () => {
+  const router = useRouter();
+
   // Context'ten veri ve loading state'i al
   const {
     availabilities,
@@ -17,6 +20,13 @@ export const AppointmentAvailabilityTable: React.FC = () => {
   } = useAppointment();
 
   const columns = createAppointmentColumns();
+
+  // Row tıklama handler'ı
+  const handleRowClick = (params: any) => {
+    if (params.row?.id) {
+      router.push(`/company/appointment-availability/detail/${params.row.id}`);
+    }
+  };
 
   // Filter durumunu kontrol et - henüz arama yapılmadı mı?
   const hasSearchCriteria = React.useMemo(() => {
@@ -79,13 +89,13 @@ export const AppointmentAvailabilityTable: React.FC = () => {
         rows={dataToDisplay}
         columns={columns}
         loading={loading}
+        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
         pageSizeOptions={[5, 10, 25, 50]}
-        disableRowSelectionOnClick
         emptyState={emptyStateConfig}
       />
     </>

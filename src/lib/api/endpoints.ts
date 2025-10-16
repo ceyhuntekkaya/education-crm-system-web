@@ -43,6 +43,7 @@ export const API_ENDPOINTS = {
       `/appointments/schools/${schoolId}/availability-range`,
     SCHOOL_STATISTICS: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/statistics`,
+    BY_ID: (id: string | number) => `/appointments/${id}`,
   },
 
   CONTENT: {
