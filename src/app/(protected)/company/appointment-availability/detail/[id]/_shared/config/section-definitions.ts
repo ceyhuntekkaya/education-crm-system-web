@@ -15,15 +15,7 @@ import { appointmentNotesConfig } from "./appointment-notes-config";
  * Tüm appointment section konfigürasyonlarını tanımlar
  */
 export const APPOINTMENT_SECTIONS: SectionConfig[] = [
-  // 1. TEMEL BİLGİLER
-  {
-    title: "Temel Bilgiler",
-    titleColor: "text-primary-600",
-    titleIcon: "ph-bold ph-info",
-    config: basicInfoConfig,
-  },
-
-  // 2. ÖĞRENCİ BİLGİLERİ
+  // 1. ÖĞRENCİ BİLGİLERİ
   {
     title: "Öğrenci Bilgileri",
     titleColor: "text-success-600",
@@ -31,12 +23,20 @@ export const APPOINTMENT_SECTIONS: SectionConfig[] = [
     config: studentConfig,
   },
 
-  // 3. VELİ BİLGİLERİ
+  // 2. VELİ BİLGİLERİ
   {
     title: "Veli Bilgileri",
     titleColor: "text-info-600",
     titleIcon: "ph-bold ph-user",
     config: parentConfig,
+  },
+
+  // 3. TEMEL BİLGİLER
+  {
+    title: "Temel Bilgiler",
+    titleColor: "text-primary-600",
+    titleIcon: "ph-bold ph-info",
+    config: basicInfoConfig,
   },
 
   // 4. PERSONEL BİLGİLERİ

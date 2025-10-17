@@ -83,7 +83,7 @@ export const AppointmentNotesSection: React.FC = () => {
     >
       <div
         className="position-relative"
-        style={{ maxHeight: "500px", overflowY: "auto" }}
+        // style={{ maxHeight: "800px", overflowY: "auto" }}
       >
         <div className="pe-2 d-flex flex-column gap-12">
           {notes.map((note) => (
