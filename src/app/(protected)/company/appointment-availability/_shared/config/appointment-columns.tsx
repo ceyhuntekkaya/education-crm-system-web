@@ -9,6 +9,7 @@ import {
   getOutcomeDisplay,
 } from "../utils";
 import { Badge } from "@/components";
+import { Button } from "@/components/ui";
 
 // Column render helper functions
 const renderAppointmentTitle = (params: any) => (
@@ -150,6 +151,30 @@ const renderNotes = (params: any) => (
   </div>
 );
 
+// Action buttons render function
+const renderActionButtons = (params: any) => (
+  <div className="d-flex align-items-center gap-8">
+    <Button
+      variant="inline"
+      size="xs"
+      leftIcon="ph-eye"
+      href={`/company/appointment-availability/detail/${params.row.id}`}
+      aria-label="Detay Görüntüle"
+    >
+      Detay
+    </Button>
+    <Button
+      variant="success"
+      size="xs"
+      leftIcon="ph-chat-circle"
+      href={`/company/appointment-availability/detail/${params.row.id}/meeting`}
+      aria-label="Görüşmeyi Başlat"
+    >
+      Görüşmeyi Başlat
+    </Button>
+  </div>
+);
+
 // Main column definitions
 export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   // Basic Information Columns
@@ -249,11 +274,11 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
     width: 120,
     renderCell: renderNotes,
   },
-  //   {
-  //     field: "actions",
-  //     headerName: "",
-  //     width: 70,
-  //     sortable: false,
-  //     renderCell: (params) => renderActionButtons(params, handlers),
-  //   },
+  {
+    field: "actions",
+    headerName: "İşlemler",
+    width: 340,
+    sortable: false,
+    renderCell: renderActionButtons,
+  },
 ];

@@ -12,7 +12,12 @@ interface AppointmentDetailSectionProps {
 export const AppointmentDetailSection: React.FC<
   AppointmentDetailSectionProps
 > = ({ direction }) => {
-  const { appointment, isLoading, error, allSections } = useAppointmentDetail();
+  const {
+    appointment,
+    appointmentDetailLoading: isLoading,
+    appointmentDetailError: error,
+    allSections,
+  } = useAppointmentDetail();
   // Loading durumu
   if (isLoading) {
     return (

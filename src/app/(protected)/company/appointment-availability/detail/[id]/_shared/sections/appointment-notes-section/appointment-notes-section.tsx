@@ -2,13 +2,15 @@
 
 import React from "react";
 import { CustomCard } from "@/components";
-import { useAppointmentNotes } from "../../hooks";
 import { useAppointmentDetail } from "../../context";
 import { NoteItem } from "./note-item";
 
 export const AppointmentNotesSection: React.FC = () => {
-  const { appointmentId } = useAppointmentDetail();
-  const { notes, isLoading, error } = useAppointmentNotes(appointmentId);
+  const {
+    notes,
+    appointmentNotesLoading: isLoading,
+    appointmentNotesError: error,
+  } = useAppointmentDetail();
 
   if (isLoading) {
     return (

@@ -3,7 +3,8 @@
 import React, { createContext, useContext } from "react";
 import { useAppointmentById } from "../hooks/use-appointment-by-id";
 import { useAppointmentSections } from "../hooks/use-appointment-sections";
-import { useAppointmentNote } from "../hooks/use-appointment-note";
+import { useAddAppointmentNote } from "../hooks/use-add-appointment-note";
+import { useAppointmentNotes } from "../hooks/use-appointment-notes";
 import {
   AppointmentDetailContextValue,
   AppointmentDetailProviderProps,
@@ -16,27 +17,42 @@ const AppointmentDetailContext = createContext<
 export const AppointmentDetailProvider: React.FC<
   AppointmentDetailProviderProps
 > = ({ children, appointmentId }) => {
-  const { appointment, isLoading, error, refetch } =
-    useAppointmentById(appointmentId);
+  const {
+    appointment,
+    isLoading: appointmentDetailLoading,
+    error: appointmentDetailError,
+    refetch: refetchAppointment,
+  } = useAppointmentById(appointmentId);
 
   const allSections = useAppointmentSections(appointment);
 
   const {
+    notes,
+    isLoading: appointmentNotesLoading,
+    error: appointmentNotesError,
+    refetch: refetchNotes,
+  } = useAppointmentNotes(appointmentId);
+
+  const {
     addNote,
-    isLoading: noteLoading,
-    error: noteError,
-  } = useAppointmentNote(appointmentId);
+    isLoading: noteAddLoading,
+    error: noteAddError,
+  } = useAddAppointmentNote(appointmentId, refetchNotes);
 
   const contextValue: AppointmentDetailContextValue = {
     appointmentId,
     appointment,
-    isLoading,
-    error,
-    refetch,
+    appointmentDetailLoading,
+    appointmentDetailError,
+    refetchAppointment,
     allSections,
     addNote,
-    noteLoading,
-    noteError,
+    noteAddLoading,
+    noteAddError,
+    notes,
+    appointmentNotesLoading,
+    appointmentNotesError,
+    refetchNotes,
   };
 
   return (

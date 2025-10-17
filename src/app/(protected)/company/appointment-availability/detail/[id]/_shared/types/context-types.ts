@@ -1,4 +1,4 @@
-import { AppointmentDto } from "@/types";
+import { AppointmentDto, AppointmentNoteDto } from "@/types";
 import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
 
 /**
@@ -7,16 +7,21 @@ import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNot
 export interface AppointmentDetailContextValue {
   appointmentId: number;
   appointment: AppointmentDto | null;
-  isLoading: boolean;
-  error: string | null;
-  refetch: () => void;
+  appointmentDetailLoading: boolean;
+  appointmentDetailError: string | null;
+  refetchAppointment: () => void;
   allSections: any[];
   // Note işlemleri
   addNote: (
     noteData: Omit<AppointmentNoteCreateDto, "appointmentId" | "authorUserId">
   ) => Promise<boolean>;
-  noteLoading: boolean;
-  noteError: string | null;
+  noteAddLoading: boolean;
+  noteAddError: string | null;
+  // Notes listesi
+  notes: AppointmentNoteDto[];
+  appointmentNotesLoading: boolean;
+  appointmentNotesError: string | null;
+  refetchNotes: () => void;
 }
 
 /**

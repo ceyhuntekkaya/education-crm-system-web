@@ -26,7 +26,11 @@ export const AppointmentNoteFormContent: React.FC = () => {
   const { reset } = useForm();
 
   // Context'ten note işlemlerini al
-  const { addNote, noteLoading, noteError } = useAppointmentDetail();
+  const {
+    addNote,
+    noteAddLoading: noteLoading,
+    noteAddError: noteError,
+  } = useAppointmentDetail();
 
   const handleSubmit = async (values: AppointmentNoteFormData) => {
     const success = await addNote(values);
