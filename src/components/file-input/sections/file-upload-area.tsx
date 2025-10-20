@@ -2,29 +2,37 @@
 
 import React from "react";
 import Icon from "@/components/ui/icon";
-import { FileInputType, FileUploadAreaProps } from "../types";
+import { FileInputType } from "../types";
 import { getFileIcon, getVariantClasses } from "../utils";
+import { useFileInputContext } from "../contexts";
 import { LoadingState } from "./loading-state";
 
+interface FileUploadAreaProps {
+  variant?: "inline" | "outline";
+  placeholder?: string;
+  error?: string;
+}
+
 export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
-  variant,
-  type,
-  fullWidth,
-  disabled,
-  isLoading,
-  dragActive,
-  error,
+  variant = "outline",
   placeholder,
-  multiple,
-  maxSize,
-  maxFiles,
-  onDragEnter,
-  onDragLeave,
-  onDragOver,
-  onDrop,
-  onClick,
-  children,
+  error,
 }) => {
+  // Context'ten tüm gerekli verileri al
+  const {
+    type,
+    multiple,
+    maxFiles,
+    maxSize,
+    disabled,
+    isLoading,
+    dragActive,
+    internalError,
+    handleDrag,
+    onDrop,
+    handleUploadAreaClick,
+  } = useFileInputContext();
+
   const getFileTypeDescription = () => {
     switch (type) {
       case "img":
@@ -54,23 +62,23 @@ export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
     return description;
   };
 
+  const displayError = error || internalError;
+
   return (
     <div
       className={getVariantClasses(
         variant,
-        fullWidth,
+        true, // fullWidth
         disabled || isLoading,
         dragActive,
-        error
+        displayError
       )}
-      onDragEnter={!isLoading ? onDragEnter : undefined}
-      onDragLeave={!isLoading ? onDragLeave : undefined}
-      onDragOver={!isLoading ? onDragOver : undefined}
+      onDragEnter={!isLoading ? handleDrag : undefined}
+      onDragLeave={!isLoading ? handleDrag : undefined}
+      onDragOver={!isLoading ? handleDrag : undefined}
       onDrop={!isLoading ? onDrop : undefined}
-      onClick={onClick}
+      onClick={handleUploadAreaClick}
     >
-      {children}
-
       {isLoading ? (
         <LoadingState />
       ) : (
@@ -81,7 +89,7 @@ export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
             className={
               dragActive
                 ? "text-main-600"
-                : error
+                : displayError
                 ? "text-danger-600"
                 : "text-neutral-400"
             }
@@ -96,6 +104,9 @@ export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
             <div className="text-sm text-neutral-500 mt-4">
               {getDescriptionText()}
             </div>
+            {displayError && (
+              <div className="text-sm text-danger-600 mt-2">{displayError}</div>
+            )}
           </div>
         </div>
       )}

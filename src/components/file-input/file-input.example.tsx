@@ -1,322 +1,308 @@
 "use client";
 
-import React, { useState } from "react";
-import { FileInput } from "@/components/file-input";
+import React from "react";
+import { FileInput } from "./";
 
-export default function FileInputExample() {
-  // Çoklu yükleme
-  const [imageFiles, setImageFiles] = useState<File[] | File | null>(null);
-  const [videoFiles, setVideoFiles] = useState<File[] | File | null>(null);
-  const [documentFiles, setDocumentFiles] = useState<File[] | File | null>(
-    null
-  );
-
-  // Tüm dosya türleri için (mixed content)
-  const [allFiles, setAllFiles] = useState<File[] | File | null>(null);
-
-  // Tekli yükleme
-  const [singleImage, setSingleImage] = useState<File[] | File | null>(null);
-  const [singleVideo, setSingleVideo] = useState<File[] | File | null>(null);
-  const [singleDocument, setSingleDocument] = useState<File[] | File | null>(
-    null
-  );
-
-  const [error, setError] = useState<string>("");
-  const [isUploading, setIsUploading] = useState<string | null>(null);
-
-  const handleSubmit = async () => {
-    console.log("Image Files (Multiple):", imageFiles);
-    console.log("Video Files (Multiple):", videoFiles);
-    console.log("Document Files (Multiple):", documentFiles);
-    console.log("All Files (Mixed Content):", allFiles);
-    console.log("Single Image:", singleImage);
-    console.log("Single Video:", singleVideo);
-    console.log("Single Document:", singleDocument);
-
-    // Simüle edilmiş yükleme işlemi
-    setIsUploading("upload");
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 saniye bekle
-      console.log("Dosyalar başarıyla yüklendi!");
-    } catch (error) {
-      console.error("Yükleme hatası:", error);
-    } finally {
-      setIsUploading(null);
-    }
-  };
-
-  // Upload handlers
-  const handleImageUpload = async (files: File[]) => {
-    console.log("Resimler yükleniyor:", files);
-    // Simüle edilmiş API çağrısı
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log("Resimler başarıyla yüklendi!");
-  };
-
-  const handleVideoUpload = async (files: File[]) => {
-    console.log("Videolar yükleniyor:", files);
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    console.log("Videolar başarıyla yüklendi!");
-  };
-
-  const handleDocumentUpload = async (files: File[]) => {
-    console.log("Dökümanlar yükleniyor:", files);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log("Dökümanlar başarıyla yüklendi!");
-  };
-
-  const handleUploadProgress = (progress: number) => {
-    console.log(`Upload progress: ${progress}%`);
-  };
-
-  const handleUploadComplete = (uploadedFiles: File[]) => {
-    console.log("Upload tamamlandı:", uploadedFiles);
-  };
-
-  // Loading durumu değişikliğini handle et
-  const handleLoadingChange = (loading: boolean, type: string) => {
-    if (loading) {
-      setIsUploading(type);
-    } else {
-      setIsUploading(null);
-    }
-  };
-
+const FileInputExamples: React.FC = () => {
   return (
-    <div className="container py-5 mt-32">
-      <div className="row justify-content-center">
-        <div className="col-lg-8">
-          <div className="bg-white rounded-12 p-4 shadow-sm">
-            <h2 className="h4 mb-4">File Input Component</h2>
+    <div className="container py-5">
+      <hr />
+      <hr />
 
-            <div className="row g-4">
-              {/* Resim Yükleme */}
-              <div className="col-12">
-                <FileInput
-                  value={imageFiles}
-                  onChange={setImageFiles}
-                  onError={setError}
-                  onLoadingChange={(loading) =>
-                    handleLoadingChange(loading, "images")
-                  }
-                  onUpload={handleImageUpload}
-                  onUploadProgress={handleUploadProgress}
-                  onUploadComplete={handleUploadComplete}
-                  label="Resim Yükle (Upload Button İle)"
-                  type="img"
-                  multiple={true}
-                  maxFiles={3}
-                  maxSize={5}
-                  variant="inline"
-                  placeholder="Resimlerinizi buraya yükleyin"
-                  showUploadButton={true}
-                  uploadButtonText="Resimleri Yükle"
-                  error={error}
-                />
-              </div>
+      <FileInput
+        label="Tanıtım Videosu"
+        type="video"
+        variant="outline"
+        multiple={true}
+        placeholder="Video dosyanızı seçin (MP4, AVI, MOV)"
+        uploadButtonText="Videoyu Yükle"
+      />
+      <hr />
+      <hr />
+      <hr />
+      {/* Ana Başlık */}
+      <div className="text-center mb-5">
+        <h1 className="display-4 fw-bold text-primary mb-3">
+          📁 FileInput Örnekleri
+        </h1>
+        <p className="lead text-muted">
+          Modern ve context-tabanlı dosya yükleme component&apos;i örnekleri
+        </p>
+        <hr className="my-4" />
+      </div>
 
-              {/* Video Yükleme (Çoklu) */}
-              <div className="col-12">
-                <FileInput
-                  value={videoFiles}
-                  onChange={setVideoFiles}
-                  onLoadingChange={(loading) =>
-                    handleLoadingChange(loading, "videos")
-                  }
-                  onUpload={handleVideoUpload}
-                  onUploadProgress={handleUploadProgress}
-                  onUploadComplete={handleUploadComplete}
-                  label="Video Yükle (Çoklu - Upload Button İle)"
-                  type="video"
-                  multiple={true}
-                  maxFiles={3}
-                  maxSize={50}
-                  variant="outline"
-                  placeholder="Video dosyalarınızı seçin"
-                  showUploadButton={true}
-                  uploadButtonText="Videoları Yükle"
-                />
-              </div>
+      <div className="row g-4">
+        {/* 1. Profil Fotoğrafı Yükleme */}
+        <div className="col-12">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-primary text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-person-circle me-2"></i>
+                Profil Fotoğrafı Yükleme
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Kullanıcı profil fotoğrafları için optimize edilmiş, çoklu resim
+                yükleme desteği
+              </p>
+              <FileInput
+                label="Profil Fotoğrafları"
+                type="img"
+                variant="outline"
+                multiple={true}
+                maxFiles={3}
+                maxSize={5}
+                placeholder="Profil fotoğraflarınızı seçin veya sürükleyip bırakın"
+                uploadButtonText="Fotoğrafları Yükle"
+                required={true}
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Doküman Yükleme */}
-              <div className="col-12">
-                <FileInput
-                  value={documentFiles}
-                  onChange={setDocumentFiles}
-                  onLoadingChange={(loading) =>
-                    handleLoadingChange(loading, "documents")
-                  }
-                  onUpload={handleDocumentUpload}
-                  onUploadProgress={handleUploadProgress}
-                  onUploadComplete={handleUploadComplete}
-                  label="Doküman Yükle (PDF, DOC, TXT - Upload Button İle)"
-                  type="file"
-                  multiple={true}
-                  maxFiles={5}
-                  maxSize={10}
-                  required={true}
-                  placeholder="PDF, DOC, TXT dosyalarını yükleyin"
-                  showUploadButton={true}
-                  uploadButtonText="Dökümanları Yükle"
-                />
-              </div>
+        {/* 2. Tek Dosya Yükleme */}
+        <div className="col-md-6">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-success text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-file-earmark-text me-2"></i>
+                Belge Yükleme
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Tek belge yükleme, PDF/Word dosyaları için uygun
+              </p>
+              <FileInput
+                label="CV/Özgeçmiş"
+                type="file"
+                variant="inline"
+                multiple={false}
+                maxSize={10}
+                placeholder="CV dosyanızı seçin (PDF, DOC, DOCX)"
+                uploadButtonText="CV'yi Yükle"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Tüm Dosya Türleri - Gruplama ile */}
-              <div className="col-12">
-                <FileInput
-                  value={allFiles}
-                  onChange={setAllFiles}
-                  onLoadingChange={(loading) =>
-                    handleLoadingChange(loading, "all")
-                  }
-                  label="Tüm Dosya Türleri (Karışık İçerik - Gruplandırmalı)"
-                  type="all"
-                  multiple={true}
-                  maxFiles={15}
-                  maxSize={25}
-                  variant="outline"
-                  placeholder="Resim, video, doküman - her türlü dosyayı yükleyin. Çoklu dosya seçimi yapabilirsiniz."
-                  error={error}
-                />
-                <div className="mt-12">
-                  <small className="text-neutral-600 fst-italic">
-                    💡 Bu örnekte farklı dosya türlerini aynı anda
-                    yüklediğinizde otomatik olarak gruplandırılacak ve hizalı
-                    şekilde gösterilecektir.
-                  </small>
-                </div>
-              </div>
+        {/* 3. Video Yükleme */}
+        <div className="col-md-6">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-danger text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-camera-video me-2"></i>
+                Video Yükleme
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Sunum videoları ve eğitim içerikleri için
+              </p>
+              <FileInput
+                label="Tanıtım Videosu"
+                type="video"
+                variant="outline"
+                multiple={true}
+                placeholder="Video dosyanızı seçin (MP4, AVI, MOV)"
+                uploadButtonText="Videoyu Yükle"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Ayırıcı */}
-              <div className="col-12">
-                <hr className="my-4" />
-                <h3 className="h5 mb-3 text-neutral-700">
-                  Tekli Yükleme Örnekleri
-                </h3>
-              </div>
+        {/* 4. Çoklu Belge Yükleme */}
+        <div className="col-md-6">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-warning text-dark">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-files me-2"></i>
+                Çoklu Belge Yükleme
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Proje dosyaları, belgeler ve dökümanlar için
+              </p>
+              <FileInput
+                label="Proje Dosyaları"
+                type="file"
+                variant="outline"
+                multiple={true}
+                maxFiles={10}
+                maxSize={25}
+                placeholder="Proje dosyalarınızı seçin (PDF, DOC, XLS, PPT)"
+                uploadButtonText="Dosyaları Yükle"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Tekli Resim Yükleme */}
-              <div className="col-md-6">
-                <FileInput
-                  value={singleImage}
-                  onChange={setSingleImage}
-                  label="Tek Resim Yükle"
-                  type="img"
-                  multiple={false}
-                  maxSize={5}
-                  variant="outline"
-                  placeholder="Bir resim seçin"
-                />
-              </div>
+        {/* 5. Her Tür Dosya */}
+        <div className="col-md-6">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-info text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-cloud-upload me-2"></i>
+                Genel Dosya Yükleme
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Tüm dosya türlerini destekleyen genel amaçlı yükleme
+              </p>
+              <FileInput
+                label="Herhangi Bir Dosya"
+                type="all"
+                variant="outline"
+                multiple={true}
+                maxFiles={5}
+                maxSize={50}
+                placeholder="Herhangi bir dosya türünü yükleyebilirsiniz"
+                uploadButtonText="Dosyaları Yükle"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Tekli Video Yükleme */}
-              <div className="col-md-6">
-                <FileInput
-                  value={singleVideo}
-                  onChange={setSingleVideo}
-                  label="Tek Video Yükle"
-                  type="video"
-                  multiple={false}
-                  maxSize={100}
-                  variant="inline"
-                  placeholder="Bir video seçin"
-                />
-              </div>
+        {/* 6. Minimal Görünüm */}
+        <div className="col-12">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-secondary text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-layout-text-sidebar-reverse me-2"></i>
+                Minimal Görünüm (Upload Butonu Yok)
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Upload butonu olmadan, sadece dosya seçimi ve önizleme
+              </p>
+              <FileInput
+                label="Basit Dosya Seçici"
+                type="img"
+                variant="inline"
+                multiple={true}
+                maxFiles={3}
+                maxSize={5}
+                placeholder="Resimleri seçin, otomatik yüklenecek"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Tekli Doküman Yükleme */}
-              <div className="col-12">
-                <FileInput
-                  value={singleDocument}
-                  onChange={setSingleDocument}
-                  label="Tek Doküman Yükle (PDF, DOC, TXT)"
-                  type="file"
-                  multiple={false}
-                  maxSize={20}
-                  variant="outline"
-                  placeholder="Bir doküman seçin"
-                  required={false}
-                />
-              </div>
+        {/* 7. Hata Durumu Örneği */}
+        <div className="col-md-6">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-danger text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-exclamation-triangle me-2"></i>
+                Hata Durumu Örneği
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Validation hatası olan dosya yükleme örneği
+              </p>
+              <FileInput
+                label="Hatalı Dosya Yükleme"
+                type="img"
+                variant="outline"
+                multiple={false}
+                maxFiles={1}
+                maxSize={1}
+                placeholder="Küçük bir resim seçin (Max 1MB)"
+                error="Dosya boyutu çok büyük! Maksimum 1MB olmalı."
+                uploadButtonText="Resmi Yükle"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Durum Gösterimi */}
-              <div className="col-12">
-                <div className="bg-neutral-50 p-3 rounded-8">
-                  <h6 className="mb-3">Yüklenen Dosyalar:</h6>
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <div className="small text-neutral-600">
-                        <div className="fw-medium mb-2">Çoklu Yükleme:</div>
-                        <div>
-                          Resimler:{" "}
-                          {Array.isArray(imageFiles)
-                            ? imageFiles.length
-                            : imageFiles
-                            ? 1
-                            : 0}{" "}
-                          dosya
-                        </div>
-                        <div>
-                          Videolar:{" "}
-                          {Array.isArray(videoFiles)
-                            ? videoFiles.length
-                            : videoFiles
-                            ? 1
-                            : 0}{" "}
-                          dosya
-                        </div>
-                        <div>
-                          Dokümanlar:{" "}
-                          {Array.isArray(documentFiles)
-                            ? documentFiles.length
-                            : documentFiles
-                            ? 1
-                            : 0}{" "}
-                          dosya
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="small text-neutral-600">
-                        <div className="fw-medium mb-2">Tekli Yükleme:</div>
-                        <div>Tek Resim: {singleImage ? 1 : 0} dosya</div>
-                        <div>Tek Video: {singleVideo ? 1 : 0} dosya</div>
-                        <div>Tek Doküman: {singleDocument ? 1 : 0} dosya</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* 8. Devre Dışı Örneği */}
+        <div className="col-md-6">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-dark text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-slash-circle me-2"></i>
+                Devre Dışı Durum
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Kullanıcının yetki durumuna göre devre dışı bırakılmış
+              </p>
+              <FileInput
+                label="Yetki Gereken Dosya Yükleme"
+                type="file"
+                variant="outline"
+                multiple={false}
+                maxSize={10}
+                placeholder="Bu alan şu anda kullanılamaz"
+                disabled={true}
+                uploadButtonText="Yükle (Devre Dışı)"
+              />
+            </div>
+          </div>
+        </div>
 
-              {/* Loading Durumu */}
-              {isUploading && (
-                <div className="col-12">
-                  <div className="alert alert-info">
-                    <strong>
-                      {isUploading === "upload"
-                        ? "Dosyalar sunucuya yükleniyor..."
-                        : `${isUploading} işleniyor...`}
-                    </strong>
-                  </div>
-                </div>
-              )}
-
-              {/* Submit Butonu */}
-              <div className="col-12">
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={!!isUploading}
-                  className="btn btn-main-600 text-white px-4 py-2 rounded-8"
-                >
-                  {isUploading === "upload"
-                    ? "Yükleniyor..."
-                    : "Dosyaları Gönder"}
-                </button>
-              </div>
+        {/* 9. Zorunlu Alan Örneği */}
+        <div className="col-12">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-primary text-white">
+              <h3 className="card-title mb-0">
+                <i className="bi bi-asterisk me-2"></i>
+                Zorunlu Alan Örneği
+              </h3>
+            </div>
+            <div className="card-body">
+              <p className="text-muted mb-3">
+                Form validasyonları için zorunlu dosya yükleme alanı
+              </p>
+              <FileInput
+                label="Kimlik Belgesi"
+                type="img"
+                variant="outline"
+                multiple={false}
+                maxFiles={1}
+                maxSize={5}
+                placeholder="Kimlik belgenizin fotoğrafını yükleyin (PNG, JPG)"
+                uploadButtonText="Belgeyi Yükle"
+                required={true}
+                className="border-2"
+              />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Alt Bilgi */}
+      <div className="text-center mt-5">
+        <div className="alert alert-info">
+          <h5 className="alert-heading">
+            <i className="bi bi-info-circle me-2"></i>
+            Kullanım Notları
+          </h5>
+          <hr />
+          <p className="mb-2">
+            <strong>Context Tabanlı:</strong> Tüm component&apos;ler context
+            üzerinden iletişim kurar
+          </p>
+          <p className="mb-2">
+            <strong>Type Güvenliği:</strong> TypeScript ile tam tip desteği
+          </p>
+          <p className="mb-2">
+            <strong>Responsive:</strong> Tüm cihazlarda uyumlu çalışır
+          </p>
+          <p className="mb-0">
+            <strong>Özelleştirilebilir:</strong> Variant, boyut ve davranış
+            seçenekleri
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default FileInputExamples;

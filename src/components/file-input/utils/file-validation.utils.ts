@@ -45,10 +45,25 @@ export const validateFileType = (
 
   const acceptedTypes = acceptAttribute.split(",").map((t) => t.trim());
   return acceptedTypes.some((acceptedType) => {
+    // MIME type kontrolü (örn: image/*, video/*, application/pdf)
     if (acceptedType.endsWith("/*")) {
       const baseType = acceptedType.replace("/*", "");
       return file.type.startsWith(baseType);
     }
+
+    // Tam MIME type kontrolü
+    if (acceptedType.includes("/")) {
+      return file.type === acceptedType;
+    }
+
+    // File extension kontrolü (örn: .pdf, .doc, .docx)
+    if (acceptedType.startsWith(".")) {
+      const fileName = file.name.toLowerCase();
+      const extension = acceptedType.toLowerCase();
+      return fileName.endsWith(extension);
+    }
+
+    // Varsayılan MIME type kontrolü
     return file.type === acceptedType;
   });
 };
@@ -57,19 +72,20 @@ export const validateFileType = (
  * Dosyaları validate eder ve hata listesi döner
  */
 export const validateFiles = (
-  files: FileList,
+  files: File[] | FileList,
   options: FileValidationOptions
 ): FileValidationResult => {
   const errors: string[] = [];
+  const fileArray = Array.isArray(files) ? files : Array.from(files);
 
   // Dosya sayısı kontrolü
-  if (files.length > options.maxFiles) {
+  if (fileArray.length > options.maxFiles) {
     errors.push(`Maksimum ${options.maxFiles} dosya yükleyebilirsiniz`);
   }
 
   // Her dosyayı kontrol et
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
+  for (let i = 0; i < fileArray.length; i++) {
+    const file = fileArray[i];
 
     // Boyut kontrolü
     if (!validateFileSize(file, options.maxSize)) {
@@ -168,6 +184,76 @@ export const formatFileSize = (bytes: number | undefined): string => {
  */
 export const getFileExtension = (filename: string): string => {
   return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+};
+
+/**
+ * Dosya adından kullanıcı dostu tip ismi döner
+ */
+export const getFriendlyFileType = (fileName: string): string => {
+  const extension = fileName.split(".").pop()?.toLowerCase();
+
+  const typeMap: { [key: string]: string } = {
+    // Resim dosyaları
+    jpg: "JPEG",
+    jpeg: "JPEG",
+    png: "PNG",
+    gif: "GIF",
+    bmp: "BMP",
+    webp: "WebP",
+    svg: "SVG",
+
+    // Video dosyaları
+    mp4: "MP4",
+    avi: "AVI",
+    mov: "MOV",
+    wmv: "WMV",
+    flv: "FLV",
+    webm: "WebM",
+    mkv: "MKV",
+
+    // Ses dosyaları
+    mp3: "MP3",
+    wav: "WAV",
+    flac: "FLAC",
+    aac: "AAC",
+
+    // Döküman dosyaları
+    pdf: "PDF",
+    doc: "Word",
+    docx: "Word",
+    txt: "Text",
+    rtf: "RTF",
+
+    // Spreadsheet dosyaları
+    xls: "Excel",
+    xlsx: "Excel",
+    csv: "CSV",
+
+    // Sunum dosyaları
+    ppt: "PowerPoint",
+    pptx: "PowerPoint",
+
+    // Arşiv dosyaları
+    zip: "ZIP",
+    rar: "RAR",
+    "7z": "7-Zip",
+    tar: "TAR",
+    gz: "GZIP",
+
+    // Kod dosyaları
+    js: "JavaScript",
+    ts: "TypeScript",
+    html: "HTML",
+    css: "CSS",
+    json: "JSON",
+    xml: "XML",
+
+    // Diğer
+    exe: "Executable",
+    msi: "Installer",
+  };
+
+  return typeMap[extension || ""] || extension?.toUpperCase() || "FILE";
 };
 
 /**

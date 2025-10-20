@@ -42,55 +42,38 @@ export interface FileValidationOptions {
   maxFiles: number;
 }
 
-// Section component interfaces
-export interface FilePreviewModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  selectedFile: FileWithPreview | null;
-}
-
-export interface FilePreviewProps {
-  files: FileWithPreview[];
-  type: FileInputType;
-  multiple: boolean;
-  disabled: boolean;
-  onFilePreview: (file: FileWithPreview) => void;
-  onRemoveFile: (index: number) => void;
-}
-
-export interface FileUploadAreaProps {
-  variant: "inline" | "outline";
-  type: FileInputType;
-  fullWidth: boolean;
-  disabled: boolean;
-  isLoading: boolean;
-  dragActive: boolean;
-  error?: string;
-  placeholder?: string;
-  multiple: boolean;
-  maxSize?: number;
+// Simple FileInput Props - Modern API
+export interface SimpleFileInputProps {
+  // Temel props
+  label?: string;
+  type?: "img" | "video" | "file" | "all";
+  variant?: "inline" | "outline";
+  multiple?: boolean;
   maxFiles?: number;
-  onDragEnter?: (e: React.DragEvent) => void;
-  onDragLeave?: (e: React.DragEvent) => void;
-  onDragOver?: (e: React.DragEvent) => void;
-  onDrop?: (e: React.DragEvent) => void;
-  onClick?: () => void;
-  children?: React.ReactNode;
+  maxSize?: number; // MB cinsinden
+  placeholder?: string;
+
+  // Opsiyonel props
+  className?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  required?: boolean;
+  error?: string;
+  loading?: boolean;
+  uploadButtonText?: string; // Bu varsa upload button gösterilir
 }
+
+// Section component interfaces
+// FilePreviewModalProps ve FilePreviewProps artık kullanılmıyor - context'ten alınıyor
+
+// FileUploadAreaProps artık kullanılmıyor - context'ten alınıyor
 
 export interface LoadingStateProps {
   message?: string;
   subMessage?: string;
 }
 
-export interface UploadButtonProps {
-  onUpload: () => Promise<void>;
-  disabled?: boolean;
-  loading?: boolean;
-  hasFiles?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-}
+// UploadButtonProps artık kullanılmıyor - context'ten alınıyor
 
 export interface UploadStateProps {
   isUploading?: boolean;

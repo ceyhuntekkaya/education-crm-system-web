@@ -74,7 +74,7 @@
   }
 }
 
-// Delete button positioning - Updated for modern card design
+// Delete button positioning - Updated for modern card design and better visibility
 .file-input-delete-btn {
   position: absolute !important;
   top: 8px !important;
@@ -88,6 +88,25 @@
     transform: scale(1.05);
   }
 }
+
+// Enhanced remove icon styling for file preview cards - Direct Icon component usage
+.file-preview-card {
+
+  
+  // Show icon on hover for better UX
+  &:hover .file-remove-icon {
+    opacity: 1 !important;
+  }
+}
+
+
+  .file-remove-icon {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 999;
+  }
+
 
 // Multiple file items layout - Replaced by grid layout above
 

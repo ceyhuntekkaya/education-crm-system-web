@@ -3,17 +3,19 @@
 import React from "react";
 import CustomImage from "@/components/ui/custom-image";
 import Icon from "@/components/ui/icon";
-import { FileWithPreview, FileInputType, FilePreviewProps } from "../types";
-import { getFileTypeIcon, formatFileSize } from "../utils";
+import { FileWithPreview, FileInputType } from "../types";
+import { getFileTypeIcon, formatFileSize, getFriendlyFileType } from "../utils";
 
-export const FilePreview: React.FC<FilePreviewProps> = ({
-  files,
-  type,
-  multiple,
-  disabled,
-  onFilePreview,
-  onRemoveFile,
-}) => {
+import { useFileInputContext } from "../contexts";
+
+interface FilePreviewProps {
+  // Props kalmadı - hepsi context'ten gelecek
+}
+
+export const FilePreview: React.FC<FilePreviewProps> = () => {
+  // Context'ten tüm gerekli verileri al
+  const { files, type, multiple, disabled, openPreview, removeFile } =
+    useFileInputContext();
   if (files.length === 0) return null;
 
   // Dosyaları türlerine göre gruplandır (type="all" olduğunda)
@@ -42,7 +44,7 @@ export const FilePreview: React.FC<FilePreviewProps> = ({
 
   const handleFileClick = (file: FileWithPreview) => {
     if (file.type?.startsWith("image/") || file.type?.startsWith("video/")) {
-      onFilePreview(file);
+      openPreview(file);
     } else {
       // Diğer dosya türleri için doğrudan yeni sekmede aç
       const url = file.preview || URL.createObjectURL(file);
@@ -58,7 +60,7 @@ export const FilePreview: React.FC<FilePreviewProps> = ({
       return (
         <div
           className="position-relative cursor-pointer overflow-hidden rounded-12 file-preview-content"
-          onClick={() => onFilePreview(file)}
+          onClick={() => openPreview(file)}
           title="Büyük görünüm için tıklayın"
         >
           <CustomImage
@@ -83,28 +85,61 @@ export const FilePreview: React.FC<FilePreviewProps> = ({
       );
     }
 
-    if (file.type?.startsWith("video/") && file.preview) {
-      return (
-        <div
-          className="position-relative cursor-pointer overflow-hidden rounded-12 file-preview-content"
-          onClick={() => onFilePreview(file)}
-          title="Oynatmak için tıklayın"
-        >
-          <video
-            src={file.preview}
-            className="w-100 h-160 object-cover"
-            controls={false}
-            muted
-            style={{ objectFit: "cover" }}
-          />
-          {/* Play overlay */}
-          <div className="preview-overlay video-overlay">
-            <div className="bg-white bg-opacity-90 rounded-circle p-8 d-flex align-items-center justify-content-center">
-              <Icon icon="ph-play" size="lg" className="text-main-600" />
+    if (file.type?.startsWith("video/")) {
+      if (file.preview) {
+        return (
+          <div
+            className="position-relative cursor-pointer overflow-hidden rounded-12 file-preview-content"
+            onClick={() => openPreview(file)}
+            title="Oynatmak için tıklayın"
+          >
+            <video
+              src={file.preview}
+              className="w-100 h-160 object-cover"
+              controls={false}
+              muted
+              preload="metadata"
+              style={{ objectFit: "cover" }}
+            />
+            {/* Play overlay */}
+            <div className="preview-overlay video-overlay">
+              <div className="bg-white bg-opacity-90 rounded-circle p-8 d-flex align-items-center justify-content-center">
+                <Icon icon="ph-play" size="lg" className="text-main-600" />
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
+      } else {
+        // Video preview yoksa, video icon ile göster
+        return (
+          <div
+            className="position-relative cursor-pointer overflow-hidden rounded-12 file-preview-content"
+            onClick={() => openPreview(file)}
+            title="Video dosyası - oynatmak için tıklayın"
+          >
+            <div className="w-100 h-160 bg-gradient-to-br from-red-50 to-red-100 d-flex align-items-center justify-content-center position-relative">
+              <div className="d-flex flex-column align-items-center gap-12">
+                <div className="bg-white rounded-circle p-12 shadow-sm">
+                  <Icon
+                    icon="ph-video-camera"
+                    size="lg"
+                    className="text-red-600"
+                  />
+                </div>
+                <span className="text-xs text-neutral-700 fw-medium text-center px-8">
+                  Video Dosyası
+                </span>
+              </div>
+            </div>
+            {/* Play overlay */}
+            <div className="preview-overlay video-overlay">
+              <div className="bg-white bg-opacity-90 rounded-circle p-8 d-flex align-items-center justify-content-center">
+                <Icon icon="ph-play" size="lg" className="text-red-600" />
+              </div>
+            </div>
+          </div>
+        );
+      }
     }
 
     // Diğer dosya türleri için
@@ -181,16 +216,16 @@ export const FilePreview: React.FC<FilePreviewProps> = ({
   const renderFileCard = (file: FileWithPreview, index: number) => (
     <div key={index}>
       <div className="bg-white rounded-16 p-16 position-relative overflow-hidden d-flex flex-column box-shadow-md hover-box-shadow-lg transition-all h-100">
-        {/* Silme butonu */}
-        <Icon
-          icon="ph-x"
-          size="sm"
-          variant="outline-danger"
-          onClick={() => onRemoveFile(index)}
-          className="position-absolute top-8 end-8 bg-white rounded-circle p-4 cursor-pointer z-index-2"
-          style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}
-          disabled={disabled}
-        />
+        {/* Silme butonu - Direkt Icon component kullanımı */}
+        {!disabled && (
+          <Icon
+            icon="ph-x"
+            size="md"
+            onClick={() => removeFile(index)}
+            variant="outline-danger"
+            className="file-remove-icon"
+          />
+        )}
 
         {/* Önizleme içeriği */}
         <div className="mb-12 position-relative">{renderFileContent(file)}</div>
@@ -204,11 +239,9 @@ export const FilePreview: React.FC<FilePreviewProps> = ({
               <span className="text-neutral-500 text-sm fw-medium">
                 {formatFileSize(file.size || 0)}
               </span>
-              {file.type && (
-                <span className="text-xs text-main-600 bg-main-50 px-8 py-4 rounded-6 fw-medium">
-                  {file.type.split("/")[1]?.toUpperCase() || "FILE"}
-                </span>
-              )}
+              <span className="text-xs text-main-600 bg-main-50 px-8 py-4 rounded-6 fw-medium">
+                {getFriendlyFileType(file.name)}
+              </span>
             </div>
           </div>
         </div>

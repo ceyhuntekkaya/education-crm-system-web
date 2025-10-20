@@ -4,20 +4,23 @@ import React from "react";
 import CustomImage from "@/components/ui/custom-image";
 import Icon from "@/components/ui/icon";
 import { Modal } from "@/components/ui/modal";
-import { FileWithPreview, FilePreviewModalProps } from "../types";
-import { formatFileSize } from "../utils";
+import { FileWithPreview } from "../types";
+import { formatFileSize, getFriendlyFileType } from "../utils";
+import { useFileInputContext } from "../contexts";
 
-export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({
-  isOpen,
-  onClose,
-  selectedFile,
-}) => {
+interface FilePreviewModalProps {
+  // Props kalmadı - hepsi context'ten gelecek
+}
+
+export const FilePreviewModal: React.FC<FilePreviewModalProps> = () => {
+  // Context'ten tüm gerekli verileri al
+  const { isModalOpen, closePreview, selectedFile } = useFileInputContext();
   if (!selectedFile) return null;
 
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={isModalOpen}
+      onClose={closePreview}
       size={selectedFile.type?.startsWith("video/") ? "lg" : "xl"}
       closeOnBackdropClick={true}
       closeOnEscape={true}
@@ -46,7 +49,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({
                   {formatFileSize(selectedFile.size || 0)}
                 </span>
                 <span className="file-type-badge">
-                  {selectedFile.type?.split("/")[1]?.toUpperCase() || "FILE"}
+                  {getFriendlyFileType(selectedFile.name)}
                 </span>
               </div>
             </div>
@@ -72,11 +75,10 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({
                 }}
               />
             </div>
-          ) : selectedFile.type?.startsWith("video/") &&
-            selectedFile.preview ? (
+          ) : selectedFile.type?.startsWith("video/") ? (
             <div className="video-preview-container">
               <video
-                src={selectedFile.preview}
+                src={selectedFile.preview || URL.createObjectURL(selectedFile)}
                 className="preview-video"
                 controls={true}
                 autoPlay={false}
@@ -123,9 +125,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({
             </span>
             <span className="detail-item">
               <Icon icon="ph-tag" size="sm" className="text-neutral-400" />
-              <span>
-                {selectedFile.type?.split("/")[1]?.toUpperCase() || "FILE"}
-              </span>
+              <span>{getFriendlyFileType(selectedFile.name)}</span>
             </span>
           </div>
         </div>
