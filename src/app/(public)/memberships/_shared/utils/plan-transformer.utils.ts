@@ -1,5 +1,5 @@
+import { SubscriptionPlanDto } from "@/types";
 import {
-  SubscriptionPlanDto,
   MembershipPlan,
   MembershipFeature,
   MembershipPrice,
