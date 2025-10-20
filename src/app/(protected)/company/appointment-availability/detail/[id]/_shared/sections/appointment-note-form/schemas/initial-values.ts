@@ -10,4 +10,5 @@ export const initialValues: AppointmentNoteFormData = {
   attachmentName: "",
   attachmentSize: undefined,
   attachmentType: "",
+  noSaleReason: "",
 };

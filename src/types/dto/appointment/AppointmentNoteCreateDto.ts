@@ -24,4 +24,5 @@ export interface AppointmentNoteCreateDto {
   /** Format: int64 */
   attachmentSize?: number;
   attachmentType?: string;
+  noSaleReason?: string;
 }

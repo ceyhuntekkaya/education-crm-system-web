@@ -28,22 +28,22 @@ export const validationSchema = Yup.object({
       "Geçersiz not türü"
     ),
 
-  isPrivate: Yup.boolean().default(false),
+  // isPrivate: Yup.boolean().default(false),
 
-  isImportant: Yup.boolean().default(false),
+  // isImportant: Yup.boolean().default(false),
 
-  attachmentUrl: Yup.string().optional().url("Geçerli bir URL giriniz"),
+  // attachmentUrl: Yup.string().optional().url("Geçerli bir URL giriniz"),
 
-  attachmentName: Yup.string()
-    .optional()
-    .max(255, "Dosya adı en fazla 255 karakter olabilir"),
+  // attachmentName: Yup.string()
+  //   .optional()
+  //   .max(255, "Dosya adı en fazla 255 karakter olabilir"),
 
-  attachmentSize: Yup.number()
-    .optional()
-    .positive("Dosya boyutu pozitif olmalıdır")
-    .max(50 * 1024 * 1024, "Dosya boyutu en fazla 50MB olabilir"), // 50MB
+  // attachmentSize: Yup.number()
+  //   .optional()
+  //   .positive("Dosya boyutu pozitif olmalıdır")
+  //   .max(50 * 1024 * 1024, "Dosya boyutu en fazla 50MB olabilir"), // 50MB
 
-  attachmentType: Yup.string()
-    .optional()
-    .max(50, "Dosya türü en fazla 50 karakter olabilir"),
+  // attachmentType: Yup.string()
+  //   .optional()
+  //   .max(50, "Dosya türü en fazla 50 karakter olabilir"),
 });

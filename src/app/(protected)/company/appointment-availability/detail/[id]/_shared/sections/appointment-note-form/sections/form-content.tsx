@@ -13,7 +13,7 @@ import { AppointmentNoteFormData } from "../types/form-data";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useAppointmentDetail } from "../../../context/appointment-detail-context";
-import { noteTypeOptions } from "../options";
+import { noteTypeOptions, noSaleReasonOptions } from "../options";
 
 /**
  * Appointment note form content component
@@ -65,6 +65,16 @@ export const AppointmentNoteFormContent: React.FC = () => {
             rows={4}
             required
             maxLength={2000}
+          />
+        </div>
+
+        {/* Satış Olmama Sebebi */}
+        <div className="col-12">
+          <FormAutocomplete
+            name="noSaleReason"
+            label="Satış Olmama Sebebi"
+            placeholder="Satış gerçekleşmeme sebebini seçiniz..."
+            options={noSaleReasonOptions}
           />
         </div>
 
