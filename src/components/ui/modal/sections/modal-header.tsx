@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { ModalHeaderProps } from "./types";
+import { ModalHeaderProps } from "../types";
+import Icon from "../../icon";
+import { useModalContext } from "../contexts";
 
 /**
  * Modal Header Component
@@ -16,6 +18,12 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({
   headingLevel = "h4",
 }) => {
   const HeadingTag = headingLevel;
+
+  // Modal context'ten props'lara erişim
+  const modalContext = useModalContext();
+
+  // onClose önceliği: prop > context > undefined
+  const handleClose = onClose || modalContext.onClose;
 
   return (
     <div
@@ -47,38 +55,18 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({
         )}
       </div>
 
-      {showCloseButton && onClose && (
-        <button
-          type="button"
-          onClick={onClose}
-          className="modal-close-button"
+      {showCloseButton && handleClose && (
+        <Icon
+          icon="ph-x"
+          variant="inline"
+          size="md"
+          onClick={handleClose}
           aria-label="Modalı Kapat"
+          className="modal-close-button"
           style={{
-            background: "none",
-            border: "none",
-            fontSize: "24px",
             cursor: "pointer",
-            padding: "8px",
-            borderRadius: "4px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#6b7280",
-            transition: "color 0.2s ease",
-            minWidth: "40px",
-            minHeight: "40px",
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = "#374151";
-            e.currentTarget.style.backgroundColor = "#f3f4f6";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "#6b7280";
-            e.currentTarget.style.backgroundColor = "transparent";
-          }}
-        >
-          <i className="ph ph-x" />
-        </button>
+        />
       )}
     </div>
   );

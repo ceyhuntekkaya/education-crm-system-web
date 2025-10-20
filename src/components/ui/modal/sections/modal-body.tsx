@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ModalBodyProps } from "./types";
+import { ModalBodyProps } from "../types";
+import { useModalContext } from "../contexts";
 
 /**
  * Modal Body Component
@@ -9,16 +10,23 @@ import { ModalBodyProps } from "./types";
  */
 export const ModalBody: React.FC<ModalBodyProps> = ({
   children,
-  scrollable = false,
+  scrollable,
   className = "",
   noPadding = false,
 }) => {
+  // Modal context'ten props'lara erişim
+  const modalContext = useModalContext();
+
+  // scrollable önceliği: prop > context > false
+  const isScrollable =
+    scrollable !== undefined ? scrollable : modalContext.scrollable || false;
+
   const baseStyles: React.CSSProperties = {
     padding: noPadding ? "0" : "32px",
     flex: "1 1 auto",
   };
 
-  const scrollableStyles: React.CSSProperties = scrollable
+  const scrollableStyles: React.CSSProperties = isScrollable
     ? {
         overflow: "auto",
         maxHeight: "calc(90vh - 200px)",
@@ -28,7 +36,7 @@ export const ModalBody: React.FC<ModalBodyProps> = ({
   return (
     <div
       className={`modal-body ${
-        scrollable ? "modal-body-scrollable" : ""
+        isScrollable ? "modal-body-scrollable" : ""
       } ${className}`}
       style={{
         ...baseStyles,

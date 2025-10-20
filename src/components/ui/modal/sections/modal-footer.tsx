@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ModalFooterProps } from "./types";
+import { ModalFooterProps } from "../types";
+import { useModalContext } from "../contexts";
 
 /**
  * Modal Footer Component
@@ -13,6 +14,8 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   justify = "end",
   gap = "md",
 }) => {
+  // Modal context'ten props'lara erişim
+  const modalContext = useModalContext();
   const getJustifyContent = () => {
     switch (justify) {
       case "start":

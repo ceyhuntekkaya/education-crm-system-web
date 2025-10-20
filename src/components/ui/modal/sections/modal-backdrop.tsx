@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ModalBackdropProps } from "./types";
+import { ModalBackdropProps } from "../types";
+import { useModalContextOptional } from "../contexts";
 
 /**
  * Modal Backdrop Component
@@ -10,15 +11,27 @@ import { ModalBackdropProps } from "./types";
 export const ModalBackdrop: React.FC<ModalBackdropProps> = ({
   onClick,
   className = "",
-  animated = true,
+  animated,
   show = true,
 }) => {
+  // Modal context'ten props'lara erişim (opsiyonel)
+  const modalContext = useModalContextOptional();
+
+  // animated önceliği: prop > context > true
+  const isAnimated =
+    animated !== undefined ? animated : modalContext?.animated || true;
+
+  // onClick önceliği: prop > context > undefined
+  const handleOnClick =
+    onClick ||
+    (modalContext?.closeOnBackdropClick ? modalContext.onClose : undefined);
+
   if (!show) return null;
 
   const handleClick = (e: React.MouseEvent) => {
     // Sadece backdrop'a tıklanırsa çağır (event bubbling önlemek için)
-    if (e.target === e.currentTarget && onClick) {
-      onClick();
+    if (e.target === e.currentTarget && handleOnClick) {
+      handleOnClick();
     }
   };
 
@@ -35,8 +48,8 @@ export const ModalBackdrop: React.FC<ModalBackdropProps> = ({
         backgroundColor: "rgba(0, 0, 0, 0.6)",
         backdropFilter: "blur(4px)",
         zIndex: 1040,
-        cursor: onClick ? "pointer" : "default",
-        transition: animated ? "opacity 0.2s ease" : "none",
+        cursor: handleOnClick ? "pointer" : "default",
+        transition: isAnimated ? "opacity 0.2s ease" : "none",
       }}
       role="presentation"
       aria-hidden="true"

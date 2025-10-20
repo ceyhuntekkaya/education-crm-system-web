@@ -41,6 +41,21 @@
 }
 
 
+/* Group Hover Utilities for File Input */
+.group:hover {
+  .group-hover\:bg-opacity-25 {
+    --bs-bg-opacity: 0.25 !important;
+  }
+  
+  .group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+  
+  .group-hover\:scale-110 {
+    transform: scale(1.1) !important;
+  }
+}
+
 /* Item Hover Css End */
 
 

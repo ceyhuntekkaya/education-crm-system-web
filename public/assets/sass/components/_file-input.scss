@@ -1,0 +1,532 @@
+/* File Input Component Styles */
+
+// File input grid layout - Updated for consistent height and better alignment
+.file-input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  align-items: stretch; // Ensure all cards have same height
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+// File preview card container - Updated to match institution cards with consistent height
+.file-input-preview-card,
+.file-preview-card {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px; // Consistent minimum height for all cards
+  
+  &:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+  }
+}
+
+// File preview content area with consistent dimensions
+.file-preview-content {
+  width: 100%;
+  height: 160px; // Fixed height for all preview areas
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Ensure images and videos maintain aspect ratio within container
+  .custom-image,
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Grouped file preview styles
+.file-preview-grouped {
+  .mb-24:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  h4 {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+    
+    .ph-image,
+    .ph-video-camera,
+    .ph-file {
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Delete button positioning - Updated for modern card design
+.file-input-delete-btn {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  cursor: pointer !important;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+// Multiple file items layout - Replaced by grid layout above
+
+// Drag and drop area styles
+.file-input-drop-area {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &.drag-over {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+  
+  &:hover {
+    border-color: #6b7280;
+    background-color: #f9fafb;
+  }
+  
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    &:hover {
+      border-color: #d1d5db;
+      background-color: transparent;
+    }
+  }
+}
+
+// File preview content
+.file-input-preview {
+  .preview-image {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .preview-video {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .preview-file-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border-radius: 6px;
+  }
+}
+
+// Modern File Preview Modal Styles
+.file-preview-modal {
+  .modal-content {
+    overflow: visible;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    background: #ffffff;
+  }
+  
+  .modal-body {
+    max-height: calc(90vh - 200px);
+    overflow: auto;
+  }
+}
+
+// File Modal Header - Clean centered design
+.file-modal-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid #f1f5f9;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px 20px 0 0;
+  
+  .modal-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .file-header-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+  
+  .file-type-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    flex-shrink: 0;
+  }
+  
+  .file-info {
+    flex: 1;
+    min-width: 0; // Allow text truncation
+    
+    .file-title {
+      color: #1e293b;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    
+    .file-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      
+      .file-size {
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      .file-type-badge {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+  
+  .header-close-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    
+    &:hover {
+      background: rgba(239, 68, 68, 0.2);
+      transform: scale(1.05);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// File Modal Body - Clean content area
+.file-modal-body {
+  padding: 32px;
+  background: #ffffff;
+  
+  .preview-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+  }
+  
+  .image-preview-container,
+  .video-preview-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    .preview-image,
+    .preview-video {
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  .file-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+    
+    .file-icon-wrapper {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #e2e8f0;
+    }
+    
+    .file-preview-info {
+      .preview-message {
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 0;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// File Modal Footer - Modern action area
+.file-modal-footer {
+  padding: 24px 32px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-top: 1px solid #f1f5f9;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .footer-info {
+    .file-details {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      
+      .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    .footer-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+      
+      &.secondary {
+        background: white;
+        color: #64748b;
+        border-color: #e2e8f0;
+        
+        &:hover {
+          background: #f8fafc;
+          border-color: #cbd5e1;
+          transform: translateY(-1px);
+        }
+      }
+      
+      &.primary {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+        }
+      }
+    }
+  }
+}
+
+// Preview interaction styles - Updated for institution card style
+.preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  > div {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+  }
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.4);
+    
+    > div {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+// Video specific overlay (always visible but less opacity)
+.video-overlay {
+  background: rgba(0, 0, 0, 0.25) !important;
+  
+  > div {
+    opacity: 0.75 !important;
+  }
+  
+  &:hover > div {
+    opacity: 1 !important;
+  }
+}
+
+// Document card specific styles
+.file-input-preview-card {
+  // Hover effects for document cards
+  .hover-shadow-md:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+  }
+}
+
+// Gradient utilities for document preview
+.bg-gradient-to-br {
+  &.from-main-50.to-main-100 {
+    background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
+  }
+}
+
+// Height utilities for consistent file preview dimensions
+.h-160 {
+  height: 160px !important;
+}
+
+.min-h-160-px {
+  min-height: 160px !important;
+}
+
+// Responsive file input adjustments for mobile
+@media (max-width: 576px) {
+  .file-input-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .file-preview-card {
+    min-height: 280px !important; // Smaller minimum height for mobile
+  }
+  
+  .file-preview-content {
+    height: 140px !important; // Smaller preview area for mobile
+  }
+  
+  .h-160 {
+    height: 140px !important;
+  }
+  
+  // Mobile modal adjustments
+  .file-modal-header {
+    padding: 20px 24px;
+    
+    .file-header-info {
+      gap: 12px;
+    }
+    
+    .file-type-icon {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .file-info .file-title {
+      font-size: 16px;
+    }
+    
+    .header-close-btn {
+      width: 44px;
+      height: 44px;
+    }
+  }
+  
+  .file-modal-body {
+    padding: 24px 20px;
+    
+    .preview-content {
+      min-height: 300px;
+    }
+    
+    .file-preview-container {
+      gap: 24px;
+      
+      .file-icon-wrapper {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  }
+  
+  .file-modal-footer {
+    padding: 20px 24px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    
+    .footer-info .file-details {
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-actions {
+      justify-content: center;
+      width: 100%;
+      
+      .footer-btn {
+        min-width: 120px;
+        justify-content: center;
+      }
+    }
+  }
+}

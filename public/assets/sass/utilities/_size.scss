@@ -263,3 +263,33 @@ $width-values: (
 .overflow-auto {
   overflow: auto !important;
 }
+
+// Viewport height utilities
+.max-h-70vh {
+  max-height: 70vh !important;
+}
+
+.max-h-80vh {
+  max-height: 80vh !important;
+}
+
+.max-h-90vh {
+  max-height: 90vh !important;
+}
+
+// Object fit utilities  
+.object-contain {
+  object-fit: contain !important;
+}
+
+.object-cover {
+  object-fit: cover !important;
+}
+
+.object-fill {
+  object-fit: fill !important;
+}
+
+.object-none {
+  object-fit: none !important;
+}

@@ -137,7 +137,7 @@ const Icon: React.FC<IconProps> = ({
         case "md":
           return "w-40-px h-40-px text-base";
         case "lg":
-          return "w-48-px h-48-px text-lg";
+          return "w-50-px h-50-px text-lg";
         default:
           return "w-40-px h-40-px text-base";
       }
