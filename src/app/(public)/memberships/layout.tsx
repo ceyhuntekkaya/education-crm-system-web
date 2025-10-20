@@ -1,9 +1,5 @@
-import { ReactNode } from "react";
 import { MembershipProvider } from "./_shared";
-
-interface MembershipsLayoutProps {
-  children: ReactNode;
-}
+import { MembershipsLayoutProps } from "./_shared/types";
 
 const MembershipsLayout = ({ children }: MembershipsLayoutProps) => {
   return <MembershipProvider>{children}</MembershipProvider>;

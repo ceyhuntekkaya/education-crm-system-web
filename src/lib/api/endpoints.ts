@@ -30,6 +30,14 @@ export const API_ENDPOINTS = {
       `/pricing/school-pricing/${id}`,
   },
 
+  SUBSCRIPTIONS: {
+    PLANS: "/subscriptions/plans",
+    PLAN_BY_ID: (id: string | number) => `/subscriptions/plans/${id}`,
+    ACTIVE_PLANS: "/subscriptions/plans/active",
+    PLANS_BY_BILLING_PERIOD: (billingPeriod: string) =>
+      `/subscriptions/plans?billingPeriod=${billingPeriod}`,
+  },
+
   CAMPAIGNS: {
     ACTIVE: "/campaigns/active",
     BY_SCHOOL: (schoolId: string | number) => `/campaigns/schools/${schoolId}`,
