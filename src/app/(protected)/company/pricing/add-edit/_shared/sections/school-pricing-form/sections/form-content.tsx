@@ -44,18 +44,22 @@ export const SchoolPricingFormContent: React.FC = () => {
     usePricingAddEdit();
 
   const handleSubmit = async (values: SchoolPricingFormData) => {
-    // Form data'yı API için hazırla
+    // Form data'yı backend'e gönder - sadece schoolId ve createdByUserId ekle
     const formData = {
       ...values,
-      createdByUserId: user?.id,
       schoolId: selectedSchool?.id,
+      createdByUserId: user?.id,
     };
 
     // Edit veya Add moduna göre doğru hook'u kullan
-    if (isEditing) {
-      putPricing(formData);
-    } else {
-      postPricing(formData);
+    try {
+      if (isEditing) {
+        await putPricing(formData);
+      } else {
+        await postPricing(formData);
+      }
+    } catch (error) {
+      console.error("Form submit hatası:", error);
     }
   };
 
@@ -311,6 +315,116 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
+        {/* Bakım Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="maintenanceFee"
+            label="Bakım Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Güvenlik Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="securityFee"
+            label="Güvenlik Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Sınav Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="examFee"
+            label="Sınav Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Mezuniyet Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="graduationFee"
+            label="Mezuniyet Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Uzatmalı Gün Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="extendedDayFee"
+            label="Uzatmalı Gün Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Etüt Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="tutoringFee"
+            label="Etüt Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Yaz Okulu Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="summerSchoolFee"
+            label="Yaz Okulu Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Kış Kampı Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="winterCampFee"
+            label="Kış Kampı Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Dil Kursu Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="languageCourseFee"
+            label="Dil Kursu Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* Özel Ders Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="privateLessonFee"
+            label="Özel Ders Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
+        {/* İptal Ücreti */}
+        <div className="col-3">
+          <FormInput
+            name="cancellationFee"
+            label="İptal Ücreti"
+            type="number"
+            placeholder="₺ 0,00"
+          />
+        </div>
+
         {/* ÖDEME KOŞULLARI */}
         <div className="col-12">
           <hr className="my-24" />
@@ -368,6 +482,51 @@ export const SchoolPricingFormContent: React.FC = () => {
           <FormInput
             name="siblingDiscountPercentage"
             label="Kardeş İndirimi"
+            type="number"
+            placeholder="0 %"
+          />
+        </div>
+
+        {/* Çoklu Yıl İndirimi */}
+        <div className="col-4">
+          <FormInput
+            name="multiYearDiscountPercentage"
+            label="Çoklu Yıl İndirimi"
+            type="number"
+            placeholder="0 %"
+          />
+        </div>
+
+        {/* Sadakat İndirimi */}
+        <div className="col-4">
+          <FormInput
+            name="loyaltyDiscountPercentage"
+            label="Sadakat İndirimi"
+            type="number"
+            placeholder="0 %"
+          />
+        </div>
+
+        {/* DİĞER YÜZDELER VE CEZALAR */}
+        <div className="col-12">
+          <h6 className="mb-16">Diğer Ceza ve İadeler (%)</h6>
+        </div>
+
+        {/* Geç Ödeme Ceza Yüzdesi */}
+        <div className="col-4">
+          <FormInput
+            name="latePaymentPenaltyPercentage"
+            label="Geç Ödeme Ceza Yüzdesi"
+            type="number"
+            placeholder="0 %"
+          />
+        </div>
+
+        {/* Çekilme İade Yüzdesi */}
+        <div className="col-4">
+          <FormInput
+            name="withdrawalRefundPercentage"
+            label="Çekilme İade Yüzdesi"
             type="number"
             placeholder="0 %"
           />
@@ -435,6 +594,39 @@ export const SchoolPricingFormContent: React.FC = () => {
             placeholder="Bu fiyat planı hakkında genel açıklama..."
             rows={3}
             maxLength={1000}
+          />
+        </div>
+
+        {/* İç Notlar */}
+        <div className="col-6">
+          <FormTextarea
+            name="internalNotes"
+            label="İç Notlar"
+            placeholder="Sadece yetkili personelin görebileceği notlar..."
+            rows={4}
+            maxLength={2000}
+          />
+        </div>
+
+        {/* Ücret Döküm Notları */}
+        <div className="col-6">
+          <FormTextarea
+            name="feeBreakdownNotes"
+            label="Ücret Döküm Notları"
+            placeholder="Ücret detayları hakkında ek açıklamalar..."
+            rows={4}
+            maxLength={1000}
+          />
+        </div>
+
+        {/* Pazar Pozisyonu */}
+        <div className="col-12">
+          <FormTextarea
+            name="marketPosition"
+            label="Pazar Pozisyonu"
+            placeholder="Bu fiyatlandırmanın pazar konumu ve stratejisi..."
+            rows={3}
+            maxLength={500}
           />
         </div>
 

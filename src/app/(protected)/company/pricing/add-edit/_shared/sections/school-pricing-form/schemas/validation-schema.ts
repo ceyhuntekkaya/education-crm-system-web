@@ -78,6 +78,29 @@ export const validationSchema = Yup.object({
   cafeteriaFee: Yup.number()
     .min(0, "Kafeterya ücreti negatif olamaz")
     .optional(),
+  insuranceFee: Yup.number().min(0, "Sigorta ücreti negatif olamaz").optional(),
+  maintenanceFee: Yup.number().min(0, "Bakım ücreti negatif olamaz").optional(),
+  securityFee: Yup.number().min(0, "Güvenlik ücreti negatif olamaz").optional(),
+  examFee: Yup.number().min(0, "Sınav ücreti negatif olamaz").optional(),
+  graduationFee: Yup.number()
+    .min(0, "Mezuniyet ücreti negatif olamaz")
+    .optional(),
+  extendedDayFee: Yup.number()
+    .min(0, "Uzatmalı gün ücreti negatif olamaz")
+    .optional(),
+  tutoringFee: Yup.number().min(0, "Etüt ücreti negatif olamaz").optional(),
+  summerSchoolFee: Yup.number()
+    .min(0, "Yaz okulu ücreti negatif olamaz")
+    .optional(),
+  winterCampFee: Yup.number()
+    .min(0, "Kış kampı ücreti negatif olamaz")
+    .optional(),
+  languageCourseFee: Yup.number()
+    .min(0, "Dil kursu ücreti negatif olamaz")
+    .optional(),
+  privateLessonFee: Yup.number()
+    .min(0, "Özel ders ücreti negatif olamaz")
+    .optional(),
 
   // Ödeme koşulları
   paymentFrequency: Yup.string()
@@ -117,6 +140,38 @@ export const validationSchema = Yup.object({
     .max(100, "Kardeş indirimi 100'den fazla olamaz")
     .optional(),
 
+  multiYearDiscountPercentage: Yup.number()
+    .min(0, "Çoklu yıl indirimi negatif olamaz")
+    .max(100, "Çoklu yıl indirimi 100'den fazla olamaz")
+    .optional(),
+
+  loyaltyDiscountPercentage: Yup.number()
+    .min(0, "Sadakat indirimi negatif olamaz")
+    .max(100, "Sadakat indirimi 100'den fazla olamaz")
+    .optional(),
+
+  latePaymentPenaltyPercentage: Yup.number()
+    .min(0, "Geç ödeme cezası negatif olamaz")
+    .max(100, "Geç ödeme cezası 100'den fazla olamaz")
+    .optional(),
+
+  withdrawalRefundPercentage: Yup.number()
+    .min(0, "Çekilme iadesi negatif olamaz")
+    .max(100, "Çekilme iadesi 100'den fazla olamaz")
+    .optional(),
+
+  cancellationFee: Yup.number()
+    .min(0, "İptal ücreti negatif olamaz")
+    .optional(),
+
+  // Boolean alanlar
+  needBasedAidAvailable: Yup.boolean().optional(),
+  meritBasedAidAvailable: Yup.boolean().optional(),
+  showDetailedBreakdown: Yup.boolean().optional(),
+  highlightTotalCost: Yup.boolean().optional(),
+  showPaymentOptions: Yup.boolean().optional(),
+  showFinancialAidInfo: Yup.boolean().optional(),
+
   // Tarihler
   validFrom: Yup.date().optional().typeError("Geçerli bir tarih giriniz"),
 
@@ -152,5 +207,13 @@ export const validationSchema = Yup.object({
 
   publicDescription: Yup.string()
     .max(1000, "Genel açıklama en fazla 1000 karakter olabilir")
+    .optional(),
+
+  feeBreakdownNotes: Yup.string()
+    .max(1000, "Ücret döküm notları en fazla 1000 karakter olabilir")
+    .optional(),
+
+  marketPosition: Yup.string()
+    .max(500, "Pazar pozisyonu en fazla 500 karakter olabilir")
     .optional(),
 });

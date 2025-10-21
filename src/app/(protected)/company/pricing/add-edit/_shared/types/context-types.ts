@@ -1,5 +1,4 @@
 import { SchoolPricingDto, SchoolPricingCreateDto } from "@/types";
-import { MutationOptions } from "@/hooks/api/types";
 
 export interface PricingAddEditContextType {
   // Current pricing data
@@ -14,11 +13,9 @@ export interface PricingAddEditContextType {
   // Actions
   fetchPricing: (() => void) | undefined;
   postPricing: (
-    data: SchoolPricingCreateDto,
-    options?: MutationOptions<SchoolPricingDto, SchoolPricingCreateDto>
+    data: SchoolPricingCreateDto
   ) => Promise<SchoolPricingDto | null>;
   putPricing: (
-    data: SchoolPricingCreateDto,
-    options?: MutationOptions<SchoolPricingDto, SchoolPricingCreateDto>
+    data: SchoolPricingCreateDto
   ) => Promise<SchoolPricingDto | null>;
 }
