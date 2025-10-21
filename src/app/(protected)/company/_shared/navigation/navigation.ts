@@ -74,7 +74,7 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-crown",
   },
   {
-    href: "/company/brand",
+    href: "/company/brand-detail",
     label: "Marka Bilgileri",
     icon: "ph-tag",
   },
