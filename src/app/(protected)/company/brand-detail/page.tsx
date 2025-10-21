@@ -4,32 +4,35 @@ import React from "react";
 import { useBrandDetail } from "./_shared/context/brand-detail-context";
 import {
   BrandCoverImage,
-  BrandNotFoundSection,
   BrandDetailSection,
   BrandCampusSection,
+  BrandLoadingSection,
+  BrandDetailErrorSection,
+  BrandDetailNotFoundSection,
+  BrandDetailEmptySection,
 } from "./_shared/sections";
-import { LoadingSpinner } from "@/components/ui/loadings";
-import { CustomCard } from "@/components/ui";
 
 const BrandDetailPage: React.FC = () => {
-  const { currentBrand, isLoading } = useBrandDetail();
+  const { currentBrand, isLoading, error, allSections } = useBrandDetail();
 
+  // Loading durumu
   if (isLoading) {
-    return (
-      <CustomCard title="Marka Bilgileri Yükleniyor" className="text-center">
-        <div className="py-5">
-          <LoadingSpinner
-            size="lg"
-            message="Marka detayları yükleniyor..."
-            variant="dots"
-          />
-        </div>
-      </CustomCard>
-    );
+    return <BrandLoadingSection />;
   }
 
+  // Error durumu
+  if (error) {
+    return <BrandDetailErrorSection error={error} />;
+  }
+
+  // Empty state durumu
   if (!currentBrand) {
-    return <BrandNotFoundSection />;
+    return <BrandDetailNotFoundSection />;
+  }
+
+  // Section'lar yoksa
+  if (!allSections?.length) {
+    return <BrandDetailEmptySection />;
   }
 
   return (

@@ -1,12 +1,7 @@
 import React from "react";
 import { CustomCard } from "@/components/ui";
+import { Button } from "@/components";
 import { useBrandDetail } from "../context";
-import {
-  BrandDetailLoadingSection,
-  BrandDetailErrorSection,
-  BrandDetailNotFoundSection,
-  BrandDetailEmptySection,
-} from "./brand-detail-state-sections";
 
 interface BrandDetailSectionProps {
   direction?: "row" | "column";
@@ -18,32 +13,7 @@ interface BrandDetailSectionProps {
 export const BrandDetailSection: React.FC<BrandDetailSectionProps> = ({
   direction = "column",
 }) => {
-  const {
-    currentBrand: brand,
-    isLoading,
-    error,
-    allSections,
-  } = useBrandDetail();
-
-  // Loading durumu
-  if (isLoading) {
-    return <BrandDetailLoadingSection />;
-  }
-
-  // Error durumu
-  if (error) {
-    return <BrandDetailErrorSection error={error} />;
-  }
-
-  // Empty state durumu
-  if (!brand) {
-    return <BrandDetailNotFoundSection />;
-  }
-
-  // Section'lar yoksa
-  if (!allSections?.length) {
-    return <BrandDetailEmptySection />;
-  }
+  const { currentBrand: brand, allSections } = useBrandDetail();
 
   return (
     <div
@@ -53,6 +23,26 @@ export const BrandDetailSection: React.FC<BrandDetailSectionProps> = ({
     >
       <CustomCard
         title="Marka Detayları"
+        headerAction={
+          <div className="d-flex gap-8">
+            <Button
+              variant="outline"
+              size="sm"
+              leftIcon="ph-plus"
+              href="/company/brand-detail/add-edit/new"
+            >
+              Yeni Ekle
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              leftIcon="ph-pencil-simple"
+              href={`/company/brand-detail/add-edit/${brand?.id}`}
+            >
+              Düzenle
+            </Button>
+          </div>
+        }
         multiItems={allSections.map((section) => ({
           title: section.title,
           titleColor: section.titleColor,

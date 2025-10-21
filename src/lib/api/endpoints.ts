@@ -21,6 +21,8 @@ export const API_ENDPOINTS = {
     SCHOOLS_SEARCH: "/institutions/schools/search",
     SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
     BRAND_DETAIL: (id: string | number) => `/institutions/brands/${id}`,
+    BRAND_CREATE: "/institutions/brands",
+    BRAND_BY_ID: (id: string | number) => `/institutions/brands/${id}`,
     INSTITUTION_TYPES: "/institutions/institution-types",
   },
 
