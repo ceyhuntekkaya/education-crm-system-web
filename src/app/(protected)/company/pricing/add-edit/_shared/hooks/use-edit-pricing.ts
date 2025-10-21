@@ -3,7 +3,7 @@
 import { usePut } from "@/hooks";
 import { useAuth } from "@/contexts";
 import { API_ENDPOINTS } from "@/lib";
-import { SchoolPricingCreateDto, SchoolPricingDto } from "@/types";
+import { SchoolPricingUpdateDto, SchoolPricingDto } from "@/types";
 
 /**
  * Pricing güncelleme hook'u
@@ -13,7 +13,7 @@ export const useEditPricing = (pricingId: number) => {
     mutate: putPricing,
     loading: isLoading,
     error,
-  } = usePut<SchoolPricingDto, SchoolPricingCreateDto>(
+  } = usePut<SchoolPricingDto, SchoolPricingUpdateDto>(
     () => API_ENDPOINTS.PRICING.SCHOOL_PRICING_BY_ID(pricingId),
     {
       onSuccess: (data) => {
