@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { PricingAddEditProvider } from "./_shared";
 
 interface PricingAddEditRootLayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,11 @@ interface PricingAddEditRootLayoutProps {
 const PricingAddEditRootLayout: React.FC<PricingAddEditRootLayoutProps> = ({
   children,
 }) => {
-  return <div>{children}</div>;
+  return (
+    <PricingAddEditProvider>
+      <div>{children}</div>
+    </PricingAddEditProvider>
+  );
 };
 
 export default PricingAddEditRootLayout;

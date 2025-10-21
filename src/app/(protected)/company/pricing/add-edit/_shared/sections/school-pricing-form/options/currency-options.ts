@@ -1,0 +1,17 @@
+export const currencyOptions = [
+  { value: "TRY", label: "Türk Lirası (TRY)" },
+  { value: "USD", label: "Amerikan Doları (USD)" },
+  { value: "EUR", label: "Euro (EUR)" },
+  { value: "GBP", label: "İngiliz Sterlini (GBP)" },
+  { value: "CHF", label: "İsviçre Frangı (CHF)" },
+  { value: "CAD", label: "Kanada Doları (CAD)" },
+  { value: "AUD", label: "Avustralya Doları (AUD)" },
+  { value: "JPY", label: "Japon Yeni (JPY)" },
+  { value: "CNY", label: "Çin Yuanı (CNY)" },
+  { value: "RUB", label: "Rus Rublesi (RUB)" },
+  { value: "SAR", label: "Suudi Arabistan Riyali (SAR)" },
+  { value: "AED", label: "Birleşik Arap Emirlikleri Dirhemi (AED)" },
+  { value: "QAR", label: "Katar Riyali (QAR)" },
+  { value: "KWD", label: "Kuveyt Dinarı (KWD)" },
+  { value: "BHD", label: "Bahreyn Dinarı (BHD)" },
+];
