@@ -22,6 +22,7 @@ import {
   academicYearOptions,
 } from "../options";
 import { usePricingAddEdit } from "../../../context";
+import { SchoolPricingCreateDto } from "@/types";
 
 /**
  * School pricing form content component
@@ -713,4 +714,89 @@ export const SchoolPricingFormContent: React.FC = () => {
       </div>
     </Form>
   );
+};
+
+const exampleSchoolPricingCreateDto: SchoolPricingCreateDto = {
+  schoolId: 5,
+  createdByUserId: 1,
+  academicYear: "2024-2025",
+  gradeLevel: "HIGH_SCHOOL", // Lise seviyesi
+  classLevel: "9", // 9. sınıf
+  currency: "TRY", // Türk Lirası
+
+  // Temel ücretler
+  registrationFee: 5000, // Kayıt ücreti
+  applicationFee: 500, // Başvuru ücreti
+  enrollmentFee: 2500, // Kayıt tamamlama ücreti
+  annualTuition: 120000, // Yıllık öğrenim ücreti
+  monthlyTuition: 10000, // Aylık öğrenim ücreti
+  semesterTuition: 60000, // Dönemlik öğrenim ücreti
+
+  // Ek ücretler
+  bookFee: 3000, // Kitap ücreti
+  uniformFee: 2000, // Üniforma ücreti
+  activityFee: 1500, // Aktivite ücreti
+  technologyFee: 2500, // Teknoloji ücreti
+  laboratoryFee: 1800, // Laboratuvar ücreti
+  libraryFee: 800, // Kütüphane ücreti
+  sportsFee: 1200, // Spor ücreti
+  artFee: 1000, // Sanat ücreti
+  musicFee: 1500, // Müzik ücreti
+  transportationFee: 4000, // Ulaşım ücreti
+  cafeteriaFee: 3000, // Kafeterya ücreti
+  insuranceFee: 600, // Sigorta ücreti
+  maintenanceFee: 800, // Bakım ücreti
+  securityFee: 500, // Güvenlik ücreti
+  examFee: 400, // Sınav ücreti
+  graduationFee: 2000, // Mezuniyet ücreti
+  extendedDayFee: 2500, // Uzatılmış gün ücreti
+  tutoringFee: 3500, // Özel ders ücreti
+  summerSchoolFee: 8000, // Yaz okulu ücreti
+  winterCampFee: 5000, // Kış kampı ücreti
+  languageCourseFee: 2500, // Dil kursu ücreti
+  privateLessonFee: 500, // Özel ders (saatlik) ücreti
+
+  // Ödeme koşulları
+  paymentFrequency: "MONTHLY", // Aylık ödeme
+  installmentCount: 10, // 10 taksit
+  downPaymentPercentage: 20.0, // %20 peşinat
+
+  // İndirimler
+  earlyPaymentDiscountPercentage: 5.0, // %5 erken ödeme indirimi
+  siblingDiscountPercentage: 10.0, // %10 kardeş indirimi
+  multiYearDiscountPercentage: 8.0, // %8 çok yıllık indirim
+  loyaltyDiscountPercentage: 3.0, // %3 sadakat indirimi
+
+  // Burs seçenekleri
+  needBasedAidAvailable: true, // İhtiyaç bazlı burs var
+  meritBasedAidAvailable: true, // Başarı bazlı burs var
+
+  // Geçerlilik tarihleri
+  validFrom: "2024-09-01", // Başlangıç tarihi
+  validUntil: "2025-08-31", // Bitiş tarihi
+
+  // Politikalar ve açıklamalar
+  refundPolicy:
+    "İade politikası: Öğrenim yılı başlamadan 30 gün öncesine kadar %100 iade. Sonrasında kademeli iade uygulanır.",
+  paymentTerms:
+    "Ödeme koşulları: Her ayın 5'ine kadar ödeme yapılmalıdır. Geç ödeme cezası uygulanır.",
+  latePaymentPenaltyPercentage: 2.5, // %2.5 geç ödeme cezası
+  cancellationFee: 1000, // İptal ücreti
+  withdrawalRefundPercentage: 70.0, // %70 ayrılma iadesi
+
+  // Notlar ve açıklamalar
+  internalNotes:
+    "Bu fiyatlandırma 2024-2025 akademik yılı için belirlenmiştir. Yönetim kurulu onayı alınmıştır.",
+  publicDescription:
+    "Kaliteli eğitim için uygun fiyat seçenekleri. Esnek ödeme planları ve burs imkanları mevcuttur.",
+  feeBreakdownNotes:
+    "Tüm ücretler KDV dahildir. Ek materyaller ayrıca ücretlendirilir.",
+  marketPosition:
+    "Orta-üst segment. Rekabetçi fiyatlandırma ile kaliteli eğitim sunumu.",
+
+  // Görünüm seçenekleri
+  showDetailedBreakdown: true, // Detaylı döküm göster
+  highlightTotalCost: true, // Toplam maliyeti vurgula
+  showPaymentOptions: true, // Ödeme seçeneklerini göster
+  showFinancialAidInfo: true, // Finansal yardım bilgilerini göster
 };
