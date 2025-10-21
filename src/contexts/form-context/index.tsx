@@ -225,7 +225,8 @@ export const useFormField = (name: string) => {
     value: getValue(name),
     error: getError(name),
     required: isFieldRequired(name),
-    onChange: async (value: string | number | boolean | null | undefined) =>
-      await setValue(name, value),
+    onChange: async (
+      value: string | number | boolean | null | undefined | any[] | any
+    ) => await setValue(name, value),
   };
 };

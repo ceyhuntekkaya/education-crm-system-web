@@ -24,10 +24,19 @@ export const API_ENDPOINTS = {
   },
 
   PRICING: {
+    SCHOOL_PRICING_CREATE: "/pricing/school-pricing",
     SCHOOL_PRICING: (schoolId: string | number) =>
       `/pricing/school-pricing/school/${schoolId}`,
     SCHOOL_PRICING_BY_ID: (id: string | number) =>
       `/pricing/school-pricing/${id}`,
+  },
+
+  SUBSCRIPTIONS: {
+    PLANS: "/subscriptions/plans",
+    PLAN_BY_ID: (id: string | number) => `/subscriptions/plans/${id}`,
+    ACTIVE_PLANS: "/subscriptions/plans/active",
+    PLANS_BY_BILLING_PERIOD: (billingPeriod: string) =>
+      `/subscriptions/plans?billingPeriod=${billingPeriod}`,
   },
 
   CAMPAIGNS: {
@@ -43,6 +52,9 @@ export const API_ENDPOINTS = {
       `/appointments/schools/${schoolId}/availability-range`,
     SCHOOL_STATISTICS: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/statistics`,
+    BY_ID: (id: string | number) => `/appointments/${id}`,
+    NOTES: (appointmentId: string | number) =>
+      `/appointments/${appointmentId}/notes`,
   },
 
   CONTENT: {

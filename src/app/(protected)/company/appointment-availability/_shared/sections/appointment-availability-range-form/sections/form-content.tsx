@@ -3,6 +3,7 @@
 import React from "react";
 import { Form, FormInput } from "@/components/forms";
 import { Button } from "@/components/ui/button";
+import CustomCard from "@/components/ui/custom-card";
 import { AppointmentAvailabilityRangeFilters } from "../types";
 import { useAppointment } from "../../../context/appointment-context";
 import { useFormHook } from "@/hooks";
@@ -40,58 +41,48 @@ export const AppointmentAvailabilityRangeFormContent: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className="border border-neutral-30 rounded-12 p-20 bg-white">
-        <h4 className="text-neutral-700 text-lg fw-semibold mb-16 d-flex align-items-center">
-          <i className="ph-bold ph-calendar-dots me-8" />
-          Randevu Müsaitlik Aralığı Sorgulama
-        </h4>
-        <p className="text-neutral-600 mb-20">
-          Belirtilen tarih aralığındaki müsaitlik durumunu sorgulayın
-        </p>
-
-        <Form onSubmit={handleSubmit}>
-          {/* Form Fields ve Button Tek Satırda */}
-          <div className={`row g-3 ${alignClass}`}>
-            <div className="col-4">
-              <FormInput
-                name="startDate"
-                type="date"
-                label="Başlangıç Tarihi"
-                placeholder="Başlangıç tarihini seçin"
-                variant="inline"
-                iconLeft="ph-calendar-plus"
-                required
-                disabled={loading}
-              />
-            </div>
-            <div className="col-4">
-              <FormInput
-                name="endDate"
-                type="date"
-                label="Bitiş Tarihi"
-                placeholder="Bitiş tarihini seçin"
-                variant="inline"
-                iconLeft="ph-calendar-minus"
-                required
-                disabled={loading}
-              />
-            </div>
-            {/* <div className="col-1" /> */}
-            <div className="col-4">
-              <Button
-                type="submit"
-                variant="inline"
-                disabled={loading}
-                leftIcon="ph-magnifying-glass"
-                fullWidth
-              >
-                {loading ? "Sorgulanıyor..." : "Aralık Sorgula"}
-              </Button>
-            </div>
+    <CustomCard variant="outline">
+      <Form onSubmit={handleSubmit}>
+        {/* Form Fields ve Button Tek Satırda */}
+        <div className={`row ${alignClass}`}>
+          <div className="col-4">
+            <FormInput
+              name="startDate"
+              type="date"
+              label="Başlangıç Tarihi"
+              placeholder="Başlangıç tarihini seçin"
+              variant="inline"
+              iconLeft="ph-calendar-plus"
+              required
+              disabled={loading}
+            />
           </div>
-        </Form>
-      </div>
-    </div>
+          <div className="col-4">
+            <FormInput
+              name="endDate"
+              type="date"
+              label="Bitiş Tarihi"
+              placeholder="Bitiş tarihini seçin"
+              variant="inline"
+              iconLeft="ph-calendar-minus"
+              required
+              disabled={loading}
+            />
+          </div>
+          {/* <div className="col-1" /> */}
+          <div className="col-4">
+            <Button
+              type="submit"
+              variant="inline"
+              disabled={loading}
+              leftIcon="ph-magnifying-glass"
+              fullWidth
+            >
+              {loading ? "Sorgulanıyor..." : "Aralık Sorgula"}
+            </Button>
+          </div>
+        </div>
+      </Form>
+    </CustomCard>
   );
 };

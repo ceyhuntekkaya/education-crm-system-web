@@ -34,9 +34,7 @@ export const useUnifiedAvailability = (
       // Unified availabilities (tek kaynak)
       availabilities: isRange
         ? rangeHook.availabilities
-        : singleHook.availability
-        ? [singleHook.availability]
-        : [],
+        : singleHook.availability,
 
       // Unified loading state
       availabilityLoading: isRange

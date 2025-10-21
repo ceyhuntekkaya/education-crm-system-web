@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { NumericFormat } from "react-number-format";
 import { useFormField } from "@/contexts";
 
 type FormInputVariant = "inline" | "outline";
@@ -24,6 +25,16 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "search"
     | "date"
     | "color";
+  // Number format özel ayarları
+  numberFormatProps?: {
+    thousandSeparator?: string;
+    decimalSeparator?: string;
+    allowNegative?: boolean;
+    decimalScale?: number;
+    fixedDecimalScale?: boolean;
+    prefix?: string;
+    suffix?: string;
+  };
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -38,6 +49,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   iconLeft,
   iconRight,
   fullWidth = false,
+  numberFormatProps,
   ...rest
 }) => {
   const { value, error, required, onChange } = useFormField(name);
@@ -101,6 +113,78 @@ export const FormInput: React.FC<FormInputProps> = ({
     } else {
       onChange(val);
     }
+  };
+
+  // NumericFormat için özel onChange handler
+  const handleNumericChange = (values: any) => {
+    const { floatValue } = values;
+    onChange(floatValue || 0);
+  };
+
+  // Akıllı varsayılan format belirleme
+  const getSmartNumberFormat = () => {
+    // Eğer özel numberFormatProps verilmişse onu kullan
+    if (numberFormatProps) {
+      return numberFormatProps;
+    }
+
+    // İsim bazlı akıllı format tanıması
+    const nameLower = name.toLowerCase();
+
+    // Yüzde formatları
+    if (
+      nameLower.includes("percentage") ||
+      nameLower.includes("percent") ||
+      nameLower.includes("discount")
+    ) {
+      return {
+        suffix: " %",
+        thousandSeparator: ".",
+        decimalSeparator: ",",
+        decimalScale: 2,
+        allowNegative: false,
+      };
+    }
+
+    // Sayı formatları (count, quantity, installment)
+    if (
+      nameLower.includes("count") ||
+      nameLower.includes("quantity") ||
+      nameLower.includes("installment")
+    ) {
+      return {
+        thousandSeparator: ".",
+        decimalSeparator: ",",
+        decimalScale: 0,
+        allowNegative: false,
+      };
+    }
+
+    // Para formatları (fee, tuition, cost, price, amount, salary)
+    if (
+      nameLower.includes("fee") ||
+      nameLower.includes("tuition") ||
+      nameLower.includes("cost") ||
+      nameLower.includes("price") ||
+      nameLower.includes("amount") ||
+      nameLower.includes("salary")
+    ) {
+      return {
+        prefix: "₺ ",
+        thousandSeparator: ".",
+        decimalSeparator: ",",
+        decimalScale: 2,
+        allowNegative: false,
+      };
+    }
+
+    // Varsayılan number formatı
+    return {
+      thousandSeparator: ".",
+      decimalSeparator: ",",
+      decimalScale: 2,
+      allowNegative: false,
+    };
   };
 
   // Telefon tipinde value'yu kontrol et
@@ -189,6 +273,64 @@ export const FormInput: React.FC<FormInputProps> = ({
             onClick={togglePasswordVisibility}
             style={{ cursor: "pointer" }}
           ></span>
+        </div>
+        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      </div>
+    );
+  }
+
+  // Number tipinde NumericFormat kullan
+  if (type === "number") {
+    return (
+      <div className={className}>
+        {label && (
+          <label
+            htmlFor={id || name}
+            className={"text-neutral-700 text-lg fw-medium mb-12"}
+          >
+            {label}
+          </label>
+        )}
+        <div className={iconLeft || iconRight ? "position-relative" : ""}>
+          <NumericFormat
+            id={id || name}
+            name={name}
+            className={getVariantClasses()}
+            placeholder={placeholder}
+            disabled={disabled}
+            value={
+              typeof value === "number"
+                ? value
+                : typeof value === "string" && value !== ""
+                ? parseFloat(value) || 0
+                : undefined
+            }
+            onValueChange={handleNumericChange}
+            required={required}
+            {...getSmartNumberFormat()}
+          />
+          {iconLeft && (
+            <span
+              className={`${
+                variant === "outline"
+                  ? "bg-white text-neutral-200 border-4 border-main-25 w-48 h-48 text-2xl"
+                  : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md ms-8"
+              } rounded-circle flex-center position-absolute top-50 translate-middle-y inset-inline-start-0`}
+            >
+              <i className={`ph-bold ${iconLeft}`} />
+            </span>
+          )}
+          {iconRight && (
+            <span
+              className={`${
+                variant === "outline"
+                  ? "bg-white text-neutral-200 border-4 border-main-25 w-48 h-48 text-2xl"
+                  : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md me-8"
+              } rounded-circle flex-center position-absolute top-50 translate-middle-y inset-inline-end-0`}
+            >
+              <i className={`ph-bold ${iconRight}`} />
+            </span>
+          )}
         </div>
         {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
       </div>

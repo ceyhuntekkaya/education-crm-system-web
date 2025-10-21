@@ -4,3 +4,17 @@
       gap: var(--size-#{$property}) !important;
     }
   }
+
+// Row Gap (Y-axis only)
+@each $property, $value in $spaces {
+    .row-gap-#{$property} {
+      row-gap: var(--size-#{$property}) !important;
+    }
+  }
+
+// Column Gap (X-axis only)
+@each $property, $value in $spaces {
+    .column-gap-#{$property} {
+      column-gap: var(--size-#{$property}) !important;
+    }
+  }

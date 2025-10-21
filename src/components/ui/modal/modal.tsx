@@ -3,10 +3,10 @@
 import React, { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { ModalProps, ModalSize } from "./types";
-import { ModalBackdrop } from "./modal-backdrop";
-import { ModalHeader } from "./modal-header";
-import { ModalBody } from "./modal-body";
-import { ModalFooter } from "./modal-footer";
+import { ModalBackdrop, ModalHeader, ModalBody, ModalFooter } from "./sections";
+import { ModalProvider, ModalContextValue } from "./contexts";
+import { setBodyScrollLock, manageFocus } from "./utils";
+import { useModalKeyboard, useModalStyles } from "./hooks";
 
 /**
  * Ana Modal Component
@@ -33,45 +33,17 @@ const ModalComponent: React.FC<ModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<Element | null>(null);
 
-  // Modal boyutlarını hesapla
-  const getModalMaxWidth = (modalSize: ModalSize): string => {
-    switch (modalSize) {
-      case "sm":
-        return "500px";
-      case "md":
-        return "700px";
-      case "lg":
-        return "900px";
-      case "xl":
-        return "1200px";
-      case "fullscreen":
-        return "100vw";
-      default:
-        return "700px";
-    }
-  };
+  // Keyboard hook'u kullan
+  const { handleEscapeKey } = useModalKeyboard(isOpen, closeOnEscape, onClose);
 
-  // Modal pozisyonunu hesapla
-  const getAlignItems = (): string => {
-    switch (position) {
-      case "top":
-        return "flex-start";
-      case "bottom":
-        return "flex-end";
-      case "center":
-      default:
-        return "center";
-    }
-  };
-
-  // ESC tuşu event handler'ı
-  const handleEscapeKey = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === "Escape" && closeOnEscape && isOpen) {
-        onClose();
-      }
-    },
-    [closeOnEscape, isOpen, onClose]
+  // Style hook'u kullan
+  const { overlayStyles, contentStyles, contentClassName } = useModalStyles(
+    size,
+    position,
+    animated,
+    isOpen,
+    zIndex,
+    className
   );
 
   // Backdrop click handler'ı
@@ -89,28 +61,22 @@ const ModalComponent: React.FC<ModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       // Önceki aktif elementi kaydet
-      previousActiveElement.current = document.activeElement;
+      previousActiveElement.current = manageFocus.save();
 
       // Body scroll'u engelle
-      document.body.style.overflow = "hidden";
-      document.body.classList.add("modal-open");
+      setBodyScrollLock(true);
 
       // Focus management
-      if (modalRef.current) {
-        modalRef.current.focus();
-      }
+      manageFocus.setTo(modalRef.current);
 
       // onOpen callback'i çağır
       onOpen?.();
     } else {
       // Body scroll'u serbest bırak
-      document.body.style.overflow = "";
-      document.body.classList.remove("modal-open");
+      setBodyScrollLock(false);
 
       // Focus'u geri yükle
-      if (previousActiveElement.current instanceof HTMLElement) {
-        previousActiveElement.current.focus();
-      }
+      manageFocus.restore(previousActiveElement.current);
 
       // onClosed callback'i çağır
       onClosed?.();
@@ -118,8 +84,7 @@ const ModalComponent: React.FC<ModalProps> = ({
 
     // Cleanup - Modal kapandığında her zaman scroll'u serbest bırak
     return () => {
-      document.body.style.overflow = "";
-      document.body.classList.remove("modal-open");
+      setBodyScrollLock(false);
     };
   }, [isOpen, onOpen, onClosed]);
 
@@ -135,45 +100,42 @@ const ModalComponent: React.FC<ModalProps> = ({
   useEffect(() => {
     return () => {
       // Component unmount olurken her durumda scroll'u serbest bırak
-      document.body.style.overflow = "";
-      document.body.classList.remove("modal-open");
+      setBodyScrollLock(false);
     };
   }, []);
+
+  // Modal context değerini hazırla
+  const modalContextValue: ModalContextValue = {
+    isOpen,
+    onClose,
+    size,
+    position,
+    variant,
+    closeOnBackdropClick,
+    closeOnEscape,
+    scrollable,
+    animated,
+    className,
+    zIndex,
+    onOpen,
+    onClosed,
+    ariaLabel,
+    ariaDescribedBy,
+    modalRef,
+  };
 
   // Modal content'i render et
   const renderModalContent = () => (
     <div
       className="modal-overlay"
-      style={{
-        zIndex,
-        alignItems: getAlignItems(),
-      }}
+      style={overlayStyles}
       onClick={handleBackdropClick}
     >
       {/* Modal Content */}
       <div
         ref={modalRef}
-        className={`modal-content ${className}`}
-        style={{
-          backgroundColor: "white",
-          borderRadius: "12px",
-          maxWidth: getModalMaxWidth(size),
-          width: "100%",
-          maxHeight: size === "fullscreen" ? "100vh" : "90vh",
-          overflow: "hidden",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-          position: "relative",
-          zIndex: zIndex + 1,
-          transform: animated
-            ? isOpen
-              ? "scale(1)"
-              : "scale(0.95)"
-            : "scale(1)",
-          opacity: animated ? (isOpen ? 1 : 0) : 1,
-          transition: animated ? "all 0.2s ease" : "none",
-          display: "flex",
-          flexDirection: "column",
-        }}
+        className={contentClassName}
+        style={contentStyles}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -181,7 +143,7 @@ const ModalComponent: React.FC<ModalProps> = ({
         aria-describedby={ariaDescribedBy}
         tabIndex={-1}
       >
-        {children}
+        <ModalProvider value={modalContextValue}>{children}</ModalProvider>
       </div>
     </div>
   );

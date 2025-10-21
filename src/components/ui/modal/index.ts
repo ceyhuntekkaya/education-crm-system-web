@@ -1,9 +1,37 @@
-// Individual components
+// Main Modal component
 export { Modal } from "./modal";
-export { ModalHeader } from "./modal-header";
-export { ModalBody } from "./modal-body";
-export { ModalFooter } from "./modal-footer";
-export { ModalBackdrop } from "./modal-backdrop";
+
+// Section components
+export { ModalHeader, ModalBody, ModalFooter, ModalBackdrop } from "./sections";
+
+// Context
+export {
+  ModalProvider,
+  useModalContext,
+  useModalContextOptional,
+} from "./contexts";
+export type { ModalContextValue, ModalProviderProps } from "./contexts";
+
+// Utils
+export {
+  getModalMaxWidth,
+  getAlignItems,
+  getJustifyContent,
+  getGapSize,
+  getAnimationTransform,
+  getAnimationOpacity,
+  getAnimationTransition,
+  setBodyScrollLock,
+  manageFocus,
+} from "./utils";
+
+// Hooks
+export {
+  useModalEffects,
+  useModalHandlers,
+  useModalKeyboard,
+  useModalStyles,
+} from "./hooks";
 
 // All types
 export type {

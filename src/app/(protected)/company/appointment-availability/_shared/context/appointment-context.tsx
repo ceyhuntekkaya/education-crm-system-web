@@ -6,7 +6,9 @@ import {
   useUnifiedAvailability,
   useFilterManagement,
   useAvailabilityActions,
+  useAppointmentDetailsFilter,
 } from "../hooks";
+import { hasValidSearchCriteria } from "../utils";
 
 const AppointmentAvailabilityContext = createContext<
   AppointmentAvailabilityContextType | undefined
@@ -47,6 +49,20 @@ export const AppointmentAvailabilityProvider: React.FC<
     setFilters
   );
 
+  // Appointment details filtering hook
+  const {
+    appointmentFilters,
+    filteredAppointments,
+    setAppointmentFilters,
+    clearAppointmentFilters,
+    removeAppointmentFilter,
+  } = useAppointmentDetailsFilter(availabilities);
+
+  // Veri durumunu hesapla
+  const hasSearchCriteria = hasValidSearchCriteria(filters);
+  const hasDataToFilter =
+    hasSearchCriteria && availabilities.length > 0 && !availabilityLoading;
+
   const contextValue: AppointmentAvailabilityContextType = {
     // Availability data
     availabilities,
@@ -56,10 +72,22 @@ export const AppointmentAvailabilityProvider: React.FC<
     // Filter parameters
     filters,
 
+    // Frontend appointment filters
+    appointmentFilters,
+    filteredAppointments,
+
+    // Data state
+    hasDataToFilter,
+
     // Actions
     fetchAvailabilities,
     updateFilters,
     clearFilters,
+
+    // Appointment details filtering
+    setAppointmentFilters,
+    clearAppointmentFilters,
+    removeAppointmentFilter,
   };
 
   return (

@@ -1,27 +1,19 @@
 "use client";
 
 import React from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components";
+import { SchoolPricingForm, usePricingAddEdit } from "../_shared";
 
 interface PricingAddEditPageProps {}
 
 const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
-  const params = useParams();
   const router = useRouter();
-  const { id } = params;
+  const { isEditing, pricing, pricingLoading } = usePricingAddEdit();
 
-  const isEditing = id !== "new";
   const pageTitle = isEditing ? "Fiyat Bilgisi Düzenle" : "Yeni Fiyat Bilgisi";
 
   const handleGoBack = () => {
-    router.push("/company/pricing");
-  };
-
-  const handleSave = () => {
-    // Save logic will be implemented here
-    console.log("Saving pricing data...");
-    // After save, redirect to list
     router.push("/company/pricing");
   };
 
@@ -47,43 +39,22 @@ const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
             >
               Geri Dön
             </Button>
-            <Button
-              variant="inline"
-              size="sm"
-              rightIcon="ph-check"
-              onClick={handleSave}
-            >
-              {isEditing ? "Güncelle" : "Kaydet"}
-            </Button>
           </div>
         </div>
 
         <span className="d-block border border-neutral-30 my-20 border-dashed" />
 
         {/* Form Content */}
-        <div className="row">
-          <div className="col-12">
-            <div className="text-center py-5">
-              <i
-                className="ph ph-currency-circle-dollar text-neutral-400"
-                style={{ fontSize: "64px" }}
-              ></i>
-              <h4 className="mt-3 mb-2">Fiyat Bilgisi Formu</h4>
-              <p className="text-neutral-600">
-                Bu alan fiyat bilgisi ekleme/düzenleme formu için ayrılmıştır.
-                <br />
-                Form bileşenleri burada yer alacaktır.
-              </p>
-              {isEditing && (
-                <div className="mt-3">
-                  <small className="text-muted">
-                    Düzenlenen ID: <strong>{id}</strong>
-                  </small>
-                </div>
-              )}
+        {pricingLoading && isEditing ? (
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Yükleniyor...</span>
             </div>
+            <p className="mt-3 text-muted">Fiyat bilgileri yükleniyor...</p>
           </div>
-        </div>
+        ) : (
+          <SchoolPricingForm isEditing={isEditing} initialData={pricing} />
+        )}
       </div>
     </div>
   );

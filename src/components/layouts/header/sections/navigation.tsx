@@ -25,6 +25,10 @@ const MainNavigation = ({ className = "", navItems }: NavigationProps) => {
       label: "Okul Arama",
       // count: 12,
     },
+    {
+      href: "/memberships",
+      label: "Üyelikler",
+    },
   ];
 
   const items = navItems || defaultNavItems;

@@ -43,12 +43,19 @@ export interface AppointmentTableProps {
  */
 export interface AppointmentAvailabilityContextType {
   // Availability data
-  availabilities: AppointmentAvailabilityDto[];
+  availabilities: AppointmentDto[];
   availabilityLoading: boolean;
   availabilityError: string | null;
 
   // Filter parameters
   filters: AppointmentAvailabilityFilters | AppointmentAvailabilityRangeFilters;
+
+  // Frontend appointment filters
+  appointmentFilters?: any;
+  filteredAppointments?: AppointmentDto[];
+
+  // Data state
+  hasDataToFilter?: boolean;
 
   // Actions (unified method for both single and range)
   fetchAvailabilities: (
@@ -62,6 +69,11 @@ export interface AppointmentAvailabilityContextType {
     >
   ) => void;
   clearFilters: () => void;
+
+  // Appointment details filtering
+  setAppointmentFilters?: (filters: any) => void;
+  clearAppointmentFilters?: () => void;
+  removeAppointmentFilter?: (key: string) => void;
 }
 
 /**

@@ -3,11 +3,16 @@
 import { useState } from "react";
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS, buildQueryString } from "@/lib";
-import { ApiResponseDto, AppointmentAvailabilityDto } from "@/types";
+import {
+  ApiResponseDto,
+  AppointmentAvailabilityDto,
+  AppointmentDto,
+} from "@/types";
 import { AppointmentAvailabilityRangeFilters } from "../types";
+import { mockAppointments } from "../mock";
 
 interface UseAppointmentAvailabilityRangeReturn {
-  availabilities: AppointmentAvailabilityDto[];
+  availabilities: AppointmentDto[];
   availabilityLoading: boolean;
   availabilityError: string | null;
   fetchAvailabilityRange: (
@@ -49,7 +54,7 @@ export const useAppointmentAvailabilityRange =
       loading: availabilityLoading,
       error: availabilityError,
       refetch,
-    } = useGet<ApiResponseDto<AppointmentAvailabilityDto[]>>(url);
+    } = useGet<ApiResponseDto<AppointmentDto[]>>(url);
 
     const fetchAvailabilityRange = (
       filters: AppointmentAvailabilityRangeFilters
@@ -62,7 +67,7 @@ export const useAppointmentAvailabilityRange =
     };
 
     return {
-      availabilities: availabilityResponse?.data || [],
+      availabilities: mockAppointments || availabilityResponse?.data || [],
       availabilityLoading,
       availabilityError,
       fetchAvailabilityRange,

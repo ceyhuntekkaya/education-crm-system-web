@@ -5,9 +5,11 @@ import {
   AppointmentAvailabilityRangeFilterForm,
   AppointmentAvailabilityTable,
   AppointmentAvailabilityProvider,
+  AppointmentDetailsFilterForm,
 } from "./_shared";
 import TabNavigation from "@/components/ui/tab-navigation";
 import { TabItem } from "@/components/ui/types";
+import { CustomCard } from "@/components/ui";
 
 type TabType = "single" | "range";
 
@@ -39,31 +41,25 @@ const AppointmentAvailabilityPageContent: React.FC = () => {
   };
 
   return (
-    <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
-      <div className="border border-neutral-30 rounded-12 bg-main-25 p-24">
-        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-6">
-          <div>
-            <h2 className="mb-8">Randevu Müsaitlik Sorgulama</h2>
-            <p className="text-neutral-600 mb-0">
-              Okul randevu müsaitlik durumlarını sorgulayın ve görüntüleyin
-            </p>
-          </div>
-        </div>
-
+    <CustomCard
+      title="Randevu Müsaitlik Sorgulama"
+      subtitle="Okul randevu müsaitlik durumlarını sorgulayın ve görüntüleyin"
+      mb="mb-24"
+    >
+      <div className="d-flex flex-column gap-12">
         {/* Tab Navigation Component */}
-        <div>
-          <TabNavigation tabs={tabs} onTabChange={handleTabChange} size="md" />
-        </div>
+        <TabNavigation tabs={tabs} onTabChange={handleTabChange} size="md" />
 
         {/* Tab Content */}
-        <div className="my-8">
-          {tabs.find((tab) => tab.id === activeTab)?.content}
-        </div>
+        {tabs.find((tab) => tab.id === activeTab)?.content}
+
+        {/* Appointment Details Filter - API'den veri çekildikten sonra göster */}
+        <AppointmentDetailsFilterForm />
 
         {/* Results Table - Context'ten otomatik */}
         <AppointmentAvailabilityTable />
       </div>
-    </div>
+    </CustomCard>
   );
 };
 
