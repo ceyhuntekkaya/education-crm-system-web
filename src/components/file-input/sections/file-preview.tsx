@@ -3,7 +3,7 @@
 import React from "react";
 import CustomImage from "@/components/ui/custom-image";
 import Icon from "@/components/ui/icon";
-import { FileWithPreview, FileInputType } from "../types";
+import { FileWithPreview, FileInputType } from "../types/file.types";
 import { getFileTypeIcon, formatFileSize, getFriendlyFileType } from "../utils";
 
 import { useFileInputContext } from "../contexts";

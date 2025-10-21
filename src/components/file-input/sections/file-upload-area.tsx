@@ -2,7 +2,7 @@
 
 import React from "react";
 import Icon from "@/components/ui/icon";
-import { FileInputType } from "../types";
+import { FileInputType } from "../types/file.types";
 import { getFileIcon, getVariantClasses } from "../utils";
 import { useFileInputContext } from "../contexts";
 import { LoadingState } from "./loading-state";

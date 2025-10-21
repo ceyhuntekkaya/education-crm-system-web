@@ -21,7 +21,8 @@ export const BrandFormContent: React.FC = () => {
   const { reset } = useForm();
 
   // Context'ten brand işlemlerini al
-  const { isEditing, postBrand, putBrand, brandLoading } = useBrandAddEdit();
+  const { isEditing, postBrand, putBrand, brandLoading, brandId } =
+    useBrandAddEdit();
 
   const handleSubmit = async (values: any) => {
     const formData: BrandCreateDto = {
@@ -127,6 +128,7 @@ export const BrandFormContent: React.FC = () => {
             placeholder="Logo yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
             uploadButtonText="Logo Yükle"
+            name="logoUrl"
           />
         </div>
 
@@ -139,6 +141,7 @@ export const BrandFormContent: React.FC = () => {
             placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
             uploadButtonText="Kapak Resmi Yükle"
+            name="coverImageUrl"
           />
         </div>
 

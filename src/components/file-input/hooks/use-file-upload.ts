@@ -1,144 +1,120 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
+import { useCompany } from "@/app/(protected)/company/_shared/context";
+import { useForm } from "@/contexts/form-context";
+import { getUploadUrl, getFileServeUrl } from "@/lib/api/constants";
+import { UseFileUploadOptions } from "../types/hook.types";
 
-export interface UseFileUploadOptions {
-  onProgress?: (progress: number) => void;
-  onComplete?: (uploadedFiles: File[]) => void;
-  onError?: (error: string) => void;
-}
+export const useFileUpload = ({
+  files,
+  name,
+  onUpload,
+  onUploadSuccess,
+  onUploadError,
+  onInternalError,
+}: UseFileUploadOptions) => {
+  const { selectedSchool } = useCompany();
+  const { setValue } = useForm();
 
-export interface FileUploadState {
-  isUploading: boolean;
-  progress: number;
-  uploadedFiles: number;
-  totalFiles: number;
-  currentFileName: string;
-}
+  const handleUpload = useCallback(async () => {
+    if (files.length === 0) return;
 
-/**
- * Dosya yükleme işlemlerini yöneten hook
- */
-export const useFileUpload = (options: UseFileUploadOptions = {}) => {
-  const { onProgress, onComplete, onError } = options;
-
-  const [uploadState, setUploadState] = useState<FileUploadState>({
-    isUploading: false,
-    progress: 0,
-    uploadedFiles: 0,
-    totalFiles: 0,
-    currentFileName: "",
-  });
-
-  // Dosyaları yükle
-  const uploadFiles = useCallback(
-    async (
-      files: File[],
-      uploadFunction?: (files: File[]) => Promise<void>
-    ) => {
-      if (!files.length) return;
-
-      setUploadState({
-        isUploading: true,
-        progress: 0,
-        uploadedFiles: 0,
-        totalFiles: files.length,
-        currentFileName: "",
-      });
-
-      try {
-        // Eğer özel upload fonksiyonu verilmişse onu kullan
-        if (uploadFunction) {
-          await uploadFunction(files);
-
-          // Başarılı upload simülasyonu
-          for (let i = 0; i < files.length; i++) {
-            const progress = ((i + 1) / files.length) * 100;
-
-            setUploadState((prev: FileUploadState) => ({
-              ...prev,
-              progress,
-              uploadedFiles: i + 1,
-              currentFileName: files[i].name,
-            }));
-
-            onProgress?.(progress);
-
-            // Her dosya için biraz bekle (simülasyon)
-            await new Promise((resolve) => setTimeout(resolve, 300));
-          }
-        } else {
-          // Default upload simülasyonu
-          for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const progress = ((i + 1) / files.length) * 100;
-
-            setUploadState((prev: FileUploadState) => ({
-              ...prev,
-              progress,
-              uploadedFiles: i + 1,
-              currentFileName: file.name,
-            }));
-
-            onProgress?.(progress);
-
-            // Dosya yükleme simülasyonu
-            await new Promise((resolve) =>
-              setTimeout(resolve, 1000 + Math.random() * 2000)
-            );
-          }
-        }
-
-        // Upload tamamlandı
-        setUploadState((prev: FileUploadState) => ({
-          ...prev,
-          isUploading: false,
-          progress: 100,
-        }));
-
-        onComplete?.(files);
-
-        // 2 saniye sonra state'i temizle
-        setTimeout(() => {
-          setUploadState({
-            isUploading: false,
-            progress: 0,
-            uploadedFiles: 0,
-            totalFiles: 0,
-            currentFileName: "",
-          });
-        }, 2000);
-      } catch (error) {
-        setUploadState((prev: FileUploadState) => ({
-          ...prev,
-          isUploading: false,
-        }));
-
-        const errorMessage =
-          error instanceof Error
-            ? error.message
-            : "Upload işlemi başarısız oldu";
-        onError?.(errorMessage);
+    try {
+      if (onUpload) {
+        await onUpload(files);
+        onUploadSuccess?.(files);
+        return;
       }
-    },
-    [onProgress, onComplete, onError]
-  );
 
-  // Upload durumunu sıfırla
-  const resetUpload = useCallback(() => {
-    setUploadState({
-      isUploading: false,
-      progress: 0,
-      uploadedFiles: 0,
-      totalFiles: 0,
-      currentFileName: "",
-    });
-  }, []);
+      const schoolId = selectedSchool?.id?.toString();
+      if (!schoolId || !name) {
+        throw new Error("School ID veya upload type tanımlı değil");
+      }
 
-  return {
-    uploadState,
-    uploadFiles,
-    resetUpload,
-    isUploading: uploadState.isUploading,
-  };
+      const formData = new FormData();
+      files.forEach((file) => formData.append("files", file));
+
+      const uploadUrl = getUploadUrl(schoolId, name);
+      const xhr = new XMLHttpRequest();
+
+      return new Promise<void>((resolve, reject) => {
+        xhr.upload.addEventListener("progress", (e) => {
+          if (e.lengthComputable) {
+            const progress = Math.round((e.loaded * 100) / e.total);
+            console.log(`Upload progress: ${progress}%`);
+          }
+        });
+
+        xhr.addEventListener("load", () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const response = JSON.parse(xhr.responseText);
+              if (
+                name &&
+                response &&
+                Array.isArray(response) &&
+                response.length > 0
+              ) {
+                const firstFile = response[0];
+                if (firstFile.fileUrl) {
+                  const fullUrl = getFileServeUrl(firstFile.fileUrl);
+                  setValue(name, fullUrl);
+                }
+              }
+              onUploadSuccess?.(response);
+              resolve();
+            } catch (error) {
+              const errorMsg = "Response parse edilemedi";
+              onInternalError?.(errorMsg);
+              onUploadError?.(errorMsg);
+              reject(new Error(errorMsg));
+            }
+          } else {
+            const errorMsg = `Upload failed with status: ${xhr.status}`;
+            onInternalError?.(errorMsg);
+            onUploadError?.(errorMsg);
+            reject(new Error(errorMsg));
+          }
+        });
+
+        xhr.addEventListener("error", () => {
+          const errorMsg = "Dosya yüklenirken bir hata oluştu";
+          onInternalError?.(errorMsg);
+          onUploadError?.(errorMsg);
+          reject(new Error(errorMsg));
+        });
+
+        xhr.addEventListener("abort", () => {
+          const errorMsg = "Upload iptal edildi";
+          onInternalError?.(errorMsg);
+          onUploadError?.(errorMsg);
+          reject(new Error(errorMsg));
+        });
+
+        xhr.open("POST", uploadUrl);
+        xhr.send(formData);
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      const errorMsg =
+        error instanceof Error
+          ? error.message
+          : "Dosya yüklenirken bir hata oluştu";
+      onInternalError?.(errorMsg);
+      onUploadError?.(errorMsg);
+      throw error;
+    }
+  }, [
+    files,
+    selectedSchool?.id,
+    name,
+    setValue,
+    onUpload,
+    onUploadSuccess,
+    onUploadError,
+    onInternalError,
+  ]);
+
+  return { handleUpload };
 };

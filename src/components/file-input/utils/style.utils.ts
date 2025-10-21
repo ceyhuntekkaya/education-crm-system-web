@@ -1,4 +1,4 @@
-import { FileInputVariant } from "../types";
+import { FileInputVariant } from "../types/component.types";
 
 /**
  * Variant'a göre CSS sınıflarını döner

@@ -4,7 +4,7 @@ import React from "react";
 import CustomImage from "@/components/ui/custom-image";
 import Icon from "@/components/ui/icon";
 import { Modal } from "@/components/ui/modal";
-import { FileWithPreview } from "../types";
+import { FileWithPreview } from "../types/file.types";
 import { formatFileSize, getFriendlyFileType } from "../utils";
 import { useFileInputContext } from "../contexts";
 

@@ -6,7 +6,8 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { FileInputProps, FileWithPreview } from "../types";
+import { FileInputProps } from "../types/component.types";
+import { FileWithPreview } from "../types/file.types";
 import { getAcceptAttribute } from "../utils";
 import {
   useFileManagement,

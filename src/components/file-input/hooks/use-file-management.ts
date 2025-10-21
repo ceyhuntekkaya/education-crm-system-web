@@ -1,11 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import {
-  FileWithPreview,
-  FileInputProps,
-  FileValidationResult,
-} from "../types";
+import { FileWithPreview, FileValidationResult } from "../types/file.types";
 import { validateFiles, createPreviewUrl, cleanupPreviewUrls } from "../utils";
 
 /**
