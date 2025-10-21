@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { companyLayoutNavigation } from "./_shared/navigation/navigation";
+import FileInputExamples from "@/components/file-input/file-input.example";
 
 const CompanyPage: React.FC = () => {
   // Icon mapping - eğer navigation'dan gelen icon uygun değilse alternatif kullan
@@ -95,6 +96,7 @@ const CompanyPage: React.FC = () => {
   return (
     <div className="company-dashboard">
       {/* Hero Section */}
+      <FileInputExamples />
       <section className="company-dashboard__hero">
         <div className="company-dashboard__hero-pattern"></div>
         <div className="container">
