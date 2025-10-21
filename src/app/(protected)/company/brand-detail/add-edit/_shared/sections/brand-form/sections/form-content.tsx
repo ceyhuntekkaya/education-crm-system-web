@@ -126,6 +126,7 @@ export const BrandFormContent: React.FC = () => {
             variant="outline"
             placeholder="Logo yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
+            uploadButtonText="Logo Yükle"
           />
         </div>
 
@@ -137,6 +138,7 @@ export const BrandFormContent: React.FC = () => {
             variant="outline"
             placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
+            uploadButtonText="Kapak Resmi Yükle"
           />
         </div>
 
