@@ -690,7 +690,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         {/* BUTONLAR */}
         <div className="col-12">
           <hr className="my-24" />
-          <div className="d-flex gap-3 justify-content-end me-64">
+          <div className="d-flex gap-12 justify-content-end me-64">
             <Button
               type="button"
               variant="outline"
