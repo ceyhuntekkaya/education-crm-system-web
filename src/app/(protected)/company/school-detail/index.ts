@@ -1,5 +1,5 @@
 // Hooks
-export { useSchoolDetail as useSchoolDetailHook } from "./hooks/use-school-detail";
+export { useSchoolDetail as useSchoolDetailHook } from "./_shared/hooks/use-school-detail";
 
 // Context (from _shared)
 export {
