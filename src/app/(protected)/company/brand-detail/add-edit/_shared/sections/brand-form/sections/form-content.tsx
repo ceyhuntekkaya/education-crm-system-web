@@ -3,6 +3,7 @@
 import React from "react";
 import { Form, FormInput, FormTextarea, FormValues } from "@/components/forms";
 import { Button } from "@/components/ui/button";
+import { FileInput } from "@/components/file-input";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useBrandAddEdit } from "../../../context";
@@ -117,20 +118,42 @@ export const BrandFormContent: React.FC = () => {
           <h5 className="mb-16 mt-16">Görsel Bilgiler</h5>
         </div>
 
-        {/* Logo URL */}
+        {/* Logo */}
+        <div className="col-6">
+          <FileInput
+            label="Logo"
+            type="img"
+            variant="outline"
+            placeholder="Logo yüklemek için tıklayın veya sürükleyin"
+            maxSize={5}
+          />
+        </div>
+
+        {/* Kapak Resmi */}
+        <div className="col-6">
+          <FileInput
+            label="Kapak Resmi"
+            type="img"
+            variant="outline"
+            placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
+            maxSize={5}
+          />
+        </div>
+
+        {/* Logo URL - Opsiyonel olarak bırakıldı */}
         <div className="col-6">
           <FormInput
             name="logoUrl"
-            label="Logo URL"
+            label="Logo URL (Manuel)"
             placeholder="Logo URL'sini giriniz..."
           />
         </div>
 
-        {/* Kapak Resmi URL */}
+        {/* Kapak Resmi URL - Opsiyonel olarak bırakıldı */}
         <div className="col-6">
           <FormInput
             name="coverImageUrl"
-            label="Kapak Resmi URL"
+            label="Kapak Resmi URL (Manuel)"
             placeholder="Kapak resmi URL'sini giriniz..."
           />
         </div>
