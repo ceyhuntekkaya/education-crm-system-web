@@ -7,6 +7,7 @@ import {
   FormAutocomplete,
   FormCheckbox,
   FormTextarea,
+  FormValues,
 } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { SchoolPricingFormData } from "../types/form-data";
@@ -64,6 +65,7 @@ export const SchoolPricingFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FormValues />
       <div className="row row-gap-24">
         {/* TEMEL BİLGİLER */}
         <div className="col-12">
@@ -76,6 +78,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="academicYear"
             label="Akademik Yıl"
             options={academicYearOptions}
+            placeholder="Akademik yıl seçiniz..."
             required
           />
         </div>
@@ -86,6 +89,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="gradeLevel"
             label="Sınıf Seviyesi"
             options={gradeLevelOptions}
+            placeholder="Sınıf seviyesi seçiniz..."
             required
           />
         </div>
@@ -105,6 +109,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="currency"
             label="Para Birimi"
             options={currencyOptions}
+            placeholder="Para birimi seçiniz..."
             required
           />
         </div>
@@ -121,8 +126,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="registrationFee"
             label="Kayıt Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -132,8 +136,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="applicationFee"
             label="Başvuru Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -143,8 +146,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="enrollmentFee"
             label="Kayıt Tescil Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -159,8 +161,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="annualTuition"
             label="Yıllık Öğrenim Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -170,8 +171,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="monthlyTuition"
             label="Aylık Öğrenim Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -181,8 +181,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="semesterTuition"
             label="Dönemlik Öğrenim Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -198,8 +197,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="bookFee"
             label="Kitap Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -209,8 +207,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="uniformFee"
             label="Üniforma Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -220,8 +217,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="activityFee"
             label="Aktivite Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -231,8 +227,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="technologyFee"
             label="Teknoloji Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -242,8 +237,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="laboratoryFee"
             label="Laboratuvar Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -253,8 +247,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="libraryFee"
             label="Kütüphane Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -264,8 +257,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="sportsFee"
             label="Spor Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -275,8 +267,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="artFee"
             label="Sanat Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -286,8 +277,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="musicFee"
             label="Müzik Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -297,8 +287,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="transportationFee"
             label="Ulaşım Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -308,8 +297,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="cafeteriaFee"
             label="Kafeterya Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -319,8 +307,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="insuranceFee"
             label="Sigorta Ücreti"
             type="number"
-            min={0}
-            step={0.01}
+            placeholder="₺ 0,00"
           />
         </div>
 
@@ -336,6 +323,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="paymentFrequency"
             label="Ödeme Sıklığı"
             options={paymentFrequencyOptions}
+            placeholder="Ödeme sıklığı seçiniz..."
             required
           />
         </div>
@@ -346,8 +334,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="installmentCount"
             label="Taksit Sayısı"
             type="number"
-            min={1}
-            max={60}
+            placeholder="12"
           />
         </div>
 
@@ -362,9 +349,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="downPaymentPercentage"
             label="Peşinat Yüzdesi"
             type="number"
-            min={0}
-            max={100}
-            step={0.01}
+            placeholder="0 %"
           />
         </div>
 
@@ -372,11 +357,9 @@ export const SchoolPricingFormContent: React.FC = () => {
         <div className="col-4">
           <FormInput
             name="earlyPaymentDiscountPercentage"
-            label="Erken Ödeme İndirimi (%)"
+            label="Erken Ödeme İndirimi"
             type="number"
-            min={0}
-            max={100}
-            step={0.01}
+            placeholder="0 %"
           />
         </div>
 
@@ -384,11 +367,9 @@ export const SchoolPricingFormContent: React.FC = () => {
         <div className="col-4">
           <FormInput
             name="siblingDiscountPercentage"
-            label="Kardeş İndirimi (%)"
+            label="Kardeş İndirimi"
             type="number"
-            min={0}
-            max={100}
-            step={0.01}
+            placeholder="0 %"
           />
         </div>
 
@@ -400,12 +381,22 @@ export const SchoolPricingFormContent: React.FC = () => {
 
         {/* Başlangıç Tarihi */}
         <div className="col-6">
-          <FormInput name="validFrom" label="Başlangıç Tarihi" type="date" />
+          <FormInput
+            name="validFrom"
+            label="Başlangıç Tarihi"
+            type="date"
+            placeholder="dd/mm/yyyy"
+          />
         </div>
 
         {/* Bitiş Tarihi */}
         <div className="col-6">
-          <FormInput name="validUntil" label="Bitiş Tarihi" type="date" />
+          <FormInput
+            name="validUntil"
+            label="Bitiş Tarihi"
+            type="date"
+            placeholder="dd/mm/yyyy"
+          />
         </div>
 
         {/* AÇIKLAMALAR */}
