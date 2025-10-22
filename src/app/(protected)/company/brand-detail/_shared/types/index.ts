@@ -1,1 +1,1 @@
-export * from "./brand-detail.types";
+export * from "./brand.types";

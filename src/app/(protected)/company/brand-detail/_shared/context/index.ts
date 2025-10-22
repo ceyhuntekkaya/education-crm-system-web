@@ -1,1 +1,1 @@
-export * from "./brand-detail-context";
+export * from "./brand-list-context";

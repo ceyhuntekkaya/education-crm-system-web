@@ -1,1 +1,1 @@
-export { useBrandDetail as useBrandDetailHook } from "./use-brand-detail";
+export * from "./use-brands";

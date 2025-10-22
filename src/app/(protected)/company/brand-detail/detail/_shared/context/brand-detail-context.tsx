@@ -1,12 +1,16 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode, useMemo } from "react";
+import { useParams } from "next/navigation";
 import { useCompany } from "@/app/(protected)/company/_shared";
 import { BrandDto } from "@/types";
 import { useBrandDetail as useBrandDetailHook } from "../hooks/use-brand-detail";
-import { createBrandSections } from "../utils";
-import { BRAND_SECTIONS } from "../config";
-import { BrandDetailContextType, BrandDetailProviderProps } from "../types";
+import { createBrandSections } from "../utils/config-processor";
+import { BRAND_SECTIONS } from "../config/section-definitions";
+import {
+  BrandDetailContextType,
+  BrandDetailProviderProps,
+} from "../types/brand-detail.types";
 
 const BrandDetailContext = createContext<BrandDetailContextType | undefined>(
   undefined
@@ -15,17 +19,19 @@ const BrandDetailContext = createContext<BrandDetailContextType | undefined>(
 export const BrandDetailProvider: React.FC<BrandDetailProviderProps> = ({
   children,
 }) => {
+  const params = useParams();
+  const brandId = params?.id ? Number(params.id) : null;
+
   const { selectedSchool, schools, isInitialized } = useCompany();
 
-  // Use the brand detail hook only when we have a selected school
-  // Brand ID'yi selectedSchool'dan alıyoruz (brand her zaman school ile ilişkili)
+  // Use the brand detail hook with ID from URL
   const {
     brand: brandDetail,
     loading: brandLoading,
     error: brandError,
     refetch: refetchBrand,
   } = useBrandDetailHook({
-    brandId: 1,
+    brandId: brandId,
   });
 
   // Process all sections using config
@@ -35,7 +41,7 @@ export const BrandDetailProvider: React.FC<BrandDetailProviderProps> = ({
 
   const contextValue: BrandDetailContextType = {
     currentBrand: brandDetail,
-    isLoading: !isInitialized || (selectedSchool ? brandLoading : false),
+    isLoading: !isInitialized || (brandId ? brandLoading : false),
     error: brandError,
     refreshBrand: refetchBrand,
     selectedSchool,

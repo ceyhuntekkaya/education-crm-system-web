@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import { BrandDetailProvider } from "./_shared/context/brand-detail-context";
+import { BrandListProvider } from "./_shared/context/brand-list-context";
 
-const BrandDetailLayout: React.FC<{ children: React.ReactNode }> = ({
+const BrandListLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <BrandDetailProvider>
+    <BrandListProvider>
       <>{children}</>
-    </BrandDetailProvider>
+    </BrandListProvider>
   );
 };
 
-export default BrandDetailLayout;
+export default BrandListLayout;
