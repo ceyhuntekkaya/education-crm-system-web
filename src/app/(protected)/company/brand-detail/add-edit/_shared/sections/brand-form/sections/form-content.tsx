@@ -66,7 +66,7 @@ export const BrandFormContent: React.FC = () => {
           <FormInput
             name="foundedYear"
             label="Kuruluş Yılı"
-            type="number"
+            // type="number"
             placeholder="Kuruluş yılını giriniz..."
           />
         </div>
