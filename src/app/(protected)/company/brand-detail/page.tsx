@@ -11,6 +11,7 @@ import {
   BrandDetailNotFoundSection,
   BrandDetailEmptySection,
 } from "./_shared/sections";
+import SnackbarExamples from "@/docs/snackbar-examples";
 
 const BrandDetailPage: React.FC = () => {
   const { currentBrand, isLoading, error, allSections } = useBrandDetail();

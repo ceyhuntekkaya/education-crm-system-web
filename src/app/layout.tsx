@@ -4,7 +4,9 @@ import LoadPhosphorIcon from "@/helper/load-phosphor-icon";
 
 import "./font.css";
 import "./globals.scss";
-import { AuthProvider } from "@/contexts";
+import { AuthProvider, SnackbarProvider } from "@/contexts";
+import { SnackbarContainer } from "@/components/ui";
+import SnackbarInitializer from "@/components/ui/snackbar/snackbar-initializer";
 
 export default function RootLayout({
   children,
@@ -15,10 +17,14 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <AuthProvider>
-          <BootstrapInit />
-          <LoadPhosphorIcon />
-          <RouteScrollToTop />
-          {children}
+          <SnackbarProvider>
+            <SnackbarInitializer />
+            <BootstrapInit />
+            <LoadPhosphorIcon />
+            <RouteScrollToTop />
+            {children}
+            <SnackbarContainer />
+          </SnackbarProvider>
         </AuthProvider>
       </body>
     </html>

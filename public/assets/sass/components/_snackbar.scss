@@ -1,0 +1,250 @@
+/* ======================== Snackbar Component Styles ==================================== */
+
+.snackbar-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+  max-width: 400px;
+
+  @media (max-width: 768px) {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+}
+
+.snackbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 100%;
+  opacity: 0;
+  transform: translateX(120%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 768px) {
+    min-width: auto;
+    padding: 14px 16px;
+  }
+
+  // Visible state with slide-in animation
+  &--visible {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  // Exiting animation
+  &--exiting {
+    opacity: 0;
+    transform: translateX(120%);
+    animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  // Success variant
+  &--success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%);
+    color: #ffffff;
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+
+    .snackbar__icon {
+      color: rgba(255, 255, 255, 0.95);
+      animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+  }
+
+  // Error variant
+  &--error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.95) 0%, rgba(220, 38, 38, 0.95) 100%);
+    color: #ffffff;
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+
+    .snackbar__icon {
+      color: rgba(255, 255, 255, 0.95);
+      animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+  }
+
+  // Warning variant
+  &--warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.95) 0%, rgba(217, 119, 6, 0.95) 100%);
+    color: #ffffff;
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+
+    .snackbar__icon {
+      color: rgba(255, 255, 255, 0.95);
+      animation: pulse 0.6s cubic-bezier(0.4, 0, 0.6, 1);
+    }
+  }
+
+  // Info variant
+  &--info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(37, 99, 235, 0.95) 100%);
+    color: #ffffff;
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+
+    .snackbar__icon {
+      color: rgba(255, 255, 255, 0.95);
+      animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+  }
+
+  // Icon container
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Content area
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  &__message {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  // Close button
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+/* ======================== Animations ==================================== */
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+// Progress bar (optional - for future use)
+.snackbar__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 12px 12px;
+  transform-origin: left;
+  animation: progress linear;
+}
+
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}

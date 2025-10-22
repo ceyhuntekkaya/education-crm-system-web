@@ -10,6 +10,7 @@ export { default as TabNavigation } from "./tab-navigation";
 export { Accordion, AccordionItem } from "./accordion";
 export { default as CustomImage } from "./custom-image";
 export { default as CustomCard } from "./custom-card";
+export { default as SnackbarContainer } from "./snackbar";
 
 // Modal Components - Using the new modal structure
 export * from "./modal";
