@@ -6,7 +6,7 @@ import Button from "@/components/ui/button";
 
 /**
  * Snackbar Kullanım Örneği
- * 
+ *
  * Bu component snackbar sisteminin nasıl kullanılacağını gösterir.
  * API istekleri otomatik olarak snackbar gösterir,
  * ancak manuel kullanım için aşağıdaki örneklere bakabilirsiniz.
@@ -19,10 +19,7 @@ export default function SnackbarExamples() {
   };
 
   const handleError = () => {
-    showSnackbar(
-      "Bir hata oluştu. Lütfen tekrar deneyin.",
-      "error"
-    );
+    showSnackbar("Bir hata oluştu. Lütfen tekrar deneyin.", "error");
   };
 
   const handleWarning = () => {
@@ -125,7 +122,10 @@ export default function SnackbarExamples() {
                 Uzun mesajlar otomatik olarak wrap edilir ve daha uzun süre
                 gösterilir.
               </p>
-              <Button onClick={handleLongMessage} className="btn btn-primary w-100">
+              <Button
+                onClick={handleLongMessage}
+                className="btn btn-primary w-100"
+              >
                 Uzun Mesaj Göster
               </Button>
             </div>
@@ -139,7 +139,10 @@ export default function SnackbarExamples() {
               <p className="card-text">
                 Birden fazla bildirim aynı anda görüntülenebilir.
               </p>
-              <Button onClick={handleMultiple} className="btn btn-secondary w-100">
+              <Button
+                onClick={handleMultiple}
+                className="btn btn-secondary w-100"
+              >
                 Çoklu Bildirim Göster
               </Button>
             </div>
@@ -160,7 +163,8 @@ export default function SnackbarExamples() {
                   <strong>POST:</strong> &quot;İşlem başarıyla oluşturuldu&quot;
                 </li>
                 <li>
-                  <strong>PUT/PATCH:</strong> &quot;İşlem başarıyla güncellendi&quot;
+                  <strong>PUT/PATCH:</strong> &quot;İşlem başarıyla
+                  güncellendi&quot;
                 </li>
                 <li>
                   <strong>DELETE:</strong> &quot;İşlem başarıyla silindi&quot;

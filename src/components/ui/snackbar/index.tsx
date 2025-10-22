@@ -123,7 +123,11 @@ const SnackbarItem: React.FC<SnackbarItemProps> = ({ snackbar, onClose }) => {
       <div className="snackbar__content">
         <p className="snackbar__message">{snackbar.message}</p>
       </div>
-      <button className="snackbar__close" onClick={handleClose} aria-label="Close">
+      <button
+        className="snackbar__close"
+        onClick={handleClose}
+        aria-label="Close"
+      >
         <svg
           width="20"
           height="20"

@@ -69,9 +69,7 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
   );
 
   return (
-    <SnackbarContext.Provider
-      value={{ snackbars, showSnackbar, hideSnackbar }}
-    >
+    <SnackbarContext.Provider value={{ snackbars, showSnackbar, hideSnackbar }}>
       {children}
     </SnackbarContext.Provider>
   );
