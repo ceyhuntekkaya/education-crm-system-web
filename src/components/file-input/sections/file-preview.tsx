@@ -213,41 +213,60 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
     );
   };
 
-  const renderFileCard = (file: FileWithPreview, index: number) => (
-    <div key={index}>
-      <div className="bg-white rounded-16 p-16 position-relative overflow-hidden d-flex flex-column box-shadow-md hover-box-shadow-lg transition-all h-100">
-        {/* Silme butonu - Direkt Icon component kullanımı */}
-        {!disabled && (
-          <Icon
-            icon="ph-x"
-            size="md"
-            onClick={() => removeFile(index)}
-            variant="outline-danger"
-            className="file-remove-icon"
-          />
-        )}
+  const renderFileCard = (file: FileWithPreview, index: number) => {
+    // Placeholder file mı kontrol et (size = 0)
+    const isPlaceholder = file.size === 0;
 
-        {/* Önizleme içeriği */}
-        <div className="mb-12 position-relative">{renderFileContent(file)}</div>
+    return (
+      <div key={index}>
+        <div className="bg-white rounded-16 p-16 position-relative overflow-hidden d-flex flex-column box-shadow-md hover-box-shadow-lg transition-all h-100">
+          {/* Silme butonu - Direkt Icon component kullanımı */}
+          {!disabled && (
+            <Icon
+              icon="ph-x"
+              size="md"
+              onClick={() => removeFile(index)}
+              variant="outline-danger"
+              className="file-remove-icon"
+            />
+          )}
 
-        {/* Dosya bilgileri */}
-        <div className="flex-grow-1 d-flex flex-column">
-          <div className="mb-8">{renderFileName(file)}</div>
-
-          <div className="mt-auto">
-            <div className="d-flex align-items-center justify-content-between">
-              <span className="text-neutral-500 text-sm fw-medium">
-                {formatFileSize(file.size || 0)}
+          {/* Placeholder badge */}
+          {isPlaceholder && (
+            <div className="position-absolute top-0 end-0 mt-12 me-12 z-1">
+              <span className="badge bg-info-100 text-info-700 text-xs fw-medium px-8 py-4 rounded-6">
+                Mevcut
               </span>
-              <span className="text-xs text-main-600 bg-main-50 px-8 py-4 rounded-6 fw-medium">
-                {getFriendlyFileType(file.name)}
-              </span>
+            </div>
+          )}
+
+          {/* Önizleme içeriği */}
+          <div className="mb-12 position-relative">
+            {renderFileContent(file)}
+          </div>
+
+          {/* Dosya bilgileri */}
+          <div className="flex-grow-1 d-flex flex-column">
+            <div className="mb-8">{renderFileName(file)}</div>
+
+            <div className="mt-auto">
+              <div className="d-flex align-items-center justify-content-between">
+                {/* Eğer dosya boyutu 0 ise (placeholder), boyutu gösterme */}
+                {file.size > 0 && (
+                  <span className="text-neutral-500 text-sm fw-medium">
+                    {formatFileSize(file.size)}
+                  </span>
+                )}
+                <span className="text-xs text-main-600 bg-main-50 px-8 py-4 rounded-6 fw-medium">
+                  {getFriendlyFileType(file.name)}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderFileGroup = (
     groupTitle: string,

@@ -26,19 +26,36 @@ export default function BrandCoverImage() {
   }
 
   return (
-    <CustomCard className="p-0 overflow-hidden">
-      <div className="position-relative" style={{ height: "200px" }}>
+    <CustomCard>
+      <div className="position-relative" style={{ height: "250px" }}>
         <CustomImage
           src={currentBrand.coverImageUrl}
           alt={currentBrand.name || "Marka kapak görseli"}
           fill
-          style={{ objectFit: "cover" }}
-          className="rounded-top-12"
+          className="cover-img rounded-12"
         />
-        <div className="position-absolute bottom-0 start-0 end-0 p-24 bg-gradient-dark-overlay">
-          <h2 className="text-white mb-0">{currentBrand.name}</h2>
+        <div
+          className="position-absolute bottom-0 start-0 end-0 p-24 rounded-12"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%)",
+          }}
+        >
+          <h2
+            className="text-white mb-0 fw-bold"
+            style={{ textShadow: "0 2px 8px rgba(0, 0, 0, 0.4)" }}
+          >
+            {currentBrand.name}
+          </h2>
           {currentBrand.description && (
-            <p className="text-white-75 mb-0 mt-8">
+            <p
+              className="text-white mb-0 mt-8"
+              style={{
+                fontSize: "14px",
+                lineHeight: "1.6",
+                textShadow: "0 1px 4px rgba(0, 0, 0, 0.6)",
+              }}
+            >
               {currentBrand.description}
             </p>
           )}

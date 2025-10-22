@@ -131,11 +131,11 @@ export default function BrandGeneralInfo() {
             />
           ) : (
             <div
-              className="d-flex align-items-center justify-content-center bg-neutral-100 rounded-8 border border-neutral-30"
+              className="d-flex align-items-center justify-content-center bg-main-50 rounded-8 border border-main-200"
               style={{ width: "80px", height: "80px" }}
             >
               <i
-                className="ph ph-buildings text-neutral-500"
+                className="ph ph-buildings text-main-600"
                 style={{ fontSize: "32px" }}
               />
             </div>

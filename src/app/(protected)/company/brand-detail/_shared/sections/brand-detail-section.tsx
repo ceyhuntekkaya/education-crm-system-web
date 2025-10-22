@@ -43,18 +43,7 @@ export const BrandDetailSection: React.FC<BrandDetailSectionProps> = ({
             </Button>
           </div>
         }
-        multiItems={allSections.map((section) => ({
-          title: section.title,
-          titleColor: section.titleColor,
-          titleIcon: section.titleIcon,
-          items: section.items
-            .filter((item: any) => item.isShowing)
-            .map((item: any) => ({
-              label: item.label,
-              value: item.value,
-              isShowing: item.isShowing,
-            })),
-        }))}
+        multiItems={allSections}
       />
     </div>
   );

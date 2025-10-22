@@ -10,30 +10,26 @@ export const brandGeneralInfoConfig: BrandGeneralInfoConfig[] = [
   {
     label: "Logo",
     value: (brand) => (
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center w-full justify-content-start">
         {brand?.logoUrl ? (
           <CustomImage
             src={brand.logoUrl}
             alt={brand.name || "Marka logosu"}
-            width={60}
-            height={60}
-            className="rounded-8 border border-neutral-30 me-3"
-            style={{ objectFit: "cover" }}
+            width={120}
+            height={120}
+            className="rounded-12"
           />
         ) : (
           <div
-            className="d-flex align-items-center justify-content-center bg-neutral-100 rounded-8 border border-neutral-30 me-3"
+            className="d-flex align-items-center justify-content-center bg-main-50 rounded-8 border border-main-200 me-3"
             style={{ width: "60px", height: "60px" }}
           >
             <i
-              className="ph ph-buildings text-neutral-500"
+              className="ph ph-buildings text-main-600"
               style={{ fontSize: "24px" }}
             />
           </div>
         )}
-        <span className="text-neutral-600 text-sm">
-          {brand?.logoUrl ? "Logo mevcut" : "Logo mevcut değil"}
-        </span>
       </div>
     ),
     isShowing: (brand) => !!brand,
@@ -51,7 +47,7 @@ export const brandGeneralInfoConfig: BrandGeneralInfoConfig[] = [
   {
     label: "Slug",
     value: (brand) => (
-      <code className="bg-neutral-100 px-8 py-4 rounded-4 text-sm">
+      <code className="bg-neutral-50 px-8 py-4 rounded-4 text-sm">
         {brand?.slug || "Belirtilmemiş"}
       </code>
     ),

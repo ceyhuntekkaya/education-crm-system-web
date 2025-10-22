@@ -70,7 +70,7 @@ export default function BrandSocialMediaInfo() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="d-flex align-items-center gap-12 p-12 rounded-8 bg-neutral-25 hover-bg-neutral-50 text-decoration-none transition-all"
+              className="d-flex align-items-center gap-12 p-12 rounded-8 bg-white border border-neutral-100 hover-bg-main-50 hover-border-main-200 text-decoration-none transition-all"
             >
               <div
                 className="d-flex align-items-center justify-content-center rounded-circle"

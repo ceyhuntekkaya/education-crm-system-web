@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
+import { useForm } from "@/contexts/form-context";
 import { getAcceptAttribute } from "../utils";
 import {
   FileInputContextProps,
@@ -34,6 +35,10 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   onUploadError,
   children,
 }) => {
+  // Form context'ten value al (eğer name varsa)
+  const { getValue } = useForm();
+  const initialValue = name ? getValue(name) : undefined;
+
   // Context state hook - Tüm internal state'ler
   const {
     internalError,
@@ -48,16 +53,18 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   const acceptAttribute = getAcceptAttribute(type);
 
   // Core hook'ları kullan
-  const { files, loading, processFiles, removeFile } = useFileManagement({
-    value: undefined,
-    onChange: handleInternalChange,
-    onError: handleInternalError,
-    type,
-    multiple,
-    maxSize,
-    maxFiles,
-    acceptAttribute,
-  });
+  const { files, loading, processFiles, removeFile, hasNewFiles } =
+    useFileManagement({
+      value: undefined,
+      initialValue, // Form'dan gelen URL değeri
+      onChange: handleInternalChange,
+      onError: handleInternalError,
+      type,
+      multiple,
+      maxSize,
+      maxFiles,
+      acceptAttribute,
+    });
 
   const { dragActive, handleDrag, handleDrop } = useDragAndDrop(
     disabled,
@@ -99,6 +106,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     files,
     processFiles,
     removeFile,
+    hasNewFiles,
 
     // Loading States
     loading,
