@@ -25,6 +25,7 @@ export const BrandDetailSection: React.FC<BrandDetailSectionProps> = ({
         addButtonUrl="/company/brands/add-edit/new"
         editButtonUrl={`/company/brand-detail/add-edit/${brand?.id}`}
         multiItems={allSections}
+        isBack={true}
       />
     </div>
   );

@@ -25,6 +25,7 @@ export const CampusDetailSection: React.FC<CampusDetailSectionProps> = ({
         addButtonUrl="/company/campus-detail/add-edit/new"
         editButtonUrl={`/company/campus-detail/add-edit/${campus?.id}`}
         multiItems={allSections}
+        isBack={true}
       />
     </div>
   );

@@ -22,19 +22,36 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
       onError?.(); // Kullanıcının onError handler'ını çağır
     };
 
+    // Helper function to normalize image URL
+    const normalizeImageUrl = (
+      url: string | null | undefined
+    ): string | null => {
+      if (!url) return null;
+      // If it's already a full URL, return it
+      if (url.startsWith("http://") || url.startsWith("https://")) {
+        return url;
+      }
+      // If it starts with /, return it
+      if (url.startsWith("/")) {
+        return url;
+      }
+      // Otherwise, prepend /
+      return `/${url}`;
+    };
+
     // Fallback sistemi:
     // 1. Eğer tempImage varsa ve hata oluşmuşsa -> tempImage
-    // 2. Eğer src varsa -> src
+    // 2. Eğer src varsa -> src (normalize edilmiş)
     // 3. Eğer tempImage yoksa ve hata oluşmuşsa -> DEFAULT_ERROR_IMAGE
     // 4. Eğer hiçbiri yoksa -> DEFAULT_ERROR_IMAGE
     const imageSrc = (() => {
       if (imageError) {
-        return tempImage || DEFAULT_ERROR_IMAGE;
+        return normalizeImageUrl(tempImage) || DEFAULT_ERROR_IMAGE;
       }
       if (src) {
-        return src;
+        return normalizeImageUrl(src) || DEFAULT_ERROR_IMAGE;
       }
-      return tempImage || DEFAULT_ERROR_IMAGE;
+      return normalizeImageUrl(tempImage) || DEFAULT_ERROR_IMAGE;
     })();
 
     return (

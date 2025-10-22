@@ -66,17 +66,14 @@ export const CampusCoverImage: React.FC = () => {
           )}
           {campus.description && (
             <p
-              className="text-white-80 mb-0 mt-8"
+              className="text-white mb-0 mt-8"
               style={{
-                fontSize: "13px",
-                lineHeight: "1.5",
+                fontSize: "14px",
+                lineHeight: "1.6",
                 textShadow: "0 1px 4px rgba(0, 0, 0, 0.6)",
-                opacity: 0.9,
               }}
             >
-              {campus.description.length > 150
-                ? `${campus.description.substring(0, 150)}...`
-                : campus.description}
+              {campus.description}
             </p>
           )}
         </div>

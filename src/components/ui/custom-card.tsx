@@ -237,56 +237,54 @@ export default function CustomCard({
               {title && <h2 className={getTitleClass(size)}>{title}</h2>}
               {subtitle && <p className={getSubtitleClass(size)}>{subtitle}</p>}
             </div>
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-12">
               {headerAction && <div>{headerAction}</div>}
-              {(isBack || isForward) && (
-                <div className="d-flex gap-8">
-                  {isBack && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      leftIcon="ph-arrow-left"
-                      onClick={handleBackClick}
-                    >
-                      Geri Dön
-                    </Button>
-                  )}
-                  {isForward && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      rightIcon="ph-arrow-right"
-                      onClick={handleForwardClick}
-                    >
-                      İleri Git
-                    </Button>
-                  )}
-                </div>
+
+              {/* Navigation Buttons (Geri/İleri) */}
+              {isBack && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon="ph-arrow-left"
+                  onClick={handleBackClick}
+                >
+                  Geri Dön
+                </Button>
               )}
-              {(addButtonUrl || editButtonUrl) && (
-                <div className="d-flex gap-8">
-                  {addButtonUrl && (
-                    <Button
-                      variant="inline"
-                      size="sm"
-                      leftIcon="ph-plus"
-                      href={addButtonUrl}
-                    >
-                      Yeni Ekle
-                    </Button>
-                  )}
-                  {editButtonUrl && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      leftIcon="ph-pencil-simple"
-                      href={editButtonUrl}
-                    >
-                      Düzenle
-                    </Button>
-                  )}
-                </div>
+              {isForward && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  rightIcon="ph-arrow-right"
+                  onClick={handleForwardClick}
+                >
+                  İleri Git
+                </Button>
               )}
+
+              {/* Action Buttons (Yeni Ekle/Düzenle) */}
+              {addButtonUrl && (
+                <Button
+                  variant="inline"
+                  size="sm"
+                  leftIcon="ph-plus"
+                  href={addButtonUrl}
+                >
+                  Yeni Ekle
+                </Button>
+              )}
+              {editButtonUrl && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon="ph-pencil-simple"
+                  href={editButtonUrl}
+                >
+                  Düzenle
+                </Button>
+              )}
+
+              {/* Accordion Toggle */}
               {type === "accordion" && (
                 <Icon
                   icon={isAccordionOpen ? "ph-caret-up" : "ph-caret-down"}

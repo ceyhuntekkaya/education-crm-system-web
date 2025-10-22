@@ -1,11 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode, useMemo } from "react";
+import { useParams } from "next/navigation";
 import { useCompany } from "@/app/(protected)/company/_shared";
-import { CampusDto } from "@/types";
 import { useCampusDetail as useCampusDetailHook } from "../hooks/use-campus-detail";
-import { createCampusSections } from "../utils";
-import { CAMPUS_SECTIONS } from "../config";
+import { createCampusSections } from "../utils/config-processor";
+import { CAMPUS_SECTIONS } from "../config/section-definitions";
 import { CampusDetailContextType, CampusDetailProviderProps } from "../types";
 
 const CampusDetailContext = createContext<CampusDetailContextType | undefined>(
@@ -15,17 +15,18 @@ const CampusDetailContext = createContext<CampusDetailContextType | undefined>(
 export const CampusDetailProvider: React.FC<CampusDetailProviderProps> = ({
   children,
 }) => {
+  const params = useParams();
+  const campusId = params?.id ? Number(params.id) : null;
   const { selectedSchool, schools, isInitialized } = useCompany();
 
-  // Use the campus detail hook only when we have a selected school
-  // Campus ID'yi selectedSchool'dan alıyoruz (campus her zaman school ile ilişkili)
+  // Use the campus detail hook with ID from URL
   const {
     campus: campusDetail,
     loading: campusLoading,
     error: campusError,
     refetch: refetchCampus,
   } = useCampusDetailHook({
-    campusId: 1,
+    campusId,
   });
 
   // Process all sections using config

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useCampusDetail } from "./_shared/context/campus-detail-context";
+import { useCampusDetail } from "../_shared/context/campus-detail-context";
 import {
   CampusCoverImage,
   CampusDetailSection,
@@ -9,7 +9,7 @@ import {
   CampusDetailErrorSection,
   CampusDetailNotFoundSection,
   CampusDetailEmptySection,
-} from "./_shared";
+} from "../_shared";
 
 const CampusDetailPage: React.FC = () => {
   const { currentCampus, isLoading, error, allSections } = useCampusDetail();
