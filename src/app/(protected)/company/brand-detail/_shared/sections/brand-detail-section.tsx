@@ -1,6 +1,5 @@
 import React from "react";
 import { CustomCard } from "@/components/ui";
-import { Button } from "@/components";
 import { useBrandDetail } from "../context";
 
 interface BrandDetailSectionProps {
@@ -23,26 +22,8 @@ export const BrandDetailSection: React.FC<BrandDetailSectionProps> = ({
     >
       <CustomCard
         title="Marka Detayları"
-        headerAction={
-          <div className="d-flex gap-8">
-            <Button
-              variant="outline"
-              size="sm"
-              leftIcon="ph-plus"
-              href="/company/brand-detail/add-edit/new"
-            >
-              Yeni Ekle
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              leftIcon="ph-pencil-simple"
-              href={`/company/brand-detail/add-edit/${brand?.id}`}
-            >
-              Düzenle
-            </Button>
-          </div>
-        }
+        addButtonUrl="/company/brand-detail/add-edit/new"
+        editButtonUrl={`/company/brand-detail/add-edit/${brand?.id}`}
         multiItems={allSections}
       />
     </div>

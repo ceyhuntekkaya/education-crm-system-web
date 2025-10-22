@@ -2,6 +2,7 @@
 
 import { ReactNode, useState, useRef, useEffect } from "react";
 import Icon from "./icon";
+import { Button } from "@/components";
 
 interface CustomCardProps {
   /** Card type (default: "card") */
@@ -14,6 +15,10 @@ interface CustomCardProps {
   subtitle?: string;
   /** Header action component (buttons, etc.) */
   headerAction?: ReactNode;
+  /** Add button URL - if provided, "Yeni Ekle" button will be shown */
+  addButtonUrl?: string;
+  /** Edit button URL - if provided, "Düzenle" button will be shown */
+  editButtonUrl?: string;
   /** Card variant (default: "default") */
   variant?: "default" | "outline";
   /** Card background color class (default: bg-white) */
@@ -85,6 +90,8 @@ export default function CustomCard({
   title,
   subtitle,
   headerAction,
+  addButtonUrl,
+  editButtonUrl,
   variant = "default",
   bgColor = "bg-white",
   padding = "p-8",
@@ -157,7 +164,8 @@ export default function CustomCard({
   const cardBgColor = variant === "outline" ? headerBgColor : bgColor;
   const headerColor = variant === "outline" ? bgColor : headerBgColor;
 
-  const hasHeader = title || subtitle || headerAction;
+  const hasHeader =
+    title || subtitle || headerAction || addButtonUrl || editButtonUrl;
   const hasContent = children || items || multiItems;
 
   // Calculate content height for smooth animation
@@ -198,6 +206,30 @@ export default function CustomCard({
             </div>
             <div className="d-flex align-items-center gap-3">
               {headerAction && <div>{headerAction}</div>}
+              {(addButtonUrl || editButtonUrl) && (
+                <div className="d-flex gap-8">
+                  {addButtonUrl && (
+                    <Button
+                      variant="inline"
+                      size="sm"
+                      leftIcon="ph-plus"
+                      href={addButtonUrl}
+                    >
+                      Yeni Ekle
+                    </Button>
+                  )}
+                  {editButtonUrl && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      leftIcon="ph-pencil-simple"
+                      href={editButtonUrl}
+                    >
+                      Düzenle
+                    </Button>
+                  )}
+                </div>
+              )}
               {type === "accordion" && (
                 <Icon
                   icon={isAccordionOpen ? "ph-caret-up" : "ph-caret-down"}
