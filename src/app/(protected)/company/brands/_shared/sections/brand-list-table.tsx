@@ -15,7 +15,7 @@ export const BrandListTable = () => {
   // Row tıklama handler'ı
   const handleRowClick = (params: any) => {
     if (params.row?.id) {
-      router.push(`/company/brand-detail/detail/${params.row.id}`);
+      router.push(`/company/brands/detail/${params.row.id}`);
     }
   };
 
@@ -44,7 +44,7 @@ export const BrandListTable = () => {
           showActions: true,
           addButtonText: "Yeni Marka",
           onAddNew: () => {
-            router.push("/company/brand-detail/add-edit/new");
+            router.push("/company/brands/add-edit/new");
           },
         }}
       />

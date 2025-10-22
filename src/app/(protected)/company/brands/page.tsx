@@ -8,7 +8,7 @@ const BrandListPage: React.FC = () => {
     <CustomCard
       title="Marka Yönetimi"
       subtitle="Markalarınızı oluşturun, düzenleyin ve yönetin"
-      addButtonUrl="/company/brand-detail/add-edit/new"
+      addButtonUrl="/company/brands/add-edit/new"
     >
       <BrandListTable />
     </CustomCard>
