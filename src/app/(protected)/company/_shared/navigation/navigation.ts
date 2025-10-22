@@ -75,8 +75,13 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/brand-detail",
-    label: "Marka Bilgileri",
+    label: "Marka Bilgileri ***",
     icon: "ph-tag",
+  },
+  {
+    href: "/company/campus-detail",
+    label: "Kampüs Bilgileri **",
+    icon: "ph-school",
   },
   // {
   //   href: "/profile",

@@ -123,6 +123,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
   campus: {
     id: 1,
     name: "Bilge Koleji Maslak Kampüsü",
+    slug: "bilge-koleji-maslak-kampusu",
     description:
       "İstanbul'un prestijli Maslak bölgesinde, 5000 m² kapalı alana sahip modern eğitim kampüsü. Teknoloji donanımlı sınıflar, geniş oyun alanları ve sanat atölyeleri ile donatılmıştır.",
     email: "maslak@bilgekoleji.edu.tr",
@@ -144,6 +145,8 @@ export const schoolDetailMockData: SchoolDetailDto = {
     linkedinUrl: "https://linkedin.com/company/bilge-koleji-maslak",
     ratingAverage: 4.8,
     ratingCount: 2156,
+    isActive: true,
+    createdAt: "2019-09-01T08:00:00Z",
   },
 
   brand: {

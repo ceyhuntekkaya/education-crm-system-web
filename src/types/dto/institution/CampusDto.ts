@@ -6,48 +6,55 @@ import { CampusSummaryDto } from "./CampusSummaryDto";
 import { BrandSummaryDto } from "./BrandSummaryDto";
 
 export interface CampusDto {
-  /** Format: int64 */
-  id?: number;
-  name?: string;
-  slug?: string;
+  id: number;
+  name: string;
+  slug: string;
   description?: string;
   logoUrl?: string;
   coverImageUrl?: string;
+
+  // Contact Information
   email?: string;
   phone?: string;
   fax?: string;
   websiteUrl?: string;
+
+  // Address Information
   addressLine1?: string;
   addressLine2?: string;
   district?: DistrictSummaryDto;
   province?: ProvinceSummaryDto;
   postalCode?: string;
   country?: CountrySummaryDto;
-  /** Format: double */
   latitude?: number;
-  /** Format: double */
   longitude?: number;
+
+  // Location details
   location?: LocationHierarchyDto;
+
+  // Social Media
   facebookUrl?: string;
   twitterUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
   youtubeUrl?: string;
+
+  // SEO
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
-  /** Format: int64 */
+
+  // Statistics
   viewCount?: number;
-  /** Format: double */
   ratingAverage?: number;
-  /** Format: int64 */
   ratingCount?: number;
+
+  // Relationships
   campuses?: CampusSummaryDto[];
-  isActive?: boolean;
-  /** Format: date-time */
-  createdAt?: string;
-  /** Format: int32 */
+  brand?: BrandSummaryDto;
+  isActive: boolean;
+  createdAt: string; // ISO datetime string
+
   establishedYear?: number;
   isSubscribed?: boolean;
-  brand?: BrandSummaryDto;
 }

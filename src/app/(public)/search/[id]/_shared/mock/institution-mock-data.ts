@@ -85,6 +85,7 @@ export const institutionMockData: SchoolDetailDto = {
   campus: {
     id: 1,
     name: "Eğitim Dünyası Maslak Kampüsü",
+    slug: "egitim-dunyasi-maslak-kampusu",
     description:
       "Eğitim Dünyası Koleji Maslak Kampüsü, modern eğitim anlayışı ile İstanbul'un kalbinde hizmet vermektedir.",
     email: "maslak@egitimdunyasi.edu.tr",
@@ -106,6 +107,8 @@ export const institutionMockData: SchoolDetailDto = {
     linkedinUrl: "https://linkedin.com/company/egitim-dunyasi-maslak",
     ratingAverage: 4.7,
     ratingCount: 1847,
+    isActive: true,
+    createdAt: "2020-01-15T10:00:00Z",
   },
   brand: {
     id: 1,

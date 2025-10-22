@@ -20,9 +20,13 @@ export const API_ENDPOINTS = {
     SCHOOLS: "/institutions/schools",
     SCHOOLS_SEARCH: "/institutions/schools/search",
     SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
+    BRAND_SUMMARIES: "/institutions/brands/summaries",
     BRAND_DETAIL: (id: string | number) => `/institutions/brands/${id}`,
     BRAND_CREATE: "/institutions/brands",
     BRAND_BY_ID: (id: string | number) => `/institutions/brands/${id}`,
+    CAMPUS_DETAIL: (id: string | number) => `/institutions/campuses/${id}`,
+    CAMPUS_CREATE: "/institutions/campuses",
+    CAMPUS_BY_ID: (id: string | number) => `/institutions/campuses/${id}`,
     INSTITUTION_TYPES: "/institutions/institution-types",
   },
 
