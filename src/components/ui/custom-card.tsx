@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Icon from "./icon";
 import { Button } from "@/components";
 
@@ -19,6 +20,10 @@ interface CustomCardProps {
   addButtonUrl?: string;
   /** Edit button URL - if provided, "Düzenle" button will be shown */
   editButtonUrl?: string;
+  /** Back button - if true, shows back button with router.back(). If string (URL), navigates to that URL */
+  isBack?: boolean | string;
+  /** Forward button - if true, shows forward button with router.forward(). If string (URL), navigates to that URL */
+  isForward?: boolean | string;
   /** Card variant (default: "default") */
   variant?: "default" | "outline";
   /** Card background color class (default: bg-white) */
@@ -92,6 +97,8 @@ export default function CustomCard({
   headerAction,
   addButtonUrl,
   editButtonUrl,
+  isBack,
+  isForward,
   variant = "default",
   bgColor = "bg-white",
   padding = "p-8",
@@ -117,6 +124,9 @@ export default function CustomCard({
   ps,
   pe,
 }: CustomCardProps) {
+  // Router for navigation
+  const router = useRouter();
+
   // Accordion state
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState<number>(0);
@@ -165,8 +175,31 @@ export default function CustomCard({
   const headerColor = variant === "outline" ? bgColor : headerBgColor;
 
   const hasHeader =
-    title || subtitle || headerAction || addButtonUrl || editButtonUrl;
+    title ||
+    subtitle ||
+    headerAction ||
+    addButtonUrl ||
+    editButtonUrl ||
+    isBack ||
+    isForward;
   const hasContent = children || items || multiItems;
+
+  // Navigation handlers
+  const handleBackClick = () => {
+    if (typeof isBack === "string") {
+      router.push(isBack);
+    } else {
+      router.back();
+    }
+  };
+
+  const handleForwardClick = () => {
+    if (typeof isForward === "string") {
+      router.push(isForward);
+    } else {
+      router.forward();
+    }
+  };
 
   // Calculate content height for smooth animation
   useEffect(() => {
@@ -206,6 +239,30 @@ export default function CustomCard({
             </div>
             <div className="d-flex align-items-center gap-3">
               {headerAction && <div>{headerAction}</div>}
+              {(isBack || isForward) && (
+                <div className="d-flex gap-8">
+                  {isBack && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      leftIcon="ph-arrow-left"
+                      onClick={handleBackClick}
+                    >
+                      Geri Dön
+                    </Button>
+                  )}
+                  {isForward && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      rightIcon="ph-arrow-right"
+                      onClick={handleForwardClick}
+                    >
+                      İleri Git
+                    </Button>
+                  )}
+                </div>
+              )}
               {(addButtonUrl || editButtonUrl) && (
                 <div className="d-flex gap-8">
                   {addButtonUrl && (
