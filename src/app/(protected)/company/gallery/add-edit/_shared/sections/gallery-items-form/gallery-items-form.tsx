@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { FormProvider } from "@/contexts/form-context";
 import { GalleryItemFormContent, GalleryItemsList } from "./sections";
 import {
@@ -9,7 +9,6 @@ import {
 } from "./schemas";
 import { GalleryItemFormProps } from "./types/props";
 import { transformGalleryItemToFormData } from "../../utils/gallery-item-utils";
-import { GalleryItemDto } from "@/types";
 import { useGalleryAddEdit } from "../../context";
 
 /**
@@ -19,9 +18,8 @@ export const GalleryItemForm: React.FC<GalleryItemFormProps> = ({
   className,
   initialData,
 }) => {
-  const { gallery } = useGalleryAddEdit();
-  const [selectedItem, setSelectedItem] = useState<GalleryItemDto | null>(null);
-  const [isAddingNew, setIsAddingNew] = useState(false);
+  const { gallery, selectedItem, isAddingNew, handleItemSelect, handleAddNew } =
+    useGalleryAddEdit();
 
   // Form için initial values
   const formInitialValues = selectedItem
@@ -30,18 +28,6 @@ export const GalleryItemForm: React.FC<GalleryItemFormProps> = ({
         ...transformGalleryItemToFormData(selectedItem),
       }
     : galleryItemInitialValues;
-
-  // Item seçildiğinde
-  const handleItemSelect = (item: GalleryItemDto | null) => {
-    setSelectedItem(item);
-    setIsAddingNew(false);
-  };
-
-  // Yeni ekle butonuna basıldığında
-  const handleAddNew = () => {
-    setSelectedItem(null);
-    setIsAddingNew(true);
-  };
 
   return (
     <div className={className}>

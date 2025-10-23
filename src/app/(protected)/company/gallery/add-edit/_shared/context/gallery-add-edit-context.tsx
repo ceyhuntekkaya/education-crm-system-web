@@ -11,6 +11,7 @@ import {
   useAddGalleryItem,
   useEditGalleryItem,
   useGalleryItemOptions,
+  useGalleryItemSelection,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 
@@ -31,6 +32,17 @@ export const GalleryAddEditProvider: React.FC<GalleryAddEditProviderProps> = ({
   // ID parsing and edit mode determination
   const isEditing = isValidEditId(id);
   const galleryId = parseEditId(id);
+
+  // Gallery item selection hook
+  const {
+    selectedItem,
+    isAddingNew,
+    setSelectedItem,
+    setIsAddingNew,
+    handleItemSelect,
+    handleAddNew,
+    handleItemClick,
+  } = useGalleryItemSelection();
 
   // Gallery data hook
   const {
@@ -72,7 +84,7 @@ export const GalleryAddEditProvider: React.FC<GalleryAddEditProviderProps> = ({
     isLoading: editItemLoading,
     error: editItemError,
   } = useEditGalleryItem({
-    galleryItemId: 0, // Bu dinamik olarak set edilecek
+    galleryItemId: selectedItem?.id || 0,
     refetch: isEditing ? refetch : undefined,
   });
 
@@ -88,6 +100,15 @@ export const GalleryAddEditProvider: React.FC<GalleryAddEditProviderProps> = ({
     // Edit mode state
     isEditing,
     galleryId: galleryId?.toString() || null,
+
+    // Selected item state and handlers
+    selectedItem,
+    isAddingNew,
+    setSelectedItem,
+    setIsAddingNew,
+    handleItemSelect,
+    handleAddNew,
+    handleItemClick,
 
     // Form options
     galleryTypeOptions,

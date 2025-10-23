@@ -31,8 +31,6 @@ export const GalleryItemFormContent: React.FC<GalleryItemFormContentProps> = ({
   const { hasErrors } = useFormHook();
   const { reset } = useForm();
   const {
-    isEditing,
-    gallery,
     galleryLoading,
     galleryId,
     postGalleryItem,

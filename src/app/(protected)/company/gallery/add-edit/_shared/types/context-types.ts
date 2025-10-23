@@ -22,6 +22,15 @@ export interface GalleryAddEditContextType {
   isEditing: boolean;
   galleryId: string | null;
 
+  // Selected item state
+  selectedItem: GalleryItemDto | null;
+  isAddingNew: boolean;
+  setSelectedItem: (item: GalleryItemDto | null) => void;
+  setIsAddingNew: (isAdding: boolean) => void;
+  handleItemSelect: (item: GalleryItemDto | null) => void;
+  handleAddNew: () => void;
+  handleItemClick: (item: GalleryItemDto) => void;
+
   // Form options
   galleryTypeOptions: SelectOption[];
   visibilityOptions: SelectOption[];

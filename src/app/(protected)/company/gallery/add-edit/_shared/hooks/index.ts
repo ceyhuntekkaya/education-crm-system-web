@@ -5,3 +5,4 @@ export * from "./use-gallery-options";
 export * from "./use-add-gallery-item";
 export * from "./use-edit-gallery-item";
 export * from "./use-gallery-item-options";
+export * from "./use-gallery-item-selection";
