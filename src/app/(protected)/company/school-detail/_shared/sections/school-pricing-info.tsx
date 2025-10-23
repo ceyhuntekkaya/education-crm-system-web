@@ -221,5 +221,11 @@ export default function SchoolPricingInfo() {
     },
   ];
 
-  return <CustomCard title="Ücret Bilgileri" multiItems={pricingSections} />;
+  return (
+    <CustomCard
+      title="Ücret Bilgileri"
+      editButtonUrl="/company/pricing"
+      multiItems={pricingSections}
+    />
+  );
 }

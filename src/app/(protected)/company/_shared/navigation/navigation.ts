@@ -20,12 +20,12 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/pricing",
-    label: "Fiyat Bilgileri **",
+    label: "Fiyat Bilgileri ***",
     icon: "ph-coins",
   },
   {
     href: "/company/campaigns",
-    label: "Kampanyalar **",
+    label: "Kampanyalar ***",
     icon: "ph-megaphone",
   },
   {
