@@ -6,6 +6,7 @@ export * from "./ContentModerationDto";
 export * from "./FileUploadDto";
 export * from "./GalleryCreateDto";
 export * from "./GalleryDto";
+export * from "./GalleryUpdateDto";
 export * from "./GalleryItemCreateDto";
 export * from "./GalleryItemDto";
 export * from "./GalleryItemUpdateDto";

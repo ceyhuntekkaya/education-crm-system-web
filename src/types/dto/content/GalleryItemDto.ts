@@ -1,4 +1,5 @@
 import { UserSummaryDto } from "../user";
+import { MediaType, ProcessingStatus } from "@/enums";
 
 export interface GalleryItemDto {
   /** Format: int64 */
@@ -8,8 +9,7 @@ export interface GalleryItemDto {
   title?: string;
   description?: string;
   altText?: string;
-  /** @enum {string} */
-  itemType?: "IMAGE" | "VIDEO" | "AUDIO" | "DOCUMENT" | "ARCHIVE" | "OTHER";
+  itemType?: MediaType;
   fileUrl?: string;
   thumbnailUrl?: string;
   fileName?: string;
@@ -51,13 +51,7 @@ export interface GalleryItemDto {
   downloadCount?: number;
   /** Format: int64 */
   likeCount?: number;
-  /** @enum {string} */
-  processingStatus?:
-    | "PENDING"
-    | "PROCESSING"
-    | "COMPLETED"
-    | "FAILED"
-    | "CANCELLED";
+  processingStatus?: ProcessingStatus;
   processingError?: string;
   /** Format: date-time */
   processedAt?: string;

@@ -1,13 +1,14 @@
 import { GalleryType, GalleryVisibility } from "@/enums";
 
-export interface GalleryCreateDto {
-  brandId?: number;
-  campusId?: number;
-  schoolId?: number;
+export interface GalleryFormData {
+  // Required fields
+  schoolId: number;
   title: string;
-  description?: string;
   galleryType: GalleryType;
   visibility: GalleryVisibility;
+
+  // Optional fields
+  description?: string;
   coverImageUrl?: string;
   sortOrder?: number;
   isFeatured?: boolean;
@@ -18,4 +19,8 @@ export interface GalleryCreateDto {
   metaTitle?: string;
   metaDescription?: string;
   tags?: string;
+
+  // IDs (optional, for brand/campus level)
+  brandId?: number;
+  campusId?: number;
 }

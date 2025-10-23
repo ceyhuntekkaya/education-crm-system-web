@@ -88,6 +88,16 @@ export const API_ENDPOINTS = {
     GALLERIES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/galleries/school/${schoolId}`,
     GALLERY_BY_ID: (id: string | number) => `/content/galleries/${id}`,
+    GALLERY_CREATE: "/content/galleries",
+    GALLERY_UPDATE: (id: string | number) => `/content/galleries/${id}`,
+
+    // Gallery Items
+    GALLERY_ITEMS: "/content/galleries/items",
+    GALLERY_ITEM_CREATE: "/content/galleries/items",
+    GALLERY_ITEM_BY_ID: (id: string | number) =>
+      `/content/galleries/items/${id}`,
+    GALLERY_ITEM_UPDATE: (id: string | number) =>
+      `/content/galleries/items/${id}`,
   },
 
   TEMP: {

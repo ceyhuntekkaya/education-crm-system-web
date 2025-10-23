@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { GalleryAddEditProvider } from "./_shared";
 
 interface GalleryAddEditRootLayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,11 @@ interface GalleryAddEditRootLayoutProps {
 const GalleryAddEditRootLayout: React.FC<GalleryAddEditRootLayoutProps> = ({
   children,
 }) => {
-  return <div>{children}</div>;
+  return (
+    <GalleryAddEditProvider>
+      <div>{children}</div>
+    </GalleryAddEditProvider>
+  );
 };
 
 export default GalleryAddEditRootLayout;

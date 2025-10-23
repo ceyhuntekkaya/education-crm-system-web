@@ -59,6 +59,7 @@ const GalleryDetailPage: React.FC = () => {
       title="Gallery Detayı"
       subtitle="Gallery bilgilerini detaylı olarak görüntüleyin"
       multiItems={allSections}
+      editButtonUrl={`/company/gallery/add-edit/${gallery.id}`}
     >
       {/* <div className="row">
         <div className="col-3">
