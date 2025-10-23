@@ -10,12 +10,12 @@ export const companyLayoutNavigation: MenuItem[] = [
   //
   {
     href: "/company/school-list",
-    label: "Okul Listesi **",
+    label: "Okul Listesi ***",
     icon: "ph-buildings",
   },
   {
     href: "/company/school-detail",
-    label: "Okul Bilgileri **",
+    label: "Okul Bilgileri ***",
     icon: "ph-graduation-cap",
   },
   {

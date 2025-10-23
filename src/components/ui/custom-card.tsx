@@ -251,14 +251,15 @@ export default function CustomCard({
                   Geri Dön
                 </Button>
               )}
-              {isForward && (
+
+              {editButtonUrl && (
                 <Button
                   variant="outline"
                   size="sm"
-                  rightIcon="ph-arrow-right"
-                  onClick={handleForwardClick}
+                  leftIcon="ph-pencil-simple"
+                  href={editButtonUrl}
                 >
-                  İleri Git
+                  Düzenle
                 </Button>
               )}
 
@@ -273,14 +274,15 @@ export default function CustomCard({
                   Yeni Ekle
                 </Button>
               )}
-              {editButtonUrl && (
+
+              {isForward && (
                 <Button
                   variant="outline"
                   size="sm"
-                  leftIcon="ph-pencil-simple"
-                  href={editButtonUrl}
+                  rightIcon="ph-arrow-right"
+                  onClick={handleForwardClick}
                 >
-                  Düzenle
+                  İleri Git
                 </Button>
               )}
 

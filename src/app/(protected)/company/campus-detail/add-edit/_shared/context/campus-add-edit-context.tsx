@@ -40,12 +40,15 @@ export const CampusAddEditProvider: React.FC<CampusAddEditProviderProps> = ({
   // Add campus hook
   const { postCampus, isLoading: addLoading, error: addError } = useAddCampus();
 
-  // Edit campus hook - sadece edit modunda kullan
+  // Edit campus hook - refetch'i props olarak geçir
   const {
     putCampus,
     isLoading: editLoading,
     error: editError,
-  } = useEditCampus(campusId || 0);
+  } = useEditCampus({
+    campusId: campusId || 0,
+    refetch: isEditing ? refetch : undefined,
+  });
 
   // Brand summaries hook
   const { brands } = useBrandSummaries();

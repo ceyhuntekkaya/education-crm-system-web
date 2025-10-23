@@ -23,7 +23,7 @@ export const BrandDetailSection: React.FC<BrandDetailSectionProps> = ({
       <CustomCard
         title="Marka Detayları"
         addButtonUrl="/company/brands/add-edit/new"
-        editButtonUrl={`/company/brand-detail/add-edit/${brand?.id}`}
+        editButtonUrl={`/company/brands/add-edit/${brand?.id}`}
         multiItems={allSections}
         isBack={true}
       />

@@ -35,12 +35,15 @@ export const BrandAddEditProvider: React.FC<BrandAddEditProviderProps> = ({
   // Add brand hook
   const { postBrand, isLoading: addLoading, error: addError } = useAddBrand();
 
-  // Edit brand hook - sadece edit modunda kullan
+  // Edit brand hook - refetch'i props olarak geçir
   const {
     putBrand,
     isLoading: editLoading,
     error: editError,
-  } = useEditBrand(brandId || 0);
+  } = useEditBrand({
+    brandId: brandId || 0,
+    refetch: isEditing ? refetch : undefined,
+  });
 
   const contextValue: BrandAddEditContextType = {
     // Current brand data

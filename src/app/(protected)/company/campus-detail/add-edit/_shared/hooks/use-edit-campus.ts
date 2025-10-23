@@ -4,10 +4,15 @@ import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { CampusCreateDto, CampusDto } from "@/types";
 
+interface UseEditCampusProps {
+  campusId: number;
+  refetch?: () => void;
+}
+
 /**
  * Campus güncelleme hook'u
  */
-export const useEditCampus = (campusId: number) => {
+export const useEditCampus = ({ campusId, refetch }: UseEditCampusProps) => {
   const {
     mutate: putCampus,
     loading: isLoading,
@@ -17,6 +22,10 @@ export const useEditCampus = (campusId: number) => {
     {
       onSuccess: (data) => {
         console.log("✅ Campus başarıyla güncellendi:", data);
+        // Refetch varsa çalıştır
+        if (refetch) {
+          refetch();
+        }
       },
       onError: (error) => {
         console.error("❌ Campus güncellenirken hata:", error);

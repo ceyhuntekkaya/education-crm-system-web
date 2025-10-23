@@ -29,7 +29,7 @@ export const CompanyProvider: React.FC<CompanyProviderProps> = ({
   // User değiştiğinde (okul güncelleme sonrası), selectedSchool'u da güncelle
   useEffect(() => {
     if (selectedSchool && schools.length > 0) {
-      const updatedSchool = schools.find(s => s.id === selectedSchool.id);
+      const updatedSchool = schools.find((s) => s.id === selectedSchool.id);
       if (updatedSchool && updatedSchool.name !== selectedSchool.name) {
         // Okul ismi değişmişse güncelle
         setSelectedSchool(updatedSchool);
