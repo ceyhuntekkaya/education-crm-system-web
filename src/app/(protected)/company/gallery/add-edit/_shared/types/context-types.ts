@@ -1,4 +1,11 @@
-import { GalleryDto, GalleryCreateDto, GalleryUpdateDto } from "@/types";
+import {
+  GalleryDto,
+  GalleryCreateDto,
+  GalleryUpdateDto,
+  GalleryItemCreateDto,
+  GalleryItemUpdateDto,
+  GalleryItemDto,
+} from "@/types";
 
 export interface SelectOption {
   value: string;
@@ -18,9 +25,19 @@ export interface GalleryAddEditContextType {
   // Form options
   galleryTypeOptions: SelectOption[];
   visibilityOptions: SelectOption[];
+  mediaTypeOptions: SelectOption[];
 
   // Actions
   fetchGallery: (() => void) | undefined;
   postGallery: (data: GalleryCreateDto) => Promise<GalleryDto | null>;
   putGallery: (data: GalleryUpdateDto) => Promise<GalleryDto | null>;
+
+  // Gallery Item Actions
+  postGalleryItem: (
+    data: GalleryItemCreateDto
+  ) => Promise<GalleryItemDto | null>;
+  putGalleryItem: (
+    data: GalleryItemUpdateDto
+  ) => Promise<GalleryItemDto | null>;
+  galleryItemLoading: boolean;
 }

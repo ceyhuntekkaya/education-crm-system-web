@@ -8,6 +8,9 @@ import {
   useAddGallery,
   useEditGallery,
   useGalleryOptions,
+  useAddGalleryItem,
+  useEditGalleryItem,
+  useGalleryItemOptions,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 
@@ -57,6 +60,25 @@ export const GalleryAddEditProvider: React.FC<GalleryAddEditProviderProps> = ({
   // Gallery options hook
   const { galleryTypeOptions, visibilityOptions } = useGalleryOptions();
 
+  // Gallery Item hooks
+  const {
+    postGalleryItem,
+    isLoading: addItemLoading,
+    error: addItemError,
+  } = useAddGalleryItem();
+
+  const {
+    putGalleryItem,
+    isLoading: editItemLoading,
+    error: editItemError,
+  } = useEditGalleryItem({
+    galleryItemId: 0, // Bu dinamik olarak set edilecek
+    refetch: isEditing ? refetch : undefined,
+  });
+
+  // Gallery item options hook
+  const { mediaTypeOptions } = useGalleryItemOptions();
+
   const contextValue: GalleryAddEditContextType = {
     // Current gallery data
     gallery,
@@ -70,11 +92,17 @@ export const GalleryAddEditProvider: React.FC<GalleryAddEditProviderProps> = ({
     // Form options
     galleryTypeOptions,
     visibilityOptions,
+    mediaTypeOptions,
 
     // Actions
     fetchGallery: refetch,
     postGallery,
     putGallery,
+
+    // Gallery Item Actions
+    postGalleryItem,
+    putGalleryItem,
+    galleryItemLoading: addItemLoading || editItemLoading,
   };
 
   return (

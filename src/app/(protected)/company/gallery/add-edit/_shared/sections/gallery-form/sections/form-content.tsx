@@ -53,88 +53,46 @@ export const GalleryFormContent: React.FC = () => {
     <Form onSubmit={handleSubmit}>
       <FormValues />
       <div className="row row-gap-24">
-        <div className="col-12">
-          <h5 className="mb-16">Temel Bilgiler</h5>
-        </div>
-
+        {/* Sol Kolon - Temel Bilgiler */}
         <div className="col-6">
-          <FormInput
-            name="schoolId"
-            label="Okul"
-            type="text"
-            value={selectedSchool?.name || "Okul seçilmedi"}
-            placeholder="Okul bilgisi..."
-            disabled
-            required
-          />
-        </div>
-
-        <div className="col-6">
-          <FormAutocomplete
-            name="galleryType"
-            label="Galeri Tipi"
-            options={galleryTypeOptions}
-            placeholder="Galeri tipi seçin"
-            required
-            disabled={isEditing}
-          />
-        </div>
-
-        <div className="col-12">
-          <FormInput
-            name="title"
-            label="Başlık"
-            placeholder="Galeri başlığını giriniz..."
-            required
-          />
-        </div>
-
-        <div className="col-12">
-          <FormTextarea
-            name="description"
-            label="Açıklama"
-            placeholder="Galeri açıklamasını giriniz..."
-            rows={6}
-          />
-        </div>
-
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Görünürlük ve Ayarlar</h5>
-        </div>
-
-        <div className="col-4">
-          <FormAutocomplete
-            name="visibility"
-            label="Görünürlük"
-            options={visibilityOptions}
-            placeholder="Görünürlük seçin"
-            required
-          />
-        </div>
-
-        <div className="col-4">
-          <FormInput
-            name="sortOrder"
-            label="Sıralama"
-            type="number"
-            placeholder="Sıralama numarası girin"
-          />
-        </div>
-
-        <div className="col-12">
-          <div className="d-flex gap-24">
-            <FormCheckbox name="isFeatured" label="Öne Çıkan" />
-            <FormCheckbox name="allowComments" label="Yorumlara İzin Ver" />
-            <FormCheckbox name="allowDownloads" label="İndirmelere İzin Ver" />
+          <div className="d-flex flex-column gap-16">
+            <h5>Temel Bilgiler</h5>
+            <FormInput
+              name="schoolId"
+              label="Okul"
+              type="text"
+              value={selectedSchool?.name || "Okul seçilmedi"}
+              placeholder="Okul bilgisi..."
+              disabled
+              required
+            />
+            <FormAutocomplete
+              name="galleryType"
+              label="Galeri Tipi"
+              options={galleryTypeOptions}
+              placeholder="Galeri tipi seçin"
+              required
+              disabled={isEditing}
+            />
+            <FormInput
+              name="title"
+              label="Başlık"
+              placeholder="Galeri başlığını giriniz..."
+              required
+            />
+            <FormTextarea
+              name="description"
+              label="Açıklama"
+              placeholder="Galeri açıklamasını giriniz..."
+              rows={6}
+            />
           </div>
         </div>
 
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Kapak Görseli</h5>
-        </div>
-
-        <div className="col-12">
-          <div className="d-flex flex-column gap-12">
+        {/* Sağ Kolon - Kapak Görseli */}
+        <div className="col-6">
+          <div className="d-flex flex-column gap-16">
+            <h5>Kapak Görseli</h5>
             <FileInput
               label="Kapak Görseli"
               type="img"
@@ -144,7 +102,6 @@ export const GalleryFormContent: React.FC = () => {
               uploadButtonText="Görsel Yükle"
               name="coverImageUrl"
             />
-            {/* Manuel Cover Image URL */}
             <FormInput
               name="coverImageUrl"
               label="Veya Manuel Görsel URL"
@@ -153,35 +110,59 @@ export const GalleryFormContent: React.FC = () => {
           </div>
         </div>
 
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">SEO Bilgileri</h5>
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
+        {/* Alt Satır - Görünürlük ve Ayarlar (Sol) */}
+        <div className="col-6">
+          <div className="d-flex flex-column gap-16">
+            <h5>Görünürlük ve Ayarlar</h5>
+            <FormAutocomplete
+              name="visibility"
+              label="Görünürlük"
+              options={visibilityOptions}
+              placeholder="Görünürlük seçin"
+              required
+            />
+            <FormInput
+              name="sortOrder"
+              label="Sıralama"
+              type="number"
+              placeholder="Sıralama numarası girin"
+            />
+            <div className="d-flex flex-column gap-12">
+              <FormCheckbox name="isFeatured" label="Öne Çıkan" />
+              <FormCheckbox name="allowComments" label="Yorumlara İzin Ver" />
+              <FormCheckbox
+                name="allowDownloads"
+                label="İndirmelere İzin Ver"
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="col-12">
-          <FormInput
-            name="metaTitle"
-            label="Meta Başlık"
-            placeholder="Meta başlık giriniz (Max 60 karakter)..."
-            maxLength={60}
-          />
-        </div>
-
-        <div className="col-12">
-          <FormTextarea
-            name="metaDescription"
-            label="Meta Açıklama"
-            placeholder="Meta açıklama giriniz (Max 160 karakter)..."
-            rows={3}
-            maxLength={160}
-          />
-        </div>
-
-        <div className="col-12">
-          <FormInput
-            name="tags"
-            label="Etiketler"
-            placeholder="Virgülle ayrılmış etiketler giriniz..."
-          />
+        {/* Alt Satır - SEO Bilgileri (Sağ) */}
+        <div className="col-6">
+          <div className="d-flex flex-column gap-16">
+            <h5>SEO Bilgileri</h5>
+            <FormInput
+              name="metaTitle"
+              label="Meta Başlık"
+              placeholder="Meta başlık giriniz (Max 60 karakter)..."
+              maxLength={60}
+            />
+            <FormTextarea
+              name="metaDescription"
+              label="Meta Açıklama"
+              placeholder="Meta açıklama giriniz (Max 160 karakter)..."
+              rows={3}
+              maxLength={160}
+            />
+            <FormInput
+              name="tags"
+              label="Etiketler"
+              placeholder="Virgülle ayrılmış etiketler giriniz..."
+            />
+          </div>
         </div>
 
         {/* Form Actions */}
