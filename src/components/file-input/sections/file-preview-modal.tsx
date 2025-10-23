@@ -62,6 +62,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = () => {
           {selectedFile.type?.startsWith("image/") && selectedFile.preview ? (
             <div className="image-preview-container">
               <CustomImage
+                key={selectedFile.preview}
                 src={selectedFile.preview}
                 alt={selectedFile.name}
                 width={800}

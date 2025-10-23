@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import Image, { ImageProps } from "next/image";
 
 // Default error image - hatalı görselleri belirtir
@@ -16,6 +16,11 @@ interface CustomImageProps extends Omit<ImageProps, "src"> {
 const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
   ({ src, tempImage, onError, alt, ...props }, ref) => {
     const [imageError, setImageError] = useState(false);
+
+    // src veya tempImage değiştiğinde imageError state'ini sıfırla
+    useEffect(() => {
+      setImageError(false);
+    }, [src, tempImage]);
 
     const handleImageError = () => {
       setImageError(true);

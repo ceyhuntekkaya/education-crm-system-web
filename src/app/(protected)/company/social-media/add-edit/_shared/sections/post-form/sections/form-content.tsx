@@ -136,57 +136,63 @@ export const PostFormContent: React.FC = () => {
         </div>
 
         <div className="col-4">
-          <FileInput
-            label="Öne Çıkan Görsel"
-            type="img"
-            variant="outline"
-            placeholder="Görsel yüklemek için tıklayın veya sürükleyin"
-            maxSize={5}
-            uploadButtonText="Görsel Yükle"
-            name="featuredImageUrl"
-          />
-          {/* Manuel Featured Image URL */}
-          <FormInput
-            name="featuredImageUrl"
-            label="Veya Manuel Görsel URL"
-            placeholder="Görsel URL'sini giriniz..."
-          />
+          <div className="d-flex flex-column gap-12">
+            <FileInput
+              label="Öne Çıkan Görsel"
+              type="img"
+              variant="outline"
+              placeholder="Görsel yüklemek için tıklayın veya sürükleyin"
+              maxSize={5}
+              uploadButtonText="Görsel Yükle"
+              name="featuredImageUrl"
+            />
+            {/* Manuel Featured Image URL */}
+            <FormInput
+              name="featuredImageUrl"
+              label="Veya Manuel Görsel URL"
+              placeholder="Görsel URL'sini giriniz..."
+            />
+          </div>
         </div>
 
         <div className="col-4">
-          <FileInput
-            label="Video"
-            type="video"
-            variant="outline"
-            placeholder="Video yüklemek için tıklayın veya sürükleyin"
-            maxSize={50}
-            uploadButtonText="Video Yükle"
-            name="videoUrl"
-          />
-          {/* Manuel Video URL */}
-          <FormInput
-            name="videoUrl"
-            label="Veya Manuel Video URL"
-            placeholder="Video URL'sini giriniz..."
-          />
+          <div className="d-flex flex-column gap-12">
+            <FileInput
+              label="Video"
+              type="video"
+              variant="outline"
+              placeholder="Video yüklemek için tıklayın veya sürükleyin"
+              maxSize={50}
+              uploadButtonText="Video Yükle"
+              name="videoUrl"
+            />
+            {/* Manuel Video URL */}
+            <FormInput
+              name="videoUrl"
+              label="Veya Manuel Video URL"
+              placeholder="Video URL'sini giriniz..."
+            />
+          </div>
         </div>
 
         <div className="col-4">
-          <FileInput
-            label="Video Thumbnail"
-            type="img"
-            variant="outline"
-            placeholder="Thumbnail yüklemek için tıklayın veya sürükleyin"
-            maxSize={5}
-            uploadButtonText="Thumbnail Yükle"
-            name="videoThumbnailUrl"
-          />
-          {/* Manuel Video Thumbnail URL */}
-          <FormInput
-            name="videoThumbnailUrl"
-            label="Veya Manuel Thumbnail URL"
-            placeholder="Thumbnail URL'sini giriniz..."
-          />
+          <div className="d-flex flex-column gap-12">
+            <FileInput
+              label="Video Thumbnail"
+              type="img"
+              variant="outline"
+              placeholder="Thumbnail yüklemek için tıklayın veya sürükleyin"
+              maxSize={5}
+              uploadButtonText="Thumbnail Yükle"
+              name="videoThumbnailUrl"
+            />
+            {/* Manuel Video Thumbnail URL */}
+            <FormInput
+              name="videoThumbnailUrl"
+              label="Veya Manuel Thumbnail URL"
+              placeholder="Thumbnail URL'sini giriniz..."
+            />
+          </div>
         </div>
 
         <div className="col-12">

@@ -132,6 +132,9 @@ export const useFileManagement = (props: {
           return;
         }
 
+        // Validation başarılı - önceki hataları temizle
+        onError?.("");
+
         // Preview URL'leri oluştur
         const newFiles: FileWithPreview[] = await Promise.all(
           fileArray.map(async (file) => {
@@ -197,10 +200,13 @@ export const useFileManagement = (props: {
       const updatedFiles = files.filter((_, i) => i !== index);
       setFiles(updatedFiles);
 
+      // Dosya silindiğinde hataları temizle
+      onError?.("");
+
       const outputValue = multiple ? updatedFiles : updatedFiles[0] || null;
       onChange?.(outputValue);
     },
-    [files, multiple, onChange]
+    [files, multiple, onChange, onError]
   );
 
   // Yeni dosya var mı kontrolü (placeholder olmayan)

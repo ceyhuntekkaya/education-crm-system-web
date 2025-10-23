@@ -64,6 +64,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
           title="Büyük görünüm için tıklayın"
         >
           <CustomImage
+            key={file.preview}
             src={file.preview}
             alt={file.name}
             width={200}

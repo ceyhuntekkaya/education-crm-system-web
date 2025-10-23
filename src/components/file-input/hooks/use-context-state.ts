@@ -10,7 +10,9 @@ export const useContextState = () => {
   // Error management
   const handleInternalError = useCallback((errorMsg: string) => {
     setInternalError(errorMsg);
-    console.error("File input error:", errorMsg);
+    if (errorMsg) {
+      console.error("File input error:", errorMsg);
+    }
   }, []);
 
   const clearError = useCallback(() => {
