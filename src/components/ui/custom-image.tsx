@@ -31,6 +31,10 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
       if (url.startsWith("http://") || url.startsWith("https://")) {
         return url;
       }
+      // If it's a data URL (base64) or blob URL, return it as-is
+      if (url.startsWith("data:") || url.startsWith("blob:")) {
+        return url;
+      }
       // If it starts with /, return it
       if (url.startsWith("/")) {
         return url;
