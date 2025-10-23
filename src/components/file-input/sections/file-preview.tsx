@@ -233,7 +233,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
 
           {/* Placeholder badge */}
           {isPlaceholder && (
-            <div className="position-absolute top-0 end-0 mt-12 me-12 z-1">
+            <div className="position-absolute top-0 start-0 mt-24 ms-24 z-1">
               <span className="badge bg-info-100 text-info-700 text-xs fw-medium px-8 py-4 rounded-6">
                 Mevcut
               </span>
