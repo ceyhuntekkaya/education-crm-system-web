@@ -1,34 +1,35 @@
 "use client";
 
 import React from "react";
+import { CustomCard } from "@/components";
+import { PostForm, LoadingSection, usePostAddEdit } from "../_shared";
 
-interface SocialMediaAddEditPageProps {
-  params: {
-    id: string;
-  };
-}
+interface SocialMediaAddEditPageProps {}
 
-const SocialMediaAddEditPage: React.FC<SocialMediaAddEditPageProps> = ({
-  params,
-}) => {
-  const { id } = params;
-  const isNew = id === "new";
+const SocialMediaAddEditPage: React.FC<SocialMediaAddEditPageProps> = () => {
+  const { isEditing, post, postLoading } = usePostAddEdit();
+
+  const pageTitle = isEditing
+    ? "Gönderi Bilgisi Düzenle"
+    : "Yeni Gönderi Oluştur";
+
+  // Loading durumu
+  if (postLoading && isEditing) {
+    return <LoadingSection pageTitle={pageTitle} />;
+  }
 
   return (
-    <div>
-      <h1 className="h3 mb-24">
-        {isNew ? "Yeni Gönderi Oluştur" : "Gönderi Düzenle"}
-      </h1>
-      <div className="card">
-        <div className="card-body">
-          <p className="text-muted">
-            {isNew
-              ? "Yeni sosyal medya gönderisi oluşturma formu burada yer alacak."
-              : `ID: ${id} olan gönderiyi düzenleme formu burada yer alacak.`}
-          </p>
-        </div>
-      </div>
-    </div>
+    <CustomCard
+      title={pageTitle}
+      subtitle={
+        isEditing
+          ? "Mevcut gönderi bilgilerini düzenleyin"
+          : "Yeni gönderi bilgilerini oluşturun"
+      }
+      isBack
+    >
+      <PostForm isEditing={isEditing} initialData={post} />
+    </CustomCard>
   );
 };
 

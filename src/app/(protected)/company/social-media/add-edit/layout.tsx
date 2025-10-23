@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { PostAddEditProvider } from "./_shared";
 
 interface SocialMediaAddEditRootLayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,11 @@ interface SocialMediaAddEditRootLayoutProps {
 const SocialMediaAddEditRootLayout: React.FC<
   SocialMediaAddEditRootLayoutProps
 > = ({ children }) => {
-  return <div>{children}</div>;
+  return (
+    <PostAddEditProvider>
+      <div>{children}</div>
+    </PostAddEditProvider>
+  );
 };
 
 export default SocialMediaAddEditRootLayout;

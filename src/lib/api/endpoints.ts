@@ -70,16 +70,24 @@ export const API_ENDPOINTS = {
   },
 
   CONTENT: {
+    // Posts
+    POSTS: "/content/posts",
     POSTS_BY_SCHOOL: (schoolId: string | number) =>
       `/content/posts/school/${schoolId}`,
+    POST_BY_ID: (id: string | number) => `/content/posts/${id}`,
+    POST_CREATE: "/content/posts",
+    POST_UPDATE: (id: string | number) => `/content/posts/${id}`,
+
+    // Messages
     MESSAGES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/messages/school/${schoolId}`,
+    MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
+
+    // Galleries
+    GALLERIES: "/content/galleries",
     GALLERIES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/galleries/school/${schoolId}`,
-    GALLERIES: "/content/galleries",
     GALLERY_BY_ID: (id: string | number) => `/content/galleries/${id}`,
-    POST_BY_ID: (id: string | number) => `/content/posts/${id}`,
-    MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
   },
 
   TEMP: {

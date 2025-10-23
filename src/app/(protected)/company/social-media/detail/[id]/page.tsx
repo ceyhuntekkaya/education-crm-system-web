@@ -1,9 +1,14 @@
 "use client";
 
 import React from "react";
-import { CustomCard, LoadingSpinner } from "@/components/ui";
-import { CustomImage } from "@/components";
-import { usePostDetail, usePostSections } from "./_shared";
+import { CustomCard } from "@/components/ui";
+import {
+  usePostDetail,
+  usePostSections,
+  LoadingSection,
+  ErrorSection,
+  NotFoundSection,
+} from "./_shared";
 import { PostDetail } from "@/app/(public)/search/[id]/_shared/sections/posts";
 
 /**
@@ -16,39 +21,15 @@ const PostDetailPage: React.FC = () => {
   const allSections = usePostSections(post);
 
   if (isLoading) {
-    return (
-      <CustomCard title="Post Detayı">
-        <LoadingSpinner message="Post bilgisi yükleniyor..." />
-      </CustomCard>
-    );
+    return <LoadingSection />;
   }
 
   if (error) {
-    return (
-      <CustomCard
-        title="Hata"
-        bgColor="bg-danger-25"
-        border="border border-danger-30"
-      >
-        <div className="text-center py-8">
-          <i className="ph ph-warning-circle text-danger fs-2 mb-3"></i>
-          <p className="text-danger mb-0">
-            Post bilgisi yüklenirken hata oluştu: {error}
-          </p>
-        </div>
-      </CustomCard>
-    );
+    return <ErrorSection error={error} />;
   }
 
   if (!post) {
-    return (
-      <CustomCard title="Bilgi">
-        <div className="text-center py-8">
-          <i className="ph ph-info text-neutral-500 fs-2 mb-3"></i>
-          <p className="text-neutral-600 mb-0">Post bilgisi bulunamadı.</p>
-        </div>
-      </CustomCard>
-    );
+    return <NotFoundSection />;
   }
 
   return (
@@ -56,6 +37,7 @@ const PostDetailPage: React.FC = () => {
       title="Sosyal Medya Detayı"
       subtitle="Sosyal medya gönderisi bilgilerini detaylı olarak görüntüleyin"
       multiItems={allSections}
+      editButtonUrl={`/company/social-media/add-edit/${post.id}`}
     >
       <PostDetail post={post} variant="inPage" />
     </CustomCard>
