@@ -11,6 +11,7 @@ export { Accordion, AccordionItem } from "./accordion";
 export { default as CustomImage } from "./custom-image";
 export { default as CustomCard } from "./custom-card";
 export { default as SnackbarContainer } from "./snackbar";
+export { CoverImage } from "./cover-image";
 
 // Modal Components - Using the new modal structure
 export * from "./modal";
@@ -22,6 +23,7 @@ export { DataGrid, DataGridExample } from "./data-grid";
 export type { BadgeProps, BadgeVariant } from "./badge";
 export type { TabItem, TabSystemProps } from "./types";
 export type { CustomCardProps } from "./custom-card";
+export type { CoverImageProps } from "./cover-image";
 export type { GridColDef, DataGridProps } from "./data-grid";
 export type {
   ModalProps,
