@@ -1,4 +1,6 @@
 import { SchoolDto, SchoolCreateDto } from "@/types";
+import { ApiResponse } from "@/lib";
+import { MutationOptions } from "@/hooks";
 
 export interface SchoolAddEditContextType {
   // Current school data
@@ -12,8 +14,14 @@ export interface SchoolAddEditContextType {
 
   // Actions
   fetchSchool: (() => void) | undefined;
-  postSchool: (data: SchoolCreateDto) => Promise<SchoolDto | null>;
-  putSchool: (data: SchoolCreateDto) => Promise<SchoolDto | null>;
+  postSchool: (
+    data: SchoolCreateDto,
+    mutationOptions?: MutationOptions<ApiResponse<SchoolDto>, SchoolCreateDto>
+  ) => Promise<ApiResponse<SchoolDto> | null>;
+  putSchool: (
+    data: SchoolCreateDto,
+    mutationOptions?: MutationOptions<ApiResponse<SchoolDto>, SchoolCreateDto>
+  ) => Promise<ApiResponse<SchoolDto> | null>;
 
   // Dropdown options
   campusOptions: { value: string; label: string }[];

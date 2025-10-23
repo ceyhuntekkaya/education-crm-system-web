@@ -4,6 +4,7 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/contexts";
 import { SchoolAddEditContextType } from "../types";
+import { SchoolCreateDto, SchoolDto } from "@/types";
 import {
   useSchoolById,
   useAddSchool,
@@ -58,7 +59,7 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     putSchool,
     isLoading: editLoading,
     error: editError,
-  } = useEditSchool(schoolId || 0);
+  } = useEditSchool(schoolId || 0, refetch);
 
   // Institution types ve options'ları getir
   const {

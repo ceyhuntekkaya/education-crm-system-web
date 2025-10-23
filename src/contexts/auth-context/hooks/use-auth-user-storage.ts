@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { UserDto } from "@/types/dto/user/UserDto";
+import { SchoolDto } from "@/types/dto/institution/SchoolDto";
 
 const USER_STORAGE_KEY = "user";
 
@@ -32,10 +33,45 @@ export function useAuthUserStorage() {
     return null;
   }, [removeUser]);
 
+  const updateUserSchools = useCallback(
+    (school: SchoolDto, variant: "add" | "edit" = "add"): UserDto | null => {
+      try {
+        const currentUser = getStoredUser();
+        if (!currentUser) {
+          console.warn("No user found in storage to update schools");
+          return null;
+        }
+
+        const updatedUserRoles = currentUser.userRoles?.map((role) => ({
+          ...role,
+          schools:
+            variant === "add"
+              ? [...(role.schools || []), school]
+              : (role.schools || []).map((s) =>
+                  s.id === school.id ? school : s
+                ),
+        }));
+
+        const updatedUser: UserDto = {
+          ...currentUser,
+          userRoles: updatedUserRoles,
+        };
+
+        saveUser(updatedUser);
+        return updatedUser;
+      } catch (error) {
+        console.error("Error updating user schools:", error);
+        return null;
+      }
+    },
+    [getStoredUser, saveUser]
+  );
+
   return {
     storedUser,
     saveUser,
     removeUser,
     getStoredUser,
+    updateUserSchools,
   };
 }

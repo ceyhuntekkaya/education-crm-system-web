@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo, useEffect } from "react";
 import { CompanyContextType, CompanyProviderProps } from "../types";
 import { useSelectedSchool } from "../hooks";
 import { useAuth } from "@/contexts";
@@ -25,6 +25,17 @@ export const CompanyProvider: React.FC<CompanyProviderProps> = ({
   // Custom hook ile seçili okul yönetimi
   const { selectedSchool, setSelectedSchool, isInitialized } =
     useSelectedSchool(schools);
+
+  // User değiştiğinde (okul güncelleme sonrası), selectedSchool'u da güncelle
+  useEffect(() => {
+    if (selectedSchool && schools.length > 0) {
+      const updatedSchool = schools.find(s => s.id === selectedSchool.id);
+      if (updatedSchool && updatedSchool.name !== selectedSchool.name) {
+        // Okul ismi değişmişse güncelle
+        setSelectedSchool(updatedSchool);
+      }
+    }
+  }, [schools, selectedSchool, setSelectedSchool]);
 
   const value: CompanyContextType = {
     // State
