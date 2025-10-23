@@ -40,12 +40,12 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/gallery",
-    label: "Galeri **",
+    label: "Galeri ***",
     icon: "ph-image",
   },
   {
     href: "/company/social-media",
-    label: "Sosyal Medya **",
+    label: "Sosyal Medya ***",
     icon: "ph-share-network",
   },
   {
