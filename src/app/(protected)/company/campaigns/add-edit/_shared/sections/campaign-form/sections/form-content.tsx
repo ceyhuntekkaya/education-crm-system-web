@@ -15,7 +15,7 @@ import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useCampaignAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
-import { CampaignCreateDto } from "@/types";
+import { CampaignCreateDto, CampaignUpdateDto } from "@/types";
 
 /**
  * Campaign form content component
@@ -28,30 +28,24 @@ export const CampaignFormContent: React.FC = () => {
   const { reset } = useForm();
 
   // Context'ten campaign işlemlerini al
-  const {
-    isEditing,
-    postCampaign,
-    putCampaign,
-    campaignLoading,
-    campaignId,
-    formOptions,
-  } = useCampaignAddEdit();
+  const { isEditing, postCampaign, putCampaign, campaignLoading, formOptions } =
+    useCampaignAddEdit();
 
   // Form options - context'ten gelen
   const { campaignTypeOptions, discountTypeOptions, targetAudienceOptions } =
     formOptions;
 
   const handleSubmit = async (values: any) => {
-    const formData: CampaignCreateDto = {
-      ...values,
-    };
-
     if (isEditing) {
-      // Edit modunda sadece UpdateDto'daki alanları gönder
-      const filteredData = filterDataForEdit(formData) as CampaignCreateDto;
-      await putCampaign(filteredData);
+      // Edit modunda CampaignUpdateDto kullan
+      const updateData: CampaignUpdateDto = filterDataForEdit(values);
+      await putCampaign(updateData);
     } else {
-      await postCampaign(formData);
+      // Add modunda CampaignCreateDto kullan
+      const createData: CampaignCreateDto = {
+        ...values,
+      };
+      await postCampaign(createData);
     }
   };
 

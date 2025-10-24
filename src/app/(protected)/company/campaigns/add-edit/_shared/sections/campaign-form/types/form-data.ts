@@ -5,8 +5,8 @@ export interface CampaignFormData {
   title: string;
   description?: string;
   shortDescription?: string;
-  campaignType: CampaignType;
-  discountType: DiscountType;
+  campaignType?: CampaignType | "";
+  discountType?: DiscountType | "";
 
   // Discount values
   discountAmount?: string;

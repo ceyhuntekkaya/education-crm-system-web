@@ -1,4 +1,9 @@
-import { CampaignDto, CampaignCreateDto, ApiResponseDto } from "@/types";
+import {
+  CampaignDto,
+  CampaignCreateDto,
+  CampaignUpdateDto,
+  ApiResponseDto,
+} from "@/types";
 import { MutationOptions } from "@/hooks";
 
 export interface CampaignFormOptions {
@@ -30,10 +35,10 @@ export interface CampaignAddEditContextType {
     >
   ) => Promise<ApiResponseDto<CampaignDto> | null>;
   putCampaign: (
-    data: CampaignCreateDto,
+    data: CampaignUpdateDto,
     mutationOptions?: MutationOptions<
       ApiResponseDto<CampaignDto>,
-      CampaignCreateDto
+      CampaignUpdateDto
     >
   ) => Promise<ApiResponseDto<CampaignDto> | null>;
   deleteCampaign: (

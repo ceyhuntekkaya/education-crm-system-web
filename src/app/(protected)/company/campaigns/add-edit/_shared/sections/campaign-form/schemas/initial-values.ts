@@ -1,13 +1,12 @@
 import { CampaignFormData } from "../types/form-data";
-import { CampaignType, DiscountType } from "@/enums";
 
 export const initialValues: CampaignFormData = {
   // Basic Information
   title: "",
   description: "",
   shortDescription: "",
-  campaignType: CampaignType.EARLY_BIRD,
-  discountType: DiscountType.NO_DISCOUNT,
+  campaignType: "",
+  discountType: "",
 
   // Discount values
   discountAmount: "",

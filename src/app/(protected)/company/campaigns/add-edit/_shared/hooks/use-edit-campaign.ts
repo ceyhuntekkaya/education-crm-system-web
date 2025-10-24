@@ -2,7 +2,7 @@
 
 import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-import { CampaignCreateDto, CampaignDto, ApiResponseDto } from "@/types";
+import { CampaignUpdateDto, CampaignDto, ApiResponseDto } from "@/types";
 
 interface UseEditCampaignProps {
   campaignId: number;
@@ -20,7 +20,7 @@ export const useEditCampaign = ({
     mutate: putCampaign,
     loading: isLoading,
     error,
-  } = usePut<ApiResponseDto<CampaignDto>, CampaignCreateDto>(
+  } = usePut<ApiResponseDto<CampaignDto>, CampaignUpdateDto>(
     () => API_ENDPOINTS.CAMPAIGNS.UPDATE(campaignId),
     {
       onSuccess: (data) => {

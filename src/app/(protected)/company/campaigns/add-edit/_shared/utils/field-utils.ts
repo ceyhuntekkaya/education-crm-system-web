@@ -1,7 +1,7 @@
-import { CampaignCreateDto } from "@/types";
+import { CampaignUpdateDto } from "@/types";
 
-// UpdateDto için izin verilen alanlar
-const ALLOWED_UPDATE_FIELDS: (keyof CampaignCreateDto)[] = [
+// UpdateDto için izin verilen alanlar (CampaignUpdateDto'daki tüm optional alanlar)
+const ALLOWED_UPDATE_FIELDS: (keyof CampaignUpdateDto)[] = [
   "title",
   "description",
   "shortDescription",
@@ -14,12 +14,9 @@ const ALLOWED_UPDATE_FIELDS: (keyof CampaignCreateDto)[] = [
   "endDate",
   "earlyBirdEndDate",
   "registrationDeadline",
-  "enrollmentStartDate",
-  "enrollmentEndDate",
-  "academicYear",
+  "status",
   "isFeatured",
   "isPublic",
-  "requiresApproval",
   "usageLimit",
   "perUserLimit",
   "perSchoolLimit",
@@ -27,9 +24,6 @@ const ALLOWED_UPDATE_FIELDS: (keyof CampaignCreateDto)[] = [
   "targetGradeLevels",
   "targetAgeMin",
   "targetAgeMax",
-  "targetNewStudentsOnly",
-  "targetSiblingDiscount",
-  "promoCode",
   "bannerImageUrl",
   "thumbnailImageUrl",
   "videoUrl",
@@ -40,16 +34,10 @@ const ALLOWED_UPDATE_FIELDS: (keyof CampaignCreateDto)[] = [
   "termsAndConditions",
   "finePrint",
   "exclusions",
-  "metaTitle",
-  "metaDescription",
-  "metaKeywords",
   "freeTrialDays",
   "installmentOptions",
   "paymentDeadlineDays",
   "refundPolicy",
-  "freeServices",
-  "bonusFeatures",
-  "giftItems",
   "priority",
   "sortOrder",
 ];
@@ -57,16 +45,14 @@ const ALLOWED_UPDATE_FIELDS: (keyof CampaignCreateDto)[] = [
 /**
  * Edit işlemi için sadece izin verilen alanları filtreler
  */
-export const filterDataForEdit = (
-  data: CampaignCreateDto
-): Partial<CampaignCreateDto> => {
-  const filteredData: Partial<CampaignCreateDto> = {};
+export const filterDataForEdit = (data: any): CampaignUpdateDto => {
+  const filteredData: Partial<CampaignUpdateDto> = {};
 
   ALLOWED_UPDATE_FIELDS.forEach((field) => {
-    if (field in data) {
+    if (field in data && data[field] !== undefined) {
       (filteredData as any)[field] = data[field];
     }
   });
 
-  return filteredData;
+  return filteredData as CampaignUpdateDto;
 };

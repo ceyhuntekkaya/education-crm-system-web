@@ -38,12 +38,14 @@ export const validationSchema = Yup.object({
   ),
 
   // Discount values
-  discountAmount: Yup.string(),
+  discountAmount: Yup.string().nullable(),
   discountPercentage: Yup.number()
+    .nullable()
     .min(0, "İndirim yüzdesi 0'dan küçük olamaz")
-    .max(100, "İndirim yüzdesi 100'den büyük olamaz"),
-  maxDiscountAmount: Yup.string(),
-  minPurchaseAmount: Yup.string(),
+    .max(100, "İndirim yüzdesi 100'den büyük olamaz")
+    .typeError("İndirim yüzdesi sayı olmalıdır"),
+  maxDiscountAmount: Yup.string().nullable(),
+  minPurchaseAmount: Yup.string().nullable(),
 
   // Dates
   earlyBirdEndDate: Yup.string(),
@@ -63,14 +65,21 @@ export const validationSchema = Yup.object({
   targetSiblingDiscount: Yup.boolean(),
 
   // Numbers
-  usageLimit: Yup.number().min(0, "Kullanım limiti 0'dan küçük olamaz"),
-  perUserLimit: Yup.number().min(
-    0,
-    "Kullanıcı başına limit 0'dan küçük olamaz"
-  ),
-  perSchoolLimit: Yup.number().min(0, "Okul başına limit 0'dan küçük olamaz"),
-  targetAgeMin: Yup.number().min(0, "Minimum yaş 0'dan küçük olamaz"),
+  usageLimit: Yup.number()
+    .nullable()
+    .min(0, "Kullanım limiti 0'dan küçük olamaz"),
+  perUserLimit: Yup.number()
+    .nullable()
+    .min(0, "Kullanıcı başına limit 0'dan küçük olamaz"),
+  perSchoolLimit: Yup.number()
+    .nullable()
+    .min(0, "Okul başına limit 0'dan küçük olamaz")
+    .typeError("Okul başına limit sayı olmalıdır"),
+  targetAgeMin: Yup.number()
+    .nullable()
+    .min(0, "Minimum yaş 0'dan küçük olamaz"),
   targetAgeMax: Yup.number()
+    .nullable()
     .min(0, "Maximum yaş 0'dan küçük olamaz")
     .test(
       "is-greater-than-min",
@@ -81,16 +90,20 @@ export const validationSchema = Yup.object({
         return value > targetAgeMin;
       }
     ),
-  freeTrialDays: Yup.number().min(0, "Ücretsiz deneme günü 0'dan küçük olamaz"),
-  paymentDeadlineDays: Yup.number().min(0, "Ödeme son günü 0'dan küçük olamaz"),
-  priority: Yup.number().min(0, "Öncelik 0'dan küçük olamaz"),
-  sortOrder: Yup.number().min(0, "Sıralama 0'dan küçük olamaz"),
+  freeTrialDays: Yup.number()
+    .nullable()
+    .min(0, "Ücretsiz deneme günü 0'dan küçük olamaz"),
+  paymentDeadlineDays: Yup.number()
+    .nullable()
+    .min(0, "Ödeme son günü 0'dan küçük olamaz"),
+  priority: Yup.number().nullable().min(0, "Öncelik 0'dan küçük olamaz"),
+  sortOrder: Yup.number().nullable().min(0, "Sıralama 0'dan küçük olamaz"),
 
   // URLs
   bannerImageUrl: Yup.string().url("Geçerli bir URL giriniz"),
   thumbnailImageUrl: Yup.string().url("Geçerli bir URL giriniz"),
   videoUrl: Yup.string().url("Geçerli bir URL giriniz"),
-  ctaUrl: Yup.string().url("Geçerli bir URL giriniz"),
+  ctaUrl: Yup.string(),
 
   // Strings
   promoCode: Yup.string().max(
