@@ -244,12 +244,20 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
         ? "bg-neutral-100 text-neutral-400 border-neutral-200 cursor-not-allowed opacity-75 placeholder-neutral-300 form-control form-autocomplete-disabled"
         : "";
 
+    // Error border styling
+    const errorBorderClass = error ? "border-danger-600 border" : "";
+    const errorTextClass = error ? "text-danger-600 placeholder-danger-600" : "";
+
     switch (variant) {
       case "inline":
-        return `${baseClasses} common-input ${
+        return `${baseClasses} common-input border ${
           disabled || isLoading ? disabledClasses : "bg-main-25"
         } ${iconLeft ? "ps-48" : ""} ${iconRight ? "pe-48" : ""} ${
-          disabled || isLoading ? "" : "border-neutral-30"
+          disabled || isLoading
+            ? ""
+            : error
+            ? `${errorBorderClass} ${errorTextClass}`
+            : "border-neutral-30"
         }`;
       case "outline":
         return `${baseClasses} ${
@@ -257,14 +265,18 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
         } border ${
           disabled || isLoading
             ? ""
+            : error
+            ? `${errorBorderClass} ${errorTextClass}`
             : "border-transparent focus-border-main-600"
         } ${leftPadding} ${rightPadding}`;
       default:
-        return `${baseClasses} common-input ${iconLeft ? "ps-48" : ""} ${
+        return `${baseClasses} common-input border ${iconLeft ? "ps-48" : ""} ${
           iconRight ? "pe-48" : ""
         } ${
           disabled || isLoading
             ? disabledClasses
+            : error
+            ? `${errorBorderClass} ${errorTextClass}`
             : "border-transparent focus-border-main-600"
         }`;
     }
