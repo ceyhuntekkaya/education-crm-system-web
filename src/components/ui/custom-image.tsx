@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, forwardRef } from "react";
 import Image, { ImageProps } from "next/image";
+import { UPLOAD_SERVE_URL } from "@/lib/api/constants";
 
 // Default error image - hatalı görselleri belirtir
 const DEFAULT_ERROR_IMAGE =
@@ -32,18 +33,28 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
       url: string | null | undefined
     ): string | null => {
       if (!url) return null;
+
       // If it's already a full URL, return it
       if (url.startsWith("http://") || url.startsWith("https://")) {
         return url;
       }
+
       // If it's a data URL (base64) or blob URL, return it as-is
       if (url.startsWith("data:") || url.startsWith("blob:")) {
         return url;
       }
+
       // If it starts with /, return it
       if (url.startsWith("/")) {
         return url;
       }
+
+      // If it's a relative path from upload API (e.g., "0/logoUrl/...")
+      // prepend UPLOAD_SERVE_URL
+      if (url.match(/^\d+\//)) {
+        return `${UPLOAD_SERVE_URL}${url}`;
+      }
+
       // Otherwise, prepend /
       return `/${url}`;
     };

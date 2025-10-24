@@ -46,26 +46,29 @@ export const SchoolPricingFormContent: React.FC = () => {
     usePricingAddEdit();
 
   const handleSubmit = async (values: SchoolPricingFormData) => {
-    // Form data'yı backend'e gönder - sadece schoolId ve createdByUserId ekle
-    const formData = {
-      ...values,
-      schoolId: selectedSchool?.id,
-      createdByUserId: user?.id,
-    };
+    console.log("📝 Form değerleri:", values);
 
     // Edit veya Add moduna göre doğru hook'u kullan
     try {
       if (isEditing) {
         // Edit modunda sadece UpdateDto'daki alanları gönder
         const filteredData = filterDataForEdit(
-          formData
+          values
         ) as SchoolPricingUpdateDto;
+        console.log("🔄 Edit modu - Filtrelenmiş veri:", filteredData);
         await putPricing(filteredData);
       } else {
-        await postPricing(formData as SchoolPricingCreateDto);
+        // Add modunda schoolId ve createdByUserId ekle
+        const formData = {
+          ...values,
+          schoolId: selectedSchool?.id,
+          createdByUserId: user?.id,
+        } as SchoolPricingCreateDto;
+        console.log("➕ Add modu - Form verisi:", formData);
+        await postPricing(formData);
       }
     } catch (error) {
-      console.error("Form submit hatası:", error);
+      console.error("❌ Form submit hatası:", error);
     }
   };
 

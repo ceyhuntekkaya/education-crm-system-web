@@ -6,7 +6,7 @@ export const DISABLED_FIELDS_IN_EDIT_MODE = [
   // Sistem alanları - edit modunda değiştirilemez
   "schoolId",
   "createdByUserId",
-  "academicYear",
+  "academicYear", // academicYear sadece create'de gerekli
 
   // CreateDto'da olup UpdateDto'da olmayan ek ücret alanları
   "laboratoryFee",

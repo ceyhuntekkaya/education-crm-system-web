@@ -1,44 +1,58 @@
 /**
- * Pricing form fields that are allowed in both create and edit modes
+ * Pricing form fields that are allowed in edit mode (SchoolPricingUpdateDto fields)
  */
 export const ALLOWED_FIELDS_IN_EDIT_MODE = [
   // Basic Information
-  "campusId",
-  "schoolId",
   "gradeLevel",
-  "academicYear",
+  "classLevel",
   "currency",
-  "billingPeriod",
 
-  // Tuition Fee
-  "tuitionFee",
-  "tuitionFeeDescription",
-
-  // Registration Fee
+  // Temel Ücretler
   "registrationFee",
-  "registrationFeeDescription",
+  "applicationFee",
+  "enrollmentFee",
 
-  // Service Fee
-  "serviceFee",
-  "serviceFeeDescription",
+  // Öğrenim Ücretleri
+  "annualTuition",
+  "monthlyTuition",
+  "semesterTuition",
 
-  // Additional Fees
-  "additionalFees",
+  // Ek Ücretler
+  "bookFee",
+  "uniformFee",
+  "activityFee",
+  "technologyFee",
+  "transportationFee",
+  "cafeteriaFee",
 
-  // Discounts
-  "discounts",
-
-  // Payment Information
+  // Ödeme Bilgileri
   "paymentFrequency",
   "installmentCount",
-  "installmentAmount",
-  "dueDay",
+  "downPaymentPercentage",
 
-  // Other Information
-  "description",
-  "specialConditions",
-  "notes",
-  "isActive",
+  // İndirimler
+  "earlyPaymentDiscountPercentage",
+  "siblingDiscountPercentage",
+  "multiYearDiscountPercentage",
+
+  // Politikalar
+  "refundPolicy",
+  "paymentTerms",
+  "latePaymentPenaltyPercentage",
+
+  // Tarihler
+  "validFrom",
+  "validUntil",
+
+  // Durum ve Notlar
+  "status",
+  "internalNotes",
+  "publicDescription",
+
+  // Görünürlük Ayarları
+  "showDetailedBreakdown",
+  "showPaymentOptions",
+  "showFinancialAidInfo",
 ] as const;
 
 export type AllowedPricingField = (typeof ALLOWED_FIELDS_IN_EDIT_MODE)[number];

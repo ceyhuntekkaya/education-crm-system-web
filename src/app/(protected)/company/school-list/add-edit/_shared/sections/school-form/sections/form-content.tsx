@@ -216,9 +216,9 @@ export const SchoolFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="classSizeAverage"
-            label="Ortalama Sınıf Büyüklüğü"
+            label="Maksimum Sınıf Mevcudu"
             type="number"
-            placeholder="Ortalama sınıf büyüklüğünü giriniz..."
+            placeholder="Maksimum sınıf mevcudunu giriniz..."
           />
         </div>
 
