@@ -246,7 +246,9 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
     // Error border styling
     const errorBorderClass = error ? "border-danger-600 border" : "";
-    const errorTextClass = error ? "text-danger-600 placeholder-danger-600" : "";
+    const errorTextClass = error
+      ? "text-danger-600 placeholder-danger-600"
+      : "";
 
     switch (variant) {
       case "inline":
