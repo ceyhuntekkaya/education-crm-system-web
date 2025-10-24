@@ -25,13 +25,10 @@ export const campusDtoToFormData = (campus: any): Partial<CampusFormData> => {
     latitude: campus?.latitude,
     longitude: campus?.longitude,
 
-    // Location - Hem ID'leri hem objeleri set et
+    // Location - Sadece ID'leri set et
     countryId: campus?.country?.id?.toString() || "",
     provinceId: campus?.province?.id?.toString() || "",
     districtId: campus?.district?.id?.toString() || "",
-    country: campus?.country || null,
-    province: campus?.province || null,
-    district: campus?.district || null,
 
     // Social Media
     facebookUrl: campus?.facebookUrl || "",

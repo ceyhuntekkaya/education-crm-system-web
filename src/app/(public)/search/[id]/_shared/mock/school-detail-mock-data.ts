@@ -1,4 +1,8 @@
 import { SchoolDetailDto } from "@/types";
+import { CampaignType } from "@/enums/CampaignType";
+import { DiscountType } from "@/enums/DiscountType";
+import { TargetAudience } from "@/enums/TargetAudience";
+import { CampaignStatus } from "@/enums/CampaignStatus";
 
 export const schoolDetailMockData: SchoolDetailDto = {
   school: {
@@ -396,21 +400,22 @@ export const schoolDetailMockData: SchoolDetailDto = {
       description:
         "2024-2025 eğitim öğretim yılı için 31 Mayıs 2024 tarihine kadar kayıt yaptıran velilerimize özel indirim kampanyası.",
       shortDescription: "Erken kayıt yapanlara %15 indirim",
-      campaignType: "EARLY_BIRD",
-      discountType: "PERCENTAGE",
+      campaignType: CampaignType.EARLY_BIRD,
+      discountType: DiscountType.PERCENTAGE,
       discountPercentage: 15.0,
       startDate: "2024-03-01",
       endDate: "2024-05-31",
-      isActive: true,
+      status: CampaignStatus.ACTIVE,
+      isFeatured: true,
       isPublic: true,
       requiresApproval: false,
       usageLimit: 50,
       usageCount: 28,
       perUserLimit: 1,
       perSchoolLimit: 50,
-      targetAudience: "NEW_STUDENTS",
+      targetAudience: TargetAudience.NEW_STUDENTS,
       targetNewStudentsOnly: true,
-      minPurchaseAmount: 30000,
+      minPurchaseAmount: "30000",
       termsAndConditions:
         "Kampanya 31 Mayıs 2024 tarihine kadar geçerlidir. Kayıt ücretinden düşülmez. Diğer kampanyalarla birleştirilemez.",
       priority: 1,
@@ -425,19 +430,20 @@ export const schoolDetailMockData: SchoolDetailDto = {
       description:
         "Aynı anda iki veya daha fazla çocuğu kayıt yaptıran ailelere özel indirim fırsatı. İkinci çocuktan itibaren geçerlidir.",
       shortDescription: "İkinci çocuğa %20 indirim",
-      campaignType: "SIBLING_DISCOUNT",
-      discountType: "PERCENTAGE",
+      campaignType: CampaignType.SIBLING_DISCOUNT,
+      discountType: DiscountType.PERCENTAGE,
       discountPercentage: 20.0,
       startDate: "2024-01-01",
       endDate: "2024-12-31",
-      isActive: true,
+      status: CampaignStatus.ACTIVE,
+      isFeatured: false,
       isPublic: true,
       requiresApproval: true,
       usageLimit: 100,
       usageCount: 12,
       perUserLimit: 3,
       perSchoolLimit: 100,
-      targetAudience: "SIBLINGS",
+      targetAudience: TargetAudience.SIBLINGS,
       termsAndConditions:
         "İkinci ve sonraki çocuklar için geçerlidir. Kayıt ücretinden düşülmez. Belgelerle kanıtlanmalıdır.",
       priority: 2,
@@ -452,19 +458,20 @@ export const schoolDetailMockData: SchoolDetailDto = {
       description:
         "Yeni öğrencilerimiz için bir hafta ücretsiz deneme fırsatı. Çocuğunuzun uyum sürecini gözlemleyin.",
       shortDescription: "1 hafta ücretsiz deneme",
-      campaignType: "FREE_TRIAL",
-      discountType: "NO_DISCOUNT",
+      campaignType: CampaignType.FREE_TRIAL,
+      discountType: DiscountType.NO_DISCOUNT,
       freeTrialDays: 7,
       startDate: "2024-01-01",
       endDate: "2024-06-30",
-      isActive: true,
+      status: CampaignStatus.ACTIVE,
+      isFeatured: true,
       isPublic: true,
       requiresApproval: true,
       usageLimit: 200,
       usageCount: 89,
       perUserLimit: 1,
       perSchoolLimit: 200,
-      targetAudience: "NEW_STUDENTS",
+      targetAudience: TargetAudience.NEW_STUDENTS,
       targetNewStudentsOnly: true,
       termsAndConditions:
         "Sadece yeni öğrenciler için geçerlidir. Randevu alınması zorunludur. Bir hafta sonunda kayıt kararı alınmalıdır.",

@@ -1,16 +1,19 @@
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
 import { CampaignStatus } from "@/enums/CampaignStatus";
 import { CampaignType } from "@/enums/CampaignType";
+import { DiscountType } from "@/enums/DiscountType";
+import { TargetAudience } from "@/enums/TargetAudience";
 
 export const mockCampaigns: CampaignDto[] = [
   {
     id: 1,
     title: "Erken Kayıt İndirimi 2024",
     slug: "erken-kayit-indirimi-2024",
-    description: "2024-2025 eğitim öğretim yılı için erken kayıt yaptıran öğrencilere özel %20 indirim fırsatı. Bu kampanya ile hem kaliteli eğitim alın hem de bütçenizi koruyun.",
+    description:
+      "2024-2025 eğitim öğretim yılı için erken kayıt yaptıran öğrencilere özel %20 indirim fırsatı. Bu kampanya ile hem kaliteli eğitim alın hem de bütçenizi koruyun.",
     shortDescription: "Erken kayıt yapan öğrencilere %20 indirim",
     campaignType: CampaignType.EARLY_BIRD,
-    discountType: "PERCENTAGE",
+    discountType: DiscountType.PERCENTAGE,
     discountPercentage: 20,
     startDate: "2024-01-15",
     endDate: "2024-03-31",
@@ -27,7 +30,7 @@ export const mockCampaigns: CampaignDto[] = [
     usageCount: 127,
     perUserLimit: 1,
     perSchoolLimit: 50,
-    targetAudience: "NEW_STUDENTS",
+    targetAudience: TargetAudience.NEW_STUDENTS,
     targetGradeLevels: "1,2,3,4,5,6,7,8",
     targetAgeMin: 6,
     targetAgeMax: 14,
@@ -39,7 +42,8 @@ export const mockCampaigns: CampaignDto[] = [
     ctaUrl: "/basvuru",
     badgeText: "%20 İndirim",
     badgeColor: "#28a745",
-    termsAndConditions: "Bu kampanya sadece yeni öğrenciler için geçerlidir. Kampanya süresi boyunca geçerlidir.",
+    termsAndConditions:
+      "Bu kampanya sadece yeni öğrenciler için geçerlidir. Kampanya süresi boyunca geçerlidir.",
     viewCount: 2847,
     clickCount: 456,
     applicationCount: 127,
@@ -57,16 +61,17 @@ export const mockCampaigns: CampaignDto[] = [
     daysRemaining: 45,
     formattedDiscountAmount: "%20",
     displayDiscount: "20% İndirim",
-    campaignPeriod: "15 Ocak - 31 Mart 2024"
+    campaignPeriod: "15 Ocak - 31 Mart 2024",
   },
   {
     id: 2,
     title: "Kardeş İndirimi Kampanyası",
     slug: "kardes-indirimi-kampanyasi",
-    description: "Aynı ailede birden fazla öğrenci kayıt yaptıran velilere özel indirim kampanyası. İkinci çocuktan itibaren %15 indirim.",
+    description:
+      "Aynı ailede birden fazla öğrenci kayıt yaptıran velilere özel indirim kampanyası. İkinci çocuktan itibaren %15 indirim.",
     shortDescription: "İkinci çocuktan itibaren %15 indirim",
     campaignType: CampaignType.SIBLING_DISCOUNT,
-    discountType: "PERCENTAGE",
+    discountType: DiscountType.PERCENTAGE,
     discountPercentage: 15,
     startDate: "2024-01-01",
     endDate: "2024-12-31",
@@ -79,7 +84,7 @@ export const mockCampaigns: CampaignDto[] = [
     usageCount: 34,
     perUserLimit: 5,
     perSchoolLimit: 100,
-    targetAudience: "SIBLINGS",
+    targetAudience: TargetAudience.SIBLINGS,
     targetSiblingDiscount: true,
     promoCode: "KARDES2024",
     thumbnailImageUrl: "/assets/images/campaigns/kardes-indirimi-thumb.jpg",
@@ -103,16 +108,17 @@ export const mockCampaigns: CampaignDto[] = [
     daysRemaining: 320,
     formattedDiscountAmount: "%15",
     displayDiscount: "15% Kardeş İndirimi",
-    campaignPeriod: "1 Ocak - 31 Aralık 2024"
+    campaignPeriod: "1 Ocak - 31 Aralık 2024",
   },
   {
     id: 3,
     title: "Ücretsiz Deneme Haftası",
     slug: "ucretsiz-deneme-haftasi",
-    description: "Okulumuzun eğitim kalitesini yakından tanımanız için 1 hafta ücretsiz deneme fırsatı. Bu süre boyunca tüm derslere katılabilirsiniz.",
+    description:
+      "Okulumuzun eğitim kalitesini yakından tanımanız için 1 hafta ücretsiz deneme fırsatı. Bu süre boyunca tüm derslere katılabilirsiniz.",
     shortDescription: "1 hafta ücretsiz deneme fırsatı",
     campaignType: CampaignType.FREE_TRIAL,
-    discountType: "NO_DISCOUNT",
+    discountType: DiscountType.NO_DISCOUNT,
     startDate: "2024-02-01",
     endDate: "2024-04-30",
     academicYear: "2024-2025",
@@ -124,7 +130,7 @@ export const mockCampaigns: CampaignDto[] = [
     usageCount: 67,
     perUserLimit: 1,
     perSchoolLimit: 25,
-    targetAudience: "FIRST_TIME_VISITORS",
+    targetAudience: TargetAudience.FIRST_TIME_VISITORS,
     targetGradeLevels: "1,2,3,4,5",
     targetAgeMin: 6,
     targetAgeMax: 11,
@@ -136,7 +142,8 @@ export const mockCampaigns: CampaignDto[] = [
     ctaUrl: "/deneme-basvuru",
     badgeText: "Ücretsiz",
     badgeColor: "#ffc107",
-    termsAndConditions: "Deneme süresi 7 gündür. Her aile için sadece 1 kez geçerlidir.",
+    termsAndConditions:
+      "Deneme süresi 7 gündür. Her aile için sadece 1 kez geçerlidir.",
     viewCount: 3456,
     clickCount: 789,
     applicationCount: 67,
@@ -154,17 +161,18 @@ export const mockCampaigns: CampaignDto[] = [
     daysRemaining: 75,
     formattedDiscountAmount: "Ücretsiz",
     displayDiscount: "7 Gün Ücretsiz",
-    campaignPeriod: "1 Şubat - 30 Nisan 2024"
+    campaignPeriod: "1 Şubat - 30 Nisan 2024",
   },
   {
     id: 4,
     title: "Yaz Okulu Özel Fiyatı",
     slug: "yaz-okulu-ozel-fiyati",
-    description: "2024 yaz okulu programımız için özel fiyat avantajı. Eğlenceli aktiviteler ve kaliteli eğitim bir arada.",
+    description:
+      "2024 yaz okulu programımız için özel fiyat avantajı. Eğlenceli aktiviteler ve kaliteli eğitim bir arada.",
     shortDescription: "Yaz okulu için özel fiyat",
     campaignType: CampaignType.SUMMER_SCHOOL,
-    discountType: "FIXED_AMOUNT",
-    discountAmount: 500,
+    discountType: DiscountType.FIXED_AMOUNT,
+    discountAmount: "500",
     startDate: "2024-03-01",
     endDate: "2024-05-31",
     enrollmentStartDate: "2024-06-15",
@@ -178,7 +186,7 @@ export const mockCampaigns: CampaignDto[] = [
     usageCount: 0,
     perUserLimit: 1,
     perSchoolLimit: 20,
-    targetAudience: "ALL",
+    targetAudience: TargetAudience.ALL,
     targetGradeLevels: "1,2,3,4,5,6,7,8",
     targetAgeMin: 6,
     targetAgeMax: 14,
@@ -202,16 +210,17 @@ export const mockCampaigns: CampaignDto[] = [
     daysRemaining: 90,
     formattedDiscountAmount: "500₺",
     displayDiscount: "500₺ İndirim",
-    campaignPeriod: "1 Mart - 31 Mayıs 2024"
+    campaignPeriod: "1 Mart - 31 Mayıs 2024",
   },
   {
     id: 5,
     title: "Sadakat Ödülü Kampanyası",
     slug: "sadakat-odulu-kampanyasi",
-    description: "3 yıl ve üzeri öğrencilerimize özel sadakat ödülü. Eğitim ücretinde %10 indirim ve ek hizmetler.",
+    description:
+      "3 yıl ve üzeri öğrencilerimize özel sadakat ödülü. Eğitim ücretinde %10 indirim ve ek hizmetler.",
     shortDescription: "Sadık öğrencilere %10 indirim",
     campaignType: CampaignType.LOYALTY_REWARD,
-    discountType: "PERCENTAGE",
+    discountType: DiscountType.PERCENTAGE,
     discountPercentage: 10,
     startDate: "2024-01-01",
     endDate: "2024-12-31",
@@ -224,7 +233,7 @@ export const mockCampaigns: CampaignDto[] = [
     usageCount: 45,
     perUserLimit: 1,
     perSchoolLimit: 50,
-    targetAudience: "LOYALTY_MEMBERS",
+    targetAudience: TargetAudience.LOYALTY_MEMBERS,
     bonusFeatures: "Ücretsiz etüt, özel aktiviteler",
     promoCode: "SADAKAT2024",
     thumbnailImageUrl: "/assets/images/campaigns/sadakat-thumb.jpg",
@@ -248,18 +257,19 @@ export const mockCampaigns: CampaignDto[] = [
     daysRemaining: 320,
     formattedDiscountAmount: "%10",
     displayDiscount: "10% Sadakat İndirimi",
-    campaignPeriod: "1 Ocak - 31 Aralık 2024"
+    campaignPeriod: "1 Ocak - 31 Aralık 2024",
   },
   {
     id: 6,
     title: "Sınırlı Süre Flash İndirim",
     slug: "sinirli-sure-flash-indirim",
-    description: "Sadece bu hafta geçerli! Tüm eğitim paketlerinde %25 flash indirim. Kaçırmayın!",
+    description:
+      "Sadece bu hafta geçerli! Tüm eğitim paketlerinde %25 flash indirim. Kaçırmayın!",
     shortDescription: "Bu hafta %25 flash indirim",
     campaignType: CampaignType.FLASH_SALE,
-    discountType: "PERCENTAGE",
+    discountType: DiscountType.PERCENTAGE,
     discountPercentage: 25,
-    maxDiscountAmount: 1000,
+    maxDiscountAmount: "1000",
     startDate: "2024-02-12",
     endDate: "2024-02-18",
     academicYear: "2024-2025",
@@ -271,7 +281,7 @@ export const mockCampaigns: CampaignDto[] = [
     usageCount: 48,
     perUserLimit: 1,
     perSchoolLimit: 10,
-    targetAudience: "ALL",
+    targetAudience: TargetAudience.ALL,
     promoCode: "FLASH25",
     bannerImageUrl: "/assets/images/campaigns/flash-banner.jpg",
     thumbnailImageUrl: "/assets/images/campaigns/flash-thumb.jpg",
@@ -296,19 +306,19 @@ export const mockCampaigns: CampaignDto[] = [
     daysRemaining: 0,
     formattedDiscountAmount: "%25",
     displayDiscount: "25% Flash İndirim",
-    campaignPeriod: "12-18 Şubat 2024"
-  }
+    campaignPeriod: "12-18 Şubat 2024",
+  },
 ];
 
 // Re-export utility functions that work with mock data
-import { 
+import {
   getActiveCampaigns as getActiveCampaignsUtil,
   getPendingCampaigns as getPendingCampaignsUtil,
   getExpiredCampaigns as getExpiredCampaignsUtil,
   getFeaturedCampaigns as getFeaturedCampaignsUtil,
   getCampaignsByType as getCampaignsByTypeUtil,
   getCampaignById as getCampaignByIdUtil,
-  calculateCampaignStats
+  calculateCampaignStats,
 } from "../utils";
 
 // Convenience functions that use mock data

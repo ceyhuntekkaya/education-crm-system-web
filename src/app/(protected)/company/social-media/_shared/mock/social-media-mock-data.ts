@@ -1,9 +1,11 @@
 import { PostDto } from "@/types/dto/content/PostDto";
-import { 
+import { PostType } from "@/enums/PostType";
+import { PostStatus } from "@/enums/PostStatus";
+import {
   getStatusBadgeVariant,
   getPostTypeDisplay,
   formatEngagement,
-  calculatePostStats
+  calculatePostStats,
 } from "../utils/social-media-utils";
 
 // Mock Social Media Data - Adapted from original post mock data
@@ -23,8 +25,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </ul>
       <p>Katılım için lütfen <a href="/registration">kayıt formunu</a> doldurunuz.</p>
     `,
-    postType: "ANNOUNCEMENT",
-    status: "PUBLISHED",
+    postType: PostType.ANNOUNCEMENT,
+    status: PostStatus.PUBLISHED,
     scheduledAt: "2024-03-15T10:00:00Z",
     publishedAt: "2024-03-15T10:30:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=1",
@@ -85,8 +87,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </blockquote>
       <p>Ahmet'in başarı hikayesini videoda izleyebilirsiniz.</p>
     `,
-    postType: "ACHIEVEMENT",
-    status: "PUBLISHED",
+    postType: PostType.ACHIEVEMENT,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-14T14:15:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=2",
     videoUrl: "https://www.youtube.com/watch?v=example",
@@ -109,6 +111,12 @@ export const mockSocialMediaPosts: PostDto[] = [
     shareCount: 32,
     engagementScore: 7.8,
     isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 3200,
+    impressionCount: 8500,
+    clickCount: 450,
+    averageReadTimeSeconds: 90,
     school: {
       id: 2,
       name: "İstanbul Teknik Üniversitesi",
@@ -137,8 +145,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </ul>
       <p>Açılış töreni 20 Mart'ta gerçekleştirilecektir.</p>
     `,
-    postType: "NEWS",
-    status: "PUBLISHED",
+    postType: PostType.NEWS,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-13T09:45:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=3",
     allowComments: true,
@@ -156,6 +164,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 1890,
     shareCount: 12,
     engagementScore: 6.2,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 2800,
+    impressionCount: 7200,
+    clickCount: 380,
+    averageReadTimeSeconds: 75,
     school: {
       id: 3,
       name: "Boğaziçi Üniversitesi",
@@ -184,8 +199,8 @@ export const mockSocialMediaPosts: PostDto[] = [
         <li>Akşam spor ve kulüp etkinlikleri</li>
       </ul>
     `,
-    postType: "BEHIND_SCENES",
-    status: "PUBLISHED",
+    postType: PostType.BEHIND_SCENES,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-12T16:20:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=4",
     videoUrl: "https://www.youtube.com/watch?v=campus-life",
@@ -196,7 +211,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     isPinned: false,
     slug: "kampuste-bir-gun-ogrenci-yasami",
     metaTitle: "Kampüste Bir Gün: Öğrenci Yaşamı | Gazi Üniversitesi",
-    metaDescription: "Gazi Üniversitesi kampüsünde bir günün nasıl geçtiğini keşfedin.",
+    metaDescription:
+      "Gazi Üniversitesi kampüsünde bir günün nasıl geçtiğini keşfedin.",
     tags: "kampüs,yaşam,öğrenci,günlük,video",
     hashtags: "#kampüsyaşamı #Gazi #öğrencideneyimi",
     likeCount: 145,
@@ -204,6 +220,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 4200,
     shareCount: 67,
     engagementScore: 9.2,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 6100,
+    impressionCount: 14500,
+    clickCount: 820,
+    averageReadTimeSeconds: 180,
     school: {
       id: 4,
       name: "Gazi Üniversitesi",
@@ -233,8 +256,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </ul>
       <p>Platforma erişim için öğrenci numaranız ve şifrenizi kullanabilirsiniz.</p>
     `,
-    postType: "EVENT",
-    status: "PUBLISHED",
+    postType: PostType.EVENT,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-11T11:00:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=5",
     allowComments: true,
@@ -244,7 +267,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     pinExpiresAt: "2024-04-11T11:00:00Z",
     slug: "online-egitim-platformumuz-yayinda",
     metaTitle: "Online Eğitim Platformu | ODTÜ",
-    metaDescription: "ODTÜ'nün yeni online eğitim platformu özellikleri ve erişim bilgileri.",
+    metaDescription:
+      "ODTÜ'nün yeni online eğitim platformu özellikleri ve erişim bilgileri.",
     tags: "online,eğitim,platform,hibrit,teknoloji",
     hashtags: "#onlineeğitim #ODTÜ #dijitaleğitim",
     likeCount: 78,
@@ -252,6 +276,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 2850,
     shareCount: 23,
     engagementScore: 7.1,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 4200,
+    impressionCount: 9800,
+    clickCount: 560,
+    averageReadTimeSeconds: 100,
     callToAction: "Platforma Giriş Yap",
     ctaUrl: "/platform-login",
     school: {
@@ -283,8 +314,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </ul>
       <p>Değerli öğretmenlerimize emekleri için teşekkür ederiz! 👩‍🏫👨‍🏫</p>
     `,
-    postType: "CELEBRATION",
-    status: "PUBLISHED",
+    postType: PostType.CELEBRATION,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-10T13:30:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=6",
     allowComments: true,
@@ -293,7 +324,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     isPinned: false,
     slug: "ogretmenler-gunu-kutlamasi",
     metaTitle: "Öğretmenler Günü Kutlaması | Bilkent Üniversitesi",
-    metaDescription: "Bilkent Üniversitesi'nde 24 Kasım Öğretmenler Günü kutlaması.",
+    metaDescription:
+      "Bilkent Üniversitesi'nde 24 Kasım Öğretmenler Günü kutlaması.",
     tags: "öğretmenler,günü,kutlama,24,kasım",
     hashtags: "#öğretmenlergünü #Bilkent #teşekkür",
     likeCount: 234,
@@ -301,6 +333,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 5600,
     shareCount: 89,
     engagementScore: 9.8,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 7800,
+    impressionCount: 18200,
+    clickCount: 1100,
+    averageReadTimeSeconds: 85,
     school: {
       id: 6,
       name: "Bilkent Üniversitesi",
@@ -329,8 +368,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </ul>
       <p>Çalışmalar Nisan ayı sonunda tamamlanacak. Anlayışınız için teşekkürler.</p>
     `,
-    postType: "TEXT",
-    status: "PUBLISHED",
+    postType: PostType.TEXT,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-09T08:15:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=7",
     allowComments: true,
@@ -339,7 +378,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     isPinned: false,
     slug: "spor-kompleksi-yenileme-calismalari",
     metaTitle: "Spor Kompleksi Yenileme | Koç Üniversitesi",
-    metaDescription: "Koç Üniversitesi spor kompleksi yenileme çalışmaları hakkında bilgiler.",
+    metaDescription:
+      "Koç Üniversitesi spor kompleksi yenileme çalışmaları hakkında bilgiler.",
     tags: "spor,kompleks,yenileme,tadilat",
     hashtags: "#spor #Koç #yenileme",
     likeCount: 67,
@@ -347,6 +387,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 1750,
     shareCount: 8,
     engagementScore: 5.4,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 2600,
+    impressionCount: 6800,
+    clickCount: 320,
+    averageReadTimeSeconds: 65,
     school: {
       id: 7,
       name: "Koç Üniversitesi",
@@ -382,8 +429,8 @@ export const mockSocialMediaPosts: PostDto[] = [
         <li>Edebiyat Kulübü - Şiir dinletisi</li>
       </ul>
     `,
-    postType: "ANNOUNCEMENT",
-    status: "PUBLISHED",
+    postType: PostType.ANNOUNCEMENT,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-08T15:45:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=8",
     allowComments: true,
@@ -393,7 +440,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     pinExpiresAt: "2024-03-31T23:59:59Z",
     slug: "ogrenci-kulubu-etkinlikleri-takvimi",
     metaTitle: "Öğrenci Kulübü Etkinlikleri | Sabancı Üniversitesi",
-    metaDescription: "Sabancı Üniversitesi öğrenci kulüplerinin Mart ayı etkinlik takvimi.",
+    metaDescription:
+      "Sabancı Üniversitesi öğrenci kulüplerinin Mart ayı etkinlik takvimi.",
     tags: "kulüp,etkinlik,takvim,öğrenci,aktivite",
     hashtags: "#kulüpetkinlikleri #Sabancı #öğrencikulüpleri",
     likeCount: 92,
@@ -401,6 +449,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 3100,
     shareCount: 34,
     engagementScore: 6.8,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 4500,
+    impressionCount: 10200,
+    clickCount: 580,
+    averageReadTimeSeconds: 110,
     school: {
       id: 8,
       name: "Sabancı Üniversitesi",
@@ -431,8 +486,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       <p><strong>Gerekli Belgeler:</strong> Transkript, gelir belgesi, başvuru formu</p>
       <p>Detaylı bilgi için öğrenci işleri ile iletişime geçin.</p>
     `,
-    postType: "NEWS",
-    status: "PUBLISHED",
+    postType: PostType.NEWS,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-07T12:00:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=9",
     allowComments: true,
@@ -442,7 +497,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     pinExpiresAt: "2024-04-30T23:59:59Z",
     slug: "yeni-donem-burs-imkanlari",
     metaTitle: "Burs İmkanları 2024-2025 | İTÜ",
-    metaDescription: "İTÜ 2024-2025 akademik yılı burs başvuru koşulları ve tarihleri.",
+    metaDescription:
+      "İTÜ 2024-2025 akademik yılı burs başvuru koşulları ve tarihleri.",
     tags: "burs,başvuru,2024,akademik,yıl",
     hashtags: "#burs #İTÜ #başvuru #2024",
     likeCount: 178,
@@ -450,6 +506,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 6200,
     shareCount: 95,
     engagementScore: 8.9,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 8900,
+    impressionCount: 20500,
+    clickCount: 1350,
+    averageReadTimeSeconds: 150,
     callToAction: "Başvuru Yap",
     ctaUrl: "/burs-basvuru",
     school: {
@@ -481,8 +544,8 @@ export const mockSocialMediaPosts: PostDto[] = [
       </ul>
       <p>Siz de kampüs fotoğraflarınızı #HacettepeKampüs etiketiyle paylaşın!</p>
     `,
-    postType: "GALLERY",
-    status: "PUBLISHED",
+    postType: PostType.GALLERY,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-06T10:20:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=10",
     mediaAttachments: JSON.stringify([
@@ -498,7 +561,8 @@ export const mockSocialMediaPosts: PostDto[] = [
     isPinned: false,
     slug: "kampus-hayatindan-kareler",
     metaTitle: "Kampüs Fotoğrafları | Hacettepe Üniversitesi",
-    metaDescription: "Hacettepe Üniversitesi kampüsünden günlük yaşam fotoğrafları.",
+    metaDescription:
+      "Hacettepe Üniversitesi kampüsünden günlük yaşam fotoğrafları.",
     tags: "kampüs,fotoğraf,galeri,yaşam,öğrenci",
     hashtags: "#HacettepeKampüs #kampüsyaşamı #fotoğraf",
     likeCount: 156,
@@ -506,6 +570,13 @@ export const mockSocialMediaPosts: PostDto[] = [
     viewCount: 4800,
     shareCount: 67,
     engagementScore: 7.5,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
+    reachCount: 6800,
+    impressionCount: 15600,
+    clickCount: 920,
+    averageReadTimeSeconds: 95,
     school: {
       id: 10,
       name: "Hacettepe Üniversitesi",
@@ -524,23 +595,23 @@ export const mockSocialMediaPosts: PostDto[] = [
 
 // Utility functions for working with mock data
 export const getPostsByType = (postType: string): PostDto[] => {
-  return mockSocialMediaPosts.filter(post => post.postType === postType);
+  return mockSocialMediaPosts.filter((post) => post.postType === postType);
 };
 
 export const getPostsByStatus = (status: string): PostDto[] => {
-  return mockSocialMediaPosts.filter(post => post.status === status);
+  return mockSocialMediaPosts.filter((post) => post.status === status);
 };
 
 export const getFeaturedPosts = (): PostDto[] => {
-  return mockSocialMediaPosts.filter(post => post.isFeatured);
+  return mockSocialMediaPosts.filter((post) => post.isFeatured);
 };
 
 export const getPinnedPosts = (): PostDto[] => {
-  return mockSocialMediaPosts.filter(post => post.isPinned);
+  return mockSocialMediaPosts.filter((post) => post.isPinned);
 };
 
 export const getActivePosts = (): PostDto[] => {
-  return mockSocialMediaPosts.filter(post => post.isActive);
+  return mockSocialMediaPosts.filter((post) => post.isActive);
 };
 
 export const getMostEngagedPosts = (limit: number = 5): PostDto[] => {
@@ -556,7 +627,7 @@ export const getMostViewedPosts = (limit: number = 5): PostDto[] => {
 };
 
 export const getPostById = (id: number): PostDto | undefined => {
-  return mockSocialMediaPosts.find(post => post.id === id);
+  return mockSocialMediaPosts.find((post) => post.id === id);
 };
 
 // Re-export utility functions that work with mock data
@@ -564,5 +635,5 @@ export {
   getStatusBadgeVariant,
   getPostTypeDisplay,
   formatEngagement,
-  calculatePostStats
+  calculatePostStats,
 };

@@ -1,4 +1,6 @@
 import { GalleryDto } from "../../../../../../../../types/dto/content/GalleryDto";
+import { GalleryType } from "@/enums/GalleryType";
+import { GalleryVisibility } from "@/enums/GalleryVisibility";
 import {
   brandSummaryMockData,
   campusSummaryMockData,
@@ -14,8 +16,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Okulumuzun geleneksel bahar festivali etkinlikleri. Öğrencilerimizin sanat, müzik ve dans performanslarını içeren renkli bir festival.",
     slug: "2024-bahar-festivali",
-    galleryType: "EVENTS",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.EVENTS,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl: "https://picsum.photos/800/600?random=201",
     sortOrder: 1,
     isFeatured: true,
@@ -57,8 +59,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Öğrencilerimizin günlük kampüs yaşamından kareler. Sınıf içi ve dışı aktiviteler, sosyal alanlar ve arkadaşlık anları.",
     slug: "kampus-yasami",
-    galleryType: "CAMPUS_LIFE",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.CAMPUS_LIFE,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop",
     sortOrder: 2,
@@ -92,8 +94,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Modern fen laboratuvarlarımızda yapılan deneyler ve bilimsel çalışmalar. Öğrencilerimizin hands-on öğrenme deneyimleri.",
     slug: "fen-laboratuvarlari",
-    galleryType: "LABORATORY",
-    visibility: "REGISTERED_ONLY",
+    galleryType: GalleryType.LABORATORY,
+    visibility: GalleryVisibility.REGISTERED_ONLY,
     coverImageUrl:
       "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=800&h=600&fit=crop",
     sortOrder: 3,
@@ -127,8 +129,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Geniş ve modern spor tesislerimiz. Futbol sahası, basketbol kortları, yüzme havuzu ve fitness merkezimiz.",
     slug: "spor-tesisleri",
-    galleryType: "SPORTS_FACILITIES",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.SPORTS_FACILITIES,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&h=600&fit=crop",
     sortOrder: 4,
@@ -162,8 +164,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Geniş koleksiyonu ve modern teknolojisiyle kütüphanemiz. Sessiz çalışma alanları ve grup çalışma odaları.",
     slug: "kutuphane",
-    galleryType: "LIBRARY",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.LIBRARY,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop",
     sortOrder: 5,
@@ -197,8 +199,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "2024 yılı mezuniyet törenimizden unutulmaz anlar. Diploma takdimi, kep atma ve aile sevinçleri.",
     slug: "mezuniyet-toreni-2024",
-    galleryType: "GRADUATION",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.GRADUATION,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl: "https://picsum.photos/800/600?random=206",
     sortOrder: 6,
     isFeatured: true,
@@ -231,8 +233,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Modern teknoloji ile donatılmış sınıflarımız. Akıllı tahtalar, projeksiyon sistemleri ve konforlu oturma düzeni.",
     slug: "siniflar",
-    galleryType: "CLASSROOMS",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.CLASSROOMS,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop",
     sortOrder: 7,
@@ -266,8 +268,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Sağlıklı ve lezzetli yemeklerin servis edildiği kafeteryamız. Geniş menü seçenekleri ve rahat yemek alanı.",
     slug: "kafeterya",
-    galleryType: "CAFETERIA",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.CAFETERIA,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop",
     sortOrder: 8,
@@ -301,8 +303,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "Öğrencilerimizin yıl boyunca hazırladığı yaratıcı projeler sergisi. Bilim, teknoloji ve sanat projeleri.",
     slug: "ogrenci-projeleri-sergisi",
-    galleryType: "STUDENT_WORK",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.STUDENT_WORK,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop",
     sortOrder: 9,
@@ -336,8 +338,8 @@ export const galleryMockData: GalleryDto[] = [
     description:
       "24 Kasım Öğretmenler Günü'nde düzenlenen özel etkinlik. Öğrencilerin öğretmenlerine hazırladığı sürprizler.",
     slug: "ogretmenler-gunu-etkinligi",
-    galleryType: "EVENTS",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.EVENTS,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl:
       "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=600&fit=crop",
     sortOrder: 10,

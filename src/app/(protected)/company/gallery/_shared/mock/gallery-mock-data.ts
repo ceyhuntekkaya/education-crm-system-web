@@ -1,9 +1,11 @@
 import { GalleryDto } from "@/types/dto/content/GalleryDto";
-import { 
+import { GalleryType } from "@/enums/GalleryType";
+import { GalleryVisibility } from "@/enums/GalleryVisibility";
+import {
   getStatusBadgeVariant,
   getGalleryTypeDisplay,
   formatFileSize,
-  calculateGalleryStats
+  calculateGalleryStats,
 } from "../utils/gallery-utils";
 
 // Mock Gallery Data - Adapted from original gallery mock data
@@ -14,8 +16,8 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Okulumuzun geleneksel bahar festivali etkinlikleri. Öğrencilerimizin sanat, müzik ve dans performanslarını içeren renkli bir festival.",
     slug: "2024-bahar-festivali",
-    galleryType: "EVENTS",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.EVENTS,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl: "https://picsum.photos/800/600?random=201",
     sortOrder: 1,
     isFeatured: true,
@@ -38,9 +40,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Öğrencilerimizin günlük kampüs yaşamından kareler. Sınıf içi ve dışı aktiviteler, sosyal alanlar ve arkadaşlık anları.",
     slug: "kampus-yasami",
-    galleryType: "CAMPUS_LIFE",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop",
+    galleryType: GalleryType.CAMPUS_LIFE,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop",
     sortOrder: 2,
     isFeatured: true,
     allowComments: true,
@@ -62,9 +65,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Modern fen laboratuvarlarımızda yapılan deneyler ve bilimsel çalışmalar. Öğrencilerimizin hands-on öğrenme deneyimleri.",
     slug: "fen-laboratuvarlari",
-    galleryType: "LABORATORY",
-    visibility: "REGISTERED_ONLY",
-    coverImageUrl: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=800&h=600&fit=crop",
+    galleryType: GalleryType.LABORATORY,
+    visibility: GalleryVisibility.REGISTERED_ONLY,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=800&h=600&fit=crop",
     sortOrder: 3,
     isFeatured: false,
     allowComments: true,
@@ -86,9 +90,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Geniş ve modern spor tesislerimiz. Futbol sahası, basketbol kortları, yüzme havuzu ve fitness merkezimiz.",
     slug: "spor-tesisleri",
-    galleryType: "SPORTS_FACILITIES",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&h=600&fit=crop",
+    galleryType: GalleryType.SPORTS_FACILITIES,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&h=600&fit=crop",
     sortOrder: 4,
     isFeatured: true,
     allowComments: true,
@@ -110,9 +115,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Geniş koleksiyonu ve modern teknolojisiyle kütüphanemiz. Sessiz çalışma alanları ve grup çalışma odaları.",
     slug: "kutuphane",
-    galleryType: "LIBRARY",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop",
+    galleryType: GalleryType.LIBRARY,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop",
     sortOrder: 5,
     isFeatured: false,
     allowComments: true,
@@ -134,8 +140,8 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "2024 yılı mezuniyet törenimizden unutulmaz anlar. Diploma takdimi, kep atma ve aile sevinçleri.",
     slug: "mezuniyet-toreni-2024",
-    galleryType: "GRADUATION",
-    visibility: "PUBLIC",
+    galleryType: GalleryType.GRADUATION,
+    visibility: GalleryVisibility.PUBLIC,
     coverImageUrl: "https://picsum.photos/800/600?random=206",
     sortOrder: 6,
     isFeatured: true,
@@ -158,9 +164,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Modern teknoloji ile donatılmış sınıflarımız. Akıllı tahtalar, projeksiyon sistemleri ve konforlu oturma düzeni.",
     slug: "siniflar",
-    galleryType: "CLASSROOMS",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop",
+    galleryType: GalleryType.CLASSROOMS,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop",
     sortOrder: 7,
     isFeatured: false,
     allowComments: true,
@@ -182,9 +189,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Sağlıklı ve lezzetli yemeklerin servis edildiği kafeteryamız. Geniş menü seçenekleri ve rahat yemek alanı.",
     slug: "kafeterya",
-    galleryType: "CAFETERIA",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop",
+    galleryType: GalleryType.CAFETERIA,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop",
     sortOrder: 8,
     isFeatured: false,
     allowComments: true,
@@ -206,9 +214,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "Öğrencilerimizin yıl boyunca hazırladığı yaratıcı projeler sergisi. Bilim, teknoloji ve sanat projeleri.",
     slug: "ogrenci-projeleri-sergisi",
-    galleryType: "STUDENT_WORK",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop",
+    galleryType: GalleryType.STUDENT_WORK,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop",
     sortOrder: 9,
     isFeatured: true,
     allowComments: true,
@@ -230,9 +239,10 @@ export const mockGalleries: GalleryDto[] = [
     description:
       "24 Kasım Öğretmenler Günü'nde düzenlenen özel etkinlik. Öğrencilerin öğretmenlerine hazırladığı sürprizler.",
     slug: "ogretmenler-gunu-etkinligi",
-    galleryType: "EVENTS",
-    visibility: "PUBLIC",
-    coverImageUrl: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=600&fit=crop",
+    galleryType: GalleryType.EVENTS,
+    visibility: GalleryVisibility.PUBLIC,
+    coverImageUrl:
+      "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=600&fit=crop",
     sortOrder: 10,
     isFeatured: false,
     allowComments: true,
@@ -251,19 +261,19 @@ export const mockGalleries: GalleryDto[] = [
 
 // Utility functions for working with mock data
 export const getGalleriesByType = (galleryType: string): GalleryDto[] => {
-  return mockGalleries.filter(gallery => gallery.galleryType === galleryType);
+  return mockGalleries.filter((gallery) => gallery.galleryType === galleryType);
 };
 
 export const getGalleriesByVisibility = (visibility: string): GalleryDto[] => {
-  return mockGalleries.filter(gallery => gallery.visibility === visibility);
+  return mockGalleries.filter((gallery) => gallery.visibility === visibility);
 };
 
 export const getFeaturedGalleries = (): GalleryDto[] => {
-  return mockGalleries.filter(gallery => gallery.isFeatured);
+  return mockGalleries.filter((gallery) => gallery.isFeatured);
 };
 
 export const getActiveGalleries = (): GalleryDto[] => {
-  return mockGalleries.filter(gallery => gallery.isActive);
+  return mockGalleries.filter((gallery) => gallery.isActive);
 };
 
 export const getMostViewedGalleries = (limit: number = 5): GalleryDto[] => {
@@ -273,7 +283,7 @@ export const getMostViewedGalleries = (limit: number = 5): GalleryDto[] => {
 };
 
 export const getGalleryById = (id: number): GalleryDto | undefined => {
-  return mockGalleries.find(gallery => gallery.id === id);
+  return mockGalleries.find((gallery) => gallery.id === id);
 };
 
 // Re-export utility functions that work with mock data
@@ -281,5 +291,5 @@ export {
   getStatusBadgeVariant,
   getGalleryTypeDisplay,
   formatFileSize,
-  calculateGalleryStats
+  calculateGalleryStats,
 };

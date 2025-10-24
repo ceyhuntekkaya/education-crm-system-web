@@ -61,16 +61,6 @@ export interface PricingContextType {
  */
 export interface PricingStats {
   total: number;
-  averageAnnualTuition: number;
-  averageMonthlyTuition: number;
-  totalGradeLevels: number;
-}
-
-/**
- * Pricing statistics interface
- */
-export interface PricingStats {
-  total: number;
   active: number;
   draft: number;
   pending: number;
