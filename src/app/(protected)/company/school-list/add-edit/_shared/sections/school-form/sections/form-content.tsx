@@ -1,0 +1,390 @@
+"use client";
+
+import React from "react";
+import {
+  Form,
+  FormInput,
+  FormTextarea,
+  FormValues,
+  FormAutocomplete,
+} from "@/components/forms";
+import { Button } from "@/components/ui/button";
+import { FileInput } from "@/components/file-input";
+import { useFormHook } from "@/hooks";
+import { useForm } from "@/contexts/form-context";
+import { useSchoolAddEdit } from "../../../context";
+import { filterDataForEdit } from "../../../utils";
+import { SchoolCreateDto } from "@/types";
+
+/**
+ * School form content component
+ */
+export const SchoolFormContent: React.FC = () => {
+  // Form hook - validation ve error kontrolü için
+  const { hasErrors } = useFormHook();
+
+  // Form reset hook'u
+  const { reset } = useForm();
+
+  // Context'ten tüm school işlemlerini ve dropdown options'ları al
+  const {
+    isEditing,
+    postSchool,
+    putSchool,
+    schoolLoading,
+    campusOptions,
+    institutionTypeOptions,
+    campusesLoading,
+    institutionTypesLoading,
+  } = useSchoolAddEdit();
+
+  const handleSubmit = async (values: any) => {
+    const formData: SchoolCreateDto = {
+      ...values,
+      // Sayısal alanları number'a çevir
+      campusId: values.campusId ? Number(values.campusId) : undefined,
+      institutionTypeId: values.institutionTypeId
+        ? Number(values.institutionTypeId)
+        : undefined,
+      minAge: values.minAge ? Number(values.minAge) : undefined,
+      maxAge: values.maxAge ? Number(values.maxAge) : undefined,
+      capacity: values.capacity ? Number(values.capacity) : undefined,
+      currentStudentCount: values.currentStudentCount
+        ? Number(values.currentStudentCount)
+        : undefined,
+      classSizeAverage: values.classSizeAverage
+        ? Number(values.classSizeAverage)
+        : undefined,
+      registrationFee: values.registrationFee
+        ? Number(values.registrationFee)
+        : undefined,
+      monthlyFee: values.monthlyFee ? Number(values.monthlyFee) : undefined,
+      annualFee: values.annualFee ? Number(values.annualFee) : undefined,
+    };
+
+    if (isEditing) {
+      // Edit modunda sadece UpdateDto'daki alanları gönder
+      const filteredData = filterDataForEdit(formData) as SchoolCreateDto;
+      await putSchool(filteredData);
+    } else {
+      await postSchool(formData);
+    }
+  };
+
+  const handleCancel = () => {
+    reset();
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <FormValues />
+      <div className="row row-gap-24">
+        {/* TEMEL BİLGİLER */}
+        <div className="col-12">
+          <h5 className="mb-16">Temel Bilgiler</h5>
+        </div>
+
+        {/* Kampüs Seçimi */}
+        <div className="col-6">
+          <FormAutocomplete
+            name="campusId"
+            label="Kampüs"
+            placeholder="Kampüs seçiniz veya arayın..."
+            options={campusOptions}
+            required
+            disabled={campusesLoading}
+            isLoading={campusesLoading}
+            noOptionsText="Kampüs bulunamadı"
+            loadingText="Kampüsler yükleniyor..."
+          />
+        </div>
+
+        {/* Kurum Tipi Seçimi */}
+        <div className="col-6">
+          <FormAutocomplete
+            name="institutionTypeId"
+            label="Kurum Tipi"
+            placeholder="Kurum tipi seçiniz veya arayın..."
+            options={institutionTypeOptions}
+            required
+            disabled={institutionTypesLoading}
+            isLoading={institutionTypesLoading}
+            noOptionsText="Kurum tipi bulunamadı"
+            loadingText="Kurum tipleri yükleniyor..."
+          />
+        </div>
+
+        {/* Okul Adı */}
+        <div className="col-12">
+          <FormInput
+            name="name"
+            label="Okul Adı"
+            placeholder="Okul adını giriniz..."
+            required
+          />
+        </div>
+
+        {/* Açıklama */}
+        <div className="col-12">
+          <FormTextarea
+            name="description"
+            label="Açıklama"
+            placeholder="Okul açıklamasını giriniz..."
+            rows={4}
+          />
+        </div>
+
+        {/* İLETİŞİM BİLGİLERİ */}
+        <div className="col-12">
+          <h5 className="mb-16 mt-16">İletişim Bilgileri</h5>
+        </div>
+
+        {/* E-posta */}
+        <div className="col-6">
+          <FormInput
+            name="email"
+            label="E-posta"
+            type="email"
+            placeholder="E-posta adresini giriniz..."
+          />
+        </div>
+
+        {/* Telefon */}
+        <div className="col-6">
+          <FormInput
+            name="phone"
+            label="Telefon"
+            placeholder="Telefon numarasını giriniz..."
+          />
+        </div>
+
+        {/* Dahili */}
+        <div className="col-6">
+          <FormInput
+            name="extension"
+            label="Dahili"
+            placeholder="Dahili numarasını giriniz..."
+          />
+        </div>
+
+        {/* EĞİTİM BİLGİLERİ */}
+        <div className="col-12">
+          <h5 className="mb-16 mt-16">Eğitim Bilgileri</h5>
+        </div>
+
+        {/* Minimum Yaş */}
+        <div className="col-4">
+          <FormInput
+            name="minAge"
+            label="Minimum Yaş"
+            type="number"
+            placeholder="Minimum yaşı giriniz..."
+          />
+        </div>
+
+        {/* Maksimum Yaş */}
+        <div className="col-4">
+          <FormInput
+            name="maxAge"
+            label="Maksimum Yaş"
+            type="number"
+            placeholder="Maksimum yaşı giriniz..."
+          />
+        </div>
+
+        {/* Kapasite */}
+        <div className="col-4">
+          <FormInput
+            name="capacity"
+            label="Kapasite"
+            type="number"
+            placeholder="Kapasiteyi giriniz..."
+          />
+        </div>
+
+        {/* Mevcut Öğrenci Sayısı */}
+        <div className="col-6">
+          <FormInput
+            name="currentStudentCount"
+            label="Mevcut Öğrenci Sayısı"
+            type="number"
+            placeholder="Mevcut öğrenci sayısını giriniz..."
+          />
+        </div>
+
+        {/* Ortalama Sınıf Büyüklüğü */}
+        <div className="col-6">
+          <FormInput
+            name="classSizeAverage"
+            label="Ortalama Sınıf Büyüklüğü"
+            type="number"
+            placeholder="Ortalama sınıf büyüklüğünü giriniz..."
+          />
+        </div>
+
+        {/* Müfredat Tipi */}
+        <div className="col-6">
+          <FormInput
+            name="curriculumType"
+            label="Müfredat Tipi"
+            placeholder="Müfredat tipini giriniz..."
+          />
+        </div>
+
+        {/* Eğitim Dili */}
+        <div className="col-6">
+          <FormInput
+            name="languageOfInstruction"
+            label="Eğitim Dili"
+            placeholder="Eğitim dilini giriniz..."
+          />
+        </div>
+
+        {/* Yabancı Diller */}
+        <div className="col-12">
+          <FormInput
+            name="foreignLanguages"
+            label="Yabancı Diller"
+            placeholder="Yabancı dilleri giriniz (virgülle ayırarak)..."
+          />
+        </div>
+
+        {/* ÜCRET BİLGİLERİ */}
+        <div className="col-12">
+          <h5 className="mb-16 mt-16">Ücret Bilgileri</h5>
+        </div>
+
+        {/* Kayıt Ücreti */}
+        <div className="col-4">
+          <FormInput
+            name="registrationFee"
+            label="Kayıt Ücreti"
+            type="number"
+            placeholder="Kayıt ücretini giriniz..."
+          />
+        </div>
+
+        {/* Aylık Ücret */}
+        <div className="col-4">
+          <FormInput
+            name="monthlyFee"
+            label="Aylık Ücret"
+            type="number"
+            placeholder="Aylık ücreti giriniz..."
+          />
+        </div>
+
+        {/* Yıllık Ücret */}
+        <div className="col-4">
+          <FormInput
+            name="annualFee"
+            label="Yıllık Ücret"
+            type="number"
+            placeholder="Yıllık ücreti giriniz..."
+          />
+        </div>
+
+        {/* GÖRSEL BİLGİLER */}
+        <div className="col-12">
+          <h5 className="mb-16 mt-16">Görsel Bilgiler</h5>
+        </div>
+
+        {/* Logo */}
+        <div className="col-6">
+          <FileInput
+            label="Logo"
+            type="img"
+            variant="outline"
+            placeholder="Logo yüklemek için tıklayın veya sürükleyin"
+            maxSize={5}
+            uploadButtonText="Logo Yükle"
+            name="logoUrl"
+          />
+        </div>
+
+        {/* Kapak Resmi */}
+        <div className="col-6">
+          <FileInput
+            label="Kapak Resmi"
+            type="img"
+            variant="outline"
+            placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
+            maxSize={5}
+            uploadButtonText="Kapak Resmi Yükle"
+            name="coverImageUrl"
+          />
+        </div>
+
+        {/* Logo URL - Opsiyonel olarak bırakıldı */}
+        <div className="col-6">
+          <FormInput
+            name="logoUrl"
+            label="Logo URL (Manuel)"
+            placeholder="Logo URL'sini giriniz..."
+          />
+        </div>
+
+        {/* Kapak Resmi URL - Opsiyonel olarak bırakıldı */}
+        <div className="col-6">
+          <FormInput
+            name="coverImageUrl"
+            label="Kapak Resmi URL (Manuel)"
+            placeholder="Kapak resmi URL'sini giriniz..."
+          />
+        </div>
+
+        {/* SEO BİLGİLERİ */}
+        <div className="col-12">
+          <h5 className="mb-16 mt-16">SEO Bilgileri</h5>
+        </div>
+
+        {/* Meta Başlık */}
+        <div className="col-12">
+          <FormInput
+            name="metaTitle"
+            label="Meta Başlık"
+            placeholder="Meta başlığı giriniz..."
+          />
+        </div>
+
+        {/* Meta Açıklama */}
+        <div className="col-12">
+          <FormTextarea
+            name="metaDescription"
+            label="Meta Açıklama"
+            placeholder="Meta açıklamasını giriniz..."
+            rows={3}
+          />
+        </div>
+
+        {/* Meta Anahtar Kelimeler */}
+        <div className="col-12">
+          <FormInput
+            name="metaKeywords"
+            label="Meta Anahtar Kelimeler"
+            placeholder="Meta anahtar kelimeleri giriniz (virgülle ayırarak)..."
+          />
+        </div>
+
+        {/* FORM BUTONLARI */}
+        <div className="col-12 d-flex justify-content-end gap-3 mt-24">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleCancel}
+            disabled={schoolLoading}
+          >
+            İptal
+          </Button>
+          <Button type="submit" disabled={hasErrors || schoolLoading}>
+            {schoolLoading
+              ? "Kaydediliyor..."
+              : isEditing
+              ? "Güncelle"
+              : "Kaydet"}
+          </Button>
+        </div>
+      </div>
+    </Form>
+  );
+};

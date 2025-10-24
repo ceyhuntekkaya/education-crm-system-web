@@ -1,19 +1,9 @@
 "use client";
 
 import { useCallback } from "react";
+import { UseContextHandlersProps } from "../types/hook.types";
 
-interface UseContextHandlersProps {
-  files: File[];
-  processFiles: (fileList: FileList) => Promise<void>;
-  disabled: boolean;
-  handleDrop: (e: React.DragEvent) => FileList | null;
-  openFileDialog: () => void;
-  isLoading: boolean;
-  handleInternalUpload: (files: File[]) => Promise<void>;
-  handleInternalError: (error: string) => void;
-}
-
-// Context Event ve Upload Handlers - Tek yerde
+// Context Event Handlers
 export const useContextHandlers = ({
   files,
   processFiles,
@@ -21,8 +11,7 @@ export const useContextHandlers = ({
   handleDrop,
   openFileDialog,
   isLoading,
-  handleInternalUpload,
-  handleInternalError,
+  handleUpload,
 }: UseContextHandlersProps) => {
   // File selection handler
   const handleFileSelect = useCallback(
@@ -54,18 +43,6 @@ export const useContextHandlers = ({
       openFileDialog();
     }
   }, [disabled, isLoading, openFileDialog]);
-
-  // Upload button handler
-  const handleUpload = useCallback(async () => {
-    if (files.length === 0) return;
-
-    try {
-      await handleInternalUpload(files);
-    } catch (error) {
-      console.error("Upload error:", error);
-      handleInternalError("Dosya yüklenirken bir hata oluştu");
-    }
-  }, [files, handleInternalUpload, handleInternalError]);
 
   return {
     handleFileSelect,

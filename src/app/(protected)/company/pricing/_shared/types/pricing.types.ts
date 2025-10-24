@@ -16,7 +16,12 @@ export interface PricingColumnHandlers {
 /**
  * Badge variant types for pricing status display
  */
-export type BadgeVariant = "success" | "warning" | "danger" | "secondary" | "info";
+export type BadgeVariant =
+  | "success"
+  | "warning"
+  | "danger"
+  | "secondary"
+  | "info";
 
 /**
  * Pricing action buttons component props
@@ -46,7 +51,7 @@ export interface PricingContextType {
   schoolPricings: SchoolPricingDto[];
   pricingLoading: boolean;
   pricingError: string | null;
-  
+
   // Actions
   refetchPricings: () => void;
 }

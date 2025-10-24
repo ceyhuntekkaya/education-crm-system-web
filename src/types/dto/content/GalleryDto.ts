@@ -5,6 +5,7 @@ import {
 } from "../institution";
 import { UserSummaryDto } from "../user";
 import { GalleryItemDto } from "./GalleryItemDto";
+import { GalleryType, GalleryVisibility } from "@/enums";
 
 export interface GalleryDto {
   /** Format: int64 */
@@ -12,31 +13,8 @@ export interface GalleryDto {
   title?: string;
   description?: string;
   slug?: string;
-  /** @enum {string} */
-  galleryType?:
-    | "MIXED"
-    | "PHOTOS"
-    | "VIDEOS"
-    | "SCHOOL_TOUR"
-    | "EVENTS"
-    | "FACILITIES"
-    | "CLASSROOMS"
-    | "OUTDOOR_AREAS"
-    | "CAFETERIA"
-    | "LIBRARY"
-    | "LABORATORY"
-    | "SPORTS_FACILITIES"
-    | "TRANSPORTATION"
-    | "ACHIEVEMENTS"
-    | "GRADUATION"
-    | "CEREMONIES"
-    | "DAILY_ACTIVITIES"
-    | "STUDENT_WORK"
-    | "STAFF"
-    | "CAMPUS_LIFE"
-    | "BEFORE_AFTER";
-  /** @enum {string} */
-  visibility?: "PUBLIC" | "PRIVATE" | "REGISTERED_ONLY" | "PASSWORD_PROTECTED";
+  galleryType?: GalleryType;
+  visibility?: GalleryVisibility;
   coverImageUrl?: string;
   /** Format: int32 */
   sortOrder?: number;

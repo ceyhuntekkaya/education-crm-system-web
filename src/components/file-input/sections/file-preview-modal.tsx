@@ -4,7 +4,7 @@ import React from "react";
 import CustomImage from "@/components/ui/custom-image";
 import Icon from "@/components/ui/icon";
 import { Modal } from "@/components/ui/modal";
-import { FileWithPreview } from "../types";
+import { FileWithPreview } from "../types/file.types";
 import { formatFileSize, getFriendlyFileType } from "../utils";
 import { useFileInputContext } from "../contexts";
 
@@ -62,6 +62,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = () => {
           {selectedFile.type?.startsWith("image/") && selectedFile.preview ? (
             <div className="image-preview-container">
               <CustomImage
+                key={selectedFile.preview}
                 src={selectedFile.preview}
                 alt={selectedFile.name}
                 width={800}

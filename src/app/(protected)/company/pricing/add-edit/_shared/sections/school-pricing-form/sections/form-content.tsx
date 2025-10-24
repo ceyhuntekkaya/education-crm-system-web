@@ -22,7 +22,8 @@ import {
   academicYearOptions,
 } from "../options";
 import { usePricingAddEdit } from "../../../context";
-import { SchoolPricingCreateDto } from "@/types";
+import { filterDataForEdit } from "../../../utils";
+import { SchoolPricingCreateDto, SchoolPricingUpdateDto } from "@/types";
 
 /**
  * School pricing form content component
@@ -55,9 +56,13 @@ export const SchoolPricingFormContent: React.FC = () => {
     // Edit veya Add moduna göre doğru hook'u kullan
     try {
       if (isEditing) {
-        await putPricing(formData);
+        // Edit modunda sadece UpdateDto'daki alanları gönder
+        const filteredData = filterDataForEdit(
+          formData
+        ) as SchoolPricingUpdateDto;
+        await putPricing(filteredData);
       } else {
-        await postPricing(formData);
+        await postPricing(formData as SchoolPricingCreateDto);
       }
     } catch (error) {
       console.error("Form submit hatası:", error);
@@ -83,7 +88,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="academicYear"
             label="Akademik Yıl"
             options={academicYearOptions}
-            placeholder="Akademik yıl seçiniz..."
+            placeholder="Örn: 2024-2025, 2025-2026"
             required
           />
         </div>
@@ -690,7 +695,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         {/* BUTONLAR */}
         <div className="col-12">
           <hr className="my-24" />
-          <div className="d-flex gap-3 justify-content-end me-64">
+          <div className="d-flex gap-12 justify-content-end me-64">
             <Button
               type="button"
               variant="outline"

@@ -1,4 +1,5 @@
 import { PostDto } from "@/types/dto/content";
+import { PostType, PostStatus } from "@/enums";
 
 export const postMockData: PostDto[] = [
   {
@@ -16,8 +17,8 @@ export const postMockData: PostDto[] = [
       </ul>
       <p>Katılım için lütfen <a href="/registration">kayıt formunu</a> doldurunuz.</p>
     `,
-    postType: "ANNOUNCEMENT",
-    status: "PUBLISHED",
+    postType: PostType.ANNOUNCEMENT,
+    status: PostStatus.PUBLISHED,
     scheduledAt: "2024-03-15T10:00:00Z",
     publishedAt: "2024-03-15T10:30:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=1",
@@ -78,8 +79,8 @@ export const postMockData: PostDto[] = [
       </blockquote>
       <p>Ahmet'in başarı hikayesini videoda izleyebilirsiniz.</p>
     `,
-    postType: "ACHIEVEMENT",
-    status: "PUBLISHED",
+    postType: PostType.ACHIEVEMENT,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-14T14:15:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=2",
     videoUrl: "https://www.youtube.com/watch?v=example",
@@ -102,6 +103,8 @@ export const postMockData: PostDto[] = [
     shareCount: 32,
     engagementScore: 7.8,
     isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
     school: {
       id: 2,
       name: "İstanbul Teknik Üniversitesi",
@@ -130,8 +133,8 @@ export const postMockData: PostDto[] = [
       </ul>
       <p>Açılış töreni 20 Mart'ta gerçekleştirilecektir.</p>
     `,
-    postType: "NEWS",
-    status: "PUBLISHED",
+    postType: PostType.NEWS,
+    status: PostStatus.PUBLISHED,
     publishedAt: "2024-03-13T09:45:00Z",
     featuredImageUrl: "https://picsum.photos/800/600?random=3",
     allowComments: true,
@@ -149,6 +152,9 @@ export const postMockData: PostDto[] = [
     viewCount: 1890,
     shareCount: 12,
     engagementScore: 6.2,
+    isModerated: true,
+    isFlagged: false,
+    flagCount: 0,
     school: {
       id: 3,
       name: "Boğaziçi Üniversitesi",

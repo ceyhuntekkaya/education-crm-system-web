@@ -10,6 +10,7 @@ const GalleryPage: React.FC = () => {
       title="Galeri Yönetimi"
       subtitle="Okul galerilerini yönetin, düzenleyin ve yeni galeri oluşturun"
       mb="mb-24"
+      addButtonUrl="/company/gallery/add-edit/new"
     >
       <GalleryTable />
     </CustomCard>

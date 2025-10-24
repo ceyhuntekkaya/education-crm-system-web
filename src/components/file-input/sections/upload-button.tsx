@@ -14,10 +14,22 @@ export const UploadButton: React.FC<UploadButtonProps> = ({
   children,
 }) => {
   // Context'ten tüm gerekli verileri al
-  const { handleUpload, disabled, isLoading, files, handleUploadAreaClick } =
-    useFileInputContext();
+  const {
+    handleUpload,
+    disabled,
+    isLoading,
+    files,
+    hasNewFiles,
+    handleUploadAreaClick,
+  } = useFileInputContext();
 
   const hasFiles = files.length > 0;
+
+  // Sadece yeni dosya varsa butonu göster (placeholder değilse)
+  if (!hasNewFiles) {
+    return null;
+  }
+
   const handleClick = async () => {
     if (!disabled && !isLoading) {
       if (hasFiles) {

@@ -25,7 +25,9 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "search"
     | "date"
     | "color";
-  // Number format özel ayarları
+  // Hızlı format seçimi: "currency" | "percent" | "integer" | "decimal"
+  numberFormat?: "currency" | "percent" | "integer" | "decimal" | "normal";
+  // Number format özel ayarları (numberFormat prop'u varsa bu göz ardı edilir)
   numberFormatProps?: {
     thousandSeparator?: string;
     decimalSeparator?: string;
@@ -49,6 +51,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   iconLeft,
   iconRight,
   fullWidth = false,
+  numberFormat,
   numberFormatProps,
   ...rest
 }) => {
@@ -123,12 +126,56 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   // Akıllı varsayılan format belirleme
   const getSmartNumberFormat = () => {
-    // Eğer özel numberFormatProps verilmişse onu kullan
+    // 1. ÖNCELİK: Eğer numberFormat prop'u verilmişse, onu kullan
+    if (numberFormat) {
+      switch (numberFormat) {
+        case "currency":
+          return {
+            prefix: "₺ ",
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            fixedDecimalScale: true,
+            allowNegative: false,
+          };
+        case "percent":
+          return {
+            suffix: " %",
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            allowNegative: false,
+          };
+        case "integer":
+          return {
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 0,
+            allowNegative: false,
+          };
+        case "decimal":
+          return {
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            allowNegative: true,
+          };
+        case "normal":
+          return {
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            allowNegative: false,
+          };
+      }
+    }
+
+    // 2. ÖNCELİK: Eğer özel numberFormatProps verilmişse onu kullan
     if (numberFormatProps) {
       return numberFormatProps;
     }
 
-    // İsim bazlı akıllı format tanıması
+    // 3. ÖNCELİK: İsim bazlı akıllı format tanıması
     const nameLower = name.toLowerCase();
 
     // Yüzde formatları
@@ -205,31 +252,42 @@ export const FormInput: React.FC<FormInputProps> = ({
       ? "border-danger-600 text-danger-600 placeholder-danger-600"
       : "";
 
+    // Enhanced disabled styling
+    const disabledClasses = disabled
+      ? "bg-neutral-100 text-neutral-400 border-neutral-200 cursor-not-allowed opacity-75 placeholder-neutral-300 form-control"
+      : "";
+
     switch (variant) {
       case "inline":
-        return `${baseClasses} ${widthClass} common-input bg-main-25 ${
-          iconLeft ? "ps-48" : ""
-        } ${iconRight ? "pe-48" : ""} ${
-          error ? "border-danger-600" : "border-neutral-30"
-        } ${errorClasses}`;
+        return `${baseClasses} ${widthClass} common-input ${
+          disabled ? disabledClasses : "bg-main-25"
+        } ${iconLeft ? "ps-48" : ""} ${iconRight ? "pe-48" : ""} ${
+          error ? "border-danger-600" : disabled ? "" : "border-neutral-30"
+        } ${disabled ? "" : errorClasses}`;
       case "outline":
-        return `${baseClasses} ${widthClass} bg-white ${
-          error ? "text-danger-600" : "text-black"
+        return `${baseClasses} ${widthClass} ${
+          disabled ? disabledClasses : "bg-white"
+        } ${
+          error && !disabled ? "text-danger-600" : disabled ? "" : "text-black"
         } border ${
-          error
+          error && !disabled
             ? "border-danger-600"
+            : disabled
+            ? ""
             : "border-transparent focus-border-main-600"
         } ${leftPadding} ${rightPadding} ${
-          error ? "placeholder-danger-600" : ""
+          error && !disabled ? "placeholder-danger-600" : ""
         }`;
       default:
         return `${baseClasses} ${widthClass} common-input ${
           iconLeft ? "ps-48" : ""
         } ${iconRight ? "pe-48" : ""} ${
-          error
+          error && !disabled
             ? "border-danger-600 focus-border-danger-600"
+            : disabled
+            ? disabledClasses
             : "border-transparent focus-border-main-600"
-        } ${errorClasses}`;
+        } ${disabled ? "" : errorClasses}`;
     }
   };
 
@@ -244,7 +302,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         {label && (
           <label
             htmlFor={id || name}
-            className={"text-neutral-700 text-lg fw-medium mb-12"}
+            className="text-neutral-700 text-lg fw-medium mb-12"
           >
             {label}
           </label>
@@ -286,7 +344,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         {label && (
           <label
             htmlFor={id || name}
-            className={"text-neutral-700 text-lg fw-medium mb-12"}
+            className="text-neutral-700 text-lg fw-medium mb-12"
           >
             {label}
           </label>
@@ -343,7 +401,7 @@ export const FormInput: React.FC<FormInputProps> = ({
       {label && (
         <label
           htmlFor={id || name}
-          className={"text-neutral-700 text-lg fw-medium mb-12"}
+          className="text-neutral-700 text-lg fw-medium mb-12"
         >
           {label}
         </label>

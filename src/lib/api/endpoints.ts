@@ -20,7 +20,19 @@ export const API_ENDPOINTS = {
     SCHOOLS: "/institutions/schools",
     SCHOOLS_SEARCH: "/institutions/schools/search",
     SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
+    SCHOOL_CREATE: "/institutions/schools",
+    SCHOOL_BY_ID: (id: string | number) => `/institutions/schools/${id}`,
+    BRAND_SUMMARIES: "/institutions/brands/summaries",
+    BRAND_DETAIL: (id: string | number) => `/institutions/brands/${id}`,
+    BRAND_CREATE: "/institutions/brands",
+    BRAND_BY_ID: (id: string | number) => `/institutions/brands/${id}`,
+    BRAND_CAMPUSES: (brandId: string | number) =>
+      `/institutions/brands/${brandId}/campuses`,
+    CAMPUS_DETAIL: (id: string | number) => `/institutions/campuses/${id}`,
+    CAMPUS_CREATE: "/institutions/campuses",
+    CAMPUS_BY_ID: (id: string | number) => `/institutions/campuses/${id}`,
     INSTITUTION_TYPES: "/institutions/institution-types",
+    INSTITUTION_TYPE_SUMMARIES: "/institutions/institution-types/summaries",
   },
 
   PRICING: {
@@ -43,6 +55,9 @@ export const API_ENDPOINTS = {
     ACTIVE: "/campaigns/active",
     BY_SCHOOL: (schoolId: string | number) => `/campaigns/schools/${schoolId}`,
     BY_ID: (id: string | number) => `/campaigns/${id}`,
+    CREATE: "/campaigns",
+    UPDATE: (id: string | number) => `/campaigns/${id}`,
+    DELETE: (id: string | number) => `/campaigns/${id}`,
   },
 
   APPOINTMENTS: {
@@ -58,16 +73,34 @@ export const API_ENDPOINTS = {
   },
 
   CONTENT: {
+    // Posts
+    POSTS: "/content/posts",
     POSTS_BY_SCHOOL: (schoolId: string | number) =>
       `/content/posts/school/${schoolId}`,
+    POST_BY_ID: (id: string | number) => `/content/posts/${id}`,
+    POST_CREATE: "/content/posts",
+    POST_UPDATE: (id: string | number) => `/content/posts/${id}`,
+
+    // Messages
     MESSAGES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/messages/school/${schoolId}`,
+    MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
+
+    // Galleries
+    GALLERIES: "/content/galleries",
     GALLERIES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/galleries/school/${schoolId}`,
-    GALLERIES: "/content/galleries",
     GALLERY_BY_ID: (id: string | number) => `/content/galleries/${id}`,
-    POST_BY_ID: (id: string | number) => `/content/posts/${id}`,
-    MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
+    GALLERY_CREATE: "/content/galleries",
+    GALLERY_UPDATE: (id: string | number) => `/content/galleries/${id}`,
+
+    // Gallery Items
+    GALLERY_ITEMS: "/content/galleries/items",
+    GALLERY_ITEM_CREATE: "/content/galleries/items",
+    GALLERY_ITEM_BY_ID: (id: string | number) =>
+      `/content/galleries/items/${id}`,
+    GALLERY_ITEM_UPDATE: (id: string | number) =>
+      `/content/galleries/items/${id}`,
   },
 
   TEMP: {

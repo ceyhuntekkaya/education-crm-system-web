@@ -1,7 +1,10 @@
 "use client";
 
 import { ReactNode, useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Icon from "./icon";
+import { Button } from "@/components";
+import { useDelete } from "@/hooks";
 
 interface CustomCardProps {
   /** Card type (default: "card") */
@@ -14,6 +17,18 @@ interface CustomCardProps {
   subtitle?: string;
   /** Header action component (buttons, etc.) */
   headerAction?: ReactNode;
+  /** Add button URL - if provided, "Yeni Ekle" button will be shown */
+  addButtonUrl?: string;
+  /** Edit button URL - if provided, "Düzenle" button will be shown */
+  editButtonUrl?: string;
+  /** Delete API URL - if provided, "Sil" button will be shown and delete handled internally */
+  deleteUrl?: string;
+  /** Delete confirmation message - shown before delete (optional) */
+  deleteConfirmMessage?: string;
+  /** Back button - if true, shows back button with router.back(). If string (URL), navigates to that URL */
+  isBack?: boolean | string;
+  /** Forward button - if true, shows forward button with router.forward(). If string (URL), navigates to that URL */
+  isForward?: boolean | string;
   /** Card variant (default: "default") */
   variant?: "default" | "outline";
   /** Card background color class (default: bg-white) */
@@ -85,6 +100,12 @@ export default function CustomCard({
   title,
   subtitle,
   headerAction,
+  addButtonUrl,
+  editButtonUrl,
+  deleteUrl,
+  deleteConfirmMessage,
+  isBack,
+  isForward,
   variant = "default",
   bgColor = "bg-white",
   padding = "p-8",
@@ -110,6 +131,14 @@ export default function CustomCard({
   ps,
   pe,
 }: CustomCardProps) {
+  // Router for navigation
+  const router = useRouter();
+
+  // Delete hook - only initialize if deleteUrl is provided
+  const { mutate: deleteItem, loading: deleteLoading } = useDelete(
+    deleteUrl || ""
+  );
+
   // Accordion state
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState<number>(0);
@@ -157,8 +186,51 @@ export default function CustomCard({
   const cardBgColor = variant === "outline" ? headerBgColor : bgColor;
   const headerColor = variant === "outline" ? bgColor : headerBgColor;
 
-  const hasHeader = title || subtitle || headerAction;
+  const hasHeader =
+    title ||
+    subtitle ||
+    headerAction ||
+    addButtonUrl ||
+    editButtonUrl ||
+    deleteUrl ||
+    isBack ||
+    isForward;
   const hasContent = children || items || multiItems;
+
+  // Navigation handlers
+  const handleBackClick = () => {
+    if (typeof isBack === "string") {
+      router.push(isBack);
+    } else {
+      router.back();
+    }
+  };
+
+  const handleForwardClick = () => {
+    if (typeof isForward === "string") {
+      router.push(isForward);
+    } else {
+      router.forward();
+    }
+  };
+
+  // Delete handler
+  const handleDeleteClick = async () => {
+    if (!deleteUrl) return;
+
+    const confirmMessage =
+      deleteConfirmMessage || "Silmek istediğinize emin misiniz?";
+    const confirmDelete = window.confirm(confirmMessage);
+
+    if (confirmDelete) {
+      try {
+        await deleteItem(null);
+        router.back();
+      } catch (error) {
+        console.error("Silme işlemi sırasında hata oluştu:", error);
+      }
+    }
+  };
 
   // Calculate content height for smooth animation
   useEffect(() => {
@@ -196,8 +268,70 @@ export default function CustomCard({
               {title && <h2 className={getTitleClass(size)}>{title}</h2>}
               {subtitle && <p className={getSubtitleClass(size)}>{subtitle}</p>}
             </div>
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-12">
               {headerAction && <div>{headerAction}</div>}
+
+              {/* Navigation Buttons (Geri/İleri) */}
+              {isBack && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon="ph-arrow-left"
+                  onClick={handleBackClick}
+                >
+                  Geri Dön
+                </Button>
+              )}
+
+              {editButtonUrl && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon="ph-pencil-simple"
+                  href={editButtonUrl}
+                >
+                  Düzenle
+                </Button>
+              )}
+
+              {deleteUrl && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon="ph-trash"
+                  onClick={handleDeleteClick}
+                  loading={deleteLoading}
+                  disabled={deleteLoading}
+                  className="btn-danger-outline"
+                >
+                  Sil
+                </Button>
+              )}
+
+              {/* Action Buttons (Yeni Ekle/Düzenle) */}
+              {addButtonUrl && (
+                <Button
+                  variant="inline"
+                  size="sm"
+                  leftIcon="ph-plus"
+                  href={addButtonUrl}
+                >
+                  Yeni Ekle
+                </Button>
+              )}
+
+              {isForward && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  rightIcon="ph-arrow-right"
+                  onClick={handleForwardClick}
+                >
+                  İleri Git
+                </Button>
+              )}
+
+              {/* Accordion Toggle */}
               {type === "accordion" && (
                 <Icon
                   icon={isAccordionOpen ? "ph-caret-up" : "ph-caret-down"}

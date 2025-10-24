@@ -1,11 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import {
-  FileWithPreview,
-  FileInputProps,
-  FileValidationResult,
-} from "../types";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { FileWithPreview, FileValidationResult } from "../types/file.types";
 import { validateFiles, createPreviewUrl, cleanupPreviewUrls } from "../utils";
 
 /**
@@ -13,6 +9,7 @@ import { validateFiles, createPreviewUrl, cleanupPreviewUrls } from "../utils";
  */
 export const useFileManagement = (props: {
   value?: File[] | File | null;
+  initialValue?: string; // Form'dan gelen URL değeri
   onChange?: (files: File[] | File | null) => void;
   onError?: (error: string) => void;
   type: "img" | "video" | "file" | "all";
@@ -23,6 +20,7 @@ export const useFileManagement = (props: {
 }) => {
   const {
     value,
+    initialValue,
     onChange,
     onError,
     type,
@@ -46,16 +44,59 @@ export const useFileManagement = (props: {
 
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [loading, setLoading] = useState(false);
+  const initialValueProcessed = useRef(false);
+
+  // InitialValue'dan (URL) files state'ini güncelle - sadece bir kez
+  useEffect(() => {
+    if (
+      initialValue &&
+      typeof initialValue === "string" &&
+      !initialValueProcessed.current
+    ) {
+      initialValueProcessed.current = true;
+
+      // URL'den bir placeholder file oluştur
+      const fileName = initialValue.split("/").pop() || "image";
+      const fileExtension = fileName.split(".").pop()?.toLowerCase() || "";
+
+      // MIME type'ı belirle
+      let mimeType = "image/jpeg";
+      if (["png"].includes(fileExtension)) mimeType = "image/png";
+      else if (["gif"].includes(fileExtension)) mimeType = "image/gif";
+      else if (["webp"].includes(fileExtension)) mimeType = "image/webp";
+      else if (["svg"].includes(fileExtension)) mimeType = "image/svg+xml";
+      else if (["mp4", "webm", "ogg"].includes(fileExtension)) {
+        mimeType = `video/${fileExtension}`;
+      }
+
+      // Placeholder file oluştur
+      const placeholderFile: FileWithPreview = {
+        name: fileName,
+        size: 0, // Boyut bilinmiyor
+        type: mimeType,
+        preview: initialValue, // URL'yi preview olarak kullan
+        lastModified: Date.now(),
+        arrayBuffer: async () => new ArrayBuffer(0),
+        slice: () => new Blob(),
+        stream: () => new ReadableStream(),
+        text: async () => "",
+        webkitRelativePath: "",
+      } as FileWithPreview;
+
+      setFiles([placeholderFile]);
+    }
+  }, [initialValue]);
 
   // Value prop'undan files state'ini güncelle
   useEffect(() => {
     if (value) {
       const fileArray = Array.isArray(value) ? value : [value];
       setFiles(fileArray.map((file) => file as FileWithPreview));
-    } else {
+    } else if (!initialValue) {
+      // initialValue yoksa ve value da yoksa temizle
       setFiles([]);
     }
-  }, [value]);
+  }, [value, initialValue]);
 
   // Component unmount'ta preview URL'lerini temizle
   useEffect(() => {
@@ -90,6 +131,9 @@ export const useFileManagement = (props: {
           onError?.(validationResult.errors.join(", "));
           return;
         }
+
+        // Validation başarılı - önceki hataları temizle
+        onError?.("");
 
         // Preview URL'leri oluştur
         const newFiles: FileWithPreview[] = await Promise.all(
@@ -156,16 +200,23 @@ export const useFileManagement = (props: {
       const updatedFiles = files.filter((_, i) => i !== index);
       setFiles(updatedFiles);
 
+      // Dosya silindiğinde hataları temizle
+      onError?.("");
+
       const outputValue = multiple ? updatedFiles : updatedFiles[0] || null;
       onChange?.(outputValue);
     },
-    [files, multiple, onChange]
+    [files, multiple, onChange, onError]
   );
+
+  // Yeni dosya var mı kontrolü (placeholder olmayan)
+  const hasNewFiles = files.some((file) => file.size > 0);
 
   return {
     files,
     loading,
     processFiles,
     removeFile,
+    hasNewFiles,
   };
 };

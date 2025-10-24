@@ -76,3 +76,5 @@ export * from "./User";
 export * from "./UserInstitutionAccess";
 export * from "./UserRole";
 export * from "./UserType";
+export * from "./DiscountType";
+export * from "./ContentUsageContext";

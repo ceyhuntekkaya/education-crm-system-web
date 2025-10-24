@@ -1,4 +1,8 @@
-import { SchoolPricingDto, SchoolPricingCreateDto } from "@/types";
+import {
+  SchoolPricingDto,
+  SchoolPricingCreateDto,
+  SchoolPricingUpdateDto,
+} from "@/types";
 
 export interface PricingAddEditContextType {
   // Current pricing data
@@ -16,6 +20,6 @@ export interface PricingAddEditContextType {
     data: SchoolPricingCreateDto
   ) => Promise<SchoolPricingDto | null>;
   putPricing: (
-    data: SchoolPricingCreateDto
+    data: SchoolPricingUpdateDto
   ) => Promise<SchoolPricingDto | null>;
 }

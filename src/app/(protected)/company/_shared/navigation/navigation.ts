@@ -10,22 +10,22 @@ export const companyLayoutNavigation: MenuItem[] = [
   //
   {
     href: "/company/school-list",
-    label: "Okul Listesi **",
+    label: "Okul Listesi ***",
     icon: "ph-buildings",
   },
   {
     href: "/company/school-detail",
-    label: "Okul Bilgileri **",
+    label: "Okul Bilgileri ***",
     icon: "ph-graduation-cap",
   },
   {
     href: "/company/pricing",
-    label: "Fiyat Bilgileri **",
+    label: "Fiyat Bilgileri ***",
     icon: "ph-coins",
   },
   {
     href: "/company/campaigns",
-    label: "Kampanyalar **",
+    label: "Kampanyalar ***",
     icon: "ph-megaphone",
   },
   {
@@ -40,12 +40,12 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/gallery",
-    label: "Galeri **",
+    label: "Galeri ***",
     icon: "ph-image",
   },
   {
     href: "/company/social-media",
-    label: "Sosyal Medya **",
+    label: "Sosyal Medya ***",
     icon: "ph-share-network",
   },
   {
@@ -74,10 +74,17 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-crown",
   },
   {
-    href: "/company/brand",
-    label: "Marka Bilgileri",
+    href: "/company/brands",
+    label: "Markalar ***",
     icon: "ph-tag",
   },
+  // Kampüs detayı dinamik route olduğu için menüde görünmüyor
+  // Brand detay sayfasındaki kampüslerden erişilecek
+  // {
+  //   href: "/company/campus-detail",
+  //   label: "Kampüs Bilgileri ***",
+  //   icon: "ph-school",
+  // },
   // {
   //   href: "/profile",
   //   label: "My Profile",

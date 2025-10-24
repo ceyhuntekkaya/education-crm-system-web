@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { snackbarService } from "../snackbar-service";
 
 // API Client yapılandırması
 //  "https://jsonplaceholder.typicode.com"
@@ -92,6 +93,18 @@ class ApiClient {
           );
         }
 
+        // Success snackbar göster (GET istekleri hariç)
+        const method = response.config.method?.toUpperCase();
+        if (method && ["POST", "PUT", "DELETE", "PATCH"].includes(method)) {
+          const successMessages: { [key: string]: string } = {
+            POST: "İşlem başarıyla oluşturuldu",
+            PUT: "İşlem başarıyla güncellendi",
+            DELETE: "İşlem başarıyla silindi",
+            PATCH: "İşlem başarıyla güncellendi",
+          };
+          snackbarService.success(successMessages[method] || "İşlem başarılı");
+        }
+
         return response;
       },
       (error) => {
@@ -106,8 +119,20 @@ class ApiClient {
           message: error.message,
         });
 
+        // Backend'den gelen hata mesajını al
+        let errorMessage = "Bir hata oluştu. Lütfen tekrar deneyin.";
+
+        if (error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        } else if (error.response?.data?.error) {
+          errorMessage = error.response.data.error;
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+
         // 401 durumunda token'ı temizle ve login'e yönlendir
         if (error.response?.status === 401) {
+          errorMessage = "Oturum süreniz doldu. Lütfen tekrar giriş yapın.";
           if (typeof window !== "undefined") {
             localStorage.removeItem("accessToken");
             window.location.href = "/auth/login";
@@ -116,13 +141,16 @@ class ApiClient {
 
         // Özel hata mesajları
         if (error.message === "Network Error") {
-          error.message =
+          errorMessage =
             "Sunucuya bağlanılamıyor. Lütfen internet bağlantınızı kontrol edin.";
         }
 
         if (error.code === "ECONNABORTED") {
-          error.message = "İstek zaman aşımına uğradı. Lütfen tekrar deneyin.";
+          errorMessage = "İstek zaman aşımına uğradı. Lütfen tekrar deneyin.";
         }
+
+        // Error snackbar göster
+        snackbarService.error(errorMessage);
 
         return Promise.reject(error);
       }

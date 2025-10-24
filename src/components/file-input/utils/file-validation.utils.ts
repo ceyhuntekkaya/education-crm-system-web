@@ -2,7 +2,7 @@ import {
   FileInputType,
   FileValidationResult,
   FileValidationOptions,
-} from "../types";
+} from "../types/file.types";
 
 /**
  * Dosya türüne göre accept attribute'ünü döner

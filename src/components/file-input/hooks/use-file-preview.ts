@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { FileWithPreview } from "../types";
+import { FileWithPreview } from "../types/file.types";
 
 /**
  * Dosya preview işlemlerini yöneten hook

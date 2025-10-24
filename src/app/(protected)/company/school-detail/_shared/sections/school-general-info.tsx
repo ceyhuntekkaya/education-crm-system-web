@@ -259,7 +259,12 @@ export default function SchoolGeneralInfo() {
     <div className="d-flex flex-column gap-24">
       {/* Okul Açıklaması */}
       {school.description && (
-        <CustomCard title="Okul Hakkında">
+        <CustomCard
+          title="Okul Hakkında"
+          editButtonUrl={
+            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          }
+        >
           <p className="text-neutral-700 text-md leading-relaxed mb-0">
             {school.description}
           </p>
@@ -267,9 +272,20 @@ export default function SchoolGeneralInfo() {
       )}
 
       {visibleItems.length > 0 ? (
-        <CustomCard title="Okul Bilgileri" items={institutionInfoItems} />
+        <CustomCard
+          title="Okul Bilgileri"
+          items={institutionInfoItems}
+          editButtonUrl={
+            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          }
+        />
       ) : (
-        <CustomCard title="Okul Bilgileri">
+        <CustomCard
+          title="Okul Bilgileri"
+          editButtonUrl={
+            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          }
+        >
           <p className="text-neutral-500">Okul bilgileri henüz mevcut değil.</p>
         </CustomCard>
       )}

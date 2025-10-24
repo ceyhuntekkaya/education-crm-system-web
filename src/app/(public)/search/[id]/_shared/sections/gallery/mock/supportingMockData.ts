@@ -5,6 +5,8 @@ import { UserSummaryDto } from "../../../../../../../../types/dto/user/UserSumma
 import { GalleryItemDto } from "../../../../../../../../types/dto/content/GalleryItemDto";
 import { ProvinceSummaryDto } from "../../../../../../../../types/dto/location/ProvinceSummaryDto";
 import { DistrictSummaryDto } from "../../../../../../../../types/dto/location/DistrictSummaryDto";
+import { MediaType } from "@/enums/MediaType";
+import { ProcessingStatus } from "@/enums/ProcessingStatus";
 
 // Province Mock Data
 export const provinceSummaryMockData: ProvinceSummaryDto[] = [
@@ -1134,11 +1136,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Festival Açılış Konuşması",
     description: "Müdür Bey'in festival açılış konuşması",
     altText: "Müdür festivalin açılışını yapıyor",
-    itemType: "IMAGE",
-    fileUrl:
-      "https://picsum.photos/1200/800?random=301",
-    thumbnailUrl:
-      "https://picsum.photos/1200/800?random=301",
+    itemType: MediaType.IMAGE,
+    fileUrl: "https://picsum.photos/1200/800?random=301",
+    thumbnailUrl: "https://picsum.photos/1200/800?random=301",
     fileName: "festival-opening-speech.jpg",
     originalFileName: "festival_acilis_konusmasi_2024.jpg",
     fileSizeBytes: 2456789,
@@ -1160,7 +1160,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 450,
     downloadCount: 23,
     likeCount: 78,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T11:00:00Z",
     isModerated: true,
     moderationScore: 0.95,
@@ -1176,7 +1176,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Öğrenci Performansları",
     description: "Festival sırasında öğrencilerin sahne performansları",
     altText: "Öğrenciler sahnede dans gösterisi yapıyor",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1207,7 +1207,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 789,
     downloadCount: 45,
     likeCount: 156,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T15:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -1223,7 +1223,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Kampüs Bahçesi",
     description: "Kampüsün yeşil alanları ve peyzaj düzenlemesi",
     altText: "Kampüs bahçesinde öğrenciler oturuyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1249,7 +1249,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 320,
     downloadCount: 18,
     likeCount: 94,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-20T12:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1266,7 +1266,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Müzik Performansı",
     description: "Öğrencilerin müzik performansı",
     altText: "Öğrenciler sahne performansı yapıyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1285,7 +1285,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 320,
     downloadCount: 15,
     likeCount: 45,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T16:00:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -1301,7 +1301,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Sanat Sergisi",
     description: "Öğrencilerin sanat eserleri sergisi",
     altText: "Renkli sanat eserleri sergileniyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1320,7 +1320,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 420,
     downloadCount: 28,
     likeCount: 67,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T17:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -1336,7 +1336,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Sınıf İçi Etkinlik",
     description: "Sınıfta grup çalışması yapan öğrenciler",
     altText: "Öğrenciler masa etrafında çalışıyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1355,7 +1355,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 280,
     downloadCount: 12,
     likeCount: 38,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-20T14:00:00Z",
     isModerated: true,
     moderationScore: 0.96,
@@ -1371,7 +1371,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Kütüphane Çalışması",
     description: "Öğrenciler kütüphanede ders çalışıyor",
     altText: "Kütüphanede kitap okuyan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1390,7 +1390,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 350,
     downloadCount: 20,
     likeCount: 52,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-20T15:00:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1405,7 +1405,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Laboratuvar Deneyi - Kimya",
     description: "Öğrencilerin kimya laboratuvarında yaptığı deneyler",
     altText: "Kimya laboratuvarında deney yapan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1431,7 +1431,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 567,
     downloadCount: 34,
     likeCount: 89,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-10T15:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -1447,7 +1447,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Basketbol Maçı Finali",
     description: "Okul basketbol takımının final maçından kareler",
     altText: "Basketbol sahnesinde maç yapan öğrenciler",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1478,7 +1478,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1234,
     downloadCount: 67,
     likeCount: 189,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-01T20:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1494,7 +1494,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Sessiz Çalışma Alanı",
     description: "Kütüphanenin sessiz çalışma bölümü",
     altText: "Kütüphanede sessizce ders çalışan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1520,7 +1520,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 456,
     downloadCount: 23,
     likeCount: 67,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-05T13:45:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -1536,11 +1536,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Mezuniyet Kep Atma Töreni",
     description: "Mezunların geleneksel kep atma anı",
     altText: "Havaya kep atan mezun öğrenciler",
-    itemType: "IMAGE",
-    fileUrl:
-      "https://picsum.photos/1200/800?random=301",
-    thumbnailUrl:
-      "https://picsum.photos/1200/800?random=301",
+    itemType: MediaType.IMAGE,
+    fileUrl: "https://picsum.photos/1200/800?random=301",
+    thumbnailUrl: "https://picsum.photos/1200/800?random=301",
     fileName: "graduation-cap-throwing.jpg",
     originalFileName: "mezuniyet_kep_atma_2024.jpg",
     fileSizeBytes: 4123456,
@@ -1562,7 +1560,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1567,
     downloadCount: 89,
     likeCount: 234,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-06-15T18:00:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1578,7 +1576,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Modern Sınıf Teknolojisi",
     description: "Akıllı tahta ve dijital araçlarla donatılmış sınıf",
     altText: "Modern teknoloji ile donatılmış sınıf ortamı",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1604,7 +1602,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 789,
     downloadCount: 45,
     likeCount: 123,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-25T10:30:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -1620,7 +1618,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Lezzetli Öğle Yemeği",
     description: "Kafeteryada servis edilen sağlıklı öğle yemeği menüsü",
     altText: "Renkli ve sağlıklı yemek tabakları",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1646,7 +1644,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 432,
     downloadCount: 21,
     likeCount: 76,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-10T13:00:00Z",
     isModerated: true,
     moderationScore: 0.96,
@@ -1663,7 +1661,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Öğrencilerin festival için hazırladığı tiyatro gösterisinin provaları",
     altText: "Sahnede tiyatro provaları yapan öğrenciler",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1694,7 +1692,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 678,
     downloadCount: 32,
     likeCount: 124,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-12T16:45:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -1710,7 +1708,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Sosyal Alanlar",
     description: "Öğrencilerin dinlenme ve sosyalleşme alanları",
     altText: "Kampüs sosyal alanlarında sohbet eden öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1736,7 +1734,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 345,
     downloadCount: 19,
     likeCount: 58,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-18T14:50:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -1753,7 +1751,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Festival Giriş Kapısı Süsleme",
     description: "Festival için hazırlanan renkli giriş kapısı süslemeleri",
     altText: "Renkli balonlar ve afişlerle süslenmiş festival giriş kapısı",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1779,7 +1777,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 678,
     downloadCount: 34,
     likeCount: 89,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T09:00:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1795,7 +1793,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Öğrenci Resim Sergisi",
     description: "Festival kapsamında sergilenen öğrenci resim çalışmaları",
     altText: "Duvara asılı renkli öğrenci resim çalışmaları",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1821,7 +1819,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 892,
     downloadCount: 56,
     likeCount: 134,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T11:45:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -1837,7 +1835,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Çocuk Korosu Performansı",
     description: "1-4. sınıf öğrencilerinin müzik performansı",
     altText: "Sahne kostümleri ile şarkı söyleyen çocuklar",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1868,7 +1866,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1234,
     downloadCount: 78,
     likeCount: 167,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T14:15:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1884,7 +1882,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Halk Oyunları Gösterisi",
     description: "Geleneksel Türk halk oyunları performansı",
     altText: "Renkli kostümlerle halk oyunu sergileyen öğrenciler",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1915,7 +1913,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1567,
     downloadCount: 89,
     likeCount: 234,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T16:00:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -1931,7 +1929,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Bilim Fuarı Standları",
     description: "Öğrencilerin hazırladığı bilim deneyleri standları",
     altText: "Renkli posterler ve deneylerle dolu bilim standları",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1957,7 +1955,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 745,
     downloadCount: 45,
     likeCount: 98,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T12:30:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -1973,7 +1971,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Yemek Standları",
     description: "Festival için kurulan çeşitli yemek standları",
     altText: "Renkli yemek standları ve lezzetli yiyecekler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -1999,7 +1997,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 567,
     downloadCount: 28,
     likeCount: 67,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T13:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2015,7 +2013,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Ailelerin Festival Keyfi",
     description: "Ailelerin festival etkinliklerindeki mutlu anları",
     altText: "Ailelerin çocuklarıyla festival alanında gezintisi",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2041,7 +2039,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 923,
     downloadCount: 67,
     likeCount: 145,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T15:15:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2057,11 +2055,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Festival Kapanış Töreni",
     description: "Günün sonunda düzenlenen kapanış töreninden kareler",
     altText: "Sahne önünde toplanmış öğrenci ve öğretmenler",
-    itemType: "VIDEO",
-    fileUrl:
-      "https://picsum.photos/1200/800?random=301",
-    thumbnailUrl:
-      "https://picsum.photos/1200/800?random=301",
+    itemType: MediaType.VIDEO,
+    fileUrl: "https://picsum.photos/1200/800?random=301",
+    thumbnailUrl: "https://picsum.photos/1200/800?random=301",
     fileName: "festival-closing-ceremony.mp4",
     originalFileName: "kapanış_toreni_2024.mp4",
     fileSizeBytes: 298765432,
@@ -2088,7 +2084,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1678,
     downloadCount: 98,
     likeCount: 267,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-15T17:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2106,7 +2102,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Öğrencilerin fizik laboratuvarında yaptığı mekanik ve optik deneyleri",
     altText: "Fizik laboratuvarında deney yapan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2132,7 +2128,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 423,
     downloadCount: 21,
     likeCount: 67,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-15T11:00:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -2148,7 +2144,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Biyoloji Laboratuvarı Mikroskop Çalışması",
     description: "Biyoloji dersinde mikroskop ile hücre inceleme çalışmaları",
     altText: "Mikroskop başında çalışan biyoloji öğrencileri",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2174,7 +2170,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 356,
     downloadCount: 18,
     likeCount: 54,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-18T14:45:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2191,7 +2187,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Kimya laboratuvarında güvenlik kuralları ve koruyucu ekipman eğitimi",
     altText: "Güvenlik gözlüğü takan kimya öğrencileri",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2222,7 +2218,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 678,
     downloadCount: 34,
     likeCount: 89,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-12T11:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2239,7 +2235,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Futbol Sahası Antrenmanı",
     description: "Üniversite futbol takımının sabah antrenmanından kareler",
     altText: "Futbol sahasında antrenman yapan sporcular",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2265,7 +2261,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 892,
     downloadCount: 45,
     likeCount: 123,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-05T08:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2281,7 +2277,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Fitness Merkezi",
     description: "Modern ekipmanlarla donatılmış fitness merkezi",
     altText: "Fitness aletleri ile egzersiz yapan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2307,7 +2303,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 567,
     downloadCount: 28,
     likeCount: 78,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-03T16:30:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -2323,7 +2319,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Yüzme Havuzu Antrenmanı",
     description: "Olimpik standartlarda yüzme havuzunda antrenman",
     altText: "Yüzme havuzunda antrenman yapan sporcular",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2354,7 +2350,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1234,
     downloadCount: 67,
     likeCount: 189,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-03-07T09:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2371,7 +2367,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Grup Çalışma Odaları",
     description: "Kütüphanedeki özel grup çalışma odalarında proje çalışmaları",
     altText: "Cam duvarlı grup çalışma odasında çalışan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2397,7 +2393,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 567,
     downloadCount: 29,
     likeCount: 78,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-08T14:15:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2413,7 +2409,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Kitap Koleksiyonu",
     description: "Kütüphanenin geniş kitap koleksiyonu ve düzenli rafları",
     altText: "Yüksek raflarda düzenlenmiş binlerce kitap",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2439,7 +2435,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 789,
     downloadCount: 45,
     likeCount: 134,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-06T11:50:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2456,7 +2452,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Modern bilgisayarlar ve dijital kaynaklarla donatılmış okuma salonu",
     altText: "Bilgisayar başında araştırma yapan öğrenciler",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2482,7 +2478,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 423,
     downloadCount: 31,
     likeCount: 89,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-07T16:00:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -2499,7 +2495,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Diploma Takdim Töreni",
     description: "Rektörün mezunlara diploma takdim ettiği resmi tören",
     altText: "Rektör mezun öğrenciye diploma veriyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2525,7 +2521,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1890,
     downloadCount: 123,
     likeCount: 345,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-06-15T16:45:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2541,7 +2537,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Aile Mutluluğu",
     description: "Mezuniyet töreninde ailelerin gurur dolu mutlu anları",
     altText: "Mezun öğrenci ailesiyle sarılıyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2567,7 +2563,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 2345,
     downloadCount: 156,
     likeCount: 567,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-06-15T18:15:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2583,11 +2579,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Mezuniyet Konuşması",
     description: "Valediktoryanın ilham verici mezuniyet konuşması",
     altText: "Podiumda konuşma yapan mezun öğrenci",
-    itemType: "VIDEO",
-    fileUrl:
-      "https://picsum.photos/1200/800?random=301",
-    thumbnailUrl:
-      "https://picsum.photos/1200/800?random=301",
+    itemType: MediaType.VIDEO,
+    fileUrl: "https://picsum.photos/1200/800?random=301",
+    thumbnailUrl: "https://picsum.photos/1200/800?random=301",
     fileName: "graduation-speech.mp4",
     originalFileName: "mezuniyet_konusmasi_2024.mp4",
     fileSizeBytes: 298765432,
@@ -2614,7 +2608,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 3456,
     downloadCount: 234,
     likeCount: 789,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-06-15T17:15:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2631,7 +2625,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Matematik Dersi",
     description: "Akıllı tahta kullanılarak işlenen matematik dersi",
     altText: "Öğretmen akıllı tahtada matematik problemi çözüyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2657,7 +2651,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 567,
     downloadCount: 28,
     likeCount: 89,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-28T10:45:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2673,11 +2667,9 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Konferans Salonu",
     description: "Büyük derslerin yapıldığı modern konferans salonu",
     altText: "Amfi tarzı düzenlenmiş konferans salonunda ders",
-    itemType: "IMAGE",
-    fileUrl:
-      "https://picsum.photos/1200/800?random=301",
-    thumbnailUrl:
-      "https://picsum.photos/1200/800?random=301",
+    itemType: MediaType.IMAGE,
+    fileUrl: "https://picsum.photos/1200/800?random=301",
+    thumbnailUrl: "https://picsum.photos/1200/800?random=301",
     fileName: "conference-hall.jpg",
     originalFileName: "konferans_salonu_2024.jpg",
     fileSizeBytes: 4567890,
@@ -2699,7 +2691,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 890,
     downloadCount: 45,
     likeCount: 156,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-30T14:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2715,7 +2707,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Bilgisayar Laboratuvarı",
     description: "Modern bilgisayarlarla donatılmış bilgisayar laboratuvarı",
     altText: "Öğrenciler bilgisayar laboratuvarında kodlama yapıyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2741,7 +2733,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1234,
     downloadCount: 67,
     likeCount: 234,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-01-26T14:00:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -2758,7 +2750,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Yemek Servis Alanı",
     description: "Self servis yemek hattı ve çeşitli menü seçenekleri",
     altText: "Renkli yemeklerin servis edildiği self servis hatları",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2784,7 +2776,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 678,
     downloadCount: 34,
     likeCount: 112,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-12T12:30:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2800,7 +2792,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Oturma Alanları",
     description: "Rahat ve konforlu yemek yeme alanları",
     altText: "Modern masalar ve sandalyelerle döşenmiş oturma alanı",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2826,7 +2818,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 456,
     downloadCount: 23,
     likeCount: 78,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-11T14:15:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -2842,7 +2834,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Mutfak Ekibi Çalışması",
     description: "Profesyonel mutfak ekibinin yemek hazırlama süreci",
     altText: "Mutfak ekibi yemek hazırlarken çalışıyor",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2873,7 +2865,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 789,
     downloadCount: 45,
     likeCount: 134,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-02-09T12:00:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2891,7 +2883,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Öğrencilerin geliştirdiği robotik projeler ve otomasyon sistemleri",
     altText: "Öğrenciler robotik projelerini sergiliyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2917,7 +2909,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1234,
     downloadCount: 67,
     likeCount: 189,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-04-15T15:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -2933,7 +2925,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Çevre Dostu Teknoloji Projeleri",
     description: "Sürdürülebilir teknoloji ve çevre koruma projeleriveriti",
     altText: "Güneş paneli ve rüzgar türbini projeleri",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -2959,7 +2951,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 890,
     downloadCount: 45,
     likeCount: 123,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-04-18T11:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -2975,7 +2967,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Dijital Sanat Eserleri",
     description: "Öğrencilerin dijital ortamda oluşturduğu sanat çalışmaları",
     altText: "Renkli dijital sanat eserleri ve grafik tasarımlar",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -3001,7 +2993,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 567,
     downloadCount: 34,
     likeCount: 89,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-04-20T16:45:00Z",
     isModerated: true,
     moderationScore: 0.97,
@@ -3019,7 +3011,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Öğrencilerin öğretmenler için hazırladığı dans ve müzik gösterileri",
     altText: "Öğrenciler öğretmenler için sahne performansı yapıyor",
-    itemType: "VIDEO",
+    itemType: MediaType.VIDEO,
     fileUrl:
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -3050,7 +3042,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 1567,
     downloadCount: 89,
     likeCount: 234,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-11-24T14:30:00Z",
     isModerated: true,
     moderationScore: 0.99,
@@ -3066,7 +3058,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     title: "Teşekkür Kartları ve Hediyeler",
     description: "Öğrencilerin el yapımı teşekkür kartları ve hediye sunumları",
     altText: "Renkli teşekkür kartları ve çiçek buketleri",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -3092,7 +3084,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 892,
     downloadCount: 56,
     likeCount: 167,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-11-24T16:00:00Z",
     isModerated: true,
     moderationScore: 0.98,
@@ -3109,7 +3101,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     description:
       "Öğretmenlerin öğrencilerle bir araya gelerek mutlu anlar yaşadığı etkinlik",
     altText: "Öğretmenler ve öğrenciler birlikte gülümsüyor",
-    itemType: "IMAGE",
+    itemType: MediaType.IMAGE,
     fileUrl:
       "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&h=800&fit=crop",
     thumbnailUrl:
@@ -3135,7 +3127,7 @@ export const galleryItemMockData: GalleryItemDto[] = [
     viewCount: 678,
     downloadCount: 45,
     likeCount: 123,
-    processingStatus: "COMPLETED",
+    processingStatus: ProcessingStatus.COMPLETED,
     processedAt: "2024-11-24T16:45:00Z",
     isModerated: true,
     moderationScore: 0.99,

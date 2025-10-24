@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { SchoolAddEditProvider } from "./_shared";
 
 interface SchoolAddEditRootLayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,11 @@ interface SchoolAddEditRootLayoutProps {
 const SchoolAddEditRootLayout: React.FC<SchoolAddEditRootLayoutProps> = ({
   children,
 }) => {
-  return <div>{children}</div>;
+  return (
+    <SchoolAddEditProvider>
+      <div>{children}</div>
+    </SchoolAddEditProvider>
+  );
 };
 
 export default SchoolAddEditRootLayout;

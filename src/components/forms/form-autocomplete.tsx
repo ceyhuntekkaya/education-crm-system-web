@@ -237,20 +237,50 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     const baseClasses = "rounded-pill outline-0 w-100 h-48";
     const leftPadding = iconLeft ? "ps-60" : "px-16";
     const rightPadding = iconRight ? "pe-60" : "";
+
+    // Enhanced disabled styling
     const disabledClasses =
-      disabled || isLoading ? "opacity-75 cursor-not-allowed" : "";
+      disabled || isLoading
+        ? "bg-neutral-100 text-neutral-400 border-neutral-200 cursor-not-allowed opacity-75 placeholder-neutral-300 form-control form-autocomplete-disabled"
+        : "";
+
+    // Error border styling
+    const errorBorderClass = error ? "border-danger-600 border" : "";
+    const errorTextClass = error
+      ? "text-danger-600 placeholder-danger-600"
+      : "";
 
     switch (variant) {
       case "inline":
-        return `${baseClasses} common-input bg-main-25 ${
-          iconLeft ? "ps-48" : ""
-        } ${iconRight ? "pe-48" : ""} border-neutral-30 ${disabledClasses}`;
+        return `${baseClasses} common-input border ${
+          disabled || isLoading ? disabledClasses : "bg-main-25"
+        } ${iconLeft ? "ps-48" : ""} ${iconRight ? "pe-48" : ""} ${
+          disabled || isLoading
+            ? ""
+            : error
+            ? `${errorBorderClass} ${errorTextClass}`
+            : "border-neutral-30"
+        }`;
       case "outline":
-        return `${baseClasses} bg-white text-black border border-transparent focus-border-main-600 ${leftPadding} ${rightPadding} ${disabledClasses}`;
+        return `${baseClasses} ${
+          disabled || isLoading ? disabledClasses : "bg-white text-black"
+        } border ${
+          disabled || isLoading
+            ? ""
+            : error
+            ? `${errorBorderClass} ${errorTextClass}`
+            : "border-transparent focus-border-main-600"
+        } ${leftPadding} ${rightPadding}`;
       default:
-        return `${baseClasses} common-input ${iconLeft ? "ps-48" : ""} ${
+        return `${baseClasses} common-input border ${iconLeft ? "ps-48" : ""} ${
           iconRight ? "pe-48" : ""
-        } border-transparent focus-border-main-600 ${disabledClasses}`;
+        } ${
+          disabled || isLoading
+            ? disabledClasses
+            : error
+            ? `${errorBorderClass} ${errorTextClass}`
+            : "border-transparent focus-border-main-600"
+        }`;
     }
   };
 
@@ -367,12 +397,10 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
           <span
             className={`position-absolute top-50 translate-middle-y inset-inline-end-0 ${
               iconRight ? "me-56" : "me-16"
-            } text-neutral-400 transition-transform ${
-              isOpen ? "rotate-180" : ""
-            } ${
+            } transition-transform ${isOpen ? "rotate-180" : ""} ${
               disabled || isLoading
-                ? "opacity-50 cursor-not-allowed"
-                : "cursor-pointer"
+                ? "text-neutral-300 opacity-50 cursor-not-allowed"
+                : "text-neutral-400 cursor-pointer hover:text-neutral-600"
             }`}
             onClick={() => {
               if (disabled || isLoading) return;

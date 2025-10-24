@@ -14,7 +14,6 @@ import { SchoolPricingFormProps } from "./types/props";
  */
 export const SchoolPricingForm: React.FC<SchoolPricingFormProps> = ({
   className,
-  isEditing = false,
   initialData,
 }) => {
   // Düzenleme modunda mevcut data varsa onu kullan, yoksa default değerleri kullan

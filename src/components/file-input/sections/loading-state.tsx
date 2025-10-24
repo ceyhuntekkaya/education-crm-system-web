@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { LoadingStateProps } from "../types";
+import { LoadingStateProps } from "../types/component.types";
 
 export const LoadingState: React.FC<LoadingStateProps> = ({
   message = "Dosyalar yükleniyor...",

@@ -1,94 +1,86 @@
 import { SchoolSummaryDto } from "../institution";
 import { UserSummaryDto } from "../user";
+import { PostType, PostStatus } from "@/enums";
 
 export interface PostDto {
-  /** Format: int64 */
-  id?: number;
-  title?: string;
-  content?: string;
-  /** @enum {string} */
-  postType?:
-    | "TEXT"
-    | "IMAGE"
-    | "VIDEO"
-    | "GALLERY"
-    | "LINK"
-    | "EVENT"
-    | "ANNOUNCEMENT"
-    | "NEWS"
-    | "ACHIEVEMENT"
-    | "CELEBRATION"
-    | "POLL"
-    | "QUOTE"
-    | "TESTIMONIAL"
-    | "BEHIND_SCENES"
-    | "LIVE_STREAM";
-  /** @enum {string} */
-  status?:
-    | "DRAFT"
-    | "SCHEDULED"
-    | "PUBLISHED"
-    | "ARCHIVED"
-    | "DELETED"
-    | "MODERATION"
-    | "REJECTED"
-    | "EXPIRED";
-  /** Format: date-time */
-  scheduledAt?: string;
-  /** Format: date-time */
-  publishedAt?: string;
-  /** Format: date-time */
-  expiresAt?: string;
+  id: number;
+  title: string;
+  content: string;
+  postType: PostType;
+  status: PostStatus;
+  scheduledAt?: string; // ISO datetime string
+  publishedAt?: string; // ISO datetime string
+  expiresAt?: string; // ISO datetime string
+
+  // Media content
   featuredImageUrl?: string;
   videoUrl?: string;
   videoThumbnailUrl?: string;
-  /** Format: int32 */
   videoDurationSeconds?: number;
-  mediaAttachments?: string;
-  allowComments?: boolean;
-  allowLikes?: boolean;
-  isFeatured?: boolean;
-  isPinned?: boolean;
-  /** Format: date-time */
-  pinExpiresAt?: string;
-  slug?: string;
+  mediaAttachments?: string; // JSON string
+
+  // Settings
+  allowComments: boolean;
+  allowLikes: boolean;
+  isFeatured: boolean;
+  isPinned: boolean;
+  pinExpiresAt?: string; // ISO datetime string
+
+  // SEO
+  slug: string;
   metaTitle?: string;
   metaDescription?: string;
   tags?: string;
   hashtags?: string;
-  /** Format: int64 */
+
+  // Engagement metrics
   likeCount?: number;
-  /** Format: int64 */
   commentCount?: number;
-  /** Format: int64 */
   viewCount?: number;
-  /** Format: int64 */
   shareCount?: number;
-  /** Format: double */
   engagementScore?: number;
-  isModerated?: boolean;
-  isFlagged?: boolean;
-  /** Format: int32 */
+
+  // Content moderation
+  isModerated: boolean;
+  isFlagged: boolean;
   flagCount?: number;
-  /** Format: int64 */
+
+  // Analytics
   reachCount?: number;
-  /** Format: int64 */
   impressionCount?: number;
-  /** Format: int64 */
   clickCount?: number;
-  /** Format: int32 */
   averageReadTimeSeconds?: number;
+
+  // External links
   externalUrl?: string;
   callToAction?: string;
   ctaUrl?: string;
+
+  // Location
   locationName?: string;
-  /** Format: double */
   latitude?: number;
-  /** Format: double */
   longitude?: number;
+
+  // Relationships
   school?: SchoolSummaryDto;
   author?: UserSummaryDto;
-  isActive?: boolean;
-  /** Format: date-time */
-  createdAt?: string;
+  isActive: boolean;
+  createdAt: string; // ISO datetime string
+}
+
+export interface PostSummaryDto {
+  id: number;
+  title: string;
+  slug: string;
+  postType: PostType;
+  status: PostStatus;
+  featuredImageUrl?: string;
+  publishedAt?: string; // ISO datetime string
+  likeCount?: number;
+  commentCount?: number;
+  viewCount?: number;
+  isFeatured: boolean;
+  isPinned: boolean;
+  schoolName?: string;
+  authorName?: string;
 }

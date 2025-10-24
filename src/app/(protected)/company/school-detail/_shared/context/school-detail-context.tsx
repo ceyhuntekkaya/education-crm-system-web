@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { useCompany } from "@/app/(protected)/company/_shared";
 import { SchoolDto } from "@/types";
-import { useSchoolDetail as useSchoolDetailHook } from "../../hooks/use-school-detail";
+import { useSchoolDetail as useSchoolDetailHook } from "../hooks/use-school-detail";
 
 // Local type definition to avoid circular dependency
 export interface SchoolDetailContextType {

@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
+import { CampaignAddEditProvider } from "./_shared";
 
-interface CampaignAddEditRootLayoutProps {
+interface CampaignAddEditLayoutProps {
   children: React.ReactNode;
 }
 
-const CampaignAddEditRootLayout: React.FC<CampaignAddEditRootLayoutProps> = ({
+const CampaignAddEditLayout: React.FC<CampaignAddEditLayoutProps> = ({
   children,
 }) => {
-  return <div>{children}</div>;
+  return <CampaignAddEditProvider>{children}</CampaignAddEditProvider>;
 };
 
-export default CampaignAddEditRootLayout;
+export default CampaignAddEditLayout;

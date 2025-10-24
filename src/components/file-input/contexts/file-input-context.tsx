@@ -1,8 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import React, { createContext, useContext } from "react";
+import { useForm } from "@/contexts/form-context";
 import { getAcceptAttribute } from "../utils";
-import { FileWithPreview } from "../types";
+import {
+  FileInputContextProps,
+  FileInputContextValue,
+} from "../types/context.types";
 import {
   useFileManagement,
   useDragAndDrop,
@@ -10,71 +14,8 @@ import {
   useFileInputRef,
   useContextState,
   useContextHandlers,
+  useFileUpload,
 } from "../hooks";
-
-// FileInput Context Props
-interface FileInputContextProps {
-  // Konfigürasyon
-  type?: "img" | "video" | "file" | "all";
-  multiple?: boolean;
-  maxFiles?: number;
-  maxSize?: number;
-  disabled?: boolean;
-  loading?: boolean;
-
-  // Children
-  children: ReactNode;
-}
-
-// Context Value Interface
-interface FileInputContextValue {
-  // File Management
-  files: FileWithPreview[];
-  processFiles: (fileList: FileList) => Promise<void>;
-  removeFile: (index: number) => void;
-
-  // Loading States
-  loading: boolean;
-  internalLoading: boolean;
-  isLoading: boolean;
-
-  // Error Management
-  internalError: string;
-  handleInternalError: (error: string) => void;
-  clearError: () => void;
-
-  // Upload Management
-  handleInternalUpload: (files: FileWithPreview[]) => Promise<void>;
-  handleUpload: () => Promise<void>;
-
-  // Drag & Drop
-  dragActive: boolean;
-  handleDrag: (e: React.DragEvent) => void;
-  handleDrop: (e: React.DragEvent) => FileList | null;
-  onDrop: (e: React.DragEvent) => Promise<void>;
-
-  // File Preview
-  selectedFile: FileWithPreview | null;
-  isModalOpen: boolean;
-  openPreview: (file: FileWithPreview) => void;
-  closePreview: () => void;
-
-  // File Input Ref
-  fileInputRef: React.RefObject<HTMLInputElement>;
-  openFileDialog: () => void;
-
-  // Event Handlers
-  handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-  handleUploadAreaClick: () => void;
-
-  // Configuration
-  acceptAttribute: string;
-  type: "img" | "video" | "file" | "all";
-  multiple: boolean;
-  maxFiles?: number;
-  maxSize?: number;
-  disabled: boolean;
-}
 
 const FileInputContext = createContext<FileInputContextValue | undefined>(
   undefined
@@ -88,8 +29,16 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   maxSize,
   disabled = false,
   loading: externalLoading = false,
+  name,
+  onUpload,
+  onUploadSuccess,
+  onUploadError,
   children,
 }) => {
+  // Form context'ten value al (eğer name varsa)
+  const { getValue } = useForm();
+  const initialValue = name ? getValue(name) : undefined;
+
   // Context state hook - Tüm internal state'ler
   const {
     internalError,
@@ -104,16 +53,18 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   const acceptAttribute = getAcceptAttribute(type);
 
   // Core hook'ları kullan
-  const { files, loading, processFiles, removeFile } = useFileManagement({
-    value: undefined,
-    onChange: handleInternalChange,
-    onError: handleInternalError,
-    type,
-    multiple,
-    maxSize,
-    maxFiles,
-    acceptAttribute,
-  });
+  const { files, loading, processFiles, removeFile, hasNewFiles } =
+    useFileManagement({
+      value: undefined,
+      initialValue, // Form'dan gelen URL değeri
+      onChange: handleInternalChange,
+      onError: handleInternalError,
+      type,
+      multiple,
+      maxSize,
+      maxFiles,
+      acceptAttribute,
+    });
 
   const { dragActive, handleDrag, handleDrop } = useDragAndDrop(
     disabled,
@@ -127,8 +78,18 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   // Combined loading state
   const isLoading = loading || externalLoading || internalLoading;
 
-  // Context handlers hook - Tüm event handler'lar
-  const { handleFileSelect, onDrop, handleUploadAreaClick, handleUpload } =
+  // Upload hook - handleUpload fonksiyonunu sağlar
+  const { handleUpload } = useFileUpload({
+    files,
+    name,
+    onUpload,
+    onUploadSuccess,
+    onUploadError,
+    onInternalError: handleInternalError,
+  });
+
+  // Context handlers hook - Event handler'lar
+  const { handleFileSelect, onDrop, handleUploadAreaClick } =
     useContextHandlers({
       files,
       processFiles,
@@ -136,8 +97,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
       handleDrop,
       openFileDialog,
       isLoading,
-      handleInternalUpload,
-      handleInternalError,
+      handleUpload,
     });
 
   // Context value
@@ -146,6 +106,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     files,
     processFiles,
     removeFile,
+    hasNewFiles,
 
     // Loading States
     loading,
@@ -188,6 +149,11 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     maxFiles,
     maxSize,
     disabled,
+
+    // Upload API
+    name,
+    onUploadSuccess,
+    onUploadError,
   };
 
   return (

@@ -3,21 +3,30 @@
 import { usePut } from "@/hooks";
 import { useAuth } from "@/contexts";
 import { API_ENDPOINTS } from "@/lib";
-import { SchoolPricingCreateDto, SchoolPricingDto } from "@/types";
+import { SchoolPricingUpdateDto, SchoolPricingDto } from "@/types";
+
+interface UseEditPricingProps {
+  pricingId: number;
+  refetch?: () => void;
+}
 
 /**
  * Pricing güncelleme hook'u
  */
-export const useEditPricing = (pricingId: number) => {
+export const useEditPricing = ({ pricingId, refetch }: UseEditPricingProps) => {
   const {
     mutate: putPricing,
     loading: isLoading,
     error,
-  } = usePut<SchoolPricingDto, SchoolPricingCreateDto>(
+  } = usePut<SchoolPricingDto, SchoolPricingUpdateDto>(
     () => API_ENDPOINTS.PRICING.SCHOOL_PRICING_BY_ID(pricingId),
     {
       onSuccess: (data) => {
         console.log("✅ Pricing başarıyla güncellendi:", data);
+        // Refetch varsa çalıştır
+        if (refetch) {
+          refetch();
+        }
       },
       onError: (error) => {
         console.error("❌ Pricing güncellenirken hata:", error);

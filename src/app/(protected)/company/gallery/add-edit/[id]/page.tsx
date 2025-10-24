@@ -1,32 +1,55 @@
 "use client";
 
 import React from "react";
+import { CustomCard } from "@/components";
+import {
+  GalleryForm,
+  GalleryItemForm,
+  LoadingSection,
+  useGalleryAddEdit,
+} from "../_shared";
 
-interface GalleryAddEditPageProps {
-  params: {
-    id: string;
-  };
-}
+interface GalleryAddEditPageProps {}
 
-const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = ({ params }) => {
-  const { id } = params;
-  const isNew = id === "new";
+const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = () => {
+  const { isEditing, gallery, galleryLoading } = useGalleryAddEdit();
+
+  const pageTitle = isEditing
+    ? "Galeri Bilgisi Düzenle"
+    : "Yeni Galeri Oluştur";
+
+  // Loading durumu
+  if (galleryLoading && isEditing) {
+    return <LoadingSection pageTitle={pageTitle} />;
+  }
 
   return (
-    <div>
-      <h1 className="h3 mb-24">
-        {isNew ? "Yeni Galeri Oluştur" : "Galeri Düzenle"}
-      </h1>
-      <div className="card">
-        <div className="card-body">
-          <p className="text-muted">
-            {isNew
-              ? "Yeni galeri oluşturma formu burada yer alacak."
-              : `ID: ${id} olan galeriyi düzenleme formu burada yer alacak.`}
-          </p>
-        </div>
-      </div>
-    </div>
+    <>
+      <CustomCard
+        title={pageTitle}
+        subtitle={
+          isEditing
+            ? "Mevcut galeri bilgilerini düzenleyin"
+            : "Yeni galeri bilgilerini oluşturun"
+        }
+        isBack
+      >
+        <GalleryForm isEditing={isEditing} initialData={gallery} />
+      </CustomCard>
+
+      {/* Gallery Items Form - Her zaman göster */}
+      <CustomCard
+        title="Galeri Öğeleri"
+        subtitle={
+          isEditing
+            ? "Galeriye medya öğeleri ekleyin veya düzenleyin"
+            : "Galeri oluşturduktan sonra buradan medya öğeleri ekleyebilirsiniz"
+        }
+        className="mt-24"
+      >
+        <GalleryItemForm />
+      </CustomCard>
+    </>
   );
 };
 

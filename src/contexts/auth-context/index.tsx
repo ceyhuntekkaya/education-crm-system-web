@@ -21,7 +21,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useAuthState();
   const { accessToken, saveToken, removeToken, getStoredToken } =
     useAuthToken();
-  const { saveUser, removeUser, getStoredUser } = useAuthUserStorage();
+  const { saveUser, removeUser, getStoredUser, updateUserSchools } =
+    useAuthUserStorage();
   const {
     currentRole,
     currentDepartments,
@@ -84,8 +85,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading,
   });
 
+  // Wrapper for updateUserSchools to also update context state
+  const handleUpdateUserSchools = (
+    school: any,
+    variant: "add" | "edit" = "add"
+  ) => {
+    console.log("gelen data güncellencek ==> ", school);
+
+    const updatedUser = updateUserSchools(school, variant);
+    if (updatedUser) {
+      setUser(updatedUser);
+    }
+  };
+
   const value: AuthContextType = {
     user,
+    setUser,
     setIsLoading,
     isLoading: isLoading || loginLoading || logoutLoading,
     login,
@@ -95,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     currentDepartments,
     currentPermissions,
     accessToken,
+    updateUserSchools: handleUpdateUserSchools,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

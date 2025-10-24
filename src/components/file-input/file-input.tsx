@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FileInputContextProvider, useFileInputContext } from "./contexts";
-import { SimpleFileInputProps } from "./types";
+import { SimpleFileInputProps } from "./types/component.types";
 import {
   FileUploadArea,
   FilePreview,
@@ -100,6 +100,12 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
   disabled = false,
   loading = false,
 
+  // Upload API props
+  name,
+  onUpload,
+  onUploadSuccess,
+  onUploadError,
+
   // UI props (FileInputContent'e geçilecek)
   ...uiProps
 }) => {
@@ -111,6 +117,10 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
       maxSize={maxSize}
       disabled={disabled}
       loading={loading}
+      name={name}
+      onUpload={onUpload}
+      onUploadSuccess={onUploadSuccess}
+      onUploadError={onUploadError}
     >
       <FileInputContent {...uiProps} />
     </FileInputContextProvider>
