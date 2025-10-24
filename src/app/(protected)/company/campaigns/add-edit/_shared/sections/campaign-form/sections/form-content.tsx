@@ -116,12 +116,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* İNDİRİM BİLGİLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">İndirim Bilgileri</h5>
+          <h5 className="mb-16">İndirim Bilgileri</h5>
         </div>
 
         {/* İndirim Miktarı */}
@@ -169,12 +169,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* KAMPANYA DÖNEMİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Kampanya Dönemi</h5>
+          <h5 className="mb-16">Kampanya Dönemi</h5>
         </div>
 
         {/* Başlangıç Tarihi */}
@@ -212,12 +212,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* KAYIT TARİHLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Kayıt Tarihleri</h5>
+          <h5 className="mb-16">Kayıt Tarihleri</h5>
         </div>
 
         {/* Kayıt Başlangıç Tarihi */}
@@ -249,12 +249,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* KAMPANYA AYARLARI */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Kampanya Ayarları</h5>
+          <h5 className="mb-16">Kampanya Ayarları</h5>
         </div>
 
         {/* Öne Çıkan */}
@@ -274,12 +274,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* KULLANIM LİMİTLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Kullanım Limitleri</h5>
+          <h5 className="mb-16">Kullanım Limitleri</h5>
         </div>
 
         {/* Kullanım Limiti */}
@@ -314,12 +314,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* HEDEF KİTLE */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Hedef Kitle</h5>
+          <h5 className="mb-16">Hedef Kitle</h5>
         </div>
 
         {/* Hedef Kitle */}
@@ -376,12 +376,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* PROMOSYON İÇERİĞİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Promosyon İçeriği</h5>
+          <h5 className="mb-16">Promosyon İçeriği</h5>
         </div>
 
         {/* Promosyon Kodu */}
@@ -422,12 +422,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* GÖRSEL BİLGİLER */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Görsel Bilgiler</h5>
+          <h5 className="mb-16">Görsel Bilgiler</h5>
         </div>
 
         {/* Banner Resmi */}
@@ -489,12 +489,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* ŞARTLAR VE KOŞULLAR */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Şartlar ve Koşullar</h5>
+          <h5 className="mb-16">Şartlar ve Koşullar</h5>
         </div>
 
         {/* Şartlar ve Koşullar */}
@@ -529,12 +529,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* SEO BİLGİLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">SEO Bilgileri</h5>
+          <h5 className="mb-16">SEO Bilgileri</h5>
         </div>
 
         {/* Meta Başlık */}
@@ -567,12 +567,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* EK ÖZELLİKLER */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Ek Özellikler</h5>
+          <h5 className="mb-16">Ek Özellikler</h5>
         </div>
 
         {/* Ücretsiz Deneme Günleri */}
@@ -646,12 +646,12 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Divider */}
         <div className="col-12">
-          <span className="d-block border border-neutral-30 border-dashed" />
+          <span className="d-block border border-neutral-30 my-24 border-dashed" />
         </div>
 
         {/* GÖRÜNTÜLEME VE ÖNCELİK */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Görüntüleme ve Öncelik</h5>
+          <h5 className="mb-16">Görüntüleme ve Öncelik</h5>
         </div>
 
         {/* Öncelik */}
