@@ -1,7 +1,21 @@
 import { SchoolPricingFormData } from "../types/form-data";
 
+// Mevcut akademik yılı hesapla (Eylül-Haziran dönemi)
+const getCurrentAcademicYear = (): string => {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth(); // 0-11
+
+  // Eylül (8) ve sonrası ise yeni akademik yıl başlamıştır
+  if (currentMonth >= 8) {
+    return `${currentYear}-${currentYear + 1}`;
+  } else {
+    return `${currentYear - 1}-${currentYear}`;
+  }
+};
+
 export const initialValues: SchoolPricingFormData = {
-  academicYear: "2024-2025",
+  academicYear: getCurrentAcademicYear(),
   gradeLevel: "",
   classLevel: "",
   currency: "TRY",

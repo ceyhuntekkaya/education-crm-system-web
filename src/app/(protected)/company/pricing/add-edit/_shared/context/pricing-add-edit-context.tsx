@@ -39,12 +39,15 @@ export const PricingAddEditProvider: React.FC<PricingAddEditProviderProps> = ({
     error: addError,
   } = useAddPricing();
 
-  // Edit pricing hook - sadece edit modunda kullan
+  // Edit pricing hook - refetch'i props olarak geçir
   const {
     putPricing,
     isLoading: editLoading,
     error: editError,
-  } = useEditPricing(pricingId || 0);
+  } = useEditPricing({
+    pricingId: pricingId || 0,
+    refetch: isEditing ? refetch : undefined,
+  });
 
   const contextValue: PricingAddEditContextType = {
     // Current pricing data

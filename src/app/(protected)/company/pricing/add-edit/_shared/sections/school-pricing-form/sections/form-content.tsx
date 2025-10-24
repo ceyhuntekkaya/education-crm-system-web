@@ -45,9 +45,6 @@ export const SchoolPricingFormContent: React.FC = () => {
   const { isEditing, postPricing, putPricing, pricingLoading, pricingError } =
     usePricingAddEdit();
 
-  // EN BASIT YÖNTEM: Edit modunda tüm alanları disable et
-  const isDisabledInEdit = isEditing;
-
   const handleSubmit = async (values: SchoolPricingFormData) => {
     // Form data'yı backend'e gönder - sadece schoolId ve createdByUserId ekle
     const formData = {
@@ -65,7 +62,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         ) as SchoolPricingUpdateDto;
         await putPricing(filteredData);
       } else {
-        await postPricing(formData);
+        await postPricing(formData as SchoolPricingCreateDto);
       }
     } catch (error) {
       console.error("Form submit hatası:", error);
@@ -91,9 +88,8 @@ export const SchoolPricingFormContent: React.FC = () => {
             name="academicYear"
             label="Akademik Yıl"
             options={academicYearOptions}
-            placeholder="Akademik yıl seçiniz..."
+            placeholder="Örn: 2024-2025, 2025-2026"
             required
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -252,7 +248,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Laboratuvar Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -263,7 +258,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Kütüphane Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -274,7 +268,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Spor Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -285,7 +278,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Sanat Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -296,7 +288,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Müzik Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -327,7 +318,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Sigorta Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -338,7 +328,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Bakım Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -349,7 +338,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Güvenlik Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -360,7 +348,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Sınav Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -371,7 +358,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Mezuniyet Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -382,7 +368,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Uzatmalı Gün Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -393,7 +378,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Etüt Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -404,7 +388,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Yaz Okulu Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -415,7 +398,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Kış Kampı Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -426,7 +408,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Dil Kursu Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -437,7 +418,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Özel Ders Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -448,7 +428,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="İptal Ücreti"
             type="number"
             placeholder="₺ 0,00"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -531,7 +510,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Sadakat İndirimi"
             type="number"
             placeholder="0 %"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -557,7 +535,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Çekilme İade Yüzdesi"
             type="number"
             placeholder="0 %"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -645,7 +622,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             placeholder="Ücret detayları hakkında ek açıklamalar..."
             rows={4}
             maxLength={1000}
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -657,7 +633,6 @@ export const SchoolPricingFormContent: React.FC = () => {
             placeholder="Bu fiyatlandırmanın pazar konumu ve stratejisi..."
             rows={3}
             maxLength={500}
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -672,14 +647,12 @@ export const SchoolPricingFormContent: React.FC = () => {
           <FormCheckbox
             name="needBasedAidAvailable"
             label="İhtiyaç Bazlı Burs Mevcut"
-            disabled={isDisabledInEdit}
           />
         </div>
         <div className="col-6">
           <FormCheckbox
             name="meritBasedAidAvailable"
             label="Başarı Bazlı Burs Mevcut"
-            disabled={isDisabledInEdit}
           />
         </div>
 
@@ -694,7 +667,6 @@ export const SchoolPricingFormContent: React.FC = () => {
           <FormCheckbox
             name="highlightTotalCost"
             label="Toplam Maliyeti Vurgula"
-            disabled={isDisabledInEdit}
           />
         </div>
 

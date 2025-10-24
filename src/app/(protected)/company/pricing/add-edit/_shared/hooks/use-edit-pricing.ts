@@ -5,10 +5,15 @@ import { useAuth } from "@/contexts";
 import { API_ENDPOINTS } from "@/lib";
 import { SchoolPricingUpdateDto, SchoolPricingDto } from "@/types";
 
+interface UseEditPricingProps {
+  pricingId: number;
+  refetch?: () => void;
+}
+
 /**
  * Pricing güncelleme hook'u
  */
-export const useEditPricing = (pricingId: number) => {
+export const useEditPricing = ({ pricingId, refetch }: UseEditPricingProps) => {
   const {
     mutate: putPricing,
     loading: isLoading,
@@ -18,6 +23,10 @@ export const useEditPricing = (pricingId: number) => {
     {
       onSuccess: (data) => {
         console.log("✅ Pricing başarıyla güncellendi:", data);
+        // Refetch varsa çalıştır
+        if (refetch) {
+          refetch();
+        }
       },
       onError: (error) => {
         console.error("❌ Pricing güncellenirken hata:", error);
