@@ -156,7 +156,6 @@ export const CampaignFormContent: React.FC = () => {
             name="maxDiscountAmount"
             label="Maksimum İndirim Tutarı (TL)"
             type="number"
-            numberFormat="currency"
             placeholder="Maksimum indirim tutarını giriniz..."
           />
         </div>
