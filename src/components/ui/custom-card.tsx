@@ -4,6 +4,7 @@ import { ReactNode, useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Icon from "./icon";
 import { Button } from "@/components";
+import { useDelete } from "@/hooks";
 
 interface CustomCardProps {
   /** Card type (default: "card") */
@@ -20,6 +21,10 @@ interface CustomCardProps {
   addButtonUrl?: string;
   /** Edit button URL - if provided, "Düzenle" button will be shown */
   editButtonUrl?: string;
+  /** Delete API URL - if provided, "Sil" button will be shown and delete handled internally */
+  deleteUrl?: string;
+  /** Delete confirmation message - shown before delete (optional) */
+  deleteConfirmMessage?: string;
   /** Back button - if true, shows back button with router.back(). If string (URL), navigates to that URL */
   isBack?: boolean | string;
   /** Forward button - if true, shows forward button with router.forward(). If string (URL), navigates to that URL */
@@ -97,6 +102,8 @@ export default function CustomCard({
   headerAction,
   addButtonUrl,
   editButtonUrl,
+  deleteUrl,
+  deleteConfirmMessage,
   isBack,
   isForward,
   variant = "default",
@@ -126,6 +133,11 @@ export default function CustomCard({
 }: CustomCardProps) {
   // Router for navigation
   const router = useRouter();
+
+  // Delete hook - only initialize if deleteUrl is provided
+  const { mutate: deleteItem, loading: deleteLoading } = useDelete(
+    deleteUrl || ""
+  );
 
   // Accordion state
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -180,6 +192,7 @@ export default function CustomCard({
     headerAction ||
     addButtonUrl ||
     editButtonUrl ||
+    deleteUrl ||
     isBack ||
     isForward;
   const hasContent = children || items || multiItems;
@@ -198,6 +211,24 @@ export default function CustomCard({
       router.push(isForward);
     } else {
       router.forward();
+    }
+  };
+
+  // Delete handler
+  const handleDeleteClick = async () => {
+    if (!deleteUrl) return;
+
+    const confirmMessage =
+      deleteConfirmMessage || "Silmek istediğinize emin misiniz?";
+    const confirmDelete = window.confirm(confirmMessage);
+
+    if (confirmDelete) {
+      try {
+        await deleteItem(null);
+        router.back();
+      } catch (error) {
+        console.error("Silme işlemi sırasında hata oluştu:", error);
+      }
     }
   };
 
@@ -260,6 +291,20 @@ export default function CustomCard({
                   href={editButtonUrl}
                 >
                   Düzenle
+                </Button>
+              )}
+
+              {deleteUrl && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon="ph-trash"
+                  onClick={handleDeleteClick}
+                  loading={deleteLoading}
+                  disabled={deleteLoading}
+                  className="btn-danger-outline"
+                >
+                  Sil
                 </Button>
               )}
 

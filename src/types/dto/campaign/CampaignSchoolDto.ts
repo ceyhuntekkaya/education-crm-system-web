@@ -1,62 +1,50 @@
+import { CampaignSchoolStatus } from "@/enums";
+
 export interface CampaignSchoolDto {
-  /** Format: int64 */
-  id?: number;
-  /** Format: int64 */
-  campaignId?: number;
-  campaignTitle?: string;
-  /** Format: int64 */
-  schoolId?: number;
-  schoolName?: string;
+  id: number;
+  campaignId: number;
+  campaignTitle: string;
+  schoolId: number;
+  schoolName: string;
   campusName?: string;
   assignedByUserName?: string;
-  /** Format: date-time */
-  assignedAt?: string;
-  /** @enum {string} */
-  status?:
-    | "PENDING"
-    | "ACTIVE"
-    | "PAUSED"
-    | "REJECTED"
-    | "EXPIRED"
-    | "COMPLETED"
-    | "REMOVED";
-  customDiscountAmount?: number;
-  /** Format: double */
+  assignedAt: string; // ISO datetime string
+  status: CampaignSchoolStatus;
+
+  // School-specific customizations
+  customDiscountAmount?: string; // BigDecimal as string
   customDiscountPercentage?: number;
-  /** Format: int32 */
   customUsageLimit?: number;
-  /** Format: date */
-  customStartDate?: string;
-  /** Format: date */
-  customEndDate?: string;
+  customStartDate?: string; // ISO date string
+  customEndDate?: string; // ISO date string
   customTerms?: string;
-  /** Format: int32 */
+
+  // Display settings
   priority?: number;
   isFeaturedOnSchool?: boolean;
   showOnHomepage?: boolean;
   showOnPricingPage?: boolean;
-  /** Format: int32 */
+
+  // Usage tracking
   usageCount?: number;
-  /** Format: int32 */
   applicationCount?: number;
-  /** Format: int32 */
   conversionCount?: number;
-  revenueGenerated?: number;
-  /** Format: int64 */
+  revenueGenerated?: string; // BigDecimal as string
+
+  // Performance metrics
   viewCount?: number;
-  /** Format: int64 */
   clickCount?: number;
-  /** Format: int64 */
   inquiryCount?: number;
-  /** Format: int64 */
   appointmentCount?: number;
+
+  // Approval
   approvedBySchool?: boolean;
   approvedBySchoolUserName?: string;
-  /** Format: date-time */
-  approvedBySchoolAt?: string;
+  approvedBySchoolAt?: string; // ISO datetime string
   schoolNotes?: string;
+
+  // Calculated fields
   effectiveDiscount?: string;
   effectivePeriod?: string;
-  /** Format: double */
   performanceScore?: number;
 }

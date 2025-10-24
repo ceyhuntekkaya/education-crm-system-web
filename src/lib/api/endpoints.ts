@@ -55,6 +55,9 @@ export const API_ENDPOINTS = {
     ACTIVE: "/campaigns/active",
     BY_SCHOOL: (schoolId: string | number) => `/campaigns/schools/${schoolId}`,
     BY_ID: (id: string | number) => `/campaigns/${id}`,
+    CREATE: "/campaigns",
+    UPDATE: (id: string | number) => `/campaigns/${id}`,
+    DELETE: (id: string | number) => `/campaigns/${id}`,
   },
 
   APPOINTMENTS: {

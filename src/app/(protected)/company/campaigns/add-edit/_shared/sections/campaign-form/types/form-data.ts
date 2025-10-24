@@ -1,27 +1,34 @@
-import { CampaignStatus, DiscountType, TargetAudience } from "@/enums";
+import { CampaignType, DiscountType, TargetAudience } from "@/enums";
 
-export interface CampaignUpdateDto {
-  title?: string;
+export interface CampaignFormData {
+  // Basic Information
+  title: string;
   description?: string;
   shortDescription?: string;
-  discountType?: DiscountType;
+  campaignType: CampaignType;
+  discountType: DiscountType;
 
   // Discount values
-  discountAmount?: string; // BigDecimal as string
+  discountAmount?: string;
   discountPercentage?: number;
-  maxDiscountAmount?: string; // BigDecimal as string
-  minPurchaseAmount?: string; // BigDecimal as string
+  maxDiscountAmount?: string;
+  minPurchaseAmount?: string;
 
   // Campaign period
-  startDate?: string; // ISO date string
-  endDate?: string; // ISO date string
-  earlyBirdEndDate?: string; // ISO date string
-  registrationDeadline?: string; // ISO date string
+  startDate: string;
+  endDate: string;
+  earlyBirdEndDate?: string;
+  registrationDeadline?: string;
+
+  // Enrollment specific dates
+  enrollmentStartDate?: string;
+  enrollmentEndDate?: string;
+  academicYear?: string;
 
   // Campaign settings
-  status?: CampaignStatus;
   isFeatured?: boolean;
   isPublic?: boolean;
+  requiresApproval?: boolean;
 
   // Usage limits
   usageLimit?: number;
@@ -33,8 +40,11 @@ export interface CampaignUpdateDto {
   targetGradeLevels?: string;
   targetAgeMin?: number;
   targetAgeMax?: number;
+  targetNewStudentsOnly?: boolean;
+  targetSiblingDiscount?: boolean;
 
   // Promotional content
+  promoCode?: string;
   bannerImageUrl?: string;
   thumbnailImageUrl?: string;
   videoUrl?: string;
@@ -48,13 +58,24 @@ export interface CampaignUpdateDto {
   finePrint?: string;
   exclusions?: string;
 
+  // SEO
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+
   // Additional features
   freeTrialDays?: number;
   installmentOptions?: string;
   paymentDeadlineDays?: number;
   refundPolicy?: string;
+  freeServices?: string;
+  bonusFeatures?: string;
+  giftItems?: string;
 
-  // Display
+  // Display and priority
   priority?: number;
   sortOrder?: number;
+
+  // School assignments
+  schoolIds?: number[];
 }
