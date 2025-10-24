@@ -130,6 +130,7 @@ export const CampaignFormContent: React.FC = () => {
             name="discountAmount"
             label="İndirim Miktarı (TL)"
             type="number"
+            numberFormat="currency"
             placeholder="İndirim miktarını giriniz..."
           />
         </div>
@@ -150,6 +151,7 @@ export const CampaignFormContent: React.FC = () => {
             name="maxDiscountAmount"
             label="Maksimum İndirim Tutarı (TL)"
             type="number"
+            numberFormat="currency"
             placeholder="Maksimum indirim tutarını giriniz..."
           />
         </div>
@@ -160,6 +162,7 @@ export const CampaignFormContent: React.FC = () => {
             name="minPurchaseAmount"
             label="Minimum Alış Tutarı (TL)"
             type="number"
+            numberFormat="currency"
             placeholder="Minimum alış tutarını giriniz..."
           />
         </div>

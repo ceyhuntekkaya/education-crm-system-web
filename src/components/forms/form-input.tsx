@@ -25,7 +25,9 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "search"
     | "date"
     | "color";
-  // Number format özel ayarları
+  // Hızlı format seçimi: "currency" | "percent" | "integer" | "decimal"
+  numberFormat?: "currency" | "percent" | "integer" | "decimal" | "normal";
+  // Number format özel ayarları (numberFormat prop'u varsa bu göz ardı edilir)
   numberFormatProps?: {
     thousandSeparator?: string;
     decimalSeparator?: string;
@@ -49,6 +51,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   iconLeft,
   iconRight,
   fullWidth = false,
+  numberFormat,
   numberFormatProps,
   ...rest
 }) => {
@@ -123,12 +126,56 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   // Akıllı varsayılan format belirleme
   const getSmartNumberFormat = () => {
-    // Eğer özel numberFormatProps verilmişse onu kullan
+    // 1. ÖNCELİK: Eğer numberFormat prop'u verilmişse, onu kullan
+    if (numberFormat) {
+      switch (numberFormat) {
+        case "currency":
+          return {
+            prefix: "₺ ",
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            fixedDecimalScale: true,
+            allowNegative: false,
+          };
+        case "percent":
+          return {
+            suffix: " %",
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            allowNegative: false,
+          };
+        case "integer":
+          return {
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 0,
+            allowNegative: false,
+          };
+        case "decimal":
+          return {
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            allowNegative: true,
+          };
+        case "normal":
+          return {
+            thousandSeparator: ".",
+            decimalSeparator: ",",
+            decimalScale: 2,
+            allowNegative: false,
+          };
+      }
+    }
+
+    // 2. ÖNCELİK: Eğer özel numberFormatProps verilmişse onu kullan
     if (numberFormatProps) {
       return numberFormatProps;
     }
 
-    // İsim bazlı akıllı format tanıması
+    // 3. ÖNCELİK: İsim bazlı akıllı format tanıması
     const nameLower = name.toLowerCase();
 
     // Yüzde formatları
