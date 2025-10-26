@@ -35,7 +35,7 @@ export const useStepValidation = () => {
             const code = Object.values(values.verificationCode || {}).join("");
             return code.length === 4 && /^\d{4}$/.test(code);
           case 4:
-            // Campus info check
+            // Campus info check - Sadece required alanlar kontrol ediliyor
             return !!(
               values.campusInfo?.brandId &&
               values.campusInfo?.campusName &&

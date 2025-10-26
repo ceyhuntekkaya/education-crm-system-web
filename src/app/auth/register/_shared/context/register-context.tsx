@@ -9,6 +9,8 @@ import {
   useRegistrationSubmit,
   useVerificationFlow,
   useRegister as useRegisterApi,
+  useLocationData,
+  useBrandData,
 } from "../hooks";
 import { useForm } from "@/contexts/form-context";
 
@@ -25,6 +27,12 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
 }) => {
   // Form values
   const { values } = useForm();
+
+  // Location data hook
+  const locationData = useLocationData(values);
+
+  // Brand data hook
+  const brandData = useBrandData();
 
   // Custom hooks - her biri tek bir sorumluluktan sorumlu
   const { currentStep, setCurrentStep, nextStep, previousStep, goToStep } =
@@ -89,6 +97,12 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     resendTimer,
     inputRefs,
     fullCode,
+
+    // Location data
+    locationData,
+
+    // Brand data
+    brandData,
 
     // Actions
     updateFormData: () => {}, // FormProvider handles this

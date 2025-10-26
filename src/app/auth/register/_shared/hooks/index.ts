@@ -5,3 +5,5 @@ export * from "./use-step-validation";
 export * from "./use-step-navigation";
 export * from "./use-registration-submit";
 export * from "./use-verification-flow";
+export * from "./use-location-data";
+export * from "./use-brand-data";

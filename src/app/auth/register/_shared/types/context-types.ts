@@ -4,6 +4,46 @@
 
 import type { RegisterFormData, RegisterResponse } from "./register.types";
 
+// Location data interface
+export interface LocationOption {
+  value: string;
+  label: string;
+  raw: any;
+}
+
+export interface LocationData {
+  data: LocationOption[];
+  raw: any[];
+  loading: boolean;
+  error: any;
+  disabled?: boolean;
+}
+
+export interface LocationState {
+  countries: LocationData;
+  provinces: LocationData;
+  districts: LocationData;
+  neighborhoods: LocationData;
+}
+
+// Brand data interface
+export interface BrandOption {
+  value: string;
+  label: string;
+  raw: any;
+}
+
+export interface BrandData {
+  data: BrandOption[];
+  raw: any[];
+  loading: boolean;
+  error: any;
+}
+
+export interface BrandState {
+  brands: BrandData;
+}
+
 export interface RegisterContextType {
   // Form data
   formData: RegisterFormData;
@@ -25,6 +65,12 @@ export interface RegisterContextType {
   resendTimer: number;
   inputRefs: React.RefObject<HTMLInputElement>[];
   fullCode: string;
+
+  // Location data
+  locationData: LocationState;
+
+  // Brand data
+  brandData: BrandState;
 
   // Actions
   setCurrentStep: (step: number) => void;
