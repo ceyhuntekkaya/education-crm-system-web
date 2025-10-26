@@ -1,0 +1,86 @@
+"use client";
+
+import React, { createContext, useContext } from "react";
+import type { RegisterContextType } from "../types/context-types";
+import {
+  useRegisterSteps,
+  useStepValidation,
+  useRegistrationSubmit,
+  useVerificationFlow,
+  useRegister as useRegisterApi,
+} from "../hooks";
+import { useForm } from "@/contexts/form-context";
+
+const RegisterContext = createContext<RegisterContextType | undefined>(
+  undefined
+);
+
+interface RegisterProviderProps {
+  children: React.ReactNode;
+}
+
+export const RegisterProvider: React.FC<RegisterProviderProps> = ({
+  children,
+}) => {
+  // Form values
+  const { values } = useForm();
+
+  // Custom hooks - her biri tek bir sorumluluktan sorumlu
+  const { currentStep, setCurrentStep, nextStep, previousStep } =
+    useRegisterSteps();
+
+  const { isStepCompleted, canProceedToNextStep } = useStepValidation();
+
+  const { submitRegistration, isSubmitting, submitError } =
+    useRegistrationSubmit();
+
+  const { sendVerificationCode, verifyCode, isVerifying, verificationError } =
+    useVerificationFlow();
+
+  const { isLoading: registerLoading, error: registerError } = useRegisterApi();
+
+  // Context value
+  const contextValue: RegisterContextType = {
+    // Form data
+    formData: values as any,
+
+    // Step management
+    currentStep,
+    setCurrentStep,
+    nextStep,
+    previousStep,
+
+    // Validation
+    isStepCompleted,
+    canProceedToNextStep: () => canProceedToNextStep(currentStep),
+
+    // Loading states
+    isLoading: registerLoading,
+    isVerifying,
+    isSubmitting,
+
+    // Errors
+    error: registerError || submitError || verificationError,
+    verificationError,
+
+    // Actions
+    updateFormData: () => {}, // FormProvider handles this
+    sendVerificationCode,
+    verifyCode,
+    submitRegistration,
+  };
+
+  return (
+    <RegisterContext.Provider value={contextValue}>
+      {children}
+    </RegisterContext.Provider>
+  );
+};
+
+export const useRegister = (): RegisterContextType => {
+  const context = useContext(RegisterContext);
+  if (context === undefined) {
+    throw new Error("useRegister must be used within a RegisterProvider");
+  }
+  return context;
+};

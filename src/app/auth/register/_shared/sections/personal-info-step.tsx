@@ -1,0 +1,85 @@
+"use client";
+
+import React from "react";
+import { FormInput } from "@/components/forms";
+import CustomCard from "@/components/ui/custom-card";
+
+/**
+ * Step 2: Personal Info
+ * Kişisel bilgiler (Ad, Soyad, E-posta, Telefon)
+ */
+export const PersonalInfoStep: React.FC = () => {
+  return (
+    <div className="register-step-content">
+      {/* Ana Card - Form içeriği */}
+      <CustomCard
+        title="Kişisel Bilgiler"
+        subtitle="İletişim bilgilerinizi doğru bir şekilde giriniz"
+      >
+        <div className="row row-gap-24">
+          {/* Ad & Soyad */}
+          <div className="col-md-6">
+            <FormInput
+              name="personalInfo.firstName"
+              label="Ad"
+              placeholder="Adınızı giriniz..."
+              required
+              autoComplete="given-name"
+            />
+          </div>
+
+          <div className="col-md-6">
+            <FormInput
+              name="personalInfo.lastName"
+              label="Soyad"
+              placeholder="Soyadınızı giriniz..."
+              required
+              autoComplete="family-name"
+            />
+          </div>
+
+          {/* E-posta */}
+          <div className="col-12">
+            <FormInput
+              name="personalInfo.email"
+              type="email"
+              label="E-posta Adresi"
+              placeholder="ornek@email.com"
+              required
+              autoComplete="email"
+            />
+          </div>
+
+          {/* Telefon */}
+          <div className="col-12">
+            <FormInput
+              name="personalInfo.phone"
+              type="tel"
+              label="Telefon Numarası"
+              placeholder="5xxxxxxxxx (10 hane)"
+              required
+              autoComplete="tel"
+              maxLength={10}
+            />
+          </div>
+        </div>
+      </CustomCard>
+
+      {/* Uyarı Card */}
+      <CustomCard mt="mt-24">
+        <div className="d-flex align-items-start gap-12">
+          <i className="ri-alert-line text-warning-600 text-2xl flex-shrink-0"></i>
+          <div className="flex-grow-1">
+            <strong className="d-block mb-8 text-neutral-900 fw-semibold">
+              Önemli Bilgilendirme
+            </strong>
+            <p className="mb-0 text-sm text-neutral-700">
+              Doğrulama kodu e-posta adresinize gönderilecektir. Lütfen aktif
+              bir e-posta adresi kullanınız.
+            </p>
+          </div>
+        </div>
+      </CustomCard>
+    </div>
+  );
+};
