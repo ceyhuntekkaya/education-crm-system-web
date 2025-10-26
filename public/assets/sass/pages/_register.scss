@@ -91,6 +91,39 @@
     text-align: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
+    // Clickable state - tamamlanmış step'lere tıklanabilir
+    &.clickable {
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        .stepper-icon {
+          transform: scale(1.08);
+          box-shadow: 0 8px 20px rgba(var(--success-600-rgb), 0.3),
+            0 4px 10px rgba(var(--success-600-rgb), 0.15);
+        }
+
+        .stepper-content {
+          h6 {
+            color: var(--main-600) !important;
+          }
+        }
+      }
+
+      &:active {
+        .stepper-icon {
+          transform: scale(1.02);
+        }
+      }
+
+      // Focus state - accessibility
+      &:focus-visible {
+        outline: 2px solid var(--main-600);
+        outline-offset: 4px;
+        border-radius: 8px;
+      }
+    }
+
     // Active state - projedeki main renk kullanımı
     &.active {
       .stepper-icon {

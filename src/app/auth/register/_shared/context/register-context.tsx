@@ -5,6 +5,7 @@ import type { RegisterContextType } from "../types/context-types";
 import {
   useRegisterSteps,
   useStepValidation,
+  useStepNavigation,
   useRegistrationSubmit,
   useVerificationFlow,
   useRegister as useRegisterApi,
@@ -26,10 +27,16 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   const { values } = useForm();
 
   // Custom hooks - her biri tek bir sorumluluktan sorumlu
-  const { currentStep, setCurrentStep, nextStep, previousStep } =
+  const { currentStep, setCurrentStep, nextStep, previousStep, goToStep } =
     useRegisterSteps();
 
   const { isStepCompleted, canProceedToNextStep } = useStepValidation();
+
+  const { handleStepClick, isStepClickable } = useStepNavigation(
+    currentStep,
+    isStepCompleted,
+    goToStep
+  );
 
   const { submitRegistration, isSubmitting, submitError } =
     useRegistrationSubmit();
@@ -61,9 +68,11 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     setCurrentStep,
     nextStep,
     previousStep,
+    goToStep,
 
     // Validation
     isStepCompleted,
+    isStepClickable,
     canProceedToNextStep: () => canProceedToNextStep(currentStep),
 
     // Loading states
@@ -86,6 +95,7 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     sendVerificationCode,
     verifyCode,
     submitRegistration,
+    handleStepClick,
 
     // Verification UI Handlers
     handleInputChange,

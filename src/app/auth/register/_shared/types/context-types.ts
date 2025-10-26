@@ -30,6 +30,8 @@ export interface RegisterContextType {
   setCurrentStep: (step: number) => void;
   nextStep: () => void;
   previousStep: () => void;
+  goToStep: (step: number) => void;
+  handleStepClick: (step: number) => void;
   updateFormData: (step: number, data: any) => void;
   sendVerificationCode: () => Promise<void>;
   verifyCode: (code: string) => Promise<boolean>;
@@ -44,4 +46,5 @@ export interface RegisterContextType {
   // Validation
   canProceedToNextStep: () => boolean;
   isStepCompleted: (step: number) => boolean;
+  isStepClickable: (step: number) => boolean;
 }

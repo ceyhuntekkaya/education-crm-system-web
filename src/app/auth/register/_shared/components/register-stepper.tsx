@@ -20,7 +20,8 @@ import CustomCard from "@/components/ui/custom-card";
  * <RegisterStepper />
  */
 export const RegisterStepper: React.FC = () => {
-  const { currentStep, isStepCompleted } = useRegister();
+  const { currentStep, isStepCompleted, isStepClickable, handleStepClick } =
+    useRegister();
 
   return (
     <CustomCard>
@@ -30,6 +31,7 @@ export const RegisterStepper: React.FC = () => {
             const isActive = currentStep === step.step;
             const isCompleted = isStepCompleted(step.step);
             const isPast = currentStep > step.step;
+            const isClickable = isStepClickable(step.step);
             const showConnector = index < STEP_CONFIGS.length - 1;
 
             return (
@@ -38,7 +40,19 @@ export const RegisterStepper: React.FC = () => {
                   <div
                     className={`stepper-item ${isActive ? "active" : ""} ${
                       isCompleted || isPast ? "completed" : ""
-                    }`}
+                    } ${isClickable ? "clickable" : ""}`}
+                    onClick={() => handleStepClick(step.step)}
+                    role={isClickable ? "button" : undefined}
+                    tabIndex={isClickable ? 0 : undefined}
+                    onKeyDown={(e) => {
+                      if ((e.key === "Enter" || e.key === " ") && isClickable) {
+                        e.preventDefault();
+                        handleStepClick(step.step);
+                      }
+                    }}
+                    style={{
+                      cursor: isClickable ? "pointer" : "default",
+                    }}
                   >
                     {/* Icon Container with Connector */}
                     <div className="stepper-icon-wrapper">
