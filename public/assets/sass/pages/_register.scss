@@ -67,26 +67,71 @@
     Register Stepper Styles
 ====================================== */
 
+/* ===================================
+    Register Stepper - CustomCard Design System
+    Projenin tasarım dilini takip eden modern stepper
+====================================== */
+
+// Stepper Card Container
+.register-stepper-card {
+  // CustomCard hover effect - projedeki card standardı
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+// Ana Stepper Container
 .register-stepper {
+  // Grid itemleri için modern tasarım
   .stepper-item {
     position: relative;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
+    // Active state - projedeki main renk kullanımı
     &.active {
       .stepper-icon {
-        box-shadow: 0 4px 16px rgba(var(--main-600-rgb), 0.3);
+        box-shadow: 0 8px 24px rgba(var(--main-600-rgb), 0.35),
+          0 4px 12px rgba(var(--main-600-rgb), 0.2);
         transform: scale(1.1);
+        animation: stepper-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      .stepper-content {
+        h6 {
+          font-weight: 700;
+        }
       }
     }
 
+    // Completed state - success rengi
     &.completed {
       .stepper-icon {
-        box-shadow: 0 4px 12px rgba(var(--success-600-rgb), 0.2);
+        box-shadow: 0 6px 16px rgba(var(--success-600-rgb), 0.25),
+          0 3px 8px rgba(var(--success-600-rgb), 0.15);
+        transform: scale(1.02);
+
+        i {
+          animation: checkmark-bounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+      }
+    }
+
+    // Hover effect - inaktif adımlar
+    &:not(.active):not(.completed) {
+      &:hover {
+        .stepper-icon {
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
       }
     }
   }
 
+  // Icon wrapper
   .stepper-icon-wrapper {
     position: relative;
     display: flex;
@@ -94,71 +139,151 @@
     margin-bottom: 12px;
   }
 
+  // Stepper icon - proje color scheme
   .stepper-icon {
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     z-index: 2;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+    border: 3px solid var(--white);
 
-  .stepper-connector {
-    position: absolute;
-    top: 28px;
-    left: calc(50% + 28px);
-    right: calc(-50% + 28px);
-    height: 2px;
-    background: linear-gradient(
-      to right,
-      var(--neutral-200) 0%,
-      var(--neutral-200) 100%
-    );
-    z-index: 1;
-
-    &.completed {
-      background: linear-gradient(
-        to right,
-        var(--success-600) 0%,
-        var(--success-600) 100%
-      );
+    // Icon içi transition
+    i {
+      transition: all 0.2s ease;
+      font-size: 20px;
     }
   }
 
-  .stepper-content {
-    padding: 0 8px;
+  // Progress connector - projedeki renk paleti
+  .stepper-connector {
+    position: absolute;
+    top: 32px;
+    left: calc(50% + 32px);
+    right: calc(-50% + 32px);
+    height: 3px;
+    background: var(--neutral-200);
+    z-index: 1;
+    border-radius: 2px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Completed connector - success gradient
+    &.completed {
+      background: linear-gradient(
+        90deg,
+        var(--success-600) 0%,
+        var(--success-500) 100%
+      );
+      box-shadow: 0 2px 8px rgba(var(--success-600-rgb), 0.3);
+      animation: connector-grow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
   }
 
-  // Responsive breakpoints
-  @media (max-width: 991px) {
+  // Step content - typography
+  .stepper-content {
+    padding: 0 4px;
+
+    h6 {
+      transition: all 0.2s ease;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      transition: all 0.2s ease;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+  }
+
+  // Responsive breakpoints - projenin grid sistemi
+  @media (max-width: 1199px) {
     .stepper-icon {
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
+
+      i {
+        font-size: 18px;
+      }
     }
 
     .stepper-connector {
-      top: 24px;
-      left: calc(50% + 24px);
-      right: calc(-50% + 24px);
+      top: 28px;
+      left: calc(50% + 28px);
+      right: calc(-50% + 28px);
+    }
+  }
+
+  @media (max-width: 991px) {
+    .stepper-icon {
+      width: 52px;
+      height: 52px;
+      border-width: 2px;
+
+      i {
+        font-size: 18px;
+      }
+    }
+
+    .stepper-connector {
+      top: 26px;
+      left: calc(50% + 26px);
+      right: calc(-50% + 26px);
+      height: 2px;
+    }
+
+    .stepper-content {
+      h6 {
+        font-size: 12px;
+      }
+
+      p {
+        font-size: 10px;
+      }
     }
   }
 
   @media (max-width: 767px) {
     .stepper-icon {
+      width: 44px;
+      height: 44px;
+
+      i {
+        font-size: 16px;
+      }
+    }
+
+    .stepper-connector {
+      top: 22px;
+      left: calc(50% + 22px);
+      right: calc(-50% + 22px);
+    }
+
+    .stepper-content {
+      h6 {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
+      p {
+        font-size: 9px;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    .stepper-icon {
       width: 40px;
       height: 40px;
-    }
 
-    .stepper-content h6 {
-      font-size: 11px;
-    }
-
-    .stepper-content p {
-      font-size: 10px;
+      i {
+        font-size: 14px;
+      }
     }
 
     .stepper-connector {
@@ -166,6 +291,62 @@
       left: calc(50% + 20px);
       right: calc(-50% + 20px);
     }
+
+    .stepper-content {
+      padding: 0 2px;
+
+      h6 {
+        font-size: 10px;
+      }
+
+      p {
+        display: none; // Mobilde description gizle
+      }
+    }
+  }
+}
+
+/* ===================================
+    Stepper Animations - Smooth & Professional
+====================================== */
+
+// Active icon pulse
+@keyframes stepper-pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(var(--main-600-rgb), 0.35),
+      0 4px 12px rgba(var(--main-600-rgb), 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(var(--main-600-rgb), 0.45),
+      0 6px 16px rgba(var(--main-600-rgb), 0.3);
+  }
+}
+
+// Checkmark bounce animation
+@keyframes checkmark-bounce {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+// Connector grow animation
+@keyframes connector-grow {
+  from {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left center;
   }
 }
 
