@@ -34,8 +34,20 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   const { submitRegistration, isSubmitting, submitError } =
     useRegistrationSubmit();
 
-  const { sendVerificationCode, verifyCode, isVerifying, verificationError } =
-    useVerificationFlow();
+  const {
+    sendVerificationCode,
+    verifyCode,
+    isVerifying,
+    verificationError,
+    codeSent,
+    resendTimer,
+    inputRefs,
+    fullCode,
+    handleInputChange,
+    handleKeyDown,
+    handlePaste,
+    getCodeValue,
+  } = useVerificationFlow();
 
   const { isLoading: registerLoading, error: registerError } = useRegisterApi();
 
@@ -63,11 +75,23 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     error: registerError || submitError || verificationError,
     verificationError,
 
+    // Verification UI State
+    codeSent,
+    resendTimer,
+    inputRefs,
+    fullCode,
+
     // Actions
     updateFormData: () => {}, // FormProvider handles this
     sendVerificationCode,
     verifyCode,
     submitRegistration,
+
+    // Verification UI Handlers
+    handleInputChange,
+    handleKeyDown,
+    handlePaste,
+    getCodeValue,
   };
 
   return (

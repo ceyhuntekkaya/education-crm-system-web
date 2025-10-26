@@ -14,7 +14,7 @@ interface CustomCardProps {
   /** Card header title */
   title?: string;
   /** Card header subtitle */
-  subtitle?: string;
+  subtitle?: string | ReactNode;
   /** Header action component (buttons, etc.) */
   headerAction?: ReactNode;
   /** Add button URL - if provided, "Yeni Ekle" button will be shown */

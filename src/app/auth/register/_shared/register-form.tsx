@@ -14,7 +14,7 @@ export const RegisterForm: React.FC = () => {
   return (
     <FormProvider
       initialValues={initialValues}
-      validationSchema={registerValidationSchema}
+      //   validationSchema={registerValidationSchema}
     >
       <RegisterProvider>
         <RegisterFormContent />

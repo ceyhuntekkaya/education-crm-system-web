@@ -20,6 +20,12 @@ export interface RegisterContextType {
   error: string | null;
   verificationError: string | null;
 
+  // Verification UI State
+  codeSent: boolean;
+  resendTimer: number;
+  inputRefs: React.RefObject<HTMLInputElement>[];
+  fullCode: string;
+
   // Actions
   setCurrentStep: (step: number) => void;
   nextStep: () => void;
@@ -28,6 +34,12 @@ export interface RegisterContextType {
   sendVerificationCode: () => Promise<void>;
   verifyCode: (code: string) => Promise<boolean>;
   submitRegistration: () => Promise<RegisterResponse | null>;
+
+  // Verification UI Handlers
+  handleInputChange: (index: number, value: string) => void;
+  handleKeyDown: (index: number, e: React.KeyboardEvent) => void;
+  handlePaste: (e: React.ClipboardEvent) => void;
+  getCodeValue: (index: number) => string;
 
   // Validation
   canProceedToNextStep: () => boolean;
