@@ -5,7 +5,7 @@ import { TOTAL_STEPS } from "../constants";
  * Step navigation ve state yönetimi
  */
 export const useRegisterSteps = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(5);
 
   const nextStep = useCallback(() => {
     if (currentStep < TOTAL_STEPS) {
