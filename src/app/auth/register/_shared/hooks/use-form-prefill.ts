@@ -2,218 +2,204 @@ import { useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
 import { useForm } from "@/contexts/form-context";
+import { transformSubscriptionPlan } from "@/app/(public)/memberships/_shared/utils";
+import type { SubscriptionPlanDto } from "@/types";
 
 /**
  * URL'den stepId parametresi geldiğinde form değerlerini
- * useAuth'dan gelen user bilgileriyle doldurur
+ * useAuth'dan gelen user bilgileriyle otomatik doldurur
+ *
+ * @description
+ * Backend'den gelen user objesi yapısı:
+ * - user: { id, email, phone, firstName, lastName, fullName, userType, ... }
+ * - user.country: { id, name, isoCode2, flagEmoji, phoneCode, ... }
+ * - user.province: { id, name, code, plateCode, isMetropolitan, ... }
+ * - user.district: { id, name, code, districtType, isCentral, ... }
+ * - user.neighborhood: { id, name, code, neighborhoodType, ... }
+ * - user.addressLine1, user.addressLine2, user.postalCode
+ * - user.brand: { id, name, slug, logoUrl, ratingAverage, campusCount, schoolCount }
+ * - user.campus: { id, name, slug, logoUrl, province, district, ratingAverage, schoolCount }
+ * - user.subscription: { id, campusName, planName, status, price, currency, ... }
  */
-export const useFormPrefill = () => {
+export const useFormPrefill = (
+  subscriptionPlans?: SubscriptionPlanDto[],
+  plansLoading?: boolean
+) => {
   const searchParams = useSearchParams();
   const stepIdParam = searchParams.get("stepId");
   const { user } = useAuth();
-  console.log("user => ", user);
   const { setValue, getValue } = useForm();
 
   /**
-   * User bilgilerinden form değerlerini doldurur
+   * Belirli bir form field'ı doluysa doldurma işlemini atla
    */
-  const prefillFormFromUser = useCallback(async () => {
+  const setIfEmpty = useCallback(
+    (field: string, value: any) => {
+      if (!getValue(field)) {
+        setValue(field, value);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  /**
+   * Login Credentials - Kullanıcı giriş bilgileri
+   */
+  const prefillLoginCredentials = useCallback(() => {
     if (!user) return;
 
-    // Login Credentials - Email'i username olarak kullan
-    if (user.email && !getValue("loginCredentials.username")) {
-      setValue("loginCredentials.username", user.email);
-    }
+    setIfEmpty("loginCredentials.username", user.email);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-    // Personal Info - Kişisel Bilgiler
-    if (user.firstName && !getValue("personalInfo.firstName")) {
-      setValue("personalInfo.firstName", user.firstName);
-    }
-    if (user.lastName && !getValue("personalInfo.lastName")) {
-      setValue("personalInfo.lastName", user.lastName);
-    }
-    if (user.email && !getValue("personalInfo.email")) {
-      setValue("personalInfo.email", user.email);
-    }
-    if (user.phone && !getValue("personalInfo.phone")) {
-      setValue("personalInfo.phone", user.phone);
-    }
+  /**
+   * Personal Info - Kişisel bilgiler (top-level user objesi)
+   */
+  const prefillPersonalInfo = useCallback(() => {
+    if (!user) return;
 
-    // Campus Info - Brand Bilgisi (sadece user.brand'dan al)
-    // user.brand object: { id, name, slug, logoUrl, ratingAverage, campusCount, schoolCount }
-    if (user.brand?.id && !getValue("campusInfo.brandId")) {
-      setValue("campusInfo.brandId", user.brand.id.toString());
-    }
+    setIfEmpty("personalInfo.firstName", user.firstName);
+    setIfEmpty("personalInfo.lastName", user.lastName);
+    setIfEmpty("personalInfo.email", user.email);
+    setIfEmpty("personalInfo.phone", user.phone);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-    // Campus Info - Tüm kampüs bilgileri SADECE user.campus objesinden alınmalı
+  /**
+   * User Address - Kullanıcı adres bilgileri (top-level user objesi)
+   */
+  const prefillUserAddress = useCallback(() => {
+    if (!user) return;
+
+    setIfEmpty("userAddress.countryId", user.country?.id?.toString());
+    setIfEmpty("userAddress.provinceId", user.province?.id?.toString());
+    setIfEmpty("userAddress.districtId", user.district?.id?.toString());
+    setIfEmpty("userAddress.neighborhoodId", user.neighborhood?.id?.toString());
+    setIfEmpty("userAddress.addressLine1", user.addressLine1);
+    setIfEmpty("userAddress.addressLine2", user.addressLine2);
+    setIfEmpty("userAddress.postalCode", user.postalCode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  /**
+   * Campus Info - Kampüs bilgileri (user.brand ve user.campus)
+   */
+  const prefillCampusInfo = useCallback(async () => {
+    if (!user) return;
+
+    setIfEmpty("campusInfo.brandId", user.brand?.id?.toString());
+
     if (!user.campus) {
-      console.warn(
-        "⚠️ User.campus objesi bulunamadı, kampüs bilgileri doldurulamadı"
-      );
+      console.warn("⚠️ User.campus objesi bulunamadı");
       return;
     }
 
-    // Campus Info - Campus Adı (sadece campus objesinden)
-    // user.campus object: { id, name, slug, logoUrl, province, district, ... }
-    if (user.campus.name && !getValue("campusInfo.campusName")) {
-      setValue("campusInfo.campusName", user.campus.name);
-    }
+    setIfEmpty("campusInfo.campusName", user.campus.name);
 
-    // Campus Info - Lokasyon Bilgileri (SADECE campus objesinden)
+    // Campus lokasyon bilgileri - cascade select için sıralı doldurma
+    // Country: user.country'den al (campus'ta country bilgisi yok)
+    await setValue("campusInfo.countryId", user.country?.id?.toString());
 
-    // Country - user.country'den al (campus'ta country bilgisi yok)
-    if (user.country?.id && !getValue("campusInfo.countryId")) {
-      await setValue("campusInfo.countryId", user.country.id.toString());
-    }
-
-    // province, district için küçük bir gecikme ekle
-    // useLocationData hook'unun reset işleminden sonra doldurmak için
+    // Province, District, Neighborhood için cascade loading
     setTimeout(() => {
-      // province - SADECE campus'tan
-      // user.campus.province object: { id, name, code, plateCode, isMetropolitan, schoolCount }
-      if (user.campus?.province?.id && !getValue("campusInfo.provinceId")) {
-        setValue("campusInfo.provinceId", user.campus.province.id.toString());
-      }
+      setIfEmpty(
+        "campusInfo.provinceId",
+        user.campus?.province?.id?.toString()
+      );
 
-      // Bir sonraki tick'te district'i doldur
       setTimeout(() => {
-        // district - SADECE campus'tan
-        // user.campus.district object: { id, name, code, districtType, isCentral, schoolCount, socioeconomicLevel }
-        if (user.campus?.district?.id && !getValue("campusInfo.districtId")) {
-          setValue("campusInfo.districtId", user.campus.district.id.toString());
-        }
+        setIfEmpty(
+          "campusInfo.districtId",
+          user.campus?.district?.id?.toString()
+        );
 
-        // Bir sonraki tick'te neighborhood'u doldur
         setTimeout(() => {
-          // neighborhood - SADECE campus'tan (eğer varsa)
-          // user.campus.neighborhood object: { id, name, code, ... }
-          if (
-            user.campus?.neighborhood?.id &&
-            !getValue("campusInfo.neighborhoodId")
-          ) {
-            setValue(
-              "campusInfo.neighborhoodId",
-              user.campus.neighborhood.id.toString()
-            );
-          }
+          setIfEmpty(
+            "campusInfo.neighborhoodId",
+            user.campus?.neighborhood?.id?.toString()
+          );
         }, 100);
       }, 100);
     }, 100);
 
-    // Package Selection - Abonelik planı bilgilerini doldur
-    // user.subscription object: { id, campusName, planName, status, price, currency, nextBillingDate, endDate, autoRenew, daysRemaining, usagePercentage }
-    if (user.subscription) {
-      // selectedPlanId - subscription.id'yi kullan
-      if (
-        user.subscription.id &&
-        !getValue("packageSelection.selectedPlanId")
-      ) {
-        setValue(
-          "packageSelection.selectedPlanId",
-          user.subscription.id.toString()
-        );
-      }
-
-      // planName - subscription.planName'i kullan
-      if (
-        user.subscription.planName &&
-        !getValue("packageSelection.planName")
-      ) {
-        setValue("packageSelection.planName", user.subscription.planName);
-      }
-
-      // planDisplayName - planName ile aynı olabilir
-      if (
-        user.subscription.planName &&
-        !getValue("packageSelection.planDisplayName")
-      ) {
-        setValue(
-          "packageSelection.planDisplayName",
-          user.subscription.planName
-        );
-      }
-
-      // billingPeriod - planName'den çıkar (Aylık/Üç Aylık/Yıllık)
-      if (!getValue("packageSelection.billingPeriod")) {
-        let billingPeriod: "monthly" | "quarterly" | "yearly" = "monthly";
-        const planNameLower = user.subscription.planName?.toLowerCase() || "";
-
-        if (
-          planNameLower.includes("yıllık") ||
-          planNameLower.includes("annual")
-        ) {
-          billingPeriod = "yearly";
-        } else if (
-          planNameLower.includes("üç aylık") ||
-          planNameLower.includes("quarterly")
-        ) {
-          billingPeriod = "quarterly";
-        } else if (
-          planNameLower.includes("aylık") ||
-          planNameLower.includes("monthly")
-        ) {
-          billingPeriod = "monthly";
-        }
-
-        setValue("packageSelection.billingPeriod", billingPeriod);
-      }
-
-      // price - subscription.price'ı kullan
-      if (
-        user.subscription.price !== undefined &&
-        !getValue("packageSelection.price")
-      ) {
-        setValue("packageSelection.price", user.subscription.price);
-      }
-    }
-
-    // Subscription Info - Abonelik bilgilerini paymentInfo formuna doldur
-    // user.subscription object: { id, campusName, planName, status, price, currency, nextBillingDate, endDate, autoRenew, daysRemaining, usagePercentage }
-    if (user.subscription) {
-      if (user.subscription.planName && !getValue("paymentInfo.planName")) {
-        setValue("paymentInfo.planName", user.subscription.planName);
-      }
-      if (user.subscription.status && !getValue("paymentInfo.status")) {
-        setValue("paymentInfo.status", user.subscription.status);
-      }
-      if (user.subscription.campusName && !getValue("paymentInfo.campusName")) {
-        setValue("paymentInfo.campusName", user.subscription.campusName);
-      }
-      if (
-        user.subscription.price !== undefined &&
-        !getValue("paymentInfo.price")
-      ) {
-        setValue("paymentInfo.price", user.subscription.price);
-      }
-      if (user.subscription.currency && !getValue("paymentInfo.currency")) {
-        setValue("paymentInfo.currency", user.subscription.currency);
-      }
-      if (
-        user.subscription.daysRemaining !== undefined &&
-        !getValue("paymentInfo.daysRemaining")
-      ) {
-        setValue("paymentInfo.daysRemaining", user.subscription.daysRemaining);
-      }
-
-      // NOT: Kart bilgileri (cardHolderName, cardNumber, cvv, expiryMonth, expiryYear)
-      // güvenlik nedeniyle API'dan gelmez ve doldurulmaz.
-      // Kullanıcı bu bilgileri manuel olarak girmelidir.
-    }
-
-    // Address bilgileri - campus'ta yok, doldurmuyoruz
-    // Sadece campus objesindeki bilgileri (name, province, district) dolduruyoruz
-    // brandId user.brand'dan alınıyor (yukarıda)
-  }, [user, getValue, setValue]);
+    // Adres satırları ve posta kodu (user'dan campusInfo'ya)
+    setIfEmpty("campusInfo.addressLine1", user.addressLine1);
+    setIfEmpty("campusInfo.addressLine2", user.addressLine2);
+    setIfEmpty("campusInfo.postalCode", user.postalCode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   /**
-   * stepId varsa ve user giriş yapmışsa formu doldur
+   * Package Selection - Paket seçimi (user.subscription + API'den gelen plan detayları)
+   */
+  const prefillPackageSelection = useCallback(() => {
+    if (!user?.subscription || plansLoading || !subscriptionPlans) return;
+
+    const userSubscriptionId = user.subscription.id?.toString();
+    if (!userSubscriptionId) return;
+
+    // API'den gelen planları transform et
+    const transformedPlans = subscriptionPlans
+      .filter((plan) => plan.isActive && plan.isVisible)
+      .map(transformSubscriptionPlan);
+
+    // User'ın subscription ID'si ile eşleşen planı bul
+    const matchedPlan = transformedPlans.find(
+      (plan) => plan.id === userSubscriptionId
+    );
+
+    if (!matchedPlan) {
+      console.warn(
+        `⚠️ User subscription ID (${userSubscriptionId}) ile eşleşen plan bulunamadı`
+      );
+      return;
+    }
+
+    // Billing period'a göre doğru fiyatı al
+    const price =
+      matchedPlan.billingPeriod === "yearly"
+        ? matchedPlan.price.yearly
+        : matchedPlan.billingPeriod === "quarterly"
+        ? matchedPlan.price.quarterly
+        : matchedPlan.price.monthly;
+
+    // Package selection bilgilerini API'den gelen plan detayları ile doldur
+    setValue("packageSelection", {
+      selectedPlanId: matchedPlan.id,
+      planName: matchedPlan.name,
+      planDisplayName: matchedPlan.displayName,
+      billingPeriod: matchedPlan.billingPeriod || "monthly",
+      price: price,
+      discountPercentage: matchedPlan.discountPercentage,
+      trialDays: matchedPlan.trialDays,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, subscriptionPlans, plansLoading]);
+
+  /**
+   * Tüm form bölümlerini doldur
+   */
+  const prefillFormFromUser = useCallback(async () => {
+    if (!user) return;
+
+    prefillLoginCredentials();
+    prefillPersonalInfo();
+    prefillUserAddress();
+    await prefillCampusInfo();
+    prefillPackageSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, subscriptionPlans, plansLoading]);
+
+  /**
+   * stepId parametresi ve user varsa formu otomatik doldur
    */
   useEffect(() => {
-    // stepId parametresi varsa ve user mevcutsa
-    if (stepIdParam && user) {
+    if (stepIdParam && user && !plansLoading) {
       prefillFormFromUser();
     }
-  }, [stepIdParam, user, prefillFormFromUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepIdParam, user, plansLoading]);
 
   return {
     prefillFormFromUser,

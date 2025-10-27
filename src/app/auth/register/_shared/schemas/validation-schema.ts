@@ -72,7 +72,7 @@ export const campusInfoSchema = Yup.object({
   countryId: Yup.number().nullable().required("Ülke seçimi gereklidir"),
   provinceId: Yup.number().nullable().required("İl seçimi gereklidir"),
   districtId: Yup.number().nullable().required("İlçe seçimi gereklidir"),
-  neighborhoodId: Yup.number().nullable().required("Mahalle seçimi gereklidir"),
+  neighborhoodId: Yup.number().nullable().optional(),
   addressLine1: Yup.string()
     .min(5, "Adres en az 5 karakter olmalıdır")
     .max(200, "Adres en fazla 200 karakter olabilir")

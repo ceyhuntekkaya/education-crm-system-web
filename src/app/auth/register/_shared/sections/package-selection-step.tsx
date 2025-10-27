@@ -2,11 +2,10 @@
 
 import React from "react";
 import { useForm } from "@/contexts/form-context";
-import { useSubscriptionPlans } from "@/app/(public)/memberships/_shared/hooks";
+import { useRegister } from "../context/register-context";
 import { transformSubscriptionPlan } from "@/app/(public)/memberships/_shared/utils";
 import MembershipCard from "@/app/(public)/memberships/_shared/sections/membership-card";
 import { LoadingSpinner } from "@/components/ui/loadings/loading-spinner";
-import { formatCurrency } from "@/app/(public)/memberships/_shared/utils";
 
 /**
  * Step 5: Package Selection
@@ -14,7 +13,7 @@ import { formatCurrency } from "@/app/(public)/memberships/_shared/utils";
  */
 export const PackageSelectionStep: React.FC = () => {
   const { values, setValue } = useForm();
-  const { subscriptionPlans, loading } = useSubscriptionPlans();
+  const { subscriptionPlans, plansLoading } = useRegister();
 
   const packageSelection = values?.packageSelection || {};
   const selectedPlanId = packageSelection.selectedPlanId;
@@ -61,7 +60,7 @@ export const PackageSelectionStep: React.FC = () => {
   return (
     <div className="register-step-content">
       {/* Plans Grid */}
-      {loading ? (
+      {plansLoading ? (
         <LoadingSpinner
           message="Paketler yükleniyor..."
           size="lg"

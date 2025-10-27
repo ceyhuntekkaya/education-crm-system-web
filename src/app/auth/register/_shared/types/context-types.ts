@@ -4,6 +4,7 @@
 
 import type { RegisterFormData, RegisterResponse } from "./register.types";
 import type { RegistrationType } from "../register-form";
+import type { SubscriptionPlanDto } from "@/types";
 
 // Location data interface
 export interface LocationOption {
@@ -75,6 +76,10 @@ export interface RegisterContextType {
 
   // Brand data
   brandData: BrandState;
+
+  // Subscription plans data
+  subscriptionPlans: SubscriptionPlanDto[];
+  plansLoading: boolean;
 
   // Actions
   setCurrentStep: (step: number) => void;

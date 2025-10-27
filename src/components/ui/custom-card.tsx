@@ -241,7 +241,8 @@ export default function CustomCard({
         setContentHeight(contentRef.current.scrollHeight);
       }
     }
-  }, [isAccordionOpen, type, children, items, multiItems]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAccordionOpen, type]);
 
   // Accordion toggle function
   const toggleAccordion = (e: React.MouseEvent) => {

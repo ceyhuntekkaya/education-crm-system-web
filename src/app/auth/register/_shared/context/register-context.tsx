@@ -13,6 +13,7 @@ import {
   useBrandData,
   useFormPrefill,
 } from "../hooks";
+import { useSubscriptionPlans } from "@/app/(public)/memberships/_shared/hooks";
 import { useForm } from "@/contexts/form-context";
 import type { RegistrationType } from "../register-form";
 
@@ -38,8 +39,11 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   // Brand data hook
   const brandData = useBrandData();
 
+  // Subscription plans hook
+  const { subscriptionPlans, loading: plansLoading } = useSubscriptionPlans();
+
   // Form prefill hook - URL'den stepId geldiğinde user bilgileriyle formu doldurur
-  useFormPrefill();
+  useFormPrefill(subscriptionPlans, plansLoading);
 
   // Custom hooks - her biri tek bir sorumluluktan sorumlu
   const { currentStep, setCurrentStep, nextStep, previousStep, goToStep } =
@@ -113,6 +117,10 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
 
     // Brand data
     brandData,
+
+    // Subscription plans data
+    subscriptionPlans,
+    plansLoading,
 
     // Actions
     updateFormData: () => {}, // FormProvider handles this
