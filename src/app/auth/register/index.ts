@@ -3,6 +3,6 @@
  * Tüm register modülünü export eder
  */
 
-export * from "./institution/_shared";
+export * from "./_shared";
 export { default as RegisterPage } from "./page";
 export { default as RegisterLayout } from "./layout";

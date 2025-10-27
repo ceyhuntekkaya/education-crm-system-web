@@ -4,7 +4,7 @@ import React from "react";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { RegisterForm } from "./_shared/register-form";
+import { RegisterForm } from "../_shared/register-form";
 
 /**
  * Institution Register Page
