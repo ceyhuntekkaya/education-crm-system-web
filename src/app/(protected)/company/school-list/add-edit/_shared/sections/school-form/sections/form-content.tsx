@@ -56,11 +56,6 @@ export const SchoolFormContent: React.FC = () => {
       classSizeAverage: values.classSizeAverage
         ? Number(values.classSizeAverage)
         : undefined,
-      registrationFee: values.registrationFee
-        ? Number(values.registrationFee)
-        : undefined,
-      monthlyFee: values.monthlyFee ? Number(values.monthlyFee) : undefined,
-      annualFee: values.annualFee ? Number(values.annualFee) : undefined,
     };
 
     if (isEditing) {
@@ -240,41 +235,6 @@ export const SchoolFormContent: React.FC = () => {
             placeholder="Eğitim dili seçiniz..."
             options={languageOptions}
             noOptionsText="Dil bulunamadı"
-          />
-        </div>
-
-        {/* ÜCRET BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Ücret Bilgileri</h5>
-        </div>
-
-        {/* Kayıt Ücreti */}
-        <div className="col-4">
-          <FormInput
-            name="registrationFee"
-            label="Kayıt Ücreti"
-            type="number"
-            placeholder="Kayıt ücretini giriniz..."
-          />
-        </div>
-
-        {/* Aylık Ücret */}
-        <div className="col-4">
-          <FormInput
-            name="monthlyFee"
-            label="Aylık Ücret"
-            type="number"
-            placeholder="Aylık ücreti giriniz..."
-          />
-        </div>
-
-        {/* Yıllık Ücret */}
-        <div className="col-4">
-          <FormInput
-            name="annualFee"
-            label="Yıllık Ücret"
-            type="number"
-            placeholder="Yıllık ücreti giriniz..."
           />
         </div>
 

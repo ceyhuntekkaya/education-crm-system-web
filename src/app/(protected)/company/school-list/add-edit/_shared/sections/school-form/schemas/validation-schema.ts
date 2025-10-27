@@ -30,11 +30,6 @@ export const validationSchema = Yup.object({
     .optional(),
   curriculumType: Yup.string().optional(),
   languageOfInstruction: Yup.string().optional(),
-  registrationFee: Yup.number()
-    .min(0, "Kayıt ücreti 0'dan küçük olamaz")
-    .optional(),
-  monthlyFee: Yup.number().min(0, "Aylık ücret 0'dan küçük olamaz").optional(),
-  annualFee: Yup.number().min(0, "Yıllık ücret 0'dan küçük olamaz").optional(),
   // SEO
   metaTitle: Yup.string()
     .max(60, "Meta başlık en fazla 60 karakter olabilir")
