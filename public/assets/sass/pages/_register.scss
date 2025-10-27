@@ -13,6 +13,144 @@
 }
 
 /* ===================================
+    Register Selection Page
+====================================== */
+
+.register-selection-page {
+  min-height: 100vh;
+  padding: 60px 0;
+  
+  .container {
+    max-width: 1200px;
+  }
+
+  /* Icon Containers */
+  .icon-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    
+    &.institution-icon {
+      background-color: #EEF2FF;
+    }
+    
+    &.user-icon {
+      background-color: #FEF3F2;
+    }
+    
+    .icon-lg {
+      font-size: 40px;
+    }
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    font-size: 20px;
+  }
+
+  /* Hover Card Wrapper Effects */
+  .hover-card-wrapper {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      transform: translateY(-4px);
+      
+      .card {
+        border-color: var(--main-600) !important;
+        box-shadow: 0 12px 24px rgba(72, 127, 255, 0.15) !important;
+      }
+      
+      .icon-container {
+        transform: scale(1.05);
+      }
+    }
+    
+    &:active {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Transition for CustomCard */
+  .transition-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Feature List Hover */
+  ul.list-unstyled {
+    li {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 991.98px) {
+    .col-lg-5 {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    padding: 40px 0;
+    
+    .card {
+      padding: 32px !important;
+    }
+    
+    h2 {
+      font-size: 24px;
+    }
+    
+    h4 {
+      font-size: 20px;
+    }
+  }
+}
+
+/* ===================================
+    User Register Page (Coming Soon)
+====================================== */
+
+.user-register-page {
+  /* Coming Soon Icon Container */
+  .coming-soon-icon-container {
+    width: 120px;
+    height: 120px;
+    background-color: #FEF3F2;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    
+    .icon-xl {
+      font-size: 60px;
+    }
+  }
+
+  /* Header Icon */
+  .header-icon {
+    font-size: 32px;
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    font-size: 20px;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ===================================
     Register Form Wrapper
 ====================================== */
 
