@@ -17,7 +17,7 @@ export const initialValues: SchoolFormData = {
   classSizeAverage: undefined,
   curriculumType: "",
   languageOfInstruction: "",
-  foreignLanguages: "",
+  foreignLanguages: [], // Array olarak tanımlandı (multiple select için)
   registrationFee: undefined,
   monthlyFee: undefined,
   annualFee: undefined,

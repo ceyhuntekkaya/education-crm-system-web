@@ -25,6 +25,15 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
         campusId: initialData.campus?.id?.toString() || "",
         // API'den gelen institutionType objesini institutionTypeId'ye çevir
         institutionTypeId: initialData.institutionType?.id?.toString() || "",
+        // API'den gelen foreignLanguages string'ini array'e çevir (virgülle ayrılmış)
+        foreignLanguages:
+          initialData.foreignLanguages &&
+          typeof initialData.foreignLanguages === "string"
+            ? initialData.foreignLanguages
+                .split(",")
+                .map((lang) => lang.trim())
+                .filter((lang) => lang !== "")
+            : initialData.foreignLanguages || [],
       }
     : schoolInitialValues;
 

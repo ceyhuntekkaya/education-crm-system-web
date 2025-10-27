@@ -3,3 +3,4 @@ export * from "./use-edit-school";
 export * from "./use-school-by-id";
 export * from "./use-institution-types";
 export * from "./use-campuses-by-brand";
+export * from "./use-language-options";

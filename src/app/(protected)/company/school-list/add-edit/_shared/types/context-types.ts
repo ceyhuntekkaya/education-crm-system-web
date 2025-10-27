@@ -26,6 +26,7 @@ export interface SchoolAddEditContextType {
   // Dropdown options
   campusOptions: { value: string; label: string }[];
   institutionTypeOptions: { value: string; label: string }[];
+  languageOptions: { value: string; label: string }[];
 
   // Loading states
   campusesLoading: boolean;

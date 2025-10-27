@@ -11,6 +11,7 @@ import {
   useEditSchool,
   useInstitutionTypes,
   useCampusesByBrand,
+  useLanguageOptions,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 
@@ -32,12 +33,7 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
   const { user } = useAuth();
 
   // User'ın institutionAccess'inden brand ID'yi al (BRAND tipindeki access)
-  const brandAccess = user?.institutionAccess?.find(
-    (access) => access.accessType === "BRAND"
-  );
-  const brandId = brandAccess?.entityId || null;
-
-  console.log("user :>> ", user);
+  const brandId = user?.brand?.id || null;
 
   // ID parsing and edit mode determination
   const isEditing = isValidEditId(id);
@@ -75,7 +71,8 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     error: campusesError,
   } = useCampusesByBrand(brandId);
 
-  console.log("school ::>> ", school);
+  // Dil seçenekleri hook'u
+  const { languageOptions } = useLanguageOptions();
 
   const contextValue: SchoolAddEditContextType = {
     // Current school data
@@ -95,6 +92,7 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     // Dropdown options
     campusOptions,
     institutionTypeOptions,
+    languageOptions,
 
     // Loading states
     campusesLoading,
