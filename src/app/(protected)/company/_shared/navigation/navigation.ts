@@ -78,8 +78,13 @@ export const companyLayoutNavigation: MenuItem[] = [
     label: "Markalar ***",
     icon: "ph-tag",
   },
-  // Kampüs detayı dinamik route olduğu için menüde görünmüyor
-  // Brand detay sayfasındaki kampüslerden erişilecek
+  {
+    href: "/company/campus-detail",
+    label: "Kampüs Bilgileri ***",
+    icon: "ph-school",
+  },
+  // Kampüs detayı dinamik route olduğu için hem menüde görünebilir
+  // hem de Brand detay sayfasındaki kampüslerden erişilebilir
   // {
   //   href: "/company/campus-detail",
   //   label: "Kampüs Bilgileri ***",

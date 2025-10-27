@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useCampusDetail } from "../_shared/context/campus-detail-context";
+import { useCampusDetail } from "./_shared/context/campus-detail-context";
 import {
   CampusCoverImage,
   CampusDetailSection,
@@ -9,9 +9,9 @@ import {
   CampusDetailErrorSection,
   CampusDetailNotFoundSection,
   CampusDetailEmptySection,
-} from "../_shared";
+} from "./_shared";
 
-const CampusDetailWithIdPage: React.FC = () => {
+const CampusDetailPage: React.FC = () => {
   const { currentCampus, isLoading, error, allSections } = useCampusDetail();
 
   // Loading durumu
@@ -42,4 +42,4 @@ const CampusDetailWithIdPage: React.FC = () => {
   );
 };
 
-export default CampusDetailWithIdPage;
+export default CampusDetailPage;
