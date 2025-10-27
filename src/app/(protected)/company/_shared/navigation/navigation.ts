@@ -24,6 +24,11 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-coins",
   },
   {
+    href: "/company/custom-fees",
+    label: "Ek Ücretler",
+    icon: "ph-currency-circle-dollar",
+  },
+  {
     href: "/company/campaigns",
     label: "Kampanyalar ***",
     icon: "ph-megaphone",
