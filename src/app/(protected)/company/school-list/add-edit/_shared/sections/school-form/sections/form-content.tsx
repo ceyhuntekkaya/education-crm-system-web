@@ -149,6 +149,7 @@ export const SchoolFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="phone"
+            type="tel"
             label="Telefon"
             placeholder="Telefon numarasını giriniz..."
           />
@@ -251,7 +252,7 @@ export const SchoolFormContent: React.FC = () => {
             variant="outline"
             placeholder="Logo yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
-            uploadButtonText="Logo Yükle"
+            isAutoUpload
             name="logoUrl"
           />
         </div>
@@ -264,7 +265,7 @@ export const SchoolFormContent: React.FC = () => {
             variant="outline"
             placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
-            uploadButtonText="Kapak Resmi Yükle"
+            isAutoUpload
             name="coverImageUrl"
           />
         </div>

@@ -1,9 +1,11 @@
 /**
  * Edit modunda disable edilecek alanlar
- * Bu alanlar güncelleme sırasında değiştirilemez
+ * Bu alanlar güncelleme sırasında değiştirilemez ve gönderilmez
  */
 export const DISABLED_FIELDS_IN_EDIT_MODE = [
-  // School için genellikle tüm alanlar güncellenebilir
-  // Eğer belirli alanların değiştirilmesini istemiyorsanız buraya ekleyin
-  // Örnek: "slug", "id" gibi
+  "id", // ID alanı asla güncellenmemeli
+  "foreignLanguages", // Kaldırılan alan
+  "registrationFee", // Kaldırılan alan
+  "monthlyFee", // Kaldırılan alan
+  "annualFee", // Kaldırılan alan
 ] as const;

@@ -29,6 +29,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   maxSize,
   disabled = false,
   loading: externalLoading = false,
+  isAutoUpload = false,
   name,
   onUpload,
   onUploadSuccess,
@@ -98,6 +99,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
       openFileDialog,
       isLoading,
       handleUpload,
+      isAutoUpload,
     });
 
   // Context value
@@ -149,6 +151,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     maxFiles,
     maxSize,
     disabled,
+    isAutoUpload,
 
     // Upload API
     name,

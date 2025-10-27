@@ -14,7 +14,13 @@ import {
 const FileInputContent: React.FC<
   Omit<
     SimpleFileInputProps,
-    "type" | "multiple" | "maxFiles" | "maxSize" | "disabled" | "loading"
+    | "type"
+    | "multiple"
+    | "maxFiles"
+    | "maxSize"
+    | "disabled"
+    | "loading"
+    | "isAutoUpload"
   >
 > = ({
   label,
@@ -32,6 +38,7 @@ const FileInputContent: React.FC<
     fileInputRef,
     acceptAttribute,
     handleFileSelect,
+    isAutoUpload,
     // Configuration values from context
     multiple,
     disabled,
@@ -70,8 +77,8 @@ const FileInputContent: React.FC<
       {/* File Preview */}
       <FilePreview />
 
-      {/* Upload Button - uploadButtonText varsa göster */}
-      {uploadButtonText && (
+      {/* Upload Button - uploadButtonText varsa ve isAutoUpload false ise göster */}
+      {uploadButtonText && !isAutoUpload && (
         <div className="d-flex justify-content-center mb-3 mt-16">
           <UploadButton>{uploadButtonText}</UploadButton>
         </div>
@@ -99,6 +106,7 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
   maxSize,
   disabled = false,
   loading = false,
+  isAutoUpload = false,
 
   // Upload API props
   name,
@@ -117,6 +125,7 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
       maxSize={maxSize}
       disabled={disabled}
       loading={loading}
+      isAutoUpload={isAutoUpload}
       name={name}
       onUpload={onUpload}
       onUploadSuccess={onUploadSuccess}

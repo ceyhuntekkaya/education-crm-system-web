@@ -16,6 +16,7 @@ export interface FileInputContextProps {
   maxSize?: number;
   disabled?: boolean;
   loading?: boolean;
+  isAutoUpload?: boolean; // true ise dosya seçildiğinde otomatik yükleme yapar
 
   // Upload API props
   name?: string;
@@ -78,6 +79,7 @@ export interface FileInputContextValue {
   maxFiles?: number;
   maxSize?: number;
   disabled: boolean;
+  isAutoUpload: boolean; // true ise dosya seçildiğinde otomatik yükleme yapar
 
   // Upload API
   name?: string;
