@@ -92,7 +92,9 @@ export const SuccessStep: React.FC = () => {
       value: (
         <span className="text-primary-600 fw-semibold d-inline-flex align-items-center gap-8">
           <i className="ph-bold ph-package text-primary-600"></i>
-          {packageInfo.planDisplayName || packageInfo.planName || `Plan #${packageInfo.selectedPlanId}`}
+          {packageInfo.planDisplayName ||
+            packageInfo.planName ||
+            `Plan #${packageInfo.selectedPlanId}`}
         </span>
       ),
       isShowing: packageInfo.selectedPlanId,
@@ -102,7 +104,7 @@ export const SuccessStep: React.FC = () => {
       value: (
         <span className="text-success-600 fw-bold d-inline-flex align-items-center gap-8">
           <i className="ph-bold ph-currency-circle-dollar text-success-600"></i>
-          ₺{packageInfo.price?.toLocaleString('tr-TR') || '0'}
+          ₺{packageInfo.price?.toLocaleString("tr-TR") || "0"}
           {packageInfo.billingPeriod === "monthly" && " / Ay"}
           {packageInfo.billingPeriod === "quarterly" && " / 3 Ay"}
           {packageInfo.billingPeriod === "yearly" && " / Yıl"}
@@ -126,11 +128,12 @@ export const SuccessStep: React.FC = () => {
       label: "İndirim",
       value: (
         <span className="bg-success-50 text-success-600 px-12 py-6 rounded-8 fw-semibold d-inline-flex align-items-center gap-4">
-          <i className="ph-bold ph-percent text-sm"></i>
-          %{packageInfo.discountPercentage} İndirim
+          <i className="ph-bold ph-percent text-sm"></i>%
+          {packageInfo.discountPercentage} İndirim
         </span>
       ),
-      isShowing: packageInfo.discountPercentage && packageInfo.discountPercentage > 0,
+      isShowing:
+        packageInfo.discountPercentage && packageInfo.discountPercentage > 0,
     },
     {
       label: "Deneme Süresi",
