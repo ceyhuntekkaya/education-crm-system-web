@@ -43,7 +43,9 @@ export const validationSchema = Yup.object({
 
   establishedYear: Yup.number()
     .nullable()
-    .transform((value, originalValue) => (originalValue === null ? undefined : value))
+    .transform((value, originalValue) =>
+      originalValue === null ? undefined : value
+    )
     .typeError("Kuruluş yılı geçerli bir sayı olmalıdır")
     .min(1800, "Kuruluş yılı 1800'den küçük olamaz")
     .max(new Date().getFullYear(), "Kuruluş yılı gelecek bir yıl olamaz")
