@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRegister } from "../context";
-import { TOTAL_STEPS } from "../constants";
+import { getTotalSteps } from "../constants";
 
 /**
  * Step Navigation Component
@@ -17,10 +17,12 @@ export const StepNavigation: React.FC = () => {
     canProceedToNextStep,
     isLoading,
     isSubmitting,
+    registrationType,
   } = useRegister();
 
+  const totalSteps = getTotalSteps(registrationType);
   const isFirstStep = currentStep === 1;
-  const isLastStep = currentStep === TOTAL_STEPS;
+  const isLastStep = currentStep === totalSteps;
   const canProceed = canProceedToNextStep();
 
   const handleNext = () => {
@@ -49,7 +51,7 @@ export const StepNavigation: React.FC = () => {
 
       <div className="text-center">
         <span className="text-neutral-600 text-sm">
-          Adım {currentStep} / {TOTAL_STEPS}
+          Adım {currentStep} / {totalSteps}
         </span>
       </div>
 

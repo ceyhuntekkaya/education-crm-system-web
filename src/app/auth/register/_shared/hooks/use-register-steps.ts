@@ -1,17 +1,19 @@
 import { useState, useCallback } from "react";
-import { TOTAL_STEPS } from "../constants";
+import { getTotalSteps } from "../constants";
+import type { RegistrationType } from "../register-form";
 
 /**
  * Step navigation ve state yönetimi
  */
-export const useRegisterSteps = () => {
+export const useRegisterSteps = (registrationType: RegistrationType) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = getTotalSteps(registrationType);
 
   const nextStep = useCallback(() => {
-    if (currentStep < TOTAL_STEPS) {
+    if (currentStep < totalSteps) {
       setCurrentStep((prev) => prev + 1);
     }
-  }, [currentStep]);
+  }, [currentStep, totalSteps]);
 
   const previousStep = useCallback(() => {
     if (currentStep > 1) {
@@ -19,11 +21,14 @@ export const useRegisterSteps = () => {
     }
   }, [currentStep]);
 
-  const goToStep = useCallback((step: number) => {
-    if (step >= 1 && step <= TOTAL_STEPS) {
-      setCurrentStep(step);
-    }
-  }, []);
+  const goToStep = useCallback(
+    (step: number) => {
+      if (step >= 1 && step <= totalSteps) {
+        setCurrentStep(step);
+      }
+    },
+    [totalSteps]
+  );
 
   return {
     currentStep,

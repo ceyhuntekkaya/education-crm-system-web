@@ -13,6 +13,7 @@ import {
   useBrandData,
 } from "../hooks";
 import { useForm } from "@/contexts/form-context";
+import type { RegistrationType } from "../register-form";
 
 const RegisterContext = createContext<RegisterContextType | undefined>(
   undefined
@@ -20,10 +21,12 @@ const RegisterContext = createContext<RegisterContextType | undefined>(
 
 interface RegisterProviderProps {
   children: React.ReactNode;
+  registrationType?: RegistrationType;
 }
 
 export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   children,
+  registrationType = "institution",
 }) => {
   // Form values
   const { values } = useForm();
@@ -36,7 +39,7 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
 
   // Custom hooks - her biri tek bir sorumluluktan sorumlu
   const { currentStep, setCurrentStep, nextStep, previousStep, goToStep } =
-    useRegisterSteps();
+    useRegisterSteps(registrationType);
 
   const { isStepCompleted, canProceedToNextStep } = useStepValidation();
 
@@ -70,6 +73,9 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   const contextValue: RegisterContextType = {
     // Form data
     formData: values as any,
+
+    // Registration type
+    registrationType,
 
     // Step management
     currentStep,

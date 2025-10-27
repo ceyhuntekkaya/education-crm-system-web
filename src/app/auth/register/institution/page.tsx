@@ -32,7 +32,7 @@ const InstitutionRegisterPage: React.FC = () => {
         </div>
 
         {/* Register Form */}
-        <RegisterForm />
+        <RegisterForm registrationType="institution" />
 
         {/* Footer Links */}
         <div className="text-center mt-32 pt-24 border-top">

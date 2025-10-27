@@ -3,6 +3,7 @@
  */
 
 import type { RegisterFormData, RegisterResponse } from "./register.types";
+import type { RegistrationType } from "../register-form";
 
 // Location data interface
 export interface LocationOption {
@@ -47,6 +48,9 @@ export interface BrandState {
 export interface RegisterContextType {
   // Form data
   formData: RegisterFormData;
+
+  // Registration type
+  registrationType: RegistrationType;
 
   // Current step
   currentStep: number;

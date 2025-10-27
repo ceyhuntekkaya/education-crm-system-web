@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRegister } from "../context";
-import { STEP_CONFIGS } from "../constants";
+import { getStepConfigs } from "../constants";
 import CustomCard from "@/components/ui/custom-card";
 
 /**
@@ -20,19 +20,26 @@ import CustomCard from "@/components/ui/custom-card";
  * <RegisterStepper />
  */
 export const RegisterStepper: React.FC = () => {
-  const { currentStep, isStepCompleted, isStepClickable, handleStepClick } =
-    useRegister();
+  const {
+    currentStep,
+    isStepCompleted,
+    isStepClickable,
+    handleStepClick,
+    registrationType,
+  } = useRegister();
+
+  const stepConfigs = getStepConfigs(registrationType);
 
   return (
     <CustomCard>
       <div className="register-stepper">
         <div className="d-flex align-items-start justify-content-between gap-2">
-          {STEP_CONFIGS.map((step, index) => {
+          {stepConfigs.map((step, index) => {
             const isActive = currentStep === step.step;
             const isCompleted = isStepCompleted(step.step);
             const isPast = currentStep > step.step;
             const isClickable = isStepClickable(step.step);
-            const showConnector = index < STEP_CONFIGS.length - 1;
+            const showConnector = index < stepConfigs.length - 1;
 
             return (
               <React.Fragment key={step.step}>
