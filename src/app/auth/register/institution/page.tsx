@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { RegisterForm } from "../_shared/register-form";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { RegisterForm } from "./_shared/register-form";
 
 /**
  * Institution Register Page
