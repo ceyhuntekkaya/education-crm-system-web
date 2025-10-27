@@ -11,6 +11,7 @@ import {
   useRegister as useRegisterApi,
   useLocationData,
   useBrandData,
+  useFormPrefill,
 } from "../hooks";
 import { useForm } from "@/contexts/form-context";
 import type { RegistrationType } from "../register-form";
@@ -36,6 +37,9 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
 
   // Brand data hook
   const brandData = useBrandData();
+
+  // Form prefill hook - URL'den stepId geldiğinde user bilgileriyle formu doldurur
+  useFormPrefill();
 
   // Custom hooks - her biri tek bir sorumluluktan sorumlu
   const { currentStep, setCurrentStep, nextStep, previousStep, goToStep } =

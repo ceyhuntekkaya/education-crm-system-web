@@ -118,9 +118,17 @@ export const CampusInfoStep: React.FC = () => {
           <div className="col-12">
             <FormInput
               name="campusInfo.addressLine1"
-              label="Adres Detayı"
-              placeholder="Cadde, sokak, bina no, vb..."
+              label="Adres Detayı (1. Satır)"
+              placeholder="Cadde, sokak, bina no..."
               required
+            />
+          </div>
+
+          <div className="col-12">
+            <FormInput
+              name="campusInfo.addressLine2"
+              label="Adres Detayı (2. Satır)"
+              placeholder="Daire no, blok, kat..."
             />
           </div>
 

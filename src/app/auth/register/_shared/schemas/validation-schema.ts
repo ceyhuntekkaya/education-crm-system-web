@@ -127,6 +127,13 @@ export const paymentInfoSchema = Yup.object({
     .oneOf([true], "Gizlilik politikasını kabul etmelisiniz")
     .required("Gizlilik politikasını kabul etmelisiniz"),
   acceptMarketing: Yup.boolean(),
+  // Subscription bilgileri (optional, sadece bilgilendirme)
+  planName: Yup.string().optional(),
+  status: Yup.string().optional(),
+  campusName: Yup.string().optional(),
+  price: Yup.number().optional(),
+  currency: Yup.string().optional(),
+  daysRemaining: Yup.number().optional(),
 });
 
 /**

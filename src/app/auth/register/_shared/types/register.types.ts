@@ -74,6 +74,13 @@ export interface PaymentInfo {
   acceptTerms: boolean;
   acceptPrivacy: boolean;
   acceptMarketing: boolean;
+  // Subscription bilgileri (read-only, sadece bilgilendirme amaçlı)
+  planName?: string;
+  status?: string;
+  campusName?: string;
+  price?: number;
+  currency?: string;
+  daysRemaining?: number;
 }
 
 /**

@@ -7,7 +7,14 @@ export interface SubscriptionDto {
   /** Format: int64 */
   id?: number;
   /** @enum {string} */
-  status?: "TRIAL" | "ACTIVE" | "PAST_DUE" | "CANCELED" | "EXPIRED" | "SUSPENDED" | "PENDING";
+  status?:
+    | "TRIAL"
+    | "ACTIVE"
+    | "PAST_DUE"
+    | "CANCELED"
+    | "EXPIRED"
+    | "SUSPENDED"
+    | "PENDING";
   /** Format: date-time */
   startDate?: string;
   /** Format: date-time */
@@ -46,6 +53,12 @@ export interface SubscriptionDto {
   billingAddress?: string;
   taxNumber?: string;
   taxOffice?: string;
+  campusName?: string;
+  planName?: string;
+  /** Format: int32 */
+  daysRemaining?: number;
+  /** Format: double */
+  usagePercentage?: number;
   campus?: CampusSummaryDto;
   subscriptionPlan?: SubscriptionPlanSummaryDto;
   recentPayments?: PaymentSummaryDto[];
@@ -53,4 +66,4 @@ export interface SubscriptionDto {
   isActive?: boolean;
   /** Format: date-time */
   createdAt?: string;
-};
+}
