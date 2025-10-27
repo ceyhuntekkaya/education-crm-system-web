@@ -22,7 +22,7 @@ export const CampusDetailSection: React.FC<CampusDetailSectionProps> = ({
     >
       <CustomCard
         title="Kampüs Detayları"
-        addButtonUrl="/company/campus-detail/add-edit/new"
+        // addButtonUrl="/company/campus-detail/add-edit/new"
         editButtonUrl={`/company/campus-detail/add-edit/${campus?.id}`}
         multiItems={allSections}
         isBack={true}
