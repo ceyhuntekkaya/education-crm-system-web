@@ -26,7 +26,7 @@ export const RegisterStepper: React.FC = () => {
   return (
     <CustomCard>
       <div className="register-stepper">
-        <div className="row g-3 g-lg-4">
+        <div className="d-flex align-items-start justify-content-between gap-2">
           {STEP_CONFIGS.map((step, index) => {
             const isActive = currentStep === step.step;
             const isCompleted = isStepCompleted(step.step);
@@ -36,75 +36,93 @@ export const RegisterStepper: React.FC = () => {
 
             return (
               <React.Fragment key={step.step}>
-                <div className="col-lg-2 col-md-4 col-6">
-                  <div
-                    className={`stepper-item ${isActive ? "active" : ""} ${
-                      isCompleted || isPast ? "completed" : ""
-                    } ${isClickable ? "clickable" : ""}`}
-                    onClick={() => handleStepClick(step.step)}
-                    role={isClickable ? "button" : undefined}
-                    tabIndex={isClickable ? 0 : undefined}
-                    onKeyDown={(e) => {
-                      if ((e.key === "Enter" || e.key === " ") && isClickable) {
-                        e.preventDefault();
-                        handleStepClick(step.step);
-                      }
-                    }}
-                    style={{
-                      cursor: isClickable ? "pointer" : "default",
-                    }}
-                  >
-                    {/* Icon Container with Connector */}
-                    <div className="stepper-icon-wrapper">
-                      <div
-                        className={`stepper-icon ${
-                          isActive
-                            ? "bg-main-600 text-white"
-                            : isCompleted || isPast
-                            ? "bg-success-600 text-white"
-                            : "bg-neutral-50 text-neutral-400"
-                        }`}
-                      >
-                        {isCompleted || isPast ? (
-                          <i className="ph-bold ph-check text-xl" />
-                        ) : (
-                          <i className={`ph-bold ${step.icon} text-xl`} />
-                        )}
-                      </div>
-
-                      {/* Progress Connector Line */}
-                      {showConnector && (
-                        <div
-                          className={`stepper-connector ${
-                            isPast ? "completed" : ""
-                          }`}
+                <div
+                  className={`stepper-item flex-fill ${
+                    isActive ? "active" : ""
+                  } ${isCompleted || isPast ? "completed" : ""} ${
+                    isClickable ? "clickable" : ""
+                  }`}
+                  onClick={() => handleStepClick(step.step)}
+                  role={isClickable ? "button" : undefined}
+                  tabIndex={isClickable ? 0 : undefined}
+                  onKeyDown={(e) => {
+                    if ((e.key === "Enter" || e.key === " ") && isClickable) {
+                      e.preventDefault();
+                      handleStepClick(step.step);
+                    }
+                  }}
+                  style={{
+                    cursor: isClickable ? "pointer" : "default",
+                  }}
+                >
+                  {/* Icon Container */}
+                  <div className="d-flex flex-column align-items-center">
+                    <div
+                      className={`stepper-icon ${
+                        isActive
+                          ? "bg-main-600 text-white"
+                          : isCompleted || isPast
+                          ? "bg-success-600 text-white"
+                          : "bg-neutral-50 text-neutral-400"
+                      }`}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {isCompleted || isPast ? (
+                        <i
+                          className="ph-bold ph-check"
+                          style={{ fontSize: "18px" }}
+                        />
+                      ) : (
+                        <i
+                          className={`ph-bold ${step.icon}`}
+                          style={{ fontSize: "18px" }}
                         />
                       )}
                     </div>
 
                     {/* Step Content */}
-                    <div className="stepper-content mt-12">
-                      <h6
-                        className={`mb-4 text-sm fw-semibold ${
+                    <div
+                      className="text-center mt-8"
+                      style={{ maxWidth: "100px" }}
+                    >
+                      <p
+                        className={`mb-0 fw-semibold ${
                           isActive
                             ? "text-main-600"
                             : isCompleted || isPast
                             ? "text-neutral-700"
                             : "text-neutral-400"
                         }`}
+                        style={{ fontSize: "11px", lineHeight: "1.3" }}
                       >
                         {step.title}
-                      </h6>
-                      <p
-                        className={`text-xs mb-0 ${
-                          isActive ? "text-neutral-600" : "text-neutral-400"
-                        }`}
-                      >
-                        {step.description}
                       </p>
                     </div>
                   </div>
                 </div>
+
+                {/* Connector Line */}
+                {showConnector && (
+                  <div
+                    className={`align-self-start ${
+                      isPast ? "bg-success-600" : "bg-neutral-200"
+                    }`}
+                    style={{
+                      height: "2px",
+                      flexGrow: 1,
+                      marginTop: "19px",
+                      minWidth: "20px",
+                    }}
+                  />
+                )}
               </React.Fragment>
             );
           })}

@@ -52,6 +52,14 @@ export const STEP_CONFIGS: StepConfig[] = [
     isCompleted: false,
     isActive: false,
   },
+  {
+    step: 7,
+    title: "Tamamlandı",
+    description: "Kayıt başarıyla tamamlandı",
+    icon: "ph-check-circle",
+    isCompleted: false,
+    isActive: false,
+  },
 ];
 
 /**

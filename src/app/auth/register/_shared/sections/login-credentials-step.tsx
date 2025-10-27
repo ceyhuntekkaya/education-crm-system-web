@@ -16,7 +16,6 @@ export const LoginCredentialsStep: React.FC = () => {
         title="Giriş Bilgileri"
         subtitle="Sisteme giriş yapmak için kullanacağınız kullanıcı adı ve şifrenizi belirleyin"
       >
-        <FormValues />
         <div className="row row-gap-24">
           {/* Kullanıcı Adı */}
           <div className="col-12">
