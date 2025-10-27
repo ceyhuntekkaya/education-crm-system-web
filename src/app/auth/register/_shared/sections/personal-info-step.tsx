@@ -59,7 +59,6 @@ export const PersonalInfoStep: React.FC = () => {
               placeholder="5xxxxxxxxx (10 hane)"
               required
               autoComplete="tel"
-              maxLength={10}
             />
           </div>
         </div>

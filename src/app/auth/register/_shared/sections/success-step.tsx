@@ -92,20 +92,55 @@ export const SuccessStep: React.FC = () => {
       value: (
         <span className="text-primary-600 fw-semibold d-inline-flex align-items-center gap-8">
           <i className="ph-bold ph-package text-primary-600"></i>
-          Plan #{packageInfo.selectedPlanId}
+          {packageInfo.planDisplayName || packageInfo.planName || `Plan #${packageInfo.selectedPlanId}`}
         </span>
       ),
       isShowing: packageInfo.selectedPlanId,
+    },
+    {
+      label: "Fiyat",
+      value: (
+        <span className="text-success-600 fw-bold d-inline-flex align-items-center gap-8">
+          <i className="ph-bold ph-currency-circle-dollar text-success-600"></i>
+          ₺{packageInfo.price?.toLocaleString('tr-TR') || '0'}
+          {packageInfo.billingPeriod === "monthly" && " / Ay"}
+          {packageInfo.billingPeriod === "quarterly" && " / 3 Ay"}
+          {packageInfo.billingPeriod === "yearly" && " / Yıl"}
+        </span>
+      ),
+      isShowing: packageInfo.price,
     },
     {
       label: "Fatura Dönemi",
       value: (
         <span className="bg-warning-50 text-warning-600 px-12 py-6 rounded-8 fw-semibold d-inline-flex align-items-center gap-4">
           <i className="ph-bold ph-calendar-blank text-sm"></i>
-          {packageInfo.billingPeriod === "monthly" ? "Aylık" : "Yıllık"}
+          {packageInfo.billingPeriod === "monthly" && "Aylık"}
+          {packageInfo.billingPeriod === "quarterly" && "3 Aylık"}
+          {packageInfo.billingPeriod === "yearly" && "Yıllık"}
         </span>
       ),
       isShowing: packageInfo.billingPeriod,
+    },
+    {
+      label: "İndirim",
+      value: (
+        <span className="bg-success-50 text-success-600 px-12 py-6 rounded-8 fw-semibold d-inline-flex align-items-center gap-4">
+          <i className="ph-bold ph-percent text-sm"></i>
+          %{packageInfo.discountPercentage} İndirim
+        </span>
+      ),
+      isShowing: packageInfo.discountPercentage && packageInfo.discountPercentage > 0,
+    },
+    {
+      label: "Deneme Süresi",
+      value: (
+        <span className="bg-info-50 text-info-600 px-12 py-6 rounded-8 fw-semibold d-inline-flex align-items-center gap-4">
+          <i className="ph-bold ph-gift text-sm"></i>
+          {packageInfo.trialDays} Gün Ücretsiz
+        </span>
+      ),
+      isShowing: packageInfo.trialDays && packageInfo.trialDays > 0,
     },
   ];
 

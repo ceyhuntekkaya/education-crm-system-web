@@ -48,9 +48,9 @@ export const RegisterFormContent: React.FC = () => {
     if (currentStep === 6) {
       const result = await submitRegistration();
       // Başarılıysa step 7'ye geç
-      if (result) {
-        nextStep();
-      }
+      // if (result) {
+      //   nextStep();
+      // }
     }
   };
 

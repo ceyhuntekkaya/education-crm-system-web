@@ -35,7 +35,12 @@ export const initialValues: RegisterFormData = {
   },
   packageSelection: {
     selectedPlanId: null,
+    planName: "",
+    planDisplayName: "",
     billingPeriod: "monthly",
+    price: 0,
+    discountPercentage: 0,
+    trialDays: 0,
   },
   paymentInfo: {
     cardHolderName: "",

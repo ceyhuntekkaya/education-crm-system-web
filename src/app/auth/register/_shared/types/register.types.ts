@@ -54,7 +54,12 @@ export interface CampusInfo {
  */
 export interface PackageSelection {
   selectedPlanId: string | null;
+  planName?: string;
+  planDisplayName?: string;
   billingPeriod: "monthly" | "quarterly" | "yearly";
+  price?: number;
+  discountPercentage?: number;
+  trialDays?: number;
 }
 
 /**

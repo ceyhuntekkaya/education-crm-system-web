@@ -39,9 +39,7 @@ export const personalInfoSchema = Yup.object({
   email: Yup.string()
     .email("Geçerli bir e-posta adresi giriniz")
     .required("E-posta gereklidir"),
-  phone: Yup.string()
-    .matches(/^[0-9]{10}$/, "Telefon numarası 10 haneli olmalıdır")
-    .required("Telefon numarası gereklidir"),
+  phone: Yup.string().required("Telefon numarası gereklidir"),
 });
 
 /**
@@ -92,9 +90,14 @@ export const campusInfoSchema = Yup.object({
  */
 export const packageSelectionSchema = Yup.object({
   selectedPlanId: Yup.string().nullable().required("Paket seçimi gereklidir"),
+  planName: Yup.string().optional(),
+  planDisplayName: Yup.string().optional(),
   billingPeriod: Yup.string()
     .oneOf(["monthly", "quarterly", "yearly"], "Geçersiz faturalama periyodu")
     .required("Faturalama periyodu gereklidir"),
+  price: Yup.number().optional(),
+  discountPercentage: Yup.number().optional(),
+  trialDays: Yup.number().optional(),
 });
 
 /**

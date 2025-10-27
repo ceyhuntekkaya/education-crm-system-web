@@ -5,6 +5,8 @@ import { useForm } from "@/contexts/form-context";
 import { useSubscriptionPlans } from "@/app/(public)/memberships/_shared/hooks";
 import { transformSubscriptionPlan } from "@/app/(public)/memberships/_shared/utils";
 import MembershipCard from "@/app/(public)/memberships/_shared/sections/membership-card";
+import { LoadingSpinner } from "@/components/ui/loadings/loading-spinner";
+import { formatCurrency } from "@/app/(public)/memberships/_shared/utils";
 
 /**
  * Step 5: Package Selection
@@ -18,7 +20,25 @@ export const PackageSelectionStep: React.FC = () => {
   const selectedPlanId = packageSelection.selectedPlanId;
 
   const handlePlanSelect = (planId: string) => {
-    setValue("packageSelection.selectedPlanId", planId);
+    // Seçilen planın detaylarını bul
+    const selectedPlan = transformedPlans.find((plan) => plan.id === planId);
+    
+    if (selectedPlan) {
+      // Plan detaylarını kaydet
+      setValue("packageSelection", {
+        selectedPlanId: planId,
+        planName: selectedPlan.name,
+        planDisplayName: selectedPlan.displayName,
+        billingPeriod: selectedPlan.billingPeriod || "monthly",
+        price: selectedPlan.billingPeriod === "yearly" 
+          ? selectedPlan.price.yearly 
+          : selectedPlan.billingPeriod === "quarterly"
+          ? selectedPlan.price.quarterly
+          : selectedPlan.price.monthly,
+        discountPercentage: selectedPlan.discountPercentage,
+        trialDays: selectedPlan.trialDays,
+      });
+    }
   };
 
   // API verilerini UI formatına dönüştür
@@ -41,11 +61,11 @@ export const PackageSelectionStep: React.FC = () => {
     <div className="register-step-content">
       {/* Plans Grid */}
       {loading ? (
-        <div className="text-center py-40">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Yükleniyor...</span>
-          </div>
-        </div>
+        <LoadingSpinner 
+          message="Paketler yükleniyor..." 
+          size="lg"
+          variant="dots"
+        />
       ) : (
         <div className="row gy-4">
           {transformedPlans.map((plan, index) => (
