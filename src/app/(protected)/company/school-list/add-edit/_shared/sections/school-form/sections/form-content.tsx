@@ -61,11 +61,6 @@ export const SchoolFormContent: React.FC = () => {
         : undefined,
       monthlyFee: values.monthlyFee ? Number(values.monthlyFee) : undefined,
       annualFee: values.annualFee ? Number(values.annualFee) : undefined,
-      // Yabancı diller array'ini string'e çevir (virgülle ayrılmış)
-      foreignLanguages:
-        values.foreignLanguages && Array.isArray(values.foreignLanguages)
-          ? values.foreignLanguages.join(", ")
-          : values.foreignLanguages || undefined,
     };
 
     if (isEditing) {
@@ -244,18 +239,6 @@ export const SchoolFormContent: React.FC = () => {
             label="Eğitim Dili"
             placeholder="Eğitim dili seçiniz..."
             options={languageOptions}
-            noOptionsText="Dil bulunamadı"
-          />
-        </div>
-
-        {/* Yabancı Diller */}
-        <div className="col-12">
-          <FormAutocomplete
-            name="foreignLanguages"
-            label="Yabancı Diller"
-            placeholder="Yabancı diller seçiniz..."
-            options={languageOptions}
-            multiple
             noOptionsText="Dil bulunamadı"
           />
         </div>

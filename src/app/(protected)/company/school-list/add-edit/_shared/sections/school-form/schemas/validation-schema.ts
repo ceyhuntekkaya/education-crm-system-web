@@ -30,7 +30,6 @@ export const validationSchema = Yup.object({
     .optional(),
   curriculumType: Yup.string().optional(),
   languageOfInstruction: Yup.string().optional(),
-  foreignLanguages: Yup.mixed().optional(),
   registrationFee: Yup.number()
     .min(0, "Kayıt ücreti 0'dan küçük olamaz")
     .optional(),
