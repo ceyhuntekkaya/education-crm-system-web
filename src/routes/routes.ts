@@ -86,7 +86,7 @@ export const ROUTES = [
   {
     title: "Company",
     path: PATHS.PROTECTED.COMPANY.HOME,
-    roles: [Role.COMPANY],
+    roles: [Role.COMPANY, Role.ADMIN], // Admin de erişebilsin
     children: [
       {
         title: "Company Home",

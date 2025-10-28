@@ -1,16 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RegisterForm } from "../_shared/register-form";
 
+// Prevent static generation for this page
+export const dynamic = "force-dynamic";
+
 /**
  * Institution Register Page
  * Kurum kayıt sayfası - 6 adımlı kayıt süreci
  */
-const InstitutionRegisterPage: React.FC = () => {
+const InstitutionRegisterPageContent: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -55,6 +58,14 @@ const InstitutionRegisterPage: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const InstitutionRegisterPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div className="text-center p-32">Yükleniyor...</div>}>
+      <InstitutionRegisterPageContent />
+    </Suspense>
   );
 };
 

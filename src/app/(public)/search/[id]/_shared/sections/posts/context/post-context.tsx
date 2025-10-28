@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useModal } from "@/hooks";
 import { useInstitutionDetail } from "../../../contexts/institution-detail-context";
 import { PostDto } from "@/types";
+import { PostSearchDto } from "@/types/dto/content/PostSearchDto";
 
 // Types
 interface PostContextType {
@@ -25,6 +26,7 @@ interface PostContextType {
 
   // Actions
   handleCardClick: (postId: number) => void;
+  filterSubmit: (values: PostSearchDto) => void;
 }
 
 interface PostProviderProps {
@@ -67,6 +69,12 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     close();
   };
 
+  const filterSubmit = (values: PostSearchDto) => {
+    // TODO: Filtreleme mantığı burada implement edilecek
+    // Şimdilik sadece console'a yazdırıyoruz
+    console.log("Post filter values:", values);
+  };
+
   const value: PostContextType = {
     // Modal state
     isOpen,
@@ -86,6 +94,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
 
     // Actions
     handleCardClick,
+    filterSubmit,
   };
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;
 };

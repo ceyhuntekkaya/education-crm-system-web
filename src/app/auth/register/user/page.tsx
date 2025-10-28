@@ -1,17 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RegisterForm } from "../_shared/register-form";
+
+// Prevent static generation for this page
+export const dynamic = "force-dynamic";
 
 /**
  * User (Parent/Guardian) Register Page
  * Veli kayıt sayfası - 4 adımlı kayıt süreci
  * Kurum kaydından farklı olarak kampüs bilgileri, paket seçimi ve ödeme bilgileri adımları yok
  */
-const UserRegisterPage: React.FC = () => {
+const UserRegisterPageContent: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -56,6 +59,14 @@ const UserRegisterPage: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const UserRegisterPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div className="text-center p-32">Yükleniyor...</div>}>
+      <UserRegisterPageContent />
+    </Suspense>
   );
 };
 

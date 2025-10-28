@@ -13,6 +13,8 @@ const UserMenu = () => {
     switch (currentRole) {
       case Role.COMPANY:
         return "/company";
+      case Role.ADMIN:
+        return "/company";
       // case Role.ADMIN:
       //   return "/admin";
       // case Role.USER:

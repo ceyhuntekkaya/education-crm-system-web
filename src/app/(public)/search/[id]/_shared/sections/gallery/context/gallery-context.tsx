@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useModal } from "@/hooks";
 import { useInstitutionDetail } from "../../../contexts/institution-detail-context";
 import { GalleryDto } from "@/types";
+import { GallerySearchDto } from "@/types/dto/content/GallerySearchDto";
 
 // Types
 interface GalleryContextType {
@@ -21,6 +22,7 @@ interface GalleryContextType {
 
   // Actions
   handleCardClick: (galleryId: number) => void;
+  filterSubmit: (values: GallerySearchDto) => void;
 }
 
 interface GalleryProviderProps {
@@ -50,6 +52,12 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
     open();
   };
 
+  const filterSubmit = (values: GallerySearchDto) => {
+    // TODO: Filtreleme mantığı burada implement edilecek
+    // Şimdilik sadece console'a yazdırıyoruz
+    console.log("Gallery filter values:", values);
+  };
+
   const value: GalleryContextType = {
     // Modal state
     isOpen,
@@ -65,6 +73,7 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
 
     // Actions
     handleCardClick,
+    filterSubmit,
   };
   return (
     <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>
