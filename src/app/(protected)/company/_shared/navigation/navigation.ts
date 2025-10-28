@@ -18,8 +18,14 @@ export const companyLayoutNavigation: MenuItem[] = [
     label: "Okul Bilgileri ***",
     icon: "ph-graduation-cap",
   },
+
   {
     href: "/company/pricing",
+    label: "Fiyat Bilgileri ***",
+    icon: "ph-coins",
+  },
+  {
+    href: "/company/pricing/detail/school",
     label: "Fiyat Bilgileri ***",
     icon: "ph-coins",
   },
