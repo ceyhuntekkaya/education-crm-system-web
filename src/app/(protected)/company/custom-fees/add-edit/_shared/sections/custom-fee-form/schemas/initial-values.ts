@@ -5,9 +5,9 @@ import { CustomFeeFormData } from "../types/form-data";
  */
 export const initialValues: CustomFeeFormData = {
   schoolPricingId: 1, // Şimdilik sabit
-  createdByUserId: undefined,
+  createdByUserId: undefined, // Submit sırasında auth context'ten alınacak
   feeName: "",
-  feeDescription: "",
+  feeDescription: "", // Backend boş string kabul ediyor
   feeAmount: undefined,
   feeType: undefined,
   feeFrequency: undefined,
@@ -15,24 +15,24 @@ export const initialValues: CustomFeeFormData = {
   isRefundable: false,
   appliesToNewStudents: true,
   appliesToExistingStudents: true,
-  appliesToGrades: "",
-  minimumAge: undefined,
-  maximumAge: undefined,
-  validFrom: "",
-  validUntil: "",
+  appliesToGrades: "", // Backend boş string kabul ediyor
+  minimumAge: null, // Number alanlar null olmalı
+  maximumAge: null, // Number alanlar null olmalı
+  validFrom: null, // Tarih alanları null olmalı
+  validUntil: null, // Tarih alanları null olmalı
   status: undefined,
-  dueDateOffsetDays: undefined,
-  lateFeePercentage: undefined,
+  dueDateOffsetDays: null, // Number alanlar null olmalı
+  lateFeePercentage: null, // Number alanlar null olmalı
   installmentAllowed: false,
-  maxInstallments: undefined,
+  maxInstallments: null, // Number alanlar null olmalı
   discountEligible: false,
   scholarshipApplicable: false,
   documentationRequired: false,
-  requiredDocuments: "",
-  feePolicy: "",
+  requiredDocuments: "", // Backend boş string kabul ediyor
+  feePolicy: "", // Backend boş string kabul ediyor
   displayOnInvoice: true,
-  displayOrder: undefined,
+  displayOrder: null, // Number alanlar null olmalı
   parentNotificationRequired: false,
-  advanceNoticeDays: undefined,
+  advanceNoticeDays: null, // Number alanlar null olmalı
   requiresApproval: false,
 };

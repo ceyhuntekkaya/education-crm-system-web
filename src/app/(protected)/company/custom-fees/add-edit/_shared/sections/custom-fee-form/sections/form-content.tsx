@@ -17,11 +17,15 @@ import { feeTypeOptions, feeFrequencyOptions, statusOptions } from "../options";
 import { useCustomFeeAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
 import { CustomFeeCreateDto } from "@/types";
+import { useAuth } from "@/contexts";
 
 /**
  * Custom fee form content component
  */
 export const CustomFeeFormContent: React.FC = () => {
+  // Auth context'ten user bilgisini al
+  const { user } = useAuth();
+
   // Context'ten verileri al
   const {
     isEditing,
@@ -40,6 +44,8 @@ export const CustomFeeFormContent: React.FC = () => {
   const handleSubmit = async (values: any) => {
     const formData: CustomFeeCreateDto = {
       ...values,
+      // createdByUserId'yi auth context'teki user'dan al
+      createdByUserId: user?.id || 1,
     };
 
     if (isEditing) {

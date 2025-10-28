@@ -25,7 +25,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/custom-fees",
-    label: "Ek Ücretler",
+    label: "Ek Ücretler ***",
     icon: "ph-currency-circle-dollar",
   },
   {
