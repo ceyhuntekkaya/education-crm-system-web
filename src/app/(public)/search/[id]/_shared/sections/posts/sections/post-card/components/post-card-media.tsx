@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { CustomImage } from "@/components";
 import { PostSummaryDto } from "@/types/dto/content";
 
 interface PostCardMediaProps {
@@ -17,14 +17,11 @@ const PostCardMedia: React.FC<PostCardMediaProps> = ({ post }) => {
         className="position-relative rounded-8 overflow-hidden"
         style={{ height: "200px" }}
       >
-        <Image
+        <CustomImage
           src={featuredImageUrl}
           alt={title || "Post görseli"}
           fill
           className="object-cover"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
         />
 
         {/* Rozet İşaretleri */}

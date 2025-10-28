@@ -10,6 +10,11 @@ interface StatisticsInfoItem {
 export default function InstitutionStatistics() {
   const { school, campus } = useInstitutionDetail();
 
+  // School yoksa hiçbir şey gösterme
+  if (!school) {
+    return null;
+  }
+
   const statisticsInfoItems: StatisticsInfoItem[] = [
     // Görüntülenme ve Etkileşim İstatistikleri
     {

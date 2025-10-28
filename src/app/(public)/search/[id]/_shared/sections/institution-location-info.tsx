@@ -3,6 +3,11 @@ import { useInstitutionDetail } from "../contexts";
 export default function InstitutionLocationInfo() {
   const { school, campus } = useInstitutionDetail();
 
+  // School veya campus yoksa hiçbir şey gösterme
+  if (!school || !campus) {
+    return null;
+  }
+
   const locationInfoItems = [
     {
       label: "İl ID",

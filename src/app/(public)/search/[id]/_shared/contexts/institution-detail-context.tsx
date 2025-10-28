@@ -5,7 +5,6 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, SchoolDetailDto } from "@/types";
 import { formatCurrency, renderStars } from "../utils";
-import { institutionMockData, schoolDetailMockData } from "../mock";
 
 // Context State Interface
 interface InstitutionDetailState {
@@ -49,16 +48,22 @@ export function InstitutionDetailProvider({
 
   // console.log("institutionResponse", institutionResponse);
 
-  const institutionDetail =
-    schoolDetailMockData || institutionResponse?.data || null;
-  const { school, campus, brand, pricings } = institutionDetail || {};
+  // Backend'den gelen data yapısı doğrudan school bilgilerini içeriyor
+  const institutionDetail = institutionResponse?.data || null;
+
+  // school = tüm institution detail datası
+  // campus, brand, pricings = nested objeler
+  const school = institutionDetail;
+  const campus = institutionDetail?.campus || null;
+  const brand = institutionDetail?.brand || null;
+  const pricings = institutionDetail?.pricings || [];
 
   const contextValue: InstitutionDetailState = {
     institutionDetail,
-    school: school || institutionMockData?.school,
-    campus: campus || institutionMockData?.campus,
-    brand: brand || institutionMockData?.brand,
-    pricings: pricings || [],
+    school: school,
+    campus: campus,
+    brand: brand,
+    pricings: pricings,
     loading: institutionLoading,
     error: institutionError,
     refetch: refetchInstitution,
