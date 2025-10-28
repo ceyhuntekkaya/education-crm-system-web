@@ -1,71 +1,83 @@
 import { useInstitutionDetail } from "../contexts";
 
-// Detailed rating categories data
-const ratingCategories = [
-  {
-    id: "temizlik",
-    title: "Temizlik",
-    description: "Genel temizlik standartları ve hijyen",
-    icon: "ph-fill ph-broom",
-    bgColor: "bg-main-100",
-    textColor: "text-main-600",
-    progressColor: "bg-main-600",
-    rating: 5.0,
-  },
-  {
-    id: "dogruluk",
-    title: "Doğruluk",
-    description: "Bilgi doğruluğu ve güvenilirlik",
-    icon: "ph-fill ph-check-circle",
-    bgColor: "bg-success-100",
-    textColor: "text-success-600",
-    progressColor: "bg-success-600",
-    rating: 5.0,
-  },
-  {
-    id: "giris",
-    title: "Giriş",
-    description: "Erişim kolaylığı ve giriş süreci",
-    icon: "ph-fill ph-magnifying-glass",
-    bgColor: "bg-info-100",
-    textColor: "text-info-600",
-    progressColor: "bg-info-600",
-    rating: 5.0,
-  },
-  {
-    id: "iletisim",
-    title: "İletişim",
-    description: "İletişim kalitesi ve erişilebilirlik",
-    icon: "ph-fill ph-chat-centered-text",
-    bgColor: "bg-purple-100",
-    textColor: "text-purple-600",
-    progressColor: "bg-purple-600",
-    rating: 5.0,
-  },
-  {
-    id: "konum",
-    title: "Konum",
-    description: "Konum avantajları ve ulaşım",
-    icon: "ph-fill ph-map-pin",
-    bgColor: "bg-warning-100",
-    textColor: "text-warning-600",
-    progressColor: "bg-warning-600",
-    rating: 5.0,
-  },
-  {
-    id: "kalite",
-    title: "Kalite/Fiyat Oranı",
-    description: "Verilen hizmetin fiyat değeri",
-    icon: "ph-fill ph-tag",
-    bgColor: "bg-danger-100",
-    textColor: "text-danger-600",
-    progressColor: "bg-danger-600",
-    rating: 5.0,
-  },
-];
-
 export default function InstitutionReviews() {
   const { school, renderStars } = useInstitutionDetail();
+
+  // School yoksa hiçbir şey gösterme
+  if (!school) {
+    return null;
+  }
+
+  // Rating verisi yoksa gösterme
+  if (!school.ratingAverage || school.ratingAverage === 0) {
+    return (
+      <div className="tutor-details__content">
+        <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
+          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+            <h5 className="mb-0">Ortalama Değerlendirme</h5>
+            <span className="d-block border border-neutral-30 my-32 border-dashed" />
+            <div className="text-center py-32">
+              <i className="ph-bold ph-star text-neutral-300 text-xxl mb-16 d-block"></i>
+              <p className="text-neutral-500">
+                Henüz değerlendirme bulunmamaktadır.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Rating breakdown hesaplama - Gerçek API'de bu veriler gelene kadar basit bir dağılım kullanıyoruz
+  // TODO: Backend'den star_distribution verisi geldiğinde burası güncellenecek
+  const calculateStarDistribution = (average: number, totalCount: number) => {
+    // Ortalamaya göre basit bir dağılım hesaplayalım
+    // Bu geçici bir çözüm - idealinde backend'den gelmeli
+    const distribution = [0, 0, 0, 0, 0]; // 1,2,3,4,5 yıldız
+
+    if (totalCount === 0) return distribution;
+
+    // Ortalamaya göre mantıklı bir dağılım
+    if (average >= 4.5) {
+      distribution[4] = 70; // 5 yıldız
+      distribution[3] = 20; // 4 yıldız
+      distribution[2] = 7; // 3 yıldız
+      distribution[1] = 2; // 2 yıldız
+      distribution[0] = 1; // 1 yıldız
+    } else if (average >= 4.0) {
+      distribution[4] = 50;
+      distribution[3] = 35;
+      distribution[2] = 10;
+      distribution[1] = 3;
+      distribution[0] = 2;
+    } else if (average >= 3.5) {
+      distribution[4] = 30;
+      distribution[3] = 40;
+      distribution[2] = 20;
+      distribution[1] = 7;
+      distribution[0] = 3;
+    } else if (average >= 3.0) {
+      distribution[4] = 20;
+      distribution[3] = 30;
+      distribution[2] = 30;
+      distribution[1] = 15;
+      distribution[0] = 5;
+    } else {
+      distribution[4] = 10;
+      distribution[3] = 20;
+      distribution[2] = 30;
+      distribution[1] = 25;
+      distribution[0] = 15;
+    }
+
+    return distribution;
+  };
+
+  const starDistribution = calculateStarDistribution(
+    school.ratingAverage || 0,
+    school.ratingCount || 0
+  );
+
   return (
     <div className="tutor-details__content">
       <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
@@ -76,19 +88,21 @@ export default function InstitutionReviews() {
           {/* Rating Overview */}
           <div className="d-flex flex-sm-row flex-column gap-36">
             <div className="rounded-16 px-40 py-24 flex-center flex-column flex-shrink-0 text-center bg-main-600 text-white">
-              <h2 className="mb-8 text-white">{school.ratingAverage}</h2>
+              <h2 className="mb-8 text-white">
+                {school.ratingAverage.toFixed(1)}
+              </h2>
               <div className="flex-center gap-4">
                 {renderStars(school.ratingAverage)}
               </div>
               <span className="mt-8 text-gray-500">
-                {school.ratingCount} Değerlendirme
+                {school.ratingCount.toLocaleString()} Değerlendirme
               </span>
             </div>
 
             {/* Rating Breakdown */}
             <div className="flex-grow-1">
               {[5, 4, 3, 2, 1].map((star, index) => {
-                const percentages = [90, 75, 67, 44, 21];
+                const percentage = starDistribution[5 - star - 1] || 0;
                 return (
                   <div key={star} className="flex-align gap-20 mb-8">
                     <div className="flex-align gap-8">
@@ -102,18 +116,18 @@ export default function InstitutionReviews() {
                     <div
                       className="progress w-100 bg-white rounded-pill h-12"
                       role="progressbar"
-                      aria-label="Basic example"
-                      aria-valuenow={percentages[index]}
+                      aria-label={`${star} yıldız değerlendirmeler`}
+                      aria-valuenow={percentage}
                       aria-valuemin={0}
                       aria-valuemax={100}
                     >
                       <div
                         className="progress-bar bg-main-600 rounded-pill"
-                        style={{ width: `${percentages[index]}%` }}
+                        style={{ width: `${percentage}%` }}
                       />
                     </div>
                     <span className="text-gray-900 flex-shrink-0">
-                      {percentages[index]}%
+                      {percentage}%
                     </span>
                   </div>
                 );
@@ -121,56 +135,17 @@ export default function InstitutionReviews() {
             </div>
           </div>
 
+          {/* Backend'den kategori bazlı rating'ler geldiğinde burası aktif edilecek */}
+          {/* 
           <span className="d-block border border-neutral-30 my-32 border-dashed" />
-
-          {/* Detailed Category Ratings - Card Grid */}
+          
           <div className="mt-32">
             <h6 className="mb-24 fw-semibold text-neutral-900">
               Detaylı Değerlendirmeler
             </h6>
-
-            <div className="row">
-              {ratingCategories.map((category) => (
-                <div key={category.id} className="col-lg-6 mb-24">
-                  <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100">
-                    <div className="d-flex align-items-center justify-content-between mb-20">
-                      <div className="d-flex align-items-center gap-12">
-                        <div
-                          className={`w-48 h-48 ${category.bgColor} rounded-circle flex-center`}
-                          style={{ minWidth: "48px", minHeight: "48px" }}
-                        >
-                          <i
-                            className={`${category.icon} ${category.textColor} text-lg`}
-                          ></i>
-                        </div>
-                        <div>
-                          <h6 className="mb-4 fw-semibold">{category.title}</h6>
-                          <p className="text-neutral-500 text-xs mb-0">
-                            {category.description}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-end">
-                        <h4 className={`${category.textColor} fw-bold mb-4`}>
-                          {category.rating.toFixed(1)}
-                        </h4>
-                        <div className="flex-center gap-2">
-                          {renderStars(category.rating)}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="progress bg-neutral-200 rounded-pill h-8 mb-0">
-                      <div
-                        className={`progress-bar ${category.progressColor} rounded-pill`}
-                        style={{ width: `${(category.rating / 5) * 100}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            // Kategori bazlı rating kartları buraya gelecek
           </div>
+          */}
         </div>
       </div>
     </div>
