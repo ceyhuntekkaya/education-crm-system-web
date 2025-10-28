@@ -2,7 +2,13 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { formatCurrency, renderStars } from "../utils";
-import { useInstitutionDetailHook, useInstitutionPricingHook } from "../hooks";
+import {
+  useInstitutionDetailHook,
+  useInstitutionPricingHook,
+  useInstitutionCampaigns,
+  useInstitutionGalleries,
+  useInstitutionPosts,
+} from "../hooks";
 
 // Context State Interface
 interface InstitutionDetailState {
@@ -11,6 +17,9 @@ interface InstitutionDetailState {
   campus: any;
   brand: any;
   pricings: any;
+  campaigns: any[];
+  galleries: any[];
+  posts: any[];
   loading: boolean;
   error: string | null;
   refetch: () => void;
@@ -51,6 +60,30 @@ export function InstitutionDetailProvider({
     refetch: refetchPricing,
   } = useInstitutionPricingHook({ schoolId: id });
 
+  // Campaigns hook'unu kullan
+  const {
+    campaigns: campaignsData,
+    loading: campaignsLoading,
+    error: campaignsError,
+    refetch: refetchCampaigns,
+  } = useInstitutionCampaigns({ schoolId: id });
+
+  // Galleries hook'unu kullan
+  const {
+    galleries: galleriesData,
+    loading: galleriesLoading,
+    error: galleriesError,
+    refetch: refetchGalleries,
+  } = useInstitutionGalleries({ schoolId: id });
+
+  // Posts hook'unu kullan
+  const {
+    posts: postsData,
+    loading: postsLoading,
+    error: postsError,
+    refetch: refetchPosts,
+  } = useInstitutionPosts({ schoolId: id });
+
   // school = tüm institution detail datası
   // campus, brand, pricings = nested objeler
   const school = institutionDetail;
@@ -63,11 +96,27 @@ export function InstitutionDetailProvider({
     campus: campus,
     brand: brand,
     pricings: pricingData || [],
-    loading: institutionLoading || pricingLoading,
-    error: institutionError || pricingError,
+    campaigns: campaignsData || [],
+    galleries: galleriesData || [],
+    posts: postsData || [],
+    loading:
+      institutionLoading ||
+      pricingLoading ||
+      campaignsLoading ||
+      galleriesLoading ||
+      postsLoading,
+    error:
+      institutionError ||
+      pricingError ||
+      campaignsError ||
+      galleriesError ||
+      postsError,
     refetch: () => {
       refetchInstitution();
       refetchPricing();
+      refetchCampaigns();
+      refetchGalleries();
+      refetchPosts();
     },
     renderStars,
     formatCurrency,

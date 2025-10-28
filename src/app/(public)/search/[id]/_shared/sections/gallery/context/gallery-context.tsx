@@ -2,8 +2,8 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useModal } from "@/hooks";
-import { gallerySummaryMockData } from "../mock";
-import { GallerySearchDto } from "@/types/dto/content/GallerySearchDto";
+import { useInstitutionDetail } from "../../../contexts/institution-detail-context";
+import { GalleryDto } from "@/types";
 
 // Types
 interface GalleryContextType {
@@ -15,14 +15,12 @@ interface GalleryContextType {
   // Gallery state
   selectedGalleryId: number | null;
   setSelectedGalleryId: (id: number | null) => void;
-  galleryData: typeof gallerySummaryMockData;
+  galleryData: GalleryDto[];
+  loading: boolean;
+  error: string | null;
 
   // Actions
   handleCardClick: (galleryId: number) => void;
-  handleViewAllClick: () => void;
-
-  // Filter action
-  filterSubmit: (filters: GallerySearchDto) => void;
 }
 
 interface GalleryProviderProps {
@@ -41,23 +39,15 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
     null
   );
 
-  // Institution ID'ye göre filtreleme yapabiliriz (şimdilik tüm data'yı gösteriyoruz)
-  const galleryData = gallerySummaryMockData; // Tüm galerileri göster
+  // Institution detail context'ten galleries verisini al
+  const { galleries, loading, error } = useInstitutionDetail();
+
+  // Galleries data'yı kullan (API'den gelen veri)
+  const galleryData = galleries || [];
 
   const handleCardClick = (galleryId: number) => {
     setSelectedGalleryId(galleryId);
     open();
-  };
-
-  const handleViewAllClick = () => {
-    console.log("View all galleries clicked");
-    // Burada tüm galerileri göster sayfasına yönlendirme yapılabilir
-  };
-
-  // Filter function
-  const filterSubmit = (filters: GallerySearchDto) => {
-    console.log("Gallery Filters Submitted:", filters);
-    // TODO: Implement filter logic (API call, state update, etc.)
   };
 
   const value: GalleryContextType = {
@@ -70,13 +60,11 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
     selectedGalleryId,
     setSelectedGalleryId,
     galleryData,
+    loading,
+    error,
 
     // Actions
     handleCardClick,
-    handleViewAllClick,
-
-    // Filter action
-    filterSubmit,
   };
   return (
     <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>
