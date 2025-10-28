@@ -1,7 +1,7 @@
 // Components
 export { default as InstitutionSidebar } from "./institution-sidebar";
 export { default as InstitutionGeneralInfo } from "./institution-general-info";
-export { default as InstitutionPricingInfo } from "./institution-pricing-info";
+export { InstitutionPricingInfo } from "./institution-pricing-info";
 export { default as InstitutionReviews } from "./institution-reviews";
 export { default as InstitutionCampusInfo } from "./institution-campus-info";
 export { default as InstitutionCampusDetail } from "./institution-campus-detail";
