@@ -1,14 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode } from "react";
-import { useGet } from "@/hooks";
-import { API_ENDPOINTS } from "@/lib";
-import { ApiResponseDto, SchoolDetailDto } from "@/types";
 import { formatCurrency, renderStars } from "../utils";
+import { useInstitutionDetailHook, useInstitutionPricingHook } from "../hooks";
 
 // Context State Interface
 interface InstitutionDetailState {
-  institutionDetail: SchoolDetailDto | null;
+  institutionDetail: any;
   school: any;
   campus: any;
   brand: any;
@@ -37,36 +35,40 @@ export function InstitutionDetailProvider({
   id,
   children,
 }: InstitutionDetailContextProps) {
+  // Institution detail hook'unu kullan
   const {
-    data: institutionResponse,
+    institutionDetail,
     loading: institutionLoading,
     error: institutionError,
     refetch: refetchInstitution,
-  } = useGet<ApiResponseDto<SchoolDetailDto>>(
-    id ? API_ENDPOINTS.INSTITUTIONS.SCHOOL_DETAIL(id) : null
-  );
+  } = useInstitutionDetailHook({ id });
 
-  // console.log("institutionResponse", institutionResponse);
-
-  // Backend'den gelen data yapısı doğrudan school bilgilerini içeriyor
-  const institutionDetail = institutionResponse?.data || null;
+  // Pricing hook'unu kullan
+  const {
+    pricings: pricingData,
+    loading: pricingLoading,
+    error: pricingError,
+    refetch: refetchPricing,
+  } = useInstitutionPricingHook({ schoolId: id });
 
   // school = tüm institution detail datası
   // campus, brand, pricings = nested objeler
   const school = institutionDetail;
   const campus = institutionDetail?.campus || null;
   const brand = institutionDetail?.brand || null;
-  const pricings = institutionDetail?.pricings || [];
 
   const contextValue: InstitutionDetailState = {
     institutionDetail,
     school: school,
     campus: campus,
     brand: brand,
-    pricings: pricings,
-    loading: institutionLoading,
-    error: institutionError,
-    refetch: refetchInstitution,
+    pricings: pricingData || [],
+    loading: institutionLoading || pricingLoading,
+    error: institutionError || pricingError,
+    refetch: () => {
+      refetchInstitution();
+      refetchPricing();
+    },
     renderStars,
     formatCurrency,
   };

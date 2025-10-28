@@ -2,7 +2,23 @@ import { SchoolPricingDto, CustomFeeDto } from "@/types";
 import { useInstitutionDetail } from "../contexts";
 
 export default function InstitutionPricingInfo() {
-  const { pricings, formatCurrency } = useInstitutionDetail();
+  const { pricings, formatCurrency, loading } = useInstitutionDetail();
+
+  if (loading) {
+    return (
+      <div className="tutor-details__content">
+        <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
+          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
+            <div className="d-flex justify-content-center align-items-center py-32">
+              <div className="spinner-border text-main-600" role="status">
+                <span className="visually-hidden">Yükleniyor...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!pricings || pricings.length === 0) {
     return (
