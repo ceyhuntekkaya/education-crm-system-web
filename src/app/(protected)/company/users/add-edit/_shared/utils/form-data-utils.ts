@@ -40,6 +40,7 @@ export const formDataToUpdateDto = (formData: any): UserUpdateDto => {
     lastName: formData.lastName,
     phone: formData.phone,
     profileImageUrl: formData.profileImageUrl,
+    // AuthUser'dan gelen veriler
     countryId: formData.countryId,
     provinceId: formData.provinceId,
     districtId: formData.districtId,
@@ -49,9 +50,11 @@ export const formDataToUpdateDto = (formData: any): UserUpdateDto => {
     postalCode: formData.postalCode,
     latitude: formData.latitude,
     longitude: formData.longitude,
+    // Bildirim tercihleri
     emailNotifications: formData.emailNotifications,
     smsNotifications: formData.smsNotifications,
     marketingEmails: formData.marketingEmails,
+    // Dil ve zaman dilimi
     preferredLanguage: formData.preferredLanguage,
     timezone: formData.timezone,
   };

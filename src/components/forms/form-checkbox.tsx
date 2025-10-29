@@ -251,9 +251,9 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
 
   return (
     <div
-      className={`form-check common-check mb-0 ${getContainerClasses()} ${
-        className || ""
-      }`}
+      className={`form-check common-check mb-0 ${
+        variant === "outlined" ? "ps-48" : ""
+      } ${getContainerClasses()} ${className || ""}`}
     >
       <input
         id={id || `${name}-${value || label}`}

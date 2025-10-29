@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
-import { Form, FormInput, FormCheckbox, FormSelect } from "@/components/forms";
+import { Form, FormInput, FormCheckbox } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { FileInput } from "@/components/file-input";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
+import { useAuth } from "@/contexts/auth-context";
 import { useUserAddEdit } from "../../../context";
 import { useAddUser, useEditUser } from "../../../hooks";
 import { formDataToRegistrationDto, formDataToUpdateDto } from "../../../utils";
@@ -16,6 +17,7 @@ import { formDataToRegistrationDto, formDataToUpdateDto } from "../../../utils";
 export const UserFormContent: React.FC = () => {
   const { hasErrors } = useFormHook();
   const { reset } = useForm();
+  const { user: authUser } = useAuth(); // Oturum açmış kullanıcı bilgileri
   const { isEditing, userId, user } = useUserAddEdit();
 
   const { postUser, isLoading: isAdding } = useAddUser();
@@ -24,11 +26,48 @@ export const UserFormContent: React.FC = () => {
   const isLoading = isAdding || isUpdating;
 
   const handleSubmit = async (values: any) => {
+    // Hem ekleme hem düzenleme modunda authUser'dan verileri al ve birleştir
+    let submitData = values;
+
+    if (authUser) {
+      submitData = {
+        ...values,
+        // AuthUser'dan gelen bilgileri ekle (her iki modda da)
+        countryId: authUser.country?.id,
+        provinceId: authUser.province?.id,
+        districtId: authUser.district?.id,
+        neighborhoodId: authUser.neighborhood?.id,
+        addressLine1: authUser.addressLine1,
+        addressLine2: authUser.addressLine2,
+        postalCode: authUser.postalCode,
+        latitude: authUser.latitude,
+        longitude: authUser.longitude,
+        preferredLanguage: "tr",
+        timezone: "Europe/Istanbul",
+      };
+    }
+
+    // Ekleme modunda userType'ı INSTITUTION_USER olarak ekle
+    if (!isEditing) {
+      submitData = {
+        ...submitData,
+        userType: "INSTITUTION_USER",
+      };
+    }
+
+    // Düzenleme modunda mevcut user'dan userType'ı al
+    if (isEditing && user) {
+      submitData = {
+        ...submitData,
+        userType: (user as any).userType,
+      };
+    }
+
     if (isEditing && userId) {
-      const updateData = formDataToUpdateDto(values);
+      const updateData = formDataToUpdateDto(submitData);
       await putUser(updateData);
     } else {
-      const registrationData = formDataToRegistrationDto(values);
+      const registrationData = formDataToRegistrationDto(submitData);
       await postUser(registrationData);
     }
   };
@@ -36,12 +75,6 @@ export const UserFormContent: React.FC = () => {
   const handleCancel = () => {
     reset();
   };
-
-  const userTypeOptions = [
-    { value: "PARENT", label: "Veli" },
-    { value: "INSTITUTION_USER", label: "Kurum Kullanıcısı" },
-    { value: "STUDENT", label: "Öğrenci" },
-  ];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -87,23 +120,11 @@ export const UserFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="phone"
+            type="tel"
             label="Telefon"
             placeholder="Telefon numaranızı giriniz..."
           />
         </div>
-
-        {/* Kullanıcı Tipi - Sadece yeni kullanıcı eklerken */}
-        {!isEditing && (
-          <div className="col-6">
-            <FormSelect
-              name="userType"
-              label="Kullanıcı Tipi"
-              options={userTypeOptions}
-              placeholder="Kullanıcı tipini seçiniz..."
-              required
-            />
-          </div>
-        )}
 
         {/* ŞİFRE - Sadece yeni kullanıcı eklerken */}
         {!isEditing && (
@@ -148,6 +169,7 @@ export const UserFormContent: React.FC = () => {
             maxSize={5}
             uploadButtonText="Profil Resmi Yükle"
             name="profileImageUrl"
+            isAutoUpload={true}
           />
         </div>
 
@@ -159,97 +181,7 @@ export const UserFormContent: React.FC = () => {
           />
         </div>
 
-        {/* ADRES BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Adres Bilgileri</h5>
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="countryId"
-            label="Ülke ID"
-            type="number"
-            placeholder="Ülke ID giriniz..."
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="provinceId"
-            label="İl ID"
-            type="number"
-            placeholder="İl ID giriniz..."
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="districtId"
-            label="İlçe ID"
-            type="number"
-            placeholder="İlçe ID giriniz..."
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="neighborhoodId"
-            label="Mahalle ID"
-            type="number"
-            placeholder="Mahalle ID giriniz..."
-          />
-        </div>
-
-        <div className="col-12">
-          <FormInput
-            name="addressLine1"
-            label="Adres Satırı 1"
-            placeholder="Adres satırı 1'i giriniz..."
-          />
-        </div>
-
-        <div className="col-12">
-          <FormInput
-            name="addressLine2"
-            label="Adres Satırı 2"
-            placeholder="Adres satırı 2'yi giriniz..."
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="postalCode"
-            label="Posta Kodu"
-            placeholder="Posta kodunu giriniz..."
-          />
-        </div>
-
-        {/* KONUM BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Konum Bilgileri</h5>
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="latitude"
-            label="Enlem"
-            type="number"
-            step="any"
-            placeholder="Enlem giriniz..."
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="longitude"
-            label="Boylam"
-            type="number"
-            step="any"
-            placeholder="Boylam giriniz..."
-          />
-        </div>
-
-        {/* TERCİHLER */}
+        {/* BİLDİRİM TERCİHLERİ */}
         <div className="col-12">
           <h5 className="mb-16 mt-16">Bildirim Tercihleri</h5>
         </div>
@@ -258,6 +190,7 @@ export const UserFormContent: React.FC = () => {
           <FormCheckbox
             name="emailNotifications"
             label="E-posta bildirimleri almak istiyorum"
+            variant="outlined"
           />
         </div>
 
@@ -265,6 +198,7 @@ export const UserFormContent: React.FC = () => {
           <FormCheckbox
             name="smsNotifications"
             label="SMS bildirimleri almak istiyorum"
+            variant="outlined"
           />
         </div>
 
@@ -272,27 +206,7 @@ export const UserFormContent: React.FC = () => {
           <FormCheckbox
             name="marketingEmails"
             label="Pazarlama e-postaları almak istiyorum"
-          />
-        </div>
-
-        {/* DİL VE ZAMAN DİLİMİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Dil ve Zaman Dilimi</h5>
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="preferredLanguage"
-            label="Tercih Edilen Dil"
-            placeholder="Örn: tr, en"
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="timezone"
-            label="Zaman Dilimi"
-            placeholder="Örn: Europe/Istanbul"
+            variant="outlined"
           />
         </div>
 
@@ -307,6 +221,7 @@ export const UserFormContent: React.FC = () => {
               <FormCheckbox
                 name="acceptTerms"
                 label="Kullanım koşullarını okudum ve kabul ediyorum"
+                variant="outlined"
                 required
               />
             </div>
@@ -315,6 +230,7 @@ export const UserFormContent: React.FC = () => {
               <FormCheckbox
                 name="acceptPrivacy"
                 label="Gizlilik politikasını okudum ve kabul ediyorum"
+                variant="outlined"
                 required
               />
             </div>
@@ -323,6 +239,7 @@ export const UserFormContent: React.FC = () => {
               <FormCheckbox
                 name="acceptMarketing"
                 label="Pazarlama iletişimlerine izin veriyorum"
+                variant="outlined"
               />
             </div>
           </>
@@ -341,7 +258,6 @@ export const UserFormContent: React.FC = () => {
             </Button>
             <Button
               type="submit"
-              variant="primary"
               disabled={hasErrors || isLoading}
               loading={isLoading}
             >

@@ -2,10 +2,11 @@
 
 import React from "react";
 import { FormProvider } from "@/contexts/form-context";
+import { useAuth } from "@/contexts/auth-context";
 import { UserFormContent } from "./sections";
 import {
   validationSchema as userValidationSchema,
-  initialValues as userInitialValues,
+  getInitialValues,
 } from "./schemas";
 import { UserFormProps } from "./types/props";
 
@@ -17,10 +18,15 @@ export const UserForm: React.FC<UserFormProps> = ({
   initialData,
   isEditing = false,
 }) => {
+  const { user: authUser } = useAuth();
+
+  // Initial values'u authUser ile al
+  const baseInitialValues = getInitialValues(authUser);
+
   // Düzenleme modunda mevcut data varsa onu kullan, yoksa default değerleri kullan
   const formInitialValues = initialData
-    ? { ...userInitialValues, ...initialData }
-    : userInitialValues;
+    ? { ...baseInitialValues, ...initialData }
+    : baseInitialValues;
 
   return (
     <div className={className}>
