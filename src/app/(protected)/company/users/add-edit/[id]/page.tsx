@@ -46,7 +46,7 @@ const UsersAddEditPage: React.FC<UsersAddEditPageProps> = ({ params }) => {
       {isEditing && userId && (
         <div className="mb-32">
           <CustomCard
-            type="accordion"
+            // type="accordion"
             title="Şifre Değiştir"
             subtitle="Hesap güvenliğiniz için şifrenizi değiştirin"
           >

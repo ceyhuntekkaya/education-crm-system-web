@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useUserAddEdit } from "../../../context";
-import { useChangePassword } from "../../../hooks";
 import { PasswordChangeDto } from "@/types";
 
 /**
@@ -15,9 +14,7 @@ import { PasswordChangeDto } from "@/types";
 export const PasswordChangeFormContent: React.FC = () => {
   const { hasErrors } = useFormHook();
   const { reset } = useForm();
-  const { userId } = useUserAddEdit();
-
-  const { changePassword, isLoading } = useChangePassword(userId || 0);
+  const { changePassword, changePasswordLoading } = useUserAddEdit();
 
   const handleSubmit = async (values: any) => {
     const passwordData: PasswordChangeDto = {
@@ -99,14 +96,14 @@ export const PasswordChangeFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={isLoading}
+              disabled={changePasswordLoading}
             >
               İptal
             </Button>
             <Button
               type="submit"
-              disabled={hasErrors || isLoading}
-              loading={isLoading}
+              disabled={hasErrors || changePasswordLoading}
+              loading={changePasswordLoading}
             >
               Şifreyi Değiştir
             </Button>

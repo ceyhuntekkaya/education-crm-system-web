@@ -7,13 +7,13 @@ import { PasswordChangeDto } from "@/types";
 /**
  * Şifre değiştirme hook'u
  */
-export const useChangePassword = (userId: number) => {
+export const useChangePassword = (userId: number | null) => {
   const {
     mutate: changePassword,
     loading: isLoading,
     error,
   } = usePost<void, PasswordChangeDto>(
-    API_ENDPOINTS.USERS.CHANGE_PASSWORD(userId),
+    userId ? API_ENDPOINTS.USERS.CHANGE_PASSWORD(userId) : "",
     {
       onSuccess: () => {
         console.log("✅ Şifre başarıyla değiştirildi");

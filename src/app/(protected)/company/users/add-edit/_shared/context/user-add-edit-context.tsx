@@ -3,7 +3,7 @@
 import React, { createContext, useContext } from "react";
 import { useParams } from "next/navigation";
 import { UserAddEditContextType } from "../types";
-import { useUserById } from "../hooks";
+import { useUserById, useChangePassword } from "../hooks";
 import { parseId } from "../utils";
 
 const UserAddEditContext = createContext<UserAddEditContextType | undefined>(
@@ -18,12 +18,16 @@ export const UserAddEditProvider: React.FC<{ children: React.ReactNode }> = ({
   const isEditing = userId !== null;
 
   const { user, isLoading: userLoading } = useUserById(userId);
+  const { changePassword, isLoading: changePasswordLoading } =
+    useChangePassword(userId);
 
   const value: UserAddEditContextType = {
     isEditing,
     userId,
     user,
     userLoading,
+    changePassword,
+    changePasswordLoading,
   };
 
   return (
