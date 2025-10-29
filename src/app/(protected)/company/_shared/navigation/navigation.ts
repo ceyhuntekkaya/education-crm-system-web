@@ -79,11 +79,11 @@ export const companyLayoutNavigation: MenuItem[] = [
     label: "Kullanıcılar",
     icon: "ph-users",
   },
-  {
-    href: "/company/subscription",
-    label: "Üyelik Planları",
-    icon: "ph-crown",
-  },
+  // {
+  //   href: "/company/subscription",
+  //   label: "Üyelik Planları",
+  //   icon: "ph-crown",
+  // },
   {
     href: "/company/brands",
     label: "Markalar ***",
