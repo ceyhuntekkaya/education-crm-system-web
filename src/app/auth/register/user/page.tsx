@@ -5,6 +5,7 @@ import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RegisterForm } from "../_shared/register-form";
+import { UserType } from "@/enums/UserType";
 
 // Prevent static generation for this page
 export const dynamic = "force-dynamic";
@@ -36,7 +37,7 @@ const UserRegisterPageContent: React.FC = () => {
         </div>
 
         {/* Register Form - user type */}
-        <RegisterForm registrationType="user" />
+        <RegisterForm registrationType={UserType.PARENT} />
 
         {/* Footer Links */}
         <div className="text-center mt-32 pt-24 border-top">

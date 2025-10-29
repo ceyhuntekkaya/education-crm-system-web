@@ -16,6 +16,7 @@ import {
 import { useSubscriptionPlans } from "@/app/(public)/memberships/_shared/hooks";
 import { useForm } from "@/contexts/form-context";
 import type { RegistrationType } from "../register-form";
+import { UserType } from "@/enums/UserType";
 
 const RegisterContext = createContext<RegisterContextType | undefined>(
   undefined
@@ -28,7 +29,7 @@ interface RegisterProviderProps {
 
 export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   children,
-  registrationType = "institution",
+  registrationType = UserType.INSTITUTION_USER,
 }) => {
   // Form values
   const { values } = useForm();
@@ -58,7 +59,7 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
   );
 
   const { submitRegistration, isSubmitting, submitError } =
-    useRegistrationSubmit();
+    useRegistrationSubmit(registrationType);
 
   const {
     sendVerificationCode,

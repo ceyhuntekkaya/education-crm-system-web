@@ -1,5 +1,6 @@
 import { StepConfig } from "../types";
 import type { RegistrationType } from "../register-form";
+import { UserType } from "@/enums/UserType";
 
 /**
  * Kurum kayıt adımları (tüm adımlar)
@@ -107,7 +108,9 @@ const USER_STEPS: StepConfig[] = [
 export const getStepConfigs = (
   registrationType: RegistrationType
 ): StepConfig[] => {
-  return registrationType === "institution" ? INSTITUTION_STEPS : USER_STEPS;
+  return registrationType === UserType.INSTITUTION_USER
+    ? INSTITUTION_STEPS
+    : USER_STEPS;
 };
 
 /**

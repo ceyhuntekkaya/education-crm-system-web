@@ -3,17 +3,21 @@ import { useForm } from "@/contexts/form-context";
 import { useRegister as useRegisterApi } from "./use-register";
 import { UserRegistrationDto } from "@/types";
 import type { RegisterResponse } from "../types";
+import type { RegistrationType } from "../register-form";
 
 /**
  * Kayıt işlemini tamamlama
  */
-export const useRegistrationSubmit = () => {
+export const useRegistrationSubmit = (registrationType?: RegistrationType) => {
   const { values } = useForm();
   const { registerUser, isLoading, error } = useRegisterApi();
 
   const submitRegistration =
     useCallback(async (): Promise<RegisterResponse | null> => {
       if (!values) return null;
+
+      // registrationType direkt UserType enum, backend'e gönder
+      const userType = registrationType;
 
       // Tüm form verilerini UserRegistrationDto formatına dönüştür
       const registrationData: UserRegistrationDto = {
@@ -36,8 +40,8 @@ export const useRegistrationSubmit = () => {
         addressLine2: values.campusInfo?.addressLine2 || "",
         postalCode: values.campusInfo?.postalCode || "",
 
-        // User type
-        userType: values.userType,
+        // User type - direkt UserType enum
+        userType: userType!,
 
         // Agreements
         acceptTerms: values.paymentInfo?.acceptTerms || false,
@@ -45,12 +49,14 @@ export const useRegistrationSubmit = () => {
         acceptMarketing: values.paymentInfo?.acceptMarketing || false,
       };
 
+      console.log(`[Register] UserType: ${registrationData.userType}`);
+
       const result = await registerUser(registrationData);
 
       // Başarılı kayıt - redirect yapmadan sadece result döndür
       // Step 7'ye geçiş form-content tarafından yönetilecek
       return result;
-    }, [values, registerUser]);
+    }, [values, registerUser, registrationType]);
 
   return {
     submitRegistration,
