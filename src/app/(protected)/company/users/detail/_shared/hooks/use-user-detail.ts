@@ -3,7 +3,6 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, UserDto } from "@/types";
-import { getUserById } from "../../../_shared/mock/users-mock-data";
 
 interface UseUserDetailProps {
   userId: number | null;
@@ -33,13 +32,10 @@ export const useUserDetail = ({
     userId ? API_ENDPOINTS.USERS.BY_ID(userId) : null
   );
 
-  // Mock data kullanımı - getUserById ile ID'ye göre kullanıcı getir
-  const mockUser = userId ? getUserById(userId) : null;
-
   return {
-    user: mockUser || userResponse?.data || null,
-    loading: false,
-    error: "",
+    user: userResponse?.data || null,
+    loading,
+    error: error || null,
     refetch,
   };
 };

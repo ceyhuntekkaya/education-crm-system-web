@@ -1,4 +1,4 @@
-import { UserListDto, UserProfileDto } from "@/types";
+import { UserDto } from "@/types";
 
 // Badge variant type
 export type BadgeVariant =
@@ -13,42 +13,42 @@ export type BadgeVariant =
 
 // Users column handlers
 export interface UsersColumnHandlers {
-  onViewDetails?: (user: UserListDto | UserProfileDto) => void;
-  onEdit?: (user: UserListDto | UserProfileDto) => void;
-  onToggleStatus?: (user: UserListDto | UserProfileDto) => void;
-  onDelete?: (user: UserListDto | UserProfileDto) => void;
-  onResetPassword?: (user: UserListDto | UserProfileDto) => void;
-  onViewProfile?: (user: UserListDto | UserProfileDto) => void;
-  onSendInvitation?: (user: UserListDto | UserProfileDto) => void;
-  onManageRoles?: (user: UserListDto | UserProfileDto) => void;
+  onViewDetails?: (user: UserDto) => void;
+  onEdit?: (user: UserDto) => void;
+  onToggleStatus?: (user: UserDto) => void;
+  onDelete?: (user: UserDto) => void;
+  onResetPassword?: (user: UserDto) => void;
+  onViewProfile?: (user: UserDto) => void;
+  onSendInvitation?: (user: UserDto) => void;
+  onManageRoles?: (user: UserDto) => void;
 }
 
 // Users action buttons props
 export interface UsersActionButtonsProps {
-  user: UserListDto | UserProfileDto;
-  onViewDetails?: (user: UserListDto | UserProfileDto) => void;
-  onEdit?: (user: UserListDto | UserProfileDto) => void;
-  onToggleStatus?: (user: UserListDto | UserProfileDto) => void;
-  onDelete?: (user: UserListDto | UserProfileDto) => void;
-  onResetPassword?: (user: UserListDto | UserProfileDto) => void;
-  onViewProfile?: (user: UserListDto | UserProfileDto) => void;
-  onSendInvitation?: (user: UserListDto | UserProfileDto) => void;
-  onManageRoles?: (user: UserListDto | UserProfileDto) => void;
+  user: UserDto;
+  onViewDetails?: (user: UserDto) => void;
+  onEdit?: (user: UserDto) => void;
+  onToggleStatus?: (user: UserDto) => void;
+  onDelete?: (user: UserDto) => void;
+  onResetPassword?: (user: UserDto) => void;
+  onViewProfile?: (user: UserDto) => void;
+  onSendInvitation?: (user: UserDto) => void;
+  onManageRoles?: (user: UserDto) => void;
 }
 
 // Users table props
 export interface UsersTableProps {
-  users?: (UserListDto | UserProfileDto)[];
+  users?: UserDto[];
   loading?: boolean;
 }
 
 // Users context type
 export interface UsersContextType {
-  users: (UserListDto | UserProfileDto)[];
+  users: UserDto[];
   loading: boolean;
   error: string | null;
-  selectedUser: UserListDto | UserProfileDto | null;
-  setSelectedUser: (user: UserListDto | UserProfileDto | null) => void;
+  selectedUser: UserDto | null;
+  setSelectedUser: (user: UserDto | null) => void;
   refetchUsers: () => void;
 }
 

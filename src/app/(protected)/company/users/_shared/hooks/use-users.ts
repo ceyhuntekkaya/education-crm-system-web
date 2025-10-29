@@ -1,10 +1,10 @@
 "use client";
 
-import { mockUsers } from "../mock";
-import { UserListDto, UserProfileDto } from "@/types";
+import { UserDto } from "@/types";
+import { mockUsers } from "../mock/users-mock-data";
 
 interface UseUsersReturn {
-  users: (UserListDto | UserProfileDto)[];
+  users: UserDto[];
   userLoading: boolean;
   userError: string | null;
   refetchUsers: () => void;
@@ -12,26 +12,24 @@ interface UseUsersReturn {
 
 /**
  * Tüm kullanıcıları getiren hook
- * Şu an mock data kullanıyor, API hazır olunca güncellenecek
+ * Şimdilik mock data kullanıyor, API hazır olunca güncellenecek
  * @returns Kullanıcı verileri ve yönetim fonksiyonları
  */
 export const useUsers = (): UseUsersReturn => {
-  // TODO: API hazır olunca bu kısmı useGet ile değiştir
+  // TODO: API hazır olunca useGet ile değiştir
   // const {
   //   data: usersResponse,
   //   loading: userLoading,
   //   error: userError,
   //   refetch: refetchUsers,
-  // } = useGet<ApiResponseDto<UserProfileDto[]>>(
-  //   API_ENDPOINTS.USERS.LIST
-  // );
+  // } = useGet<ApiResponseDto<UserDto[]>>(API_ENDPOINTS.USERS.LIST);
 
   // Şimdilik mock data kullanıyoruz
   const users = mockUsers;
   const userLoading = false;
   const userError = null;
   const refetchUsers = () => {
-    console.log("Refetching users...");
+    console.log("Refetching users... (mock data)");
   };
 
   return {

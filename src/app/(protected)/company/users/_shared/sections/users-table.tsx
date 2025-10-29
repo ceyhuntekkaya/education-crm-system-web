@@ -25,7 +25,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
     }
   };
 
-  // Kolonları oluştur
+  // Kolonları oluştur (UserDto'ya göre)
   const columns = createUsersColumns();
 
   return (

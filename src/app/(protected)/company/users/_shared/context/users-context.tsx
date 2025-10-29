@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { UserListDto, UserProfileDto } from "@/types";
+import { UserDto } from "@/types";
 import { UsersContextType } from "../types";
 import { useUsers as useUsersHook } from "../hooks";
 
@@ -13,9 +13,7 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { users, userLoading, userError, refetchUsers } = useUsersHook();
-  const [selectedUser, setSelectedUser] = useState<
-    UserListDto | UserProfileDto | null
-  >(null);
+  const [selectedUser, setSelectedUser] = useState<UserDto | null>(null);
 
   const value: UsersContextType = {
     users,
