@@ -127,23 +127,6 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
-        {/* ÖZELLİK DEĞERLERİ - PropertyValues */}
-        {currentPropertyGroups.length > 0 && (
-          <div className="col-12">
-            <FormCheckbox
-              name="propertyValues"
-              label=""
-              grouped={true}
-              groups={currentPropertyGroups}
-              groupedTitle="Özellikler"
-              groupedDescription="Seçili kurum tipine özel özellikleri seçiniz."
-              disabled={propertyValuesLoading}
-              direction="horizontal"
-              col={4}
-            />
-          </div>
-        )}
-
         {/* Okul Adı */}
         <div className="col-12">
           <FormInput
@@ -354,6 +337,24 @@ export const SchoolFormContent: React.FC = () => {
             placeholder="Meta anahtar kelimeleri giriniz (virgülle ayırarak)..."
           />
         </div>
+
+        {/* ÖZELLİK DEĞERLERİ - PropertyValues */}
+        {currentPropertyGroups.length > 0 && (
+          <div className="col-12">
+            <FormCheckbox
+              name="propertyValues"
+              label=""
+              grouped={true}
+              groups={currentPropertyGroups}
+              groupedTitle="Özellikler"
+              groupedDescription="Seçili kurum tipine özel özellikleri seçiniz."
+              disabled={propertyValuesLoading}
+              direction="horizontal"
+              col={4}
+              variant="outlined"
+            />
+          </div>
+        )}
 
         {/* FORM BUTONLARI */}
         <div className="col-12 d-flex justify-content-end gap-3 mt-24">
