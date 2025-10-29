@@ -80,6 +80,13 @@ export const API_ENDPOINTS = {
       `/appointments/${appointmentId}/notes`,
   },
 
+  SURVEYS: {
+    BY_APPOINTMENT_ID: (appointmentId: string | number) =>
+      `/surveys/appointments/${appointmentId}`,
+    SUBMIT: "/surveys/submit",
+    BY_ID: (id: string | number) => `/surveys/${id}`,
+  },
+
   CONTENT: {
     // Posts
     POSTS: "/content/posts",

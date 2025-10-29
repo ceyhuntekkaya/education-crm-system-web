@@ -1,4 +1,4 @@
-import { AppointmentDto, AppointmentNoteDto } from "@/types";
+import { AppointmentDto, AppointmentNoteDto, SurveyTemplateDto } from "@/types";
 import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
 
 /**
@@ -22,6 +22,16 @@ export interface AppointmentDetailContextValue {
   appointmentNotesLoading: boolean;
   appointmentNotesError: string | null;
   refetchNotes: () => void;
+  // Survey işlemleri
+  surveys: SurveyTemplateDto[];
+  appointmentSurveysLoading: boolean;
+  appointmentSurveysError: Error | null;
+  refetchSurveys: () => void;
+  selectedSurveyId: number | null;
+  selectSurvey: (surveyId: number) => void;
+  submitSurvey: (surveyId: number) => Promise<void>;
+  surveySubmitLoading: boolean;
+  surveySubmitError: Error | null;
 }
 
 /**

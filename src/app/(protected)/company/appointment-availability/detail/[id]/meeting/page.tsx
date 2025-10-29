@@ -5,6 +5,7 @@ import {
   AppointmentNotesSection,
   AppointmentDetailSection,
   AppointmentNoteForm,
+  AppointmentSurveysSection,
 } from "../_shared";
 
 /**
@@ -20,6 +21,7 @@ const MeetingPage: React.FC = () => {
         <div className="d-flex flex-column gap-16">
           <AppointmentNoteForm />
           <AppointmentNotesSection />
+          <AppointmentSurveysSection />
         </div>
       </div>
     </div>

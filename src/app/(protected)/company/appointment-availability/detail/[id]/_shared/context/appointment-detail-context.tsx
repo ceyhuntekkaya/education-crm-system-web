@@ -1,10 +1,13 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useCallback } from "react";
 import { useAppointmentById } from "../hooks/use-appointment-by-id";
 import { useAppointmentSections } from "../hooks/use-appointment-sections";
 import { useAddAppointmentNote } from "../hooks/use-add-appointment-note";
 import { useAppointmentNotes } from "../hooks/use-appointment-notes";
+import { useAppointmentSurveys } from "../hooks/use-appointment-surveys";
+import { useSubmitSurvey } from "../hooks/use-submit-survey";
+import { useSurveySelection } from "../hooks/use-survey-selection";
 import {
   AppointmentDetailContextValue,
   AppointmentDetailProviderProps,
@@ -39,6 +42,34 @@ export const AppointmentDetailProvider: React.FC<
     error: noteAddError,
   } = useAddAppointmentNote(appointmentId, refetchNotes);
 
+  // Survey işlemleri
+  const {
+    surveys,
+    isLoading: appointmentSurveysLoading,
+    error: appointmentSurveysError,
+    refetch: refetchSurveys,
+  } = useAppointmentSurveys(appointmentId.toString());
+
+  const { selectedSurveyId, selectSurvey } = useSurveySelection();
+
+  const {
+    submitSurvey: submitSurveyHook,
+    isLoading: surveySubmitLoading,
+    error: surveySubmitError,
+  } = useSubmitSurvey(() => {
+    refetchSurveys();
+  });
+
+  const submitSurvey = useCallback(
+    async (surveyId: number) => {
+      await submitSurveyHook({
+        surveyId,
+        appointmentId: appointmentId.toString(),
+      });
+    },
+    [submitSurveyHook, appointmentId]
+  );
+
   const contextValue: AppointmentDetailContextValue = {
     appointmentId,
     appointment,
@@ -53,6 +84,15 @@ export const AppointmentDetailProvider: React.FC<
     appointmentNotesLoading,
     appointmentNotesError,
     refetchNotes,
+    surveys,
+    appointmentSurveysLoading,
+    appointmentSurveysError,
+    refetchSurveys,
+    selectedSurveyId,
+    selectSurvey,
+    submitSurvey,
+    surveySubmitLoading,
+    surveySubmitError,
   };
 
   return (
