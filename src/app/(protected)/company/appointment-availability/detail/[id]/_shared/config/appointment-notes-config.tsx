@@ -21,7 +21,7 @@ export const appointmentNotesConfig: BasicInfoItemConfig[] = [
           {appointment.appointmentNotes.map((note: any, index: number) => (
             <div key={note.id || index} className="col-12">
               <div
-                className={`card border-start border-3 ${
+                className={`card border-start ${
                   note.noteType === "INTERNAL"
                     ? "border-warning"
                     : note.noteType === "OUTCOME"
@@ -29,7 +29,7 @@ export const appointmentNotesConfig: BasicInfoItemConfig[] = [
                     : "border-info"
                 }`}
               >
-                <div className="card-body">
+                <div className="p-12">
                   <div className="d-flex justify-content-between align-items-start mb-2">
                     <div className="d-flex align-items-center">
                       <span

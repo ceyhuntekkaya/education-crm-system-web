@@ -76,7 +76,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/users",
-    label: "Kullanıcılar",
+    label: "Kullanıcılar ***",
     icon: "ph-users",
   },
   // {
