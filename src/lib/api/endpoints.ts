@@ -115,6 +115,14 @@ export const API_ENDPOINTS = {
     CARTS: "/carts",
   },
 
+  // Users endpoints
+  USERS: {
+    REGISTER: "/users/register",
+    BY_ID: (userId: string | number) => `/users/${userId}`,
+    PROFILE: (userId: string | number) => `/users/${userId}/profile`,
+    UPDATE_PROFILE: (userId: string | number) => `/users/${userId}/profile`,
+  },
+
   // // Todos
   // TODOS: {
   //   LIST: '/todos',

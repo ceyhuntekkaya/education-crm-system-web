@@ -1,9 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { UserListDto } from "@/types/dto/user/UserListDto";
+import React, { createContext, useContext, useState } from "react";
+import { UserListDto, UserProfileDto } from "@/types";
 import { UsersContextType } from "../types";
-import { mockUsers } from "../mock/users-mock-data";
+import { useUsers as useUsersHook } from "../hooks";
 
 // Create context
 const UsersContext = createContext<UsersContextType | undefined>(undefined);
@@ -12,24 +12,18 @@ const UsersContext = createContext<UsersContextType | undefined>(undefined);
 export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [users] = useState<UserListDto[]>(mockUsers);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [selectedUser, setSelectedUser] = useState<UserListDto | null>(null);
-
-  const refreshUsers = useCallback(() => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
+  const { users, userLoading, userError, refetchUsers } = useUsersHook();
+  const [selectedUser, setSelectedUser] = useState<
+    UserListDto | UserProfileDto | null
+  >(null);
 
   const value: UsersContextType = {
     users,
-    loading,
+    loading: userLoading,
+    error: userError,
     selectedUser,
     setSelectedUser,
-    refreshUsers,
+    refetchUsers,
   };
 
   return (
@@ -38,10 +32,10 @@ export const UsersProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 
 // Hook to use users context
-export const useUsers = (): UsersContextType => {
+export const useUsersContext = (): UsersContextType => {
   const context = useContext(UsersContext);
   if (context === undefined) {
-    throw new Error("useUsers must be used within a UsersProvider");
+    throw new Error("useUsersContext must be used within a UsersProvider");
   }
   return context;
 };

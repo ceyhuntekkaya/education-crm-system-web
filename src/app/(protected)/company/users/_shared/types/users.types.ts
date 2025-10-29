@@ -1,54 +1,55 @@
-import { UserListDto } from "@/types/dto/user/UserListDto";
+import { UserListDto, UserProfileDto } from "@/types";
 
 // Badge variant type
-export type BadgeVariant = 
-  | "primary" 
-  | "secondary" 
-  | "success" 
-  | "danger" 
-  | "warning" 
-  | "info" 
-  | "light" 
+export type BadgeVariant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "light"
   | "dark";
 
 // Users column handlers
 export interface UsersColumnHandlers {
-  onViewDetails?: (user: UserListDto) => void;
-  onEdit?: (user: UserListDto) => void;
-  onToggleStatus?: (user: UserListDto) => void;
-  onDelete?: (user: UserListDto) => void;
-  onResetPassword?: (user: UserListDto) => void;
-  onViewProfile?: (user: UserListDto) => void;
-  onSendInvitation?: (user: UserListDto) => void;
-  onManageRoles?: (user: UserListDto) => void;
+  onViewDetails?: (user: UserListDto | UserProfileDto) => void;
+  onEdit?: (user: UserListDto | UserProfileDto) => void;
+  onToggleStatus?: (user: UserListDto | UserProfileDto) => void;
+  onDelete?: (user: UserListDto | UserProfileDto) => void;
+  onResetPassword?: (user: UserListDto | UserProfileDto) => void;
+  onViewProfile?: (user: UserListDto | UserProfileDto) => void;
+  onSendInvitation?: (user: UserListDto | UserProfileDto) => void;
+  onManageRoles?: (user: UserListDto | UserProfileDto) => void;
 }
 
 // Users action buttons props
 export interface UsersActionButtonsProps {
-  user: UserListDto;
-  onViewDetails?: (user: UserListDto) => void;
-  onEdit?: (user: UserListDto) => void;
-  onToggleStatus?: (user: UserListDto) => void;
-  onDelete?: (user: UserListDto) => void;
-  onResetPassword?: (user: UserListDto) => void;
-  onViewProfile?: (user: UserListDto) => void;
-  onSendInvitation?: (user: UserListDto) => void;
-  onManageRoles?: (user: UserListDto) => void;
+  user: UserListDto | UserProfileDto;
+  onViewDetails?: (user: UserListDto | UserProfileDto) => void;
+  onEdit?: (user: UserListDto | UserProfileDto) => void;
+  onToggleStatus?: (user: UserListDto | UserProfileDto) => void;
+  onDelete?: (user: UserListDto | UserProfileDto) => void;
+  onResetPassword?: (user: UserListDto | UserProfileDto) => void;
+  onViewProfile?: (user: UserListDto | UserProfileDto) => void;
+  onSendInvitation?: (user: UserListDto | UserProfileDto) => void;
+  onManageRoles?: (user: UserListDto | UserProfileDto) => void;
 }
 
 // Users table props
 export interface UsersTableProps {
-  users?: UserListDto[];
+  users?: (UserListDto | UserProfileDto)[];
   loading?: boolean;
 }
 
 // Users context type
 export interface UsersContextType {
-  users: UserListDto[];
+  users: (UserListDto | UserProfileDto)[];
   loading: boolean;
-  selectedUser: UserListDto | null;
-  setSelectedUser: (user: UserListDto | null) => void;
-  refreshUsers: () => void;
+  error: string | null;
+  selectedUser: UserListDto | UserProfileDto | null;
+  setSelectedUser: (user: UserListDto | UserProfileDto | null) => void;
+  refetchUsers: () => void;
 }
 
 // Users stats type

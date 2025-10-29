@@ -7,3 +7,4 @@ export * from "./appointment-utils";
 export * from "./appointment-availability";
 export * from "./rating-utils";
 export * from "./filter-utils";
+export * from "./enum-labels";
