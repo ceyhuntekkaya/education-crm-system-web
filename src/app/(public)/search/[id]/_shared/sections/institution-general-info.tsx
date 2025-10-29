@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CustomImage } from "@/components";
 import { useInstitutionDetail } from "../contexts";
 
 const tempIconUrl =
@@ -6,6 +6,11 @@ const tempIconUrl =
 
 export default function InstitutionGeneralInfo() {
   const { school, campus, renderStars } = useInstitutionDetail();
+
+  // School yoksa hiçbir şey gösterme
+  if (!school) {
+    return null;
+  }
 
   const institutionInfoItems = [
     {
@@ -19,7 +24,7 @@ export default function InstitutionGeneralInfo() {
         <span className="fw-semibold text-warning-600 text-md">
           <div className="d-flex align-items-center gap-8">
             {school.institutionType.iconUrl && (
-              <Image
+              <CustomImage
                 src={tempIconUrl || school.institutionType.iconUrl}
                 alt={school.institutionType.displayName}
                 width={20}

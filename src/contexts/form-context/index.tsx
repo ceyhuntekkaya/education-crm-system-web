@@ -18,6 +18,23 @@ import {
 // Form context
 const FormContext = createContext<FormContextType | undefined>(undefined);
 
+// Helper function to get nested value
+const getNestedValue = (obj: any, path: string): any => {
+  return path.split(".").reduce((current, key) => current?.[key], obj);
+};
+
+// Helper function to set nested value
+const setNestedValue = (obj: any, path: string, value: any): any => {
+  const keys = path.split(".");
+  const lastKey = keys.pop()!;
+  const target = keys.reduce((current, key) => {
+    if (!current[key]) current[key] = {};
+    return current[key];
+  }, obj);
+  target[lastKey] = value;
+  return { ...obj };
+};
+
 // Form Provider bileşeni
 export const FormProvider: React.FC<FormProviderProps> = ({
   children,
@@ -37,7 +54,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({
       if (!validationSchema) return undefined;
 
       try {
-        await validationSchema.validateAt(fieldName, { [fieldName]: value });
+        // Nested path için tüm form values'ı kullan
+        const testValues = setNestedValue({ ...values }, fieldName, value);
+        await validationSchema.validateAt(fieldName, testValues);
         return undefined;
       } catch (error) {
         if (error instanceof yup.ValidationError) {
@@ -46,7 +65,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         return "Validation error";
       }
     },
-    [validationSchema]
+    [validationSchema, values]
   );
 
   // Değer güncelleme
@@ -55,10 +74,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
       name: string,
       value: string | number | boolean | null | undefined | any[] | any
     ) => {
-      setValues((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      setValues((prev) => setNestedValue({ ...prev }, name, value));
 
       // Hata varsa temizle
       setErrors((prev) => {
@@ -108,7 +124,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   // Değer alma
   const getValue = useCallback(
     (name: string) => {
-      return values[name];
+      return getNestedValue(values, name);
     },
     [values]
   );
@@ -127,20 +143,23 @@ export const FormProvider: React.FC<FormProviderProps> = ({
       if (!validationSchema) return false;
 
       try {
-        // Boş bir nesne ile test et - eğer required error alırsa field zorunludur
-        validationSchema.validateSyncAt(name, {});
+        // Nested yapı için boş değerlerle dolu bir test object oluştur
+        const emptyValues = JSON.parse(JSON.stringify(initialValues));
+        const emptyValue = setNestedValue(emptyValues, name, undefined);
+        validationSchema.validateSyncAt(name, emptyValue);
         return false;
       } catch (error) {
         if (error instanceof yup.ValidationError) {
           return (
             error.message.includes("required") ||
-            error.message.includes("zorunlu")
+            error.message.includes("zorunlu") ||
+            error.message.includes("gerekli")
           );
         }
         return false;
       }
     },
-    [validationSchema]
+    [validationSchema, initialValues]
   );
 
   // Form sıfırlama

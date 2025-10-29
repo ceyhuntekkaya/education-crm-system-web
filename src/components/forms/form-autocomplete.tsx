@@ -26,6 +26,7 @@ interface FormAutocompleteProps
   noOptionsText?: string;
   loadingText?: string;
   isLoading?: boolean;
+  multiple?: boolean; // Çoklu seçim desteği
 }
 
 export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
@@ -44,6 +45,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   noOptionsText = "Sonuç bulunamadı",
   loadingText = "Yükleniyor...",
   isLoading = false,
+  multiple = false, // Çoklu seçim varsayılan olarak kapalı
   ...rest
 }) => {
   const { value, error, required, onChange } = useFormField(name);
@@ -58,6 +60,12 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Get selected values for multiple mode
+  const selectedValues = React.useMemo(() => {
+    if (!multiple) return [];
+    return Array.isArray(value) ? value : value ? [value] : [];
+  }, [value, multiple]);
 
   // Default filter function
   const defaultFilterFunction = useCallback(
@@ -75,16 +83,23 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Filter options based on search term
   useEffect(() => {
+    let baseOptions = options;
+
+    // Multiple modda seçili olanları filtreleme (opsiyonel - istersen yoruma alabilirsin)
+    // if (multiple && selectedValues.length > 0) {
+    //   baseOptions = options.filter(opt => !selectedValues.includes(opt.value));
+    // }
+
     // Eğer seçili bir değer varsa, her zaman tüm seçenekleri göster (arama yaparken bile)
-    if (value && typeof value === "string" && value !== "") {
-      setFilteredOptions(options);
+    if (!multiple && value && typeof value === "string" && value !== "") {
+      setFilteredOptions(baseOptions);
     } else {
       // Seçili değer yoksa normal filtreleme mantığı
       if (searchTerm.trim() === "") {
-        setFilteredOptions(options.slice(0, maxResults));
+        setFilteredOptions(baseOptions.slice(0, maxResults));
       } else {
         const filterFunc = filterFunction || defaultFilterFunction;
-        const filtered = filterFunc(options, searchTerm);
+        const filtered = filterFunc(baseOptions, searchTerm);
         setFilteredOptions(filtered);
       }
     }
@@ -96,6 +111,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     maxResults,
     defaultFilterFunction,
     value,
+    multiple,
+    selectedValues,
   ]);
 
   // Handle input change
@@ -105,6 +122,11 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     const newValue = e.target.value;
     setSearchTerm(newValue);
     setIsOpen(true);
+
+    // Multiple modda input değeri form value'yu etkilemez
+    if (multiple) {
+      return;
+    }
 
     // Sadece valid seçeneklerden birini yazdıysa value'yu set et
     // Aksi halde value'yu boş bırak (select mantığı)
@@ -123,6 +145,12 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     setIsOpen(false);
     setHighlightedIndex(-1);
 
+    // Multiple modda dropdown kapandığında arama terimini temizle
+    if (multiple) {
+      setSearchTerm("");
+      return;
+    }
+
     // Dropdown kapandığında, eğer yazılan metin geçerli bir seçenek değilse temizle
     if (searchTerm) {
       const exactMatch = options.find(
@@ -134,14 +162,14 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
         onChange("");
       }
     }
-  }, [searchTerm, options, onChange]);
+  }, [searchTerm, options, onChange, multiple]);
 
   // Handle clear/reset
   const handleClear = () => {
     if (disabled || isLoading) return;
 
     setSearchTerm("");
-    onChange("");
+    onChange(multiple ? [] : "");
     setIsOpen(false);
     setHighlightedIndex(-1);
     inputRef.current?.focus();
@@ -151,12 +179,31 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   const handleOptionSelect = (option: AutocompleteOption) => {
     if (disabled || isLoading) return;
 
-    setSearchTerm(option.label);
-    onChange(option.value);
-    setIsOpen(false);
-    setHighlightedIndex(-1);
-    // Input'tan focus'u kaldır ki dropdown tamamen kapansın
-    inputRef.current?.blur();
+    if (multiple) {
+      // Çoklu seçim modu
+      const currentValues = Array.isArray(value) ? value : value ? [value] : [];
+      const isSelected = currentValues.includes(option.value);
+
+      let newValues: string[];
+      if (isSelected) {
+        // Seçili ise kaldır
+        newValues = currentValues.filter((v) => v !== option.value);
+      } else {
+        // Seçili değilse ekle
+        newValues = [...currentValues, option.value];
+      }
+
+      onChange(newValues);
+      setSearchTerm(""); // Arama terimini temizle
+      inputRef.current?.focus(); // Input'u focus'ta tut
+    } else {
+      // Tekli seçim modu (mevcut davranış)
+      setSearchTerm(option.label);
+      onChange(option.value);
+      setIsOpen(false);
+      setHighlightedIndex(-1);
+      inputRef.current?.blur();
+    }
   };
 
   // Handle keyboard navigation
@@ -286,6 +333,11 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Display value - show search term if input is focused, otherwise show selected label
   const displayValue = React.useMemo(() => {
+    // Multiple modda sadece arama terimini göster
+    if (multiple) {
+      return searchTerm;
+    }
+
     // Eğer dropdown açıksa arama terimini göster
     if (isOpen) {
       return searchTerm;
@@ -298,12 +350,28 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     }
 
     return searchTerm;
-  }, [value, options, searchTerm, isOpen]);
+  }, [value, options, searchTerm, isOpen, multiple]);
 
   // Check if we have a selected value for showing clear button
   const hasSelectedValue = React.useMemo(() => {
+    if (multiple) {
+      return Array.isArray(value) && value.length > 0;
+    }
     return typeof value === "string" && value !== "" && !isOpen;
-  }, [value, isOpen]);
+  }, [value, isOpen, multiple]);
+
+  // Get selected options for display
+  const selectedOptions = React.useMemo(() => {
+    if (!multiple) return [];
+    return options.filter((opt) => selectedValues.includes(opt.value));
+  }, [options, selectedValues, multiple]);
+
+  // Remove a selected item in multiple mode
+  const handleRemoveItem = (valueToRemove: string) => {
+    if (disabled || isLoading || !multiple) return;
+    const newValues = selectedValues.filter((v) => v !== valueToRemove);
+    onChange(newValues);
+  };
 
   // Update search term when value changes externally
   useEffect(() => {
@@ -325,6 +393,29 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
           {label}
         </label>
       )}
+
+      {/* Multiple mode: Show selected items as chips */}
+      {multiple && selectedOptions.length > 0 && (
+        <div className="d-flex flex-wrap gap-8 mb-12">
+          {selectedOptions.map((option) => (
+            <div
+              key={option.value}
+              className="badge bg-main-600 text-white d-inline-flex align-items-center gap-2 px-12 py-6 rounded-pill"
+            >
+              <span>{option.label}</span>
+              <button
+                type="button"
+                className="btn-close btn-close-white ms-8"
+                style={{ fontSize: "10px", opacity: 0.8 }}
+                onClick={() => handleRemoveItem(option.value)}
+                disabled={disabled || isLoading}
+                aria-label={`${option.label} kaldır`}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="position-relative">
         <div className={iconLeft || iconRight ? "position-relative" : ""}>
           <input
@@ -333,7 +424,11 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             name={name}
             type="text"
             className={getVariantClasses()}
-            placeholder={placeholder}
+            placeholder={
+              multiple && selectedOptions.length > 0
+                ? `${selectedOptions.length} öğe seçildi`
+                : placeholder
+            }
             disabled={disabled || isLoading}
             value={displayValue}
             onChange={handleInputChange}
@@ -343,6 +438,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
               setIsOpen(true);
               // Eğer input'ta seçili bir değer varsa ve o değerle eşleşen option varsa, arama terimini temizle
               if (
+                !multiple &&
                 searchTerm &&
                 options.find((opt) => opt.label === searchTerm)
               ) {
@@ -381,7 +477,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             </span>
           )}
           {/* Clear button - sadece seçili değer varsa göster */}
-          {hasSelectedValue && (
+          {hasSelectedValue && !multiple && (
             <span
               className={`position-absolute play-button top-50 translate-middle-y inset-inline-end-0 ${
                 iconRight ? "me-100" : "me-40"
@@ -390,6 +486,19 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
               title="Temizle"
             >
               <i className="ph-bold ph-x"></i>
+            </span>
+          )}
+
+          {/* Clear all button for multiple mode */}
+          {hasSelectedValue && multiple && (
+            <span
+              className={`position-absolute play-button top-50 translate-middle-y inset-inline-end-0 ${
+                iconRight ? "me-100" : "me-40"
+              } text-neutral-400 hover-text-danger-600 cursor-pointer transition-colors`}
+              onClick={handleClear}
+              title="Tümünü Temizle"
+            >
+              <i className="ph-bold ph-x-circle"></i>
             </span>
           )}
 
@@ -426,21 +535,34 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
               </div>
             ) : filteredOptions.length > 0 ? (
               <div className="form-autocomplete-results">
-                {filteredOptions.map((option, index) => (
-                  <div
-                    key={option.value}
-                    className={`form-autocomplete-option ${
-                      index === highlightedIndex ? "highlighted" : ""
-                    }`}
-                    onClick={() => handleOptionSelect(option)}
-                    role="option"
-                    aria-selected={index === highlightedIndex}
-                    onMouseEnter={() => setHighlightedIndex(index)}
-                    onMouseLeave={() => setHighlightedIndex(-1)}
-                  >
-                    {option.label}
-                  </div>
-                ))}
+                {filteredOptions.map((option, index) => {
+                  const isSelected =
+                    multiple && selectedValues.includes(option.value);
+                  return (
+                    <div
+                      key={option.value}
+                      className={`form-autocomplete-option ${
+                        index === highlightedIndex ? "highlighted" : ""
+                      } ${isSelected ? "selected" : ""}`}
+                      onClick={() => handleOptionSelect(option)}
+                      role="option"
+                      aria-selected={index === highlightedIndex}
+                      onMouseEnter={() => setHighlightedIndex(index)}
+                      onMouseLeave={() => setHighlightedIndex(-1)}
+                    >
+                      {multiple && (
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => {}}
+                          className="form-check-input me-8"
+                          style={{ pointerEvents: "none" }}
+                        />
+                      )}
+                      {option.label}
+                    </div>
+                  );
+                })}
               </div>
             ) : (
               <div className="form-autocomplete-no-options">

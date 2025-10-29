@@ -1,0 +1,35 @@
+/**
+ * CustomFeeCreateDto'da izin verilen alanlar
+ * PUT işleminde sadece bu alanlar gönderilir
+ */
+export const ALLOWED_FIELDS_IN_EDIT_MODE = [
+  "schoolId",
+  "feeName",
+  "feeDescription",
+  "feeAmount",
+  "feeType",
+  "feeFrequency",
+  "isMandatory",
+  "isRefundable",
+  "appliesToNewStudents",
+  "appliesToExistingStudents",
+  "appliesToGrades",
+  "minimumAge",
+  "maximumAge",
+  "validFrom",
+  "validUntil",
+  "status",
+  "dueDateOffsetDays",
+  "lateFeePercentage",
+  "installmentAllowed",
+  "maxInstallments",
+  "discountEligible",
+  "scholarshipApplicable",
+  "documentationRequired",
+  "requiredDocuments",
+  "feePolicy",
+  "displayOnInvoice",
+  "displayOrder",
+  "parentNotificationRequired",
+  "advanceNoticeDays",
+] as const;

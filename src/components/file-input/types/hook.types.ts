@@ -26,4 +26,5 @@ export interface UseContextHandlersProps {
   openFileDialog: () => void;
   isLoading: boolean;
   handleUpload: () => Promise<void>;
+  isAutoUpload: boolean; // true ise dosya seçildiğinde otomatik yükleme yapar
 }

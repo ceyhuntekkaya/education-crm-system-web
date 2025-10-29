@@ -58,4 +58,51 @@ textarea:disabled::placeholder {
   cursor: not-allowed !important;
 }
 
+/* Package Card Styles */
+.cursor-pointer {
+  cursor: pointer;
+}
 
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.w-32 {
+  width: 2rem !important;
+}
+
+.h-32 {
+  height: 2rem !important;
+}
+
+.border-success-600 {
+  border-color: var(--success-600) !important;
+}
+
+.bg-success-50 {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+}
+
+.z-3 {
+  z-index: 3 !important;
+}
+
+/* Positioned Rotation for Plan Name */
+.positioned-rotation {
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+}
+
+.animation-item:hover .positioned-rotation {
+  transform: rotate(0deg);
+}
+
+/* Scale hover effect for active cards */
+.scale-hover-effect {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.scale-hover-effect:hover {
+  transform: scale(1.05);
+}

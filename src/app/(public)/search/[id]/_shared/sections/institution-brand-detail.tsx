@@ -3,6 +3,11 @@ import { useInstitutionDetail } from "../contexts";
 export default function InstitutionBrandDetail() {
   const { brand } = useInstitutionDetail();
 
+  // Brand yoksa hiçbir şey gösterme
+  if (!brand) {
+    return null;
+  }
+
   const brandInfoItems = [
     {
       label: "Kurum Adı",

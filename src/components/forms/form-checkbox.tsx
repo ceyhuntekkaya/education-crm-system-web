@@ -6,7 +6,7 @@ import { useFormField } from "@/contexts";
 interface FormCheckboxProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   name: string;
-  label: string;
+  label: string | React.ReactNode;
   value?: string;
   options?: { value: string; label: string }[];
   multi?: boolean;

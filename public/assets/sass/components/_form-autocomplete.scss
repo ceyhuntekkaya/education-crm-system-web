@@ -47,6 +47,8 @@
     margin-bottom: 2px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
     
     @include sm-screen {
         padding: 4px 10px !important;
@@ -72,6 +74,13 @@
             background-color: var(--main-600) !important;
             color: white !important;
         }
+    }
+    
+    // Selected item in multiple mode
+    &.selected {
+        background-color: var(--main-50) !important;
+        color: var(--main-600) !important;
+        font-weight: 500;
     }
 }
 

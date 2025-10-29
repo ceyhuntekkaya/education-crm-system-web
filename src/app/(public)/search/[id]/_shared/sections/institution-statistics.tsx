@@ -10,6 +10,11 @@ interface StatisticsInfoItem {
 export default function InstitutionStatistics() {
   const { school, campus } = useInstitutionDetail();
 
+  // School yoksa hiçbir şey gösterme
+  if (!school) {
+    return null;
+  }
+
   const statisticsInfoItems: StatisticsInfoItem[] = [
     // Görüntülenme ve Etkileşim İstatistikleri
     {
@@ -161,15 +166,13 @@ export default function InstitutionStatistics() {
           <i className="ph-bold ph-buildings text-warning-600"></i>
           <div className="d-flex flex-column">
             <span className="text-warning-600 fw-semibold">
-              {campus.ratingAverage || 0} / 5.0
+              {campus?.ratingAverage ? campus.ratingAverage.toFixed(1) : "0.0"}{" "}
+              / 5.0
             </span>
-            <small className="text-neutral-500">
-              ({(campus.ratingCount || 0).toLocaleString()} değerlendirme)
-            </small>
           </div>
         </div>
       ),
-      isShowing: (campus.ratingAverage || 0) > 0,
+      isShowing: campus && (campus.ratingAverage || 0) > 0,
     },
     {
       label: "Kampüsteki Okul Sayısı",

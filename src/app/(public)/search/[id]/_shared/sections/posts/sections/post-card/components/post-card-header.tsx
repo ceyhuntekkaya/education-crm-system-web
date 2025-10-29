@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { CustomImage } from "@/components";
 import { PostSummaryDto } from "@/types/dto/content";
 import {
   formatDate,
@@ -24,7 +24,7 @@ const PostCardHeader: React.FC<PostCardHeaderProps> = ({ post }) => {
       <div className="d-flex align-items-start justify-content-between">
         <div className="post-card__profile-section">
           <div className="post-card__avatar-container">
-            <Image
+            <CustomImage
               src={getProfileImage()}
               alt={authorName || "User"}
               width={40}

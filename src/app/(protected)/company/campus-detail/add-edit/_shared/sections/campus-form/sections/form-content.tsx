@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { FileInput } from "@/components/file-input";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
+import { useAuth } from "@/contexts/auth-context";
 import { useCampusAddEdit } from "../../../context";
 import { useCampusLocationData } from "../../../hooks";
 import { filterDataForEdit } from "../../../utils";
@@ -22,10 +23,13 @@ import { CampusCreateDto } from "@/types";
  */
 export const CampusFormContent: React.FC = () => {
   // Form hook - validation ve error kontrolü için
-  const { hasErrors, values } = useFormHook();
+  const { hasErrors, values, errors } = useFormHook();
 
   // Form context
   const { reset } = useForm();
+
+  // Auth context - brand.id için
+  const { user } = useAuth();
 
   // Context'ten campus işlemlerini ve brand summaries'i al
   const { isEditing, postCampus, putCampus, campusLoading, brands } =
@@ -48,8 +52,8 @@ export const CampusFormContent: React.FC = () => {
 
     const formData: CampusCreateDto = {
       ...rest,
-      // brandId'yi number'a çevir - eğer yoksa undefined gönder
-      brandId: brandId ? parseInt(brandId) : (undefined as any),
+      // useAuth'dan gelen brand.id'yi kullan
+      brandId: user?.brand?.id || (undefined as any),
       // Location objelerini tam veriyle gönder (API'den gelen tüm alanlarla)
       country: countryId
         ? countries.raw.find((c) => c.id?.toString() === countryId) || null
@@ -89,7 +93,7 @@ export const CampusFormContent: React.FC = () => {
         </div>
 
         {/* Marka */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormAutocomplete
             name="brandId"
             label="Marka"
@@ -99,7 +103,7 @@ export const CampusFormContent: React.FC = () => {
             disabled={campusLoading}
             required
           />
-        </div>
+        </div> */}
 
         {/* Kampüs Adı */}
         <div className="col-6">
@@ -116,7 +120,6 @@ export const CampusFormContent: React.FC = () => {
           <FormInput
             name="establishedYear"
             label="Kuruluş Yılı"
-            type="number"
             placeholder="Kuruluş yılını giriniz..."
           />
         </div>
@@ -150,6 +153,7 @@ export const CampusFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="phone"
+            type="tel"
             label="Telefon"
             placeholder="Telefon numarasını giriniz..."
           />
@@ -290,8 +294,8 @@ export const CampusFormContent: React.FC = () => {
             variant="outline"
             placeholder="Logo yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
-            uploadButtonText="Logo Yükle"
             name="logoUrl"
+            isAutoUpload
           />
         </div>
 
@@ -303,8 +307,8 @@ export const CampusFormContent: React.FC = () => {
             variant="outline"
             placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
-            uploadButtonText="Kapak Resmi Yükle"
             name="coverImageUrl"
+            isAutoUpload
           />
         </div>
 

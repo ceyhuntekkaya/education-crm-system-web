@@ -34,6 +34,7 @@ export const SchoolFormContent: React.FC = () => {
     schoolLoading,
     campusOptions,
     institutionTypeOptions,
+    languageOptions,
     campusesLoading,
     institutionTypesLoading,
   } = useSchoolAddEdit();
@@ -55,11 +56,6 @@ export const SchoolFormContent: React.FC = () => {
       classSizeAverage: values.classSizeAverage
         ? Number(values.classSizeAverage)
         : undefined,
-      registrationFee: values.registrationFee
-        ? Number(values.registrationFee)
-        : undefined,
-      monthlyFee: values.monthlyFee ? Number(values.monthlyFee) : undefined,
-      annualFee: values.annualFee ? Number(values.annualFee) : undefined,
     };
 
     if (isEditing) {
@@ -153,6 +149,7 @@ export const SchoolFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="phone"
+            type="tel"
             label="Telefon"
             placeholder="Telefon numarasını giriniz..."
           />
@@ -216,9 +213,9 @@ export const SchoolFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="classSizeAverage"
-            label="Ortalama Sınıf Büyüklüğü"
+            label="Maksimum Sınıf Mevcudu"
             type="number"
-            placeholder="Ortalama sınıf büyüklüğünü giriniz..."
+            placeholder="Maksimum sınıf mevcudunu giriniz..."
           />
         </div>
 
@@ -233,54 +230,12 @@ export const SchoolFormContent: React.FC = () => {
 
         {/* Eğitim Dili */}
         <div className="col-6">
-          <FormInput
+          <FormAutocomplete
             name="languageOfInstruction"
             label="Eğitim Dili"
-            placeholder="Eğitim dilini giriniz..."
-          />
-        </div>
-
-        {/* Yabancı Diller */}
-        <div className="col-12">
-          <FormInput
-            name="foreignLanguages"
-            label="Yabancı Diller"
-            placeholder="Yabancı dilleri giriniz (virgülle ayırarak)..."
-          />
-        </div>
-
-        {/* ÜCRET BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Ücret Bilgileri</h5>
-        </div>
-
-        {/* Kayıt Ücreti */}
-        <div className="col-4">
-          <FormInput
-            name="registrationFee"
-            label="Kayıt Ücreti"
-            type="number"
-            placeholder="Kayıt ücretini giriniz..."
-          />
-        </div>
-
-        {/* Aylık Ücret */}
-        <div className="col-4">
-          <FormInput
-            name="monthlyFee"
-            label="Aylık Ücret"
-            type="number"
-            placeholder="Aylık ücreti giriniz..."
-          />
-        </div>
-
-        {/* Yıllık Ücret */}
-        <div className="col-4">
-          <FormInput
-            name="annualFee"
-            label="Yıllık Ücret"
-            type="number"
-            placeholder="Yıllık ücreti giriniz..."
+            placeholder="Eğitim dili seçiniz..."
+            options={languageOptions}
+            noOptionsText="Dil bulunamadı"
           />
         </div>
 
@@ -297,7 +252,7 @@ export const SchoolFormContent: React.FC = () => {
             variant="outline"
             placeholder="Logo yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
-            uploadButtonText="Logo Yükle"
+            isAutoUpload
             name="logoUrl"
           />
         </div>
@@ -310,7 +265,7 @@ export const SchoolFormContent: React.FC = () => {
             variant="outline"
             placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
             maxSize={5}
-            uploadButtonText="Kapak Resmi Yükle"
+            isAutoUpload
             name="coverImageUrl"
           />
         </div>

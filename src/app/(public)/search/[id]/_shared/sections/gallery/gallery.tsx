@@ -1,16 +1,12 @@
 "use client";
 
 import React from "react";
-import { Modal } from "@/components/ui";
+import { Modal, CustomCard } from "@/components/ui";
 import { GalleryProvider, useGalleryContext } from "./context";
-import { GalleryFilterForm } from "./sections/filter-form";
 import { GalleryProps } from "./types";
-import { galleryMockData } from "./mock";
 import {
-  GalleryHeader,
   GalleryGrid,
   GalleryEmptyState,
-  GalleryFooter,
   GalleryDetailContent,
 } from "./components";
 
@@ -19,35 +15,29 @@ const GalleryContent: React.FC = () => {
 
   return (
     <>
-      <div className="gallery-section">
-        {/* Filter Form Section - Kompakt tasarım */}
-        <GalleryFilterForm />
-
-        {/* Main Gallery Container with consistent styling */}
-        <div className="border border-neutral-30 rounded-12 bg-white p-8">
-          <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-            <GalleryHeader />
-
-            {galleryData.length > 0 ? (
-              <>
-                <GalleryGrid />
-                <GalleryFooter />
-              </>
-            ) : (
-              <GalleryEmptyState />
-            )}
+      <CustomCard
+        title="Galeri"
+        className="mt-24"
+        subtitle={
+          <div className="d-flex align-items-center gap-8 text-neutral-600">
+            <i className="ph ph-images text-main-600"></i>
+            <span className="text-sm fw-medium">
+              {galleryData.length} Galeri
+            </span>
           </div>
-        </div>
+        }
+      >
+        {galleryData.length > 0 ? <GalleryGrid /> : <GalleryEmptyState />}
+      </CustomCard>
 
-        {/* Gallery Detail Modal */}
-        <Modal isOpen={isOpen} onClose={close} size="xl">
-          {selectedGalleryId && (
-            <GalleryDetailContent
-              gallery={galleryMockData.find((g) => g.id === selectedGalleryId)}
-            />
-          )}
-        </Modal>
-      </div>
+      {/* Gallery Detail Modal */}
+      <Modal isOpen={isOpen} onClose={close} size="xl">
+        {selectedGalleryId && (
+          <GalleryDetailContent
+            gallery={galleryData.find((g) => g.id === selectedGalleryId)}
+          />
+        )}
+      </Modal>
     </>
   );
 };

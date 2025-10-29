@@ -11,7 +11,7 @@ import {
   CampusDetailEmptySection,
 } from "../_shared";
 
-const CampusDetailPage: React.FC = () => {
+const CampusDetailWithIdPage: React.FC = () => {
   const { currentCampus, isLoading, error, allSections } = useCampusDetail();
 
   // Loading durumu
@@ -42,4 +42,4 @@ const CampusDetailPage: React.FC = () => {
   );
 };
 
-export default CampusDetailPage;
+export default CampusDetailWithIdPage;

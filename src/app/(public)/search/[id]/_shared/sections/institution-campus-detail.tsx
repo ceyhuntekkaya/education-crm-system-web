@@ -1,8 +1,13 @@
-import Image from "next/image";
+import { CustomImage } from "@/components";
 import { useInstitutionDetail } from "../contexts";
 
 export default function InstitutionCampusDetail() {
   const { campus, renderStars } = useInstitutionDetail();
+
+  // Campus yoksa hiçbir şey gösterme
+  if (!campus) {
+    return null;
+  }
 
   const campusInfoItems = [
     {
@@ -32,7 +37,7 @@ export default function InstitutionCampusDetail() {
     {
       label: "Kampüs Logosu",
       value: campus.logoUrl ? (
-        <Image
+        <CustomImage
           src={campus.logoUrl}
           alt={campus.name}
           width={60}

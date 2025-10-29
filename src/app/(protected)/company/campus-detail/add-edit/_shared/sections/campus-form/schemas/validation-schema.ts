@@ -4,7 +4,7 @@ import * as Yup from "yup";
  * Campus form validation schema
  */
 export const validationSchema = Yup.object({
-  brandId: Yup.string().required("Marka seçimi gereklidir"),
+  // brandId: Yup.string().required("Marka seçimi gereklidir"),
   name: Yup.string().required("Kampüs adı gereklidir"),
   description: Yup.string().optional(),
   logoUrl: Yup.string().url("Geçerli bir URL giriniz").optional(),
@@ -42,6 +42,11 @@ export const validationSchema = Yup.object({
   metaKeywords: Yup.string().optional(),
 
   establishedYear: Yup.number()
+    .nullable()
+    .transform((value, originalValue) =>
+      originalValue === null ? undefined : value
+    )
+    .typeError("Kuruluş yılı geçerli bir sayı olmalıdır")
     .min(1800, "Kuruluş yılı 1800'den küçük olamaz")
     .max(new Date().getFullYear(), "Kuruluş yılı gelecek bir yıl olamaz")
     .optional(),

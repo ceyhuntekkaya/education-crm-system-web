@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { GridColDef } from "@/components/ui/data-grid";
 import { SchoolDto } from "@/types";
-import { Badge } from "@/components";
+import { Badge, CustomImage } from "@/components";
 
 export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   // Logo
@@ -13,34 +12,13 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
     renderCell: (params) => (
       <div className="d-flex align-items-center justify-content-center h-100">
         {params?.row?.logoUrl ? (
-          <Image
+          <CustomImage
             src={params.row.logoUrl}
             alt={params?.row?.name || "Okul Logosu"}
             width={36}
             height={36}
             className="rounded-circle"
             style={{ objectFit: "cover", border: "1px solid #e9ecef" }}
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              const parent = img.parentElement;
-
-              // Eğer zaten bir fallback element varsa, yenisini ekleme
-              if (parent?.querySelector(".fallback-icon")) {
-                img.style.display = "none";
-                return;
-              }
-
-              img.style.display = "none";
-              const fallback = document.createElement("div");
-              fallback.className =
-                "rounded-circle d-flex align-items-center justify-content-center fallback-icon";
-              fallback.style.cssText = `width: 36px; height: 36px; background-color: ${
-                params?.row?.institutionType?.colorCode || "#8B5CF6"
-              }; color: white;`;
-              fallback.innerHTML =
-                '<i class="ph ph-graduation-cap" style="font-size: 18px;"></i>';
-              parent?.appendChild(fallback);
-            }}
           />
         ) : (
           <div

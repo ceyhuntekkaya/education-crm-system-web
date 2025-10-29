@@ -60,6 +60,7 @@ export interface SimpleFileInputProps {
   error?: string;
   loading?: boolean;
   uploadButtonText?: string; // Bu varsa upload button gösterilir
+  isAutoUpload?: boolean; // true ise dosya seçildiğinde otomatik yükleme yapar
 
   // Upload API props - HEPSİ OPSİYONEL
   name?: string; // Form field name - FormInput gibi çalışır, uploadType ile aynı işlevi görür

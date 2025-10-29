@@ -1,10 +1,15 @@
-import React from 'react';
-import { ProfileCard } from './components';
-import { ContactForm } from '../index';
-import { useInstitutionSidebarData } from './hooks';
+import React from "react";
+import { ProfileCard } from "./components";
+import { ContactForm } from "../index";
+import { useInstitutionSidebarData } from "./hooks";
 
 export default function InstitutionSidebar() {
   const { school, campus } = useInstitutionSidebarData();
+
+  // School veya campus yoksa hiçbir şey gösterme
+  if (!school || !campus) {
+    return null;
+  }
 
   return (
     <div>

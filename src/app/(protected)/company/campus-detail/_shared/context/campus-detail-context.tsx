@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, ReactNode, useMemo } from "react";
 import { useParams } from "next/navigation";
+import { useAuth } from "@/contexts";
 import { useCompany } from "@/app/(protected)/company/_shared";
 import { useCampusDetail as useCampusDetailHook } from "../hooks/use-campus-detail";
 import { createCampusSections } from "../utils/config-processor";
@@ -16,7 +17,11 @@ export const CampusDetailProvider: React.FC<CampusDetailProviderProps> = ({
   children,
 }) => {
   const params = useParams();
-  const campusId = params?.id ? Number(params.id) : null;
+  const { user } = useAuth();
+
+  // URL'den ID yoksa, kullanıcının campus ID'sini kullan
+  const campusId = params?.id ? Number(params.id) : user?.campus?.id ?? null;
+
   const { selectedSchool, schools, isInitialized } = useCompany();
 
   // Use the campus detail hook with ID from URL

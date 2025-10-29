@@ -127,6 +127,8 @@ export interface MembershipContextType {
 export interface MembershipCardProps {
   plan: MembershipPlan;
   index: number;
+  onClick?: () => void;
+  isActive?: boolean;
 }
 
 /**

@@ -6,6 +6,9 @@ import { NeighborhoodSummaryDto } from "../location/NeighborhoodSummaryDto";
 import { UserRoleDto } from "./UserRoleDto";
 import { SubscriptionDto } from "../subscription/SubscriptionDto";
 import { SchoolDto } from "../institution/SchoolDto";
+import { BrandSummaryDto } from "../institution/BrandSummaryDto";
+import { CampusSummaryDto } from "../institution/CampusSummaryDto";
+
 export interface UserDto {
   /** Format: int64 */
   id?: number;
@@ -39,6 +42,8 @@ export interface UserDto {
   institutionAccess?: UserInstitutionAccessDto[];
   roles?: string[];
   authorities?: string[];
-  // subscription?: SubscriptionDto;
+  brand?: BrandSummaryDto;
+  campus?: CampusSummaryDto;
+  subscription?: SubscriptionDto;
   // schools?: SchoolDto[];
-};
+}

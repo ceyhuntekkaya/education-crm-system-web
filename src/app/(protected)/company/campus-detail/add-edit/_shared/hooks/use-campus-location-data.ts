@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { useForm } from "@/contexts/form-context";
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import {
@@ -80,6 +82,24 @@ const transformLocationData = <T extends { id?: number; name?: string }>(
  * @param values - Form values'dan gelen değerler
  */
 export function useCampusLocationData(values?: any) {
+  const { setValue } = useForm();
+
+  // ID'leri number'a çevir (form'dan string geliyor)
+  const countryId = values?.countryId
+    ? parseInt(values.countryId.toString())
+    : null;
+  const provinceId = values?.provinceId
+    ? parseInt(values.provinceId.toString())
+    : null;
+  const districtId = values?.districtId
+    ? parseInt(values.districtId.toString())
+    : null;
+
+  // Önceki değerleri takip et
+  const prevCountryIdRef = useRef(countryId);
+  const prevProvinceIdRef = useRef(provinceId);
+  const prevDistrictIdRef = useRef(districtId);
+
   // Tüm ülkeleri getir
   const {
     data: countriesResponse,
@@ -93,9 +113,7 @@ export function useCampusLocationData(values?: any) {
     loading: provincesLoading,
     error: provincesError,
   } = useGet<ApiResponseDto<ProvinceDto[]>>(
-    values?.countryId
-      ? API_ENDPOINTS.LOCATION.PROVINCES(values.countryId)
-      : null
+    countryId ? API_ENDPOINTS.LOCATION.PROVINCES(countryId) : null
   );
 
   // İlçeleri getir - il seçilmişse
@@ -104,9 +122,7 @@ export function useCampusLocationData(values?: any) {
     loading: districtsLoading,
     error: districtsError,
   } = useGet<ApiResponseDto<DistrictDto[]>>(
-    values?.provinceId
-      ? API_ENDPOINTS.LOCATION.DISTRICTS(values.provinceId)
-      : null
+    provinceId ? API_ENDPOINTS.LOCATION.DISTRICTS(provinceId) : null
   );
 
   // Mahalleleri getir - ilçe seçilmişse
@@ -115,10 +131,50 @@ export function useCampusLocationData(values?: any) {
     loading: neighborhoodsLoading,
     error: neighborhoodsError,
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
-    values?.districtId
-      ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(values.districtId)
-      : null
+    districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(districtId) : null
   );
+
+  // Ülke değiştiğinde il, ilçe ve mahalleyi sıfırla
+  useEffect(() => {
+    if (prevCountryIdRef.current !== countryId) {
+      if (
+        prevCountryIdRef.current !== undefined &&
+        prevCountryIdRef.current !== null
+      ) {
+        setValue("provinceId", "");
+        setValue("districtId", "");
+        setValue("neighborhoodId", "");
+      }
+      prevCountryIdRef.current = countryId;
+    }
+  }, [countryId, setValue]);
+
+  // İl değiştiğinde ilçe ve mahalleyi sıfırla
+  useEffect(() => {
+    if (prevProvinceIdRef.current !== provinceId) {
+      if (
+        prevProvinceIdRef.current !== undefined &&
+        prevProvinceIdRef.current !== null
+      ) {
+        setValue("districtId", "");
+        setValue("neighborhoodId", "");
+      }
+      prevProvinceIdRef.current = provinceId;
+    }
+  }, [provinceId, setValue]);
+
+  // İlçe değiştiğinde mahalleyi sıfırla
+  useEffect(() => {
+    if (prevDistrictIdRef.current !== districtId) {
+      if (
+        prevDistrictIdRef.current !== undefined &&
+        prevDistrictIdRef.current !== null
+      ) {
+        setValue("neighborhoodId", "");
+      }
+      prevDistrictIdRef.current = districtId;
+    }
+  }, [districtId, setValue]);
 
   return {
     countries: {
@@ -132,21 +188,21 @@ export function useCampusLocationData(values?: any) {
       raw: provincesResponse?.data?.map(toProvinceSummary) || [], // ✅ Summary versiyonunu döndür
       loading: provincesLoading,
       error: provincesError,
-      disabled: !values?.countryId,
+      disabled: !countryId,
     },
     districts: {
       data: transformLocationData(districtsResponse?.data),
       raw: districtsResponse?.data?.map(toDistrictSummary) || [], // ✅ Summary versiyonunu döndür
       loading: districtsLoading,
       error: districtsError,
-      disabled: !values?.provinceId,
+      disabled: !provinceId,
     },
     neighborhoods: {
       data: transformLocationData(neighborhoodsResponse?.data),
       raw: neighborhoodsResponse?.data?.map(toNeighborhoodSummary) || [], // ✅ Summary versiyonunu döndür
       loading: neighborhoodsLoading,
       error: neighborhoodsError,
-      disabled: !values?.districtId,
+      disabled: !districtId,
     },
   };
 }

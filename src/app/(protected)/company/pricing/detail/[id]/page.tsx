@@ -54,6 +54,9 @@ const PricingDetailPage: React.FC = () => {
     <CustomCard
       title="Fiyat Bilgisi Detayı"
       subtitle="Okul fiyat bilgilerini detaylı olarak görüntüleyin"
+      editButtonUrl={
+        pricing?.id ? `/company/pricing/add-edit/${pricing.id}` : undefined
+      }
       multiItems={allSections}
     />
   );

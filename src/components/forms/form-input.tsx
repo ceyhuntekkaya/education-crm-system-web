@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { NumericFormat } from "react-number-format";
+import { NumericFormat, PatternFormat } from "react-number-format";
 import { useFormField } from "@/contexts";
 
 type FormInputVariant = "inline" | "outline";
@@ -24,7 +24,11 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "url"
     | "search"
     | "date"
-    | "color";
+    | "color"
+    | "cardNumber"
+    | "expiryMonth"
+    | "expiryYear"
+    | "cvv";
   // Hızlı format seçimi: "currency" | "percent" | "integer" | "decimal"
   numberFormat?: "currency" | "percent" | "integer" | "decimal" | "normal";
   // Number format özel ayarları (numberFormat prop'u varsa bu göz ardı edilir)
@@ -110,6 +114,23 @@ export const FormInput: React.FC<FormInputProps> = ({
       // Actual value olarak sadece rakamları gönder
       const cleanValue = getCleanPhoneNumber(val as string);
       onChange(cleanValue);
+    } else if (type === "expiryMonth") {
+      // Sadece rakam, max 2 karakter, max değer 12
+      const cleaned = (val as string).replace(/\D/g, "");
+      const limited = cleaned.slice(0, 2);
+      const numValue = parseInt(limited);
+
+      if (limited === "" || (numValue >= 1 && numValue <= 12)) {
+        onChange(limited);
+      }
+    } else if (type === "expiryYear") {
+      // Sadece rakam, max 2 karakter
+      const cleaned = (val as string).replace(/\D/g, "");
+      onChange(cleaned.slice(0, 2));
+    } else if (type === "cvv") {
+      // Sadece rakam, max 4 karakter
+      const cleaned = (val as string).replace(/\D/g, "");
+      onChange(cleaned.slice(0, 4));
     } else if (type === "number" && val !== "") {
       val = Number(val);
       onChange(val);
@@ -395,6 +416,75 @@ export const FormInput: React.FC<FormInputProps> = ({
     );
   }
 
+  // Kart numarası tipinde PatternFormat kullan
+  if (type === "cardNumber") {
+    const handleCardNumberChange = (values: any) => {
+      const { value } = values;
+      onChange(value || "");
+    };
+
+    // rest'ten onChange, value, defaultValue gibi prop'ları çıkar
+    const { onChange: _, value: __, defaultValue: ___, ...inputProps } = rest;
+
+    return (
+      <div className={className}>
+        {label && (
+          <label
+            htmlFor={id || name}
+            className="text-neutral-700 text-lg fw-medium mb-12"
+          >
+            {label}
+          </label>
+        )}
+        <div className={iconLeft || iconRight ? "position-relative" : ""}>
+          <PatternFormat
+            id={id || name}
+            name={name}
+            type="text"
+            className={getVariantClasses()}
+            placeholder={placeholder}
+            disabled={disabled}
+            value={
+              typeof value === "string"
+                ? value
+                : typeof value === "number"
+                ? String(value)
+                : ""
+            }
+            onValueChange={handleCardNumberChange}
+            required={required}
+            format="#### #### #### ####"
+            allowEmptyFormatting={false}
+            {...inputProps}
+          />
+          {iconLeft && (
+            <span
+              className={`${
+                variant === "outline"
+                  ? "bg-white text-neutral-200 border-4 border-main-25 w-48 h-48 text-2xl"
+                  : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md ms-8"
+              } rounded-circle flex-center position-absolute top-50 translate-middle-y inset-inline-start-0`}
+            >
+              <i className={`ph-bold ${iconLeft}`} />
+            </span>
+          )}
+          {iconRight && (
+            <span
+              className={`${
+                variant === "outline"
+                  ? "bg-white text-neutral-200 border-4 border-main-25 w-48 h-48 text-2xl"
+                  : "bg-main-600 hover-bg-main-700 text-white w-36 h-36 text-md me-8"
+              } rounded-circle flex-center position-absolute top-50 translate-middle-y inset-inline-end-0`}
+            >
+              <i className={`ph-bold ${iconRight}`} />
+            </span>
+          )}
+        </div>
+        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      </div>
+    );
+  }
+
   // Diğer inputlar için mevcut tasarım
   return (
     <div className={className}>
@@ -410,7 +500,21 @@ export const FormInput: React.FC<FormInputProps> = ({
         <input
           id={id || name}
           name={name}
-          type={type === "telephone" ? "tel" : type}
+          type={
+            type === "telephone" ||
+            type === "expiryMonth" ||
+            type === "expiryYear" ||
+            type === "cvv"
+              ? "text"
+              : type === "tel"
+              ? "tel"
+              : type
+          }
+          inputMode={
+            type === "expiryMonth" || type === "expiryYear" || type === "cvv"
+              ? "numeric"
+              : undefined
+          }
           className={getVariantClasses()}
           placeholder={placeholder}
           disabled={disabled}

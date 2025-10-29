@@ -1,0 +1,33 @@
+export interface CustomFeeFormData {
+  schoolPricingId: number;
+  createdByUserId?: number;
+  feeName: string;
+  feeDescription?: string;
+  feeAmount?: number;
+  feeType?: string;
+  feeFrequency?: string;
+  isMandatory?: boolean;
+  isRefundable?: boolean;
+  appliesToNewStudents?: boolean;
+  appliesToExistingStudents?: boolean;
+  appliesToGrades?: string;
+  minimumAge?: number | null;
+  maximumAge?: number | null;
+  validFrom?: string | null;
+  validUntil?: string | null;
+  status?: string;
+  dueDateOffsetDays?: number | null;
+  lateFeePercentage?: number | null;
+  installmentAllowed?: boolean;
+  maxInstallments?: number | null;
+  discountEligible?: boolean;
+  scholarshipApplicable?: boolean;
+  documentationRequired?: boolean;
+  requiredDocuments?: string;
+  feePolicy?: string;
+  displayOnInvoice?: boolean;
+  displayOrder?: number | null;
+  parentNotificationRequired?: boolean;
+  advanceNoticeDays?: number | null;
+  requiresApproval?: boolean;
+}

@@ -96,7 +96,6 @@ const CompanyPage: React.FC = () => {
   return (
     <div className="company-dashboard">
       {/* Hero Section */}
-      <FileInputExamples />
       <section className="company-dashboard__hero">
         <div className="company-dashboard__hero-pattern"></div>
         <div className="container">

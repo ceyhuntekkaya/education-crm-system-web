@@ -2,9 +2,9 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useModal } from "@/hooks";
-import { postSummaryMockData } from "../mock/postSummaryMockData";
-import { postMockData } from "../mock";
-import { PostSearchDto } from "@/types/dto/content";
+import { useInstitutionDetail } from "../../../contexts/institution-detail-context";
+import { PostDto } from "@/types";
+import { PostSearchDto } from "@/types/dto/content/PostSearchDto";
 
 // Types
 interface PostContextType {
@@ -16,20 +16,17 @@ interface PostContextType {
   // Post state
   selectedPostId: number | null;
   setSelectedPostId: (id: number | null) => void;
-  postData: typeof postSummaryMockData;
-  selectedPost: any | null;
+  postData: PostDto[];
+  selectedPost: PostDto | null;
+  loading: boolean;
+  error: string | null;
 
   // Utility function to get post by ID
-  getPostById: (
-    id: number | undefined
-  ) => (typeof postSummaryMockData)[0] | null;
+  getPostById: (id: number | undefined) => PostDto | null;
 
   // Actions
   handleCardClick: (postId: number) => void;
-  handleViewAllClick: () => void;
-
-  // Filter action
-  filterSubmit: (filters: PostSearchDto) => void;
+  filterSubmit: (values: PostSearchDto) => void;
 }
 
 interface PostProviderProps {
@@ -43,13 +40,16 @@ const PostContext = createContext<PostContextType | undefined>(undefined);
 export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const { isOpen, open, close } = useModal();
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
-  const [selectedPost, setSelectedPost] = useState<any | null>(null);
+  const [selectedPost, setSelectedPost] = useState<PostDto | null>(null);
 
-  // Institution ID'ye göre filtreleme yapabiliriz (şimdilik tüm data'yı gösteriyoruz)
-  const postData = postSummaryMockData; // Tüm postları göster
+  // Institution detail context'ten posts verisini al
+  const { posts, loading, error } = useInstitutionDetail();
+
+  // Posts data'yı kullan (API'den gelen veri)
+  const postData = posts || [];
 
   // Utility function to get post by ID
-  const getPostById = (id: number | undefined) => {
+  const getPostById = (id: number | undefined): PostDto | null => {
     if (!id) return null;
     return postData.find((post) => post.id === id) || null;
   };
@@ -57,7 +57,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const handleCardClick = (postId: number) => {
     setSelectedPostId(postId);
     // Set selected post when card is clicked
-    const post = postMockData.find((p) => p.id === postId);
+    const post = postData.find((p) => p.id === postId);
     setSelectedPost(post || null);
     open();
   };
@@ -69,15 +69,10 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     close();
   };
 
-  const handleViewAllClick = () => {
-    console.log("View all posts clicked");
-    // Burada tüm postları göster sayfasına yönlendirme yapılabilir
-  };
-
-  // Filter function
-  const filterSubmit = (filters: PostSearchDto) => {
-    console.log("Post Filters Submitted:", filters);
-    // TODO: Implement filter logic (API call, state update, etc.)
+  const filterSubmit = (values: PostSearchDto) => {
+    // TODO: Filtreleme mantığı burada implement edilecek
+    // Şimdilik sadece console'a yazdırıyoruz
+    console.log("Post filter values:", values);
   };
 
   const value: PostContextType = {
@@ -91,15 +86,14 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     setSelectedPostId,
     postData,
     selectedPost,
+    loading,
+    error,
 
     // Utility function
     getPostById,
 
     // Actions
     handleCardClick,
-    handleViewAllClick,
-
-    // Filter action
     filterSubmit,
   };
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;

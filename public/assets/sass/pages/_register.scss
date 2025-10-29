@@ -1,0 +1,1121 @@
+/* ===================================
+    Register Page Styles
+====================================== */
+
+.register-page {
+  min-height: 100vh;
+  // background: var(--neutral-50);
+  padding: 40px 0;
+
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/* ===================================
+    Register Selection Page
+====================================== */
+
+.register-selection-page {
+  min-height: 100vh;
+  padding: 60px 0;
+  
+  .container {
+    max-width: 1200px;
+  }
+
+  /* Icon Containers */
+  .icon-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    
+    &.institution-icon {
+      background-color: #EEF2FF;
+    }
+    
+    &.user-icon {
+      background-color: #FEF3F2;
+    }
+    
+    .icon-lg {
+      font-size: 40px;
+    }
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    font-size: 20px;
+  }
+
+  /* Hover Card Wrapper Effects */
+  .hover-card-wrapper {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      transform: translateY(-4px);
+      
+      .card {
+        border-color: var(--main-600) !important;
+        box-shadow: 0 12px 24px rgba(72, 127, 255, 0.15) !important;
+      }
+      
+      .icon-container {
+        transform: scale(1.05);
+      }
+    }
+    
+    &:active {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Transition for CustomCard */
+  .transition-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Feature List Hover */
+  ul.list-unstyled {
+    li {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 991.98px) {
+    .col-lg-5 {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    padding: 40px 0;
+    
+    .card {
+      padding: 32px !important;
+    }
+    
+    h2 {
+      font-size: 24px;
+    }
+    
+    h4 {
+      font-size: 20px;
+    }
+  }
+}
+
+/* ===================================
+    User Register Page (Coming Soon)
+====================================== */
+
+.user-register-page {
+  /* Coming Soon Icon Container */
+  .coming-soon-icon-container {
+    width: 120px;
+    height: 120px;
+    background-color: #FEF3F2;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    
+    .icon-xl {
+      font-size: 60px;
+    }
+  }
+
+  /* Header Icon */
+  .header-icon {
+    font-size: 32px;
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    font-size: 20px;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ===================================
+    Register Form Wrapper
+====================================== */
+
+.register-form-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.register-step-container {
+  margin: 32px 0;
+}
+
+.register-step-wrapper {
+  min-height: 400px;
+  background: var(--white);
+  border: 1px solid var(--neutral-200);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    padding: 24px !important;
+  }
+}
+
+/* ===================================
+    Step Section Headers
+====================================== */
+
+.register-section-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--neutral-200);
+
+  h5 {
+    color: var(--neutral-900);
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}
+
+/* ===================================
+    Register Stepper Styles
+====================================== */
+
+/* ===================================
+    Register Stepper - CustomCard Design System
+    Projenin tasarım dilini takip eden modern stepper
+====================================== */
+
+// Stepper Card Container
+.register-stepper-card {
+  // CustomCard hover effect - projedeki card standardı
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+// Ana Stepper Container
+.register-stepper {
+  // Grid itemleri için modern tasarım
+  .stepper-item {
+    position: relative;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Clickable state - tamamlanmış step'lere tıklanabilir
+    &.clickable {
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        .stepper-icon {
+          transform: scale(1.08);
+          box-shadow: 0 8px 20px rgba(var(--success-600-rgb), 0.3),
+            0 4px 10px rgba(var(--success-600-rgb), 0.15);
+        }
+
+        .stepper-content {
+          h6 {
+            color: var(--main-600) !important;
+          }
+        }
+      }
+
+      &:active {
+        .stepper-icon {
+          transform: scale(1.02);
+        }
+      }
+
+      // Focus state - accessibility
+      &:focus-visible {
+        outline: 2px solid var(--main-600);
+        outline-offset: 4px;
+        border-radius: 8px;
+      }
+    }
+
+    // Active state - projedeki main renk kullanımı
+    &.active {
+      .stepper-icon {
+        box-shadow: 0 8px 24px rgba(var(--main-600-rgb), 0.35),
+          0 4px 12px rgba(var(--main-600-rgb), 0.2);
+        transform: scale(1.1);
+        animation: stepper-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      .stepper-content {
+        h6 {
+          font-weight: 700;
+        }
+      }
+    }
+
+    // Completed state - success rengi
+    &.completed {
+      .stepper-icon {
+        box-shadow: 0 6px 16px rgba(var(--success-600-rgb), 0.25),
+          0 3px 8px rgba(var(--success-600-rgb), 0.15);
+        transform: scale(1.02);
+
+        i {
+          animation: checkmark-bounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+      }
+    }
+
+    // Hover effect - inaktif adımlar
+    &:not(.active):not(.completed) {
+      &:hover {
+        .stepper-icon {
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+      }
+    }
+  }
+
+  // Icon wrapper
+  .stepper-icon-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  // Stepper icon - proje color scheme
+  .stepper-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+    border: 3px solid var(--white);
+
+    // Icon içi transition
+    i {
+      transition: all 0.2s ease;
+      font-size: 20px;
+    }
+  }
+
+  // Progress connector - projedeki renk paleti
+  .stepper-connector {
+    position: absolute;
+    top: 32px;
+    left: calc(50% + 32px);
+    right: calc(-50% + 32px);
+    height: 3px;
+    background: var(--neutral-200);
+    z-index: 1;
+    border-radius: 2px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Completed connector - success gradient
+    &.completed {
+      background: linear-gradient(
+        90deg,
+        var(--success-600) 0%,
+        var(--success-500) 100%
+      );
+      box-shadow: 0 2px 8px rgba(var(--success-600-rgb), 0.3);
+      animation: connector-grow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  // Step content - typography
+  .stepper-content {
+    padding: 0 4px;
+
+    h6 {
+      transition: all 0.2s ease;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      transition: all 0.2s ease;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+  }
+
+  // Responsive breakpoints - projenin grid sistemi
+  @media (max-width: 1199px) {
+    .stepper-icon {
+      width: 56px;
+      height: 56px;
+
+      i {
+        font-size: 18px;
+      }
+    }
+
+    .stepper-connector {
+      top: 28px;
+      left: calc(50% + 28px);
+      right: calc(-50% + 28px);
+    }
+  }
+
+  @media (max-width: 991px) {
+    .stepper-icon {
+      width: 52px;
+      height: 52px;
+      border-width: 2px;
+
+      i {
+        font-size: 18px;
+      }
+    }
+
+    .stepper-connector {
+      top: 26px;
+      left: calc(50% + 26px);
+      right: calc(-50% + 26px);
+      height: 2px;
+    }
+
+    .stepper-content {
+      h6 {
+        font-size: 12px;
+      }
+
+      p {
+        font-size: 10px;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .stepper-icon {
+      width: 44px;
+      height: 44px;
+
+      i {
+        font-size: 16px;
+      }
+    }
+
+    .stepper-connector {
+      top: 22px;
+      left: calc(50% + 22px);
+      right: calc(-50% + 22px);
+    }
+
+    .stepper-content {
+      h6 {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
+      p {
+        font-size: 9px;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    .stepper-icon {
+      width: 40px;
+      height: 40px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    .stepper-connector {
+      top: 20px;
+      left: calc(50% + 20px);
+      right: calc(-50% + 20px);
+    }
+
+    .stepper-content {
+      padding: 0 2px;
+
+      h6 {
+        font-size: 10px;
+      }
+
+      p {
+        display: none; // Mobilde description gizle
+      }
+    }
+  }
+}
+
+/* ===================================
+    Stepper Animations - Smooth & Professional
+====================================== */
+
+// Active icon pulse
+@keyframes stepper-pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(var(--main-600-rgb), 0.35),
+      0 4px 12px rgba(var(--main-600-rgb), 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(var(--main-600-rgb), 0.45),
+      0 6px 16px rgba(var(--main-600-rgb), 0.3);
+  }
+}
+
+// Checkmark bounce animation
+@keyframes checkmark-bounce {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+// Connector grow animation
+@keyframes connector-grow {
+  from {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+/* ===================================
+    Step Content Animations
+====================================== */
+
+.step-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================
+    Step Navigation
+====================================== */
+
+.step-navigation {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--neutral-200);
+
+  .btn {
+    min-width: 120px;
+  }
+}
+
+/* ===================================
+    Verification Code Input
+====================================== */
+
+.verification-code-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.verification-input {
+  width: 64px;
+  height: 64px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  border: 2px solid var(--neutral-200);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  outline: none;
+
+  &:focus {
+    border-color: var(--main-600);
+    box-shadow: 0 0 0 4px rgba(var(--main-600-rgb), 0.1);
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    background-color: var(--neutral-50);
+    cursor: not-allowed;
+  }
+
+  &.error {
+    border-color: var(--danger-600);
+  }
+
+  &.success {
+    border-color: var(--success-600);
+  }
+}
+
+.verification-error,
+.verification-success {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.verification-error {
+  background-color: var(--danger-50);
+  color: var(--danger-600);
+  border: 1px solid var(--danger-200);
+}
+
+.verification-success {
+  background-color: var(--success-50);
+  color: var(--success-600);
+  border: 1px solid var(--success-200);
+}
+
+.resend-section {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.resend-button {
+  background: transparent;
+  border: none;
+  color: var(--main-600);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--main-700);
+  }
+
+  &:disabled {
+    color: var(--neutral-400);
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+}
+
+.resend-timer {
+  color: var(--neutral-600);
+  font-size: 14px;
+}
+
+/* ===================================
+    Package Selection Cards
+====================================== */
+
+.package-card {
+  border: 2px solid var(--neutral-200);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    border-color: var(--main-600);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+  }
+
+  &.selected {
+    border-color: var(--success-600);
+    background: var(--success-50);
+  }
+
+  &.popular {
+    border-color: var(--main-600);
+  }
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--main-600);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.package-header {
+  margin-bottom: 16px;
+}
+
+.package-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 8px;
+}
+
+.package-description {
+  font-size: 14px;
+  color: var(--neutral-600);
+  margin-bottom: 16px;
+}
+
+.package-price {
+  margin: 16px 0;
+
+  .price-amount {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--main-600);
+  }
+
+  .price-period {
+    font-size: 16px;
+    color: var(--neutral-600);
+  }
+}
+
+.package-features {
+  flex: 1;
+  margin: 16px 0;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--neutral-700);
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    &.excluded {
+      color: var(--neutral-400);
+      text-decoration: line-through;
+    }
+  }
+}
+
+.package-action {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.selected-indicator {
+  text-align: center;
+  font-weight: 600;
+  color: var(--success-600);
+  padding: 8px;
+  background: white;
+  border-radius: 8px;
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+/* ===================================
+    Form Elements Custom Styles
+====================================== */
+
+.form-check-input:checked {
+  background-color: var(--main-600);
+  border-color: var(--main-600);
+}
+
+/* ===================================
+    Responsive Adjustments
+====================================== */
+
+@media (max-width: 768px) {
+  .register-page {
+    padding: 20px 0;
+
+    .container {
+      padding: 0 16px;
+    }
+  }
+
+  .register-stepper {
+    .stepper-item {
+      margin-bottom: 16px;
+    }
+
+    .stepper-connector {
+      display: none;
+    }
+  }
+
+  .verification-input {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  .package-card {
+    margin-bottom: 16px;
+  }
+
+  .step-navigation {
+    .btn {
+      width: 100%;
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .package-price {
+    .price-amount {
+      font-size: 24px;
+    }
+  }
+
+  .package-name {
+    font-size: 18px;
+  }
+
+  .verification-input {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+}
+
+/* ===================================
+    Verification Code Input Styles
+====================================== */
+
+.verification-input {
+  width: 64px;
+  height: 64px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  border: 2px solid var(--neutral-200);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  outline: none;
+
+  &:focus {
+    border-color: var(--main-600);
+    box-shadow: 0 0 0 4px rgba(var(--main-600-rgb), 0.1);
+  }
+
+  &:disabled {
+    background-color: var(--neutral-50);
+    cursor: not-allowed;
+  }
+}
+
+/* ===================================
+    Package Selection Styles
+====================================== */
+
+.package-card {
+  border: 2px solid var(--neutral-200);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    border-color: var(--main-600);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  &.selected {
+    border-color: var(--success-600);
+    background: var(--success-50);
+  }
+
+  &.popular {
+    border-color: var(--main-600);
+  }
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--main-600);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.package-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+
+.package-price {
+  margin: 16px 0;
+}
+
+.price-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--main-600);
+}
+
+.price-period {
+  font-size: 16px;
+  color: var(--neutral-600);
+}
+
+.package-features {
+  flex: 1;
+  margin: 16px 0;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--neutral-700);
+
+    &.excluded {
+      color: var(--neutral-400);
+      text-decoration: line-through;
+    }
+  }
+}
+
+.selected-indicator {
+  text-align: center;
+  font-weight: 600;
+  color: var(--success-600);
+  padding: 8px;
+  background: white;
+  border-radius: 8px;
+}
+
+/* ===================================
+    Alert Styles (Info, Warning, Success)
+====================================== */
+
+.alert-info-soft {
+  background: var(--info-50);
+  border: 1px solid var(--info-200);
+  border-radius: 12px;
+  padding: 16px;
+  
+  .text-info-600 {
+    color: var(--info-600);
+  }
+  
+  strong {
+    color: var(--neutral-900);
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+    
+    li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 4px;
+      
+      &:before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--info-600);
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.alert-warning-soft {
+  background: var(--warning-50);
+  border: 1px solid var(--warning-200);
+  border-radius: 12px;
+  padding: 16px;
+  
+  .text-warning-600 {
+    color: var(--warning-600);
+  }
+  
+  strong {
+    color: var(--neutral-900);
+  }
+}
+
+.alert-success-soft {
+  background: var(--success-50);
+  border: 1px solid var(--success-200);
+  border-radius: 12px;
+  padding: 16px;
+  
+  .text-success-600 {
+    color: var(--success-600);
+  }
+  
+  strong {
+    color: var(--neutral-900);
+  }
+}
+
+/* ===================================
+    Section Headers within Steps
+====================================== */
+
+.register-step-content {
+  h6 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--neutral-800);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--neutral-100);
+  }
+}
+
+/* ===================================
+    Form Input Enhancements
+====================================== */
+
+.register-step-content {
+  .form-control,
+  .form-select {
+    border-radius: 8px;
+    border: 1px solid var(--neutral-300);
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: var(--main-600);
+      box-shadow: 0 0 0 3px rgba(var(--main-600-rgb), 0.1);
+    }
+    
+    &:hover:not(:focus) {
+      border-color: var(--neutral-400);
+    }
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: var(--neutral-800);
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+}
+
+/* ===================================
+    Button Variants
+====================================== */
+
+.btn-outline-neutral {
+  color: var(--neutral-700);
+  border-color: var(--neutral-300);
+  background: var(--white);
+  
+  &:hover {
+    color: var(--neutral-900);
+    background: var(--neutral-50);
+    border-color: var(--neutral-400);
+  }
+  
+  &.active,
+  &:active {
+    color: var(--white);
+    background: var(--neutral-600);
+    border-color: var(--neutral-600);
+  }
+}
+
+/* ===================================
+    Responsive Adjustments
+====================================== */
+
+@media (max-width: 768px) {
+  .register-section-header {
+    h5 {
+      font-size: 16px;
+    }
+    
+    p {
+      font-size: 13px;
+    }
+  }
+  
+  .register-step-content {
+    .col-md-6 {
+      margin-bottom: 16px;
+    }
+  }
+}

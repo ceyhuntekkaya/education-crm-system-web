@@ -41,6 +41,14 @@ export const API_ENDPOINTS = {
       `/pricing/school-pricing/school/${schoolId}`,
     SCHOOL_PRICING_BY_ID: (id: string | number) =>
       `/pricing/school-pricing/${id}`,
+
+    // Custom Fees endpoints
+    CUSTOM_FEE_CREATE: "/pricing/custom-fees",
+    CUSTOM_FEES_BY_PRICING: (pricingId: string | number) =>
+      `/pricing/custom-fees/pricing/${pricingId}`,
+    CUSTOM_FEE_BY_ID: (id: string | number) => `/pricing/custom-fees/${id}`,
+    CUSTOM_FEE_UPDATE: (id: string | number) => `/pricing/custom-fees/${id}`,
+    CUSTOM_FEE_DELETE: (id: string | number) => `/pricing/custom-fees/${id}`,
   },
 
   SUBSCRIPTIONS: {

@@ -7,8 +7,12 @@ import { formatCurrency } from "@/utils";
 
 /**
  * Pricing ID'sini valide eder
+ * "school" string'i gelirse null döner (selectedSchool.id kullanılacak)
  */
 export const validatePricingId = (id: string): number | null => {
+  // "school" kelimesi gelirse null dön (useCompany'den school id alınacak)
+  if (id?.toLowerCase() === "school") return null;
+
   const numericId = parseInt(id, 10);
   return !isNaN(numericId) && numericId > 0 ? numericId : null;
 };

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 // Components
 import {
   InstitutionSidebar,
@@ -23,10 +22,14 @@ import {
 } from "./_shared";
 
 // UI Components
-import { TabContent, TabNavigation, type TabItem } from "@/components";
-
-const tempUrl =
-  "https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg";
+import {
+  TabContent,
+  TabNavigation,
+  type TabItem,
+  CoverImage,
+  CustomCard,
+  LoadingSpinner,
+} from "@/components";
 
 export default function InstitutionDetailPage({
   params,
@@ -35,7 +38,35 @@ export default function InstitutionDetailPage({
 }) {
   const schoolId = parseInt(params.id);
 
-  const { school } = useInstitutionDetail();
+  const { school, loading } = useInstitutionDetail();
+
+  // Show loading state while data is being fetched
+  if (loading) {
+    return (
+      <div className="container py-5">
+        <CustomCard>
+          <LoadingSpinner
+            message="Kurum bilgileri yükleniyor..."
+            size="lg"
+            variant="spinner"
+          />
+        </CustomCard>
+      </div>
+    );
+  }
+
+  // Show error state if school data is not available
+  if (!school) {
+    return (
+      <div className="container py-5">
+        <CustomCard>
+          <div className="alert alert-warning" role="alert">
+            Kurum bilgileri yüklenemedi.
+          </div>
+        </CustomCard>
+      </div>
+    );
+  }
 
   // Tab content dizisi
   // * = API'ye bağlı (gerçek veri), ⚡ = Mock/Statik veri, 🔄 = Karışık (API + Mock)
@@ -43,7 +74,7 @@ export default function InstitutionDetailPage({
     {
       id: "pills-tutionInfo",
       icon: "ph-bold ph-info",
-      title: "Genel Bilgiler", // API'ye bağlı + temp görseller (tempUrl, tempIconUrl)
+      title: "Genel Bilgiler",
       label: "Genel Bilgiler",
       content: (
         <div>
@@ -53,6 +84,7 @@ export default function InstitutionDetailPage({
           <InstitutionLocationInfo />
         </div>
       ),
+      isActive: true,
     },
     // {
     //   id: "pills-brand",
@@ -136,7 +168,6 @@ export default function InstitutionDetailPage({
       title: "Randevum",
       label: "Randevum",
       content: <CurrentAppointment institutionId={params.id} />,
-      isActive: true,
     },
     {
       id: "pills-appointment-create",
@@ -147,6 +178,8 @@ export default function InstitutionDetailPage({
     },
   ];
 
+  console.log("school => ", school);
+
   return (
     <div>
       {/* Cover Image */}
@@ -154,23 +187,19 @@ export default function InstitutionDetailPage({
       <section className="tutor-details">
         <div className="container">
           {school.coverImageUrl && (
-            <div
-              className="position-relative rounded-16 overflow-hidden my-24 "
-              style={{ height: "300px" }}
-            >
-              <Image
-                src={tempUrl || school.coverImageUrl}
-                alt={school.name}
-                fill
-                className="object-cover"
+            <div className="my-24">
+              <CoverImage
+                coverImageUrl={school.coverImageUrl}
+                logoUrl={school.logoUrl}
+                title={school.name}
+                subtitle={school.institutionType.displayName}
+                height={300}
+                useCard={false}
+                borderRadius="rounded-16"
+                showGradient={true}
+                logoPosition="top-right"
+                contentPosition="bottom-left"
               />
-              <div className="position-absolute inset-0 bg-gradient-to-t from-black-50 to-transparent"></div>
-              <div className="position-absolute bottom-0 left-0 p-24 text-white">
-                <h2 className="h3 fw-bold mb-8">{school.name}</h2>
-                <p className="text-white text-opacity-90 mb-0">
-                  {school.institutionType.displayName}
-                </p>
-              </div>
             </div>
           )}
 

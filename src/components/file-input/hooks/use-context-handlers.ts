@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { UseContextHandlersProps } from "../types/hook.types";
 
 // Context Event Handlers
@@ -12,16 +12,35 @@ export const useContextHandlers = ({
   openFileDialog,
   isLoading,
   handleUpload,
+  isAutoUpload,
 }: UseContextHandlersProps) => {
+  // Auto upload için flag - her dosya seçiminde true olacak
+  const shouldAutoUploadRef = useRef(false);
+
+  // Dosyalar değiştiğinde ve autoUpload aktifse otomatik yükle
+  useEffect(() => {
+    // Eğer autoUpload flag'i true ise ve dosyalar varsa
+    if (shouldAutoUploadRef.current && isAutoUpload && files.length > 0) {
+      // Flag'i hemen false yap (bir sonraki manuel değişiklik için)
+      shouldAutoUploadRef.current = false;
+      // Upload işlemini başlat
+      handleUpload();
+    }
+  }, [files, isAutoUpload, handleUpload]);
+
   // File selection handler
   const handleFileSelect = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const fileList = e.target.files;
       if (fileList && fileList.length > 0) {
+        // Auto upload için flag'i set et
+        if (isAutoUpload) {
+          shouldAutoUploadRef.current = true;
+        }
         await processFiles(fileList);
       }
     },
-    [processFiles]
+    [processFiles, isAutoUpload]
   );
 
   // Drop handler
@@ -31,10 +50,14 @@ export const useContextHandlers = ({
 
       const fileList = handleDrop(e);
       if (fileList && fileList.length > 0) {
+        // Auto upload için flag'i set et
+        if (isAutoUpload) {
+          shouldAutoUploadRef.current = true;
+        }
         await processFiles(fileList);
       }
     },
-    [disabled, handleDrop, processFiles]
+    [disabled, handleDrop, processFiles, isAutoUpload]
   );
 
   // Upload area click handler
