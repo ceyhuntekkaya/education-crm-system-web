@@ -22,4 +22,5 @@ export interface SchoolCreateDto {
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
+  propertyTypeIds?: number[]; // Seçili property type ID'leri
 }

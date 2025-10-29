@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Form,
   FormInput,
   FormTextarea,
   FormValues,
   FormAutocomplete,
+  FormCheckbox,
 } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { FileInput } from "@/components/file-input";
@@ -24,7 +25,7 @@ export const SchoolFormContent: React.FC = () => {
   const { hasErrors } = useFormHook();
 
   // Form reset hook'u
-  const { reset } = useForm();
+  const { reset, values } = useForm();
 
   // Context'ten tüm school işlemlerini ve dropdown options'ları al
   const {
@@ -37,7 +38,18 @@ export const SchoolFormContent: React.FC = () => {
     languageOptions,
     campusesLoading,
     institutionTypesLoading,
+    getGroupsByInstitutionTypeId,
+    propertyValuesLoading,
   } = useSchoolAddEdit();
+
+  // Seçili institutionTypeId'ye göre property gruplarını al
+  const currentPropertyGroups = useMemo(() => {
+    const institutionTypeId = values?.institutionTypeId;
+    if (!institutionTypeId) {
+      return [];
+    }
+    return getGroupsByInstitutionTypeId(institutionTypeId);
+  }, [values?.institutionTypeId, getGroupsByInstitutionTypeId]);
 
   const handleSubmit = async (values: any) => {
     const formData: SchoolCreateDto = {
@@ -56,6 +68,11 @@ export const SchoolFormContent: React.FC = () => {
       classSizeAverage: values.classSizeAverage
         ? Number(values.classSizeAverage)
         : undefined,
+      // PropertyValues string array'ini number array'ine çevir
+      propertyTypeIds:
+        values.propertyValues && Array.isArray(values.propertyValues)
+          ? values.propertyValues.map((id: string) => Number(id))
+          : undefined,
     };
 
     if (isEditing) {
@@ -109,6 +126,23 @@ export const SchoolFormContent: React.FC = () => {
             loadingText="Kurum tipleri yükleniyor..."
           />
         </div>
+
+        {/* ÖZELLİK DEĞERLERİ - PropertyValues */}
+        {currentPropertyGroups.length > 0 && (
+          <div className="col-12">
+            <FormCheckbox
+              name="propertyValues"
+              label=""
+              grouped={true}
+              groups={currentPropertyGroups}
+              groupedTitle="Özellikler"
+              groupedDescription="Seçili kurum tipine özel özellikleri seçiniz."
+              disabled={propertyValuesLoading}
+              direction="horizontal"
+              col={4}
+            />
+          </div>
+        )}
 
         {/* Okul Adı */}
         <div className="col-12">

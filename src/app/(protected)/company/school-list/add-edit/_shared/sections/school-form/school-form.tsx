@@ -34,6 +34,12 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
                 .map((lang) => lang.trim())
                 .filter((lang) => lang !== "")
             : initialData.foreignLanguages || [],
+        // API'den gelen propertyValues'i propertyType ID'lerine çevir
+        propertyValues: initialData.propertyValues
+          ? initialData.propertyValues
+              .filter((pv) => pv.propertyId)
+              .map((pv) => pv.propertyId!.toString())
+          : [],
       }
     : schoolInitialValues;
 
