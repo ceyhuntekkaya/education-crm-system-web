@@ -121,6 +121,10 @@ export const API_ENDPOINTS = {
     BY_ID: (userId: string | number) => `/users/${userId}`,
     PROFILE: (userId: string | number) => `/users/${userId}/profile`,
     UPDATE_PROFILE: (userId: string | number) => `/users/${userId}/profile`,
+    PASSWORD_RESET: "/users/password/reset",
+    PASSWORD_RESET_CONFIRM: "/users/password/reset/confirm",
+    CHANGE_PASSWORD: (userId: string | number) =>
+      `/users/${userId}/password/change`,
   },
 
   // // Todos
