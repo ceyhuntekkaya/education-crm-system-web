@@ -2,6 +2,8 @@ import { AppointmentDto, AppointmentNoteDto, SurveyTemplateDto } from "@/types";
 import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
 import { SurveyResponseCreateDto } from "@/types/dto/survey/SurveyResponseCreateDto";
 import { SurveyResponseDto } from "@/types/dto/survey/SurveyResponseDto";
+import { ApiResponseDto } from "@/types/dto/user/ApiResponseDto";
+import { MutationOptions } from "@/hooks";
 
 /**
  * Appointment detail context değeri
@@ -15,8 +17,8 @@ export interface AppointmentDetailContextValue {
   allSections: any[];
   // Note işlemleri
   addNote: (
-    noteData: Omit<AppointmentNoteCreateDto, "appointmentId" | "authorUserId">
-  ) => Promise<boolean>;
+    data: AppointmentNoteCreateDto
+  ) => Promise<AppointmentNoteDto | null>;
   noteAddLoading: boolean;
   noteAddError: string | null;
   // Notes listesi
@@ -32,8 +34,12 @@ export interface AppointmentDetailContextValue {
   selectedSurveyId: number | null;
   selectSurvey: (surveyId: number) => void;
   createSurvey: (
-    data: SurveyResponseCreateDto
-  ) => Promise<SurveyResponseDto | null>;
+    data: SurveyResponseCreateDto,
+    mutationOptions?: MutationOptions<
+      ApiResponseDto<SurveyResponseDto>,
+      SurveyResponseCreateDto
+    >
+  ) => Promise<ApiResponseDto<SurveyResponseDto> | null>;
   surveyCreateLoading: boolean;
   surveyCreateError: string | null;
 }

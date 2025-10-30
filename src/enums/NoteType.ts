@@ -8,6 +8,7 @@ export enum NoteType {
   TECHNICAL_ISSUE = "TECHNICAL_ISSUE", // Teknik sorun
   RESCHEDULING = "RESCHEDULING", // Erteleme
   CANCELLATION = "CANCELLATION", // İptal
+  REASON_FOR_NEGATIVITY = "REASON_FOR_NEGATIVITY",
   REMINDER = "REMINDER", // Hatırlatma
   INTERNAL = "INTERNAL", // Dahili not
 }
