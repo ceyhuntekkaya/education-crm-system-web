@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { LoadingSpinner, CustomCard } from "@/components";
+import { CustomCard } from "@/components";
 import { SchoolPricingForm, usePricingAddEdit } from "../_shared";
 
 interface PricingAddEditPageProps {}
 
 const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
-  const { isEditing, pricing, pricingLoading } = usePricingAddEdit();
+  const { isEditing, pricing, dataLoading } = usePricingAddEdit();
 
   const pageTitle = isEditing ? "Fiyat Bilgisi Düzenle" : "Yeni Fiyat Bilgisi";
 
@@ -21,18 +21,9 @@ const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
       }
       isBack
       mb="mb-24"
+      isLoading={dataLoading && isEditing}
     >
-      {/* Form Content */}
-      {pricingLoading && isEditing ? (
-        <LoadingSpinner
-          message="Fiyat bilgileri yükleniyor..."
-          size="md"
-          variant="dots"
-          className="py-5"
-        />
-      ) : (
-        <SchoolPricingForm isEditing={isEditing} initialData={pricing} />
-      )}
+      <SchoolPricingForm isEditing={isEditing} initialData={pricing} />
     </CustomCard>
   );
 };

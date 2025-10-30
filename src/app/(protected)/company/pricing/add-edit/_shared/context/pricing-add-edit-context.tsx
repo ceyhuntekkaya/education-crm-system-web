@@ -52,8 +52,11 @@ export const PricingAddEditProvider: React.FC<PricingAddEditProviderProps> = ({
   const contextValue: PricingAddEditContextType = {
     // Current pricing data
     pricing,
-    pricingLoading: pricingLoading || addLoading || editLoading,
+    dataLoading: pricingLoading, // Sadece data fetch loading'i
     pricingError: pricingError || addError || editError,
+
+    // Form operations
+    formLoading: addLoading || editLoading, // Sadece form submit loading'i
 
     // Edit mode state
     isEditing,

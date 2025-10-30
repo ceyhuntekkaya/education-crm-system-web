@@ -42,7 +42,7 @@ export const SchoolPricingFormContent: React.FC = () => {
   const { selectedSchool } = useCompany();
 
   // Context'ten pricing işlemlerini al
-  const { isEditing, postPricing, putPricing, pricingLoading, pricingError } =
+  const { isEditing, postPricing, putPricing, formLoading, pricingError } =
     usePricingAddEdit();
 
   const handleSubmit = async (values: SchoolPricingFormData) => {
@@ -703,15 +703,15 @@ export const SchoolPricingFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={pricingLoading}
+              disabled={formLoading}
             >
               Temizle
             </Button>
             <Button
               type="submit"
               variant="inline"
-              disabled={hasErrors || pricingLoading}
-              loading={pricingLoading}
+              disabled={hasErrors || formLoading}
+              loading={formLoading}
             >
               {isEditing
                 ? "Fiyat Bilgisini Güncelle"
