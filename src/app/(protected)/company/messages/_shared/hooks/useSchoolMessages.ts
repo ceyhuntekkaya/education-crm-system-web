@@ -20,10 +20,10 @@ interface UseSchoolMessagesReturn {
 export const useSchoolMessages = (
   schoolId?: number | null
 ): UseSchoolMessagesReturn => {
-  // Eğer schoolId yoksa, tüm mesajları getir
+  // Eğer schoolId varsa, o okula ait mesajları getir, yoksa null endpoint
   const endpoint = schoolId
     ? API_ENDPOINTS.CONTENT.MESSAGES_BY_SCHOOL(schoolId)
-    : "/content/messages"; // Tüm mesajlar için endpoint
+    : null; // schoolId yoksa API isteği atma
 
   const {
     data: schoolMessageResponse,
