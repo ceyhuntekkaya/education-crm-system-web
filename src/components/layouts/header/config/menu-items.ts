@@ -2,6 +2,7 @@ import { MenuItem } from "../types";
 
 export const menuItems: MenuItem[] = [
   { href: "/appointments", label: "Randevularım", count: 3 },
+  { href: "/surveys", label: "Anketlerim" },
   {
     label: "Listelerim",
     href: "/my-lists",

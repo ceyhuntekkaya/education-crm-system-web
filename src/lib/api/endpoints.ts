@@ -86,6 +86,11 @@ export const API_ENDPOINTS = {
     CREATE_RESPONSE: "/surveys/responses",
     SUBMIT: "/surveys/submit",
     BY_ID: (id: string | number) => `/surveys/${id}`,
+    PUBLIC_BY_TOKEN: (responseToken: string) =>
+      `/surveys/public/by-token/${responseToken}`,
+    BY_TOKEN: (responseToken: string) => `/surveys/responses/${responseToken}`,
+    SUBMIT_RESPONSE: (responseToken: string) =>
+      `/surveys/responses/${responseToken}/submit`,
   },
 
   CONTENT: {
