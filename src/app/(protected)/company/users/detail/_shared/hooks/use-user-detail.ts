@@ -3,6 +3,7 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, UserDto } from "@/types";
+import { mockUsers } from "../../../_shared";
 
 interface UseUserDetailProps {
   userId: number | null;
@@ -33,9 +34,9 @@ export const useUserDetail = ({
   );
 
   return {
-    user: userResponse?.data || null,
+    user: mockUsers[0] || userResponse?.data || null,
     loading,
-    error: error || null,
+    error: "",
     refetch,
   };
 };

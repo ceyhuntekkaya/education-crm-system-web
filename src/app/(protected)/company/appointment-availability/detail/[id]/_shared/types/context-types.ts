@@ -1,5 +1,7 @@
 import { AppointmentDto, AppointmentNoteDto, SurveyTemplateDto } from "@/types";
 import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
+import { SurveyResponseCreateDto } from "@/types/dto/survey/SurveyResponseCreateDto";
+import { SurveyResponseDto } from "@/types/dto/survey/SurveyResponseDto";
 
 /**
  * Appointment detail context değeri
@@ -29,9 +31,11 @@ export interface AppointmentDetailContextValue {
   refetchSurveys: () => void;
   selectedSurveyId: number | null;
   selectSurvey: (surveyId: number) => void;
-  submitSurvey: (surveyId: number) => Promise<void>;
-  surveySubmitLoading: boolean;
-  surveySubmitError: Error | null;
+  createSurvey: (
+    data: SurveyResponseCreateDto
+  ) => Promise<SurveyResponseDto | null>;
+  surveyCreateLoading: boolean;
+  surveyCreateError: string | null;
 }
 
 /**

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useCallback } from "react";
+import React, { createContext, useContext } from "react";
 import { useAppointmentById } from "../hooks/use-appointment-by-id";
 import { useAppointmentSections } from "../hooks/use-appointment-sections";
 import { useAddAppointmentNote } from "../hooks/use-add-appointment-note";
 import { useAppointmentNotes } from "../hooks/use-appointment-notes";
 import { useAppointmentSurveys } from "../hooks/use-appointment-surveys";
-import { useSubmitSurvey } from "../hooks/use-submit-survey";
+import { useCreateSurvey } from "../hooks/use-create-survey";
 import { useSurveySelection } from "../hooks/use-survey-selection";
 import {
   AppointmentDetailContextValue,
@@ -53,22 +53,10 @@ export const AppointmentDetailProvider: React.FC<
   const { selectedSurveyId, selectSurvey } = useSurveySelection();
 
   const {
-    submitSurvey: submitSurveyHook,
-    isLoading: surveySubmitLoading,
-    error: surveySubmitError,
-  } = useSubmitSurvey(() => {
-    refetchSurveys();
-  });
-
-  const submitSurvey = useCallback(
-    async (surveyId: number) => {
-      await submitSurveyHook({
-        surveyId,
-        appointmentId: appointmentId.toString(),
-      });
-    },
-    [submitSurveyHook, appointmentId]
-  );
+    createSurvey,
+    isLoading: surveyCreateLoading,
+    error: surveyCreateError,
+  } = useCreateSurvey();
 
   const contextValue: AppointmentDetailContextValue = {
     appointmentId,
@@ -90,9 +78,9 @@ export const AppointmentDetailProvider: React.FC<
     refetchSurveys,
     selectedSurveyId,
     selectSurvey,
-    submitSurvey,
-    surveySubmitLoading,
-    surveySubmitError,
+    createSurvey,
+    surveyCreateLoading,
+    surveyCreateError,
   };
 
   return (

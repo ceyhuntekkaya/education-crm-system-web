@@ -4,7 +4,7 @@ export * from "./hooks/use-appointment-sections";
 export * from "./hooks/use-appointment-notes";
 export * from "./hooks/use-appointment-note";
 export * from "./hooks/use-appointment-surveys";
-export * from "./hooks/use-submit-survey";
+export * from "./hooks/use-create-survey";
 export * from "./context/appointment-detail-context";
 export * from "./types/config-types";
 export * from "./config/section-definitions";
