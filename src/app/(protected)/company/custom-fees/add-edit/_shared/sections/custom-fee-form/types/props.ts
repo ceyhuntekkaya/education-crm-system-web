@@ -1,4 +1,5 @@
 export interface CustomFeeFormProps {
   className?: string;
-  initialData?: Partial<any>;
+  isEditing?: boolean;
+  initialData?: any; // Düzenleme modunda mevcut data
 }

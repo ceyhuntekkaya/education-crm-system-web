@@ -48,8 +48,11 @@ export const CustomFeeAddEditProvider: React.FC<
   const contextValue: CustomFeeAddEditContextType = {
     // Current custom fee data
     customFee,
-    customFeeLoading: customFeeLoading || addLoading || editLoading,
+    dataLoading: customFeeLoading, // Sadece data fetch loading'i
     customFeeError: customFeeError || addError || editError,
+
+    // Form operations
+    formLoading: addLoading || editLoading, // Sadece form submit loading'i
 
     // Edit mode state
     isEditing,

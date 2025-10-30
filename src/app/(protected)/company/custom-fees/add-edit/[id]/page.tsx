@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { LoadingSpinner, CustomCard } from "@/components";
+import { CustomCard } from "@/components";
 import { CustomFeeForm, useCustomFeeAddEdit } from "../_shared";
 
 interface CustomFeeAddEditPageProps {}
 
 const CustomFeeAddEditPage: React.FC<CustomFeeAddEditPageProps> = () => {
-  const { isEditing, customFee, customFeeLoading } = useCustomFeeAddEdit();
+  const { isEditing, customFee, dataLoading } = useCustomFeeAddEdit();
 
   const pageTitle = isEditing ? "Ek Ücret Düzenle" : "Yeni Ek Ücret";
 
@@ -21,18 +21,9 @@ const CustomFeeAddEditPage: React.FC<CustomFeeAddEditPageProps> = () => {
       }
       isBack
       mb="mb-24"
+      isLoading={dataLoading && isEditing}
     >
-      {/* Form Content */}
-      {customFeeLoading && isEditing ? (
-        <LoadingSpinner
-          message="Ek ücret bilgileri yükleniyor..."
-          size="md"
-          variant="dots"
-          className="py-5"
-        />
-      ) : (
-        <CustomFeeForm initialData={customFee || undefined} />
-      )}
+      <CustomFeeForm isEditing={isEditing} initialData={customFee} />
     </CustomCard>
   );
 };
