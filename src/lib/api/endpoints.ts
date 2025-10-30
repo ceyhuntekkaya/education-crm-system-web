@@ -40,6 +40,8 @@ export const API_ENDPOINTS = {
     SCHOOL_PRICING: (schoolId: string | number) =>
       `/pricing/school-pricing/school/${schoolId}`,
     SCHOOL_PRICING_BY_ID: (id: string | number) =>
+      `/pricing/school-pricing/school/${id}`,
+    SCHOOL_PRICING_UPDATE: (id: string | number) =>
       `/pricing/school-pricing/${id}`,
 
     // Custom Fees endpoints

@@ -24,12 +24,12 @@ export const useSchoolPricingById = (
     loading: isLoading,
     error,
     refetch,
-  } = useGet<ApiResponseDto<SchoolPricingDto>>(
+  } = useGet<ApiResponseDto<SchoolPricingDto[]>>(
     id ? API_ENDPOINTS.PRICING.SCHOOL_PRICING_BY_ID(id) : null
   );
 
   return {
-    pricing: schoolPricingResponse?.data || null,
+    pricing: schoolPricingResponse?.data?.[0] || null,
     isLoading,
     error,
     refetch,

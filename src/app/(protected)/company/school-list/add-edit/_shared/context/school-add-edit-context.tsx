@@ -4,7 +4,6 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/contexts";
 import { SchoolAddEditContextType } from "../types";
-import { SchoolCreateDto, SchoolDto } from "@/types";
 import {
   useSchoolById,
   useAddSchool,
