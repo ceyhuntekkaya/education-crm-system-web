@@ -7,7 +7,7 @@ import { useAppointmentDetail } from "../../context";
 import { SurveyItem } from "./survey-item";
 import { useAuth } from "@/contexts";
 import { useCompany } from "../../../../../../_shared/context";
-import { SurveyResponseCreateDto } from "@/types/dto/survey/SurveyResponseCreateDto";
+import { SurveyAssignmentDto } from "@/types/dto/survey/SurveyAssignmentDto";
 
 export const AppointmentSurveysSection: React.FC = () => {
   const { user } = useAuth();
@@ -15,6 +15,7 @@ export const AppointmentSurveysSection: React.FC = () => {
 
   const {
     appointmentId,
+    appointment,
     surveys,
     appointmentSurveysLoading: isLoading,
     appointmentSurveysError: error,
@@ -27,11 +28,11 @@ export const AppointmentSurveysSection: React.FC = () => {
   const handleSubmit = async () => {
     if (!selectedSurveyId) return;
 
-    const createDto: SurveyResponseCreateDto = {
+    const createDto: SurveyAssignmentDto = {
       surveyId: selectedSurveyId,
       appointmentId,
       schoolId: selectedSchool?.id,
-      respondentUserId: user?.id,
+      attendId: appointment?.parentUserId,
     };
 
     await createSurvey(createDto);

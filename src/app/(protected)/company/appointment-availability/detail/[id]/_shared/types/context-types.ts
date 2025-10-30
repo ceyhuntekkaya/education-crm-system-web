@@ -1,7 +1,6 @@
 import { AppointmentDto, AppointmentNoteDto, SurveyTemplateDto } from "@/types";
 import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
-import { SurveyResponseCreateDto } from "@/types/dto/survey/SurveyResponseCreateDto";
-import { SurveyResponseDto } from "@/types/dto/survey/SurveyResponseDto";
+import { SurveyAssignmentDto } from "@/types/dto/survey/SurveyAssignmentDto";
 import { ApiResponseDto } from "@/types/dto/user/ApiResponseDto";
 import { MutationOptions } from "@/hooks";
 
@@ -29,17 +28,14 @@ export interface AppointmentDetailContextValue {
   // Survey işlemleri
   surveys: SurveyTemplateDto[];
   appointmentSurveysLoading: boolean;
-  appointmentSurveysError: Error | null;
+  appointmentSurveysError: string | null;
   refetchSurveys: () => void;
   selectedSurveyId: number | null;
   selectSurvey: (surveyId: number) => void;
   createSurvey: (
-    data: SurveyResponseCreateDto,
-    mutationOptions?: MutationOptions<
-      ApiResponseDto<SurveyResponseDto>,
-      SurveyResponseCreateDto
-    >
-  ) => Promise<ApiResponseDto<SurveyResponseDto> | null>;
+    data: SurveyAssignmentDto,
+    mutationOptions?: MutationOptions<ApiResponseDto<any>, SurveyAssignmentDto>
+  ) => Promise<ApiResponseDto<any> | null>;
   surveyCreateLoading: boolean;
   surveyCreateError: string | null;
 }

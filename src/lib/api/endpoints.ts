@@ -88,6 +88,7 @@ export const API_ENDPOINTS = {
     BY_APPOINTMENT_ID: (appointmentId: string | number) =>
       `/surveys/appointments/${appointmentId}`,
     CREATE_RESPONSE: "/surveys/responses",
+    USER_ASSIGNMENT: "/surveys/user/assignment",
     SUBMIT: "/surveys/submit",
     EVALUATE: "/surveys/evaluate", // Survey evaluation için özel endpoint
     BY_ID: (id: string | number) => `/surveys/${id}`,

@@ -5,6 +5,7 @@ export * from "./QuestionAnalyticsDto";
 export * from "./SatisfactionTrendDto";
 export * from "./SchoolSurveyPerformanceDto";
 export * from "./SurveyAnalyticsDto";
+export * from "./SurveyAssignmentDto";
 export * from "./SurveyCreateDto";
 export * from "./SurveyDto";
 export * from "./SurveyQuestionCreateDto";

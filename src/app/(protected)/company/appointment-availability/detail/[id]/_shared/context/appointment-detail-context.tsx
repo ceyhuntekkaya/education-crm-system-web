@@ -48,7 +48,7 @@ export const AppointmentDetailProvider: React.FC<
     isLoading: appointmentSurveysLoading,
     error: appointmentSurveysError,
     refetch: refetchSurveys,
-  } = useAppointmentSurveys(appointmentId.toString());
+  } = useAppointmentSurveys();
 
   const { selectedSurveyId, selectSurvey } = useSurveySelection();
 
