@@ -89,6 +89,7 @@ export const getFeeTypeDisplay = (feeType: string | undefined): string => {
     EQUIPMENT: "Ekipman",
     SERVICE: "Hizmet",
     ACTIVITY: "Aktivite",
+    CLUB: "Kulüp",
     TRANSPORTATION: "Ulaşım",
     MEAL: "Yemek",
     ACCOMMODATION: "Konaklama",
@@ -151,6 +152,7 @@ export const getFeeTypeBadgeVariant = (
     case "HEALTH_SERVICE":
       return "success";
     case "ACTIVITY":
+    case "CLUB":
     case "SPECIAL_EVENT":
     case "FIELD_TRIP":
       return "warning";

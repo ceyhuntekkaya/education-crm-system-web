@@ -48,6 +48,8 @@ export const API_ENDPOINTS = {
     CUSTOM_FEE_CREATE: "/pricing/custom-fees",
     CUSTOM_FEES_BY_PRICING: (pricingId: string | number) =>
       `/pricing/custom-fees/pricing/${pricingId}`,
+    CUSTOM_FEES_BY_SCHOOL: (schoolId: string | number) =>
+      `/pricing/custom-fees/school/${schoolId}`,
     CUSTOM_FEE_BY_ID: (id: string | number) => `/pricing/custom-fees/${id}`,
     CUSTOM_FEE_UPDATE: (id: string | number) => `/pricing/custom-fees/${id}`,
     CUSTOM_FEE_DELETE: (id: string | number) => `/pricing/custom-fees/${id}`,

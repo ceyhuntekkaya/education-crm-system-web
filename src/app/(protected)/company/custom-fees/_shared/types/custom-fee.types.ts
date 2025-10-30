@@ -66,7 +66,7 @@ export interface CustomFeeListContextType {
   customFeeError: string | null;
 
   // Pricing context
-  pricingId: number;
+  pricingId: number | null;
 
   // Actions
   refetchCustomFees: () => void;
