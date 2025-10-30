@@ -1,0 +1,127 @@
+/* Animation Classes and Keyframes */
+
+/* Positioned Rotation for Plan Name */
+.positioned-rotation {
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+}
+
+.animation-item:hover .positioned-rotation {
+  transform: rotate(0deg);
+}
+
+/* Scale hover effect for active cards */
+.scale-hover-effect {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Star Rating Animations */
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes starGlow {
+  0% {
+    filter: drop-shadow(0 0 0px rgba(255, 193, 7, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 0px rgba(255, 193, 7, 0));
+  }
+}
+
+@keyframes starShine {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+  }
+}
+
+@keyframes ratingSuccess {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  75% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Star Rating Hover Classes */
+.star-rating-container {
+  .star-button {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      animation: starPulse 0.6s ease-in-out;
+    }
+    
+    &.star-selected {
+      animation: ratingSuccess 0.5s ease-out;
+    }
+    
+    &.star-glow {
+      animation: starGlow 1s ease-in-out infinite;
+    }
+    
+    svg {
+      transition: all 0.2s ease;
+
+      &:hover {
+        filter: drop-shadow(0 2px 4px rgba(255, 193, 7, 0.4));
+      }
+    }
+  }
+}

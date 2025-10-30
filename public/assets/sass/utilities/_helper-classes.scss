@@ -1,0 +1,28 @@
+/* Utility Classes */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.w-32 {
+  width: 2rem !important;
+}
+
+.h-32 {
+  height: 2rem !important;
+}
+
+.border-success-600 {
+  border-color: var(--success-600) !important;
+}
+
+.bg-success-50 {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+}
+
+.z-3 {
+  z-index: 3 !important;
+}

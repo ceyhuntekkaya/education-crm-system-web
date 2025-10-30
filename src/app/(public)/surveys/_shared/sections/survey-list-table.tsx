@@ -4,12 +4,13 @@ import React from "react";
 import { DataGrid } from "@/components/ui/data-grid";
 import { createSurveyColumns } from "../config/survey-columns";
 import { useSurveyList } from "../context/survey-list-context";
+import { SurveyEvaluationModal } from "./survey-evaluation-modal";
 
 export const SurveyListTable = () => {
-  // Survey list context'ten veri al
-  const { surveys, surveyLoading } = useSurveyList();
+  // Survey list context'ten gerekli veriler al
+  const { surveys, surveyLoading, handleRowClick } = useSurveyList();
 
-  // Kolonları oluştur
+  // Kolonları oluştur - handlers olmadan
   const columns = createSurveyColumns();
 
   return (
@@ -24,7 +25,7 @@ export const SurveyListTable = () => {
           },
         }}
         pageSizeOptions={[5, 10, 25, 50]}
-        disableRowSelectionOnClick
+        onRowClick={handleRowClick}
         emptyState={{
           icon: "ph-clipboard-text",
           title: "Henüz Anket Yok",
@@ -32,6 +33,9 @@ export const SurveyListTable = () => {
           showActions: false,
         }}
       />
+
+      {/* Survey Evaluation Modal */}
+      <SurveyEvaluationModal />
     </div>
   );
 };

@@ -46,8 +46,20 @@ export interface SurveyListContextType {
   surveyLoading: boolean;
   surveyError: string | null;
 
+  // Modal state
+  selectedSurvey: SurveyDto | null;
+  evaluationModalOpen: boolean;
+
   // Actions
   refetchSurveys: () => void;
+  openEvaluationModal: (survey: SurveyDto) => void;
+  closeEvaluationModal: () => void;
+  handleRowClick: (params: any) => void;
+
+  // Evaluation submission
+  submitEvaluation: (formData: any) => Promise<void>;
+  submissionLoading: boolean;
+  submissionError: string | null;
 }
 
 /**
