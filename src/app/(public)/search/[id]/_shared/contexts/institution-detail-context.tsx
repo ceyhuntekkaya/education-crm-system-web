@@ -8,6 +8,8 @@ import {
   useInstitutionCampaigns,
   useInstitutionGalleries,
   useInstitutionPosts,
+  useInstitutionProperties,
+  GroupedInstitutionProperty,
 } from "../hooks";
 
 // Context State Interface
@@ -20,6 +22,10 @@ interface InstitutionDetailState {
   campaigns: any[];
   galleries: any[];
   posts: any[];
+  // Properties
+  institutionProperties: GroupedInstitutionProperty[];
+  isPropertiesLoading: boolean;
+  propertiesError: string | null;
   loading: boolean;
   error: string | null;
   refetch: () => void;
@@ -84,6 +90,14 @@ export function InstitutionDetailProvider({
     refetch: refetchPosts,
   } = useInstitutionPosts({ schoolId: id });
 
+  // Properties hook'unu kullan
+  const {
+    groupedProperties: propertiesData,
+    loading: propertiesLoading,
+    error: propertiesError,
+    refetch: refetchProperties,
+  } = useInstitutionProperties({ schoolId: id });
+
   // school = tüm institution detail datası
   // campus, brand, pricings = nested objeler
   const school = institutionDetail;
@@ -99,24 +113,30 @@ export function InstitutionDetailProvider({
     campaigns: campaignsData || [],
     galleries: galleriesData || [],
     posts: postsData || [],
+    institutionProperties: propertiesData || [],
+    isPropertiesLoading: propertiesLoading,
+    propertiesError: propertiesError,
     loading:
       institutionLoading ||
       pricingLoading ||
       campaignsLoading ||
       galleriesLoading ||
-      postsLoading,
+      postsLoading ||
+      propertiesLoading,
     error:
       institutionError ||
       pricingError ||
       campaignsError ||
       galleriesError ||
-      postsError,
+      postsError ||
+      propertiesError,
     refetch: () => {
       refetchInstitution();
       refetchPricing();
       refetchCampaigns();
       refetchGalleries();
       refetchPosts();
+      refetchProperties();
     },
     renderStars,
     formatCurrency,
