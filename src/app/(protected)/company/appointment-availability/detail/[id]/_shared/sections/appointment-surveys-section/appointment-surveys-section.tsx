@@ -21,6 +21,7 @@ export const AppointmentSurveysSection: React.FC = () => {
     appointmentSurveysError: error,
     selectSurvey,
     selectedSurveyId,
+    clearSelection,
     createSurvey,
     surveyCreateLoading,
   } = useAppointmentDetail();
@@ -35,7 +36,12 @@ export const AppointmentSurveysSection: React.FC = () => {
       attendId: appointment?.parentUserId,
     };
 
-    await createSurvey(createDto);
+    const result = await createSurvey(createDto);
+
+    // Anket başarıyla gönderildiyse seçimi temizle
+    if (result) {
+      clearSelection();
+    }
   };
 
   const isEmpty = !surveys || !Array.isArray(surveys) || surveys.length === 0;
@@ -69,12 +75,16 @@ export const AppointmentSurveysSection: React.FC = () => {
               <div className="info-content">
                 <i className="ph-fill ph-info"></i>
                 <div className="info-text">
-                  <div className="info-title">
-                    {selectedSurvey.templateName}
-                  </div>
+                  <div className="info-title">{selectedSurvey.title}</div>
                   <p className="info-desc">
                     Bu anketi göndermek üzeresiniz. Anket{" "}
                     {selectedSurvey.questions?.length || 0} soru içermektedir.
+                    {selectedSurvey.estimatedDuration && (
+                      <span>
+                        {" "}
+                        Tahmini süre: {selectedSurvey.estimatedDuration}
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>

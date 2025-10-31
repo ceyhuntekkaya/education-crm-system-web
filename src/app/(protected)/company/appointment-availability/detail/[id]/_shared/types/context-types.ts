@@ -1,4 +1,4 @@
-import { AppointmentDto, AppointmentNoteDto, SurveyTemplateDto } from "@/types";
+import { AppointmentDto, AppointmentNoteDto, SurveyDto } from "@/types";
 import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
 import { SurveyAssignmentDto } from "@/types/dto/survey/SurveyAssignmentDto";
 import { ApiResponseDto } from "@/types/dto/user/ApiResponseDto";
@@ -26,12 +26,13 @@ export interface AppointmentDetailContextValue {
   appointmentNotesError: string | null;
   refetchNotes: () => void;
   // Survey işlemleri
-  surveys: SurveyTemplateDto[];
+  surveys: SurveyDto[];
   appointmentSurveysLoading: boolean;
   appointmentSurveysError: string | null;
   refetchSurveys: () => void;
   selectedSurveyId: number | null;
   selectSurvey: (surveyId: number) => void;
+  clearSelection: () => void;
   createSurvey: (
     data: SurveyAssignmentDto,
     mutationOptions?: MutationOptions<ApiResponseDto<any>, SurveyAssignmentDto>

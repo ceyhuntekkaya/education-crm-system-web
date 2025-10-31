@@ -1,10 +1,10 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-import { ApiResponseDto, SurveyTemplateDto } from "@/types";
+import { ApiResponseDto, SurveyDto } from "@/types";
 import { SurveyType } from "@/enums";
 
 interface UseAppointmentSurveysReturn {
-  surveys: SurveyTemplateDto[];
+  surveys: SurveyDto[];
   isLoading: boolean;
   error: string | null;
   refetch: () => void;
@@ -20,7 +20,7 @@ export const useAppointmentSurveys = (): UseAppointmentSurveysReturn => {
     loading: isLoading,
     error,
     refetch,
-  } = useGet<ApiResponseDto<SurveyTemplateDto[]>>("/surveys");
+  } = useGet<ApiResponseDto<SurveyDto[]>>("/surveys/");
 
   return {
     surveys: surveysResponse?.data || [],

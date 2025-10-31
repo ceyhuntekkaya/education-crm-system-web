@@ -17,13 +17,15 @@ export const SurveyEvaluationForm = () => {
   if (!selectedSurvey) return null;
 
   // Form initial values - questionResponses'dan RATING_STAR tipindekini al
-  const ratingStarQuestions =
+  const ratingStarQuestionResponses =
     selectedSurvey.questionResponses?.filter(
       (qr) => qr.questionType === "RATING_STAR"
     ) || [];
 
-  const formInitialValues = createInitialValues(ratingStarQuestions);
-  const formValidationSchema = createValidationSchema(ratingStarQuestions);
+  const formInitialValues = createInitialValues(ratingStarQuestionResponses);
+  const formValidationSchema = createValidationSchema(
+    ratingStarQuestionResponses
+  );
 
   return (
     <FormProvider

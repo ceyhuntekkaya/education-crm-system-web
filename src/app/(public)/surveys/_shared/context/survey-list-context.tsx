@@ -64,7 +64,7 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
 
     try {
       const requestData = {
-        surveyId: selectedSurvey.id,
+        surveyResponseId: selectedSurvey.id,
         responses: formData,
       };
 

@@ -1,4 +1,4 @@
-import { SurveyQuestionDto } from "@/types";
+import { SurveyQuestionResponseDto } from "@/types";
 import { SurveyEvaluationFormValues } from "../sections/form-content";
 
 /**
@@ -6,16 +6,17 @@ import { SurveyEvaluationFormValues } from "../sections/form-content";
  * Sadece RATING_STAR tipini destekler
  */
 export const createInitialValues = (
-  questions: SurveyQuestionDto[]
+  questionResponses: SurveyQuestionResponseDto[]
 ): SurveyEvaluationFormValues => {
   const initialValues: SurveyEvaluationFormValues = {};
 
-  questions?.forEach((question) => {
-    if (!question.id) return;
-    if (question.questionType !== "RATING_STAR") return;
+  questionResponses?.forEach((questionResponse) => {
+    if (!questionResponse.questionId) return;
+    if (questionResponse.questionType !== "RATING_STAR") return;
 
-    const fieldName = `question_${question.id}`;
-    initialValues[fieldName] = 0; // 0 = henüz puanlanmadı
+    const fieldName = `question_${questionResponse.questionId}`;
+    // Eğer daha önce bir rating varsa onu kullan, yoksa 0
+    initialValues[fieldName] = questionResponse.ratingResponse || 0;
   });
 
   return initialValues;

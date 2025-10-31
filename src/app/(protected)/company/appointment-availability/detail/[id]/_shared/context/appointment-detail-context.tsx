@@ -50,7 +50,8 @@ export const AppointmentDetailProvider: React.FC<
     refetch: refetchSurveys,
   } = useAppointmentSurveys();
 
-  const { selectedSurveyId, selectSurvey } = useSurveySelection();
+  const { selectedSurveyId, selectSurvey, clearSelection } =
+    useSurveySelection();
 
   const {
     createSurvey,
@@ -78,6 +79,7 @@ export const AppointmentDetailProvider: React.FC<
     refetchSurveys,
     selectedSurveyId,
     selectSurvey,
+    clearSelection,
     createSurvey,
     surveyCreateLoading,
     surveyCreateError,

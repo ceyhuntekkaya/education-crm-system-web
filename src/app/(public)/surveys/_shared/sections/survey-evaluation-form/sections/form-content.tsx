@@ -48,13 +48,13 @@ export const SurveyEvaluationFormContent: React.FC = () => {
     closeEvaluationModal(); // Modal'ı kapat
   };
 
-  // RATING_STAR tipindeki soruları filtrele
+  // RATING_STAR tipindeki soruları filtrele - questionResponses'dan al
   const ratingStarQuestions =
-    survey.questions?.filter(
-      (q) => q.isActive !== false && q.questionType === "RATING_STAR"
+    survey.questionResponses?.filter(
+      (qr) => qr.questionType === "RATING_STAR"
     ) || [];
 
-  if (!survey.questions?.length) {
+  if (!survey.questionResponses?.length) {
     return (
       <div
         className="text-center py-32"
@@ -68,9 +68,11 @@ export const SurveyEvaluationFormContent: React.FC = () => {
             size="lg"
           />
         </div>
-        <h6 className="text-neutral-600 mb-8">Henüz Soru Yok</h6>
+        <h6 className="text-neutral-600 mb-8">
+          Henüz Soru Response&apos;u Yok
+        </h6>
         <p className="text-neutral-500 text-sm">
-          Bu ankette henüz soru bulunmamaktadır.
+          Bu ankette henüz soru response&apos;u bulunmamaktadır.
         </p>
       </div>
     );
@@ -105,25 +107,26 @@ export const SurveyEvaluationFormContent: React.FC = () => {
       {/* SURVEY HEADER */}
       <div className="mb-32" data-aos="fade-down" data-aos-duration="400">
         <div className="text-center mb-24">
-          <h4 className="text-neutral-800 mb-8">{survey.title}</h4>
-          {survey.description && (
-            <p className="text-neutral-600 mb-0">{survey.description}</p>
-          )}
+          <h4 className="text-neutral-800 mb-8">
+            {survey.surveyTitle || "Anket Değerlendirmesi"}
+          </h4>
+          <p className="text-neutral-600 mb-0">
+            Lütfen aşağıdaki soruları değerlendirerek görüşlerinizi paylaşın.
+          </p>
         </div>
 
-        {survey.welcomeMessage && (
-          <div className="bg-primary-50 border border-neutral-30 rounded-12 p-16">
-            <div className="d-flex align-items-center gap-12">
-              <Icon
-                icon="ph-info"
-                className="text-primary-600 mt-2 flex-shrink-0"
-              />
-              <p className="text-primary-800 mb-0 text-sm">
-                {survey.welcomeMessage}
-              </p>
-            </div>
+        <div className="bg-primary-50 border border-neutral-30 rounded-12 p-16">
+          <div className="d-flex align-items-center gap-12">
+            <Icon
+              icon="ph-info"
+              className="text-primary-600 mt-2 flex-shrink-0"
+            />
+            <p className="text-primary-800 mb-0 text-sm">
+              Bu anketteki her soru için 1-5 yıldız arasında değerlendirme
+              yapabilirsiniz.
+            </p>
           </div>
-        )}
+        </div>
       </div>
 
       {/* EVALUATION FORM */}
@@ -133,14 +136,14 @@ export const SurveyEvaluationFormContent: React.FC = () => {
         {/* RATING QUESTIONS */}
         <div className="questions-container">
           {ratingStarQuestions
-            .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+            .sort((a, b) => (a.responseOrder || 0) - (b.responseOrder || 0))
             .map((question, index) => {
-              if (!question.id) return null;
+              if (!question.questionId) return null;
 
-              const fieldName = `question_${question.id}`;
+              const fieldName = `question_${question.questionId}`;
 
               return (
-                <div key={question.id} className="question-item mb-24">
+                <div key={question.questionId} className="question-item mb-24">
                   <div className="bg-white border border-neutral-30 rounded-12 p-24">
                     <div className="row align-items-center">
                       {/* Sol taraf - Soru */}
@@ -153,11 +156,20 @@ export const SurveyEvaluationFormContent: React.FC = () => {
                             <h6 className="text-neutral-800 mb-8 fw-medium text-lg">
                               {question.questionText}
                             </h6>
-                            {question.description && (
-                              <p className="text-neutral-500 text-sm mb-0">
-                                {question.description}
-                              </p>
-                            )}
+                            <p className="text-neutral-500 text-sm mb-0">
+                              {question.ratingCategory ===
+                                "OVERALL_SATISFACTION" &&
+                                "Genel memnuniyet düzeyinizi değerlendirin"}
+                              {question.ratingCategory ===
+                                "STAFF_FRIENDLINESS" &&
+                                "Personel hizmet kalitesini değerlendirin"}
+                              {question.ratingCategory === "CLEANLINESS" &&
+                                "Temizlik düzeyini değerlendirin"}
+                              {question.ratingCategory === "FACILITIES" &&
+                                "Tesis kalitesini değerlendirin"}
+                              {question.ratingCategory === "COMMUNICATION" &&
+                                "İletişim kalitesini değerlendirin"}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -169,7 +181,7 @@ export const SurveyEvaluationFormContent: React.FC = () => {
                             name={fieldName}
                             max={5}
                             size="lg"
-                            required={question.isRequired}
+                            required={true}
                           />
                         </div>
                       </div>
