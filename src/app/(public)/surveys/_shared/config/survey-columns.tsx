@@ -1,31 +1,31 @@
 import { GridColDef } from "@/components/ui/data-grid";
-import { SurveyDto } from "@/types";
+import { SurveyResponseDto } from "@/types";
 import { formatDateTime } from "../utils/format-date-time";
 
 // Column render helper functions
 const renderSurveyTitle = (params: any) => {
-  const survey = params.row as SurveyDto;
+  const survey = params.row as SurveyResponseDto;
 
   return (
     <div className="overflow-hidden">
-      <div className="fw-semibold text-truncate" title={survey.title}>
-        {survey.title || "-"}
+      <div className="fw-semibold text-truncate" title={survey.surveyTitle}>
+        {survey.surveyTitle || "-"}
       </div>
     </div>
   );
 };
 
-const renderSurveyDescription = (params: any) => {
-  const survey = params.row as SurveyDto;
+const renderSchoolName = (params: any) => {
+  const survey = params.row as SurveyResponseDto;
 
   return (
     <div className="overflow-hidden">
-      {survey.description ? (
+      {survey.schoolName ? (
         <small
           className="text-muted text-truncate d-block"
-          title={survey.description}
+          title={survey.schoolName}
         >
-          {survey.description}
+          {survey.schoolName}
         </small>
       ) : (
         <span className="text-muted">-</span>
@@ -35,45 +35,77 @@ const renderSurveyDescription = (params: any) => {
 };
 
 const renderSurveyStatus = (params: any) => {
-  const survey = params.row as SurveyDto;
-  const isActive = survey.isActive;
+  const survey = params.row as SurveyResponseDto;
+  const status = survey.status;
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "INVITED":
+        return { class: "bg-warning", text: "Davet Edildi" };
+      case "STARTED":
+        return { class: "bg-info", text: "Başlatıldı" };
+      case "IN_PROGRESS":
+        return { class: "bg-primary", text: "Devam Ediyor" };
+      case "COMPLETED":
+        return { class: "bg-success", text: "Tamamlandı" };
+      case "SUBMITTED":
+        return { class: "bg-success", text: "Gönderildi" };
+      case "EXPIRED":
+        return { class: "bg-danger", text: "Süresi Doldu" };
+      case "ABANDONED":
+        return { class: "bg-secondary", text: "Terk Edildi" };
+      default:
+        return { class: "bg-secondary", text: status || "Bilinmiyor" };
+    }
+  };
+
+  const badge = getStatusBadge(status || "");
 
   return (
     <div className="d-flex align-items-center">
-      <span className={`badge ${isActive ? "bg-success" : "bg-secondary"}`}>
-        {isActive ? "Aktif" : "Pasif"}
-      </span>
+      <span className={`badge ${badge.class}`}>{badge.text}</span>
     </div>
   );
 };
 
-const renderCreatedDate = (params: any) => {
-  const survey = params.row as SurveyDto;
+const renderStartedDate = (params: any) => {
+  const survey = params.row as SurveyResponseDto;
 
   return (
     <div className="text-muted">
-      {survey.createdAt ? formatDateTime(survey.createdAt) : "-"}
+      {survey.startedAt ? formatDateTime(survey.startedAt) : "-"}
     </div>
   );
 };
 
-const renderUpdatedDate = (params: any) => {
-  const survey = params.row as SurveyDto;
+const renderProgress = (params: any) => {
+  const survey = params.row as SurveyResponseDto;
+  const progress = survey.progressPercentage || 0;
 
   return (
-    <div className="text-muted">
-      {survey.updatedAt ? formatDateTime(survey.updatedAt) : "-"}
+    <div className="d-flex align-items-center">
+      <div className="progress me-8" style={{ width: "60px", height: "8px" }}>
+        <div
+          className="progress-bar"
+          role="progressbar"
+          style={{ width: `${progress}%` }}
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        />
+      </div>
+      <small className="text-muted">{progress}%</small>
     </div>
   );
 };
 
 /**
- * Survey list için kolon tanımlarını oluşturur
+ * Survey response list için kolon tanımlarını oluşturur
  * @returns GridColDef array
  */
 export const createSurveyColumns = (): GridColDef[] => [
   {
-    field: "title",
+    field: "surveyTitle",
     headerName: "Anket Başlığı",
     width: 300,
     minWidth: 200,
@@ -81,32 +113,32 @@ export const createSurveyColumns = (): GridColDef[] => [
     sortable: true,
   },
   {
-    field: "description",
-    headerName: "Açıklama",
-    width: 300,
+    field: "schoolName",
+    headerName: "Okul",
+    width: 250,
     minWidth: 200,
-    renderCell: renderSurveyDescription,
+    renderCell: renderSchoolName,
     sortable: false,
   },
   {
-    field: "isActive",
+    field: "status",
     headerName: "Durum",
-    width: 100,
+    width: 150,
     renderCell: renderSurveyStatus,
     sortable: true,
   },
   {
-    field: "createdAt",
-    headerName: "Oluşturulma Tarihi",
-    width: 180,
-    renderCell: renderCreatedDate,
+    field: "progressPercentage",
+    headerName: "İlerleme",
+    width: 170,
+    renderCell: renderProgress,
     sortable: true,
   },
   {
-    field: "updatedAt",
-    headerName: "Güncellenme Tarihi",
+    field: "startedAt",
+    headerName: "Başlangıç Tarihi",
     width: 180,
-    renderCell: renderUpdatedDate,
+    renderCell: renderStartedDate,
     sortable: true,
   },
 ];

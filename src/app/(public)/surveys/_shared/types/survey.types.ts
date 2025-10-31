@@ -42,17 +42,17 @@ export interface SurveyTableProps {
  */
 export interface SurveyListContextType {
   // Survey data
-  surveys: SurveyDto[];
+  surveys: SurveyResponseDto[];
   surveyLoading: boolean;
   surveyError: string | null;
 
   // Modal state
-  selectedSurvey: SurveyDto | null;
+  selectedSurvey: SurveyResponseDto | null;
   evaluationModalOpen: boolean;
 
   // Actions
   refetchSurveys: () => void;
-  openEvaluationModal: (survey: SurveyDto) => void;
+  openEvaluationModal: (survey: SurveyResponseDto) => void;
   closeEvaluationModal: () => void;
   handleRowClick: (params: any) => void;
 

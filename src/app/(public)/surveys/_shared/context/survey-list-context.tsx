@@ -6,7 +6,7 @@ import { useSurveys as useSurveysHook } from "../hooks/use-surveys";
 import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { useSnackbar } from "@/contexts/snackbar-context";
-import { SurveyDto } from "@/types";
+import { SurveyResponseDto } from "@/types";
 
 const SurveyListContext = createContext<SurveyListContextType | undefined>(
   undefined
@@ -28,7 +28,8 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
   } = useSurveysHook();
 
   // Modal state
-  const [selectedSurvey, setSelectedSurvey] = useState<SurveyDto | null>(null);
+  const [selectedSurvey, setSelectedSurvey] =
+    useState<SurveyResponseDto | null>(null);
   const [evaluationModalOpen, setEvaluationModalOpen] = useState(false);
 
   // Snackbar for notifications
@@ -42,7 +43,7 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
   } = usePost<any, any>(API_ENDPOINTS.SURVEYS.EVALUATE);
 
   // Modal actions
-  const openEvaluationModal = (survey: SurveyDto) => {
+  const openEvaluationModal = (survey: SurveyResponseDto) => {
     setSelectedSurvey(survey);
     setEvaluationModalOpen(true);
   };

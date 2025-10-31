@@ -7,9 +7,9 @@ export interface SurveyResponseDto {
   surveyId?: number; // ******
   surveyTitle?: string;
   /** Format: int64 */
-  respondentUserId?: number /* **************** veli
-    respondentUserName?: string;
-    /** Format: int64 */;
+  respondentUserId?: number;
+  respondentUserName?: string;
+  /** Format: int64 */
   schoolId?: number; // okul idi göndeirleicek
   schoolName?: string;
   /** Format: int64 */
