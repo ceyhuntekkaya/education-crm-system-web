@@ -6,3 +6,9 @@ export {
   getInstitutionPropertyGroupIcon,
   getInstitutionPropertyGroupColor,
 } from "./institution-property-mappings";
+export {
+  getFeeTypeIcon,
+  getFrequencyDisplayName,
+  getStatusBadgeColor,
+  getStatusDisplayName,
+} from "./custom-fee-helpers";

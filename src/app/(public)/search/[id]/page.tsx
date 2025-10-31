@@ -5,6 +5,7 @@ import {
   InstitutionSidebar,
   InstitutionGeneralInfo,
   InstitutionPricingInfo,
+  InstitutionCustomFees,
   InstitutionReviews,
   // InstitutionCampusInfo,
   InstitutionCampusDetail,
@@ -114,6 +115,13 @@ export default function InstitutionDetailPage({
       title: "Ücretler",
       label: "Ücretler",
       content: <InstitutionPricingInfo />,
+    },
+    {
+      id: "pills-custom-fees",
+      icon: "ph-bold ph-receipt",
+      title: "Özel Ücretler",
+      label: "Özel Ücretler",
+      content: <InstitutionCustomFees />,
     },
     {
       id: "pills-campaigns",
