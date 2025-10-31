@@ -1,25 +1,46 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { DataGrid } from "@/components/ui/data-grid";
-import { SurveyDto } from "@/types/dto/survey/SurveyDto";
 import { createSurveyColumns } from "../config/survey-columns";
-import { SurveyColumnHandlers, SurveyTableProps } from "../types";
-import { mockSurveys, calculateSurveyStats } from "../mock/survey-mock-data";
+import { useSurveyList } from "../context";
+import { useCompany } from "@/app/(protected)/company/_shared";
 
-export const SurveyTable: React.FC<SurveyTableProps> = ({
-  surveys = mockSurveys,
-  loading = false,
-}) => {
+export const SurveyTable = () => {
+  const { selectedSchool } = useCompany();
+
+  // Survey list context'ten gerekli veriler al
+  const { surveys, surveyLoading } = useSurveyList();
+
   // Kolonları oluştur
   const columns = createSurveyColumns();
+
+  // Empty state message based on school selection
+  const getEmptyState = () => {
+    if (!selectedSchool) {
+      return {
+        icon: "ph-building" as const,
+        title: "Okul Seçiniz",
+        description:
+          "Anketleri görüntülemek için önce bir okul seçmeniz gerekiyor.",
+        showActions: false,
+      };
+    }
+
+    return {
+      icon: "ph-clipboard-text" as const,
+      title: "Henüz Anket Response Yok",
+      description: "Bu okul için henüz tamamlanmış anket bulunmamaktadır.",
+      showActions: false,
+    };
+  };
 
   return (
     <div>
       <DataGrid
-        rows={surveys}
+        rows={surveys || []}
         columns={columns}
-        loading={loading}
+        loading={surveyLoading}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
@@ -27,17 +48,7 @@ export const SurveyTable: React.FC<SurveyTableProps> = ({
         }}
         pageSizeOptions={[5, 10, 25, 50]}
         disableRowSelectionOnClick
-        emptyState={{
-          icon: "ph-clipboard-text",
-          title: "Henüz Anket Yok",
-          description:
-            "İlk anketinizi oluşturmak için 'Yeni Anket' butonuna tıklayın.",
-          showActions: true,
-          addButtonText: "Yeni Anket",
-          onAddNew: () => {
-            console.log("Yeni Anket ekleme formu açılacak");
-          },
-        }}
+        emptyState={getEmptyState()}
       />
     </div>
   );

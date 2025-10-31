@@ -1,54 +1,49 @@
-import { SurveyDto } from "@/types/dto/survey/SurveyDto";
+import { ReactNode } from "react";
+import { SurveyResponseDto } from "@/types";
 
-// Badge variant type
-export type BadgeVariant = 
-  | "primary" 
-  | "secondary" 
-  | "success" 
-  | "danger" 
-  | "warning" 
-  | "info" 
-  | "light" 
+/**
+ * Badge variant types for survey status display
+ */
+export type BadgeVariant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "light"
   | "dark";
-
-// Survey column handlers
-export interface SurveyColumnHandlers {
-  onViewDetails?: (survey: SurveyDto) => void;
-  onEdit?: (survey: SurveyDto) => void;
-  onToggleStatus?: (survey: SurveyDto) => void;
-  onDelete?: (survey: SurveyDto) => void;
-  onDuplicate?: (survey: SurveyDto) => void;
-  onViewSurvey?: (survey: SurveyDto) => void;
-  onViewResults?: (survey: SurveyDto) => void;
-  onSendSurvey?: (survey: SurveyDto) => void;
-}
-
-// Survey action buttons props
-export interface SurveyActionButtonsProps {
-  survey: SurveyDto;
-  onViewDetails?: (survey: SurveyDto) => void;
-  onEdit?: (survey: SurveyDto) => void;
-  onToggleStatus?: (survey: SurveyDto) => void;
-  onDelete?: (survey: SurveyDto) => void;
-  onDuplicate?: (survey: SurveyDto) => void;
-  onViewSurvey?: (survey: SurveyDto) => void;
-  onViewResults?: (survey: SurveyDto) => void;
-  onSendSurvey?: (survey: SurveyDto) => void;
-}
-
-// Survey table props
+/**
+ * Survey table component props
+ */
 export interface SurveyTableProps {
-  surveys?: SurveyDto[];
+  surveys?: SurveyResponseDto[];
   loading?: boolean;
 }
 
-// Survey context type
-export interface SurveyContextType {
-  surveys: SurveyDto[];
-  loading: boolean;
-  selectedSurvey: SurveyDto | null;
-  setSelectedSurvey: (survey: SurveyDto | null) => void;
-  refreshSurveys: () => void;
+/**
+ * Survey list context type - Basit listeleme için
+ */
+export interface SurveyListContextType {
+  // Survey data
+  surveys: SurveyResponseDto[];
+  surveyLoading: boolean;
+  surveyError: string | null;
+  refetchSurveys: () => void;
+}
+
+/**
+ * Survey statistics interface
+ */
+export interface SurveyStats {
+  totalSurveys: number;
+  activeSurveys: number;
+  totalSent: number;
+  totalCompleted: number;
+  averageCompletionRate: number;
+  averageRating: number;
+  mandatorySurveys: number;
+  anonymousSurveys: number;
 }
 
 // Survey stats type
