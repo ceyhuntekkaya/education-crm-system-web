@@ -1,17 +1,22 @@
 "use client";
 
 import React from "react";
-import { SurveyTable } from "./_shared/sections/survey-table";
+import { SurveyTable, SurveyEvaluationModal } from "./_shared/sections";
 import { CustomCard } from "@/components";
 
 const SurveyPage: React.FC = () => {
   return (
-    <CustomCard
-      title="Anket Yönetimi"
-      subtitle="Anketlerinizi yönetin, düzenleyin ve yeni anket oluşturun"
-    >
-      <SurveyTable />
-    </CustomCard>
+    <>
+      <CustomCard
+        title="Anket Yönetimi"
+        subtitle="Anketlerinizi yönetin, düzenleyin ve yeni anket oluşturun"
+      >
+        <SurveyTable />
+      </CustomCard>
+
+      {/* Evaluation Modal */}
+      <SurveyEvaluationModal />
+    </>
   );
 };
 

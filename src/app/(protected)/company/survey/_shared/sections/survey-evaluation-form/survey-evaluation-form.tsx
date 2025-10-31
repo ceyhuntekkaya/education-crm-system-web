@@ -2,14 +2,13 @@
 
 import React from "react";
 import { FormProvider } from "@/contexts/form-context";
-import { SurveyEvaluationFormContent } from "./sections/form-content";
-import { createValidationSchema } from "./schemas/validation-schema";
-import { createInitialValues } from "./schemas/initial-values";
-import { useSurveyList } from "../../context/survey-list-context";
+import { SurveyEvaluationFormContent } from "./sections";
+import { createValidationSchema, createInitialValues } from "./schemas";
+import { useSurveyList } from "../../context/survey-context";
 
 /**
- * Survey Evaluation form component - Brand pattern'ını takip eder
- * Context'ten survey verilerini alır
+ * Survey Evaluation form component - Protected area için
+ * Context'ten survey verilerini alır - Sadece görüntüleme amaçlı
  */
 export const SurveyEvaluationForm = () => {
   const { selectedSurvey } = useSurveyList();

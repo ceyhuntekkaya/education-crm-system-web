@@ -22,7 +22,7 @@ export interface SurveyTableProps {
 }
 
 /**
- * Survey list context type - Basit listeleme için
+ * Survey list context type - Modal işlemleri dahil
  */
 export interface SurveyListContextType {
   // Survey data
@@ -30,6 +30,20 @@ export interface SurveyListContextType {
   surveyLoading: boolean;
   surveyError: string | null;
   refetchSurveys: () => void;
+
+  // Modal state
+  selectedSurvey: SurveyResponseDto | null;
+  evaluationModalOpen: boolean;
+
+  // Modal actions
+  openEvaluationModal: (survey: SurveyResponseDto) => void;
+  closeEvaluationModal: () => void;
+  handleRowClick: (params: any) => void;
+
+  // Evaluation submission
+  submitEvaluation: (formData: any) => Promise<void>;
+  submissionLoading: boolean;
+  submissionError: string | null;
 }
 
 /**

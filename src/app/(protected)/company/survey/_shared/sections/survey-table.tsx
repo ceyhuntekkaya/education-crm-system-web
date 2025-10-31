@@ -10,7 +10,7 @@ export const SurveyTable = () => {
   const { selectedSchool } = useCompany();
 
   // Survey list context'ten gerekli veriler al
-  const { surveys, surveyLoading } = useSurveyList();
+  const { surveys, surveyLoading, handleRowClick } = useSurveyList();
 
   // Kolonları oluştur
   const columns = createSurveyColumns();
@@ -41,13 +41,14 @@ export const SurveyTable = () => {
         rows={surveys || []}
         columns={columns}
         loading={surveyLoading}
+        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
         pageSizeOptions={[5, 10, 25, 50]}
-        disableRowSelectionOnClick
+        disableRowSelectionOnClick={false}
         emptyState={getEmptyState()}
       />
     </div>
