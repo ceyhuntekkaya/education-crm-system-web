@@ -12,6 +12,7 @@ import {
   SchoolHeaderSection,
   SchoolLoadingSection,
   SchoolNotFoundSection,
+  SchoolAdditionalFeatures,
 } from "./_shared/sections";
 
 const SchoolDetailPage: React.FC = () => {
@@ -35,6 +36,7 @@ const SchoolDetailPage: React.FC = () => {
       <SchoolBrandDetail />
       <SchoolCampusDetail />
       <SchoolLocationInfo />
+      <SchoolAdditionalFeatures />
     </div>
   );
 };

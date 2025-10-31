@@ -7,3 +7,4 @@ export { default as SchoolCoverImage } from "./school-cover-image";
 export { default as SchoolHeaderSection } from "./school-header-section";
 export { default as SchoolLoadingSection } from "./school-loading-section";
 export { default as SchoolNotFoundSection } from "./school-not-found-section";
+export { default as SchoolAdditionalFeatures } from "./school-additional-features";
