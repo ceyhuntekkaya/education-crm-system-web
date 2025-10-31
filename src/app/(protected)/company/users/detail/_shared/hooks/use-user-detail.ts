@@ -34,9 +34,9 @@ export const useUserDetail = ({
   );
 
   return {
-    user: mockUsers[0] || userResponse?.data || null,
+    user: userResponse?.data || null,
     loading,
-    error: "",
+    error,
     refetch,
   };
 };

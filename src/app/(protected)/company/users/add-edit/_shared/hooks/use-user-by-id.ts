@@ -2,10 +2,10 @@
 
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-import { UserProfileDto, ApiResponseDto } from "@/types";
+import { UserDto, ApiResponseDto } from "@/types";
 
 interface UseUserByIdReturn {
-  user: UserProfileDto | null;
+  user: UserDto | null;
   isLoading: boolean;
   error: string | null;
   refetch: () => void;
@@ -22,8 +22,8 @@ export const useUserById = (id: number | null): UseUserByIdReturn => {
     loading: isLoading,
     error,
     refetch,
-  } = useGet<ApiResponseDto<UserProfileDto>>(
-    id ? API_ENDPOINTS.USERS.PROFILE(id) : null
+  } = useGet<ApiResponseDto<UserDto>>(
+    id ? API_ENDPOINTS.USERS.BY_ID(id) : null
   );
 
   return {

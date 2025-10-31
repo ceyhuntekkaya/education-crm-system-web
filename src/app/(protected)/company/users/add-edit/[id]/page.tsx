@@ -1,8 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { LoadingSpinner, CustomCard } from "@/components";
-import { UserForm, useUserAddEdit, ChangePasswordSection } from "../_shared";
+import {
+  UserForm,
+  useUserAddEdit,
+  ChangePasswordSection,
+  userDtoToProfileDto,
+} from "../_shared";
 
 interface UsersAddEditPageProps {
   params: {
@@ -12,6 +17,9 @@ interface UsersAddEditPageProps {
 
 const UsersAddEditPage: React.FC<UsersAddEditPageProps> = ({ params }) => {
   const { isEditing, user, userLoading, userId } = useUserAddEdit();
+
+  // UserDto'yu UserProfileDto'ya dönüştür
+  const profileData = useMemo(() => userDtoToProfileDto(user), [user]);
 
   const pageTitle = isEditing
     ? "Kullanıcı Bilgisi Düzenle"
@@ -38,7 +46,7 @@ const UsersAddEditPage: React.FC<UsersAddEditPageProps> = ({ params }) => {
             className="py-5"
           />
         ) : (
-          <UserForm isEditing={isEditing} initialData={user} />
+          <UserForm isEditing={isEditing} initialData={profileData} />
         )}
       </CustomCard>
 

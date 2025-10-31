@@ -1,7 +1,9 @@
 "use client";
 
-import { UserDto } from "@/types";
-import { mockUsers } from "../mock/users-mock-data";
+import { ApiResponseDto, UserDto } from "@/types";
+import { useAuth } from "@/contexts";
+import { useGet } from "@/hooks/api";
+import { API_ENDPOINTS } from "@/lib/api/endpoints";
 
 interface UseUsersReturn {
   users: UserDto[];
@@ -12,25 +14,23 @@ interface UseUsersReturn {
 
 /**
  * Tüm kullanıcıları getiren hook
- * Şimdilik mock data kullanıyor, API hazır olunca güncellenecek
+ * Campus ID'ye göre kullanıcıları listeler
  * @returns Kullanıcı verileri ve yönetim fonksiyonları
  */
 export const useUsers = (): UseUsersReturn => {
-  // TODO: API hazır olunca useGet ile değiştir
-  // const {
-  //   data: usersResponse,
-  //   loading: userLoading,
-  //   error: userError,
-  //   refetch: refetchUsers,
-  // } = useGet<ApiResponseDto<UserDto[]>>(API_ENDPOINTS.USERS.LIST);
+  const { user } = useAuth();
+  const campusId = user?.campus?.id;
 
-  // Şimdilik mock data kullanıyoruz
-  const users = mockUsers;
-  const userLoading = false;
-  const userError = null;
-  const refetchUsers = () => {
-    console.log("Refetching users... (mock data)");
-  };
+  const {
+    data: usersResponse,
+    loading: userLoading,
+    error: userError,
+    refetch: refetchUsers,
+  } = useGet<ApiResponseDto<UserDto[]>>(
+    campusId ? API_ENDPOINTS.USERS.BY_CAMPUS(campusId) : null
+  );
+
+  const users = usersResponse?.data || [];
 
   return {
     users,

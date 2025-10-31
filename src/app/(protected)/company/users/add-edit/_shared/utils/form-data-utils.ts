@@ -1,4 +1,51 @@
-import { UserProfileDto, UserRegistrationDto, UserUpdateDto } from "@/types";
+import {
+  UserProfileDto,
+  UserRegistrationDto,
+  UserUpdateDto,
+  UserDto,
+} from "@/types";
+
+/**
+ * Convert UserDto to UserProfileDto for form data
+ * UserDto'dan firstName ve lastName çıkarır
+ */
+export const userDtoToProfileDto = (
+  user: UserDto | null
+): UserProfileDto | null => {
+  if (!user) return null;
+
+  // fullName'den firstName ve lastName'i ayır
+  const nameParts = (user.fullName || "").trim().split(" ");
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(" ") || "";
+
+  return {
+    id: user.id,
+    email: user.email,
+    phone: user.phone,
+    firstName,
+    lastName,
+    profileImageUrl: user.profileImageUrl,
+    countryId: user.country?.id,
+    countryName: user.country?.name,
+    provinceId: user.province?.id,
+    provinceName: user.province?.name,
+    districtId: user.district?.id,
+    districtName: user.district?.name,
+    neighborhoodId: user.neighborhood?.id,
+    neighborhoodName: user.neighborhood?.name,
+    addressLine1: user.addressLine1,
+    addressLine2: user.addressLine2,
+    postalCode: user.postalCode,
+    latitude: user.latitude,
+    longitude: user.longitude,
+    emailNotifications: true, // Default değerler
+    smsNotifications: true,
+    marketingEmails: false,
+    preferredLanguage: "tr",
+    timezone: "Europe/Istanbul",
+  };
+};
 
 /**
  * Convert UserProfileDto to form data for editing

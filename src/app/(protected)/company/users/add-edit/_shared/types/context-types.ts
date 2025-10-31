@@ -1,4 +1,4 @@
-import { UserProfileDto, PasswordChangeDto } from "@/types";
+import { UserDto, PasswordChangeDto } from "@/types";
 import { MutationOptions } from "@/hooks";
 
 /**
@@ -7,7 +7,7 @@ import { MutationOptions } from "@/hooks";
 export interface UserAddEditContextType {
   isEditing: boolean;
   userId: number | null;
-  user: UserProfileDto | null;
+  user: UserDto | null;
   userLoading: boolean;
   // Password change
   changePassword: (
