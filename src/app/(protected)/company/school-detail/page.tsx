@@ -32,7 +32,7 @@ const SchoolDetailPage: React.FC = () => {
       <SchoolCoverImage />
 
       <SchoolGeneralInfo />
-      <SchoolPricingInfo />
+      {/* <SchoolPricingInfo /> */}
       <SchoolBrandDetail />
       <SchoolCampusDetail />
       <SchoolLocationInfo />
