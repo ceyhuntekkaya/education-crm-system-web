@@ -24,6 +24,11 @@ export const getGalleryTypeDisplay = (galleryType: string): string => {
     OUTDOOR_AREAS: "Açık Alanlar",
     DAILY_ACTIVITIES: "Günlük Aktiviteler",
     TRANSPORTATION: "Ulaşım",
+    MIXED: "Karma",
+    PHOTOS: "Fotoğraflar",
+    VIDEOS: "Videolar",
+    FACILITIES: "Tesisler",
+    CEREMONIES: "Törenler",
   };
   return typeMap[galleryType] || galleryType;
 };
@@ -41,11 +46,11 @@ export const getVisibilityDisplay = (visibility: string): string => {
 // File size formatting
 export const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return "0 B";
-  
+
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
+
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
@@ -55,16 +60,21 @@ export const formatNumber = (num: number): string => {
 };
 
 // Calculate gallery statistics
-export const calculateGalleryStats = (galleries: GalleryDto[]): GalleryStats => {
+export const calculateGalleryStats = (
+  galleries: GalleryDto[]
+): GalleryStats => {
   const stats: GalleryStats = {
     totalGalleries: galleries.length,
-    activeGalleries: galleries.filter(g => g.isActive).length,
+    activeGalleries: galleries.filter((g) => g.isActive).length,
     totalViews: galleries.reduce((sum, g) => sum + (g.viewCount || 0), 0),
-    totalDownloads: galleries.reduce((sum, g) => sum + (g.downloadCount || 0), 0),
-    featuredGalleries: galleries.filter(g => g.isFeatured).length,
-    publicGalleries: galleries.filter(g => g.visibility === "PUBLIC").length,
+    totalDownloads: galleries.reduce(
+      (sum, g) => sum + (g.downloadCount || 0),
+      0
+    ),
+    featuredGalleries: galleries.filter((g) => g.isFeatured).length,
+    publicGalleries: galleries.filter((g) => g.visibility === "PUBLIC").length,
   };
-  
+
   return stats;
 };
 
@@ -97,7 +107,7 @@ export const sortGalleries = (
   return [...galleries].sort((a, b) => {
     let aValue: any;
     let bValue: any;
-    
+
     switch (sortBy) {
       case "title":
         aValue = (a.title || "").toLowerCase();
@@ -118,7 +128,7 @@ export const sortGalleries = (
       default:
         return 0;
     }
-    
+
     if (order === "asc") {
       return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
     } else {
