@@ -93,19 +93,10 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     !institutionTypesLoading &&
     school?.institutionType?.id;
 
-  console.log("🔍 Context - Should Fetch Properties:", {
-    isEditing,
-    schoolId,
-    schoolLoading,
-    institutionTypesLoading,
-    institutionTypeId: school?.institutionType?.id,
-    shouldFetchProperties,
-  });
-
   const {
     properties: schoolProperties,
     propertyTypeIds: schoolPropertyTypeIds,
-    loading: schoolPropertiesLoading,
+    isLoading: schoolPropertiesLoading,
     error: schoolPropertiesError,
     refetch: refetchProperties,
   } = useSchoolProperties({
@@ -117,7 +108,7 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     updateProperties,
     isLoading: updatePropertiesLoading,
     error: updatePropertiesError,
-  } = useUpdateSchoolProperties(schoolId || 0, refetchProperties);
+  } = useUpdateSchoolProperties(schoolId ?? null, refetchProperties);
 
   const contextValue: SchoolAddEditContextType = {
     // Current school data

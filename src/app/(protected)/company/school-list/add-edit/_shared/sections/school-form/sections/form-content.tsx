@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormInput,
@@ -21,6 +22,8 @@ import { SchoolCreateDto } from "@/types";
  * School form content component
  */
 export const SchoolFormContent: React.FC = () => {
+  const router = useRouter();
+
   // Form hook - validation ve error kontrolü için
   const { hasErrors } = useFormHook();
 
@@ -59,24 +62,26 @@ export const SchoolFormContent: React.FC = () => {
         ? values.propertyValues.map((id: string) => Number(id))
         : [];
 
+    // values nesnesinden propertyValues ve propertyTypeIds'i çıkar
+    const { propertyValues, propertyTypeIds: _, ...cleanValues } = values;
+
     const formData: SchoolCreateDto = {
-      ...values,
+      ...cleanValues,
       // Sayısal alanları number'a çevir
-      campusId: values.campusId ? Number(values.campusId) : undefined,
-      institutionTypeId: values.institutionTypeId
-        ? Number(values.institutionTypeId)
+      campusId: cleanValues.campusId ? Number(cleanValues.campusId) : undefined,
+      institutionTypeId: cleanValues.institutionTypeId
+        ? Number(cleanValues.institutionTypeId)
         : undefined,
-      minAge: values.minAge ? Number(values.minAge) : undefined,
-      maxAge: values.maxAge ? Number(values.maxAge) : undefined,
-      capacity: values.capacity ? Number(values.capacity) : undefined,
-      currentStudentCount: values.currentStudentCount
-        ? Number(values.currentStudentCount)
+      minAge: cleanValues.minAge ? Number(cleanValues.minAge) : undefined,
+      maxAge: cleanValues.maxAge ? Number(cleanValues.maxAge) : undefined,
+      capacity: cleanValues.capacity ? Number(cleanValues.capacity) : undefined,
+      currentStudentCount: cleanValues.currentStudentCount
+        ? Number(cleanValues.currentStudentCount)
         : undefined,
-      classSizeAverage: values.classSizeAverage
-        ? Number(values.classSizeAverage)
+      classSizeAverage: cleanValues.classSizeAverage
+        ? Number(cleanValues.classSizeAverage)
         : undefined,
-      // PropertyValues - Add modunda gönder, Edit modunda ayrı endpoint'e gönderilecek
-      propertyTypeIds: isEditing ? undefined : propertyTypeIds,
+      // propertyTypeIds ve propertyValues artık gönderilmeyecek
     };
 
     if (isEditing) {
@@ -87,11 +92,37 @@ export const SchoolFormContent: React.FC = () => {
 
       // 2. School güncelleme başarılıysa, property'leri güncelle
       if (schoolUpdateResponse && "success" in schoolUpdateResponse) {
-        await updateProperties(propertyTypeIds);
+        await updateProperties(propertyTypeIds, {
+          onSuccess: () => {
+            router.push("/company/school-list");
+          },
+        });
       }
     } else {
-      // Add modunda normal akış
-      await postSchool(formData);
+      // Add modunda:
+      // 1. Önce school'u oluştur
+      const schoolCreateResponse = await postSchool(formData);
+
+      // 2. School oluşturma başarılıysa ve propertyTypeIds varsa, property'leri güncelle
+      if (
+        schoolCreateResponse &&
+        schoolCreateResponse.success &&
+        "data" in schoolCreateResponse &&
+        schoolCreateResponse.data?.id &&
+        propertyTypeIds.length > 0
+      ) {
+        // Response'tan gelen school id ile updateProperties çağır
+        const createdSchoolId = schoolCreateResponse.data.id;
+        await updateProperties(propertyTypeIds, {
+          schoolId: createdSchoolId,
+          onSuccess: () => {
+            router.push("/company/school-list");
+          },
+        });
+      } else if (schoolCreateResponse && schoolCreateResponse.success) {
+        // propertyTypeIds yoksa direkt yönlendir
+        router.push("/company/school-list");
+      }
     }
   };
 

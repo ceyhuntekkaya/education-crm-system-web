@@ -31,7 +31,7 @@ interface UseSchoolPropertiesProps {
 interface UseSchoolPropertiesReturn {
   properties: SchoolPropertyDto[];
   propertyTypeIds: number[];
-  loading: boolean;
+  isLoading: boolean;
   error: string | null;
   refetch: () => void;
 }
@@ -65,7 +65,7 @@ export const useSchoolProperties = ({
   return {
     properties,
     propertyTypeIds,
-    loading,
+    isLoading: loading,
     error,
     refetch,
   };

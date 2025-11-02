@@ -26,7 +26,9 @@ export interface SchoolAddEditContextType {
   ) => Promise<ApiResponse<SchoolDto> | null>;
   updateProperties: (
     data: number[],
-    mutationOptions?: MutationOptions<ApiResponse<any>, number[]>
+    mutationOptions?: MutationOptions<ApiResponse<any>, number[]> & {
+      schoolId?: number;
+    }
   ) => Promise<ApiResponse<any> | null>;
 
   // Dropdown options
