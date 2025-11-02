@@ -12,6 +12,8 @@ import {
   useCampusesByBrand,
   useLanguageOptions,
   usePropertyValues,
+  useSchoolProperties,
+  useUpdateSchoolProperties,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 
@@ -82,10 +84,45 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     getGroupsByInstitutionTypeId,
   } = usePropertyValues();
 
+  // School properties hook'u (edit mode için mevcut property'leri çek)
+  // ✅ Sıralı yükleme: School ve Institution Types yüklendikten SONRA properties çek
+  const shouldFetchProperties =
+    isEditing &&
+    schoolId &&
+    !schoolLoading &&
+    !institutionTypesLoading &&
+    school?.institutionType?.id;
+
+  console.log("🔍 Context - Should Fetch Properties:", {
+    isEditing,
+    schoolId,
+    schoolLoading,
+    institutionTypesLoading,
+    institutionTypeId: school?.institutionType?.id,
+    shouldFetchProperties,
+  });
+
+  const {
+    properties: schoolProperties,
+    propertyTypeIds: schoolPropertyTypeIds,
+    loading: schoolPropertiesLoading,
+    error: schoolPropertiesError,
+    refetch: refetchProperties,
+  } = useSchoolProperties({
+    schoolId: shouldFetchProperties ? schoolId : null,
+  });
+
+  // Update school properties hook'u (edit mode için)
+  const {
+    updateProperties,
+    isLoading: updatePropertiesLoading,
+    error: updatePropertiesError,
+  } = useUpdateSchoolProperties(schoolId || 0, refetchProperties);
+
   const contextValue: SchoolAddEditContextType = {
     // Current school data
     school,
-    schoolLoading: schoolLoading || addLoading || editLoading,
+    schoolLoading, // Sadece school fetch loading
     schoolError: schoolError || addError || editError,
 
     // Edit mode state
@@ -96,6 +133,7 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     fetchSchool: refetch,
     postSchool,
     putSchool,
+    updateProperties,
 
     // Dropdown options
     campusOptions,
@@ -108,9 +146,16 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     propertyValuesError,
     getGroupsByInstitutionTypeId,
 
+    // School properties (edit mode)
+    schoolProperties,
+    schoolPropertyTypeIds,
+    schoolPropertiesLoading,
+    schoolPropertiesError,
+
     // Loading states
     campusesLoading,
     institutionTypesLoading,
+    isSubmitting: addLoading || editLoading || updatePropertiesLoading, // Submit loading
 
     // Errors
     campusesError: campusesError || null,

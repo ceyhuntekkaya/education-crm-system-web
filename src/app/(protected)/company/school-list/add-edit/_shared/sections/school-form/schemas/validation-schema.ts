@@ -29,7 +29,20 @@ export const validationSchema = Yup.object({
     .min(0, "Ortalama sınıf büyüklüğü 0'dan küçük olamaz")
     .optional(),
   curriculumType: Yup.string().optional(),
-  languageOfInstruction: Yup.string().optional(),
+  // languageOfInstruction: Yup.string().optional(),
+  // foreignLanguages: Yup.mixed().optional(), // String veya array olabilir
+
+  // // Pricing
+  // registrationFee: Yup.number()
+  //   .min(0, "Kayıt ücreti 0'dan küçük olamaz")
+  //   .optional(),
+  // monthlyFee: Yup.number().min(0, "Aylık ücret 0'dan küçük olamaz").optional(),
+  // annualFee: Yup.number().min(0, "Yıllık ücret 0'dan küçük olamaz").optional(),
+
+  // Property Values - Ek Özellikler
+  propertyValues: Yup.array().of(Yup.string()).optional(),
+  propertyTypeIds: Yup.array().of(Yup.number()).optional(),
+
   // SEO
   metaTitle: Yup.string()
     .max(60, "Meta başlık en fazla 60 karakter olabilir")

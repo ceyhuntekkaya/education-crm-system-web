@@ -32,7 +32,8 @@ export const SchoolFormContent: React.FC = () => {
     isEditing,
     postSchool,
     putSchool,
-    schoolLoading,
+    updateProperties,
+    isSubmitting,
     campusOptions,
     institutionTypeOptions,
     languageOptions,
@@ -52,6 +53,12 @@ export const SchoolFormContent: React.FC = () => {
   }, [values?.institutionTypeId, getGroupsByInstitutionTypeId]);
 
   const handleSubmit = async (values: any) => {
+    // PropertyValues'i number array'ine çevir
+    const propertyTypeIds =
+      values.propertyValues && Array.isArray(values.propertyValues)
+        ? values.propertyValues.map((id: string) => Number(id))
+        : [];
+
     const formData: SchoolCreateDto = {
       ...values,
       // Sayısal alanları number'a çevir
@@ -68,18 +75,22 @@ export const SchoolFormContent: React.FC = () => {
       classSizeAverage: values.classSizeAverage
         ? Number(values.classSizeAverage)
         : undefined,
-      // PropertyValues string array'ini number array'ine çevir
-      propertyTypeIds:
-        values.propertyValues && Array.isArray(values.propertyValues)
-          ? values.propertyValues.map((id: string) => Number(id))
-          : undefined,
+      // PropertyValues - Add modunda gönder, Edit modunda ayrı endpoint'e gönderilecek
+      propertyTypeIds: isEditing ? undefined : propertyTypeIds,
     };
 
     if (isEditing) {
-      // Edit modunda sadece UpdateDto'daki alanları gönder
+      // Edit modunda:
+      // 1. Önce school bilgilerini güncelle
       const filteredData = filterDataForEdit(formData) as SchoolCreateDto;
-      await putSchool(filteredData);
+      const schoolUpdateResponse = await putSchool(filteredData);
+
+      // 2. School güncelleme başarılıysa, property'leri güncelle
+      if (schoolUpdateResponse && "success" in schoolUpdateResponse) {
+        await updateProperties(propertyTypeIds);
+      }
     } else {
+      // Add modunda normal akış
       await postSchool(formData);
     }
   };
@@ -362,12 +373,12 @@ export const SchoolFormContent: React.FC = () => {
             type="button"
             variant="outline"
             onClick={handleCancel}
-            disabled={schoolLoading}
+            disabled={isSubmitting}
           >
             İptal
           </Button>
-          <Button type="submit" disabled={hasErrors || schoolLoading}>
-            {schoolLoading
+          <Button type="submit" disabled={hasErrors || isSubmitting}>
+            {isSubmitting
               ? "Kaydediliyor..."
               : isEditing
               ? "Güncelle"
