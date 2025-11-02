@@ -24,6 +24,7 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     | "url"
     | "search"
     | "date"
+    | "datetime-local"
     | "color"
     | "cardNumber"
     | "expiryMonth"

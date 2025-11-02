@@ -33,12 +33,39 @@ export const PostFormContent: React.FC = () => {
   } = usePostAddEdit();
 
   const handleSubmit = async (values: any) => {
+    // Tarih alanlarını ISO 8601 formatına çevir
+    const formatDateToISO = (
+      dateString: string | undefined
+    ): string | undefined => {
+      if (!dateString) return undefined;
+
+      // Eğer zaten ISO formatında değilse, datetime-local formatından ISO'ya çevir
+      if (
+        dateString &&
+        !dateString.includes("Z") &&
+        !dateString.includes("+")
+      ) {
+        // datetime-local input'u 'YYYY-MM-DDTHH:mm' formatında gelir
+        // ISO 8601 formatına çevirmek için 'Z' ekle (UTC timezone)
+        return `${dateString}:00Z`;
+      }
+
+      return dateString;
+    };
+
+    const formattedValues = {
+      ...values,
+      scheduledAt: formatDateToISO(values.scheduledAt),
+      expiresAt: formatDateToISO(values.expiresAt),
+      pinExpiresAt: formatDateToISO(values.pinExpiresAt),
+    };
+
     if (isEditing) {
-      const filteredData = filterDataForEdit(values) as PostUpdateDto;
+      const filteredData = filterDataForEdit(formattedValues) as PostUpdateDto;
       await putPost(filteredData);
     } else {
       const formData: PostCreateDto = {
-        ...values,
+        ...formattedValues,
         schoolId: selectedSchool?.id || 0,
       };
       await postPost(formData);
@@ -117,8 +144,8 @@ export const PostFormContent: React.FC = () => {
           <FormInput
             name="scheduledAt"
             label="Zamanlanmış Tarih"
-            type="date"
-            placeholder="Tarih seçiniz..."
+            type="datetime-local"
+            placeholder="Tarih ve saat seçiniz..."
           />
         </div>
 
@@ -126,8 +153,8 @@ export const PostFormContent: React.FC = () => {
           <FormInput
             name="expiresAt"
             label="Son Kullanma Tarihi"
-            type="date"
-            placeholder="Tarih seçiniz..."
+            type="datetime-local"
+            placeholder="Tarih ve saat seçiniz..."
           />
         </div>
 
@@ -234,8 +261,8 @@ export const PostFormContent: React.FC = () => {
           <FormInput
             name="pinExpiresAt"
             label="Pin Bitiş Tarihi"
-            type="date"
-            placeholder="Tarih seçiniz..."
+            type="datetime-local"
+            placeholder="Tarih ve saat seçiniz..."
           />
         </div>
 
