@@ -43,14 +43,13 @@ export const validationSchema = Yup.object({
         itemType: Yup.string()
           .oneOf(Object.values(MediaType), "Geçersiz medya tipi")
           .required("Medya tipi gereklidir"),
-        fileUrl: Yup.string()
-          .url("Geçerli bir URL olmalıdır")
-          .required("Dosya URL'si gereklidir"),
+        fileUrl: Yup.string().required("Dosya URL'si gereklidir"),
         fileName: Yup.string().required("Dosya adı gereklidir"),
         sortOrder: Yup.number()
           .min(0, "Sıralama 0'dan küçük olamaz")
-          .optional(),
+          .required("Sıralama gereklidir"),
       })
     )
-    .optional(),
+    .optional()
+    .nullable(),
 });

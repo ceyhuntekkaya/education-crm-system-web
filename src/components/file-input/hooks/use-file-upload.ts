@@ -173,10 +173,11 @@ export const useFileUpload = ({
 
                   // Yeni yüklenen dosyaları items formatına çevir
                   const newItems = response.map((file: any, index: number) => ({
-                    itemType: file.mediaType || MediaType.IMAGE,
+                    itemType:
+                      file.itemType || file.mediaType || MediaType.IMAGE,
                     fileUrl: file.fileUrl, // Backend'den gelen path
-                    fileName: file.originalFileName || file.fileName,
-                    sortOrder: oldItems.length + index + 1,
+                    fileName: file.fileName || file.originalFileName,
+                    sortOrder: file.sortOrder || oldItems.length + index + 1,
                   }));
 
                   // Eski ve yeni dosyaları birleştir

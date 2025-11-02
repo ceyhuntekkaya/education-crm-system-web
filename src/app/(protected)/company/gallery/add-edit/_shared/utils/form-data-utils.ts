@@ -8,6 +8,16 @@ import { GalleryDto } from "@/types";
 export const transformGalleryToFormData = (gallery: GalleryDto | null): any => {
   if (!gallery) return null;
 
+  // Items'ı backend formatından form formatına dönüştür
+  const transformedItems = gallery.items
+    ? gallery.items.map((item) => ({
+        itemType: item.itemType,
+        fileUrl: item.fileUrl,
+        fileName: item.fileName,
+        sortOrder: item.sortOrder,
+      }))
+    : [];
+
   return {
     title: gallery.title || "",
     description: gallery.description || "",
@@ -21,6 +31,6 @@ export const transformGalleryToFormData = (gallery: GalleryDto | null): any => {
     metaTitle: gallery.metaTitle || "",
     metaDescription: gallery.metaDescription || "",
     tags: gallery.tags || "",
-    items: gallery.items || [],
+    items: transformedItems,
   };
 };
