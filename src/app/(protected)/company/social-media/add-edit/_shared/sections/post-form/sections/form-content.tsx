@@ -26,7 +26,7 @@ export const PostFormContent: React.FC = () => {
     isEditing,
     postPost,
     putPost,
-    postLoading,
+    postSubmitLoading, // Form submit loading
     postId,
     postTypeOptions,
     postStatusOptions,
@@ -195,6 +195,28 @@ export const PostFormContent: React.FC = () => {
           </div>
         </div>
 
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
+        {/* Medya Ekleri - Multi File Upload */}
+        <div className="col-12">
+          <div className="d-flex flex-column gap-16">
+            <h5>Medya Ekleri (Çoklu Yükleme)</h5>
+            <FileInput
+              label="Medya Ekleri (Çoklu Yükleme)"
+              type="all"
+              variant="outline"
+              placeholder="Dosyaları yüklemek için tıklayın veya sürükleyin (Çoklu seçim yapabilirsiniz)"
+              maxSize={100}
+              maxFiles={20}
+              uploadButtonText="Dosyaları Yükle"
+              name="items"
+              multiple
+            />
+          </div>
+        </div>
+
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
         <div className="col-12">
           <h5 className="mb-16 mt-16">Ayarlar</h5>
         </div>
@@ -320,14 +342,14 @@ export const PostFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={postLoading}
+              disabled={postSubmitLoading}
             >
               İptal
             </Button>
             <Button
               type="submit"
-              disabled={hasErrors || postLoading}
-              loading={postLoading}
+              disabled={hasErrors || postSubmitLoading}
+              loading={postSubmitLoading}
             >
               {isEditing ? "Güncelle" : "Kaydet"}
             </Button>

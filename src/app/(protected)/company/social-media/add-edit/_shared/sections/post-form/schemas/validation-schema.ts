@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { MediaType } from "@/enums";
 
 /**
  * Post form validation schema
@@ -52,4 +53,21 @@ export const validationSchema = Yup.object({
   locationName: Yup.string().optional(),
   latitude: Yup.number().min(-90).max(90).optional(),
   longitude: Yup.number().min(-180).max(180).optional(),
+
+  // Items (multi file upload)
+  items: Yup.array()
+    .of(
+      Yup.object({
+        itemType: Yup.string()
+          .oneOf(Object.values(MediaType), "Geçersiz medya tipi")
+          .required("Medya tipi gereklidir"),
+        fileUrl: Yup.string().required("Dosya URL'si gereklidir"),
+        fileName: Yup.string().required("Dosya adı gereklidir"),
+        sortOrder: Yup.number()
+          .min(0, "Sıralama 0'dan küçük olamaz")
+          .required("Sıralama gereklidir"),
+      })
+    )
+    .optional()
+    .nullable(),
 });

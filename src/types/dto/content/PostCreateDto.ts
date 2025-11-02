@@ -1,4 +1,5 @@
 import { PostType, PostStatus } from "@/enums";
+import { PostItemDto } from "./PostItemDto";
 
 export interface PostCreateDto {
   schoolId: number;
@@ -38,4 +39,7 @@ export interface PostCreateDto {
   locationName?: string;
   latitude?: number;
   longitude?: number;
+
+  // Toplu Item Oluşturma
+  items?: PostItemDto[];
 }

@@ -1,6 +1,7 @@
 import { SchoolSummaryDto } from "../institution";
 import { UserSummaryDto } from "../user";
 import { PostType, PostStatus } from "@/enums";
+import { PostItemDto } from "./PostItemDto";
 
 export interface PostDto {
   id: number;
@@ -64,6 +65,7 @@ export interface PostDto {
   // Relationships
   school?: SchoolSummaryDto;
   author?: UserSummaryDto;
+  items?: PostItemDto[];
   isActive: boolean;
   createdAt: string; // ISO datetime string
 }

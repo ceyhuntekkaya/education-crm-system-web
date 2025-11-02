@@ -1,4 +1,5 @@
 import { PostStatus } from "@/enums";
+import { PostItemDto } from "./PostItemDto";
 
 export interface PostUpdateDto {
   title?: string;
@@ -30,4 +31,7 @@ export interface PostUpdateDto {
   externalUrl?: string;
   callToAction?: string;
   ctaUrl?: string;
+
+  // Toplu Item Güncelleme
+  items?: PostItemDto[];
 }

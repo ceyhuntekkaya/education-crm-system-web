@@ -42,4 +42,7 @@ export const initialValues: PostFormData = {
   locationName: "",
   latitude: undefined,
   longitude: undefined,
+
+  // Items (multi file upload)
+  items: [],
 };

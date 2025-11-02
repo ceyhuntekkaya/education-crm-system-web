@@ -51,7 +51,8 @@ export const PostAddEditProvider: React.FC<PostAddEditProviderProps> = ({
   const contextValue: PostAddEditContextType = {
     // Current post data
     post,
-    postLoading: postLoading || addLoading || editLoading,
+    postDetailLoading: postLoading, // Sadece veri çekerken
+    postSubmitLoading: addLoading || editLoading, // Form submit edilirken
     postError: postError || addError || editError,
 
     // Edit mode state

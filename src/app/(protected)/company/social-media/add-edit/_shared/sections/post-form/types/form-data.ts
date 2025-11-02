@@ -1,4 +1,4 @@
-import { PostType, PostStatus } from "@/enums";
+import { PostType, PostStatus, MediaType } from "@/enums";
 
 export interface PostFormData {
   // Required fields
@@ -41,4 +41,12 @@ export interface PostFormData {
   locationName?: string;
   latitude?: number;
   longitude?: number;
+
+  // Items (multi file upload)
+  items?: Array<{
+    itemType: MediaType;
+    fileUrl: string;
+    fileName: string;
+    sortOrder?: number;
+  }>;
 }
