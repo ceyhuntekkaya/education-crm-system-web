@@ -49,8 +49,6 @@ export const GalleryFormContent: React.FC = () => {
     reset();
   };
 
-  console.log("values.items => ", values.items);
-
   return (
     <Form onSubmit={handleSubmit}>
       <FormValues />

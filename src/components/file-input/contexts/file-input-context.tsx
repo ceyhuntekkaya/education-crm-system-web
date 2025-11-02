@@ -30,6 +30,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   disabled = false,
   loading: externalLoading = false,
   isAutoUpload = false,
+  initialValue,
   name,
   onUpload,
   onUploadSuccess,
@@ -38,7 +39,11 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
 }) => {
   // Form context'ten value al (eğer name varsa)
   const { getValue } = useForm();
-  const initialValue = name ? getValue(name) : undefined;
+  const formInitialValue = name ? getValue(name) : undefined;
+
+  // initialValue prop'u varsa onu kullan, yoksa form'dan gelen değeri kullan
+  const finalInitialValue =
+    initialValue !== undefined ? initialValue : formInitialValue;
 
   // Context state hook - Tüm internal state'ler
   const {
@@ -64,7 +69,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     hasNewFiles,
   } = useFileManagement({
     value: undefined,
-    initialValue, // Form'dan gelen URL değeri
+    initialValue: finalInitialValue, // Form'dan veya prop'tan gelen değer
     onChange: handleInternalChange,
     onError: handleInternalError,
     type,

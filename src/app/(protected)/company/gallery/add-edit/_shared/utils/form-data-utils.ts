@@ -21,5 +21,6 @@ export const transformGalleryToFormData = (gallery: GalleryDto | null): any => {
     metaTitle: gallery.metaTitle || "",
     metaDescription: gallery.metaDescription || "",
     tags: gallery.tags || "",
+    items: gallery.items || [],
   };
 };

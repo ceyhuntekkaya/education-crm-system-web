@@ -108,6 +108,9 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
   loading = false,
   isAutoUpload = false,
 
+  // Initial value
+  initialValue,
+
   // Upload API props
   name,
   onUpload,
@@ -126,6 +129,7 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
       disabled={disabled}
       loading={loading}
       isAutoUpload={isAutoUpload}
+      initialValue={initialValue}
       name={name}
       onUpload={onUpload}
       onUploadSuccess={onUploadSuccess}
