@@ -24,4 +24,7 @@ export const initialValues: GalleryFormData = {
   // IDs
   brandId: undefined,
   campusId: undefined,
+
+  // Items (multi file upload)
+  items: [],
 };

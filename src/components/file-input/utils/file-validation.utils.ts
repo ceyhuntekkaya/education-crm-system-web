@@ -138,6 +138,11 @@ export const getFileIcon = (type: FileInputType): string => {
  * Dosya tipine göre spesifik icon döner
  */
 export const getFileTypeIcon = (fileName: string): string => {
+  // fileName kontrolü
+  if (!fileName || typeof fileName !== "string") {
+    return "ph-file";
+  }
+
   const extension = fileName.split(".").pop()?.toLowerCase();
 
   switch (extension) {
@@ -183,6 +188,10 @@ export const formatFileSize = (bytes: number | undefined): string => {
  * Dosya uzantısını alır
  */
 export const getFileExtension = (filename: string): string => {
+  // filename kontrolü
+  if (!filename || typeof filename !== "string") {
+    return "";
+  }
   return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
 };
 
@@ -190,6 +199,11 @@ export const getFileExtension = (filename: string): string => {
  * Dosya adından kullanıcı dostu tip ismi döner
  */
 export const getFriendlyFileType = (fileName: string): string => {
+  // fileName kontrolü
+  if (!fileName || typeof fileName !== "string") {
+    return "FILE";
+  }
+
   const extension = fileName.split(".").pop()?.toLowerCase();
 
   const typeMap: { [key: string]: string } = {

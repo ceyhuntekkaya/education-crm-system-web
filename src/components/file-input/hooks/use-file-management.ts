@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { FileWithPreview, FileValidationResult } from "../types/file.types";
 import { validateFiles, createPreviewUrl, cleanupPreviewUrls } from "../utils";
+import { getFileServeUrl } from "@/lib/api/constants";
 
 /**
  * Dosya yönetimi hook'u - dosya seçme, ekleme, çıkarma
@@ -209,14 +210,70 @@ export const useFileManagement = (props: {
     [files, multiple, onChange, onError]
   );
 
-  // Yeni dosya var mı kontrolü (placeholder olmayan)
-  const hasNewFiles = files.some((file) => file.size > 0);
+  // Dosyaları "yüklenmiş" olarak işaretle
+  const markFilesAsUploaded = useCallback(
+    (uploadedFilesData?: any[]) => {
+      // Eğer server response'u varsa, ondan placeholder dosyalar oluştur
+      if (uploadedFilesData && Array.isArray(uploadedFilesData)) {
+        const placeholderFiles: FileWithPreview[] = uploadedFilesData.map(
+          (fileData) => {
+            const fileName =
+              fileData.originalFileName || fileData.fileName || "uploaded-file";
+            const fileUrl = fileData.fileUrl
+              ? getFileServeUrl(fileData.fileUrl)
+              : "";
+            const mimeType = fileData.mimeType || "application/octet-stream";
+
+            // Placeholder file oluştur
+            const placeholderFile = {
+              name: fileName,
+              size: 0, // Placeholder için size 0
+              type: mimeType,
+              preview: fileUrl, // Server'dan gelen URL'yi preview olarak kullan
+              lastModified: Date.now(),
+              arrayBuffer: async () => new ArrayBuffer(0),
+              slice: () => new Blob(),
+              stream: () => new ReadableStream(),
+              text: async () => "",
+              webkitRelativePath: "",
+              isUploaded: true, // Yüklenmiş olarak işaretle
+            } as unknown as FileWithPreview;
+
+            return placeholderFile;
+          }
+        );
+
+        setFiles(placeholderFiles);
+      } else {
+        // Response yoksa, mevcut dosyaları işaretle (eski davranış)
+        const uploadedFiles = files.map((file) => {
+          const uploadedFile = Object.assign(
+            Object.create(Object.getPrototypeOf(file)),
+            file,
+            {
+              isUploaded: true,
+              size: 0,
+            }
+          );
+          return uploadedFile as FileWithPreview;
+        });
+        setFiles(uploadedFiles);
+      }
+    },
+    [files]
+  );
+
+  // Yeni dosya var mı kontrolü (placeholder olmayan ve yüklenmemiş)
+  const hasNewFiles = files.some(
+    (file) => file.size > 0 && !(file as any).isUploaded
+  );
 
   return {
     files,
     loading,
     processFiles,
     removeFile,
+    markFilesAsUploaded,
     hasNewFiles,
   };
 };

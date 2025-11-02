@@ -36,6 +36,7 @@ export interface FileInputContextValue {
   files: FileWithPreview[];
   processFiles: (fileList: FileList) => Promise<void>;
   removeFile: (index: number) => void;
+  markFilesAsUploaded: (uploadedFilesData?: any[]) => void; // Yüklenen dosya metadata'sını alır
   hasNewFiles: boolean; // Yeni dosya var mı (placeholder olmayan)
 
   // Loading States

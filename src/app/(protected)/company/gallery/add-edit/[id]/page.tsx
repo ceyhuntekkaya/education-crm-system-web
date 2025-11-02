@@ -37,8 +37,8 @@ const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = () => {
         <GalleryForm isEditing={isEditing} initialData={gallery} />
       </CustomCard>
 
-      {/* Gallery Items Form - Her zaman göster */}
-      <CustomCard
+      {/* Gallery Items Form - Şimdilik yorum satırında */}
+      {/* <CustomCard
         title="Galeri Öğeleri"
         subtitle={
           isEditing
@@ -48,7 +48,7 @@ const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = () => {
         className="mt-24"
       >
         <GalleryItemForm />
-      </CustomCard>
+      </CustomCard> */}
     </>
   );
 };

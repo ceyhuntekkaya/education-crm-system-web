@@ -1,4 +1,4 @@
-import { GalleryType, GalleryVisibility } from "@/enums";
+import { GalleryType, GalleryVisibility, MediaType } from "@/enums";
 
 export interface GalleryFormData {
   // Required fields
@@ -23,4 +23,12 @@ export interface GalleryFormData {
   // IDs (optional, for brand/campus level)
   brandId?: number;
   campusId?: number;
+
+  // Items (multi file upload)
+  items?: Array<{
+    itemType: MediaType;
+    fileUrl: string;
+    fileName: string;
+    sortOrder?: number;
+  }>;
 }

@@ -215,8 +215,8 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
   };
 
   const renderFileCard = (file: FileWithPreview, index: number) => {
-    // Placeholder file mı kontrol et (size = 0)
-    const isPlaceholder = file.size === 0;
+    // Placeholder file mı kontrol et (size = 0 veya isUploaded flag)
+    const isPlaceholder = file.size === 0 || (file as any).isUploaded;
 
     return (
       <div key={index}>
@@ -232,7 +232,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
             />
           )}
 
-          {/* Placeholder badge */}
+          {/* Placeholder/Mevcut badge - Multiple modda her yüklenmiş dosya için göster */}
           {isPlaceholder && (
             <div className="position-absolute top-0 start-0 mt-24 ms-24 z-1">
               <span className="badge bg-info-100 text-info-700 text-xs fw-medium px-8 py-4 rounded-6">
@@ -253,7 +253,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
             <div className="mt-auto">
               <div className="d-flex align-items-center justify-content-between">
                 {/* Eğer dosya boyutu 0 ise (placeholder), boyutu gösterme */}
-                {file.size > 0 && (
+                {file.size > 0 && !isPlaceholder && (
                   <span className="text-neutral-500 text-sm fw-medium">
                     {formatFileSize(file.size)}
                   </span>

@@ -46,6 +46,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     handleInternalError,
     clearError,
     internalLoading,
+    setInternalLoading,
     handleInternalChange,
     handleInternalUpload,
   } = useContextState();
@@ -54,18 +55,24 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   const acceptAttribute = getAcceptAttribute(type);
 
   // Core hook'ları kullan
-  const { files, loading, processFiles, removeFile, hasNewFiles } =
-    useFileManagement({
-      value: undefined,
-      initialValue, // Form'dan gelen URL değeri
-      onChange: handleInternalChange,
-      onError: handleInternalError,
-      type,
-      multiple,
-      maxSize,
-      maxFiles,
-      acceptAttribute,
-    });
+  const {
+    files,
+    loading,
+    processFiles,
+    removeFile,
+    markFilesAsUploaded,
+    hasNewFiles,
+  } = useFileManagement({
+    value: undefined,
+    initialValue, // Form'dan gelen URL değeri
+    onChange: handleInternalChange,
+    onError: handleInternalError,
+    type,
+    multiple,
+    maxSize,
+    maxFiles,
+    acceptAttribute,
+  });
 
   const { dragActive, handleDrag, handleDrop } = useDragAndDrop(
     disabled,
@@ -87,6 +94,8 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     onUploadSuccess,
     onUploadError,
     onInternalError: handleInternalError,
+    setInternalLoading, // Loading state setter'ını geç
+    markFilesAsUploaded, // Yükleme başarılı olunca dosyaları işaretle
   });
 
   // Context handlers hook - Event handler'lar
@@ -108,6 +117,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     files,
     processFiles,
     removeFile,
+    markFilesAsUploaded,
     hasNewFiles,
 
     // Loading States
