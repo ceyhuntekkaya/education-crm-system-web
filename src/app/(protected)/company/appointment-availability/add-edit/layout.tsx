@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { SlotAddEditProvider } from "./_shared";
 
 interface AppointmentAddEditRootLayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ interface AppointmentAddEditRootLayoutProps {
 const AppointmentAddEditRootLayout: React.FC<
   AppointmentAddEditRootLayoutProps
 > = ({ children }) => {
-  return <div>{children}</div>;
+  return <SlotAddEditProvider>{children}</SlotAddEditProvider>;
 };
 
 export default AppointmentAddEditRootLayout;
