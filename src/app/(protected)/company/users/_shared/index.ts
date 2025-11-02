@@ -4,6 +4,7 @@ export * from "./config";
 export * from "./mock";
 export * from "./sections";
 export * from "./types";
+export * from "./hooks";
 
 // Utils exports (avoiding conflicts with mock)
 export {

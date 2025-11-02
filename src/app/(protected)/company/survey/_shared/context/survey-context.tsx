@@ -1,47 +1,120 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { SurveyDto } from "@/types/dto/survey/SurveyDto";
-import { SurveyContextType } from "../types";
-import { mockSurveys } from "../mock/survey-mock-data";
+import React, { createContext, useContext, ReactNode, useState } from "react";
+import { SurveyListContextType } from "../types/survey.types";
+import { useSurveys as useSurveysHook } from "../hooks/use-surveys";
+import { usePost } from "@/hooks";
+import { API_ENDPOINTS } from "@/lib";
+import { useSnackbar } from "@/contexts/snackbar-context";
+import { SurveyResponseDto } from "@/types";
 
-// Create context
-const SurveyContext = createContext<SurveyContextType | undefined>(undefined);
+const SurveyListContext = createContext<SurveyListContextType | undefined>(
+  undefined
+);
 
-// Provider component
-export const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
+interface SurveyListProviderProps {
+  children: ReactNode;
+}
+
+export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
   children,
 }) => {
-  const [surveys] = useState<SurveyDto[]>(mockSurveys);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [selectedSurvey, setSelectedSurvey] = useState<SurveyDto | null>(null);
-
-  const refreshSurveys = useCallback(() => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  const value: SurveyContextType = {
+  // Use the surveys hook
+  const {
     surveys,
-    loading,
+    loading: surveyLoading,
+    error: surveyError,
+    refetch: refetchSurveys,
+  } = useSurveysHook();
+
+  // Modal state
+  const [selectedSurvey, setSelectedSurvey] =
+    useState<SurveyResponseDto | null>(null);
+  const [evaluationModalOpen, setEvaluationModalOpen] = useState(false);
+
+  // Snackbar for notifications
+  const { showSnackbar } = useSnackbar();
+
+  // Survey evaluation submission - company endpoint kullanacağız
+  const {
+    mutate: submitSurveyEvaluation,
+    loading: submissionLoading,
+    error: submissionError,
+  } = usePost<any, any>(API_ENDPOINTS.SURVEYS.EVALUATE);
+
+  // Modal actions
+  const openEvaluationModal = (survey: SurveyResponseDto) => {
+    setSelectedSurvey(survey);
+    setEvaluationModalOpen(true);
+  };
+
+  const closeEvaluationModal = () => {
+    setSelectedSurvey(null);
+    setEvaluationModalOpen(false);
+  };
+
+  // Row click handler
+  const handleRowClick = (params: any) => {
+    openEvaluationModal(params.row);
+  };
+
+  // Submit evaluation function - Sadece görüntüleme için (evaluation sonuçları)
+  const submitEvaluation = async (formData: any) => {
+    if (!selectedSurvey) return;
+
+    try {
+      const requestData = {
+        surveyId: selectedSurvey.id,
+        responses: formData,
+      };
+
+      // Bu protected tarafta sadece görüntüleme amaçlı olacak
+      // Gerçek submission yapmayacağız, sadece modal'ı kapatacağız
+      showSnackbar("Anket değerlendirmesi görüntülendi!", "info");
+
+      closeEvaluationModal();
+    } catch (error) {
+      showSnackbar("Bir hata oluştu. Lütfen tekrar deneyin.", "error");
+    }
+  };
+
+  const contextValue: SurveyListContextType = {
+    // Survey data
+    surveys,
+    surveyLoading,
+    surveyError,
+    refetchSurveys,
+
+    // Modal state
     selectedSurvey,
-    setSelectedSurvey,
-    refreshSurveys,
+    evaluationModalOpen,
+
+    // Modal actions
+    openEvaluationModal,
+    closeEvaluationModal,
+    handleRowClick,
+
+    // Evaluation submission
+    submitEvaluation,
+    submissionLoading,
+    submissionError,
   };
 
   return (
-    <SurveyContext.Provider value={value}>{children}</SurveyContext.Provider>
+    <SurveyListContext.Provider value={contextValue}>
+      {children}
+    </SurveyListContext.Provider>
   );
 };
 
-// Hook to use survey context
-export const useSurvey = (): SurveyContextType => {
-  const context = useContext(SurveyContext);
+export const useSurveyList = (): SurveyListContextType => {
+  const context = useContext(SurveyListContext);
   if (context === undefined) {
-    throw new Error("useSurvey must be used within a SurveyProvider");
+    throw new Error("useSurveyList must be used within a SurveyListProvider");
   }
   return context;
 };
+
+// Backwards compatibility
+export const SurveyProvider = SurveyListProvider;
+export const useSurvey = useSurveyList;

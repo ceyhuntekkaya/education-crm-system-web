@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Form,
   FormInput,
@@ -12,8 +12,11 @@ import { Button } from "@/components/ui/button";
 import { AppointmentNoteFormData } from "../types/form-data";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
+import { useAuth } from "@/contexts";
 import { useAppointmentDetail } from "../../../context/appointment-detail-context";
 import { noteTypeOptions, noSaleReasonOptions } from "../options";
+import { NoteType } from "@/enums";
+import { AppointmentNoteCreateDto } from "@/types/dto/appointment/AppointmentNoteCreateDto";
 
 /**
  * Appointment note form content component
@@ -22,25 +25,36 @@ export const AppointmentNoteFormContent: React.FC = () => {
   // Form hook - validation ve error kontrolü için
   const { hasErrors } = useFormHook();
 
-  // Form reset hook'u
-  const { reset } = useForm();
+  // Form reset hook'u ve form değerleri
+  const { reset, values, setValue } = useForm();
 
-  // Context'ten note işlemlerini al
-  const {
-    addNote,
-    noteAddLoading: noteLoading,
-    noteAddError: noteError,
-  } = useAppointmentDetail();
+  // Auth context'ten user bilgisi al
+  const { user } = useAuth();
 
-  const handleSubmit = async (values: AppointmentNoteFormData) => {
-    const success = await addNote(values);
-    if (success) {
-      reset(); // Form'u temizle
+  // Context'ten tüm gerekli değerleri al
+  const { appointmentId, addNote, noteAddLoading, noteAddError } =
+    useAppointmentDetail();
+
+  const handleSubmit = async (formValues: AppointmentNoteFormData) => {
+    if (!user?.id) {
+      console.error("Kullanıcı bilgisi bulunamadı");
+      return;
     }
-  };
 
-  const handleCancel = () => {
-    reset();
+    // Form values'ı tam AppointmentNoteCreateDto'ya dönüştür
+    const createDto: AppointmentNoteCreateDto = {
+      ...formValues,
+      appointmentId,
+      authorUserId: user.id,
+    };
+
+    // Note ekleme işlemi
+    const result = await addNote(createDto);
+
+    // Başarılı olursa formu resetle
+    if (result) {
+      reset();
+    }
   };
 
   return (
@@ -57,28 +71,28 @@ export const AppointmentNoteFormContent: React.FC = () => {
         </div>
 
         {/* Not İçeriği */}
-        <div className="col-12">
-          <FormTextarea
-            name="note"
-            label="Not"
-            placeholder="Randevu notu yazınız..."
-            rows={4}
-            required
-            maxLength={2000}
-          />
-        </div>
+        {values?.noteType === NoteType.REASON_FOR_NEGATIVITY ? (
+          <div className="col-12">
+            <FormAutocomplete
+              name="note"
+              label="Satış Olmama Sebebi"
+              placeholder="Satış gerçekleşmeme sebebini seçiniz..."
+              options={noSaleReasonOptions}
+            />
+          </div>
+        ) : (
+          <div className="col-12">
+            <FormTextarea
+              name="note"
+              label="Not"
+              placeholder="Randevu notu yazınız..."
+              rows={4}
+              maxLength={2000}
+            />
+          </div>
+        )}
 
-        {/* Satış Olmama Sebebi */}
-        <div className="col-12">
-          <FormAutocomplete
-            name="noSaleReason"
-            label="Satış Olmama Sebebi"
-            placeholder="Satış gerçekleşmeme sebebini seçiniz..."
-            options={noSaleReasonOptions}
-          />
-        </div>
-
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="attachmentUrl"
             label="Dosya URL'si"
@@ -111,21 +125,25 @@ export const AppointmentNoteFormContent: React.FC = () => {
             placeholder="1024"
             min={0}
           />
-        </div>
+        </div> */}
 
         {/* Özel ve Önemli Checkbox'ları */}
         <div className="col-6">
-          <FormCheckbox name="isPrivate" label="Özel Not" />
+          <FormCheckbox name="isPrivate" label="Özel Not" variant="outlined" />
         </div>
         <div className="col-6">
-          <FormCheckbox name="isImportant" label="Önemli Not" />
+          <FormCheckbox
+            name="isImportant"
+            label="Önemli Not"
+            variant="outlined"
+          />
         </div>
 
         {/* Hata Mesajı */}
-        {noteError && (
+        {noteAddError && (
           <div className="col-12">
             <div className="alert alert-danger" role="alert">
-              {noteError}
+              {noteAddError}
             </div>
           </div>
         )}
@@ -136,7 +154,7 @@ export const AppointmentNoteFormContent: React.FC = () => {
             type="button"
             variant="outline"
             onClick={handleCancel}
-            disabled={noteLoading}
+            disabled={noteAddLoading}
           >
             İptal
           </Button> */}
@@ -145,8 +163,8 @@ export const AppointmentNoteFormContent: React.FC = () => {
           <Button
             type="submit"
             variant="inline"
-            disabled={hasErrors || noteLoading}
-            loading={noteLoading}
+            disabled={hasErrors || noteAddLoading}
+            loading={noteAddLoading}
             fullWidth
           >
             Notu Kaydet

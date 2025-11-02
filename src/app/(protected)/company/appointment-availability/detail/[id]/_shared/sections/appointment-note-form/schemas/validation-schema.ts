@@ -22,15 +22,16 @@ export const validationSchema = Yup.object({
         "TECHNICAL_ISSUE",
         "RESCHEDULING",
         "CANCELLATION",
+        "REASON_FOR_NEGATIVITY",
         "REMINDER",
         "INTERNAL",
       ],
       "Geçersiz not türü"
     ),
 
-  // isPrivate: Yup.boolean().default(false),
+  isPrivate: Yup.boolean().default(false),
 
-  // isImportant: Yup.boolean().default(false),
+  isImportant: Yup.boolean().default(false),
 
   // attachmentUrl: Yup.string().optional().url("Geçerli bir URL giriniz"),
 

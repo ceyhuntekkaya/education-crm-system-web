@@ -7,8 +7,11 @@ import {
 export interface PricingAddEditContextType {
   // Current pricing data
   pricing: SchoolPricingDto | null;
-  pricingLoading: boolean;
+  dataLoading: boolean; // Sadece data fetch için
   pricingError: string | null;
+
+  // Form operations
+  formLoading: boolean; // Sadece form submit için
 
   // Edit mode state
   isEditing: boolean;

@@ -14,6 +14,7 @@ import { CustomFeeFormProps } from "./types/props";
  */
 export const CustomFeeForm: React.FC<CustomFeeFormProps> = ({
   className,
+  isEditing,
   initialData,
 }) => {
   // Düzenleme modunda mevcut data varsa onu kullan, yoksa default değerleri kullan

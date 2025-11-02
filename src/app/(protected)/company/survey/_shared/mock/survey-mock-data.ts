@@ -1,11 +1,12 @@
 import { SurveyDto } from "@/types/dto/survey/SurveyDto";
 import { SurveyQuestionDto } from "@/types/dto/survey/SurveyQuestionDto";
-import { 
+import { SurveyResponseDto } from "@/types/dto/survey/SurveyResponseDto";
+import {
   getStatusBadgeVariant,
   getSurveyTypeDisplay,
   getTriggerEventDisplay,
   formatCompletionRate,
-  calculateSurveyStats
+  calculateSurveyStats,
 } from "../utils/survey-utils";
 
 // Mock Survey Questions Data
@@ -13,7 +14,8 @@ const mockSurveyQuestions: SurveyQuestionDto[] = [
   {
     id: 1,
     surveyId: 1,
-    questionText: "Randevu deneyiminizi genel olarak nasıl değerlendiriyorsunuz?",
+    questionText:
+      "Randevu deneyiminizi genel olarak nasıl değerlendiriyorsunuz?",
     description: "Randevu sürecinin tamamını değerlendirin",
     questionType: "RATING_STAR",
     ratingCategory: "OVERALL_SATISFACTION",
@@ -61,7 +63,7 @@ const mockSurveyQuestions: SurveyQuestionDto[] = [
     ratingLabels: JSON.stringify({
       "1": "Çok Kötü",
       "5": "Orta",
-      "10": "Mükemmel"
+      "10": "Mükemmel",
     }),
     totalResponses: 89,
     averageRating: 7.8,
@@ -76,7 +78,8 @@ export const mockSurveys: SurveyDto[] = [
   {
     id: 1,
     title: "Randevu Memnuniyet Anketi",
-    description: "Randevu sürecinden sonra gelen otomatik memnuniyet anketi. Hizmet kalitemizi artırmak için görüşleriniz bizim için çok değerli.",
+    description:
+      "Randevu sürecinden sonra gelen otomatik memnuniyet anketi. Hizmet kalitemizi artırmak için görüşleriniz bizim için çok değerli.",
     surveyType: "APPOINTMENT_FEEDBACK",
     triggerEvent: "APPOINTMENT_COMPLETED",
     isActive: true,
@@ -90,11 +93,13 @@ export const mockSurveys: SurveyDto[] = [
     primaryColor: "#007bff",
     logoUrl: "https://picsum.photos/200/80?random=1",
     headerImageUrl: "https://picsum.photos/800/200?random=1",
-    welcomeMessage: "Merhaba! Randevu deneyiminiz hakkında görüşlerinizi almak istiyoruz.",
+    welcomeMessage:
+      "Merhaba! Randevu deneyiminiz hakkında görüşlerinizi almak istiyoruz.",
     thankYouMessage: "Teşekkürler! Görüşleriniz bizim için çok değerli.",
     completionRedirectUrl: "/tesekkurler",
     emailSubject: "Randevu Deneyiminizi Değerlendirin",
-    emailBody: "Merhaba, randevu deneyiminiz hakkında kısa bir anket hazırladık...",
+    emailBody:
+      "Merhaba, randevu deneyiminiz hakkında kısa bir anket hazırladık...",
     totalSent: 245,
     totalStarted: 198,
     totalCompleted: 148,
@@ -105,14 +110,15 @@ export const mockSurveys: SurveyDto[] = [
     questionCount: 8,
     estimatedDuration: "3-4 dakika",
     hasRatingQuestions: true,
-    questions: mockSurveyQuestions.filter(q => q.surveyId === 1),
+    questions: mockSurveyQuestions.filter((q) => q.surveyId === 1),
     createdAt: "2024-03-15T10:30:00Z",
     updatedAt: "2024-03-20T14:15:00Z",
   },
   {
     id: 2,
     title: "Okul Değerlendirme Anketi",
-    description: "Okulumuzun genel hizmet kalitesi, temizlik, personel davranışları ve tesisler hakkında değerlendirme anketi.",
+    description:
+      "Okulumuzun genel hizmet kalitesi, temizlik, personel davranışları ve tesisler hakkında değerlendirme anketi.",
     surveyType: "SCHOOL_RATING",
     triggerEvent: "PERIODIC",
     isActive: true,
@@ -129,7 +135,8 @@ export const mockSurveys: SurveyDto[] = [
     welcomeMessage: "Okulumuz hakkındaki görüşleriniz bizim için çok önemli!",
     thankYouMessage: "Değerli görüşleriniz için teşekkür ederiz!",
     emailSubject: "Okul Değerlendirme Anketi",
-    emailBody: "Okulumuzun hizmet kalitesini artırmak için görüşlerinize ihtiyacımız var...",
+    emailBody:
+      "Okulumuzun hizmet kalitesini artırmak için görüşlerinize ihtiyacımız var...",
     totalSent: 156,
     totalStarted: 134,
     totalCompleted: 91,
@@ -140,14 +147,15 @@ export const mockSurveys: SurveyDto[] = [
     questionCount: 12,
     estimatedDuration: "6-8 dakika",
     hasRatingQuestions: true,
-    questions: mockSurveyQuestions.filter(q => q.surveyId === 2),
+    questions: mockSurveyQuestions.filter((q) => q.surveyId === 2),
     createdAt: "2024-03-10T09:00:00Z",
     updatedAt: "2024-03-18T16:30:00Z",
   },
   {
     id: 3,
     title: "Hizmet Kalitesi Değerlendirmesi",
-    description: "Genel hizmet kalitemizi değerlendirmek ve iyileştirme alanlarını belirlemek için hazırlanmış kapsamlı anket.",
+    description:
+      "Genel hizmet kalitemizi değerlendirmek ve iyileştirme alanlarını belirlemek için hazırlanmış kapsamlı anket.",
     surveyType: "SERVICE_QUALITY",
     triggerEvent: "MANUAL_SEND",
     isActive: true,
@@ -160,7 +168,8 @@ export const mockSurveys: SurveyDto[] = [
     expiresAfterDays: 10,
     primaryColor: "#ffc107",
     logoUrl: "https://picsum.photos/200/80?random=3",
-    welcomeMessage: "Hizmet kalitemizi artırmak için görüşlerinize ihtiyacımız var.",
+    welcomeMessage:
+      "Hizmet kalitemizi artırmak için görüşlerinize ihtiyacımız var.",
     thankYouMessage: "Katılımınız için teşekkürler!",
     emailSubject: "Zorunlu Hizmet Kalitesi Anketi",
     emailBody: "Bu anket zorunludur ve tamamlanması gerekmektedir...",
@@ -180,7 +189,8 @@ export const mockSurveys: SurveyDto[] = [
   {
     id: 4,
     title: "Kayıt Süreci Geri Bildirimi",
-    description: "Kayıt sürecini tamamlayan ailelerden gelen otomatik geri bildirim anketi. Süreçteki deneyimlerini öğrenmek istiyoruz.",
+    description:
+      "Kayıt sürecini tamamlayan ailelerden gelen otomatik geri bildirim anketi. Süreçteki deneyimlerini öğrenmek istiyoruz.",
     surveyType: "ENROLLMENT_FEEDBACK",
     triggerEvent: "ENROLLMENT_COMPLETED",
     isActive: true,
@@ -194,11 +204,13 @@ export const mockSurveys: SurveyDto[] = [
     primaryColor: "#17a2b8",
     logoUrl: "https://picsum.photos/200/80?random=4",
     headerImageUrl: "https://picsum.photos/800/200?random=4",
-    welcomeMessage: "Kayıt süreciniz tamamlandı! Deneyiminizi paylaşır mısınız?",
+    welcomeMessage:
+      "Kayıt süreciniz tamamlandı! Deneyiminizi paylaşır mısınız?",
     thankYouMessage: "Geri bildiriminiz için teşekkürler!",
     completionRedirectUrl: "/kayit-tamamlandi",
     emailSubject: "Kayıt Sürecini Değerlendirin",
-    emailBody: "Kayıt süreciniz başarıyla tamamlandı. Deneyiminizi değerlendirmek ister misiniz?",
+    emailBody:
+      "Kayıt süreciniz başarıyla tamamlandı. Deneyiminizi değerlendirmek ister misiniz?",
     totalSent: 67,
     totalStarted: 52,
     totalCompleted: 41,
@@ -215,7 +227,8 @@ export const mockSurveys: SurveyDto[] = [
   {
     id: 5,
     title: "Genel Memnuniyet Anketi",
-    description: "Tüm hizmetlerimiz hakkında genel bir memnuniyet anketi. Yıllık değerlendirme için kullanılmaktadır.",
+    description:
+      "Tüm hizmetlerimiz hakkında genel bir memnuniyet anketi. Yıllık değerlendirme için kullanılmaktadır.",
     surveyType: "GENERAL_FEEDBACK",
     triggerEvent: "PERIODIC",
     isActive: false,
@@ -248,7 +261,8 @@ export const mockSurveys: SurveyDto[] = [
   {
     id: 6,
     title: "Özel Etkinlik Değerlendirmesi",
-    description: "Düzenlenen özel etkinlikler sonrası katılımcı memnuniyetini ölçmek için hazırlanmış anket.",
+    description:
+      "Düzenlenen özel etkinlikler sonrası katılımcı memnuniyetini ölçmek için hazırlanmış anket.",
     surveyType: "CUSTOM",
     triggerEvent: "EVENT_BASED",
     isActive: true,
@@ -262,10 +276,13 @@ export const mockSurveys: SurveyDto[] = [
     primaryColor: "#e83e8c",
     logoUrl: "https://picsum.photos/200/80?random=6",
     headerImageUrl: "https://picsum.photos/800/200?random=6",
-    welcomeMessage: "Etkinliğimize katıldığınız için teşekkürler! Görüşlerinizi merak ediyoruz.",
-    thankYouMessage: "Geri bildiriminiz gelecek etkinliklerimizi şekillendiriyor!",
+    welcomeMessage:
+      "Etkinliğimize katıldığınız için teşekkürler! Görüşlerinizi merak ediyoruz.",
+    thankYouMessage:
+      "Geri bildiriminiz gelecek etkinliklerimizi şekillendiriyor!",
     emailSubject: "Etkinlik Değerlendirme Anketi",
-    emailBody: "Katıldığınız etkinlik hakkında görüşlerinizi almak istiyoruz...",
+    emailBody:
+      "Katıldığınız etkinlik hakkında görüşlerinizi almak istiyoruz...",
     totalSent: 45,
     totalStarted: 38,
     totalCompleted: 32,
@@ -282,7 +299,8 @@ export const mockSurveys: SurveyDto[] = [
   {
     id: 7,
     title: "Teknoloji Kullanım Anketi",
-    description: "Dijital platformlarımız ve teknoloji hizmetlerimiz hakkında kullanıcı deneyimi anketi.",
+    description:
+      "Dijital platformlarımız ve teknoloji hizmetlerimiz hakkında kullanıcı deneyimi anketi.",
     surveyType: "CUSTOM",
     triggerEvent: "MANUAL_SEND",
     isActive: true,
@@ -298,7 +316,8 @@ export const mockSurveys: SurveyDto[] = [
     welcomeMessage: "Teknoloji hizletlerimizi nasıl buluyorsunuz?",
     thankYouMessage: "Teknoloji deneyiminizi paylaştığınız için teşekkürler!",
     emailSubject: "Teknoloji Hizmetleri Anketi",
-    emailBody: "Dijital hizmetlerimizi geliştirmek için görüşlerinize ihtiyacımız var...",
+    emailBody:
+      "Dijital hizmetlerimizi geliştirmek için görüşlerinize ihtiyacımız var...",
     totalSent: 112,
     totalStarted: 87,
     totalCompleted: 64,
@@ -315,7 +334,8 @@ export const mockSurveys: SurveyDto[] = [
   {
     id: 8,
     title: "Kafeterya Hizmetleri Anketi",
-    description: "Kafeterya hizmetleri, yemek kalitesi ve menü çeşitliliği hakkında değerlendirme anketi.",
+    description:
+      "Kafeterya hizmetleri, yemek kalitesi ve menü çeşitliliği hakkında değerlendirme anketi.",
     surveyType: "SERVICE_QUALITY",
     triggerEvent: "PERIODIC",
     isActive: true,
@@ -331,7 +351,8 @@ export const mockSurveys: SurveyDto[] = [
     welcomeMessage: "Kafeterya hizmetlerimizi değerlendirin!",
     thankYouMessage: "Lezzetli geri bildirimleriniz için teşekkürler!",
     emailSubject: "Kafeterya Değerlendirme Anketi",
-    emailBody: "Kafeterya hizmetlerimizi nasıl buluyorsunuz? Görüşlerinizi paylaşın...",
+    emailBody:
+      "Kafeterya hizmetlerimizi nasıl buluyorsunuz? Görüşlerinizi paylaşın...",
     totalSent: 78,
     totalStarted: 65,
     totalCompleted: 49,
@@ -349,23 +370,23 @@ export const mockSurveys: SurveyDto[] = [
 
 // Utility functions for working with mock data
 export const getSurveysByType = (surveyType: string): SurveyDto[] => {
-  return mockSurveys.filter(survey => survey.surveyType === surveyType);
+  return mockSurveys.filter((survey) => survey.surveyType === surveyType);
 };
 
 export const getSurveysByTriggerEvent = (triggerEvent: string): SurveyDto[] => {
-  return mockSurveys.filter(survey => survey.triggerEvent === triggerEvent);
+  return mockSurveys.filter((survey) => survey.triggerEvent === triggerEvent);
 };
 
 export const getActiveSurveys = (): SurveyDto[] => {
-  return mockSurveys.filter(survey => survey.isActive);
+  return mockSurveys.filter((survey) => survey.isActive);
 };
 
 export const getMandatorySurveys = (): SurveyDto[] => {
-  return mockSurveys.filter(survey => survey.isMandatory);
+  return mockSurveys.filter((survey) => survey.isMandatory);
 };
 
 export const getAnonymousSurveys = (): SurveyDto[] => {
-  return mockSurveys.filter(survey => survey.isAnonymous);
+  return mockSurveys.filter((survey) => survey.isAnonymous);
 };
 
 export const getHighestRatedSurveys = (limit: number = 5): SurveyDto[] => {
@@ -381,7 +402,198 @@ export const getMostCompletedSurveys = (limit: number = 5): SurveyDto[] => {
 };
 
 export const getSurveyById = (id: number): SurveyDto | undefined => {
-  return mockSurveys.find(survey => survey.id === id);
+  return mockSurveys.find((survey) => survey.id === id);
+};
+
+// Mock Survey Response Data - Tamamlanmış anket cevapları
+export const mockSurveyResponses: SurveyResponseDto[] = [
+  {
+    id: 1,
+    surveyId: 1,
+    surveyTitle: "Randevu Memnuniyet Anketi",
+    respondentUserId: 101,
+    respondentUserName: "Ahmet Yılmaz",
+    schoolId: 1,
+    schoolName: "Bahçeşehir Koleji",
+    appointmentId: 1001,
+    responseToken: "resp_abc123",
+    status: "COMPLETED",
+    startedAt: "2024-10-20T09:15:00Z",
+    completedAt: "2024-10-20T09:22:30Z",
+    submittedAt: "2024-10-20T09:22:30Z",
+    completionTimeSeconds: 450,
+    respondentName: "Ahmet Yılmaz",
+    respondentEmail: "ahmet.yilmaz@email.com",
+    respondentPhone: "+90 555 123 4567",
+    overallRating: 4.5,
+    cleanlinessRating: 4.0,
+    staffRating: 5.0,
+    facilitiesRating: 4.2,
+    communicationRating: 4.8,
+    generalFeedback: "Çok memnun kaldım, personel ilgili ve güler yüzlüydü.",
+    wouldRecommend: true,
+    likelihoodToEnroll: 9,
+    formattedCompletionTime: "7 dakika 30 saniye",
+    statusDisplayName: "Tamamlandı",
+    progressPercentage: 100,
+    isComplete: true,
+    isExpired: false,
+    createdAt: "2024-10-20T09:15:00Z",
+    updatedAt: "2024-10-20T09:22:30Z",
+  },
+  {
+    id: 2,
+    surveyId: 1,
+    surveyTitle: "Randevu Memnuniyet Anketi",
+    respondentUserId: 102,
+    respondentUserName: "Fatma Demir",
+    schoolId: 1,
+    schoolName: "Bahçeşehir Koleji",
+    appointmentId: 1002,
+    responseToken: "resp_def456",
+    status: "COMPLETED",
+    startedAt: "2024-10-21T14:30:00Z",
+    completedAt: "2024-10-21T14:35:15Z",
+    submittedAt: "2024-10-21T14:35:15Z",
+    completionTimeSeconds: 315,
+    respondentName: "Fatma Demir",
+    respondentEmail: "fatma.demir@email.com",
+    respondentPhone: "+90 555 987 6543",
+    overallRating: 3.8,
+    cleanlinessRating: 3.5,
+    staffRating: 4.2,
+    facilitiesRating: 3.8,
+    communicationRating: 4.0,
+    generalFeedback: "Genel olarak iyi ama bekleme süresi uzundu.",
+    wouldRecommend: true,
+    likelihoodToEnroll: 7,
+    formattedCompletionTime: "5 dakika 15 saniye",
+    statusDisplayName: "Tamamlandı",
+    progressPercentage: 100,
+    isComplete: true,
+    isExpired: false,
+    createdAt: "2024-10-21T14:30:00Z",
+    updatedAt: "2024-10-21T14:35:15Z",
+  },
+  {
+    id: 3,
+    surveyId: 2,
+    surveyTitle: "Okul Kalite Değerlendirmesi",
+    respondentUserId: 103,
+    respondentUserName: "Mehmet Kaya",
+    schoolId: 2,
+    schoolName: "TED Koleji",
+    responseToken: "resp_ghi789",
+    status: "COMPLETED",
+    startedAt: "2024-10-22T10:45:00Z",
+    completedAt: "2024-10-22T10:52:20Z",
+    submittedAt: "2024-10-22T10:52:20Z",
+    completionTimeSeconds: 440,
+    respondentName: "Mehmet Kaya",
+    respondentEmail: "mehmet.kaya@email.com",
+    respondentPhone: "+90 555 246 8135",
+    overallRating: 4.8,
+    cleanlinessRating: 4.9,
+    staffRating: 4.7,
+    facilitiesRating: 4.8,
+    communicationRating: 4.6,
+    generalFeedback: "Mükemmel bir deneyimdi, kesinlikle tavsiye ederim.",
+    wouldRecommend: true,
+    likelihoodToEnroll: 10,
+    formattedCompletionTime: "7 dakika 20 saniye",
+    statusDisplayName: "Tamamlandı",
+    progressPercentage: 100,
+    isComplete: true,
+    isExpired: false,
+    createdAt: "2024-10-22T10:45:00Z",
+    updatedAt: "2024-10-22T10:52:20Z",
+  },
+  {
+    id: 4,
+    surveyId: 1,
+    surveyTitle: "Randevu Memnuniyet Anketi",
+    respondentUserId: 104,
+    respondentUserName: "Ayşe Özkan",
+    schoolId: 1,
+    schoolName: "Bahçeşehir Koleji",
+    appointmentId: 1003,
+    responseToken: "resp_jkl012",
+    status: "IN_PROGRESS",
+    startedAt: "2024-10-23T16:20:00Z",
+    completionTimeSeconds: 180,
+    respondentName: "Ayşe Özkan",
+    respondentEmail: "ayse.ozkan@email.com",
+    respondentPhone: "+90 555 369 2580",
+    overallRating: 4.0,
+    statusDisplayName: "Devam Ediyor",
+    progressPercentage: 60,
+    isComplete: false,
+    isExpired: false,
+    createdAt: "2024-10-23T16:20:00Z",
+    updatedAt: "2024-10-23T16:23:00Z",
+  },
+  {
+    id: 5,
+    surveyId: 3,
+    surveyTitle: "Hizmet Kalitesi Değerlendirmesi",
+    respondentUserId: 105,
+    respondentUserName: "Emre Çelik",
+    schoolId: 3,
+    schoolName: "Özel Doğa Koleji",
+    responseToken: "resp_mno345",
+    status: "COMPLETED",
+    startedAt: "2024-10-24T11:10:00Z",
+    completedAt: "2024-10-24T11:16:45Z",
+    submittedAt: "2024-10-24T11:16:45Z",
+    completionTimeSeconds: 405,
+    respondentName: "Emre Çelik",
+    respondentEmail: "emre.celik@email.com",
+    respondentPhone: "+90 555 147 8520",
+    overallRating: 4.3,
+    cleanlinessRating: 4.1,
+    staffRating: 4.5,
+    facilitiesRating: 4.0,
+    communicationRating: 4.4,
+    generalFeedback: "Hizmet kalitesi yüksek, çok memnun kaldım.",
+    wouldRecommend: true,
+    likelihoodToEnroll: 8,
+    formattedCompletionTime: "6 dakika 45 saniye",
+    statusDisplayName: "Tamamlandı",
+    progressPercentage: 100,
+    isComplete: true,
+    isExpired: false,
+    createdAt: "2024-10-24T11:10:00Z",
+    updatedAt: "2024-10-24T11:16:45Z",
+  },
+];
+
+// Survey Response utility functions
+export const getResponsesBySurveyId = (
+  surveyId: number
+): SurveyResponseDto[] => {
+  return mockSurveyResponses.filter(
+    (response) => response.surveyId === surveyId
+  );
+};
+
+export const getResponsesBySchoolId = (
+  schoolId: number
+): SurveyResponseDto[] => {
+  return mockSurveyResponses.filter(
+    (response) => response.schoolId === schoolId
+  );
+};
+
+export const getCompletedResponses = (): SurveyResponseDto[] => {
+  return mockSurveyResponses.filter(
+    (response) => response.status === "COMPLETED"
+  );
+};
+
+export const getInProgressResponses = (): SurveyResponseDto[] => {
+  return mockSurveyResponses.filter(
+    (response) => response.status === "IN_PROGRESS"
+  );
 };
 
 // Re-export utility functions that work with mock data
@@ -390,5 +602,5 @@ export {
   getSurveyTypeDisplay,
   getTriggerEventDisplay,
   formatCompletionRate,
-  calculateSurveyStats
+  calculateSurveyStats,
 };

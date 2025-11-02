@@ -1,8 +1,8 @@
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CustomCard } from "@/components/ui";
 
 export default function SchoolLocationInfo() {
-  const { currentSchool } = useSchoolDetail();
+  const { currentSchool } = useSchoolDetailContext();
 
   if (!currentSchool) {
     return (

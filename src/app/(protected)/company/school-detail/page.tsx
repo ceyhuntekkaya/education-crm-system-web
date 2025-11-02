@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useSchoolDetail } from "./_shared/context/school-detail-context";
+import { useSchoolDetailContext } from "./_shared/context/school-detail-context";
 import {
   SchoolGeneralInfo,
   SchoolCampusDetail,
@@ -12,10 +12,11 @@ import {
   SchoolHeaderSection,
   SchoolLoadingSection,
   SchoolNotFoundSection,
+  SchoolAdditionalFeatures,
 } from "./_shared/sections";
 
 const SchoolDetailPage: React.FC = () => {
-  const { currentSchool, isLoading } = useSchoolDetail();
+  const { currentSchool, isLoading } = useSchoolDetailContext();
 
   if (isLoading) {
     return <SchoolLoadingSection />;
@@ -31,10 +32,11 @@ const SchoolDetailPage: React.FC = () => {
       <SchoolCoverImage />
 
       <SchoolGeneralInfo />
-      <SchoolPricingInfo />
+      {/* <SchoolPricingInfo /> */}
       <SchoolBrandDetail />
       <SchoolCampusDetail />
       <SchoolLocationInfo />
+      <SchoolAdditionalFeatures />
     </div>
   );
 };

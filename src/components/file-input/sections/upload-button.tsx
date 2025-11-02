@@ -21,11 +21,13 @@ export const UploadButton: React.FC<UploadButtonProps> = ({
     files,
     hasNewFiles,
     handleUploadAreaClick,
+    multiple,
   } = useFileInputContext();
 
   const hasFiles = files.length > 0;
 
-  // Sadece yeni dosya varsa butonu göster (placeholder değilse)
+  // Multiple modda: Sadece yeni dosya varsa butonu göster
+  // Single modda: hasNewFiles kontrolü yap
   if (!hasNewFiles) {
     return null;
   }
@@ -42,9 +44,11 @@ export const UploadButton: React.FC<UploadButtonProps> = ({
   };
 
   const getButtonText = () => {
-    if (isLoading) return "Yükleniyor...";
+    if (isLoading) {
+      return multiple ? "Yükleniyor..." : "Yükleniyor...";
+    }
     if (!hasFiles) return "Dosya Seçin";
-    return children || "Yükle";
+    return children || (multiple ? "Görselleri Yükle" : "Yükle");
   };
 
   const getButtonIcon = () => {

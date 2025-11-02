@@ -1,7 +1,7 @@
 // Survey shared exports
-export * from "./context/survey-context";
+export * from "./context";
 export * from "./config";
-export * from "./mock";
+export * from "./hooks";
 export * from "./sections";
 export * from "./types";
 

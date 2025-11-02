@@ -15,6 +15,7 @@ export interface AppointmentNoteCreateDto {
     | "TECHNICAL_ISSUE"
     | "RESCHEDULING"
     | "CANCELLATION"
+    | "REASON_FOR_NEGATIVITY"
     | "REMINDER"
     | "INTERNAL";
   isPrivate?: boolean;

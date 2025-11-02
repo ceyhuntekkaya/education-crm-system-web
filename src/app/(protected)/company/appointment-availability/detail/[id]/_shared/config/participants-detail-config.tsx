@@ -33,7 +33,7 @@ export const participantsDetailConfig: BasicInfoItemConfig[] = [
           {appointment.participants.map((participant: any, index: number) => (
             <div
               key={participant.id || index}
-              className={`card border-start border-3 ${
+              className={`card border-start ${
                 participant.participantType === "STUDENT"
                   ? "border-success"
                   : participant.participantType === "PARENT"
@@ -41,7 +41,7 @@ export const participantsDetailConfig: BasicInfoItemConfig[] = [
                   : "border-primary"
               }`}
             >
-              <div className="p-8">
+              <div className="p-12">
                 <div className="d-flex align-items-start justify-content-between">
                   {/* Sol taraf - İsim ve Badge'ler */}
                   <div className="d-flex align-items-start flex-grow-1 min-w-0">

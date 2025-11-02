@@ -1,4 +1,4 @@
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CoverImage } from "@/components/ui";
 
 const tempCoverUrl =
@@ -8,7 +8,7 @@ const tempLogoUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
 
 export default function SchoolCoverImage() {
-  const { currentSchool } = useSchoolDetail();
+  const { currentSchool } = useSchoolDetailContext();
 
   return (
     <CoverImage

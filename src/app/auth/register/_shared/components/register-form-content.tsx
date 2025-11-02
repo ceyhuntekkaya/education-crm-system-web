@@ -14,6 +14,7 @@ import {
   SuccessStep,
 } from "../sections";
 import { useRegister } from "../context";
+import { UserType } from "@/enums/UserType";
 
 /**
  * Register Form Content
@@ -27,7 +28,7 @@ export const RegisterFormContent: React.FC = () => {
     // User kayıt adımları: 1. Login, 2. Personal Info, 3. Verification, 4. Success
     // Institution kayıt adımları: 1. Login, 2. Personal Info, 3. Verification, 4. Campus Info, 5. Package, 6. Payment, 7. Success
 
-    if (registrationType === "user") {
+    if (registrationType === UserType.PARENT) {
       // User için 4 adım
       switch (currentStep) {
         case 1:
@@ -66,7 +67,7 @@ export const RegisterFormContent: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     // User için step 3'te, Institution için step 6'da submit işlemi
-    const submitStep = registrationType === "user" ? 3 : 6;
+    const submitStep = registrationType === UserType.PARENT ? 3 : 6;
 
     if (currentStep === submitStep) {
       const result = await submitRegistration();

@@ -2,21 +2,16 @@
 
 import React from "react";
 import { CustomCard } from "@/components";
-import { PostForm, LoadingSection, usePostAddEdit } from "../_shared";
+import { PostForm, usePostAddEdit } from "../_shared";
 
 interface SocialMediaAddEditPageProps {}
 
 const SocialMediaAddEditPage: React.FC<SocialMediaAddEditPageProps> = () => {
-  const { isEditing, post, postLoading } = usePostAddEdit();
+  const { isEditing, post, postDetailLoading } = usePostAddEdit();
 
   const pageTitle = isEditing
     ? "Gönderi Bilgisi Düzenle"
     : "Yeni Gönderi Oluştur";
-
-  // Loading durumu
-  if (postLoading && isEditing) {
-    return <LoadingSection pageTitle={pageTitle} />;
-  }
 
   return (
     <CustomCard
@@ -27,6 +22,7 @@ const SocialMediaAddEditPage: React.FC<SocialMediaAddEditPageProps> = () => {
           : "Yeni gönderi bilgilerini oluşturun"
       }
       isBack
+      isLoading={postDetailLoading && isEditing}
     >
       <PostForm isEditing={isEditing} initialData={post} />
     </CustomCard>

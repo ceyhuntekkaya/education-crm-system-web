@@ -94,7 +94,8 @@ export const GalleryAddEditProvider: React.FC<GalleryAddEditProviderProps> = ({
   const contextValue: GalleryAddEditContextType = {
     // Current gallery data
     gallery,
-    galleryLoading: galleryLoading || addLoading || editLoading,
+    galleryDetailLoading: galleryLoading, // Sadece veri çekerken
+    gallerySubmitLoading: addLoading || editLoading, // Form submit edilirken
     galleryError: galleryError || addError || editError,
 
     // Edit mode state

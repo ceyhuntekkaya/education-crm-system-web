@@ -4,7 +4,7 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, CustomFeeDto } from "@/types";
 
-interface UseCustomFeesByPricingReturn {
+interface UseCustomFeesBySchoolReturn {
   customFees: CustomFeeDto[];
   customFeeLoading: boolean;
   customFeeError: string | null;
@@ -12,20 +12,20 @@ interface UseCustomFeesByPricingReturn {
 }
 
 /**
- * Seçili pricing için custom fee verilerini yöneten hook
- * @param pricingId - Pricing ID'si
+ * Seçili okul için custom fee verilerini yöneten hook
+ * @param schoolId - Okul ID'si
  * @returns Custom fee verileri ve yönetim fonksiyonları
  */
 export const useCustomFeesByPricing = (
-  pricingId: number | null
-): UseCustomFeesByPricingReturn => {
+  schoolId: number | null
+): UseCustomFeesBySchoolReturn => {
   const {
     data: customFeesResponse,
     loading: customFeeLoading,
     error: customFeeError,
     refetch: refetchCustomFees,
   } = useGet<ApiResponseDto<CustomFeeDto[]>>(
-    pricingId ? API_ENDPOINTS.PRICING.CUSTOM_FEES_BY_PRICING(pricingId) : null
+    schoolId ? API_ENDPOINTS.PRICING.CUSTOM_FEES_BY_SCHOOL(schoolId) : null
   );
 
   return {

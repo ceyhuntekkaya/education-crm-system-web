@@ -15,4 +15,5 @@ export const ALLOWED_FIELDS_IN_EDIT_MODE = [
   "metaTitle",
   "metaDescription",
   "tags",
+  "items",
 ] as const;

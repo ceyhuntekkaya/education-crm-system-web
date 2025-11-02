@@ -19,11 +19,11 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-graduation-cap",
   },
 
-  {
-    href: "/company/pricing",
-    label: "Fiyat Bilgileri ***",
-    icon: "ph-coins",
-  },
+  // {
+  //   href: "/company/pricing",
+  //   label: "Fiyat Bilgileri ***",
+  //   icon: "ph-coins",
+  // },
   {
     href: "/company/pricing/detail/school",
     label: "Fiyat Bilgileri ***",
@@ -76,7 +76,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/users",
-    label: "Kullanıcılar",
+    label: "Kullanıcılar ***",
     icon: "ph-users",
   },
   // {

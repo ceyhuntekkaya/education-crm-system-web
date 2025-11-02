@@ -26,19 +26,46 @@ export const PostFormContent: React.FC = () => {
     isEditing,
     postPost,
     putPost,
-    postLoading,
+    postSubmitLoading, // Form submit loading
     postId,
     postTypeOptions,
     postStatusOptions,
   } = usePostAddEdit();
 
   const handleSubmit = async (values: any) => {
+    // Tarih alanlarını ISO 8601 formatına çevir
+    const formatDateToISO = (
+      dateString: string | undefined
+    ): string | undefined => {
+      if (!dateString) return undefined;
+
+      // Eğer zaten ISO formatında değilse, datetime-local formatından ISO'ya çevir
+      if (
+        dateString &&
+        !dateString.includes("Z") &&
+        !dateString.includes("+")
+      ) {
+        // datetime-local input'u 'YYYY-MM-DDTHH:mm' formatında gelir
+        // ISO 8601 formatına çevirmek için 'Z' ekle (UTC timezone)
+        return `${dateString}:00Z`;
+      }
+
+      return dateString;
+    };
+
+    const formattedValues = {
+      ...values,
+      scheduledAt: formatDateToISO(values.scheduledAt),
+      expiresAt: formatDateToISO(values.expiresAt),
+      pinExpiresAt: formatDateToISO(values.pinExpiresAt),
+    };
+
     if (isEditing) {
-      const filteredData = filterDataForEdit(values) as PostUpdateDto;
+      const filteredData = filterDataForEdit(formattedValues) as PostUpdateDto;
       await putPost(filteredData);
     } else {
       const formData: PostCreateDto = {
-        ...values,
+        ...formattedValues,
         schoolId: selectedSchool?.id || 0,
       };
       await postPost(formData);
@@ -117,8 +144,8 @@ export const PostFormContent: React.FC = () => {
           <FormInput
             name="scheduledAt"
             label="Zamanlanmış Tarih"
-            type="date"
-            placeholder="Tarih seçiniz..."
+            type="datetime-local"
+            placeholder="Tarih ve saat seçiniz..."
           />
         </div>
 
@@ -126,8 +153,8 @@ export const PostFormContent: React.FC = () => {
           <FormInput
             name="expiresAt"
             label="Son Kullanma Tarihi"
-            type="date"
-            placeholder="Tarih seçiniz..."
+            type="datetime-local"
+            placeholder="Tarih ve saat seçiniz..."
           />
         </div>
 
@@ -195,6 +222,28 @@ export const PostFormContent: React.FC = () => {
           </div>
         </div>
 
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
+        {/* Medya Ekleri - Multi File Upload */}
+        <div className="col-12">
+          <div className="d-flex flex-column gap-16">
+            <h5>Medya Ekleri (Çoklu Yükleme)</h5>
+            <FileInput
+              label="Medya Ekleri (Çoklu Yükleme)"
+              type="all"
+              variant="outline"
+              placeholder="Dosyaları yüklemek için tıklayın veya sürükleyin (Çoklu seçim yapabilirsiniz)"
+              maxSize={100}
+              maxFiles={20}
+              uploadButtonText="Dosyaları Yükle"
+              name="items"
+              multiple
+            />
+          </div>
+        </div>
+
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
         <div className="col-12">
           <h5 className="mb-16 mt-16">Ayarlar</h5>
         </div>
@@ -212,8 +261,8 @@ export const PostFormContent: React.FC = () => {
           <FormInput
             name="pinExpiresAt"
             label="Pin Bitiş Tarihi"
-            type="date"
-            placeholder="Tarih seçiniz..."
+            type="datetime-local"
+            placeholder="Tarih ve saat seçiniz..."
           />
         </div>
 
@@ -320,14 +369,14 @@ export const PostFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={postLoading}
+              disabled={postSubmitLoading}
             >
               İptal
             </Button>
             <Button
               type="submit"
-              disabled={hasErrors || postLoading}
-              loading={postLoading}
+              disabled={hasErrors || postSubmitLoading}
+              loading={postSubmitLoading}
             >
               {isEditing ? "Güncelle" : "Kaydet"}
             </Button>

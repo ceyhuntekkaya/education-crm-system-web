@@ -1,6 +1,7 @@
 import { SchoolDto, SchoolCreateDto } from "@/types";
 import { ApiResponse } from "@/lib";
 import { MutationOptions } from "@/hooks";
+import { PropertyGroupCheckboxOption } from "../hooks";
 
 export interface SchoolAddEditContextType {
   // Current school data
@@ -27,6 +28,14 @@ export interface SchoolAddEditContextType {
   campusOptions: { value: string; label: string }[];
   institutionTypeOptions: { value: string; label: string }[];
   languageOptions: { value: string; label: string }[];
+
+  // Property values
+  propertyCheckboxGroups: PropertyGroupCheckboxOption[];
+  propertyValuesLoading: boolean;
+  propertyValuesError: string | null;
+  getGroupsByInstitutionTypeId: (
+    institutionTypeId: number | string | undefined
+  ) => PropertyGroupCheckboxOption[];
 
   // Loading states
   campusesLoading: boolean;

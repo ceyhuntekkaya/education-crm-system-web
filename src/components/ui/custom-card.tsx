@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Icon from "./icon";
 import { Button } from "@/components";
 import { useDelete } from "@/hooks";
+import { LoadingSpinner } from "./loadings";
 
 interface CustomCardProps {
   /** Card type (default: "card") */
@@ -17,6 +18,29 @@ interface CustomCardProps {
   subtitle?: string | ReactNode;
   /** Header action component (buttons, etc.) */
   headerAction?: ReactNode;
+
+  // State Props
+  /** Loading state - shows loading spinner */
+  isLoading?: boolean;
+  /** Loading message (default: "Yükleniyor...") */
+  loadingMessage?: string;
+  /** Loading spinner variant */
+  loadingVariant?: "spinner" | "dots" | "pulse";
+  /** Error state - shows error message */
+  isError?: boolean;
+  /** Error message */
+  errorMessage?: string;
+  /** Error icon (default: "ph-warning-circle") */
+  errorIcon?: string;
+  /** Empty state - shows when no data */
+  isEmpty?: boolean;
+  /** Empty message */
+  emptyMessage?: string;
+  /** Empty description */
+  emptyDescription?: string;
+  /** Empty icon (default: "ph-clipboard-text") */
+  emptyIcon?: string;
+
   /** Add button URL - if provided, "Yeni Ekle" button will be shown */
   addButtonUrl?: string;
   /** Edit button URL - if provided, "Düzenle" button will be shown */
@@ -100,6 +124,17 @@ export default function CustomCard({
   title,
   subtitle,
   headerAction,
+  // State Props
+  isLoading = false,
+  loadingMessage = "Yükleniyor...",
+  loadingVariant = "dots",
+  isError = false,
+  errorMessage = "Bir hata oluştu",
+  errorIcon = "ph-warning-circle",
+  isEmpty = false,
+  emptyMessage = "Veri bulunamadı",
+  emptyDescription,
+  emptyIcon = "ph-clipboard-text",
   addButtonUrl,
   editButtonUrl,
   deleteUrl,
@@ -186,6 +221,14 @@ export default function CustomCard({
   const cardBgColor = variant === "outline" ? headerBgColor : bgColor;
   const headerColor = variant === "outline" ? bgColor : headerBgColor;
 
+  // Dynamic subtitle based on state
+  const getSubtitle = () => {
+    if (isLoading) return "Yükleniyor...";
+    if (isError) return "Hata oluştu";
+    if (isEmpty) return "Veri bulunamadı";
+    return subtitle;
+  };
+
   const hasHeader =
     title ||
     subtitle ||
@@ -232,6 +275,59 @@ export default function CustomCard({
     }
   };
 
+  // Render State Content (Loading, Error, Empty)
+  const renderStateContent = () => {
+    if (isLoading) {
+      return (
+        <div className="text-center py-5">
+          <LoadingSpinner
+            message={loadingMessage}
+            variant={loadingVariant}
+            size="md"
+          />
+        </div>
+      );
+    }
+
+    if (isError) {
+      return (
+        <div className="text-center py-5">
+          <div className="mb-3">
+            <i
+              className={`${errorIcon} text-danger`}
+              style={{ fontSize: "3rem" }}
+            ></i>
+          </div>
+          <h6 className="text-danger mb-2">{errorMessage}</h6>
+          {errorMessage === "Bir hata oluştu" && (
+            <p className="text-muted small mb-0">
+              Lütfen sayfayı yenileyin veya daha sonra tekrar deneyin.
+            </p>
+          )}
+        </div>
+      );
+    }
+
+    if (isEmpty) {
+      return (
+        <div className="text-center py-5">
+          <div className="mb-3">
+            <i
+              className={`${emptyIcon} text-muted`}
+              style={{ fontSize: "3rem" }}
+            ></i>
+          </div>
+          <h6 className="text-muted mb-2">{emptyMessage}</h6>
+          {emptyDescription && (
+            <p className="text-muted small mb-0">{emptyDescription}</p>
+          )}
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   // Calculate content height for smooth animation
   useEffect(() => {
     if (contentRef.current) {
@@ -267,7 +363,9 @@ export default function CustomCard({
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div>
               {title && <h2 className={getTitleClass(size)}>{title}</h2>}
-              {subtitle && <p className={getSubtitleClass(size)}>{subtitle}</p>}
+              {getSubtitle() && (
+                <p className={getSubtitleClass(size)}>{getSubtitle()}</p>
+              )}
             </div>
             <div className="d-flex align-items-center gap-12">
               {headerAction && <div>{headerAction}</div>}
@@ -372,86 +470,25 @@ export default function CustomCard({
                 <span className="d-block border border-neutral-30 my-24 border-dashed" />
               )}
 
-              {/* Children Content */}
-              {children && (
-                <div className={items || multiItems ? "mb-24" : ""}>
-                  {children}
-                </div>
-              )}
+              {/* State Content (Loading, Error, Empty) */}
+              {renderStateContent()}
 
-              {/* Custom Items List */}
-              {items && (
-                <ul className="tution-info-list bg-white rounded-8">
-                  {items
-                    .filter((item) => item.isShowing)
-                    .map((item, index) => (
-                      <li
-                        key={index}
-                        className={`d-flex px-32 py-16 ${
-                          itemDirection === "column"
-                            ? "flex-column align-items-start"
-                            : "align-items-start"
-                        }`}
-                      >
-                        <span
-                          className={`fw-semibold text-neutral-700 ${
-                            itemDirection === "column"
-                              ? "w-100 mb-8"
-                              : "w-50-percent"
-                          }`}
-                        >
-                          {item.label}
-                          {item.sublabel && (
-                            <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
-                              {item.sublabel}
-                            </span>
-                          )}
-                        </span>
-                        <span
-                          className={`fw-normal text-neutral-500 text-md ${
-                            itemDirection === "column"
-                              ? "w-100"
-                              : "w-50-percent"
-                          }`}
-                        >
-                          {item.value}
-                        </span>
-                      </li>
-                    ))}
-                </ul>
-              )}
+              {/* Normal Content - only show if not in a state */}
+              {!isLoading && !isError && !isEmpty && (
+                <>
+                  {/* Children Content */}
+                  {children && (
+                    <div className={items || multiItems ? "mb-24" : ""}>
+                      {children}
+                    </div>
+                  )}
 
-              {/* Multiple Items Sections */}
-              {multiItems &&
-                multiItems.map((section, sectionIndex) => {
-                  const filteredItems = section.items.filter(
-                    (item) => item.isShowing
-                  );
-
-                  if (filteredItems.length === 0) return null;
-
-                  return (
-                    <div key={sectionIndex}>
-                      {/* Section Title */}
-                      <h4
-                        className={`mb-16 ${
-                          section.titleColor || "text-main-600"
-                        }`}
-                      >
-                        {section.titleIcon && (
-                          <i className={`${section.titleIcon} me-8`}></i>
-                        )}
-                        {section.title}
-                      </h4>
-                      <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-                      {/* Section Items */}
-                      <ul
-                        className={`tution-info-list bg-white rounded-8 ${
-                          sectionIndex < multiItems.length - 1 ? "mb-32" : ""
-                        }`}
-                      >
-                        {filteredItems.map((item, index) => (
+                  {/* Custom Items List */}
+                  {items && (
+                    <ul className="tution-info-list bg-white rounded-8">
+                      {items
+                        .filter((item) => item.isShowing)
+                        .map((item, index) => (
                           <li
                             key={index}
                             className={`d-flex px-32 py-16 ${
@@ -485,10 +522,81 @@ export default function CustomCard({
                             </span>
                           </li>
                         ))}
-                      </ul>
-                    </div>
-                  );
-                })}
+                    </ul>
+                  )}
+
+                  {/* Multiple Items Sections */}
+                  {multiItems &&
+                    multiItems.map((section, sectionIndex) => {
+                      const filteredItems = section.items.filter(
+                        (item) => item.isShowing
+                      );
+
+                      if (filteredItems.length === 0) return null;
+
+                      return (
+                        <div key={sectionIndex}>
+                          {/* Section Title */}
+                          <h4
+                            className={`mb-16 ${
+                              section.titleColor || "text-main-600"
+                            }`}
+                          >
+                            {section.titleIcon && (
+                              <i className={`${section.titleIcon} me-8`}></i>
+                            )}
+                            {section.title}
+                          </h4>
+                          <span className="d-block border border-neutral-30 my-24 border-dashed" />
+
+                          {/* Section Items */}
+                          <ul
+                            className={`tution-info-list bg-white rounded-8 ${
+                              sectionIndex < multiItems.length - 1
+                                ? "mb-32"
+                                : ""
+                            }`}
+                          >
+                            {filteredItems.map((item, index) => (
+                              <li
+                                key={index}
+                                className={`d-flex px-32 py-16 ${
+                                  itemDirection === "column"
+                                    ? "flex-column align-items-start"
+                                    : "align-items-start"
+                                }`}
+                              >
+                                <span
+                                  className={`fw-semibold text-neutral-700 ${
+                                    itemDirection === "column"
+                                      ? "w-100 mb-8"
+                                      : "w-50-percent"
+                                  }`}
+                                >
+                                  {item.label}
+                                  {item.sublabel && (
+                                    <span className="d-block text-xs text-neutral-500 fw-normal mt-4">
+                                      {item.sublabel}
+                                    </span>
+                                  )}
+                                </span>
+                                <span
+                                  className={`fw-normal text-neutral-500 text-md ${
+                                    itemDirection === "column"
+                                      ? "w-100"
+                                      : "w-50-percent"
+                                  }`}
+                                >
+                                  {item.value}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                </>
+              )}
             </>
           )}
         </div>

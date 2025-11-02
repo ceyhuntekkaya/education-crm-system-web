@@ -27,13 +27,8 @@ export const CustomFeeFormContent: React.FC = () => {
   const { user } = useAuth();
 
   // Context'ten verileri al
-  const {
-    isEditing,
-    postCustomFee,
-    putCustomFee,
-    customFeeLoading,
-    customFeeId,
-  } = useCustomFeeAddEdit();
+  const { isEditing, postCustomFee, putCustomFee, formLoading, customFeeId } =
+    useCustomFeeAddEdit();
 
   // Form hook - validation ve error kontrolü için
   const { hasErrors } = useFormHook();
@@ -360,13 +355,13 @@ export const CustomFeeFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={customFeeLoading}
+              disabled={formLoading}
             >
               <i className="ph ph-x me-8"></i>
               İptal
             </Button>
-            <Button type="submit" disabled={hasErrors || customFeeLoading}>
-              {customFeeLoading ? (
+            <Button type="submit" disabled={hasErrors || formLoading}>
+              {formLoading ? (
                 <>
                   <i className="ph ph-circle-notch ph-spin me-8"></i>
                   {isEditing ? "Güncelleniyor..." : "Kaydediliyor..."}

@@ -20,13 +20,13 @@ import { useCompany } from "@/app/(protected)/company/_shared";
 
 export const GalleryFormContent: React.FC = () => {
   const { hasErrors } = useFormHook();
-  const { reset } = useForm();
+  const { reset, values } = useForm();
   const { selectedSchool } = useCompany();
   const {
     isEditing,
     postGallery,
     putGallery,
-    galleryLoading,
+    gallerySubmitLoading, // Form submit loading
     galleryId,
     galleryTypeOptions,
     visibilityOptions,
@@ -57,7 +57,7 @@ export const GalleryFormContent: React.FC = () => {
         <div className="col-6">
           <div className="d-flex flex-column gap-16">
             <h5>Temel Bilgiler</h5>
-            <FormInput
+            {/* <FormInput
               name="schoolId"
               label="Okul"
               type="text"
@@ -65,7 +65,7 @@ export const GalleryFormContent: React.FC = () => {
               placeholder="Okul bilgisi..."
               disabled
               required
-            />
+            /> */}
             <FormAutocomplete
               name="galleryType"
               label="Galeri Tipi"
@@ -106,6 +106,26 @@ export const GalleryFormContent: React.FC = () => {
               name="coverImageUrl"
               label="Veya Manuel Görsel URL"
               placeholder="Görsel URL'sini giriniz..."
+            />
+          </div>
+        </div>
+
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
+        {/* Galeri Öğeleri - Multi File Upload */}
+        <div className="col-12">
+          <div className="d-flex flex-column gap-16">
+            <h5>Galeri Öğeleri</h5>
+            <FileInput
+              label="Galeri Öğeleri (Çoklu Yükleme)"
+              type="all"
+              variant="outline"
+              placeholder="Dosyaları yüklemek için tıklayın veya sürükleyin (Çoklu seçim yapabilirsiniz)"
+              maxSize={100}
+              maxFiles={20}
+              uploadButtonText="Dosyaları Yükle"
+              name="items"
+              multiple
             />
           </div>
         </div>
@@ -172,14 +192,14 @@ export const GalleryFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={galleryLoading}
+              disabled={gallerySubmitLoading}
             >
               İptal
             </Button>
             <Button
               type="submit"
-              disabled={hasErrors || galleryLoading}
-              loading={galleryLoading}
+              disabled={hasErrors || gallerySubmitLoading}
+              loading={gallerySubmitLoading}
             >
               {isEditing ? "Güncelle" : "Kaydet"}
             </Button>

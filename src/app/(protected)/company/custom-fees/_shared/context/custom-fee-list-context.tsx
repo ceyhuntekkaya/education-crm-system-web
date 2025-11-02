@@ -3,6 +3,7 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { CustomFeeListContextType } from "../types/custom-fee.types";
 import { useCustomFeesByPricing } from "../hooks/useCustomFeesByPricing";
+import { useCompany } from "@/app/(protected)/company/_shared";
 
 const CustomFeeListContext = createContext<
   CustomFeeListContextType | undefined
@@ -15,20 +16,20 @@ interface CustomFeeListProviderProps {
 export const CustomFeeListProvider: React.FC<CustomFeeListProviderProps> = ({
   children,
 }) => {
-  // Şimdilik pricingId=1 sabit olarak kullanıyoruz
-  // TODO: Gerçek pricingId'yi context'ten veya props'tan al
-  const pricingId = 1;
+  // useCompany'den selectedSchool'u al
+  const { selectedSchool } = useCompany();
+  const schoolId = selectedSchool?.id || null;
 
   // Custom fee hook'unu kullan
   const { customFees, customFeeLoading, customFeeError, refetchCustomFees } =
-    useCustomFeesByPricing(pricingId);
+    useCustomFeesByPricing(schoolId);
 
   const contextValue: CustomFeeListContextType = {
     customFees,
     customFeeLoading,
     customFeeError,
     refetchCustomFees,
-    pricingId,
+    pricingId: schoolId, // Geriye uyumluluk için pricingId yerine schoolId kullanıyoruz
   };
 
   return (

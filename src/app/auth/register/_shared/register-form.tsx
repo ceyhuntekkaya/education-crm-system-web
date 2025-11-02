@@ -5,8 +5,10 @@ import { FormProvider } from "@/contexts/form-context";
 import { RegisterProvider } from "./context";
 import { RegisterFormContent } from "./components";
 import { initialValues, registerValidationSchema } from "./schemas";
+import { UserType } from "@/enums/UserType";
 
-export type RegistrationType = "institution" | "user";
+// UserType enum'ını direkt kullan
+export type RegistrationType = UserType;
 
 interface RegisterFormProps {
   registrationType?: RegistrationType;
@@ -17,7 +19,7 @@ interface RegisterFormProps {
  * FormProvider ve RegisterProvider ile tüm formu sarar
  */
 export const RegisterForm: React.FC<RegisterFormProps> = ({
-  registrationType = "institution",
+  registrationType = UserType.INSTITUTION_USER,
 }) => {
   return (
     <FormProvider

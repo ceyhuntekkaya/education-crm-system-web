@@ -56,8 +56,8 @@ const GalleryDetailPage: React.FC = () => {
 
   return (
     <CustomCard
-      title="Gallery Detayı"
-      subtitle="Gallery bilgilerini detaylı olarak görüntüleyin"
+      title="Galeri Detayı"
+      subtitle="Galeri bilgilerini detaylı olarak görüntüleyin"
       multiItems={allSections}
       editButtonUrl={`/company/gallery/add-edit/${gallery.id}`}
     >

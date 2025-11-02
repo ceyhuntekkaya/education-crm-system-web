@@ -14,4 +14,5 @@ export * from "./GallerySearchDto";
 export * from "./PostDto";
 export * from "./PostCreateDto";
 export * from "./PostUpdateDto";
+export * from "./PostItemDto";
 export * from "./PostSearchDto";

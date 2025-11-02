@@ -4,7 +4,8 @@ import { SelectOption } from "./hook-types";
 export interface PostAddEditContextType {
   // Current post data
   post: PostDto | null;
-  postLoading: boolean;
+  postDetailLoading: boolean; // Sadece veri çekerken
+  postSubmitLoading: boolean; // Form submit edilirken
   postError: string | null;
 
   // Edit mode state

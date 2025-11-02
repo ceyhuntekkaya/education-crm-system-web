@@ -5,7 +5,7 @@ import { useState, useCallback } from "react";
 // Context Internal State Hook - Tüm internal state'leri burada
 export const useContextState = () => {
   const [internalError, setInternalError] = useState<string>("");
-  const [internalLoading, setInternalLoading] = useState<boolean>(false);
+  const [internalLoading, setInternalLoadingState] = useState<boolean>(false);
 
   // Error management
   const handleInternalError = useCallback((errorMsg: string) => {
@@ -19,6 +19,11 @@ export const useContextState = () => {
     setInternalError("");
   }, []);
 
+  // Loading setter - useCallback ile wrap et
+  const setInternalLoading = useCallback((loading: boolean) => {
+    setInternalLoadingState(loading);
+  }, []);
+
   // Internal change handler
   const handleInternalChange = useCallback((files: File[] | File | null) => {
     console.log("Files selected:", files);
@@ -26,13 +31,13 @@ export const useContextState = () => {
 
   // Internal upload handler
   const handleInternalUpload = useCallback(async (files: File[]) => {
-    setInternalLoading(true);
+    setInternalLoadingState(true);
     console.log("Uploading files:", files);
 
     // Simulated upload - 2 saniye bekle
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    setInternalLoading(false);
+    setInternalLoadingState(false);
     console.log("Upload complete:", files);
   }, []);
 
@@ -44,6 +49,7 @@ export const useContextState = () => {
 
     // Loading state
     internalLoading,
+    setInternalLoading, // Loading state setter'ını export et
 
     // Callbacks
     handleInternalChange,

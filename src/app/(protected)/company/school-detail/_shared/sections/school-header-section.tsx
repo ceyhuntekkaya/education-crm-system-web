@@ -1,9 +1,9 @@
 import React from "react";
 import { CustomCard } from "@/components/ui";
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 
 export default function SchoolHeaderSection() {
-  const { selectedSchool, refreshSchool } = useSchoolDetail();
+  const { selectedSchool, refreshSchool } = useSchoolDetailContext();
 
   if (!selectedSchool) {
     return (

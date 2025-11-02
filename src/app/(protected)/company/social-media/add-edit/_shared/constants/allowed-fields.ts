@@ -24,4 +24,5 @@ export const ALLOWED_FIELDS_IN_EDIT_MODE = [
   "externalUrl",
   "callToAction",
   "ctaUrl",
+  "items",
 ] as const;

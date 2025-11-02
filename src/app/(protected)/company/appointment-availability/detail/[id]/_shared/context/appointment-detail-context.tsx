@@ -5,6 +5,9 @@ import { useAppointmentById } from "../hooks/use-appointment-by-id";
 import { useAppointmentSections } from "../hooks/use-appointment-sections";
 import { useAddAppointmentNote } from "../hooks/use-add-appointment-note";
 import { useAppointmentNotes } from "../hooks/use-appointment-notes";
+import { useAppointmentSurveys } from "../hooks/use-appointment-surveys";
+import { useCreateSurvey } from "../hooks/use-create-survey";
+import { useSurveySelection } from "../hooks/use-survey-selection";
 import {
   AppointmentDetailContextValue,
   AppointmentDetailProviderProps,
@@ -39,6 +42,23 @@ export const AppointmentDetailProvider: React.FC<
     error: noteAddError,
   } = useAddAppointmentNote(appointmentId, refetchNotes);
 
+  // Survey işlemleri
+  const {
+    surveys,
+    isLoading: appointmentSurveysLoading,
+    error: appointmentSurveysError,
+    refetch: refetchSurveys,
+  } = useAppointmentSurveys();
+
+  const { selectedSurveyId, selectSurvey, clearSelection } =
+    useSurveySelection();
+
+  const {
+    createSurvey,
+    isLoading: surveyCreateLoading,
+    error: surveyCreateError,
+  } = useCreateSurvey();
+
   const contextValue: AppointmentDetailContextValue = {
     appointmentId,
     appointment,
@@ -53,6 +73,16 @@ export const AppointmentDetailProvider: React.FC<
     appointmentNotesLoading,
     appointmentNotesError,
     refetchNotes,
+    surveys,
+    appointmentSurveysLoading,
+    appointmentSurveysError,
+    refetchSurveys,
+    selectedSurveyId,
+    selectSurvey,
+    clearSelection,
+    createSurvey,
+    surveyCreateLoading,
+    surveyCreateError,
   };
 
   return (

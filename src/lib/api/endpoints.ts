@@ -20,6 +20,8 @@ export const API_ENDPOINTS = {
     SCHOOLS: "/institutions/schools",
     SCHOOLS_SEARCH: "/institutions/schools/search",
     SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
+    SCHOOL_PROPERTY: (id: string | number) =>
+      `/institutions/schools/${id}/property`,
     SCHOOL_CREATE: "/institutions/schools",
     SCHOOL_BY_ID: (id: string | number) => `/institutions/schools/${id}`,
     BRAND_SUMMARIES: "/institutions/brands/summaries",
@@ -40,12 +42,16 @@ export const API_ENDPOINTS = {
     SCHOOL_PRICING: (schoolId: string | number) =>
       `/pricing/school-pricing/school/${schoolId}`,
     SCHOOL_PRICING_BY_ID: (id: string | number) =>
+      `/pricing/school-pricing/school/${id}`,
+    SCHOOL_PRICING_UPDATE: (id: string | number) =>
       `/pricing/school-pricing/${id}`,
 
     // Custom Fees endpoints
     CUSTOM_FEE_CREATE: "/pricing/custom-fees",
     CUSTOM_FEES_BY_PRICING: (pricingId: string | number) =>
       `/pricing/custom-fees/pricing/${pricingId}`,
+    CUSTOM_FEES_BY_SCHOOL: (schoolId: string | number) =>
+      `/pricing/custom-fees/school/${schoolId}`,
     CUSTOM_FEE_BY_ID: (id: string | number) => `/pricing/custom-fees/${id}`,
     CUSTOM_FEE_UPDATE: (id: string | number) => `/pricing/custom-fees/${id}`,
     CUSTOM_FEE_DELETE: (id: string | number) => `/pricing/custom-fees/${id}`,
@@ -78,6 +84,23 @@ export const API_ENDPOINTS = {
     BY_ID: (id: string | number) => `/appointments/${id}`,
     NOTES: (appointmentId: string | number) =>
       `/appointments/${appointmentId}/notes`,
+  },
+
+  SURVEYS: {
+    BY_APPOINTMENT_ID: (appointmentId: string | number) =>
+      `/surveys/appointments/${appointmentId}`,
+    CREATE_RESPONSE: "/surveys/responses",
+    USER_ASSIGNMENT: "/surveys/user/assignment",
+    USER_ASSIGNMENT_BY_ID: (userId: string | number) =>
+      `/surveys/user/assignment/${userId}`,
+    SUBMIT: "/surveys/submit",
+    EVALUATE: "/surveys/evaluate", // Survey evaluation için özel endpoint
+    BY_ID: (id: string | number) => `/surveys/${id}`,
+    PUBLIC_BY_TOKEN: (responseToken: string) =>
+      `/surveys/public/by-token/${responseToken}`,
+    BY_TOKEN: (responseToken: string) => `/surveys/responses/${responseToken}`,
+    SUBMIT_RESPONSE: (responseToken: string) =>
+      `/surveys/responses/${responseToken}/submit`,
   },
 
   CONTENT: {
@@ -113,6 +136,19 @@ export const API_ENDPOINTS = {
 
   TEMP: {
     CARTS: "/carts",
+  },
+
+  // Users endpoints
+  USERS: {
+    REGISTER: "/users/register",
+    BY_CAMPUS: (campusId: string | number) => `/users/campus/${campusId}`,
+    BY_ID: (userId: string | number) => `/users/${userId}`,
+    PROFILE: (userId: string | number) => `/users/${userId}/profile`,
+    UPDATE_PROFILE: (userId: string | number) => `/users/${userId}/profile`,
+    PASSWORD_RESET: "/users/password/reset",
+    PASSWORD_RESET_CONFIRM: "/users/password/reset/confirm",
+    CHANGE_PASSWORD: (userId: string | number) =>
+      `/users/${userId}/password/change`,
   },
 
   // // Todos

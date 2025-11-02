@@ -1,17 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
-import { UserListDto } from "@/types/dto/user/UserListDto";
 import { createUsersColumns } from "../config/users-columns";
-import { UsersColumnHandlers, UsersTableProps } from "../types";
-import { mockUsers, calculateUserStats } from "../mock/users-mock-data";
+import { UsersTableProps } from "../types";
+import { useUsersContext } from "../context";
 
 export const UsersTable: React.FC<UsersTableProps> = ({
-  users = mockUsers,
-  loading = false,
+  users: propUsers,
+  loading: propLoading,
 }) => {
-  // Kolonları oluştur
+  const router = useRouter();
+  const { users: contextUsers, loading: contextLoading } = useUsersContext();
+
+  // Props'dan gelen değerleri kullan, yoksa context'ten al
+  const users = propUsers ?? contextUsers;
+  const loading = propLoading ?? contextLoading;
+
+  // Row tıklama handler'ı
+  const handleRowClick = (params: any) => {
+    if (params.row?.id) {
+      router.push(`/company/users/detail/${params.row.id}`);
+    }
+  };
+
+  // Kolonları oluştur (UserDto'ya göre)
   const columns = createUsersColumns();
 
   return (
@@ -20,6 +34,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
         rows={users}
         columns={columns}
         loading={loading}
+        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
@@ -35,7 +50,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
           showActions: true,
           addButtonText: "Yeni Kullanıcı",
           onAddNew: () => {
-            console.log("Yeni Kullanıcı ekleme formu açılacak");
+            router.push("/company/users/add-edit/new");
           },
         }}
       />

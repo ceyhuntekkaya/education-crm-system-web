@@ -18,6 +18,9 @@ export interface FileInputContextProps {
   loading?: boolean;
   isAutoUpload?: boolean; // true ise dosya seçildiğinde otomatik yükleme yapar
 
+  // Initial Value
+  initialValue?: string | any[]; // Form'dan gelen URL değeri veya array
+
   // Upload API props
   name?: string;
   onUpload?: (files: File[]) => Promise<void>;
@@ -36,6 +39,7 @@ export interface FileInputContextValue {
   files: FileWithPreview[];
   processFiles: (fileList: FileList) => Promise<void>;
   removeFile: (index: number) => void;
+  markFilesAsUploaded: (uploadedFilesData?: any[]) => void; // Yüklenen dosya metadata'sını alır
   hasNewFiles: boolean; // Yeni dosya var mı (placeholder olmayan)
 
   // Loading States

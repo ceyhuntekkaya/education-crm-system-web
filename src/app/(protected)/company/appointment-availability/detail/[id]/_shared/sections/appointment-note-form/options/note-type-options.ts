@@ -15,6 +15,7 @@ export const noteTypeOptions: NoteTypeOption[] = [
   { label: "Teknik Sorun", value: NoteType.TECHNICAL_ISSUE },
   { label: "Erteleme", value: NoteType.RESCHEDULING },
   { label: "İptal", value: NoteType.CANCELLATION },
+  { label: "Satış Olmama", value: NoteType.REASON_FOR_NEGATIVITY },
   { label: "Hatırlatma", value: NoteType.REMINDER },
   { label: "Dahili Not", value: NoteType.INTERNAL },
 ];

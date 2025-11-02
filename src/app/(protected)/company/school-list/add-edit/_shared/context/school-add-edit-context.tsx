@@ -4,7 +4,6 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/contexts";
 import { SchoolAddEditContextType } from "../types";
-import { SchoolCreateDto, SchoolDto } from "@/types";
 import {
   useSchoolById,
   useAddSchool,
@@ -12,6 +11,7 @@ import {
   useInstitutionTypes,
   useCampusesByBrand,
   useLanguageOptions,
+  usePropertyValues,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 
@@ -74,6 +74,14 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
   // Dil seçenekleri hook'u
   const { languageOptions } = useLanguageOptions();
 
+  // Property values hook'u
+  const {
+    propertyCheckboxGroups,
+    isLoading: propertyValuesLoading,
+    error: propertyValuesError,
+    getGroupsByInstitutionTypeId,
+  } = usePropertyValues();
+
   const contextValue: SchoolAddEditContextType = {
     // Current school data
     school,
@@ -93,6 +101,12 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     campusOptions,
     institutionTypeOptions,
     languageOptions,
+
+    // Property values
+    propertyCheckboxGroups,
+    propertyValuesLoading,
+    propertyValuesError,
+    getGroupsByInstitutionTypeId,
 
     // Loading states
     campusesLoading,

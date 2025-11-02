@@ -22,6 +22,9 @@ export const initialValues: SchoolFormData = {
   monthlyFee: undefined,
   annualFee: undefined,
 
+  // Property Type IDs
+  propertyTypeIds: [],
+
   // SEO
   metaTitle: "",
   metaDescription: "",
