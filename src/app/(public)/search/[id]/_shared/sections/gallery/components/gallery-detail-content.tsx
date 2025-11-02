@@ -6,6 +6,7 @@ import {
   formatGalleryType,
   getGalleryTypeIcon,
 } from "../utils";
+import { getFileServeUrl } from "@/lib/api/constants";
 
 interface GalleryDetailContentProps {
   gallery: any; // Gallery verilerinin type'ı buraya eklenebilir
@@ -17,6 +18,15 @@ const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
   variant = "modal", // Varsayılan olarak modal
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // URL helper - eğer tam URL değilse serve prefix ekle
+  const getFullUrl = (url: string | undefined): string => {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
+    }
+    return getFileServeUrl(url);
+  };
 
   if (!gallery) {
     return (
@@ -65,7 +75,7 @@ const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
       case "IMAGE":
         return (
           <CustomImage
-            src={item.fileUrl}
+            src={getFullUrl(item.fileUrl)}
             alt={
               item.altText ||
               item.title ||
@@ -81,7 +91,11 @@ const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
       case "VIDEO":
         return (
           <div className="video-container">
-            <video src={item.fileUrl} controls className="video-player">
+            <video
+              src={getFullUrl(item.fileUrl)}
+              controls
+              className="video-player"
+            >
               Tarayıcınız video oynatmayı desteklemiyor.
             </video>
           </div>
@@ -126,7 +140,7 @@ const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
 
                 <div className="document-button-wrapper">
                   <a
-                    href={item.fileUrl}
+                    href={getFullUrl(item.fileUrl)}
                     download={item.fileName}
                     className="btn btn-main rounded-pill flex-align gap-8 document-download-btn"
                     target="_blank"
@@ -156,10 +170,10 @@ const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
 
   // Farklı medya tipleri için thumbnail kaynağı al
   const getThumbnailSrc = (item: any) => {
-    if (item.thumbnailUrl) return item.thumbnailUrl;
-    if (item.itemType === "IMAGE") return item.fileUrl;
+    if (item.thumbnailUrl) return getFullUrl(item.thumbnailUrl);
+    if (item.itemType === "IMAGE") return getFullUrl(item.fileUrl);
     // Video ve belgeler için placeholder görseller eklenebilir
-    return item.fileUrl;
+    return getFullUrl(item.fileUrl);
   };
 
   return (
@@ -303,7 +317,7 @@ const GalleryDetailContent: React.FC<GalleryDetailContentProps> = ({
             <div className="institution-card">
               <div className="institution-avatar">
                 <CustomImage
-                  src={gallery.school.logoUrl}
+                  src={getFullUrl(gallery.school.logoUrl)}
                   alt={gallery.school.name || "School logo"}
                   width={40}
                   height={40}

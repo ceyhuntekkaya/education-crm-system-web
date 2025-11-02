@@ -26,7 +26,7 @@ export const GalleryFormContent: React.FC = () => {
     isEditing,
     postGallery,
     putGallery,
-    galleryLoading,
+    gallerySubmitLoading, // Form submit loading
     galleryId,
     galleryTypeOptions,
     visibilityOptions,
@@ -192,14 +192,14 @@ export const GalleryFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={galleryLoading}
+              disabled={gallerySubmitLoading}
             >
               İptal
             </Button>
             <Button
               type="submit"
-              disabled={hasErrors || galleryLoading}
-              loading={galleryLoading}
+              disabled={hasErrors || gallerySubmitLoading}
+              loading={gallerySubmitLoading}
             >
               {isEditing ? "Güncelle" : "Kaydet"}
             </Button>

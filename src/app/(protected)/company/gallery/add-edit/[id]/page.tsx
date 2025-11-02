@@ -2,26 +2,16 @@
 
 import React from "react";
 import { CustomCard } from "@/components";
-import {
-  GalleryForm,
-  GalleryItemForm,
-  LoadingSection,
-  useGalleryAddEdit,
-} from "../_shared";
+import { GalleryForm, GalleryItemForm, useGalleryAddEdit } from "../_shared";
 
 interface GalleryAddEditPageProps {}
 
 const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = () => {
-  const { isEditing, gallery, galleryLoading } = useGalleryAddEdit();
+  const { isEditing, gallery, galleryDetailLoading } = useGalleryAddEdit();
 
   const pageTitle = isEditing
     ? "Galeri Bilgisi Düzenle"
     : "Yeni Galeri Oluştur";
-
-  // Loading durumu
-  if (galleryLoading && isEditing) {
-    return <LoadingSection pageTitle={pageTitle} />;
-  }
 
   return (
     <>
@@ -33,6 +23,7 @@ const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = () => {
             : "Yeni galeri bilgilerini oluşturun"
         }
         isBack
+        isLoading={galleryDetailLoading && isEditing}
       >
         <GalleryForm isEditing={isEditing} initialData={gallery} />
       </CustomCard>

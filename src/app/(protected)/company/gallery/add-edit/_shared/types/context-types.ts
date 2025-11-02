@@ -15,7 +15,8 @@ export interface SelectOption {
 export interface GalleryAddEditContextType {
   // Current gallery data
   gallery: GalleryDto | null;
-  galleryLoading: boolean;
+  galleryDetailLoading: boolean; // Veri çekerken gösterilecek loading
+  gallerySubmitLoading: boolean; // Form submit edilirken button loading
   galleryError: string | null;
 
   // Edit mode state
