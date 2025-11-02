@@ -76,12 +76,18 @@ export const useFileManagement = (props: {
             }
           }
 
+          // Preview URL'sini oluştur - eğer tam URL değilse serve prefix ekle
+          const previewUrl =
+            fileUrl.startsWith("http://") || fileUrl.startsWith("https://")
+              ? fileUrl
+              : getFileServeUrl(fileUrl);
+
           // Placeholder file oluştur
           const placeholderFile: FileWithPreview = {
             name: fileName,
             size: item.fileSizeBytes || 0,
             type: mimeType,
-            preview: fileUrl,
+            preview: previewUrl,
             lastModified: Date.now(),
             arrayBuffer: async () => new ArrayBuffer(0),
             slice: () => new Blob(),
@@ -112,12 +118,19 @@ export const useFileManagement = (props: {
           mimeType = `video/${fileExtension}`;
         }
 
+        // Preview URL'sini oluştur - eğer tam URL değilse serve prefix ekle
+        const previewUrl =
+          initialValue.startsWith("http://") ||
+          initialValue.startsWith("https://")
+            ? initialValue
+            : getFileServeUrl(initialValue);
+
         // Placeholder file oluştur
         const placeholderFile: FileWithPreview = {
           name: fileName,
           size: 0, // Boyut bilinmiyor
           type: mimeType,
-          preview: initialValue, // URL'yi preview olarak kullan
+          preview: previewUrl, // URL'yi preview olarak kullan
           lastModified: Date.now(),
           arrayBuffer: async () => new ArrayBuffer(0),
           slice: () => new Blob(),
@@ -263,9 +276,15 @@ export const useFileManagement = (props: {
           (fileData) => {
             const fileName =
               fileData.originalFileName || fileData.fileName || "uploaded-file";
-            const fileUrl = fileData.fileUrl
-              ? getFileServeUrl(fileData.fileUrl)
-              : "";
+            const rawFileUrl = fileData.fileUrl || "";
+
+            // Preview URL'sini oluştur - eğer tam URL değilse serve prefix ekle
+            const fileUrl =
+              rawFileUrl.startsWith("http://") ||
+              rawFileUrl.startsWith("https://")
+                ? rawFileUrl
+                : getFileServeUrl(rawFileUrl);
+
             const mimeType = fileData.mimeType || "application/octet-stream";
 
             // Placeholder file oluştur
