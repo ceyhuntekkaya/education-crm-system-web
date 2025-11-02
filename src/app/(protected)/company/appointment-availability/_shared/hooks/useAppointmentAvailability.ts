@@ -1,68 +1,59 @@
 "use client";
 
 import { useState } from "react";
-import { useGet } from "@/hooks";
-import { API_ENDPOINTS, buildQueryString } from "@/lib";
-import {
-  ApiResponseDto,
-  AppointmentAvailabilityDto,
-  AppointmentDto,
-} from "@/types";
+import { usePost } from "@/hooks";
+import { API_ENDPOINTS } from "@/lib";
+import { ApiResponseDto, AppointmentSlotDto } from "@/types";
 import { AppointmentAvailabilityFilters } from "../types";
-import { mockAppointments } from "../mock";
+
+interface SlotSearchRequest {
+  startDate: string;
+  endDate: string;
+  schoolId: number;
+}
 
 interface UseAppointmentAvailabilityReturn {
-  availability: AppointmentDto[];
+  availability: AppointmentSlotDto[];
   availabilityLoading: boolean;
   availabilityError: string | null;
   fetchAvailability: (filters: AppointmentAvailabilityFilters) => void;
 }
 
 /**
- * Okul randevu müsaitlik verilerini yöneten hook
+ * Okul randevu müsaitlik verilerini yöneten hook (Tekil Tarih)
+ * Yeni API yapısı: POST /api/appointments/slots/search/date
+ * Tekil tarih için startDate ve endDate aynı günü gönderir
  * @returns Randevu müsaitlik verileri ve yönetim fonksiyonları
  */
 export const useAppointmentAvailability =
   (): UseAppointmentAvailabilityReturn => {
-    const [currentFilters, setCurrentFilters] =
-      useState<AppointmentAvailabilityFilters | null>(null);
-
-    // Build the URL with query parameters
-    const buildUrl = (filters: AppointmentAvailabilityFilters) => {
-      if (!filters.schoolId || !filters.date) {
-        return null;
-      }
-
-      const baseUrl = API_ENDPOINTS.APPOINTMENTS.SCHOOL_AVAILABILITY(
-        filters.schoolId
-      );
-      const queryParams: Record<string, unknown> = {
-        date: filters.date,
-      };
-
-      const queryString = buildQueryString(queryParams);
-      return queryString ? `${baseUrl}?${queryString}` : baseUrl;
-    };
-
-    const url = currentFilters ? buildUrl(currentFilters) : null;
-
     const {
       data: availabilityResponse,
       loading: availabilityLoading,
       error: availabilityError,
-      refetch,
-    } = useGet<ApiResponseDto<AppointmentDto[]>>(url);
+      mutate,
+    } = usePost<ApiResponseDto<AppointmentSlotDto[]>, SlotSearchRequest>(
+      API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_DATE
+    );
 
     const fetchAvailability = (filters: AppointmentAvailabilityFilters) => {
-      setCurrentFilters(filters);
-      // Refetch will be triggered automatically when currentFilters change
-      if (url) {
-        refetch();
+      if (!filters.schoolId || !filters.date) {
+        console.warn("SchoolId ve date gerekli!");
+        return;
       }
+
+      // Tekil tarih için startDate ve endDate aynı
+      const requestBody: SlotSearchRequest = {
+        startDate: filters.date,
+        endDate: filters.date,
+        schoolId: filters.schoolId,
+      };
+
+      mutate(requestBody);
     };
 
     return {
-      availability: mockAppointments || availabilityResponse?.data || [],
+      availability: availabilityResponse?.data || [],
       availabilityLoading,
       availabilityError,
       fetchAvailability,

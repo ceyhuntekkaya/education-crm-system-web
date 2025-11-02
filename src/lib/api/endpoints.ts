@@ -77,6 +77,10 @@ export const API_ENDPOINTS = {
   },
 
   APPOINTMENTS: {
+    // Yeni API - İki tarih arası okul slotları listesi (POST)
+    SLOTS_SEARCH_DATE: "/appointments/slots/search/date",
+
+    // Legacy endpoints (deprecated)
     SCHOOL_AVAILABILITY: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/availability`,
     SCHOOL_AVAILABILITY_RANGE: (schoolId: string | number) =>

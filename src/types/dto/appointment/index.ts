@@ -14,6 +14,7 @@ export * from "./AppointmentOutcomeDto";
 export * from "./AppointmentParticipantCreateDto";
 export * from "./AppointmentParticipantDto";
 export * from "./AppointmentRescheduleDto";
+export * from "./AppointmentSlotDto";
 export * from "./AppointmentStatusChangeDto";
 export * from "./AppointmentSummaryDto";
 export * from "./AppointmentTypeCountDto";

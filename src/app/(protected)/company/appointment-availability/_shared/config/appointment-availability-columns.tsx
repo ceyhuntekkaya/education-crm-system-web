@@ -1,16 +1,39 @@
 import { GridColDef } from "@/components/ui/data-grid";
-import { AppointmentAvailabilityDto } from "@/types/dto/appointment/AppointmentAvailabilityDto";
-import {
-  formatDate,
-  AVAILABILITY_STATUS_LABELS,
-  AVAILABILITY_VARIANTS,
-  calculateAvailabilityStatus,
-  getAvailabilityPercentage,
-  formatSlotTime,
-  getBookingRatioText,
-  getApiAvailabilityDisplay,
-} from "@/utils";
+import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
+import { formatDate, formatSlotTime } from "@/utils";
 import { Badge } from "@/components";
+
+// Helper function - Gün adını Türkçe'ye çevir
+const getDayOfWeekLabel = (day?: string) => {
+  const dayMap: Record<string, string> = {
+    MONDAY: "Pazartesi",
+    TUESDAY: "Salı",
+    WEDNESDAY: "Çarşamba",
+    THURSDAY: "Perşembe",
+    FRIDAY: "Cuma",
+    SATURDAY: "Cumartesi",
+    SUNDAY: "Pazar",
+  };
+  return day ? dayMap[day] || day : "-";
+};
+
+// Helper function - Randevu tipi etiketini al
+const getAppointmentTypeLabel = (type?: string) => {
+  const typeMap: Record<string, string> = {
+    INFORMATION_MEETING: "Bilgilendirme",
+    SCHOOL_TOUR: "Okul Turu",
+    ENROLLMENT_INTERVIEW: "Kayıt Görüşmesi",
+    PARENT_MEETING: "Veli Görüşmesi",
+    CONSULTATION: "Danışmanlık",
+    ASSESSMENT: "Değerlendirme",
+    ORIENTATION: "Oryantasyon",
+    ONLINE_MEETING: "Online Görüşme",
+    PHONE_CALL: "Telefon Görüşmesi",
+    GROUP_MEETING: "Grup Görüşmesi",
+    OTHER: "Diğer",
+  };
+  return type ? typeMap[type] || type : "-";
+};
 
 // Column render helper functions
 const renderSchoolName = (params: any) => (
@@ -19,181 +42,175 @@ const renderSchoolName = (params: any) => (
   </div>
 );
 
-const renderSchoolId = (params: any) => (
-  <div className="text-center">{params.row.schoolId || "-"}</div>
-);
-
-const renderDate = (params: any) => (
-  <div className="fw-medium text-center">
-    {params.row.date ? formatDate(params.row.date) : "-"}
+const renderStaffInfo = (params: any) => (
+  <div className="text-truncate" title={params.row.staffUserName}>
+    {params.row.staffUserName || "-"}
   </div>
 );
 
-const renderTotalSlots = (params: any) => (
-  <div className="text-center fw-medium text-primary">
-    {params.row.totalSlots || 0}
+const renderDayOfWeek = (params: any) => (
+  <div className="text-center">
+    {params.row.dayOfWeekName || getDayOfWeekLabel(params.row.dayOfWeek)}
   </div>
 );
 
-const renderAvailableCount = (params: any) => (
-  <div className="text-center fw-medium text-success">
-    {params.row.availableCount || 0}
-  </div>
-);
+const renderTimeSlot = (params: any) => {
+  const { startTime, endTime, timeRange } = params.row;
 
-const renderBookedSlots = (params: any) => (
-  <div className="text-center fw-medium text-warning">
-    {params.row.bookedSlots || 0}
-  </div>
-);
-
-const renderBookingRatio = (params: any) => (
-  <div className="text-center fw-medium">
-    {getBookingRatioText(
-      params.row.bookedSlots || 0,
-      params.row.totalSlots || 0
-    )}
-  </div>
-);
-
-const renderAvailabilityPercentage = (params: any) => {
-  const percentage = getAvailabilityPercentage(
-    params.row.availableCount || 0,
-    params.row.totalSlots || 0
-  );
-
-  return <div className="text-center fw-medium">{percentage}%</div>;
-};
-
-const renderAvailabilityStatus = (params: any) => {
-  // Önce API'den gelen availability string'ini kontrol et
-  if (params.row.availability) {
-    const { label, variant } = getApiAvailabilityDisplay(
-      params.row.availability
-    );
+  // Eğer timeRange varsa onu kullan
+  if (timeRange) {
     return (
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <Badge variant={variant}>{label}</Badge>
+      <div className="text-center">
+        <span className="badge bg-light text-dark border">{timeRange}</span>
       </div>
     );
   }
 
-  // Eğer API'den durum gelmemişse, sayısal verilerden hesapla
-  const { availableCount, totalSlots } = params.row;
-  const status = calculateAvailabilityStatus(
-    availableCount || 0,
-    totalSlots || 0
-  );
-  const variant = AVAILABILITY_VARIANTS[status];
-  const label = AVAILABILITY_STATUS_LABELS[status];
-
-  return (
-    <div className="d-flex justify-content-center align-items-center h-100">
-      <Badge variant={variant}>{label}</Badge>
-    </div>
-  );
-};
-
-const renderFirstAvailableSlot = (params: any) => {
-  const { availableSlots } = params.row;
-
-  if (!availableSlots || availableSlots.length === 0) {
+  if (!startTime || !endTime) {
     return <span className="text-muted text-center d-block">-</span>;
   }
 
-  const firstSlot = availableSlots[0];
   return (
     <div className="text-center">
       <span className="badge bg-light text-dark border">
-        {formatSlotTime(firstSlot.startTime, firstSlot.endTime)}
+        {formatSlotTime(startTime, endTime)}
       </span>
     </div>
   );
 };
 
-const renderAvailableSlotCount = (params: any) => {
-  const { availableSlots } = params.row;
-  const count = availableSlots?.length || 0;
+const renderAppointmentType = (params: any) => (
+  <div className="text-truncate">
+    {getAppointmentTypeLabel(params.row.appointmentType)}
+  </div>
+);
 
-  return <div className="text-center fw-medium">{count}</div>;
+const renderTitle = (params: any) => (
+  <div className="text-truncate" title={params.row.title}>
+    {params.row.title || "-"}
+  </div>
+);
+
+const renderAvailability = (params: any) => {
+  const { isAvailable, availableCapacity, capacity } = params.row;
+
+  if (isAvailable === undefined || isAvailable === null) {
+    return <span className="text-muted text-center d-block">-</span>;
+  }
+
+  const variant = isAvailable ? "success" : "danger";
+  const label = isAvailable ? "Müsait" : "Dolu";
+
+  return (
+    <div className="d-flex justify-content-center align-items-center h-100">
+      <Badge variant={variant}>
+        {label}
+        {availableCapacity !== undefined && capacity !== undefined && (
+          <span className="ms-1">
+            ({availableCapacity}/{capacity})
+          </span>
+        )}
+      </Badge>
+    </div>
+  );
 };
 
+const renderCapacity = (params: any) => (
+  <div className="text-center fw-medium text-primary">
+    {params.row.capacity || 0}
+  </div>
+);
+
+const renderAvailableCapacity = (params: any) => (
+  <div className="text-center fw-medium text-success">
+    {params.row.availableCapacity !== undefined
+      ? params.row.availableCapacity
+      : "-"}
+  </div>
+);
+
+const renderBookedCount = (params: any) => (
+  <div className="text-center fw-medium text-warning">
+    {params.row.bookedCount || 0}
+  </div>
+);
+
 /**
- * Appointment Availability DataGrid column definitions
+ * Appointment Slot DataGrid column definitions
+ * Yeni API yapısı: AppointmentSlotDto
  */
-export const appointmentAvailabilityColumns: GridColDef<AppointmentAvailabilityDto>[] =
+export const appointmentAvailabilityColumns: GridColDef<AppointmentSlotDto>[] =
   [
-    // {
-    //   field: "schoolName",
-    //   headerName: "Okul Adı",
-    //   width: 180,
-    //   minWidth: 150,
-    //   sortable: true,
-    //   renderCell: renderSchoolName,
-    // },
-    // {
-    //   field: "schoolId",
-    //   headerName: "Okul ID",
-    //   width: 100,
-    //   sortable: true,
-    //   renderCell: renderSchoolId,
-    // },
     {
-      field: "date",
-      headerName: "Randevu Tarihi",
-      width: 200,
+      field: "schoolName",
+      headerName: "Okul Adı",
+      width: 180,
+      minWidth: 150,
       sortable: true,
-      renderCell: renderDate,
+      renderCell: renderSchoolName,
     },
     {
-      field: "availability",
+      field: "staffUserName",
+      headerName: "Personel",
+      width: 150,
+      sortable: true,
+      renderCell: renderStaffInfo,
+    },
+    {
+      field: "dayOfWeek",
+      headerName: "Gün",
+      width: 120,
+      sortable: true,
+      renderCell: renderDayOfWeek,
+    },
+    {
+      field: "timeSlot",
+      headerName: "Saat Aralığı",
+      width: 140,
+      sortable: false,
+      renderCell: renderTimeSlot,
+    },
+    {
+      field: "appointmentType",
+      headerName: "Randevu Tipi",
+      width: 160,
+      sortable: true,
+      renderCell: renderAppointmentType,
+    },
+    {
+      field: "title",
+      headerName: "Başlık",
+      width: 180,
+      sortable: true,
+      renderCell: renderTitle,
+    },
+    {
+      field: "isAvailable",
       headerName: "Müsaitlik",
       width: 140,
       sortable: true,
-      renderCell: renderAvailabilityStatus,
+      renderCell: renderAvailability,
     },
     {
-      field: "totalSlots",
-      // headerName: "Toplam Seans Sayısı",
-      headerName: "Toplam",
-      width: 130,
+      field: "capacity",
+      headerName: "Kapasite",
+      width: 100,
       sortable: true,
-      renderCell: renderTotalSlots,
+      renderCell: renderCapacity,
     },
     {
-      field: "availableCount",
-      headerName: "Müsait Seans",
-      width: 170,
+      field: "bookedCount",
+      headerName: "Dolu",
+      width: 90,
       sortable: true,
-      renderCell: renderAvailableCount,
+      renderCell: renderBookedCount,
     },
     {
-      field: "bookedSlots",
-      headerName: "Dolu Seans",
-      width: 160,
+      field: "availableCapacity",
+      headerName: "Müsait",
+      width: 90,
       sortable: true,
-      renderCell: renderBookedSlots,
-    },
-    {
-      field: "bookingRatio",
-      headerName: "Doluluk",
-      width: 120,
-      sortable: false,
-      renderCell: renderBookingRatio,
-    },
-    {
-      field: "availabilityPercentage",
-      headerName: "Doluluk Yüzdesi",
-      width: 180,
-      sortable: false,
-      renderCell: renderAvailabilityPercentage,
-    },
-    {
-      field: "firstAvailableSlot",
-      headerName: "İlk Müsait Seans Saati",
-      width: 200,
-      sortable: false,
-      renderCell: renderFirstAvailableSlot,
+      renderCell: renderAvailableCapacity,
     },
   ];
 
