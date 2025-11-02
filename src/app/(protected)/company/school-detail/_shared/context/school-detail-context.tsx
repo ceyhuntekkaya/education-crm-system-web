@@ -76,11 +76,11 @@ export const SchoolDetailProvider: React.FC<SchoolDetailProviderProps> = ({
   );
 };
 
-export const useSchoolDetail = (): SchoolDetailContextType => {
+export const useSchoolDetailContext = (): SchoolDetailContextType => {
   const context = useContext(SchoolDetailContext);
   if (context === undefined) {
     throw new Error(
-      "useSchoolDetail must be used within a SchoolDetailProvider"
+      "useSchoolDetailContext must be used within a SchoolDetailProvider"
     );
   }
   return context;

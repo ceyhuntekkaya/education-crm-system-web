@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useSchoolDetail } from "./_shared/context/school-detail-context";
+import { useSchoolDetailContext } from "./_shared/context/school-detail-context";
 import {
   SchoolGeneralInfo,
   SchoolCampusDetail,
@@ -16,7 +16,7 @@ import {
 } from "./_shared/sections";
 
 const SchoolDetailPage: React.FC = () => {
-  const { currentSchool, isLoading } = useSchoolDetail();
+  const { currentSchool, isLoading } = useSchoolDetailContext();
 
   if (isLoading) {
     return <SchoolLoadingSection />;

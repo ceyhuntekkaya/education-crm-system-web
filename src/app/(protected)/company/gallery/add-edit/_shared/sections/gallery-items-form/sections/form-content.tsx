@@ -31,7 +31,6 @@ export const GalleryItemFormContent: React.FC<GalleryItemFormContentProps> = ({
   const { hasErrors } = useFormHook();
   const { reset } = useForm();
   const {
-    galleryLoading,
     galleryId,
     postGalleryItem,
     putGalleryItem,
@@ -58,7 +57,7 @@ export const GalleryItemFormContent: React.FC<GalleryItemFormContentProps> = ({
     reset();
   };
 
-  const isLoading = galleryLoading || galleryItemLoading;
+  const isLoading = galleryItemLoading;
 
   return (
     <Form onSubmit={handleSubmit}>

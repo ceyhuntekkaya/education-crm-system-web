@@ -1,11 +1,11 @@
 import { PricingSummaryDto } from "@/types";
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 import { formatCurrency } from "@/utils";
 import { CustomCard } from "@/components/ui";
 import { schoolDetailMockData } from "@/app/(public)/search/[id]/_shared";
 
 export default function SchoolPricingInfo() {
-  const { currentSchool } = useSchoolDetail();
+  const { currentSchool } = useSchoolDetailContext();
 
   if (!currentSchool?.pricings || currentSchool.pricings.length === 0) {
     return (

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { CustomCard } from "@/components/ui";
 import { renderStars } from "@/utils/rating-utils";
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 
 export default function SchoolCampusDetail() {
-  const { currentSchool } = useSchoolDetail();
+  const { currentSchool } = useSchoolDetailContext();
 
   if (!currentSchool) {
     return (

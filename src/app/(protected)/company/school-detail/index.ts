@@ -4,6 +4,6 @@ export { useSchoolDetail as useSchoolDetailHook } from "./_shared/hooks/use-scho
 // Context (from _shared)
 export {
   SchoolDetailProvider,
-  useSchoolDetail as useSchoolDetailContext,
+  useSchoolDetailContext,
   type SchoolDetailContextType,
 } from "./_shared/context";

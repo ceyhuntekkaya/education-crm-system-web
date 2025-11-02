@@ -1,8 +1,8 @@
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CustomCard } from "@/components/ui";
 
 export default function SchoolNotFoundSection() {
-  const { refreshSchool } = useSchoolDetail();
+  const { refreshSchool } = useSchoolDetailContext();
 
   return (
     <CustomCard

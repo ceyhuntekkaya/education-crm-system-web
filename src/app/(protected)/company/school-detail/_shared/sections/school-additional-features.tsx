@@ -1,4 +1,4 @@
-import { useSchoolDetail } from "../context/school-detail-context";
+import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CustomCard } from "@/components/ui";
 import {
   getSchoolPropertyGroupIcon,
@@ -11,7 +11,7 @@ export default function SchoolAdditionalFeatures() {
     isPropertiesLoading,
     propertiesError,
     selectedSchool,
-  } = useSchoolDetail();
+  } = useSchoolDetailContext();
 
   // Determine empty states
   const isEmpty = !selectedSchool || !schoolProperties.length;
