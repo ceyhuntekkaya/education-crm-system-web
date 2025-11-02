@@ -38,16 +38,28 @@ export const AppointmentDetailsFormContent: React.FC<
     // Boolean değerleri düzenle
     const processedValues: AppointmentDetailsFilters = {
       ...values,
-      isOnline:
-        values.isOnline === "true"
+      onlineMeetingAvailable:
+        values.onlineMeetingAvailable === "true"
           ? true
-          : values.isOnline === "false"
+          : values.onlineMeetingAvailable === "false"
           ? false
           : undefined,
-      followUpRequired:
-        values.followUpRequired === "true"
+      isAvailable:
+        values.isAvailable === "true"
           ? true
-          : values.followUpRequired === "false"
+          : values.isAvailable === "false"
+          ? false
+          : undefined,
+      isActive:
+        values.isActive === "true"
+          ? true
+          : values.isActive === "false"
+          ? false
+          : undefined,
+      requiresApproval:
+        values.requiresApproval === "true"
+          ? true
+          : values.requiresApproval === "false"
           ? false
           : undefined,
     };
@@ -72,49 +84,39 @@ export const AppointmentDetailsFormContent: React.FC<
       <ActiveFilters />
 
       <Form onSubmit={handleSubmit}>
-        {/* Form Layout - İstenen sıralamayla düzenlenmiş */}
+        {/* Form Layout - Yeni AppointmentSlotDto yapısına göre güncellenmiş */}
         <div className="row row-gap-16">
-          {/* 1. Randevu Başlığı */}
+          {/* 1. Okul Adı */}
           <div className="col-md-3">
             <FormInput
-              name="title"
-              label="Randevu Başlığı"
+              name="schoolName"
+              label="Okul Adı"
               variant="inline"
-              placeholder="Randevu başlığını giriniz"
+              placeholder="Okul adını giriniz"
             />
           </div>
 
-          {/* 2. Randevu No */}
+          {/* 2. Personel */}
           <div className="col-md-3">
             <FormInput
-              name="appointmentNumber"
-              label="Randevu No"
+              name="staffUserName"
+              label="Personel"
               variant="inline"
-              placeholder="Randevu numarası"
+              placeholder="Personel adını giriniz"
             />
           </div>
 
-          {/* 3. Veli Adı */}
+          {/* 3. Gün */}
           <div className="col-md-3">
             <FormInput
-              name="parentName"
-              label="Veli Adı"
+              name="dayOfWeekName"
+              label="Gün"
               variant="inline"
-              placeholder="Veli adını giriniz"
+              placeholder="Pazartesi, Salı..."
             />
           </div>
 
-          {/* 4. Öğrenci Adı */}
-          <div className="col-md-3">
-            <FormInput
-              name="studentName"
-              label="Öğrenci Adı"
-              variant="inline"
-              placeholder="Öğrenci adını giriniz"
-            />
-          </div>
-
-          {/* 5. Randevu Türü */}
+          {/* 4. Randevu Türü */}
           <div className="col-md-3">
             <FormAutocomplete
               name="appointmentType"
@@ -125,97 +127,119 @@ export const AppointmentDetailsFormContent: React.FC<
             />
           </div>
 
-          {/* 6. Durum */}
+          {/* 5. Slot Tarihi Başlangıç */}
+          <div className="col-md-3">
+            <FormInput
+              name="slotDateStart"
+              label="Slot Tarihi (Başlangıç)"
+              type="date"
+              variant="inline"
+            />
+          </div>
+
+          {/* 6. Slot Tarihi Bitiş */}
+          <div className="col-md-3">
+            <FormInput
+              name="slotDateEnd"
+              label="Slot Tarihi (Bitiş)"
+              type="date"
+              variant="inline"
+            />
+          </div>
+
+          {/* 7. Müsaitlik */}
           <div className="col-md-3">
             <FormAutocomplete
-              name="status"
-              label="Durum"
+              name="isAvailable"
+              label="Müsaitlik"
+              variant="inline"
+              options={booleanOptions}
+              placeholder="Seçiniz"
+            />
+          </div>
+
+          {/* 8. Online Toplantı */}
+          <div className="col-md-3">
+            <FormAutocomplete
+              name="onlineMeetingAvailable"
+              label="Online Toplantı"
+              variant="inline"
+              options={booleanOptions}
+              placeholder="Seçiniz"
+            />
+          </div>
+
+          {/* 9. Aktif/Pasif */}
+          <div className="col-md-3">
+            <FormAutocomplete
+              name="isActive"
+              label="Aktif/Pasif"
+              variant="inline"
+              options={booleanOptions}
+              placeholder="Seçiniz"
+            />
+          </div>
+
+          {/* 10. Onay Gerekli */}
+          <div className="col-md-3">
+            <FormAutocomplete
+              name="requiresApproval"
+              label="Onay Gerekli"
+              variant="inline"
+              options={booleanOptions}
+              placeholder="Seçiniz"
+            />
+          </div>
+
+          {/* 11. Randevu No (appointment içinden) */}
+          <div className="col-md-3">
+            <FormInput
+              name="appointmentNumber"
+              label="Randevu No"
+              variant="inline"
+              placeholder="Randevu numarası"
+            />
+          </div>
+
+          {/* 12. Randevu Durumu */}
+          <div className="col-md-3">
+            <FormAutocomplete
+              name="appointmentStatus"
+              label="Randevu Durumu"
               variant="inline"
               options={statusOptions}
               placeholder="Durum seçiniz"
             />
           </div>
 
-          {/* 7. Konum */}
+          {/* 13. Veli Adı (appointment içinden) */}
           <div className="col-md-3">
             <FormInput
-              name="location"
-              label="Konum"
+              name="parentName"
+              label="Veli Adı"
               variant="inline"
-              placeholder="Konum bilgisi giriniz"
+              placeholder="Veli adını giriniz"
             />
           </div>
 
-          {/* 8. Online/Fiziksel */}
+          {/* 14. Öğrenci Adı (appointment içinden) */}
+          <div className="col-md-3">
+            <FormInput
+              name="studentName"
+              label="Öğrenci Adı"
+              variant="inline"
+              placeholder="Öğrenci adını giriniz"
+            />
+          </div>
+
+          {/* 15. Sonuç */}
           <div className="col-md-3">
             <FormAutocomplete
-              name="isOnline"
-              label="Online/Fiziksel"
-              variant="inline"
-              options={booleanOptions}
-              placeholder="Seçiniz"
-            />
-          </div>
-
-          {/* 9. Randevu Tarihi */}
-          <div className="col-md-3">
-            <FormInput
-              name="appointmentDate"
-              label="Randevu Tarihi"
-              type="date"
-              variant="inline"
-            />
-          </div>
-
-          {/* 10. Başlangıç Saati */}
-          <div className="col-md-3">
-            <FormInput
-              name="startTime"
-              label="Başlangıç Saati"
-              variant="inline"
-              placeholder="09:30"
-            />
-          </div>
-
-          {/* 11. Bitiş Saati */}
-          <div className="col-md-3">
-            <FormInput
-              name="endTime"
-              label="Bitiş Saati"
-              variant="inline"
-              placeholder="17:30"
-            />
-          </div>
-
-          {/* 12. Personel */}
-          <div className="col-md-3">
-            <FormInput
-              name="staffUserName"
-              label="Personel"
-              variant="inline"
-              placeholder="Personel adını giriniz"
-            />
-          </div>
-
-          {/* 13. Sonuç */}
-          <div className="col-md-3">
-            <FormAutocomplete
-              name="outcome"
+              name="appointmentOutcome"
               label="Sonuç"
               variant="inline"
               options={outcomeOptions}
               placeholder="Sonuç seçiniz"
-            />
-          </div>
-
-          {/* 14. Takip Gerekli */}
-          <div className="col-md-3">
-            <FormAutocomplete
-              name="followUpRequired"
-              label="Takip Gerekli"
-              variant="inline"
-              options={booleanOptions}
-              placeholder="Seçiniz"
             />
           </div>
 

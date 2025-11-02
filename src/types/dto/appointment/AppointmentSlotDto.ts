@@ -1,3 +1,5 @@
+import { AppointmentDto } from "./AppointmentDto";
+
 /**
  * Randevu slot bilgilerini temsil eden DTO
  */
@@ -15,25 +17,8 @@ export interface AppointmentSlotDto {
 
   staffUserName?: string;
 
-  /** @enum {string} */
-  dayOfWeek?:
-    | "MONDAY"
-    | "TUESDAY"
-    | "WEDNESDAY"
-    | "THURSDAY"
-    | "FRIDAY"
-    | "SATURDAY"
-    | "SUNDAY";
-
-  startTime?: string;
-
-  endTime?: string;
-
   /** Format: int32 */
   durationMinutes?: number;
-
-  /** Format: int32 */
-  capacity?: number;
 
   /** @enum {string} */
   appointmentType?:
@@ -49,27 +34,7 @@ export interface AppointmentSlotDto {
     | "GROUP_MEETING"
     | "OTHER";
 
-  title?: string;
-
-  description?: string;
-
-  location?: string;
-
   onlineMeetingAvailable?: boolean;
-
-  preparationRequired?: boolean;
-
-  preparationNotes?: string;
-
-  isRecurring?: boolean;
-
-  /** Format: date */
-  validFrom?: string;
-
-  /** Format: date */
-  validUntil?: string;
-
-  excludedDates?: string;
 
   /** Format: int32 */
   advanceBookingHours?: number;
@@ -82,19 +47,9 @@ export interface AppointmentSlotDto {
 
   requiresApproval?: boolean;
 
-  timeRange?: string;
-
   dayOfWeekName?: string;
 
   isAvailable?: boolean;
-
-  /** Format: int32 */
-  availableCapacity?: number;
-
-  /** Format: int32 */
-  bookedCount?: number;
-
-  nextAvailableDates?: string[];
 
   isActive?: boolean;
 
@@ -103,4 +58,9 @@ export interface AppointmentSlotDto {
 
   /** Format: date-time */
   updatedAt?: string;
+
+  /** Format: date-time */
+  slotDate?: string;
+
+  appointment?: AppointmentDto;
 }

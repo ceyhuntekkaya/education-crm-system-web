@@ -3,6 +3,7 @@ import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
 
 /**
  * Hook for managing frontend appointment slot filtering
+ * Yeni AppointmentSlotDto yapısına göre güncellenmiş
  */
 export const useAppointmentDetailsFilter = (slots: AppointmentSlotDto[]) => {
   const [appointmentFilters, setFilters] = useState<any>({});
@@ -38,21 +39,31 @@ export const useAppointmentDetailsFilter = (slots: AppointmentSlotDto[]) => {
       }
 
       // Gün filtreleri
-      if (appointmentFilters.dayOfWeek) {
-        if (slot.dayOfWeek !== appointmentFilters.dayOfWeek) {
+      if (appointmentFilters.dayOfWeekName) {
+        const searchTerm = appointmentFilters.dayOfWeekName.toLowerCase();
+        const dayName = (slot.dayOfWeekName || "").toLowerCase();
+        if (!dayName.includes(searchTerm)) {
           return false;
         }
       }
 
-      // Zaman aralığı filtreleri
-      if (appointmentFilters.startTime && slot.startTime) {
-        if (slot.startTime < appointmentFilters.startTime) {
+      // Slot tarih filtreleri
+      if (appointmentFilters.slotDateStart && slot.slotDate) {
+        if (slot.slotDate < appointmentFilters.slotDateStart) {
           return false;
         }
       }
 
-      if (appointmentFilters.endTime && slot.endTime) {
-        if (slot.endTime > appointmentFilters.endTime) {
+      if (appointmentFilters.slotDateEnd && slot.slotDate) {
+        if (slot.slotDate > appointmentFilters.slotDateEnd) {
+          return false;
+        }
+      }
+
+      if (appointmentFilters.slotDate && slot.slotDate) {
+        if (
+          !slot.slotDate.includes(appointmentFilters.slotDate.substring(0, 10))
+        ) {
           return false;
         }
       }
@@ -64,20 +75,9 @@ export const useAppointmentDetailsFilter = (slots: AppointmentSlotDto[]) => {
         }
       }
 
-      // Başlık filtreleri
-      if (appointmentFilters.title) {
-        const searchTerm = appointmentFilters.title.toLowerCase();
-        const title = (slot.title || "").toLowerCase();
-        if (!title.includes(searchTerm)) {
-          return false;
-        }
-      }
-
-      // Konum filtreleri
-      if (appointmentFilters.location) {
-        const searchTerm = appointmentFilters.location.toLowerCase();
-        const location = (slot.location || "").toLowerCase();
-        if (!location.includes(searchTerm)) {
+      // Süre filtresi
+      if (appointmentFilters.durationMinutes !== undefined) {
+        if (slot.durationMinutes !== appointmentFilters.durationMinutes) {
           return false;
         }
       }
@@ -105,29 +105,78 @@ export const useAppointmentDetailsFilter = (slots: AppointmentSlotDto[]) => {
         }
       }
 
-      if (appointmentFilters.isRecurring !== undefined) {
-        if (slot.isRecurring !== appointmentFilters.isRecurring) {
-          return false;
-        }
-      }
-
       if (appointmentFilters.isActive !== undefined) {
         if (slot.isActive !== appointmentFilters.isActive) {
           return false;
         }
       }
 
-      // Kapasite filtreleri
-      if (appointmentFilters.minCapacity !== undefined) {
-        if (!slot.capacity || slot.capacity < appointmentFilters.minCapacity) {
-          return false;
-        }
-      }
+      // Randevu bilgileri (appointment içinden)
+      if (slot.appointment) {
+        const appointment = slot.appointment;
 
-      if (appointmentFilters.minAvailableCapacity !== undefined) {
+        // Randevu numarası
+        if (appointmentFilters.appointmentNumber) {
+          const searchTerm = appointmentFilters.appointmentNumber.toLowerCase();
+          const appointmentNumber = (
+            appointment.appointmentNumber || ""
+          ).toLowerCase();
+          if (!appointmentNumber.includes(searchTerm)) {
+            return false;
+          }
+        }
+
+        // Randevu durumu
+        if (appointmentFilters.appointmentStatus) {
+          if (appointment.status !== appointmentFilters.appointmentStatus) {
+            return false;
+          }
+        }
+
+        // Randevu sonucu
+        if (appointmentFilters.appointmentOutcome) {
+          if (appointment.outcome !== appointmentFilters.appointmentOutcome) {
+            return false;
+          }
+        }
+
+        // Veli adı
+        if (appointmentFilters.parentName) {
+          const searchTerm = appointmentFilters.parentName.toLowerCase();
+          const parentName = (appointment.parentUserName || "").toLowerCase();
+          if (!parentName.includes(searchTerm)) {
+            return false;
+          }
+        }
+
+        // Öğrenci adı
+        if (appointmentFilters.studentName) {
+          const searchTerm = appointmentFilters.studentName.toLowerCase();
+          const studentName = (appointment.studentName || "").toLowerCase();
+          if (!studentName.includes(searchTerm)) {
+            return false;
+          }
+        }
+
+        // Randevu tarihi
+        if (appointmentFilters.appointmentDate && appointment.appointmentDate) {
+          if (
+            !appointment.appointmentDate.includes(
+              appointmentFilters.appointmentDate
+            )
+          ) {
+            return false;
+          }
+        }
+      } else {
+        // Eğer appointment yoksa ve appointment ile ilgili filtre varsa, bu slot'u gösterme
         if (
-          slot.availableCapacity === undefined ||
-          slot.availableCapacity < appointmentFilters.minAvailableCapacity
+          appointmentFilters.appointmentNumber ||
+          appointmentFilters.appointmentStatus ||
+          appointmentFilters.appointmentOutcome ||
+          appointmentFilters.parentName ||
+          appointmentFilters.studentName ||
+          appointmentFilters.appointmentDate
         ) {
           return false;
         }
