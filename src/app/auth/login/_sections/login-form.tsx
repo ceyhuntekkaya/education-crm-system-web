@@ -1,12 +1,14 @@
 "use client";
-import Image from "next/image";
 import * as yup from "yup";
+import Image from "next/image";
 import { Button, Form, FormInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Role } from "@/enums/Role";
 import { PATHS } from "@/routes/paths";
 import { AuthenticationResponse, FormValues } from "@/types";
 import { FormProvider, useAuth } from "@/contexts";
+import "./login-form.scss";
+import { HEADER_CONFIG } from "@/components/layouts/header/config";
 
 const validationSchema = yup.object({
   username: yup.string().required("Kullanıcı adı zorunludur"),
@@ -142,14 +144,67 @@ const LoginFormContent: React.FC = () => {
             </div>
           </div>
           <div className="col-lg-6 d-lg-block d-none">
-            <div className="account-img">
-              <Image
-                src="/assets/images/thumbs/account-img.png"
-                alt="Account"
-                width={500}
-                height={400}
-                priority
-              />
+            <div className="login-illustration">
+              {/* Ana Logo Alanı */}
+              <div className="logo-section">
+                <div className="logo-container">
+                  <div className="logo-wrapper">
+                    <Image
+                      src={HEADER_CONFIG.LOGO_PATH}
+                      alt="Eğitim İşte Logo"
+                      width={180}
+                      height={60}
+                      priority
+                    />
+                  </div>
+                  <p className="brand-tagline">Eğitim Yönetim Sistemi</p>
+                </div>
+              </div>
+
+              {/* Özellikler Kartları */}
+              <div className="features-grid">
+                <div className="feature-card">
+                  <div className="feature-icon">
+                    <i className="ph-fill ph-buildings"></i>
+                  </div>
+                  <h3>Okul Yönetimi</h3>
+                  <p>
+                    Eğitim kurumlarınızın detaylı yönetim işlemlerini
+                    gerçekleştirin
+                  </p>
+                </div>
+
+                <div className="feature-card">
+                  <div className="feature-icon">
+                    <i className="ph-fill ph-calendar"></i>
+                  </div>
+                  <h3>Randevu Sistemi</h3>
+                  <p>
+                    Toplantılar ve görüşmeleri online randevu sistemiyle
+                    koordine edin
+                  </p>
+                </div>
+
+                <div className="feature-card">
+                  <div className="feature-icon">
+                    <i className="ph-fill ph-chart-bar"></i>
+                  </div>
+                  <h3>Analitik Raporlar</h3>
+                  <p>
+                    Performans metriklerini analiz ederek strateji geliştirin
+                  </p>
+                </div>
+
+                <div className="feature-card">
+                  <div className="feature-icon">
+                    <i className="ph-fill ph-megaphone"></i>
+                  </div>
+                  <h3>Kampanyalar</h3>
+                  <p>
+                    İndirim kampanyaları ve pazarlama stratejilerinizi planlayın
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
