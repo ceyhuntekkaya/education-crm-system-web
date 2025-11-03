@@ -39,10 +39,10 @@ export const useCurrentAppointment = ({
     loading: appointmentLoading,
     error: appointmentError,
     refetch: refetchAppointment,
-  } = useGet<ApiResponseDto<AppointmentDto>>(endpoint);
+  } = useGet<ApiResponseDto<AppointmentDto[]>>(endpoint);
 
   return {
-    currentAppointment: appointmentResponse?.data || null,
+    currentAppointment: appointmentResponse?.data?.[0] || null,
     appointmentLoading,
     appointmentError,
     refetchAppointment,
