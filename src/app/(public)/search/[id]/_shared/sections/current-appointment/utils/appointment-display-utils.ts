@@ -134,3 +134,31 @@ export const getCountdownColor = (hoursUntil: number): string => {
   if (hoursUntil < 24) return "warning"; // Less than 24 hours - yellow
   return "info"; // More than 24 hours - blue
 };
+
+/**
+ * Formats gender value for display
+ * @param gender - Gender value (MALE, FEMALE, OTHER, Erkek, Kız, etc.)
+ * @returns Formatted gender text
+ */
+export const formatGender = (gender?: string): string => {
+  if (!gender) return "Belirtilmemiş";
+
+  const normalized = gender.toUpperCase();
+
+  switch (normalized) {
+    case "MALE":
+    case "ERKEK":
+    case "M":
+      return "Erkek";
+    case "FEMALE":
+    case "KIZ":
+    case "KADIN":
+    case "F":
+      return "Kız";
+    case "OTHER":
+    case "DIGER":
+      return "Diğer";
+    default:
+      return gender;
+  }
+};

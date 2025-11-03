@@ -1,2 +1,5 @@
 // Mock data exports
-export { mockCurrentAppointment } from "./current-appointment-data";
+export {
+  mockCurrentAppointment,
+  mockCurrentAppointmentSlot,
+} from "./current-appointment-data";
