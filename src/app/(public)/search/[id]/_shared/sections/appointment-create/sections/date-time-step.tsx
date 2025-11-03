@@ -17,9 +17,18 @@ export const DateTimeStep = () => {
   const slotsByDate = useMemo(() => {
     const grouped: Record<string, AppointmentSlotDto[]> = {};
 
+    // Slots array kontrolü
+    if (!Array.isArray(slots)) {
+      console.warn("⚠️ Slots is not an array:", slots);
+      return grouped;
+    }
+
     slots.forEach((slot) => {
       if (slot.slotDate) {
-        const dateKey = slot.slotDate;
+        // Backend'den gelen format: "2025-11-05T14:40:00"
+        // Sadece tarih kısmını al: "2025-11-05"
+        const dateKey = slot.slotDate.split("T")[0];
+
         if (!grouped[dateKey]) {
           grouped[dateKey] = [];
         }
@@ -32,21 +41,41 @@ export const DateTimeStep = () => {
 
   // Autocomplete için tarih seçenekleri oluştur
   const dateOptions = useMemo(() => {
-    return Object.entries(slotsByDate).map(([date, dateSlots]) => ({
-      value: date,
-      label: `${date} (${dateSlots.length} müsait slot)`,
-    }));
+    return Object.entries(slotsByDate)
+      .sort(([dateA], [dateB]) => dateA.localeCompare(dateB)) // Tarihe göre sırala
+      .map(([date, dateSlots]) => {
+        // Tarihi formatla: "5 Kasım 2025, Çarşamba"
+        const formattedDate = new Date(date).toLocaleDateString("tr-TR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          weekday: "long",
+        });
+
+        return {
+          value: date,
+          label: `${formattedDate} (${dateSlots.length} müsait slot)`,
+        };
+      });
   }, [slotsByDate]);
 
-  // Seçilen tarihe ait slotlar
+  // Seçilen tarihe ait slotlar - Saate göre sıralanmış
   const availableSlots = useMemo(() => {
     if (!appointmentDate) return [];
-    return slotsByDate[appointmentDate] || [];
+    const slotsForDate = slotsByDate[appointmentDate] || [];
+
+    // Slotları saate göre sırala
+    return slotsForDate.sort((a, b) => {
+      if (!a.slotDate || !b.slotDate) return 0;
+      return new Date(a.slotDate).getTime() - new Date(b.slotDate).getTime();
+    });
   }, [appointmentDate, slotsByDate]);
 
   const handleSlotSelect = (slotId: number) => {
     updateField("selectedSlotId", slotId);
   };
+
+  console.log("slots ", slots);
 
   return (
     <div className="date-time-step">

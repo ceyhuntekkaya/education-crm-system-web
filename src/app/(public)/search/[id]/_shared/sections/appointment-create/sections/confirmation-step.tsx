@@ -1,24 +1,68 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FormCheckbox } from "@/components/forms";
 import { useFormHook } from "@/hooks/use-form-hook";
 import { useAuth } from "@/contexts";
-import { mockAvailableSlots, appointmentTypeOptions } from "../mock";
+import { appointmentTypeOptions } from "../mock";
 import { ConfirmationStepProps } from "../types";
-import { AvailableSlotDto } from "@/types";
+import { useAppointment } from "../contexts";
+import { getTypeDisplayName } from "@/utils";
 
 export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
   className = "",
 }) => {
   const { getFieldValue } = useFormHook();
   const { user } = useAuth();
+  const { slots } = useAppointment();
 
-  const selectedSlot: AvailableSlotDto | undefined = mockAvailableSlots.find(
-    (slot) => slot.slotId === parseInt(getFieldValue("selectedSlotId") || "0")
-  );
+  // Seçili slot'u bul
+  const selectedSlot = useMemo(() => {
+    const selectedSlotId = getFieldValue("selectedSlotId");
+    if (!selectedSlotId || !Array.isArray(slots)) return null;
+
+    return slots.find((slot) => slot.id === parseInt(selectedSlotId));
+  }, [getFieldValue, slots]);
 
   const selectedAppointmentType = appointmentTypeOptions.find(
     (opt) => opt.value === getFieldValue("appointmentType")
   );
+
+  // Tarih formatla
+  const formattedDate = useMemo(() => {
+    const appointmentDate = getFieldValue("appointmentDate");
+    if (!appointmentDate) return "Belirtilmemiş";
+
+    return new Date(appointmentDate).toLocaleDateString("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      weekday: "long",
+    });
+  }, [getFieldValue]);
+
+  // Saat formatla
+  const formattedTime = useMemo(() => {
+    if (!selectedSlot?.slotDate) return "Belirtilmemiş";
+
+    const startTime = new Date(selectedSlot.slotDate).toLocaleTimeString(
+      "tr-TR",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    );
+
+    // End time hesapla (duration ekleyerek)
+    const endDate = new Date(selectedSlot.slotDate);
+    endDate.setMinutes(
+      endDate.getMinutes() + (selectedSlot.durationMinutes || 30)
+    );
+    const endTime = endDate.toLocaleTimeString("tr-TR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return `${startTime} - ${endTime}`;
+  }, [selectedSlot]);
 
   return (
     <div className={`tutor-details__content ${className}`}>
@@ -53,29 +97,54 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
                 Tarih & Saat
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
-                <span className="text-neutral-900 fw-semibold">
-                  {getFieldValue("appointmentDate")}
-                  <span className="text-neutral-600 ms-8">
-                    {selectedSlot?.timeRange ||
-                      `${selectedSlot?.startTime} - ${selectedSlot?.endTime}`}
+                <div className="d-flex flex-column gap-1">
+                  <span className="text-neutral-900 fw-semibold">
+                    {formattedDate}
                   </span>
+                  <span className="text-neutral-600">{formattedTime}</span>
+                </div>
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Randevu Türü (Slot)
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900">
+                  {selectedSlot?.appointmentType
+                    ? getTypeDisplayName(selectedSlot.appointmentType)
+                    : "Belirtilmemiş"}
                 </span>
               </span>
             </li>
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Konum
+                Okul
+              </span>
+              <span className="w-50-percent fw-normal text-neutral-500 text-md">
+                <span className="text-neutral-900">
+                  {selectedSlot?.schoolName || "Belirtilmemiş"}
+                </span>
+              </span>
+            </li>
+
+            <li className="d-flex align-items-start px-32 py-16">
+              <span className="w-50-percent fw-semibold text-neutral-700">
+                Görüşme Yöntemi
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <div className="d-flex align-items-center gap-2">
-                  <span className="text-neutral-900">
-                    {selectedSlot?.location}
-                  </span>
-                  {selectedSlot?.isOnline && (
-                    <span className="badge bg-success-600 text-white px-8 py-4 rounded-5 text-sm">
-                      Online
-                    </span>
+                  {selectedSlot?.onlineMeetingAvailable ? (
+                    <>
+                      <span className="text-neutral-900">Online Görüşme</span>
+                      <span className="badge bg-success-600 text-white px-8 py-4 rounded-5 text-sm">
+                        Online
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-neutral-900">Yüz Yüze Görüşme</span>
                   )}
                 </div>
               </span>
@@ -87,7 +156,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-neutral-900">
-                  {selectedSlot?.staffUserName}
+                  {selectedSlot?.staffUserName || "Belirtilmemiş"}
                 </span>
               </span>
             </li>
@@ -98,7 +167,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-neutral-900">
-                  {selectedSlot?.durationMinutes} dakika
+                  {selectedSlot?.durationMinutes || 30} dakika
                 </span>
               </span>
             </li>

@@ -14,6 +14,18 @@ interface AppointmentSlotSearchRequest {
   schoolId: number;
 }
 
+/**
+ * API Response wrapper - Backend'den gelen standart response yapısı
+ */
+interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+  errors: any | null;
+  timestamp: string;
+  path: string;
+}
+
 interface UseAppointmentSlotsProps {
   schoolId: number;
   enabled?: boolean; // Hook'u aktif etmek için
@@ -43,14 +55,24 @@ export const useAppointmentSlots = ({
   const [slotsError, setSlotsError] = useState<string | null>(null);
 
   const { mutate: fetchSlots } = usePost<
-    AppointmentSlotDto[],
+    ApiResponse<AppointmentSlotDto[]>,
     AppointmentSlotSearchRequest
   >(API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_DATE, {
-    onSuccess: (data) => {
-      console.log("✅ Slotlar başarıyla getirildi:", data);
-      setSlots(data || []);
-      setSlotsLoading(false);
-      setSlotsError(null);
+    onSuccess: (response) => {
+      console.log("✅ Slot API Response:", response);
+
+      // Backend'den gelen response yapısını kontrol et
+      if (response && response.success && Array.isArray(response.data)) {
+        console.log("✅ Slotlar başarıyla getirildi:", response.data);
+        setSlots(response.data);
+        setSlotsLoading(false);
+        setSlotsError(null);
+      } else {
+        console.warn("⚠️ Beklenmeyen response formatı:", response);
+        setSlots([]);
+        setSlotsLoading(false);
+        setSlotsError("Beklenmeyen veri formatı");
+      }
     },
     onError: (error) => {
       console.error("❌ Slot getirme hatası:", error);
