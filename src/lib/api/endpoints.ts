@@ -77,6 +77,10 @@ export const API_ENDPOINTS = {
   },
 
   APPOINTMENTS: {
+    // User appointments - Kullanıcının randevularını getir
+    SLOTS_SEARCH_USER: (userId: string | number) =>
+      `/appointments/slots/search/user/${userId}`,
+
     // Yeni API - İki tarih arası okul slotları listesi (POST)
     SLOTS_SEARCH_DATE: "/appointments/slots/search/date",
 

@@ -1,6 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+"use client";
+
+import { useMemo } from "react";
+import { useGet } from "@/hooks";
+import { API_ENDPOINTS } from "@/lib/api/endpoints";
+import { useAuth } from "@/contexts";
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
-import { mockAppointments } from "../mock";
+import { ApiResponseDto } from "@/types";
 
 interface UseAppointmentsProps {
   schoolId?: number;
@@ -15,58 +20,63 @@ interface UseAppointmentsReturn {
   refetch: () => void;
 }
 
+/**
+ * Kullanıcının randevularını getiren hook
+ * @param options - Filtreleme seçenekleri (schoolId, status, limit)
+ * @returns Randevu verileri ve yönetim fonksiyonları
+ */
 export const useAppointments = ({
   schoolId,
   status,
-  limit = 50,
+  limit,
 }: UseAppointmentsProps = {}): UseAppointmentsReturn => {
-  const [appointments, setAppointments] = useState<AppointmentDto[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
 
-  const fetchAppointments = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
+  // API endpoint - user varsa
+  const endpoint = user?.id
+    ? API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_USER(user.id)
+    : null;
 
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  // API isteği
+  const {
+    data: appointmentsResponse,
+    loading,
+    error,
+    refetch,
+  } = useGet<ApiResponseDto<AppointmentDto[]>>(endpoint, {
+    enabled: !!user?.id, // Sadece user varsa çalışsın
+    onSuccess: (data) => {
+      console.log(
+        "Appointments fetched successfully:",
+        data?.data?.length || 0
+      );
+    },
+    onError: (error) => {
+      console.error("Appointments fetch error:", error);
+    },
+  });
 
-      // Filter mock data based on parameters
-      let filteredAppointments = mockAppointments;
+  // Filtrelenmiş randevular
+  const appointments = useMemo(() => {
+    let filtered = appointmentsResponse?.data || [];
 
-      // if (schoolId) {
-      //   filteredAppointments = filteredAppointments.filter(
-      //     (apt: AppointmentDto) => apt.schoolId === schoolId
-      //   );
-      // }
-
-      // if (status) {
-      //   filteredAppointments = filteredAppointments.filter(
-      //     (apt: AppointmentDto) => apt.status === status
-      //   );
-      // }
-
-      // if (limit) {
-      //   filteredAppointments = filteredAppointments.slice(0, limit);
-      // }
-
-      setAppointments(filteredAppointments);
-    } catch (err) {
-      setError("Randevular yüklenirken bir hata oluştu");
-      console.error("Appointment fetch error:", err);
-    } finally {
-      setLoading(false);
+    // schoolId filtresi
+    if (schoolId) {
+      filtered = filtered.filter((apt) => apt.schoolId === schoolId);
     }
-  }, []);
 
-  const refetch = () => {
-    fetchAppointments();
-  };
+    // status filtresi
+    if (status) {
+      filtered = filtered.filter((apt) => apt.status === status);
+    }
 
-  useEffect(() => {
-    fetchAppointments();
-  }, [fetchAppointments]);
+    // limit filtresi
+    if (limit && filtered.length > limit) {
+      filtered = filtered.slice(0, limit);
+    }
+
+    return filtered;
+  }, [appointmentsResponse?.data, schoolId, status, limit]);
 
   return {
     appointments,

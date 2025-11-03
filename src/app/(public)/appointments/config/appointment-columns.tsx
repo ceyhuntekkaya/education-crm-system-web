@@ -2,7 +2,6 @@ import { GridColDef } from "@/components/ui/data-grid";
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { Avatar } from "../components/avatar";
 import { Badge } from "../components/badge";
-import { ActionButtons } from "../components/action-buttons";
 import {
   formatDateTime,
   formatTime,
@@ -12,17 +11,7 @@ import {
   getAppointmentTypeDisplay,
 } from "../utils";
 
-export interface ColumnHandlers {
-  onViewDetails: (appointment: AppointmentDto) => void;
-  onEdit: (appointment: AppointmentDto) => void;
-  onCancel: (appointment: AppointmentDto) => void;
-  onComplete?: (appointment: AppointmentDto) => void;
-  onReschedule?: (appointment: AppointmentDto) => void;
-}
-
-export const createAppointmentColumns = (
-  handlers: ColumnHandlers
-): GridColDef<AppointmentDto>[] => [
+export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   {
     field: "appointmentNumber",
     headerName: "Randevu No",
@@ -107,23 +96,6 @@ export const createAppointmentColumns = (
       <div className="text-truncate">
         {getAppointmentTypeDisplay(params.value)}
       </div>
-    ),
-  },
-
-  {
-    field: "actions",
-    headerName: "İşlemler",
-    width: 180,
-    sortable: false,
-    renderCell: (params) => (
-      <ActionButtons
-        appointment={params.row}
-        onViewDetails={handlers.onViewDetails}
-        onEdit={handlers.onEdit}
-        onCancel={handlers.onCancel}
-        onComplete={handlers.onComplete}
-        onReschedule={handlers.onReschedule}
-      />
     ),
   },
 ];
