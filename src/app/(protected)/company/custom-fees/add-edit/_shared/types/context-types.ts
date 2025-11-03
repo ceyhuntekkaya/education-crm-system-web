@@ -3,11 +3,11 @@ import { CustomFeeCreateDto, CustomFeeDto, ApiResponseDto } from "@/types";
 export interface CustomFeeAddEditContextType {
   // Current custom fee data
   customFee: CustomFeeDto | null;
-  dataLoading: boolean; // Sadece data fetch için
+  dataLoading: boolean; // Detay çekme loading'i (CustomCard'da gösterilir)
   customFeeError: string | null;
 
   // Form operations
-  formLoading: boolean; // Sadece form submit için
+  formLoading: boolean; // Form submit loading'i (Sadece form butonlarında gösterilir)
 
   // Edit mode state
   isEditing: boolean;

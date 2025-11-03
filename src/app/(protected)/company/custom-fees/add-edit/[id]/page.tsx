@@ -21,8 +21,10 @@ const CustomFeeAddEditPage: React.FC<CustomFeeAddEditPageProps> = () => {
       }
       isBack
       mb="mb-24"
+      // Sadece düzenleme modunda detay çekme loading'ini göster
       isLoading={dataLoading && isEditing}
     >
+      {/* Form kendi loading'ini (formLoading) yönetir */}
       <CustomFeeForm isEditing={isEditing} initialData={customFee} />
     </CustomCard>
   );

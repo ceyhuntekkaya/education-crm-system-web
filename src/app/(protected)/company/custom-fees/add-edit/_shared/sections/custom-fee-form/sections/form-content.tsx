@@ -27,6 +27,7 @@ export const CustomFeeFormContent: React.FC = () => {
   const { user } = useAuth();
 
   // Context'ten verileri al
+  // formLoading: Sadece form submit sırasında aktif olan loading durumu
   const { isEditing, postCustomFee, putCustomFee, formLoading, customFeeId } =
     useCustomFeeAddEdit();
 
@@ -355,7 +356,7 @@ export const CustomFeeFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={formLoading}
+              disabled={formLoading} // Form submit olurken iptal butonu disable
             >
               <i className="ph ph-x me-8"></i>
               İptal
@@ -363,6 +364,7 @@ export const CustomFeeFormContent: React.FC = () => {
             <Button type="submit" disabled={hasErrors || formLoading}>
               {formLoading ? (
                 <>
+                  {/* Form submit loading durumu - sadece burada gösterilir */}
                   <i className="ph ph-circle-notch ph-spin me-8"></i>
                   {isEditing ? "Güncelleniyor..." : "Kaydediliyor..."}
                 </>
