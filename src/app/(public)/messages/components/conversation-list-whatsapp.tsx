@@ -110,15 +110,6 @@ export const ConversationListWhatsApp: React.FC<ConversationListProps> = ({
 
   return (
     <div className="messages-sidebar">
-      {/* Header */}
-      <div className="messages-sidebar-header">
-        <h5>Mesajlar</h5>
-        <div className="sidebar-actions">
-          <i className="ph ph-magnifying-glass"></i>
-          <i className="ph ph-dots-three-vertical"></i>
-        </div>
-      </div>
-
       {/* Search Bar */}
       <div className="messages-search-bar">
         <div className="messages-search-wrapper">

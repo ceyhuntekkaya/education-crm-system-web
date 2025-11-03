@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MessageDto } from "@/types/dto/content/MessageDto";
 import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
+import { Icon } from "@/components/ui";
 
 interface MessagePaneWhatsAppProps {
   conversationGroup: MessageConversationGroupDto | null;
@@ -161,10 +162,10 @@ export const MessagePaneWhatsApp: React.FC<MessagePaneWhatsAppProps> = ({
 
       {/* Chat Footer */}
       <div className="messages-chat-footer">
-        <div className="messages-footer-actions">
+        {/* <div className="messages-footer-actions">
           <i className="ph ph-smiley"></i>
           <i className="ph ph-paperclip"></i>
-        </div>
+        </div> */}
         <div className="messages-footer-input">
           <input
             type="text"
@@ -174,8 +175,8 @@ export const MessagePaneWhatsApp: React.FC<MessagePaneWhatsAppProps> = ({
             onKeyPress={handleKeyPress}
           />
         </div>
-        <div className="messages-footer-send" onClick={handleSendMessage}>
-          <i className="ph ph-paper-plane-tilt"></i>
+        <div onClick={handleSendMessage}>
+          <Icon icon="ph-paper-plane-tilt" size="md" />
         </div>
       </div>
     </div>
