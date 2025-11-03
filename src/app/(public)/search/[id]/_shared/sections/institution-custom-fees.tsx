@@ -233,14 +233,14 @@ export const InstitutionCustomFees: React.FC = () => {
   return (
     <div className="tutor-details__content mt-24">
       <CustomCard
-        title="Özel Ücretler"
+        title="Ek Ücretler"
         subtitle={`${
           school?.name || "Kurum"
-        } bünyesinde uygulanan özel ücret bilgilerini detaylı olarak görüntüleyin`}
+        } bünyesinde uygulanan ek ücret bilgilerini detaylı olarak görüntüleyin`}
         isLoading={loading}
-        loadingMessage="Özel ücret bilgileri yükleniyor..."
+        loadingMessage="Ek ücret bilgileri yükleniyor..."
         isEmpty={!allCustomFees || allCustomFees.length === 0}
-        emptyMessage="Özel ücret bilgileri henüz mevcut değil."
+        emptyMessage="Ek ücret bilgileri henüz mevcut değil."
         emptyIcon="ph-info"
         multiItems={customFeeSections}
       />

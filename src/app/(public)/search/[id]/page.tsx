@@ -118,8 +118,8 @@ export default function InstitutionDetailPage({
     {
       id: "pills-custom-fees",
       icon: "ph-bold ph-receipt",
-      title: "Özel Ücretler",
-      label: "Özel Ücretler",
+      title: "Ek Ücretler",
+      label: "Ek Ücretler",
       content: <InstitutionCustomFees />,
     },
     {
@@ -185,8 +185,6 @@ export default function InstitutionDetailPage({
       isActive: true,
     },
   ];
-
-  console.log("school => ", school);
 
   return (
     <div>
