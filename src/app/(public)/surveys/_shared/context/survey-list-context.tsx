@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import { SurveyListContextType } from "../types/survey.types";
 import { useSurveys as useSurveysHook } from "../hooks/use-surveys";
-import { usePost } from "@/hooks";
+import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { useSnackbar } from "@/contexts/snackbar-context";
 import { SurveyResponseDto } from "@/types";
@@ -35,12 +35,20 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
   // Snackbar for notifications
   const { showSnackbar } = useSnackbar();
 
-  // Survey evaluation submission
+  // Survey evaluation submission - usePut kullanıyoruz
+  // Endpoint'i dinamik olarak oluşturacağız
   const {
-    mutate: submitSurveyEvaluation,
+    mutate: updateSurveyAssignment,
     loading: submissionLoading,
     error: submissionError,
-  } = usePost<any, any>(API_ENDPOINTS.SURVEYS.EVALUATE);
+  } = usePut<SurveyResponseDto, SurveyResponseDto>(
+    (data: SurveyResponseDto) => {
+      if (!data.id) {
+        throw new Error("Survey response ID is required");
+      }
+      return API_ENDPOINTS.SURVEYS.UPDATE_USER_ASSIGNMENT(data.id);
+    }
+  );
 
   // Modal actions
   const openEvaluationModal = (survey: SurveyResponseDto) => {
@@ -60,15 +68,38 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
 
   // Submit evaluation function
   const submitEvaluation = async (formData: any) => {
-    if (!selectedSurvey) return;
+    if (!selectedSurvey || !selectedSurvey.id) return;
 
     try {
-      const requestData = {
-        surveyResponseId: selectedSurvey.id,
-        responses: formData,
+      // selectedSurvey objesini kopyala
+      const updatedSurvey: SurveyResponseDto = {
+        ...selectedSurvey,
       };
 
-      await submitSurveyEvaluation(requestData);
+      // questionResponses'daki ratingResponse'ları güncelle
+      if (updatedSurvey.questionResponses) {
+        updatedSurvey.questionResponses = updatedSurvey.questionResponses.map(
+          (qr) => {
+            // FormData'dan ilgili question'ın yeni ratingResponse değerini al
+            const fieldName = `question_${qr.questionId}`;
+            const newRating = formData[fieldName];
+
+            // Eğer bu question için yeni bir rating varsa güncelle
+            if (newRating !== undefined && qr.questionType === "RATING_STAR") {
+              return {
+                ...qr,
+                ratingResponse: newRating,
+              };
+            }
+
+            // Değilse olduğu gibi bırak
+            return qr;
+          }
+        );
+      }
+
+      // API'ye PUT request at
+      await updateSurveyAssignment(updatedSurvey);
 
       showSnackbar("Anket değerlendirmeniz başarıyla kaydedildi!", "success");
 

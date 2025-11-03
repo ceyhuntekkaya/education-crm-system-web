@@ -116,6 +116,8 @@ export const API_ENDPOINTS = {
     USER_ASSIGNMENT: "/surveys/user/assignment",
     USER_ASSIGNMENT_BY_ID: (userId: string | number) =>
       `/surveys/user/assignment/${userId}`,
+    UPDATE_USER_ASSIGNMENT: (assignmentId: string | number) =>
+      `/surveys/user/assignment/${assignmentId}`,
     SUBMIT: "/surveys/submit",
     EVALUATE: "/surveys/evaluate", // Survey evaluation için özel endpoint
     BY_ID: (id: string | number) => `/surveys/${id}`,
