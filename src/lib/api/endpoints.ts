@@ -136,9 +136,13 @@ export const API_ENDPOINTS = {
     POST_UPDATE: (id: string | number) => `/content/posts/${id}`,
 
     // Messages
+    MESSAGES_BY_USER: (userId: string | number) =>
+      `/content/messages/user/${userId}`,
     MESSAGES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/messages/school/${schoolId}`,
     MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
+    MESSAGE_MARK_AS_READ: (messageId: string | number) =>
+      `/content/messages/${messageId}/read`,
 
     // Galleries
     GALLERIES: "/content/galleries",

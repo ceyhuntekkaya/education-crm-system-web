@@ -1,85 +1,46 @@
-import { useState, useEffect, useCallback } from "react";
-import { MessageDto } from "@/types/dto/content/MessageDto";
-import { mockMessages } from "@/app/(public)/messages/mock";
+"use client";
+
+import { useGet } from "@/hooks";
+import { API_ENDPOINTS } from "@/lib";
+import { ApiResponseDto } from "@/types";
+import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
 
 interface UseMessagesProps {
-  status?: string;
-  messageType?: string;
-  priority?: string;
-  limit?: number;
+  userId?: string | number;
+  enabled?: boolean;
 }
 
 interface UseMessagesReturn {
-  messages: MessageDto[];
-  loading: boolean;
-  error: string | null;
-  refetch: () => void;
+  conversationGroups: MessageConversationGroupDto[];
+  messageLoading: boolean;
+  messageError: string | null;
+  refetchMessages: () => void;
 }
 
+/**
+ * Kullanıcıya ait mesaj konuşmalarını getiren hook
+ * @param userId - Kullanıcı ID'si
+ * @param enabled - Hook'un aktif olup olmadığı
+ * @returns Mesaj konuşma grupları ve yönetim fonksiyonları
+ */
 export const useMessages = ({
-  status,
-  messageType,
-  priority,
-  limit = 50,
-}: UseMessagesProps = {}): UseMessagesReturn => {
-  const [messages, setMessages] = useState<MessageDto[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchMessages = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Filter mock data based on parameters
-      let filteredMessages = mockMessages;
-
-      if (status) {
-        filteredMessages = filteredMessages.filter(
-          (msg: MessageDto) => msg.status === status
-        );
-      }
-
-      if (messageType) {
-        filteredMessages = filteredMessages.filter(
-          (msg: MessageDto) => msg.messageType === messageType
-        );
-      }
-
-      if (priority) {
-        filteredMessages = filteredMessages.filter(
-          (msg: MessageDto) => msg.priority === priority
-        );
-      }
-
-      if (limit) {
-        filteredMessages = filteredMessages.slice(0, limit);
-      }
-
-      setMessages(filteredMessages);
-    } catch (err) {
-      setError("Mesajlar yüklenirken bir hata oluştu");
-      console.error("Messages fetch error:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [status, messageType, priority, limit]);
-
-  const refetch = () => {
-    fetchMessages();
-  };
-
-  useEffect(() => {
-    fetchMessages();
-  }, [fetchMessages]);
+  userId,
+  enabled = true,
+}: UseMessagesProps): UseMessagesReturn => {
+  const {
+    data: messagesResponse,
+    loading: messageLoading,
+    error: messageError,
+    refetch: refetchMessages,
+  } = useGet<ApiResponseDto<MessageConversationGroupDto[]>>(
+    userId ? API_ENDPOINTS.CONTENT.MESSAGES_BY_USER(userId) : null,
+    { enabled: enabled && !!userId }
+  );
 
   return {
-    messages,
-    loading,
-    error,
-    refetch,
+    conversationGroups: messagesResponse?.data || [],
+    messageLoading,
+    messageError,
+    refetchMessages,
   };
 };

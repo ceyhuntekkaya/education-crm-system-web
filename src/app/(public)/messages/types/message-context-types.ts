@@ -61,4 +61,7 @@ export interface MessageContextType {
 
   // Actions
   refreshMessages: () => void;
+  // TEMPORARILY DISABLED
+  // markAsRead: (messageId: string | number) => Promise<MessageDto | null>;
+  markAsRead?: (messageId: string | number) => Promise<MessageDto | null>;
 }

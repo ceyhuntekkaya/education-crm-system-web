@@ -3,7 +3,7 @@ import { MessageDto } from "@/types/dto/content/MessageDto";
 import { MessageColumnHandlers } from "@/app/(public)/messages/config";
 
 interface UseMessageHandlersProps {
-  setSelectedMessage: (message: MessageDto | null) => void;
+  setSelectedMessage: (message: MessageDto) => void;
   detailModal: {
     open: () => void;
     close: () => void;
@@ -20,6 +20,7 @@ export const useMessageHandlers = ({
   const onViewDetails = useCallback(
     (message: MessageDto) => {
       console.log("View message details:", message);
+      // setSelectedMessage otomatik olarak mesajı okundu işaretleyecek
       setSelectedMessage(message);
       detailModal.open();
     },
@@ -29,38 +30,10 @@ export const useMessageHandlers = ({
   const onMarkAsRead = useCallback(
     async (message: MessageDto) => {
       console.log("Mark as read:", message);
-
-      // Eğer mesaj zaten okunmuşsa işlem yapma
-      if (message.readAt) {
-        return;
-      }
-
-      try {
-        // TODO: API call to mark message as read
-        // await updateMessageStatus(message.id, {
-        //   status: 'READ',
-        //   readAt: new Date().toISOString()
-        // });
-
-        // Şimdilik console log ile simüle edelim
-        console.log(
-          `Message ${message.id} marked as read at ${new Date().toISOString()}`
-        );
-
-        // Mesajın readAt özelliğini güncelle (yerel state için)
-        if (message.id) {
-          message.readAt = new Date().toISOString();
-          message.status = "READ";
-        }
-
-        // Tabloyu yenile
-        // refreshMessages();
-      } catch (error) {
-        console.error("Error marking message as read:", error);
-      }
+      // setSelectedMessage otomatik olarak mesajı okundu işaretleyecek
+      setSelectedMessage(message);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [refreshMessages]
+    [setSelectedMessage]
   );
 
   const onReply = useCallback((message: MessageDto) => {
