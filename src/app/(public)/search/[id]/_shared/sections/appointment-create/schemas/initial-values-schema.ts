@@ -13,21 +13,23 @@ import { AppointmentCreateFormData } from "../types/form-data-types";
  * Create initial values for appointment form
  * @param schoolId - School ID from props
  * @param isOnline - Whether appointment is online
+ * @param parentUserId - Parent user ID from auth context
  * @returns Initial form values
  */
 export const createInitialValues = (
   schoolId: number,
-  isOnline: boolean = false
+  isOnline: boolean = false,
+  parentUserId?: number
 ): AppointmentCreateFormData => ({
   // Required/essential fields from props
   schoolId,
   isOnline,
+  parentUserId, // Add parentUserId from auth
 
   // Form fields with default values
   appointmentType: undefined,
   selectedSlotId: undefined,
   studentName: undefined,
-  parentUserId: undefined,
   studentAge: undefined,
   studentBirthDate: undefined,
   studentGender: undefined,

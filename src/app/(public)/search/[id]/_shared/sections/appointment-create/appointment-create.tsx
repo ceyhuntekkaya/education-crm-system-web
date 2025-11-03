@@ -2,6 +2,7 @@
 
 import React from "react";
 import { FormProvider } from "@/contexts";
+import { useAuth } from "@/contexts";
 import { AppointmentProvider } from "./contexts";
 import { AppointmentFormContent } from "./components/appointment-form-content";
 import { AppointmentCreateProps } from "./types";
@@ -16,8 +17,11 @@ export const AppointmentCreate: React.FC<AppointmentCreateProps> = ({
   schoolId,
   isOnline = false,
 }) => {
-  // Schema'dan initial values oluştur
-  const initialValues = createInitialValues(schoolId, isOnline);
+  // Get user from auth context for parentUserId
+  const { user } = useAuth();
+
+  // Schema'dan initial values oluştur ve parentUserId ekle
+  const initialValues = createInitialValues(schoolId, isOnline, user?.id);
 
   return (
     <CustomCard title="Randevu Oluştur">
