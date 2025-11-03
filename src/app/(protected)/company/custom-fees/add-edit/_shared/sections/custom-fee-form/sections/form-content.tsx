@@ -332,7 +332,7 @@ export const CustomFeeFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="displayOrder"
-            label="Görüntülenme Sırası"
+            // label="Görüntülenme Sırası"
             type="number"
             placeholder="Sıra numarasını giriniz..."
             helperText="Listede görüntülenme sırası (0 = en üstte)"
