@@ -77,6 +77,10 @@ export const API_ENDPOINTS = {
   },
 
   APPOINTMENTS: {
+    // User appointments - Kullanıcının mevcut randevusunu getir
+    CURRENT_APPOINTMENT: (userId: string | number, schoolId: string | number) =>
+      `/appointments/slots/search/user/${userId}/school/${schoolId}`,
+
     // User appointments - Kullanıcının randevularını getir
     SLOTS_SEARCH_USER: (userId: string | number) =>
       `/appointments/slots/search/user/${userId}`,

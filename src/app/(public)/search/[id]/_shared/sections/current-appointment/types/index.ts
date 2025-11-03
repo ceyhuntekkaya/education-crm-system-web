@@ -1,10 +1,5 @@
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 
-// Ana component props
-export interface CurrentAppointmentProps {
-  institutionId: string;
-}
-
 // Context types
 export interface CurrentAppointmentContextType {
   currentAppointment: AppointmentDto | null;

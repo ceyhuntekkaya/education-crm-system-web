@@ -44,7 +44,7 @@ export default function InstitutionDetailPage({
   // Show loading state while data is being fetched
   if (loading) {
     return (
-      <div className="container py-5">
+      <div className="container py-40">
         <CustomCard>
           <LoadingSpinner
             message="Kurum bilgileri yükleniyor..."
@@ -175,7 +175,7 @@ export default function InstitutionDetailPage({
       icon: "ph-bold ph-clock",
       title: "Randevum",
       label: "Randevum",
-      content: <CurrentAppointment institutionId={params.id} />,
+      content: <CurrentAppointment />,
     },
     {
       id: "pills-appointment-create",

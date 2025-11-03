@@ -1,82 +1,50 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
+import React, { createContext, useContext, ReactNode } from "react";
 import { CurrentAppointmentContextType } from "../types";
-import { mockCurrentAppointment } from "../mock/current-appointment-data";
+import { useCurrentAppointment } from "../hooks/use-current-appointment";
 
 const CurrentAppointmentContext = createContext<
   CurrentAppointmentContextType | undefined
 >(undefined);
 
-export const useCurrentAppointmentContext =
-  (): CurrentAppointmentContextType => {
-    const context = useContext(CurrentAppointmentContext);
-    if (!context) {
-      throw new Error(
-        "useCurrentAppointmentContext must be used within CurrentAppointmentProvider"
-      );
-    }
-    return context;
-  };
-
 interface CurrentAppointmentProviderProps {
-  children: React.ReactNode;
-  institutionId: string;
+  children: ReactNode;
+  schoolId: string | number;
 }
 
 export const CurrentAppointmentProvider: React.FC<
   CurrentAppointmentProviderProps
-> = ({ children, institutionId }) => {
-  const [currentAppointment, setCurrentAppointment] =
-    useState<AppointmentDto | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // Mock data yükleme - Gerçek API ile değiştirilecek
-  useEffect(() => {
-    const loadCurrentAppointment = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        // Simulated API call delay
-        await new Promise((resolve) => setTimeout(resolve, 800));
-
-        // Mock data - institutionId'ye göre kontrol
-        if (mockCurrentAppointment.schoolId === parseInt(institutionId)) {
-          setCurrentAppointment(mockCurrentAppointment);
-        } else {
-          setCurrentAppointment(null);
-        }
-      } catch (err) {
-        setError("Randevu bilgisi yüklenirken bir hata oluştu.");
-        console.error("Error loading current appointment:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadCurrentAppointment();
-  }, [institutionId]);
-
-  const refetch = () => {
-    // Veriyi yeniden yükle
-    setCurrentAppointment(
-      currentAppointment ? { ...currentAppointment } : null
-    );
-  };
-
-  const value: CurrentAppointmentContextType = {
+> = ({ children, schoolId }) => {
+  // Current appointment hook'unu kullan (userId useAuth'dan alınıyor)
+  const {
     currentAppointment,
-    isLoading,
-    error,
-    refetch,
+    appointmentLoading,
+    appointmentError,
+    refetchAppointment,
+  } = useCurrentAppointment({ schoolId });
+
+  const contextValue: CurrentAppointmentContextType = {
+    currentAppointment,
+    isLoading: appointmentLoading,
+    error: appointmentError,
+    refetch: refetchAppointment,
   };
 
   return (
-    <CurrentAppointmentContext.Provider value={value}>
+    <CurrentAppointmentContext.Provider value={contextValue}>
       {children}
     </CurrentAppointmentContext.Provider>
   );
 };
+
+export const useCurrentAppointmentContext =
+  (): CurrentAppointmentContextType => {
+    const context = useContext(CurrentAppointmentContext);
+    if (context === undefined) {
+      throw new Error(
+        "useCurrentAppointmentContext must be used within a CurrentAppointmentProvider"
+      );
+    }
+    return context;
+  };
