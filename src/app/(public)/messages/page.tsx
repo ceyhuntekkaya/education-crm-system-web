@@ -104,8 +104,6 @@ const Messages: React.FC = () => {
         isLoading={loading}
         isError={error !== null}
         errorMessage={error || undefined}
-        padding="p-0"
-        className="messages-card"
       >
         {!error && (
           <div className="messages-container">
