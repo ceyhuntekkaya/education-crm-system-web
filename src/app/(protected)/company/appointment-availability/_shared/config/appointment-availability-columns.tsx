@@ -1,9 +1,12 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
-import { formatDate, formatDateTime } from "@/utils";
-import { Badge } from "@/components";
+import { formatDateTime } from "@/utils";
 
-// Helper function - Randevu tipi etiketini al
+/**
+ * Helper Functions
+ */
+
+// Randevu tipi etiketini al
 const getAppointmentTypeLabel = (type?: string) => {
   const typeMap: Record<string, string> = {
     INFORMATION_MEETING: "Bilgilendirme",
@@ -21,49 +24,23 @@ const getAppointmentTypeLabel = (type?: string) => {
   return type ? typeMap[type] || type : "-";
 };
 
-// Helper function - Randevu durumu etiketini al
-const getAppointmentStatusLabel = (status?: string) => {
-  const statusMap: Record<string, string> = {
-    PENDING: "Beklemede",
-    CONFIRMED: "Onaylandı",
-    APPROVED: "Onaylandı",
-    REJECTED: "Reddedildi",
-    CANCELLED: "İptal Edildi",
-    COMPLETED: "Tamamlandı",
-    NO_SHOW: "Gelmedi",
-    RESCHEDULED: "Ertelendi",
-    IN_PROGRESS: "Devam Ediyor",
+// Gün ismi etiketini al
+const getDayOfWeekLabel = (day?: string) => {
+  const dayMap: Record<string, string> = {
+    Monday: "Pazartesi",
+    Tuesday: "Salı",
+    Wednesday: "Çarşamba",
+    Thursday: "Perşembe",
+    Friday: "Cuma",
+    Saturday: "Cumartesi",
+    Sunday: "Pazar",
   };
-  return status ? statusMap[status] || status : "-";
+  return day ? dayMap[day] || day : "-";
 };
 
-// Helper function - Durum badge variant'ını al
-const getStatusVariant = (
-  status?: string
-): "success" | "warning" | "danger" | "secondary" | "info" => {
-  const variantMap: Record<
-    string,
-    "success" | "warning" | "danger" | "secondary" | "info"
-  > = {
-    PENDING: "warning",
-    CONFIRMED: "info",
-    APPROVED: "success",
-    REJECTED: "danger",
-    CANCELLED: "secondary",
-    COMPLETED: "success",
-    NO_SHOW: "danger",
-    RESCHEDULED: "warning",
-    IN_PROGRESS: "info",
-  };
-  return variantMap[status || ""] || "secondary";
-};
-
-// Column render helper functions
-const renderSchoolName = (params: any) => (
-  <div className="fw-medium text-truncate" title={params.row.schoolName}>
-    {params.row.schoolName || "-"}
-  </div>
-);
+/**
+ * Render Functions
+ */
 
 const renderStaffInfo = (params: any) => (
   <div className="text-truncate" title={params.row.staffUserName}>
@@ -72,29 +49,33 @@ const renderStaffInfo = (params: any) => (
 );
 
 const renderSlotDate = (params: any) => {
-  const { slotDate } = params.row;
+  const { slotDate, dayOfWeekName } = params.row;
   if (!slotDate) {
     return <span className="text-muted text-center d-block">-</span>;
   }
 
+  const dayLabel = getDayOfWeekLabel(dayOfWeekName);
+
   return (
     <div className="text-center">
-      <span className="badge bg-light text-dark border">
-        {formatDateTime(slotDate)}
-      </span>
+      <div className="d-flex flex-column gap-1">
+        <span className="badge bg-light text-dark border">
+          {formatDateTime(slotDate)}
+        </span>
+        <span className="badge bg-light text-dark border">{dayLabel}</span>
+      </div>
     </div>
   );
 };
 
-const renderDayOfWeek = (params: any) => (
-  <div className="text-center">{params.row.dayOfWeekName || "-"}</div>
-);
-
-const renderAppointmentType = (params: any) => (
-  <div className="text-truncate">
-    {getAppointmentTypeLabel(params.row.appointmentType)}
-  </div>
-);
+const renderAppointmentType = (params: any) => {
+  const typeLabel = getAppointmentTypeLabel(params.row.appointmentType);
+  return (
+    <div className="text-truncate">
+      <span className="badge bg-primary-subtle text-primary">{typeLabel}</span>
+    </div>
+  );
+};
 
 const renderDuration = (params: any) => (
   <div className="text-center">
@@ -102,143 +83,30 @@ const renderDuration = (params: any) => (
   </div>
 );
 
-const renderAvailability = (params: any) => {
-  const { isAvailable } = params.row;
-
-  if (isAvailable === undefined || isAvailable === null) {
-    return <span className="text-muted text-center d-block">-</span>;
-  }
-
-  const variant = isAvailable ? "success" : "danger";
-  const label = isAvailable ? "Müsait" : "Dolu";
-
-  return (
-    <div className="d-flex justify-content-center align-items-center h-100">
-      <Badge variant={variant}>{label}</Badge>
-    </div>
-  );
-};
-
-const renderAppointmentStatus = (params: any) => {
-  const { appointment } = params.row;
-
-  if (!appointment || !appointment.status) {
-    return <span className="text-muted text-center d-block">-</span>;
-  }
-
-  const variant = getStatusVariant(appointment.status);
-  const label = getAppointmentStatusLabel(appointment.status);
-
-  return (
-    <div className="d-flex justify-content-center align-items-center h-100">
-      <Badge variant={variant}>{label}</Badge>
-    </div>
-  );
-};
-
-const renderAppointmentNumber = (params: any) => {
-  const { appointment } = params.row;
-  return (
-    <div className="text-center fw-medium">
-      {appointment?.appointmentNumber || "-"}
-    </div>
-  );
-};
-
-const renderParentName = (params: any) => {
-  const { appointment } = params.row;
-  return (
-    <div className="text-truncate" title={appointment?.parentUserName}>
-      {appointment?.parentUserName || "-"}
-    </div>
-  );
-};
-
-const renderStudentName = (params: any) => {
-  const { appointment } = params.row;
-  return (
-    <div className="text-truncate" title={appointment?.studentName}>
-      {appointment?.studentName || "-"}
-    </div>
-  );
-};
-
-const renderOnlineMeeting = (params: any) => {
-  const { onlineMeetingAvailable } = params.row;
-
-  if (onlineMeetingAvailable === undefined || onlineMeetingAvailable === null) {
-    return <span className="text-muted text-center d-block">-</span>;
-  }
-
-  const variant = onlineMeetingAvailable ? "success" : "secondary";
-  const label = onlineMeetingAvailable ? "Mevcut" : "Yok";
-  const icon = onlineMeetingAvailable ? "✓" : "✗";
-
-  return (
-    <div className="d-flex justify-content-center align-items-center h-100">
-      <Badge variant={variant}>
-        {icon} {label}
-      </Badge>
-    </div>
-  );
-};
-
-const renderActiveStatus = (params: any) => {
-  const { isActive } = params.row;
-
-  if (isActive === undefined || isActive === null) {
-    return <span className="text-muted text-center d-block">-</span>;
-  }
-
-  const variant = isActive ? "success" : "secondary";
-  const label = isActive ? "Aktif" : "Pasif";
-
-  return (
-    <div className="d-flex justify-content-center align-items-center h-100">
-      <Badge variant={variant}>{label}</Badge>
-    </div>
-  );
-};
-
 /**
  * Appointment Slot DataGrid column definitions
- * Yeni API yapısı: AppointmentSlotDto
+ * Backend API yanıtına göre optimize edilmiş sütunlar
  */
 export const appointmentAvailabilityColumns: GridColDef<AppointmentSlotDto>[] =
   [
     {
-      field: "schoolName",
-      headerName: "Okul Adı",
-      width: 180,
-      minWidth: 150,
-      sortable: true,
-      renderCell: renderSchoolName,
-    },
-    {
-      field: "staffUserName",
-      headerName: "Personel",
-      width: 150,
-      sortable: true,
-      renderCell: renderStaffInfo,
-    },
-    {
       field: "slotDate",
-      headerName: "Slot Tarihi",
+      headerName: "Tarih & Saat",
       width: 180,
       sortable: true,
       renderCell: renderSlotDate,
     },
     {
-      field: "dayOfWeekName",
-      headerName: "Gün",
-      width: 120,
+      field: "staffUserName",
+      headerName: "Personel",
+      width: 160,
       sortable: true,
-      renderCell: renderDayOfWeek,
+      renderCell: renderStaffInfo,
     },
     {
       field: "appointmentType",
       headerName: "Randevu Tipi",
-      width: 160,
+      width: 180,
       sortable: true,
       renderCell: renderAppointmentType,
     },
@@ -248,55 +116,6 @@ export const appointmentAvailabilityColumns: GridColDef<AppointmentSlotDto>[] =
       width: 100,
       sortable: true,
       renderCell: renderDuration,
-    },
-    {
-      field: "isAvailable",
-      headerName: "Müsaitlik",
-      width: 120,
-      sortable: true,
-      renderCell: renderAvailability,
-    },
-    {
-      field: "onlineMeetingAvailable",
-      headerName: "Online",
-      width: 120,
-      sortable: true,
-      renderCell: renderOnlineMeeting,
-    },
-    {
-      field: "appointmentNumber",
-      headerName: "Randevu No",
-      width: 140,
-      sortable: true,
-      renderCell: renderAppointmentNumber,
-    },
-    {
-      field: "appointmentStatus",
-      headerName: "Randevu Durumu",
-      width: 150,
-      sortable: true,
-      renderCell: renderAppointmentStatus,
-    },
-    {
-      field: "parentName",
-      headerName: "Veli",
-      width: 150,
-      sortable: true,
-      renderCell: renderParentName,
-    },
-    {
-      field: "studentName",
-      headerName: "Öğrenci",
-      width: 150,
-      sortable: true,
-      renderCell: renderStudentName,
-    },
-    {
-      field: "isActive",
-      headerName: "Durum",
-      width: 100,
-      sortable: true,
-      renderCell: renderActiveStatus,
     },
   ];
 
