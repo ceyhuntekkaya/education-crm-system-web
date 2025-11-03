@@ -1,90 +1,50 @@
-import { useState, useCallback, useMemo } from "react";
-import { FormStep } from "../types";
-import { CONTEXT_STEP_CONFIG } from "../constants/step-config-constants";
+import { useState, useCallback } from "react";
+import { getTotalSteps } from "../constants";
 
-export interface UseAppointmentStepsReturn {
-  // State
-  currentStep: FormStep;
-  steps: typeof CONTEXT_STEP_CONFIG;
-  currentStepIndex: number;
-  isFirstStep: boolean;
-  isLastStep: boolean;
+/**
+ * Step navigation ve state yönetimi
+ * Register form mimarisini takip eder
+ */
+export const useAppointmentSteps = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = getTotalSteps();
 
-  // Actions
-  goToStep: (step: FormStep) => void;
-  goToNextStep: () => Promise<boolean>;
-  goToPreviousStep: () => void;
-  resetToFirstStep: () => void;
-}
+  const nextStep = useCallback(() => {
+    if (currentStep < totalSteps) {
+      setCurrentStep((prev) => prev + 1);
+    }
+  }, [currentStep, totalSteps]);
 
-export const useAppointmentSteps = (
-  initialStep: FormStep = FormStep.APPOINTMENT_TYPE
-): UseAppointmentStepsReturn => {
-  const [currentStep, setCurrentStep] = useState<FormStep>(initialStep);
-
-  // Computed values
-  const currentStepIndex = useMemo(() => {
-    return CONTEXT_STEP_CONFIG.findIndex((step) => step.key === currentStep);
+  const previousStep = useCallback(() => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => prev - 1);
+    }
   }, [currentStep]);
 
-  const isFirstStep = useMemo(() => {
-    return currentStepIndex === 0;
-  }, [currentStepIndex]);
-
-  const isLastStep = useMemo(() => {
-    return currentStepIndex === CONTEXT_STEP_CONFIG.length - 1;
-  }, [currentStepIndex]);
-
-  // Step navigation
-  const goToStep = useCallback((step: FormStep) => {
-    setCurrentStep(step);
-  }, []);
-
-  const goToNextStep = useCallback(async (): Promise<boolean> => {
-    if (!isLastStep) {
-      const nextStep = CONTEXT_STEP_CONFIG[currentStepIndex + 1].key;
-      goToStep(nextStep);
-      return true;
-    }
-    return true;
-  }, [currentStepIndex, isLastStep, goToStep]);
-
-  const goToPreviousStep = useCallback(() => {
-    if (!isFirstStep) {
-      const previousStep = CONTEXT_STEP_CONFIG[currentStepIndex - 1].key;
-      goToStep(previousStep);
-    }
-  }, [currentStepIndex, isFirstStep, goToStep]);
-
-  const resetToFirstStep = useCallback(() => {
-    setCurrentStep(FormStep.APPOINTMENT_TYPE);
-  }, []);
-
-  // Memoize the return object to prevent unnecessary re-renders
-  return useMemo(
-    () => ({
-      // State
-      currentStep,
-      steps: CONTEXT_STEP_CONFIG,
-      currentStepIndex,
-      isFirstStep,
-      isLastStep,
-
-      // Actions
-      goToStep,
-      goToNextStep,
-      goToPreviousStep,
-      resetToFirstStep,
-    }),
-    [
-      currentStep,
-      currentStepIndex,
-      isFirstStep,
-      isLastStep,
-      goToStep,
-      goToNextStep,
-      goToPreviousStep,
-      resetToFirstStep,
-    ]
+  const goToStep = useCallback(
+    (step: number) => {
+      if (step >= 1 && step <= totalSteps) {
+        setCurrentStep(step);
+      }
+    },
+    [totalSteps]
   );
+
+  return {
+    currentStep,
+    setCurrentStep,
+    nextStep,
+    previousStep,
+    goToStep,
+    totalSteps,
+  };
 };
+
+export interface UseAppointmentStepsReturn {
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+  nextStep: () => void;
+  previousStep: () => void;
+  goToStep: (step: number) => void;
+  totalSteps: number;
+}

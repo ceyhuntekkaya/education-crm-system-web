@@ -77,6 +77,12 @@ export const API_ENDPOINTS = {
   },
 
   APPOINTMENTS: {
+    // Appointment CRUD
+    CREATE: "/appointments",
+    BY_ID: (id: string | number) => `/appointments/${id}`,
+    NOTES: (appointmentId: string | number) =>
+      `/appointments/${appointmentId}/notes`,
+
     // User appointments - Kullanıcının mevcut randevusunu getir
     CURRENT_APPOINTMENT: (userId: string | number, schoolId: string | number) =>
       `/appointments/slots/search/user/${userId}/school/${schoolId}`,
@@ -101,9 +107,6 @@ export const API_ENDPOINTS = {
       `/appointments/schools/${schoolId}/availability-range`,
     SCHOOL_STATISTICS: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/statistics`,
-    BY_ID: (id: string | number) => `/appointments/${id}`,
-    NOTES: (appointmentId: string | number) =>
-      `/appointments/${appointmentId}/notes`,
   },
 
   SURVEYS: {

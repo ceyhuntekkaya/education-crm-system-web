@@ -3,6 +3,8 @@
  * Bu dosya form sonuç types'larını içerir
  */
 
+import { AppointmentDto } from "@/types";
+
 // =============================================================================
 // FORM RESULT TYPES - Form sonuçları için interfaces
 // =============================================================================
@@ -15,4 +17,5 @@ export interface AppointmentCreationResult {
   appointmentNumber?: string;
   message?: string;
   error?: string;
+  appointment?: AppointmentDto;
 }

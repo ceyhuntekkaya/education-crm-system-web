@@ -85,7 +85,6 @@ export default function InstitutionDetailPage({
           <InstitutionLocationInfo />
         </div>
       ),
-      isActive: true,
     },
     // {
     //   id: "pills-brand",
@@ -183,6 +182,7 @@ export default function InstitutionDetailPage({
       title: "Randevu Oluştur",
       label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
+      isActive: true,
     },
   ];
 

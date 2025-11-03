@@ -35,7 +35,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
         <div className="col-md-6">
           <FormInput
             name="studentBirthDate"
-            type="text"
+            type="date"
             label="Öğrenci Doğum Tarihi"
             placeholder="YYYY-MM-DD"
             variant="inline"

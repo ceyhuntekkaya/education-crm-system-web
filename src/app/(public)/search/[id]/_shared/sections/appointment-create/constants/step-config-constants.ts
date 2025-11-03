@@ -1,57 +1,79 @@
 /**
- * Step configuration constants for appointment creation context
- * Bu dosya context'te kullanılan step konfigürasyonlarını içerir
+ * Step configuration constants for appointment creation
+ * Register form mimarisini takip eder
  */
 
-import { FormStep } from "../types/form-data-types";
-import { FormStepConfig } from "../types/step-config-types";
-
-// =============================================================================
-// CONTEXT STEP CONFIGURATION
-// =============================================================================
+export interface StepConfig {
+  step: number;
+  title: string;
+  description: string;
+  icon: string;
+  isCompleted: boolean;
+  isActive: boolean;
+}
 
 /**
- * Step configuration for appointment creation context
- * Context'te kullanılan adım tanımları
+ * Appointment creation steps - Tüm adımlar
  */
-export const CONTEXT_STEP_CONFIG: readonly FormStepConfig[] = [
+export const APPOINTMENT_STEPS: StepConfig[] = [
   {
-    key: FormStep.APPOINTMENT_TYPE,
+    step: 1,
     title: "Randevu Türü",
-    icon: "ph-calendar",
+    description: "Randevu türünü seçin",
+    icon: "ph-calendar-check",
+    isCompleted: false,
+    isActive: true,
   },
   {
-    key: FormStep.STUDENT_INFO,
-    title: "Öğrenci Bilgileri",
-    icon: "ph-student",
-  },
-  {
-    key: FormStep.DATE_TIME,
-    title: "Tarih & Saat",
+    step: 2,
+    title: "Tarih ve Saat",
+    description: "Randevu tarihi ve saatini seçin",
     icon: "ph-clock",
+    isCompleted: false,
+    isActive: false,
   },
   {
-    key: FormStep.CONFIRMATION,
-    title: "Onay",
-    icon: "ph-check-circle",
+    step: 3,
+    title: "Öğrenci Bilgileri",
+    description: "Öğrenci bilgilerini girin",
+    icon: "ph-student",
+    isCompleted: false,
+    isActive: false,
   },
-] as const;
+  {
+    step: 4,
+    title: "Onay",
+    description: "Bilgileri kontrol edin ve onaylayın",
+    icon: "ph-check-circle",
+    isCompleted: false,
+    isActive: false,
+  },
+];
 
 /**
- * Step configuration with icons for UI components
+ * Get step configurations
  */
-export const STEP_CONFIG_WITH_ICONS = CONTEXT_STEP_CONFIG;
-
-/**
- * Helper function to get step by key
- */
-export const getStepByKey = (key: FormStep): FormStepConfig | undefined => {
-  return CONTEXT_STEP_CONFIG.find((step) => step.key === key);
+export const getStepConfigs = (): StepConfig[] => {
+  return APPOINTMENT_STEPS;
 };
 
 /**
- * Helper function to get step index
+ * Get total number of steps
  */
-export const getStepIndex = (key: FormStep): number => {
-  return CONTEXT_STEP_CONFIG.findIndex((step) => step.key === key);
+export const getTotalSteps = (): number => {
+  return APPOINTMENT_STEPS.length;
+};
+
+/**
+ * Get step by number
+ */
+export const getStepByNumber = (stepNumber: number): StepConfig | undefined => {
+  return APPOINTMENT_STEPS.find((step) => step.step === stepNumber);
+};
+
+/**
+ * Get step index (0-based)
+ */
+export const getStepIndex = (stepNumber: number): number => {
+  return stepNumber - 1;
 };

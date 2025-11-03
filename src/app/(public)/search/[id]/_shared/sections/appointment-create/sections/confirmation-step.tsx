@@ -1,6 +1,7 @@
 import React from "react";
 import { FormCheckbox } from "@/components/forms";
 import { useFormHook } from "@/hooks/use-form-hook";
+import { useAuth } from "@/contexts";
 import { mockAvailableSlots, appointmentTypeOptions } from "../mock";
 import { ConfirmationStepProps } from "../types";
 import { AvailableSlotDto } from "@/types";
@@ -9,6 +10,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
   className = "",
 }) => {
   const { getFieldValue } = useFormHook();
+  const { user } = useAuth();
 
   const selectedSlot: AvailableSlotDto | undefined = mockAvailableSlots.find(
     (slot) => slot.slotId === parseInt(getFieldValue("selectedSlotId") || "0")
@@ -133,7 +135,9 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-neutral-900 fw-medium">
-                  {getFieldValue("parentName")}
+                  {user?.fullName || (user?.firstName && user?.lastName)
+                    ? `${user?.firstName} ${user?.lastName}`
+                    : "Belirtilmemiş"}
                 </span>
               </span>
             </li>
@@ -143,7 +147,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-neutral-900 fw-medium">
-                  {getFieldValue("parentEmail")}
+                  {user?.email || "Belirtilmemiş"}
                 </span>
               </span>
             </li>
@@ -153,7 +157,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-neutral-900 fw-medium">
-                  {getFieldValue("parentPhone")}
+                  {user?.phone || "Belirtilmemiş"}
                 </span>
               </span>
             </li>
