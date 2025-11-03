@@ -18,6 +18,7 @@ interface FormCheckboxProps
   name: string;
   label: string | React.ReactNode;
   value?: string;
+  helperText?: string; // Yardımcı metin
   options?: { value: string; label: string }[];
   multi?: boolean;
   grouped?: boolean;
@@ -34,6 +35,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   name,
   label,
   value,
+  helperText,
   options,
   multi = false,
   grouped = false,
@@ -55,7 +57,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   // Variant bazlı container stilleri
   const getContainerClasses = () => {
     if (variant === "outlined") {
-      return "bg-white rounded-16 p-24";
+      return "bg-white rounded-32 px-24 py-16";
     }
     return "";
   };
@@ -250,27 +252,32 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
     : Boolean(formValue);
 
   return (
-    <div
-      className={`form-check common-check mb-0 ${
-        variant === "outlined" ? "ps-48" : ""
-      } ${getContainerClasses()} ${className || ""}`}
-    >
-      <input
-        id={id || `${name}-${value || label}`}
-        name={name}
-        type="checkbox"
-        className="form-check-input bg-main-25"
-        checked={isChecked}
-        onChange={handleChange}
-        disabled={disabled}
-        {...rest}
-      />
-      <label
-        className="form-check-label fw-normal flex-grow-1"
-        htmlFor={id || `${name}-${value || label}`}
+    <div className={className || ""}>
+      <div
+        className={`form-check common-check mb-0 ${
+          variant === "outlined" ? "ps-48" : ""
+        } ${getContainerClasses()}`}
       >
-        {label}
-      </label>
+        <input
+          id={id || `${name}-${value || label}`}
+          name={name}
+          type="checkbox"
+          className="form-check-input bg-main-25"
+          checked={isChecked}
+          onChange={handleChange}
+          disabled={disabled}
+          {...rest}
+        />
+        <label
+          className="form-check-label fw-normal flex-grow-1"
+          htmlFor={id || `${name}-${value || label}`}
+        >
+          {label}
+        </label>
+      </div>
+      {helperText && (
+        <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+      )}
     </div>
   );
 };

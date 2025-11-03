@@ -14,6 +14,7 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconLeft?: string;
   iconRight?: string;
   fullWidth?: boolean;
+  helperText?: string; // Yardımcı metin
   type?:
     | "text"
     | "email"
@@ -56,6 +57,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   iconLeft,
   iconRight,
   fullWidth = false,
+  helperText,
   numberFormat,
   numberFormatProps,
   ...rest
@@ -554,6 +556,9 @@ export const FormInput: React.FC<FormInputProps> = ({
         )}
       </div>
       {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      {helperText && !error && (
+        <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+      )}
     </div>
   );
 };

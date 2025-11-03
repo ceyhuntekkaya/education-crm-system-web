@@ -6,7 +6,7 @@ import { CustomFeeCreateDto, CustomFeeDto, ApiResponseDto } from "@/types";
 
 /**
  * Custom fee ekleme hook'u
- * 
+ *
  * @returns {Object}
  * - postCustomFee: Yeni custom fee ekleme fonksiyonu
  * - isLoading: Form submit loading durumu (formLoading olarak kullanılır)

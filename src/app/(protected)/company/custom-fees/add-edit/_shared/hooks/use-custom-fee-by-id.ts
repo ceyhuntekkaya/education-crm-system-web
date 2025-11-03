@@ -13,9 +13,9 @@ interface UseCustomFeeByIdReturn {
 
 /**
  * ID'ye göre custom fee detayını getiren hook
- * 
+ *
  * @param {number | string | null} id - Custom fee ID
- * 
+ *
  * @returns {Object}
  * - customFee: Custom fee verisi
  * - customFeeLoading: Detay çekme loading durumu (dataLoading olarak kullanılır)
