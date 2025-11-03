@@ -3,7 +3,6 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto } from "@/types";
-import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
 import { useAuth } from "@/contexts";
 
@@ -12,7 +11,7 @@ interface UseCurrentAppointmentParams {
 }
 
 interface UseCurrentAppointmentReturn {
-  currentAppointment: AppointmentDto | null;
+  currentAppointment: AppointmentSlotDto | null;
   appointmentLoading: boolean;
   appointmentError: string | null;
   refetchAppointment: () => void;
@@ -44,9 +43,8 @@ export const useCurrentAppointment = ({
     refetch: refetchAppointment,
   } = useGet<ApiResponseDto<AppointmentSlotDto[]>>(endpoint);
 
-  // İlk slot'un appointment field'ını al
-  const currentAppointment =
-    appointmentResponse?.data?.[0]?.appointment || null;
+  // İlk slot'u direkt olarak al
+  const currentAppointment = appointmentResponse?.data?.[0] || null;
 
   return {
     currentAppointment,

@@ -22,14 +22,14 @@ const CurrentAppointmentContent: React.FC = () => {
       loadingVariant="spinner"
       isError={!!error}
       errorMessage={error || "Randevu bilgisi yüklenirken bir hata oluştu"}
-      isEmpty={!currentAppointment}
+      isEmpty={!currentAppointment?.appointment}
       emptyMessage="Aktif randevunuz bulunmamaktadır"
       emptyDescription="Henüz bu kurum için aktif bir randevunuz yok."
       emptyIcon="ph-calendar-x"
       className="my-20"
     >
-      {currentAppointment && (
-        <AppointmentContent appointment={currentAppointment} />
+      {currentAppointment?.appointment && (
+        <AppointmentContent appointment={currentAppointment.appointment} />
       )}
     </CustomCard>
   );
