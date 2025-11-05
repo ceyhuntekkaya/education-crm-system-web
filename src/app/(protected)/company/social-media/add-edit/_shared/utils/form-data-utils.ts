@@ -8,6 +8,16 @@ import { PostDto } from "@/types";
 export const transformPostToFormData = (post: PostDto | null): any => {
   if (!post) return null;
 
+  // Items'ı backend formatından form formatına dönüştür
+  const transformedItems = post.items
+    ? post.items.map((item) => ({
+        itemType: item.itemType,
+        fileUrl: item.fileUrl,
+        fileName: item.fileName,
+        sortOrder: item.sortOrder,
+      }))
+    : [];
+
   return {
     title: post.title || "",
     content: post.content || "",
@@ -39,5 +49,8 @@ export const transformPostToFormData = (post: PostDto | null): any => {
     externalUrl: post.externalUrl || "",
     callToAction: post.callToAction || "",
     ctaUrl: post.ctaUrl || "",
+
+    // Items (media attachments)
+    items: transformedItems,
   };
 };
