@@ -5,6 +5,7 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
 import { useAuth } from "@/contexts";
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
+import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
 import { ApiResponseDto } from "@/types";
 
 interface UseAppointmentsProps {
@@ -15,6 +16,7 @@ interface UseAppointmentsProps {
 
 interface UseAppointmentsReturn {
   appointments: AppointmentDto[];
+  slots: AppointmentSlotDto[];
   loading: boolean;
   error: string | null;
   refetch: () => void;
@@ -37,28 +39,44 @@ export const useAppointments = ({
     ? API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_USER(user.id)
     : null;
 
-  // API isteği
+  // API isteği - Backend'den AppointmentSlotDto[] dönüyor
   const {
-    data: appointmentsResponse,
+    data: slotsResponse,
     loading,
     error,
     refetch,
-  } = useGet<ApiResponseDto<AppointmentDto[]>>(endpoint, {
+  } = useGet<ApiResponseDto<AppointmentSlotDto[]>>(endpoint, {
     enabled: !!user?.id, // Sadece user varsa çalışsın
     onSuccess: (data) => {
       console.log(
-        "Appointments fetched successfully:",
+        "Appointment slots fetched successfully:",
         data?.data?.length || 0
       );
     },
     onError: (error) => {
-      console.error("Appointments fetch error:", error);
+      console.error("Appointment slots fetch error:", error);
     },
   });
 
-  // Filtrelenmiş randevular
+  // Slot'lar ve randevular
+  const slots = useMemo(() => {
+    return slotsResponse?.data || [];
+  }, [slotsResponse?.data]);
+
+  // Filtrelenmiş randevular - sadece appointment objesi olanlar
   const appointments = useMemo(() => {
-    let filtered = appointmentsResponse?.data || [];
+    // Slot'lardan appointment bilgilerini çıkar ve slot bilgileriyle birleştir
+    let filtered = slots
+      .filter((slot) => slot.appointment) // Sadece appointment'ı olanlar
+      .map((slot) => ({
+        ...slot.appointment!,
+        // Slot bilgilerini de ekle - appointment'ta null olan alanları slot'tan al
+        slotDate: slot.slotDate,
+        dayOfWeekName: slot.dayOfWeekName,
+        // Eğer appointment'ta staffUserName null ise, slot'tan al
+        staffUserId: slot.appointment!.staffUserId ?? slot.staffUserId,
+        staffUserName: slot.appointment!.staffUserName ?? slot.staffUserName,
+      }));
 
     // schoolId filtresi
     if (schoolId) {
@@ -76,10 +94,11 @@ export const useAppointments = ({
     }
 
     return filtered;
-  }, [appointmentsResponse?.data, schoolId, status, limit]);
+  }, [slots, schoolId, status, limit]);
 
   return {
     appointments,
+    slots,
     loading,
     error,
     refetch,

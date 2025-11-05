@@ -1,6 +1,7 @@
 // Display helpers
 export * from "./get-appointment-type-display";
 export * from "./get-participant-type-display";
+export * from "./get-status-display";
 
 // Badge variant helpers
 export * from "./get-status-badge-variant";

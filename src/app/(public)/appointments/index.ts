@@ -2,7 +2,7 @@
 export { default as AppointmentTable } from "./page";
 
 // UI Components export
-export { Avatar, Badge, ActionButtons } from "./components";
+export { Avatar, Badge } from "./components";
 
 // Section Components export
 export { AppointmentTableHeader, AppointmentTableError } from "./sections";

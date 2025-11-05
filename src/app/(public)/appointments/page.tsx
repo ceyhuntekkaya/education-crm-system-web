@@ -1,31 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { DataGrid } from "@/components/ui/data-grid";
 import { CustomCard } from "@/components";
 import { Icon } from "@/components/ui/icon";
-import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { useAppointments } from "./hooks/use-appointments";
 import { createAppointmentColumns } from "./config";
-import { AppointmentDetail } from "./sections/appointment-detail";
-import { useModal } from "@/hooks";
 
 const Appointments: React.FC = () => {
   // Hook kullanarak API'den verileri al
   const { appointments, loading, error } = useAppointments();
 
-  // Modal state yönetimi
-  const detailModal = useModal();
-  const [selectedAppointment, setSelectedAppointment] =
-    useState<AppointmentDto | null>(null);
-
-  // Row click handler
-  const handleRowClick = (appointment: AppointmentDto) => {
-    setSelectedAppointment(appointment);
-    detailModal.open();
-  };
-
-  // Kolonları oluştur (handler olmadan)
+  // Kolonları oluştur
   const columns = createAppointmentColumns();
 
   // İstatistik hesaplamaları
@@ -115,12 +101,11 @@ const Appointments: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ cursor: "pointer" }}>
+        <div>
           <DataGrid
             rows={appointments}
             columns={columns}
             loading={loading}
-            // onRowClick={(params) => handleRowClick(params.row)}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 10 },
@@ -129,15 +114,6 @@ const Appointments: React.FC = () => {
             pageSizeOptions={[5, 10, 25, 50]}
           />
         </div>
-
-        <AppointmentDetail
-          isOpen={detailModal.isOpen}
-          onClose={() => {
-            detailModal.close();
-            setSelectedAppointment(null);
-          }}
-          appointment={selectedAppointment}
-        />
       </CustomCard>
     </div>
   );
