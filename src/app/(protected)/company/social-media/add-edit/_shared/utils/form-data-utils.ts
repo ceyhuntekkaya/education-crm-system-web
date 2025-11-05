@@ -11,6 +11,7 @@ export const transformPostToFormData = (post: PostDto | null): any => {
   // Items'ı backend formatından form formatına dönüştür
   const transformedItems = post.items
     ? post.items.map((item) => ({
+        id: item.id, // Mevcut item'ların ID'sini sakla
         itemType: item.itemType,
         fileUrl: item.fileUrl,
         fileName: item.fileName,

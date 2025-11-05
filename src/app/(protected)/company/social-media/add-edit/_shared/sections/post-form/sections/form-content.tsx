@@ -33,10 +33,22 @@ export const PostFormContent: React.FC = () => {
   } = usePostAddEdit();
 
   const handleSubmit = async (values: any) => {
-    // Tarih alanlarını ISO 8601 formatına çevir
+    // Items'ı formatla
+    const formattedItems = values.items?.map((item: any) => {
+      // Eğer item'da id varsa (mevcut item), ID'yi gönder
+      // Eğer item'da id yoksa (yeni item), ID'yi null gönder
+      return {
+        id: item.id || null, // Mevcut item için ID, yeni item için null
+        itemType: item.itemType,
+        fileUrl: item.fileUrl,
+        fileName: item.fileName,
+        sortOrder: item.sortOrder,
+      };
+    });
 
     const formattedValues = {
       ...values,
+      items: formattedItems,
     };
 
     if (isEditing) {

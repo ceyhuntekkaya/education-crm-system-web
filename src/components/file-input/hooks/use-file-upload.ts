@@ -164,15 +164,17 @@ export const useFileUpload = ({
                     );
 
                     return {
-                      itemType,
+                      id: file.id || null, // Mevcut item ID'sini sakla, yoksa null
+                      itemType: file.itemType || itemType, // Önce file.itemType'a bak, yoksa hesapla
                       fileUrl: fileUrl, // Sadece path kısmı
                       fileName: file.name,
-                      sortOrder: index + 1,
+                      sortOrder: file.sortOrder || index + 1,
                     };
                   });
 
                   // Yeni yüklenen dosyaları items formatına çevir
                   const newItems = response.map((file: any, index: number) => ({
+                    id: null, // Yeni dosyalar için ID her zaman null
                     itemType:
                       file.itemType || file.mediaType || MediaType.IMAGE,
                     fileUrl: file.fileUrl, // Backend'den gelen path
@@ -220,11 +222,14 @@ export const useFileUpload = ({
                       }
 
                       return {
+                        id: item.id, // ID bilgisini placeholder'a ekle
                         fileUrl: item.fileUrl,
                         originalFileName: item.fileName,
                         fileName: item.fileName,
                         mediaType: item.itemType,
+                        itemType: item.itemType,
                         mimeType: mimeType,
+                        sortOrder: item.sortOrder,
                       };
                     })
                   );
