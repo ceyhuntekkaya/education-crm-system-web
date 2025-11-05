@@ -1,10 +1,16 @@
 import { MessageDto } from "@/types/dto/content/MessageDto";
-import { MessageHandlers } from "../hooks/use-message-handlers";
+import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
 
 export interface MessageStats {
   total: number;
   unread: number;
   assigned: number;
+  urgent: number;
+}
+
+export interface CustomStats {
+  total: number;
+  unread: number;
   urgent: number;
 }
 
@@ -27,33 +33,22 @@ export interface MessageFilters {
 export interface MessageContextType {
   // Data
   messages: MessageDto[];
+  conversationGroups: MessageConversationGroupDto[] | undefined;
   loading: boolean;
   error: string | null;
 
-  // Selected message
-  selectedMessage: MessageDto | null;
-  setSelectedMessage: (message: MessageDto | null) => void;
-
-  // Modal
-  detailModal: {
-    isOpen: boolean;
-    open: () => void;
-    close: () => void;
-  };
-
-  // Info Modal
-  infoModal: {
-    isOpen: boolean;
-    open: () => void;
-    close: () => void;
-  };
+  // Selected Conversation
+  selectedConversation: MessageConversationGroupDto | null;
+  selectedMessageId: number | null;
+  setSelectedConversation: (
+    conversation: MessageConversationGroupDto | null
+  ) => void;
+  handleSelectMessage: (message: MessageDto) => void;
 
   // Statistics
+  customStats: CustomStats;
   stats: MessageStats;
   statsData: StatCardData[];
-
-  // Handlers
-  handlers: MessageHandlers;
 
   // Filters
   filters: MessageFilters;

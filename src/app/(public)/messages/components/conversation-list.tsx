@@ -1,61 +1,12 @@
 "use client";
 
 import React from "react";
-import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
-import { MessageDto } from "@/types/dto/content/MessageDto";
-import { useConversationSelection } from "../hooks";
 import { useMessageContext } from "../context";
+import { formatConversationDate, getUnreadCount } from "../utils";
 
-export const ConversationListWhatsApp: React.FC = () => {
-  const { loading } = useMessageContext();
+export const ConversationList: React.FC = () => {
   const { conversationGroups, selectedMessageId, handleSelectMessage } =
-    useConversationSelection();
-  // Format date helper - WhatsApp style
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
-
-    if (diffInHours < 24) {
-      return date.toLocaleTimeString("tr-TR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    } else if (diffInHours < 48) {
-      return "Dün";
-    } else if (diffInHours < 168) {
-      return date.toLocaleDateString("tr-TR", { weekday: "short" });
-    } else {
-      return date.toLocaleDateString("tr-TR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit",
-      });
-    }
-  };
-
-  // Get unread count for a group
-  const getUnreadCount = (conversations: MessageDto[]) => {
-    return conversations.filter(
-      (c) => c.status === "NEW" || c.status === "IN_PROGRESS"
-    ).length;
-  };
-
-  if (loading) {
-    return (
-      <div className="messages-sidebar">
-        <div
-          className="d-flex align-items-center justify-content-center"
-          style={{ height: "600px" }}
-        >
-          <div className="text-center">
-            <i className="ph ph-spinner ph-3x text-primary-600 mb-12 rotating"></i>
-            <p className="text-neutral-500 fs-14">Yükleniyor...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    useMessageContext();
 
   if (!conversationGroups || conversationGroups.length === 0) {
     return (
@@ -129,17 +80,6 @@ export const ConversationListWhatsApp: React.FC = () => {
                   isSelected ? "selected" : ""
                 }`}
               >
-                {/* Avatar */}
-                <div className="messages-conversation-avatar">
-                  <div
-                    className={`messages-avatar-circle ${
-                      isUnread ? "has-unread" : ""
-                    }`}
-                  >
-                    <i className="ph ph-user"></i>
-                  </div>
-                </div>
-
                 {/* Content */}
                 <div className="messages-conversation-content">
                   <div className="messages-conversation-header">
@@ -148,10 +88,16 @@ export const ConversationListWhatsApp: React.FC = () => {
                         isUnread ? "unread" : ""
                       }`}
                     >
-                      {group.personName || "İsimsiz"}
+                      {latestMessage.school?.name || "Okul Belirtilmemiş"}
                     </h6>
                     <span className="messages-conversation-time">
-                      {formatDate(group.lastMessageDate)}
+                      {formatConversationDate(group.lastMessageDate)}
+                    </span>
+                  </div>
+
+                  <div className="mb-4">
+                    <span className="text-neutral-600 fs-13">
+                      {group.personName || "İsimsiz"}
                     </span>
                   </div>
 
@@ -183,4 +129,4 @@ export const ConversationListWhatsApp: React.FC = () => {
   );
 };
 
-export default ConversationListWhatsApp;
+export default ConversationList;

@@ -4,8 +4,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { MessageDto } from "@/types/dto/content/MessageDto";
 import { Icon } from "@/components/ui";
 import { useMessageContext } from "../context";
+import { formatMessageDateTime, formatMessageTime } from "../utils";
 
-export const MessagePaneWhatsApp: React.FC = () => {
+export const MessagePane: React.FC = () => {
   const { selectedConversation } = useMessageContext();
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -29,27 +30,6 @@ export const MessagePaneWhatsApp: React.FC = () => {
       handleSendMessage();
     }
   };
-  // Format date helper
-  const formatDateTime = (dateString?: string) => {
-    if (!dateString) return "-";
-    const date = new Date(dateString);
-    return date.toLocaleString("tr-TR", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const formatTime = (dateString?: string) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleTimeString("tr-TR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
 
   // Determine if message is sent by current user (outgoing) or received (incoming)
   const isOutgoingMessage = (message: MessageDto): boolean => {
@@ -61,7 +41,7 @@ export const MessagePaneWhatsApp: React.FC = () => {
   const groupMessagesByDate = (messages: MessageDto[]) => {
     const groups: { [key: string]: MessageDto[] } = {};
     messages.forEach((msg) => {
-      const dateKey = formatDateTime(msg.createdAt).split(",")[0];
+      const dateKey = formatMessageDateTime(msg.createdAt).split(",")[0];
       if (!groups[dateKey]) groups[dateKey] = [];
       groups[dateKey].push(msg);
     });
@@ -86,18 +66,18 @@ export const MessagePaneWhatsApp: React.FC = () => {
     <div className="messages-chat-pane">
       {/* Chat Header */}
       <div className="messages-chat-header">
-        <div className="d-flex align-items-center gap-12">
-          <div className="header-avatar">
-            <i className="ph ph-user"></i>
-          </div>
+        <div className="d-flex align-items-center justify-content-between w-100">
           <div className="header-info">
             <h6>{selectedConversation.personName || "İsimsiz"}</h6>
             <p>{selectedConversation.conversations[0]?.senderEmail || ""}</p>
           </div>
-        </div>
-        <div className="d-flex align-items-center gap-12">
-          <i className="ph ph-magnifying-glass"></i>
-          <i className="ph ph-dots-three-vertical"></i>
+          {selectedConversation.conversations[0]?.school?.name && (
+            <div className="header-school-info text-end">
+              <span className="school-name">
+                {selectedConversation.conversations[0].school.name}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -117,6 +97,11 @@ export const MessagePaneWhatsApp: React.FC = () => {
               {messages.map((message) => {
                 const isOutgoing = isOutgoingMessage(message);
                 const messageText = message.content || message.subject || "";
+                const senderName =
+                  message.senderUser?.fullName ||
+                  message.senderName ||
+                  selectedConversation.personName ||
+                  "İsimsiz";
 
                 // Skip empty messages
                 if (!messageText.trim()) return null;
@@ -129,6 +114,9 @@ export const MessagePaneWhatsApp: React.FC = () => {
                     }`}
                   >
                     <div className="messages-bubble-content">
+                      <div className="messages-bubble-text mb-4">
+                        {senderName}
+                      </div>
                       <div
                         className="messages-bubble-text"
                         style={{ whiteSpace: "pre-wrap" }}
@@ -136,7 +124,7 @@ export const MessagePaneWhatsApp: React.FC = () => {
                         {messageText}
                       </div>
                       <div className="messages-bubble-time">
-                        {formatTime(message.createdAt)}
+                        {formatMessageTime(message.createdAt)}
                         {isOutgoing && (
                           <i className="ph ph-checks read-check ms-4"></i>
                         )}
@@ -176,4 +164,4 @@ export const MessagePaneWhatsApp: React.FC = () => {
   );
 };
 
-export default MessagePaneWhatsApp;
+export default MessagePane;
