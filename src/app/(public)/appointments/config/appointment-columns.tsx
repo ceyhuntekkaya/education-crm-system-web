@@ -89,23 +89,6 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
     ),
   },
   {
-    field: "parentInfo",
-    headerName: "Veli Bilgileri",
-    width: 250,
-    renderCell: (params) => (
-      <div className="d-flex align-items-center">
-        <div className="overflow-hidden">
-          <div className="fw-medium text-truncate">
-            {params.row.parentName || params.row.parentUserName || "-"}
-          </div>
-          <small className="text-muted text-truncate d-block">
-            {params.row.parentPhone || params.row.parentEmail || "-"}
-          </small>
-        </div>
-      </div>
-    ),
-  },
-  {
     field: "staff",
     headerName: "Personel",
     width: 200,

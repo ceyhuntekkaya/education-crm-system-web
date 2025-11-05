@@ -113,15 +113,20 @@ export default function InstitutionDetailPage({
       icon: "ph-bold ph-currency-circle-dollar",
       title: "Ücretler",
       label: "Ücretler",
-      content: <InstitutionPricingInfo />,
+      content: (
+        <>
+          <InstitutionPricingInfo />
+          <InstitutionCustomFees />
+        </>
+      ),
     },
-    {
-      id: "pills-custom-fees",
-      icon: "ph-bold ph-receipt",
-      title: "Ek Ücretler",
-      label: "Ek Ücretler",
-      content: <InstitutionCustomFees />,
-    },
+    // {
+    //   id: "pills-custom-fees",
+    //   icon: "ph-bold ph-receipt",
+    //   title: "Ek Ücretler",
+    //   label: "Ek Ücretler",
+    //   content: <InstitutionCustomFees />,
+    // },
     {
       id: "pills-campaigns",
       icon: "ph-bold ph-tag",
