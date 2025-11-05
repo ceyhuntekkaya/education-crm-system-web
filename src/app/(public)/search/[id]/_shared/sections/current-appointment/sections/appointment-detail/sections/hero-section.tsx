@@ -54,7 +54,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ appointment }) => {
               </div>
               <div className="flex-grow-1">
                 <h3 className="text-white mb-16 fw-bold">
-                  {appointment.title}
+                  {appointment.title || appointment.appointmentSummary}
                 </h3>
                 <div className="d-flex align-items-center gap-12 mb-16">
                   <span

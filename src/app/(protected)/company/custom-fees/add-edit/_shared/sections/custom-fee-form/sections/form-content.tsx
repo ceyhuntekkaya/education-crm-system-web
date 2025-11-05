@@ -27,6 +27,7 @@ export const CustomFeeFormContent: React.FC = () => {
   const { user } = useAuth();
 
   // Context'ten verileri al
+  // formLoading: Sadece form submit sırasında aktif olan loading durumu
   const { isEditing, postCustomFee, putCustomFee, formLoading, customFeeId } =
     useCustomFeeAddEdit();
 
@@ -137,23 +138,28 @@ export const CustomFeeFormContent: React.FC = () => {
 
         {/* Checkbox'lar */}
         <div className="col-6">
-          <FormCheckbox name="isMandatory" label="Zorunlu Ücret" />
-          <small className="text-muted">
-            Bu ücret tüm öğrenciler için zorunludur
-          </small>
+          <FormCheckbox
+            name="isMandatory"
+            label="Zorunlu Ücret"
+            variant="outlined"
+            helperText="Bu ücret tüm öğrenciler için zorunludur"
+          />
         </div>
 
         <div className="col-6">
-          <FormCheckbox name="isRefundable" label="İade Edilebilir" />
-          <small className="text-muted">
-            Bu ücret belirli koşullarda iade edilebilir
-          </small>
+          <FormCheckbox
+            name="isRefundable"
+            label="İade Edilebilir"
+            variant="outlined"
+            helperText="Bu ücret belirli koşullarda iade edilebilir"
+          />
         </div>
 
         <div className="col-6">
           <FormCheckbox
             name="appliesToNewStudents"
             label="Yeni Öğrencilere Uygulanır"
+            variant="outlined"
           />
         </div>
 
@@ -161,6 +167,7 @@ export const CustomFeeFormContent: React.FC = () => {
           <FormCheckbox
             name="appliesToExistingStudents"
             label="Mevcut Öğrencilere Uygulanır"
+            variant="outlined"
           />
         </div>
 
@@ -170,8 +177,8 @@ export const CustomFeeFormContent: React.FC = () => {
             name="appliesToGrades"
             label="Uygulanacak Sınıflar"
             placeholder="Sınıf aralığını giriniz (Örn: 5-8, 9-12)..."
+            helperText="Sınıf aralığını belirtiniz"
           />
-          <small className="text-muted">Sınıf aralığını belirtiniz</small>
         </div>
 
         {/* Minimum Yaş */}
@@ -227,8 +234,8 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Vade Günü Farkı"
             type="number"
             placeholder="Gün sayısını giriniz..."
+            helperText="Faturadan kaç gün sonra ödenecek"
           />
-          <small className="text-muted">Faturadan kaç gün sonra ödenecek</small>
         </div>
 
         {/* Gecikme Ücreti Yüzdesi */}
@@ -238,10 +245,8 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Gecikme Ücreti (%)"
             type="number"
             placeholder="Yüzde oranını giriniz..."
+            helperText="Geç ödemelerde uygulanacak ceza yüzdesi"
           />
-          <small className="text-muted">
-            Geç ödemelerde uygulanacak ceza yüzdesi
-          </small>
         </div>
 
         {/* Maksimum Taksit */}
@@ -256,12 +261,20 @@ export const CustomFeeFormContent: React.FC = () => {
 
         {/* Taksit İzni */}
         <div className="col-4">
-          <FormCheckbox name="installmentAllowed" label="Taksit İzni Var" />
+          <FormCheckbox
+            name="installmentAllowed"
+            label="Taksit İzni Var"
+            variant="outlined"
+          />
         </div>
 
         {/* İndirim Uygunluğu */}
         <div className="col-4">
-          <FormCheckbox name="discountEligible" label="İndirilebilir" />
+          <FormCheckbox
+            name="discountEligible"
+            label="İndirilebilir"
+            variant="outlined"
+          />
         </div>
 
         {/* Burs Uygulanabilir */}
@@ -269,6 +282,7 @@ export const CustomFeeFormContent: React.FC = () => {
           <FormCheckbox
             name="scholarshipApplicable"
             label="Burs Uygulanabilir"
+            variant="outlined"
           />
         </div>
 
@@ -280,12 +294,20 @@ export const CustomFeeFormContent: React.FC = () => {
 
         {/* Faturada Göster */}
         <div className="col-4">
-          <FormCheckbox name="displayOnInvoice" label="Faturada Göster" />
+          <FormCheckbox
+            name="displayOnInvoice"
+            label="Faturada Göster"
+            variant="outlined"
+          />
         </div>
 
         {/* Doküman Gerekli */}
         <div className="col-4">
-          <FormCheckbox name="documentationRequired" label="Doküman Gerekli" />
+          <FormCheckbox
+            name="documentationRequired"
+            label="Doküman Gerekli"
+            variant="outlined"
+          />
         </div>
 
         {/* Veli Bildirimi Gerekli */}
@@ -293,25 +315,28 @@ export const CustomFeeFormContent: React.FC = () => {
           <FormCheckbox
             name="parentNotificationRequired"
             label="Veli Bildirimi Gerekli"
+            variant="outlined"
           />
         </div>
 
         {/* Onay Gerekli */}
         <div className="col-4">
-          <FormCheckbox name="requiresApproval" label="Onay Gerekli" />
+          <FormCheckbox
+            name="requiresApproval"
+            label="Onay Gerekli"
+            variant="outlined"
+          />
         </div>
 
         {/* Görüntülenme Sırası */}
         <div className="col-6">
           <FormInput
             name="displayOrder"
-            label="Görüntülenme Sırası"
+            // label="Görüntülenme Sırası"
             type="number"
             placeholder="Sıra numarasını giriniz..."
+            helperText="Listede görüntülenme sırası (0 = en üstte)"
           />
-          <small className="text-muted">
-            Listede görüntülenme sırası (0 = en üstte)
-          </small>
         </div>
 
         {/* Bildirim Süresi */}
@@ -321,10 +346,8 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Önceden Bildirim Günü"
             type="number"
             placeholder="Gün sayısını giriniz..."
+            helperText="Kaç gün önceden bildirim yapılacak"
           />
-          <small className="text-muted">
-            Kaç gün önceden bildirim yapılacak
-          </small>
         </div>
 
         {/* Gerekli Dokümanlar */}
@@ -355,7 +378,7 @@ export const CustomFeeFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={formLoading}
+              disabled={formLoading} // Form submit olurken iptal butonu disable
             >
               <i className="ph ph-x me-8"></i>
               İptal
@@ -363,6 +386,7 @@ export const CustomFeeFormContent: React.FC = () => {
             <Button type="submit" disabled={hasErrors || formLoading}>
               {formLoading ? (
                 <>
+                  {/* Form submit loading durumu - sadece burada gösterilir */}
                   <i className="ph ph-circle-notch ph-spin me-8"></i>
                   {isEditing ? "Güncelleniyor..." : "Kaydediliyor..."}
                 </>

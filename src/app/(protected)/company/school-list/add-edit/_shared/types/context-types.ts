@@ -2,11 +2,12 @@ import { SchoolDto, SchoolCreateDto } from "@/types";
 import { ApiResponse } from "@/lib";
 import { MutationOptions } from "@/hooks";
 import { PropertyGroupCheckboxOption } from "../hooks";
+import { SchoolPropertyDto } from "../hooks/use-school-properties";
 
 export interface SchoolAddEditContextType {
   // Current school data
   school: SchoolDto | null;
-  schoolLoading: boolean;
+  schoolLoading: boolean; // School verisi yüklenirken
   schoolError: string | null;
 
   // Edit mode state
@@ -23,13 +24,19 @@ export interface SchoolAddEditContextType {
     data: SchoolCreateDto,
     mutationOptions?: MutationOptions<ApiResponse<SchoolDto>, SchoolCreateDto>
   ) => Promise<ApiResponse<SchoolDto> | null>;
+  updateProperties: (
+    data: number[],
+    mutationOptions?: MutationOptions<ApiResponse<any>, number[]> & {
+      schoolId?: number;
+    }
+  ) => Promise<ApiResponse<any> | null>;
 
   // Dropdown options
   campusOptions: { value: string; label: string }[];
   institutionTypeOptions: { value: string; label: string }[];
   languageOptions: { value: string; label: string }[];
 
-  // Property values
+  // Property values (for displaying options)
   propertyCheckboxGroups: PropertyGroupCheckboxOption[];
   propertyValuesLoading: boolean;
   propertyValuesError: string | null;
@@ -37,9 +44,16 @@ export interface SchoolAddEditContextType {
     institutionTypeId: number | string | undefined
   ) => PropertyGroupCheckboxOption[];
 
+  // School properties (for edit mode - existing properties)
+  schoolProperties: SchoolPropertyDto[];
+  schoolPropertyTypeIds: number[];
+  schoolPropertiesLoading: boolean;
+  schoolPropertiesError: string | null;
+
   // Loading states
   campusesLoading: boolean;
   institutionTypesLoading: boolean;
+  isSubmitting: boolean; // Form submit edilirken (add/edit/update properties)
 
   // Errors
   campusesError: string | null;

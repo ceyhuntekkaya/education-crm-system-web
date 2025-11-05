@@ -31,7 +31,7 @@ export const useUnifiedAvailability = (
     const isRange = isRangeFilter(filters);
 
     return {
-      // Unified availabilities (tek kaynak)
+      // Unified availabilities - Her iki hook da artık AppointmentSlotDto[] dönüyor
       availabilities: isRange
         ? rangeHook.availabilities
         : singleHook.availability,

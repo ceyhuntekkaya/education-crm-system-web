@@ -1,5 +1,5 @@
 export interface CustomFeeFormData {
-  schoolPricingId: number;
+  schoolId: number;
   createdByUserId?: number;
   feeName: string;
   feeDescription?: string;

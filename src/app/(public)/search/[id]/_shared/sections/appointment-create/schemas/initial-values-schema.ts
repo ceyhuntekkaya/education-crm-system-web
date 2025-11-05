@@ -13,29 +13,22 @@ import { AppointmentCreateFormData } from "../types/form-data-types";
  * Create initial values for appointment form
  * @param schoolId - School ID from props
  * @param isOnline - Whether appointment is online
+ * @param parentUserId - Parent user ID from auth context
  * @returns Initial form values
  */
 export const createInitialValues = (
   schoolId: number,
-  isOnline: boolean = false
+  isOnline: boolean = false,
+  parentUserId?: number
 ): AppointmentCreateFormData => ({
   // Required/essential fields from props
   schoolId,
   isOnline,
+  parentUserId, // Add parentUserId from auth
 
-  // DTO fields with default values
-  appointmentSlotId: undefined,
-  parentUserId: undefined,
-  appointmentDate: undefined,
-  startTime: undefined,
-  endTime: undefined,
+  // Form fields with default values
   appointmentType: undefined,
-  title: undefined,
-  description: undefined,
-  location: undefined,
-  parentName: undefined,
-  parentEmail: undefined,
-  parentPhone: undefined,
+  selectedSlotId: undefined,
   studentName: undefined,
   studentAge: undefined,
   studentBirthDate: undefined,
@@ -44,13 +37,11 @@ export const createInitialValues = (
   gradeInterested: undefined,
   specialRequests: undefined,
   notes: undefined,
-  participants: undefined,
 
   // Form-specific fields (not in DTO)
+  appointmentDate: undefined,
   agreedToTerms: false,
   communicationPreference: "EMAIL" as const,
-  selectedSlotId: undefined,
-  timeSlotData: undefined,
 });
 
 /**
@@ -74,19 +65,10 @@ export const DEFAULT_INITIAL_VALUES: Partial<AppointmentCreateFormData> = {
 export const EMPTY_FORM_VALUES: AppointmentCreateFormData = {
   schoolId: 0,
   isOnline: false,
-  appointmentSlotId: undefined,
-  parentUserId: undefined,
-  appointmentDate: undefined,
-  startTime: undefined,
-  endTime: undefined,
   appointmentType: undefined,
-  title: undefined,
-  description: undefined,
-  location: undefined,
-  parentName: undefined,
-  parentEmail: undefined,
-  parentPhone: undefined,
+  selectedSlotId: undefined,
   studentName: undefined,
+  parentUserId: undefined,
   studentAge: undefined,
   studentBirthDate: undefined,
   studentGender: undefined,
@@ -94,9 +76,7 @@ export const EMPTY_FORM_VALUES: AppointmentCreateFormData = {
   gradeInterested: undefined,
   specialRequests: undefined,
   notes: undefined,
-  participants: undefined,
+  appointmentDate: undefined,
   agreedToTerms: false,
   communicationPreference: "EMAIL",
-  selectedSlotId: undefined,
-  timeSlotData: undefined,
 };

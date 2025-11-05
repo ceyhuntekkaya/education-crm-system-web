@@ -4,7 +4,7 @@
  */
 
 import { AppointmentCreateFormData } from "../types/form-data-types";
-import { AppointmentCreateDto } from "@/types/dto/appointment/AppointmentCreateDto";
+import { AppointmentCreateRequestDto } from "../hooks/use-create-appointment";
 
 // =============================================================================
 // DTO MAPPING FUNCTIONS
@@ -17,33 +17,24 @@ import { AppointmentCreateDto } from "@/types/dto/appointment/AppointmentCreateD
  */
 export const mapFormDataToDto = (
   formData: AppointmentCreateFormData
-): AppointmentCreateDto => {
+): AppointmentCreateRequestDto => {
   return {
     // Required fields
     schoolId: formData.schoolId!,
     appointmentType: formData.appointmentType!,
     appointmentSlotId: formData.selectedSlotId!,
-    parentName: formData.parentName!,
-    parentEmail: formData.parentEmail!,
-    parentPhone: formData.parentPhone!,
     studentName: formData.studentName!,
-    studentAge: formData.studentAge!,
 
     // Optional fields
     parentUserId: formData.parentUserId,
-    appointmentDate: formData.appointmentDate,
-    startTime: formData.startTime,
-    endTime: formData.endTime,
-    title: formData.title,
-    description: formData.description,
-    location: formData.location,
+    isOnline: formData.isOnline,
+    studentAge: formData.studentAge,
     studentBirthDate: formData.studentBirthDate,
     studentGender: formData.studentGender,
     currentSchool: formData.currentSchool,
     gradeInterested: formData.gradeInterested,
     specialRequests: formData.specialRequests,
     notes: formData.notes,
-    participants: formData.participants,
   };
 };
 
@@ -61,11 +52,7 @@ export const validateRequiredFieldsForDto = (
     schoolId: formData.schoolId,
     appointmentType: formData.appointmentType,
     selectedSlotId: formData.selectedSlotId,
-    parentName: formData.parentName,
-    parentEmail: formData.parentEmail,
-    parentPhone: formData.parentPhone,
     studentName: formData.studentName,
-    studentAge: formData.studentAge,
   };
 
   Object.entries(requiredFields).forEach(([key, value]) => {

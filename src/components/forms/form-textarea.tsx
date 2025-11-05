@@ -11,6 +11,7 @@ interface FormTextareaProps
   label?: string;
   variant?: FormTextareaVariant;
   customStyle?: boolean;
+  helperText?: string; // Yardımcı metin
 }
 
 export const FormTextarea: React.FC<FormTextareaProps> = ({
@@ -21,6 +22,7 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
   className,
   variant = "primary",
   disabled = false,
+  helperText,
   rows = 4,
   ...rest
 }) => {
@@ -82,6 +84,9 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
         {...rest}
       />
       {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      {helperText && !error && (
+        <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+      )}
     </div>
   );
 };

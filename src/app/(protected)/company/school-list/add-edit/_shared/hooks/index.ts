@@ -5,3 +5,5 @@ export * from "./use-institution-types";
 export * from "./use-campuses-by-brand";
 export * from "./use-language-options";
 export * from "./use-property-values";
+export * from "./use-school-properties";
+export * from "./use-update-school-properties";

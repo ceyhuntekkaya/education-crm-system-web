@@ -15,6 +15,7 @@ interface FormAutocompleteProps
   name: string;
   label?: string;
   variant?: FormAutocompleteVariant;
+  helperText?: string; // Yardımcı metin
   options: AutocompleteOption[];
   iconLeft?: string;
   iconRight?: string;
@@ -35,6 +36,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   placeholder,
   label,
   variant = "primary",
+  helperText,
   options = [],
   className,
   disabled = false,
@@ -574,6 +576,9 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
       </div>
       {error && (
         <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+      )}
+      {helperText && !error && (
+        <small className="text-muted d-block mt-8 ps-24">{helperText}</small>
       )}
     </div>
   );

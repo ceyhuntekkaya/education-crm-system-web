@@ -61,9 +61,9 @@ export const getEnumLabel = (fieldKey: string, value: string): string => {
   switch (fieldKey) {
     case "appointmentType":
       return getAppointmentTypeLabel(value);
-    case "status":
+    case "appointmentStatus":
       return getAppointmentStatusLabel(value);
-    case "outcome":
+    case "appointmentOutcome":
       return getAppointmentOutcomeLabel(value);
     default:
       return value;
@@ -72,23 +72,28 @@ export const getEnumLabel = (fieldKey: string, value: string): string => {
 
 /**
  * Field labellarını Türkçe'ye çeviren utility
+ * Yeni AppointmentSlotDto yapısına göre güncellenmiş
  */
 export const getFieldLabel = (fieldKey: string): string => {
   const labelMap: Record<string, string> = {
-    title: "Başlık",
+    schoolName: "Okul",
+    staffUserName: "Personel",
+    dayOfWeekName: "Gün",
+    slotDate: "Slot Tarihi",
+    slotDateStart: "Slot Başlangıç",
+    slotDateEnd: "Slot Bitiş",
+    appointmentType: "Tür",
+    durationMinutes: "Süre",
+    onlineMeetingAvailable: "Online",
+    isAvailable: "Müsaitlik",
+    isActive: "Aktif",
+    requiresApproval: "Onay Gerekli",
     appointmentNumber: "Randevu No",
+    appointmentStatus: "Randevu Durumu",
+    appointmentOutcome: "Sonuç",
     parentName: "Veli",
     studentName: "Öğrenci",
-    appointmentType: "Tür",
-    status: "Durum",
-    appointmentDate: "Tarih",
-    startTime: "Başlangıç",
-    endTime: "Bitiş",
-    location: "Konum",
-    isOnline: "Online",
-    staffUserName: "Personel",
-    outcome: "Sonuç",
-    followUpRequired: "Takip Gerekli",
+    appointmentDate: "Randevu Tarihi",
   };
   return labelMap[fieldKey] || fieldKey;
 };
@@ -104,9 +109,9 @@ export const getFilterSubtitle = (
   const filterCount = filters ? Object.keys(filters).length : 0;
 
   if (filterCount > 0) {
-    return `${totalCount} randevu • ${filterCount} aktif filtre`;
+    return `${totalCount} slot • ${filterCount} aktif filtre`;
   }
   return totalCount > 0
-    ? `${totalCount} randevu içerisinde filtreleme yapabilirsiniz`
+    ? `${totalCount} slot içerisinde filtreleme yapabilirsiniz`
     : loadingText;
 };

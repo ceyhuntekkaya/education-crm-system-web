@@ -1,42 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { FormAutocomplete } from "@/components/forms";
 import { useFormHook } from "@/hooks/use-form-hook";
 import { getSlotTypeIcon, getTypeDisplayName } from "@/utils";
-import { mockSchoolAvailability } from "../mock";
-import { AvailableSlotDto } from "@/types/dto/appointment/AvailableSlotDto";
+import { AppointmentSlotDto } from "@/types";
+import { useAppointment } from "../contexts";
 
 export const DateTimeStep = () => {
   const { updateField, values } = useFormHook();
   const appointmentDate = values.appointmentDate || "";
   const selectedSlotId = values.selectedSlotId || "";
-  const [availableSlots, setAvailableSlots] = useState<AvailableSlotDto[]>([]);
+
+  // Context'ten slotları al
+  const { slots, slotsLoading, refetchSlots } = useAppointment();
+
+  // Tarihe göre gruplandırılmış slotlar
+  const slotsByDate = useMemo(() => {
+    const grouped: Record<string, AppointmentSlotDto[]> = {};
+
+    // Slots array kontrolü
+    if (!Array.isArray(slots)) {
+      console.warn("⚠️ Slots is not an array:", slots);
+      return grouped;
+    }
+
+    slots.forEach((slot) => {
+      if (slot.slotDate) {
+        // Backend'den gelen format: "2025-11-05T14:40:00"
+        // Sadece tarih kısmını al: "2025-11-05"
+        const dateKey = slot.slotDate.split("T")[0];
+
+        if (!grouped[dateKey]) {
+          grouped[dateKey] = [];
+        }
+        grouped[dateKey].push(slot);
+      }
+    });
+
+    return grouped;
+  }, [slots]);
 
   // Autocomplete için tarih seçenekleri oluştur
-  const dateOptions = mockSchoolAvailability.map((availability) => ({
-    value: availability.date || "",
-    label: `${availability.date} (${availability.availableCount} müsait slot)`,
-  }));
+  const dateOptions = useMemo(() => {
+    return Object.entries(slotsByDate)
+      .sort(([dateA], [dateB]) => dateA.localeCompare(dateB)) // Tarihe göre sırala
+      .map(([date, dateSlots]) => {
+        // Tarihi formatla: "5 Kasım 2025, Çarşamba"
+        const formattedDate = new Date(date).toLocaleDateString("tr-TR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          weekday: "long",
+        });
 
-  // Load available slots when date changes
-  useEffect(() => {
-    if (appointmentDate) {
-      // Seçilen tarihe göre available slots'ları bul
-      const selectedAvailability = mockSchoolAvailability.find(
-        (availability) => availability.date === appointmentDate
-      );
-      if (selectedAvailability && selectedAvailability.availableSlots) {
-        setAvailableSlots(selectedAvailability.availableSlots);
-      } else {
-        setAvailableSlots([]);
-      }
-    } else {
-      setAvailableSlots([]);
-    }
-  }, [appointmentDate]);
+        return {
+          value: date,
+          label: `${formattedDate} (${dateSlots.length} müsait slot)`,
+        };
+      });
+  }, [slotsByDate]);
 
-  const handleSlotSelect = (slotId: string) => {
+  // Seçilen tarihe ait slotlar - Saate göre sıralanmış
+  const availableSlots = useMemo(() => {
+    if (!appointmentDate) return [];
+    const slotsForDate = slotsByDate[appointmentDate] || [];
+
+    // Slotları saate göre sırala
+    return slotsForDate.sort((a, b) => {
+      if (!a.slotDate || !b.slotDate) return 0;
+      return new Date(a.slotDate).getTime() - new Date(b.slotDate).getTime();
+    });
+  }, [appointmentDate, slotsByDate]);
+
+  const handleSlotSelect = (slotId: number) => {
     updateField("selectedSlotId", slotId);
   };
+
+  console.log("slots ", slots);
 
   return (
     <div className="date-time-step">
@@ -58,7 +97,10 @@ export const DateTimeStep = () => {
           variant="inline"
           options={dateOptions}
           iconLeft="ph-calendar"
-          noOptionsText="Müsait tarih bulunamadı"
+          noOptionsText={
+            slotsLoading ? "Tarihler yükleniyor..." : "Müsait tarih bulunamadı"
+          }
+          disabled={slotsLoading}
         />
       </div>
 
@@ -112,87 +154,95 @@ export const DateTimeStep = () => {
           </div>
 
           <div className="time-slots-grid">
-            {availableSlots.map((slot) => (
-              <div
-                key={slot.slotId}
-                className={`time-slot-card ${
-                  selectedSlotId === slot.slotId?.toString() ? "selected" : ""
-                } ${slot.isRecommended ? "recommended" : ""}`}
-                onClick={() => handleSlotSelect(slot.slotId!.toString())}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleSlotSelect(slot.slotId!.toString());
-                  }
-                }}
-              >
-                {/* Slot Header */}
-                <div className="slot-header">
-                  <div className="slot-time">
-                    <i className="ph-bold ph-clock" />
-                    <span>{slot.timeRange}</span>
-                  </div>
-                  <div className="slot-duration">
-                    <span>{slot.durationMinutes} dk</span>
-                  </div>
-                </div>
+            {availableSlots.map((slot) => {
+              const slotTime = slot.slotDate
+                ? new Date(slot.slotDate).toLocaleTimeString("tr-TR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : "";
 
-                {/* Slot Content */}
-                <div className="slot-content">
-                  <div className="slot-type">
-                    <div className="slot-type-icon">
-                      <i
-                        className={`ph-bold ${getSlotTypeIcon(
-                          slot.appointmentType
-                        )}`}
-                      />
+              return (
+                <div
+                  key={slot.id}
+                  className={`time-slot-card ${
+                    selectedSlotId === slot.id ? "selected" : ""
+                  }`}
+                  onClick={() => handleSlotSelect(slot.id!)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSlotSelect(slot.id!);
+                    }
+                  }}
+                >
+                  {/* Slot Header */}
+                  <div className="slot-header">
+                    <div className="slot-time">
+                      <i className="ph-bold ph-clock" />
+                      <span>{slotTime}</span>
                     </div>
-                    <span className="slot-type-name">
-                      {getTypeDisplayName(slot.appointmentType)}
-                    </span>
+                    <div className="slot-duration">
+                      <span>{slot.durationMinutes || 30} dk</span>
+                    </div>
                   </div>
 
-                  <div className="slot-details">
-                    <div className="slot-location">
-                      <i
-                        className={`ph ${
-                          slot.isOnline ? "ph-video-camera" : "ph-map-pin"
-                        }`}
-                      />
-                      <span>{slot.location}</span>
-                    </div>
-
-                    <div className="slot-staff">
-                      <i className="ph ph-user" />
-                      <span>{slot.staffUserName}</span>
-                    </div>
-
-                    {slot.availableCapacity && slot.availableCapacity > 1 && (
-                      <div className="slot-capacity">
-                        <i className="ph ph-users" />
-                        <span>{slot.availableCapacity} kişi kapasiteli</span>
+                  {/* Slot Content */}
+                  <div className="slot-content">
+                    <div className="slot-type">
+                      <div className="slot-type-icon">
+                        <i
+                          className={`ph-bold ${getSlotTypeIcon(
+                            slot.appointmentType
+                          )}`}
+                        />
                       </div>
-                    )}
+                      <span className="slot-type-name">
+                        {getTypeDisplayName(slot.appointmentType)}
+                      </span>
+                    </div>
 
-                    {slot.requiresApproval && (
-                      <div className="slot-approval">
-                        <i className="ph ph-check-circle" />
-                        <span>Onay gerektirir</span>
+                    <div className="slot-details">
+                      <div className="slot-location">
+                        <i
+                          className={`ph ${
+                            slot.onlineMeetingAvailable
+                              ? "ph-video-camera"
+                              : "ph-map-pin"
+                          }`}
+                        />
+                        <span>
+                          {slot.onlineMeetingAvailable
+                            ? "Online"
+                            : slot.schoolName || "Yerinde"}
+                        </span>
                       </div>
-                    )}
-                  </div>
-                </div>
 
-                {/* Selection Indicator */}
-                <div className="slot-selector">
-                  <div className="slot-check">
-                    <i className="ph-bold ph-check" />
+                      <div className="slot-staff">
+                        <i className="ph ph-user" />
+                        <span>{slot.staffUserName || "Uzman"}</span>
+                      </div>
+
+                      {slot.requiresApproval && (
+                        <div className="slot-approval">
+                          <i className="ph ph-check-circle" />
+                          <span>Onay gerektirir</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Selection Indicator */}
+                  <div className="slot-selector">
+                    <div className="slot-check">
+                      <i className="ph-bold ph-check" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

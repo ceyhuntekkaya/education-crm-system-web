@@ -44,7 +44,7 @@ export default function InstitutionDetailPage({
   // Show loading state while data is being fetched
   if (loading) {
     return (
-      <div className="container py-5">
+      <div className="container py-40">
         <CustomCard>
           <LoadingSpinner
             message="Kurum bilgileri yükleniyor..."
@@ -85,7 +85,6 @@ export default function InstitutionDetailPage({
           <InstitutionLocationInfo />
         </div>
       ),
-      isActive: true,
     },
     // {
     //   id: "pills-brand",
@@ -119,8 +118,8 @@ export default function InstitutionDetailPage({
     {
       id: "pills-custom-fees",
       icon: "ph-bold ph-receipt",
-      title: "Özel Ücretler",
-      label: "Özel Ücretler",
+      title: "Ek Ücretler",
+      label: "Ek Ücretler",
       content: <InstitutionCustomFees />,
     },
     {
@@ -175,7 +174,7 @@ export default function InstitutionDetailPage({
       icon: "ph-bold ph-clock",
       title: "Randevum",
       label: "Randevum",
-      content: <CurrentAppointment institutionId={params.id} />,
+      content: <CurrentAppointment />,
     },
     {
       id: "pills-appointment-create",
@@ -183,10 +182,9 @@ export default function InstitutionDetailPage({
       title: "Randevu Oluştur",
       label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
+      isActive: true,
     },
   ];
-
-  console.log("school => ", school);
 
   return (
     <div>

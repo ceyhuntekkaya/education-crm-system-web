@@ -2,21 +2,34 @@ import { AppointmentDetailsFilters } from "../types";
 
 /**
  * Appointment details filter form initial values
- * Columns'taki bilgilere göre güncellenmiş
+ * Yeni AppointmentSlotDto yapısına göre güncellenmiş
  */
 export const initialValues: AppointmentDetailsFilters = {
-  title: "",
+  // Slot temel bilgileri
+  schoolName: "",
+  staffUserName: "",
+  dayOfWeekName: "",
+
+  // Slot tarih ve zaman
+  slotDate: "",
+  slotDateStart: "",
+  slotDateEnd: "",
+
+  // Slot özellikleri
+  appointmentType: "",
+  durationMinutes: undefined,
+  onlineMeetingAvailable: undefined,
+  isAvailable: undefined,
+  isActive: undefined,
+
+  // Randevu bilgileri (appointment içinden)
   appointmentNumber: "",
+  appointmentStatus: "",
+  appointmentOutcome: "",
   parentName: "",
   studentName: "",
-  staffUserName: "",
-  appointmentType: "",
-  status: "",
-  outcome: "",
   appointmentDate: "",
-  startTime: "",
-  endTime: "",
-  location: "",
-  isOnline: undefined,
-  followUpRequired: undefined,
+
+  // Diğer
+  requiresApproval: undefined,
 };

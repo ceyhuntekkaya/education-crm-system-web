@@ -1,5 +1,5 @@
 import { MessageDto } from "@/types/dto/content/MessageDto";
-import { MessageColumnHandlers } from "../config";
+import { MessageHandlers } from "../hooks/use-message-handlers";
 
 export interface MessageStats {
   total: number;
@@ -53,7 +53,7 @@ export interface MessageContextType {
   statsData: StatCardData[];
 
   // Handlers
-  handlers: MessageColumnHandlers;
+  handlers: MessageHandlers;
 
   // Filters
   filters: MessageFilters;

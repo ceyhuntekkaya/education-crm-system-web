@@ -4,7 +4,7 @@ import { CustomFeeFormData } from "../types/form-data";
  * Custom fee form initial values
  */
 export const initialValues: CustomFeeFormData = {
-  schoolPricingId: 1, // Şimdilik sabit
+  schoolId: 1, // Şimdilik sabit
   createdByUserId: undefined, // Submit sırasında auth context'ten alınacak
   feeName: "",
   feeDescription: "", // Backend boş string kabul ediyor

@@ -39,14 +39,14 @@ export const companyLayoutNavigation: MenuItem[] = [
     label: "Kampanyalar ***",
     icon: "ph-megaphone",
   },
-  {
-    href: "/company/appointment",
-    label: "Randevu Bilgileri",
-    icon: "ph-calendar",
-  },
+  // {
+  //   href: "/company/appointment",
+  //   label: "Randevu Bilgileri",
+  //   icon: "ph-calendar",
+  // },
   {
     href: "/company/appointment-availability",
-    label: "Randevu Müsaitlik Bilgileri *",
+    label: "Randevu Bilgileri ***",
     icon: "ph-calendar-check",
   },
   {

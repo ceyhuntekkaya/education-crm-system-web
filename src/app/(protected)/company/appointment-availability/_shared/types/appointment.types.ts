@@ -1,5 +1,6 @@
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { AppointmentAvailabilityDto } from "@/types/dto/appointment/AppointmentAvailabilityDto";
+import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
 
 /**
  * Badge variant types for appointment status display
@@ -42,8 +43,8 @@ export interface AppointmentTableProps {
  * Appointment availability context type
  */
 export interface AppointmentAvailabilityContextType {
-  // Availability data
-  availabilities: AppointmentDto[];
+  // Availability data - Yeni API AppointmentSlotDto[] dönüyor
+  availabilities: AppointmentSlotDto[];
   availabilityLoading: boolean;
   availabilityError: string | null;
 
@@ -52,7 +53,7 @@ export interface AppointmentAvailabilityContextType {
 
   // Frontend appointment filters
   appointmentFilters?: any;
-  filteredAppointments?: AppointmentDto[];
+  filteredAppointments?: AppointmentSlotDto[];
 
   // Data state
   hasDataToFilter?: boolean;

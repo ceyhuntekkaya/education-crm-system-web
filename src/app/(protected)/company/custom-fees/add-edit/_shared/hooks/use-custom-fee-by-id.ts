@@ -6,15 +6,21 @@ import { ApiResponseDto, CustomFeeDto } from "@/types";
 
 interface UseCustomFeeByIdReturn {
   customFee: CustomFeeDto | null;
-  customFeeLoading: boolean;
+  customFeeLoading: boolean; // Detay çekme loading'i (dataLoading olarak kullanılır)
   customFeeError: string | null;
   refetchCustomFee: () => void;
 }
 
 /**
  * ID'ye göre custom fee detayını getiren hook
- * @param id - Custom fee ID
- * @returns Custom fee detayı ve yönetim fonksiyonları
+ *
+ * @param {number | string | null} id - Custom fee ID
+ *
+ * @returns {Object}
+ * - customFee: Custom fee verisi
+ * - customFeeLoading: Detay çekme loading durumu (dataLoading olarak kullanılır)
+ * - customFeeError: Hata durumu
+ * - refetchCustomFee: Veriyi yeniden çekme fonksiyonu
  */
 export const useCustomFeeById = (
   id: number | string | null
@@ -30,7 +36,7 @@ export const useCustomFeeById = (
 
   return {
     customFee: customFeeResponse?.data || null,
-    customFeeLoading,
+    customFeeLoading, // Bu detay çekme loading'i olarak kullanılır (dataLoading)
     customFeeError,
     refetchCustomFee,
   };

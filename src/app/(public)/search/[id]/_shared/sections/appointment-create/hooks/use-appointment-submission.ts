@@ -5,6 +5,7 @@ import {
   mapFormDataToDto,
   isFormDataReadyForDto,
 } from "../schemas/dto-mapping-schema";
+import { useCreateAppointment } from "./use-create-appointment";
 
 export interface UseAppointmentSubmissionReturn {
   // State
@@ -17,17 +18,34 @@ export interface UseAppointmentSubmissionReturn {
 }
 
 export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionResult, setSubmissionResult] =
     useState<AppointmentCreationResult | null>(null);
 
   // Get form data and validation directly from useFormHook
   const { values, validateForm } = useFormHook();
 
+  // API hook for creating appointment
+  const { createAppointment, isCreating } = useCreateAppointment(
+    (appointment) => {
+      // Success callback
+      setSubmissionResult({
+        success: true,
+        appointmentNumber: appointment.id?.toString() || "RND-" + Date.now(),
+        message: "Randevu başarıyla oluşturuldu!",
+        appointment,
+      });
+    },
+    (error) => {
+      // Error callback
+      setSubmissionResult({
+        success: false,
+        error: error || "Randevu oluşturulurken bir hata oluştu",
+      });
+    }
+  );
+
   const submitForm = useCallback(async () => {
     try {
-      setIsSubmitting(true);
-
       // Final validation
       const isFormValid = await validateForm();
       if (!isFormValid) {
@@ -43,17 +61,10 @@ export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
       // Create DTO using schema
       const appointmentDto = mapFormDataToDto(formData);
 
-      // TODO: Implement actual API call here
       console.log("Submitting appointment:", appointmentDto);
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      setSubmissionResult({
-        success: true,
-        appointmentNumber: "RND-" + Date.now(), // Mock appointment number
-        message: "Randevu başarıyla oluşturuldu!",
-      });
+      // Call API
+      createAppointment(appointmentDto);
     } catch (error) {
       console.error("Appointment submission failed:", error);
       setSubmissionResult({
@@ -61,27 +72,24 @@ export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
         error:
           error instanceof Error ? error.message : "Bilinmeyen bir hata oluştu",
       });
-    } finally {
-      setIsSubmitting(false);
     }
-  }, [values, validateForm]);
+  }, [values, validateForm, createAppointment]);
 
   const resetSubmission = useCallback(() => {
     setSubmissionResult(null);
-    setIsSubmitting(false);
   }, []);
 
   // Memoize the return object to prevent unnecessary re-renders
   return useMemo(
     () => ({
       // State
-      isSubmitting,
+      isSubmitting: isCreating,
       submissionResult,
 
       // Actions
       submitForm,
       resetSubmission,
     }),
-    [isSubmitting, submissionResult, submitForm, resetSubmission]
+    [isCreating, submissionResult, submitForm, resetSubmission]
   );
 };

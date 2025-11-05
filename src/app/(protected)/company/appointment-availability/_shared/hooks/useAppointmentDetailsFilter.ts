@@ -1,164 +1,182 @@
 import { useState, useMemo } from "react";
-import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
+import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
 
 /**
- * Hook for managing frontend appointment filtering
+ * Hook for managing frontend appointment slot filtering
+ * Yeni AppointmentSlotDto yapısına göre güncellenmiş
  */
-export const useAppointmentDetailsFilter = (appointments: AppointmentDto[]) => {
+export const useAppointmentDetailsFilter = (slots: AppointmentSlotDto[]) => {
   const [appointmentFilters, setFilters] = useState<any>({});
 
   // Frontend tabanlı filtreleme
   const filteredAppointments = useMemo(() => {
-    if (!appointments || appointments.length === 0) {
+    if (!slots || slots.length === 0) {
       return [];
     }
 
     // Eğer hiç filtre yoksa tüm listeyi döndür
     if (!appointmentFilters || Object.keys(appointmentFilters).length === 0) {
-      return appointments;
+      return slots;
     }
 
-    return appointments.filter((appointment) => {
-      // Temel randevu bilgileri
-      if (appointmentFilters.title) {
-        const searchTerm = appointmentFilters.title.toLowerCase();
-        const title = (appointment.title || "").toLowerCase();
-        if (!title.includes(searchTerm)) {
-          return false;
-        }
-      }
-
-      if (appointmentFilters.appointmentNumber) {
-        const searchTerm = appointmentFilters.appointmentNumber.toLowerCase();
-        const appointmentNum = (
-          appointment.appointmentNumber || ""
-        ).toLowerCase();
-        if (!appointmentNum.includes(searchTerm)) {
-          return false;
-        }
-      }
-
+    return slots.filter((slot) => {
       // Okul bilgileri
       if (appointmentFilters.schoolName) {
         const searchTerm = appointmentFilters.schoolName.toLowerCase();
-        const schoolName = (appointment.schoolName || "").toLowerCase();
+        const schoolName = (slot.schoolName || "").toLowerCase();
         if (!schoolName.includes(searchTerm)) {
           return false;
         }
       }
 
-      if (appointmentFilters.campusName) {
-        const searchTerm = appointmentFilters.campusName.toLowerCase();
-        const campusName = (appointment.campusName || "").toLowerCase();
-        if (!campusName.includes(searchTerm)) {
-          return false;
-        }
-      }
-
-      // Kişi bilgileri
-      if (appointmentFilters.parentName) {
-        const searchTerm = appointmentFilters.parentName.toLowerCase();
-        // parentName veya parentUserName field'larını kontrol et
-        const parentName = (
-          appointment.parentName ||
-          appointment.parentUserName ||
-          ""
-        ).toLowerCase();
-        if (!parentName.includes(searchTerm)) {
-          return false;
-        }
-      }
-
-      if (appointmentFilters.studentName) {
-        const searchTerm = appointmentFilters.studentName.toLowerCase();
-        const studentName = (appointment.studentName || "").toLowerCase();
-        if (!studentName.includes(searchTerm)) {
-          return false;
-        }
-      }
-
+      // Personel bilgileri
       if (appointmentFilters.staffUserName) {
         const searchTerm = appointmentFilters.staffUserName.toLowerCase();
-        const staffName = (appointment.staffUserName || "").toLowerCase();
+        const staffName = (slot.staffUserName || "").toLowerCase();
         if (!staffName.includes(searchTerm)) {
           return false;
         }
       }
 
-      // Durum filtreleri (string values, not arrays)
+      // Gün filtreleri
+      if (appointmentFilters.dayOfWeekName) {
+        const searchTerm = appointmentFilters.dayOfWeekName.toLowerCase();
+        const dayName = (slot.dayOfWeekName || "").toLowerCase();
+        if (!dayName.includes(searchTerm)) {
+          return false;
+        }
+      }
+
+      // Slot tarih filtreleri
+      if (appointmentFilters.slotDateStart && slot.slotDate) {
+        if (slot.slotDate < appointmentFilters.slotDateStart) {
+          return false;
+        }
+      }
+
+      if (appointmentFilters.slotDateEnd && slot.slotDate) {
+        if (slot.slotDate > appointmentFilters.slotDateEnd) {
+          return false;
+        }
+      }
+
+      if (appointmentFilters.slotDate && slot.slotDate) {
+        if (
+          !slot.slotDate.includes(appointmentFilters.slotDate.substring(0, 10))
+        ) {
+          return false;
+        }
+      }
+
+      // Randevu tipi filtreleri
       if (appointmentFilters.appointmentType) {
-        if (
-          appointment.appointmentType !== appointmentFilters.appointmentType
-        ) {
+        if (slot.appointmentType !== appointmentFilters.appointmentType) {
           return false;
         }
       }
 
-      if (appointmentFilters.status) {
-        if (appointment.status !== appointmentFilters.status) {
+      // Süre filtresi
+      if (appointmentFilters.durationMinutes !== undefined) {
+        if (slot.durationMinutes !== appointmentFilters.durationMinutes) {
           return false;
         }
       }
 
-      if (appointmentFilters.outcome) {
-        if (appointment.outcome !== appointmentFilters.outcome) {
-          return false;
-        }
-      }
-
-      // Tarih filtreleri
-      if (appointmentFilters.appointmentDate) {
-        if (
-          appointment.appointmentDate !== appointmentFilters.appointmentDate
-        ) {
-          return false;
-        }
-      }
-
-      if (appointmentFilters.startDate && appointment.appointmentDate) {
-        if (appointment.appointmentDate < appointmentFilters.startDate) {
-          return false;
-        }
-      }
-
-      if (appointmentFilters.endDate && appointment.appointmentDate) {
-        if (appointment.appointmentDate > appointmentFilters.endDate) {
-          return false;
-        }
-      }
-
-      // Zaman aralığı filtreleri
-      if (appointmentFilters.startTime && appointment.startTime) {
-        if (appointment.startTime < appointmentFilters.startTime) {
-          return false;
-        }
-      }
-
-      if (appointmentFilters.endTime && appointment.endTime) {
-        if (appointment.endTime > appointmentFilters.endTime) {
-          return false;
-        }
-      }
-
-      // Konum filtreleri
-      if (appointmentFilters.location) {
-        const searchTerm = appointmentFilters.location.toLowerCase();
-        const location = (appointment.location || "").toLowerCase();
-        if (!location.includes(searchTerm)) {
+      // Müsaitlik durumu
+      if (appointmentFilters.isAvailable !== undefined) {
+        if (slot.isAvailable !== appointmentFilters.isAvailable) {
           return false;
         }
       }
 
       // Boolean filtreleri
-      if (appointmentFilters.isOnline !== undefined) {
-        if (appointment.isOnline !== appointmentFilters.isOnline) {
+      if (appointmentFilters.onlineMeetingAvailable !== undefined) {
+        if (
+          slot.onlineMeetingAvailable !==
+          appointmentFilters.onlineMeetingAvailable
+        ) {
           return false;
         }
       }
 
-      if (appointmentFilters.followUpRequired !== undefined) {
+      if (appointmentFilters.requiresApproval !== undefined) {
+        if (slot.requiresApproval !== appointmentFilters.requiresApproval) {
+          return false;
+        }
+      }
+
+      if (appointmentFilters.isActive !== undefined) {
+        if (slot.isActive !== appointmentFilters.isActive) {
+          return false;
+        }
+      }
+
+      // Randevu bilgileri (appointment içinden)
+      if (slot.appointment) {
+        const appointment = slot.appointment;
+
+        // Randevu numarası
+        if (appointmentFilters.appointmentNumber) {
+          const searchTerm = appointmentFilters.appointmentNumber.toLowerCase();
+          const appointmentNumber = (
+            appointment.appointmentNumber || ""
+          ).toLowerCase();
+          if (!appointmentNumber.includes(searchTerm)) {
+            return false;
+          }
+        }
+
+        // Randevu durumu
+        if (appointmentFilters.appointmentStatus) {
+          if (appointment.status !== appointmentFilters.appointmentStatus) {
+            return false;
+          }
+        }
+
+        // Randevu sonucu
+        if (appointmentFilters.appointmentOutcome) {
+          if (appointment.outcome !== appointmentFilters.appointmentOutcome) {
+            return false;
+          }
+        }
+
+        // Veli adı
+        if (appointmentFilters.parentName) {
+          const searchTerm = appointmentFilters.parentName.toLowerCase();
+          const parentName = (appointment.parentUserName || "").toLowerCase();
+          if (!parentName.includes(searchTerm)) {
+            return false;
+          }
+        }
+
+        // Öğrenci adı
+        if (appointmentFilters.studentName) {
+          const searchTerm = appointmentFilters.studentName.toLowerCase();
+          const studentName = (appointment.studentName || "").toLowerCase();
+          if (!studentName.includes(searchTerm)) {
+            return false;
+          }
+        }
+
+        // Randevu tarihi
+        if (appointmentFilters.appointmentDate && appointment.appointmentDate) {
+          if (
+            !appointment.appointmentDate.includes(
+              appointmentFilters.appointmentDate
+            )
+          ) {
+            return false;
+          }
+        }
+      } else {
+        // Eğer appointment yoksa ve appointment ile ilgili filtre varsa, bu slot'u gösterme
         if (
-          appointment.followUpRequired !== appointmentFilters.followUpRequired
+          appointmentFilters.appointmentNumber ||
+          appointmentFilters.appointmentStatus ||
+          appointmentFilters.appointmentOutcome ||
+          appointmentFilters.parentName ||
+          appointmentFilters.studentName ||
+          appointmentFilters.appointmentDate
         ) {
           return false;
         }
@@ -166,7 +184,7 @@ export const useAppointmentDetailsFilter = (appointments: AppointmentDto[]) => {
 
       return true;
     });
-  }, [appointments, appointmentFilters]);
+  }, [slots, appointmentFilters]);
 
   const setAppointmentFilters = (filters: any) => {
     setFilters(filters);

@@ -6,6 +6,11 @@ import { CustomFeeCreateDto, CustomFeeDto, ApiResponseDto } from "@/types";
 
 /**
  * Custom fee ekleme hook'u
+ *
+ * @returns {Object}
+ * - postCustomFee: Yeni custom fee ekleme fonksiyonu
+ * - isLoading: Form submit loading durumu (formLoading olarak kullanılır)
+ * - error: Hata durumu
  */
 export const useAddCustomFee = () => {
   const {
@@ -26,7 +31,7 @@ export const useAddCustomFee = () => {
 
   return {
     postCustomFee,
-    isLoading,
+    isLoading, // Bu form submit loading'i olarak kullanılır
     error,
   };
 };

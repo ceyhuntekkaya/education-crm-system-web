@@ -21,18 +21,11 @@ const SchoolAddEditPage: React.FC<SchoolAddEditPageProps> = () => {
       }
       isBack
       mb="mb-24"
+      isLoading={isEditing && schoolLoading}
+      loadingMessage="Okul bilgileri yükleniyor..."
     >
       {/* Form Content */}
-      {schoolLoading && isEditing ? (
-        <LoadingSpinner
-          message="Okul bilgileri yükleniyor..."
-          size="md"
-          variant="dots"
-          className="py-5"
-        />
-      ) : (
-        <SchoolForm isEditing={isEditing} initialData={school} />
-      )}
+      <SchoolForm isEditing={isEditing} initialData={school} />
     </CustomCard>
   );
 };

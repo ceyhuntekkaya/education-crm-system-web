@@ -25,6 +25,9 @@ export const initialValues: SchoolFormData = {
   // Property Type IDs
   propertyTypeIds: [],
 
+  // Property Values (form field name)
+  propertyValues: [],
+
   // SEO
   metaTitle: "",
   metaDescription: "",

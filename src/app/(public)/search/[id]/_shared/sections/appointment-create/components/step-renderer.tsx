@@ -1,16 +1,15 @@
 /**
  * Step renderer component for appointment form
+ * Register form mimarisini takip eder
  */
 
 "use client";
 
 import React from "react";
 import { useAppointment } from "../contexts";
-import { FormStep } from "../types";
 import {
   AppointmentTypeStep,
   DateTimeStep,
-  PersonalInfoStep,
   StudentInfoStep,
   ConfirmationStep,
 } from "../sections";
@@ -20,13 +19,13 @@ export const StepRenderer: React.FC = () => {
 
   const renderCurrentStep = () => {
     switch (currentStep) {
-      case FormStep.APPOINTMENT_TYPE:
+      case 1:
         return <AppointmentTypeStep />;
-      case FormStep.STUDENT_INFO:
-        return <StudentInfoStep />;
-      case FormStep.DATE_TIME:
+      case 2:
         return <DateTimeStep />;
-      case FormStep.CONFIRMATION:
+      case 3:
+        return <StudentInfoStep />;
+      case 4:
         return <ConfirmationStep />;
       default:
         return <AppointmentTypeStep />;

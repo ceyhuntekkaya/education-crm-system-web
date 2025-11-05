@@ -1,4 +1,3 @@
-// import { Breadcrumb } from "@/components";
 import { MessageProvider } from "./context";
 
 export default function MessagesLayout({
@@ -8,10 +7,7 @@ export default function MessagesLayout({
 }) {
   return (
     <MessageProvider initialFilters={{ limit: 50 }}>
-      <div>
-        {/* <Breadcrumb title={"Mesajlarım"} /> */}
-        {children}
-      </div>
+      <div>{children}</div>
     </MessageProvider>
   );
 }

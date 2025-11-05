@@ -2,6 +2,7 @@
 
 import React from "react";
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
+import { formatGender } from "../../../utils/appointment-display-utils";
 
 interface StudentInfoSectionProps {
   appointment: AppointmentDto;
@@ -18,7 +19,9 @@ const StudentInfoSection: React.FC<StudentInfoSectionProps> = ({
     },
     {
       label: "Yaş & Cinsiyet",
-      value: `${appointment.studentAge} yaşında, ${appointment.studentGender}`,
+      value: `${appointment.studentAge} yaşında, ${formatGender(
+        appointment.studentGender
+      )}`,
       type: "text" as const,
     },
     {

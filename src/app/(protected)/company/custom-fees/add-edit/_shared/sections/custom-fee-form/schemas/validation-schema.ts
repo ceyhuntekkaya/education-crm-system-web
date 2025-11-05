@@ -4,7 +4,7 @@ import * as Yup from "yup";
  * Custom fee form validation schema
  */
 export const validationSchema = Yup.object({
-  schoolPricingId: Yup.number()
+  schoolId: Yup.number()
     .required("Fiyatlandırma ID gereklidir")
     .positive("Geçersiz fiyatlandırma ID"),
 
@@ -55,17 +55,13 @@ export const validationSchema = Yup.object({
     .min(0, "Minimum yaş negatif olamaz")
     .max(100, "Geçersiz minimum yaş")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   maximumAge: Yup.number()
     .min(0, "Maksimum yaş negatif olamaz")
     .max(100, "Geçersiz maksimum yaş")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   validFrom: Yup.string().nullable(),
 
@@ -91,26 +87,20 @@ export const validationSchema = Yup.object({
   dueDateOffsetDays: Yup.number()
     .min(0, "Vade günü negatif olamaz")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   lateFeePercentage: Yup.number()
     .min(0, "Gecikme ücreti yüzdesi negatif olamaz")
     .max(100, "Gecikme ücreti yüzdesi 100'den fazla olamaz")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   installmentAllowed: Yup.boolean().optional(),
 
   maxInstallments: Yup.number()
     .min(1, "Maksimum taksit sayısı en az 1 olmalıdır")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   discountEligible: Yup.boolean().optional(),
 
@@ -127,18 +117,14 @@ export const validationSchema = Yup.object({
   displayOrder: Yup.number()
     .min(0, "Görüntülenme sırası negatif olamaz")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   parentNotificationRequired: Yup.boolean().optional(),
 
   advanceNoticeDays: Yup.number()
     .min(0, "Bildirim günü negatif olamaz")
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    ),
+    .transform((value, originalValue) => (originalValue === "" ? null : value)),
 
   requiresApproval: Yup.boolean().optional(),
 });

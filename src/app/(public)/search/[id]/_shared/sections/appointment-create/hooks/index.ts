@@ -7,4 +7,12 @@ export type { UseAppointmentSubmissionReturn } from "./use-appointment-submissio
 
 export { useAppointmentFormData } from "./use-appointment-form-data";
 export type { UseAppointmentFormDataReturn } from "./use-appointment-form-data";
+
+export { useAppointmentSlots } from "./use-appointment-slots";
+export { useCreateAppointment } from "./use-create-appointment";
+export type { AppointmentCreateRequestDto } from "./use-create-appointment";
+
+export { useStepNavigation } from "./use-step-navigation";
+export { useStepValidation } from "./use-step-validation";
+
 // Context hooks removed - use useFormHook and useAppointment directly

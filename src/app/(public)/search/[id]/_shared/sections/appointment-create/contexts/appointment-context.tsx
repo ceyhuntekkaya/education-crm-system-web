@@ -1,84 +1,165 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useCallback,
-  ReactNode,
-  useMemo,
-} from "react";
-import { FormStep, AppointmentCreationResult } from "../types";
-import {
-  AppointmentContextValue,
-  AppointmentProviderProps,
-} from "../types/context-types";
+import React, { createContext, useContext, ReactNode, useMemo } from "react";
+import { AppointmentCreateFormData } from "../types";
 import {
   useAppointmentSteps,
+  useStepValidation,
+  useStepNavigation,
   useAppointmentSubmission,
   useAppointmentFormData,
+  useAppointmentSlots,
 } from "../hooks";
+import { useFormHook } from "@/hooks/use-form-hook";
 
-// Context
-const AppointmentContext = createContext<AppointmentContextValue | undefined>(
+/**
+ * Appointment Context Type - Register form mimarisini takip eder
+ */
+interface AppointmentContextType {
+  // Form data
+  formData: AppointmentCreateFormData;
+
+  // Step management
+  currentStep: number;
+  totalSteps: number;
+  setCurrentStep: (step: number) => void;
+  nextStep: () => void;
+  previousStep: () => void;
+  goToStep: (step: number) => void;
+
+  // Validation
+  isStepCompleted: (step: number) => boolean;
+  isStepClickable: (step: number) => boolean;
+  canProceedToNextStep: () => boolean;
+
+  // Loading states
+  isSubmitting: boolean;
+  slotsLoading: boolean;
+
+  // Errors
+  submissionError: string | null;
+  slotsError: string | null;
+
+  // Actions
+  submitForm: () => Promise<void>;
+  handleStepClick: (step: number) => void;
+
+  // Slot management - Hook'tan gelen tüm fonksiyonlar
+  slots: any[];
+  refetchSlots: () => void;
+}
+
+const AppointmentContext = createContext<AppointmentContextType | undefined>(
   undefined
 );
 
-// Provider Component
+interface AppointmentProviderProps {
+  children: ReactNode;
+  schoolId: number;
+  isOnline?: boolean;
+}
+
+/**
+ * Appointment Provider - Register form mimarisini takip eder
+ * Tüm hook'ları burada birleştirir
+ */
 export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
   children,
   schoolId,
   isOnline = false,
 }) => {
-  // Use custom hooks for different responsibilities
-  const formData = useAppointmentFormData(schoolId, isOnline);
-  const steps = useAppointmentSteps();
-  const submission = useAppointmentSubmission();
+  // Form values
+  const { values } = useFormHook();
 
-  // Reset all appointment data
-  const resetAppointment = useCallback(() => {
-    formData.resetToInitialState(schoolId, isOnline);
-    steps.resetToFirstStep();
-    submission.resetSubmission();
-  }, [formData, steps, submission, schoolId, isOnline]);
+  // Initialize form data
+  useAppointmentFormData(schoolId, isOnline);
 
-  // Memoize the context value to prevent unnecessary re-renders
-  const contextValue: AppointmentContextValue = useMemo(
-    () => ({
-      // Basic state
+  // Step management
+  const {
+    currentStep,
+    setCurrentStep,
+    nextStep,
+    previousStep,
+    goToStep,
+    totalSteps,
+  } = useAppointmentSteps();
+
+  // Validation
+  const { isStepCompleted, canProceedToNextStep } = useStepValidation();
+
+  // Navigation
+  const { handleStepClick, isStepClickable } = useStepNavigation(
+    currentStep,
+    isStepCompleted,
+    goToStep
+  );
+
+  // Submission
+  const { submitForm, isSubmitting, submissionResult } =
+    useAppointmentSubmission();
+
+  // Slots
+  const { slots, slotsLoading, slotsError, refetchSlots } = useAppointmentSlots(
+    {
       schoolId,
-      isOnline,
+      enabled: !!schoolId,
+    }
+  );
 
-      // Steps management
-      currentStep: steps.currentStep,
-      steps: steps.steps,
-      currentStepIndex: steps.currentStepIndex,
-      isFirstStep: steps.isFirstStep,
-      isLastStep: steps.isLastStep,
-      goToStep: steps.goToStep,
-      goToNextStep: steps.goToNextStep,
-      goToPreviousStep: steps.goToPreviousStep,
+  // Context value
+  const contextValue: AppointmentContextType = useMemo(
+    () => ({
+      // Form data
+      formData: values as AppointmentCreateFormData,
 
-      // Submission management
-      isSubmitting: submission.isSubmitting,
-      submissionResult: submission.submissionResult,
-      submitForm: submission.submitForm,
-      resetAppointment,
+      // Step management
+      currentStep,
+      totalSteps,
+      setCurrentStep,
+      nextStep,
+      previousStep,
+      goToStep,
+
+      // Validation
+      isStepCompleted,
+      isStepClickable,
+      canProceedToNextStep: () => canProceedToNextStep(currentStep),
+
+      // Loading states
+      isSubmitting,
+      slotsLoading,
+
+      // Errors
+      submissionError: submissionResult?.error || null,
+      slotsError,
+
+      // Actions
+      submitForm,
+      handleStepClick,
+
+      // Slot data
+      slots,
+      refetchSlots,
     }),
     [
-      schoolId,
-      isOnline,
-      steps.currentStep,
-      steps.steps,
-      steps.currentStepIndex,
-      steps.isFirstStep,
-      steps.isLastStep,
-      steps.goToStep,
-      steps.goToNextStep,
-      steps.goToPreviousStep,
-      submission.isSubmitting,
-      submission.submissionResult,
-      submission.submitForm,
-      resetAppointment,
+      values,
+      currentStep,
+      totalSteps,
+      setCurrentStep,
+      nextStep,
+      previousStep,
+      goToStep,
+      isStepCompleted,
+      isStepClickable,
+      canProceedToNextStep,
+      isSubmitting,
+      slotsLoading,
+      submissionResult,
+      slotsError,
+      submitForm,
+      handleStepClick,
+      slots,
+      refetchSlots,
     ]
   );
 
@@ -89,8 +170,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
   );
 };
 
-// Hook
-export const useAppointment = () => {
+export const useAppointment = (): AppointmentContextType => {
   const context = useContext(AppointmentContext);
   if (context === undefined) {
     throw new Error(

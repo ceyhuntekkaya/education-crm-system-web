@@ -22,6 +22,8 @@ export const API_ENDPOINTS = {
     SCHOOL_DETAIL: (id: string | number) => `/institutions/schools/${id}`,
     SCHOOL_PROPERTY: (id: string | number) =>
       `/institutions/schools/${id}/property`,
+    SCHOOL_PROPERTY_UPDATE: (id: string | number) =>
+      `/institutions/schools/property/${id}`,
     SCHOOL_CREATE: "/institutions/schools",
     SCHOOL_BY_ID: (id: string | number) => `/institutions/schools/${id}`,
     BRAND_SUMMARIES: "/institutions/brands/summaries",
@@ -75,15 +77,36 @@ export const API_ENDPOINTS = {
   },
 
   APPOINTMENTS: {
+    // Appointment CRUD
+    CREATE: "/appointments",
+    BY_ID: (id: string | number) => `/appointments/${id}`,
+    NOTES: (appointmentId: string | number) =>
+      `/appointments/${appointmentId}/notes`,
+
+    // User appointments - Kullanıcının mevcut randevusunu getir
+    CURRENT_APPOINTMENT: (userId: string | number, schoolId: string | number) =>
+      `/appointments/slots/search/user/${userId}/school/${schoolId}`,
+
+    // User appointments - Kullanıcının randevularını getir
+    SLOTS_SEARCH_USER: (userId: string | number) =>
+      `/appointments/slots/search/user/${userId}`,
+
+    // Yeni API - İki tarih arası okul slotları listesi (POST)
+    SLOTS_SEARCH_DATE: "/appointments/slots/search/date",
+
+    // Slot CRUD operations
+    SLOT_CREATE: "/appointments/slots",
+    SLOT_BY_ID: (id: string | number) => `/appointments/slots/${id}`,
+    SLOT_UPDATE: (id: string | number) => `/appointments/slots/${id}`,
+    SLOT_DELETE: (id: string | number) => `/appointments/slots/${id}`,
+
+    // Legacy endpoints (deprecated)
     SCHOOL_AVAILABILITY: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/availability`,
     SCHOOL_AVAILABILITY_RANGE: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/availability-range`,
     SCHOOL_STATISTICS: (schoolId: string | number) =>
       `/appointments/schools/${schoolId}/statistics`,
-    BY_ID: (id: string | number) => `/appointments/${id}`,
-    NOTES: (appointmentId: string | number) =>
-      `/appointments/${appointmentId}/notes`,
   },
 
   SURVEYS: {
@@ -93,6 +116,8 @@ export const API_ENDPOINTS = {
     USER_ASSIGNMENT: "/surveys/user/assignment",
     USER_ASSIGNMENT_BY_ID: (userId: string | number) =>
       `/surveys/user/assignment/${userId}`,
+    UPDATE_USER_ASSIGNMENT: (assignmentId: string | number) =>
+      `/surveys/user/assignment/${assignmentId}`,
     SUBMIT: "/surveys/submit",
     EVALUATE: "/surveys/evaluate", // Survey evaluation için özel endpoint
     BY_ID: (id: string | number) => `/surveys/${id}`,
@@ -113,9 +138,13 @@ export const API_ENDPOINTS = {
     POST_UPDATE: (id: string | number) => `/content/posts/${id}`,
 
     // Messages
+    MESSAGES_BY_USER: (userId: string | number) =>
+      `/content/messages/user/${userId}`,
     MESSAGES_BY_SCHOOL: (schoolId: string | number) =>
       `/content/messages/school/${schoolId}`,
     MESSAGE_BY_ID: (id: string | number) => `/content/messages/${id}`,
+    MESSAGE_MARK_AS_READ: (messageId: string | number) =>
+      `/content/messages/${messageId}/read`,
 
     // Galleries
     GALLERIES: "/content/galleries",

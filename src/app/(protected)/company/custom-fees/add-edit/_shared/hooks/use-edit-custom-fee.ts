@@ -11,6 +11,14 @@ interface UseEditCustomFeeProps {
 
 /**
  * Custom fee güncelleme hook'u
+ *
+ * @param {number} customFeeId - Güncellenecek custom fee ID'si
+ * @param {Function} refetch - Güncelleme sonrası veriyi yeniden çekme fonksiyonu
+ *
+ * @returns {Object}
+ * - putCustomFee: Custom fee güncelleme fonksiyonu
+ * - isLoading: Form submit loading durumu (formLoading olarak kullanılır)
+ * - error: Hata durumu
  */
 export const useEditCustomFee = ({
   customFeeId,
@@ -35,7 +43,7 @@ export const useEditCustomFee = ({
 
   return {
     putCustomFee,
-    isLoading,
+    isLoading, // Bu form submit loading'i olarak kullanılır
     error,
   };
 };
