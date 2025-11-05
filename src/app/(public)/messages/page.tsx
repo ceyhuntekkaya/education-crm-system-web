@@ -4,13 +4,11 @@ import React, { useState } from "react";
 import { useMessageContext } from "./context";
 import ConversationListWhatsApp from "./components/conversation-list-whatsapp";
 import MessagePaneWhatsApp from "./components/message-pane-whatsapp";
-import { MessageTableError } from "@/app/(public)/messages/sections";
 import CustomCard from "@/components/ui/custom-card";
 import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
 
 const Messages: React.FC = () => {
   const {
-    // flat messages for legacy uses
     messages,
     loading,
     error,
@@ -19,15 +17,13 @@ const Messages: React.FC = () => {
     detailModal,
     infoModal,
     setSelectedMessage,
-    // @ts-ignore - optional extra exposed by provider
+    // @ts-ignore
     conversationGroups,
   } = useMessageContext();
 
-  // Track selected conversation group (not individual message)
   const [selectedConversation, setSelectedConversation] =
     useState<MessageConversationGroupDto | null>(null);
 
-  // Calculate statistics
   const stats = {
     total: messages.length,
     unread: messages.filter(
@@ -38,14 +34,12 @@ const Messages: React.FC = () => {
     ).length,
   };
 
-  // Handle conversation selection
   const handleConversationSelect = (groupId: number) => {
     const group = conversationGroups?.find(
       (g: MessageConversationGroupDto) => g.userId === groupId
     );
     if (group) {
       setSelectedConversation(group);
-      // Also set the first message as selected for compatibility
       if (group.conversations.length > 0) {
         setSelectedMessage(group.conversations[0]);
       }
@@ -54,7 +48,6 @@ const Messages: React.FC = () => {
 
   return (
     <div className="container py-40">
-      {/* Statistics Cards - Minimal Design */}
       <div className="d-flex gap-12 mb-20">
         <div className="flex-fill">
           <div className="d-flex align-items-center gap-8 bg-primary-50 rounded-8 px-12 py-8 border border-primary-200">
@@ -91,7 +84,6 @@ const Messages: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Messages Container with CustomCard */}
       <CustomCard
         title="Mesajlarım"
         isLoading={loading}
@@ -100,12 +92,10 @@ const Messages: React.FC = () => {
       >
         {!error && (
           <div className="messages-container">
-            {/* Left: Conversation List */}
             <ConversationListWhatsApp
               groups={conversationGroups || []}
               selectedMessageId={selectedConversation?.userId || null}
               onSelectMessage={(m) => {
-                // Find the conversation group for this message
                 const group = conversationGroups?.find(
                   (g: MessageConversationGroupDto) =>
                     g.conversations.some((conv) => conv.id === m.id)
@@ -118,7 +108,6 @@ const Messages: React.FC = () => {
               loading={loading}
             />
 
-            {/* Right: Message Pane */}
             <MessagePaneWhatsApp conversationGroup={selectedConversation} />
           </div>
         )}

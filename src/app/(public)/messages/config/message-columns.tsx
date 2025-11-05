@@ -1,20 +1,6 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { MessageDto } from "@/types/dto/content/MessageDto";
-import { Popover } from "@/components/ui/popover";
-import {
-  Avatar,
-  Badge,
-  MessageActionsPopover,
-  MessageQuickActions,
-} from "@/app/(public)/messages/components";
-import {
-  formatDateTime,
-  getStatusBadgeVariant,
-  getStatusDisplay,
-  getPriorityBadgeVariant,
-  getPriorityDisplay,
-  getMessageTypeDisplay,
-} from "@/app/(public)/messages/utils";
+import { formatDateTime } from "@/app/(public)/messages/utils";
 
 export interface MessageColumnHandlers {
   onViewDetails: (message: MessageDto) => void;
@@ -27,14 +13,6 @@ export interface MessageColumnHandlers {
 export const createMessageColumns = (
   handlers: MessageColumnHandlers
 ): GridColDef<MessageDto>[] => [
-  // {
-  //   field: "referenceNumber",
-  //   headerName: "Referans No",
-  //   width: 160,
-  //   renderCell: (params) => (
-  //     <div className="fw-medium">{params.value || "-"}</div>
-  //   ),
-  // },
   {
     field: "school",
     headerName: "Okul",
@@ -99,43 +77,6 @@ export const createMessageColumns = (
       );
     },
   },
-  // {
-  //   field: "messageType",
-  //   headerName: "Mesaj Türü",
-  //   width: 175,
-  //   renderCell: (params) => (
-  //     <div
-  //       className="text-truncate"
-  //       title={getMessageTypeDisplay(params.value)}
-  //     >
-  //       {getMessageTypeDisplay(params.value)}
-  //     </div>
-  //   ),
-  // },
-  // {
-  //   field: "priority",
-  //   headerName: "Öncelik",
-  //   width: 120,
-  //   renderCell: (params) => (
-  //     <div className="d-flex justify-content-center align-items-center h-100">
-  //       <Badge variant={getPriorityBadgeVariant(params.value)}>
-  //         {getPriorityDisplay(params.value)}
-  //       </Badge>
-  //     </div>
-  //   ),
-  // },
-  // {
-  //   field: "status",
-  //   headerName: "Mesaj Durumu",
-  //   width: 175,
-  //   renderCell: (params) => (
-  //     <div className="d-flex justify-content-center align-items-center h-100">
-  //       <Badge variant={getStatusBadgeVariant(params.value)}>
-  //         {getStatusDisplay(params.value)}
-  //       </Badge>
-  //     </div>
-  //   ),
-  // },
   {
     field: "readAt",
     headerName: "Durum",
@@ -155,37 +96,6 @@ export const createMessageColumns = (
       );
     },
   },
-  //   {
-  //     field: "quickActions",
-  //     headerName: "Detay",
-  //     width: 140,
-  //     sortable: false,
-  //     renderCell: (params) => (
-  //       <MessageQuickActions
-  //         message={params.row}
-  //         onViewDetails={handlers.onViewDetails}
-  //         onMarkAsRead={handlers.onMarkAsRead}
-  //       />
-  //     ),
-  //   },
-  // {
-  //   field: "actions",
-  //   headerName: "İşlemler",
-  //   width: 120,
-  //   sortable: false,
-  //   renderCell: (params) => (
-  //     <div className="d-flex justify-content-center">
-  //       <MessageActionsPopover
-  //         message={params.row}
-  //         onViewDetails={handlers.onViewDetails}
-  //         onMarkAsRead={handlers.onMarkAsRead}
-  //         onReply={handlers.onReply}
-  //         onForward={handlers.onForward}
-  //         onDelete={handlers.onDelete}
-  //       />
-  //     </div>
-  //   ),
-  // },
   {
     field: "createdAt",
     headerName: "Tarih",
@@ -235,7 +145,6 @@ export const createMessageColumns = (
         <div className="text-neutral-700 message-date-column">
           <div className="fw-medium message-date-main">{fullDate}</div>
           <div className="text-muted small d-flex align-items-center gap-1 message-date-relative">
-            {/* <span>{messageAge}</span> */}
             {isFresh && <span className="message-fresh-indicator">✨</span>}
           </div>
         </div>

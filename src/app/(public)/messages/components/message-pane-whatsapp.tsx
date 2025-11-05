@@ -20,10 +20,8 @@ export const MessagePaneWhatsApp: React.FC<MessagePaneWhatsAppProps> = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversationGroup?.conversations]);
 
-  // Handle send message
   const handleSendMessage = () => {
     if (newMessage.trim()) {
-      // TODO: Implement actual API call to send message
       console.log("Mesaj gönderiliyor:", newMessage);
       setNewMessage("");
     }

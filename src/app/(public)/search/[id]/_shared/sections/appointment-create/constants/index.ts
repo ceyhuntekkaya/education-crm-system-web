@@ -7,7 +7,16 @@
 export * from "./step-constants";
 
 // Step config constants for context
-export * from "./step-config-constants";
+// Re-export only the concrete constants and helpers from step-config-constants
+// to avoid exporting the conflicting `StepConfig` interface name which
+// is already exported by `step-constants.ts`.
+export {
+  APPOINTMENT_STEPS,
+  getStepConfigs,
+  getTotalSteps,
+  getStepByNumber,
+  getStepIndex,
+} from "./step-config-constants";
 
 // Student-related constants
 export * from "./student-constants";

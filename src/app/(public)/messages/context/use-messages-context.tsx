@@ -12,7 +12,6 @@ import {
   useMessages,
   useMessageHandlers,
   useMessageStatistics,
-  // useMarkMessageAsRead, // TEMPORARILY DISABLED
 } from "../hooks";
 import { useModal } from "@/hooks";
 import { useAuth } from "@/contexts";
@@ -57,33 +56,13 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
 
   const { stats, statsData } = useMessageStatistics(messages);
 
-  // Mark as read hook - TEMPORARILY DISABLED
-  // const { markAsRead, markingAsRead } = useMarkMessageAsRead();
-
-  // Actions
   const refreshMessages = useCallback(() => {
     refetchMessages();
   }, [refetchMessages]);
 
-  // Handle message selection (mark as read DISABLED)
-  const handleMessageSelect = useCallback(
-    async (message: MessageDto) => {
-      setSelectedMessage(message);
-
-      // TEMPORARILY DISABLED: Auto mark as read
-      // Mesaj henüz okunmadıysa (status !== "READ"), okundu olarak işaretle
-      // if (message.id && message.status !== "READ") {
-      //   try {
-      //     await markAsRead(message.id);
-      //     // Mesajları yenile
-      //     refetchMessages();
-      //   } catch (error) {
-      //     console.error("Mesaj okundu olarak işaretlenemedi:", error);
-      //   }
-      // }
-    },
-    [] // No dependencies needed when mark as read is disabled
-  );
+  const handleMessageSelect = useCallback((message: MessageDto) => {
+    setSelectedMessage(message);
+  }, []);
 
   const handlers = useMessageHandlers({
     setSelectedMessage: handleMessageSelect,
@@ -107,42 +86,21 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
   );
 
   const contextValue: MessageContextType = {
-    // Data
     messages,
-    loading: messageLoading, // markingAsRead removed (mark as read disabled)
+    loading: messageLoading,
     error: messageError,
-
-    // Expose groups as well for conversation-style UI
-    // (not part of the original type but helpful internally)
     // @ts-ignore
     conversationGroups,
-
-    // Selected message
     selectedMessage,
     setSelectedMessage: handleSetSelectedMessage,
-
-    // Modal
     detailModal,
-
-    // Info Modal
     infoModal,
-
-    // Statistics
     stats,
     statsData,
-
-    // Handlers
     handlers,
-
-    // Filters
     filters,
     setFilters: handleSetFilters,
-
-    // Actions
     refreshMessages,
-
-    // Mark as read - TEMPORARILY DISABLED
-    // markAsRead,
   };
 
   return (
