@@ -4,3 +4,8 @@ export { useUnifiedAvailability } from "./useUnifiedAvailability";
 export { useFilterManagement } from "./useFilterManagement";
 export { useAvailabilityActions } from "./useAvailabilityActions";
 export { useAppointmentDetailsFilter } from "./useAppointmentDetailsFilter";
+export { useAppointmentActions } from "./useAppointmentActions";
+export { useAppointmentModals } from "./useAppointmentModals";
+export { useAppointmentTableData } from "./useAppointmentTableData";
+export { useAppointmentTableColumns } from "./useAppointmentTableColumns";
+export { useAppointmentModalHandlers } from "./useAppointmentModalHandlers";

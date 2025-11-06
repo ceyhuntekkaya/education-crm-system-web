@@ -3,6 +3,13 @@ import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
 import { formatDateTime } from "@/utils";
 import { Button } from "@/components/ui";
 
+interface ActionColumnConfig {
+  onConfirm: (appointmentId: number) => void;
+  onCancel: (appointmentId: number) => void;
+  confirmLoading?: number | null; // appointmentId being confirmed
+  cancelLoading?: number | null; // appointmentId being cancelled
+}
+
 // Helper function - Gün adını Türkçe'ye çevir
 const getDayOfWeekLabel = (day?: string) => {
   const dayMap: Record<string, string> = {
@@ -111,35 +118,108 @@ const renderAppointmentActions = (params: any) => {
   );
 };
 
+/**
+ * Render appointment confirmation and cancellation actions
+ */
+const renderAppointmentStatusActions = (
+  params: any,
+  config: ActionColumnConfig
+) => {
+  const { appointment } = params.row;
+  const appointmentId = appointment?.id;
+  const appointmentStatus = appointment?.status;
+  const hasAppointment = !!appointmentId;
+
+  if (!hasAppointment) {
+    return (
+      <div className="text-center text-muted">
+        <small>Henüz randevu yok</small>
+      </div>
+    );
+  }
+
+  // Check if this appointment is being processed
+  const isConfirmLoading = config.confirmLoading === appointmentId;
+  const isCancelLoading = config.cancelLoading === appointmentId;
+  const isLoading = isConfirmLoading || isCancelLoading;
+
+  return (
+    <div className="d-flex gap-8 justify-content-center">
+      <Button
+        variant="success"
+        size="xs"
+        leftIcon="ph-check-circle"
+        onClick={() => config.onConfirm(appointmentId)}
+        disabled={isLoading}
+        loading={isConfirmLoading}
+      >
+        Onayla
+      </Button>
+      <Button
+        variant="error"
+        size="xs"
+        leftIcon="ph-x-circle"
+        onClick={() => config.onCancel(appointmentId)}
+        disabled={isLoading}
+        loading={isCancelLoading}
+      >
+        İptal Et
+      </Button>
+    </div>
+  );
+};
+
 // Main column definitions
-export const createAppointmentColumns =
-  (): GridColDef<AppointmentSlotDto>[] => [
-    {
-      field: "slotDate",
-      headerName: "Tarih & Saat",
-      width: 200,
-      sortable: true,
-      renderCell: renderSlotDate,
-    },
-    {
-      field: "staffUserName",
-      headerName: "Personel",
-      width: 160,
-      sortable: true,
-      renderCell: renderStaffInfo,
-    },
-    {
-      field: "appointmentType",
-      headerName: "Randevu Tipi",
-      width: 180,
-      sortable: true,
-      renderCell: renderAppointmentType,
-    },
-    {
-      field: "appointmentActions",
-      headerName: "Randevu İşlemleri",
-      width: 250,
-      sortable: false,
-      renderCell: renderAppointmentActions,
-    },
-  ];
+export const createAppointmentColumns = (
+  config: ActionColumnConfig
+): GridColDef<AppointmentSlotDto>[] => [
+  {
+    field: "slotDate",
+    headerName: "Tarih & Saat",
+    width: 200,
+    sortable: true,
+    renderCell: renderSlotDate,
+  },
+  {
+    field: "staffUserName",
+    headerName: "Personel",
+    width: 160,
+    sortable: true,
+    renderCell: renderStaffInfo,
+  },
+  {
+    field: "appointmentType",
+    headerName: "Randevu Tipi",
+    width: 180,
+    sortable: true,
+    renderCell: renderAppointmentType,
+  },
+  {
+    field: "appointmentStatusActions",
+    headerName: "Randevu Durumu",
+    width: 300,
+    sortable: false,
+    renderCell: (params) => renderAppointmentStatusActions(params, config),
+  },
+  {
+    field: "appointmentActions",
+    headerName: "Randevu İşlemleri",
+    width: 350,
+    sortable: false,
+    renderCell: renderAppointmentActions,
+  },
+];
+
+/**
+ * @deprecated Use createAppointmentColumns with config parameter instead
+ * Create appointment status actions column separately
+ */
+export const createAppointmentStatusActionsColumn = (
+  config: ActionColumnConfig
+): GridColDef<AppointmentSlotDto> => ({
+  field: "appointmentStatusActions",
+  headerName: "Randevu Durumu",
+  width: 200,
+  sortable: false,
+  renderCell: (params) => renderAppointmentStatusActions(params, config),
+});

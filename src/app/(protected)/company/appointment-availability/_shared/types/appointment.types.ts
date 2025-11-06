@@ -1,6 +1,13 @@
 import { AppointmentDto } from "@/types/dto/appointment/AppointmentDto";
 import { AppointmentAvailabilityDto } from "@/types/dto/appointment/AppointmentAvailabilityDto";
 import { AppointmentSlotDto } from "@/types/dto/appointment/AppointmentSlotDto";
+import { CancelledByType } from "@/enums";
+import type { CancelAppointmentFormValues } from "../sections/cancel-appointment-modal/types/form-values";
+import type { ApiResponseDto } from "@/types";
+import type {
+  ConfirmAppointmentRequest,
+  CancelAppointmentRequest,
+} from "../hooks/useAppointmentActions";
 
 /**
  * Badge variant types for appointment status display
@@ -40,6 +47,15 @@ export interface AppointmentTableProps {
 }
 
 /**
+ * Selected appointment data for modals
+ */
+export interface SelectedAppointment {
+  id: number;
+  appointment: AppointmentDto;
+  slotDate?: string;
+}
+
+/**
  * Appointment availability context type
  */
 export interface AppointmentAvailabilityContextType {
@@ -75,6 +91,35 @@ export interface AppointmentAvailabilityContextType {
   setAppointmentFilters?: (filters: any) => void;
   clearAppointmentFilters?: () => void;
   removeAppointmentFilter?: (key: string) => void;
+
+  // Appointment operations (confirm, cancel) - Direct mutate functions
+  confirmAppointment?: (
+    data: ConfirmAppointmentRequest
+  ) => Promise<ApiResponseDto<void> | null>;
+  cancelAppointment?: (
+    data: CancelAppointmentRequest
+  ) => Promise<ApiResponseDto<void> | null>;
+  confirmLoading?: boolean;
+  cancelLoading?: boolean;
+
+  // Modal management
+  confirmModalOpen?: boolean;
+  cancelModalOpen?: boolean;
+  selectedAppointment?: SelectedAppointment | null;
+  openConfirmModal?: (appointment: SelectedAppointment) => void;
+  closeConfirmModal?: () => void;
+  openCancelModal?: (appointment: SelectedAppointment) => void;
+  closeCancelModal?: () => void;
+
+  // Table specific data
+  dataToDisplay?: AppointmentSlotDto[];
+  emptyStateConfig?: {
+    icon: string;
+    title: string;
+    description: string;
+    showActions: boolean;
+  };
+  columns?: any[];
 }
 
 /**
