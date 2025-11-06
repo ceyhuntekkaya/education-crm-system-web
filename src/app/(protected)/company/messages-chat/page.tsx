@@ -9,7 +9,7 @@ const Messages: React.FC = () => {
   const { loading, error, customStats } = useMessageContext();
 
   return (
-    <div className="container py-40">
+    <div>
       <MessageStatsCards stats={customStats} />
 
       <CustomCard

@@ -42,18 +42,110 @@ export const formatNumber = (num: number): string => {
 };
 
 // Calculate survey statistics
-export const calculateSurveyStats = (surveys: SurveyDto[]): SurveyStats => {
+export const calculateSurveyStats = (surveys: any[]): SurveyStats => {
+  if (!surveys || surveys.length === 0) {
+    return {
+      totalSurveys: 0,
+      activeSurveys: 0,
+      totalSent: 0,
+      totalCompleted: 0,
+      averageCompletionRate: 0,
+      averageRating: 0,
+      averageStaffRating: 0,
+      averageCommunicationRating: 0,
+      mandatorySurveys: 0,
+      anonymousSurveys: 0,
+    };
+  }
+
+  // Group surveys by survey ID to get unique surveys
+  const surveyMap = new Map<number, any>();
+  surveys.forEach((survey) => {
+    const surveyId = survey.surveyId || survey.id;
+    if (!surveyMap.has(surveyId)) {
+      surveyMap.set(surveyId, {
+        ...survey,
+        responseCount: 1,
+        completedCount:
+          survey.status === "COMPLETED" || survey.isComplete ? 1 : 0,
+      });
+    } else {
+      const existing = surveyMap.get(surveyId)!;
+      existing.responseCount++;
+      if (survey.status === "COMPLETED" || survey.isComplete) {
+        existing.completedCount++;
+      }
+    }
+  });
+
+  const uniqueSurveys = Array.from(surveyMap.values());
+
   const stats: SurveyStats = {
-    totalSurveys: surveys.length,
-    activeSurveys: surveys.filter(s => s.isActive).length,
-    totalSent: surveys.reduce((sum, s) => sum + (s.totalSent || 0), 0),
-    totalCompleted: surveys.reduce((sum, s) => sum + (s.totalCompleted || 0), 0),
-    averageCompletionRate: surveys.reduce((sum, s) => sum + (s.completionRate || 0), 0) / surveys.length,
-    averageRating: surveys.reduce((sum, s) => sum + (s.averageRating || 0), 0) / surveys.length,
-    mandatorySurveys: surveys.filter(s => s.isMandatory).length,
-    anonymousSurveys: surveys.filter(s => s.isAnonymous).length,
+    totalSurveys: uniqueSurveys.length,
+    activeSurveys: uniqueSurveys.length, // Response olan survey'ler aktif kabul edilir
+    totalSent: surveys.length, // Her response bir gönderim sayılır
+    totalCompleted: surveys.filter(
+      (s) => s.status === "COMPLETED" || s.isComplete
+    ).length,
+    averageCompletionRate: 0,
+    averageRating: 0,
+    averageStaffRating: 0,
+    averageCommunicationRating: 0,
+    mandatorySurveys: uniqueSurveys.filter((s) => s.isMandatory).length,
+    anonymousSurveys: uniqueSurveys.filter((s) => s.isAnonymous).length,
   };
-  
+
+  // Calculate average completion rate
+  if (stats.totalSent > 0) {
+    stats.averageCompletionRate =
+      (stats.totalCompleted / stats.totalSent) * 100;
+  }
+
+  // Calculate average rating from ALL responses (not just completed)
+  // Tüm cevapların puan ortalaması
+  const responsesWithRating = surveys.filter((s) => {
+    const rating = s.overallRating || s.averageRating;
+    return rating && rating > 0;
+  });
+
+  if (responsesWithRating.length > 0) {
+    const totalRating = responsesWithRating.reduce((sum, s) => {
+      return sum + (s.overallRating || s.averageRating || 0);
+    }, 0);
+    stats.averageRating = totalRating / responsesWithRating.length;
+  }
+
+  // Calculate average staff rating (Personel İletişim Puanı)
+  const responsesWithStaffRating = surveys.filter((s) => {
+    const rating = s.staffRating;
+    return rating && rating > 0;
+  });
+
+  if (responsesWithStaffRating.length > 0) {
+    const totalStaffRating = responsesWithStaffRating.reduce((sum, s) => {
+      return sum + (s.staffRating || 0);
+    }, 0);
+    stats.averageStaffRating =
+      totalStaffRating / responsesWithStaffRating.length;
+  }
+
+  // Calculate average communication rating (İletişim Puanı)
+  const responsesWithCommunicationRating = surveys.filter((s) => {
+    const rating = s.communicationRating;
+    return rating && rating > 0;
+  });
+
+  if (responsesWithCommunicationRating.length > 0) {
+    const totalCommunicationRating = responsesWithCommunicationRating.reduce(
+      (sum, s) => {
+        return sum + (s.communicationRating || 0);
+      },
+      0
+    );
+    stats.averageCommunicationRating =
+      totalCommunicationRating / responsesWithCommunicationRating.length;
+  }
+
   return stats;
 };
 
@@ -79,7 +171,9 @@ export const calculateResponseRate = (survey: SurveyDto): number => {
 };
 
 // Calculate completion rate from started surveys
-export const calculateCompletionRateFromStarted = (survey: SurveyDto): number => {
+export const calculateCompletionRateFromStarted = (
+  survey: SurveyDto
+): number => {
   if (!survey.totalStarted || survey.totalStarted === 0) return 0;
   return ((survey.totalCompleted || 0) / survey.totalStarted) * 100;
 };
@@ -103,12 +197,16 @@ export const getSurveyUrl = (survey: SurveyDto): string => {
 export const isSurveyExpired = (survey: SurveyDto): boolean => {
   if (!survey.expiresAfterDays || !survey.createdAt) return false;
   const createdDate = new Date(survey.createdAt);
-  const expiryDate = new Date(createdDate.getTime() + (survey.expiresAfterDays * 24 * 60 * 60 * 1000));
+  const expiryDate = new Date(
+    createdDate.getTime() + survey.expiresAfterDays * 24 * 60 * 60 * 1000
+  );
   return new Date() > expiryDate;
 };
 
 // Get survey performance level based on completion rate
-export const getSurveyPerformanceLevel = (completionRate: number): { level: string; variant: BadgeVariant } => {
+export const getSurveyPerformanceLevel = (
+  completionRate: number
+): { level: string; variant: BadgeVariant } => {
   if (completionRate >= 80) return { level: "Mükemmel", variant: "success" };
   if (completionRate >= 60) return { level: "İyi", variant: "info" };
   if (completionRate >= 40) return { level: "Orta", variant: "warning" };
@@ -118,13 +216,19 @@ export const getSurveyPerformanceLevel = (completionRate: number): { level: stri
 // Sort surveys by different criteria
 export const sortSurveys = (
   surveys: SurveyDto[],
-  sortBy: "title" | "createdAt" | "totalSent" | "totalCompleted" | "completionRate" | "averageRating",
+  sortBy:
+    | "title"
+    | "createdAt"
+    | "totalSent"
+    | "totalCompleted"
+    | "completionRate"
+    | "averageRating",
   order: "asc" | "desc" = "desc"
 ): SurveyDto[] => {
   return [...surveys].sort((a, b) => {
     let aValue: any;
     let bValue: any;
-    
+
     switch (sortBy) {
       case "title":
         aValue = a.title?.toLowerCase() || "";
@@ -153,7 +257,7 @@ export const sortSurveys = (
       default:
         return 0;
     }
-    
+
     if (order === "asc") {
       return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
     } else {
@@ -166,12 +270,17 @@ export const sortSurveys = (
 export const getTimeAgo = (date: string): string => {
   const now = new Date();
   const surveyDate = new Date(date);
-  const diffInSeconds = Math.floor((now.getTime() - surveyDate.getTime()) / 1000);
-  
+  const diffInSeconds = Math.floor(
+    (now.getTime() - surveyDate.getTime()) / 1000
+  );
+
   if (diffInSeconds < 60) return "Az önce";
-  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} dakika önce`;
-  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} saat önce`;
-  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} gün önce`;
-  
+  if (diffInSeconds < 3600)
+    return `${Math.floor(diffInSeconds / 60)} dakika önce`;
+  if (diffInSeconds < 86400)
+    return `${Math.floor(diffInSeconds / 3600)} saat önce`;
+  if (diffInSeconds < 2592000)
+    return `${Math.floor(diffInSeconds / 86400)} gün önce`;
+
   return surveyDate.toLocaleDateString("tr-TR");
 };
