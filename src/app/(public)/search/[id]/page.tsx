@@ -180,6 +180,7 @@ export default function InstitutionDetailPage({
       title: "Randevum",
       label: "Randevum",
       content: <CurrentAppointment />,
+      isActive: true,
     },
     {
       id: "pills-appointment-create",
@@ -187,7 +188,6 @@ export default function InstitutionDetailPage({
       title: "Randevu Oluştur",
       label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
-      isActive: true,
     },
   ];
 

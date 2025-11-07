@@ -9,3 +9,6 @@ export { default as AppointmentActionButtons } from "./appointment-action-button
 
 // New Modular Appointment Details
 export { AppointmentDetails } from "./appointment-detail";
+
+// Reschedule Components
+export { AppointmentReschedule } from "./appointment-reschedule";

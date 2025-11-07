@@ -86,6 +86,7 @@ export const API_ENDPOINTS = {
     // Appointment actions
     CONFIRM: "/appointments/confirm",
     CANCEL: "/appointments/cancel",
+    RESCHEDULE: "/appointments/reschedule",
 
     // User appointments - Kullanıcının mevcut randevusunu getir
     CURRENT_APPOINTMENT: (userId: string | number, schoolId: string | number) =>
