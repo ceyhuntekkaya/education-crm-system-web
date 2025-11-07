@@ -71,7 +71,7 @@ export default function Banner() {
                 </p>
                 <div className="buttons-wrapper flex-align flex-wrap gap-24 mt-40">
                   <Link
-                    href="/course"
+                    href="/search"
                     className="btn btn-main rounded-pill flex-align gap-8"
                     data-aos="fade-right"
                   >

@@ -83,6 +83,11 @@ export const API_ENDPOINTS = {
     NOTES: (appointmentId: string | number) =>
       `/appointments/${appointmentId}/notes`,
 
+    // Appointment actions
+    CONFIRM: "/appointments/confirm",
+    CANCEL: "/appointments/cancel",
+    RESCHEDULE: "/appointments/reschedule",
+
     // User appointments - Kullanıcının mevcut randevusunu getir
     CURRENT_APPOINTMENT: (userId: string | number, schoolId: string | number) =>
       `/appointments/slots/search/user/${userId}/school/${schoolId}`,

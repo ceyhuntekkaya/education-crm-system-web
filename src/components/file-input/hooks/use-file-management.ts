@@ -95,6 +95,9 @@ export const useFileManagement = (props: {
             text: async () => "",
             webkitRelativePath: "",
             isUploaded: true, // Mevcut dosya olarak işaretle
+            id: item.id, // Backend'den gelen ID'yi sakla
+            itemType: item.itemType, // MediaType bilgisini sakla
+            sortOrder: item.sortOrder, // Sıralama bilgisini sakla
           } as any as FileWithPreview;
 
           return placeholderFile;
@@ -300,6 +303,9 @@ export const useFileManagement = (props: {
               text: async () => "",
               webkitRelativePath: "",
               isUploaded: true, // Yüklenmiş olarak işaretle
+              id: fileData.id || null, // ID bilgisini sakla
+              itemType: fileData.itemType || fileData.mediaType, // MediaType bilgisini sakla
+              sortOrder: fileData.sortOrder, // Sıralama bilgisini sakla
             } as unknown as FileWithPreview;
 
             return placeholderFile;

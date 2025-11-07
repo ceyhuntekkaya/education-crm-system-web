@@ -1,0 +1,320 @@
+// Appointment Reschedule Styles
+.appointment-reschedule-card {
+  // Accordion closed state content
+  .reschedule-summary {
+    text-align: center;
+    
+    p {
+      margin-bottom: 16px;
+    }
+    
+    small {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neutral-500);
+      font-size: 13px;
+      
+      i {
+        color: var(--neutral-400);
+      }
+    }
+  }
+  
+  // Accordion expanded content
+  .reschedule-accordion-content {
+    .current-appointment-summary {
+      .alert {
+        background-color: var(--info-50);
+        border: 1px solid var(--info-200);
+        border-radius: 8px;
+        padding: 16px;
+        
+        .text-info {
+          color: var(--info-600) !important;
+        }
+        
+        h6 {
+          color: var(--info-800);
+          font-weight: 600;
+        }
+        
+        .appointment-summary-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          
+          .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--neutral-700);
+            font-size: 14px;
+            
+            i {
+              color: var(--info-600);
+              font-size: 16px;
+              width: 16px;
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+    
+    .reschedule-reason-section {
+      .form-label {
+        font-weight: 600;
+        color: var(--neutral-800);
+        margin-bottom: 8px;
+        display: block;
+      }
+      
+      .form-control {
+        resize: vertical;
+        min-height: 80px;
+        
+        &:focus {
+          border-color: var(--primary-400);
+          box-shadow: 0 0 0 3px var(--primary-50);
+        }
+        
+        &:disabled {
+          background-color: var(--neutral-50);
+          border-color: var(--neutral-100);
+          color: var(--neutral-400);
+        }
+      }
+    }
+    
+    .reschedule-actions {
+      padding-top: 24px;
+      border-top: 1px solid var(--neutral-100);
+      
+      .btn {
+        min-width: 120px;
+        
+        &:focus {
+          box-shadow: 0 0 0 3px var(--primary-50);
+        }
+      }
+    }
+  }
+}
+
+// Reschedule Date Time Step - inherit from appointment-create styles
+.reschedule-date-time-step {
+  // Custom autocomplete styles
+  .autocomplete-container {
+    .input-group {
+      .input-group-text {
+        background: var(--neutral-10);
+        border-color: var(--neutral-100);
+        color: var(--neutral-600);
+        
+        i {
+          color: var(--primary-600);
+        }
+      }
+      
+      .form-control {
+        border-left: none;
+        
+        &:focus {
+          border-color: var(--primary-400);
+          box-shadow: 0 0 0 3px var(--primary-50);
+          
+          + .input-group-text {
+            border-color: var(--primary-400);
+          }
+        }
+        
+        &:disabled {
+          background-color: var(--neutral-30);
+          border-color: var(--neutral-50);
+          color: var(--neutral-400);
+        }
+      }
+    }
+    
+    .autocomplete-dropdown {
+      background: white;
+      border: 1px solid var(--neutral-200);
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 1050;
+      
+      .autocomplete-option {
+        padding: 12px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--neutral-700);
+        transition: background-color 0.2s ease;
+        
+        &:hover {
+          background-color: var(--neutral-50);
+        }
+        
+        &:first-child {
+          border-radius: 8px 8px 0 0;
+        }
+        
+        &:last-child {
+          border-radius: 0 0 8px 8px;
+        }
+        
+        &.disabled {
+          color: var(--neutral-400);
+          cursor: not-allowed;
+          
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+  
+  // Date time empty state
+  .date-time-empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    
+    .empty-state-content {
+      margin-bottom: 32px;
+      
+      .empty-state-icon {
+        width: 64px;
+        height: 64px;
+        background: var(--primary-100);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        
+        i {
+          font-size: 28px;
+          color: var(--primary-600);
+        }
+      }
+      
+      .empty-state-title {
+        color: var(--neutral-800);
+        margin-bottom: 8px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      
+      .empty-state-description {
+        color: var(--neutral-600);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+    
+    .date-selection-features {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      
+      @media (max-width: 768px) {
+        gap: 24px;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--neutral-600);
+        font-size: 13px;
+        
+        .feature-icon {
+          width: 20px;
+          height: 20px;
+          background: var(--primary-50);
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          i {
+            font-size: 12px;
+            color: var(--primary-600);
+          }
+        }
+      }
+    }
+  }
+  
+  // Slot styles - inherit from main appointment create styles
+  .time-slots-section {
+    .slots-header {
+      margin-bottom: 20px;
+      
+      h6 {
+        color: var(--neutral-800);
+        margin-bottom: 4px;
+        font-weight: 600;
+      }
+      
+      p {
+        color: var(--neutral-600);
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+  }
+  
+  // Empty slots state
+  .empty-slots-state {
+    padding: 40px 20px;
+    text-align: center;
+    
+    .empty-slots-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--neutral-100);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      
+      i {
+        font-size: 28px;
+        color: var(--neutral-500);
+      }
+    }
+    
+    .empty-slots-title {
+      color: var(--neutral-800);
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .empty-slots-description {
+      color: var(--neutral-600);
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+}
+
+// Z-index utilities for modals and dropdowns
+.z-index-1000 {
+  z-index: 1000;
+}
+
+.z-index-1050 {
+  z-index: 1050;
+}

@@ -31,6 +31,9 @@ export interface SurveyListContextType {
   surveyError: string | null;
   refetchSurveys: () => void;
 
+  // Survey statistics
+  surveyStats: SurveyStats;
+
   // Modal state
   selectedSurvey: SurveyResponseDto | null;
   evaluationModalOpen: boolean;
@@ -56,6 +59,8 @@ export interface SurveyStats {
   totalCompleted: number;
   averageCompletionRate: number;
   averageRating: number;
+  averageStaffRating: number;
+  averageCommunicationRating: number;
   mandatorySurveys: number;
   anonymousSurveys: number;
 }
@@ -68,6 +73,8 @@ export interface SurveyStats {
   totalCompleted: number;
   averageCompletionRate: number;
   averageRating: number;
+  averageStaffRating: number;
+  averageCommunicationRating: number;
   mandatorySurveys: number;
   anonymousSurveys: number;
 }

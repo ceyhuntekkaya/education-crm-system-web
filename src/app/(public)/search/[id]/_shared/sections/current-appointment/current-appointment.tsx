@@ -6,7 +6,11 @@ import {
   CurrentAppointmentProvider,
   useCurrentAppointmentContext,
 } from "./context/current-appointment-context";
-import { AppointmentContent, AppointmentDetails } from "./sections";
+import {
+  AppointmentContent,
+  AppointmentDetails,
+  AppointmentReschedule,
+} from "./sections";
 import { CustomCard } from "@/components";
 
 const CurrentAppointmentContent: React.FC = () => {
@@ -29,7 +33,12 @@ const CurrentAppointmentContent: React.FC = () => {
       className="my-20"
     >
       {currentAppointment?.appointment && (
-        <AppointmentContent appointment={currentAppointment.appointment} />
+        <>
+          {/* Appointment Reschedule Section */}
+          <AppointmentReschedule />
+
+          <AppointmentContent appointment={currentAppointment.appointment} />
+        </>
       )}
     </CustomCard>
   );

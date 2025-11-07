@@ -13,6 +13,7 @@ interface TabNavigationProps {
   size?: "xxs" | "xs" | "sm" | "md" | "lg";
   onTabChange?: (tabId: string) => void;
   iconOnly?: boolean;
+  center?: boolean;
 }
 
 /**
@@ -25,6 +26,7 @@ interface TabNavigationProps {
  * @param size - Tab boyutu (xxs, xs, sm, md, lg)
  * @param onTabChange - Tab değişim callback fonksiyonu
  * @param iconOnly - Sadece icon göster (yazılar sadece aktif tab'da görünür)
+ * @param center - İçeriği yatay olarak ortala
  */
 export default function TabNavigation({
   tabs,
@@ -33,6 +35,7 @@ export default function TabNavigation({
   size = "md",
   onTabChange,
   iconOnly = false,
+  center = false,
 }: TabNavigationProps) {
   const [activeTabId, setActiveTabId] = useState<string>(() => {
     // İlk açılışta aktif olan tab'ı bul, yoksa ilk tab'ı aktif yap
@@ -226,7 +229,7 @@ export default function TabNavigation({
           : allowMultiline
           ? "flex-wrap multiline"
           : "overflow-auto"
-      }`}
+      } ${center ? "justify-content-center" : ""}`}
       id={navigationId}
       role="tablist"
     >

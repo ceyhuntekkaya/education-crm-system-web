@@ -6,14 +6,11 @@ import React, {
   useState,
   useCallback,
   ReactNode,
+  useMemo,
 } from "react";
 import { MessageDto } from "@/types/dto/content/MessageDto";
-import {
-  useMessages,
-  useMessageHandlers,
-  useMessageStatistics,
-} from "../hooks";
-import { useModal } from "@/hooks";
+import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
+import { useMessages, useMessageStatistics } from "../hooks";
 import { useAuth } from "@/contexts";
 import { MessageContextType, MessageFilters } from "../types";
 
@@ -33,13 +30,8 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
 
   // State management
   const [filters, setFilters] = useState<MessageFilters>(initialFilters);
-  const [selectedMessage, setSelectedMessage] = useState<MessageDto | null>(
-    null
-  );
-
-  // Modal hooks
-  const detailModal = useModal();
-  const infoModal = useModal();
+  const [selectedConversation, setSelectedConversation] =
+    useState<MessageConversationGroupDto | null>(null);
 
   // Data hooks (API returns conversation groups)
   const { conversationGroups, messageLoading, messageError, refetchMessages } =
@@ -54,50 +46,65 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
       []) as MessageDto[];
   }, [conversationGroups]);
 
+  // Custom stats calculation
+  const customStats = useMemo(
+    () => ({
+      total: messages.length,
+      unread: messages.filter(
+        (m) => m.status === "NEW" || m.status === "IN_PROGRESS"
+      ).length,
+      urgent: messages.filter(
+        (m) => m.priority === "URGENT" || m.priority === "CRITICAL"
+      ).length,
+    }),
+    [messages]
+  );
+
   const { stats, statsData } = useMessageStatistics(messages);
 
   const refreshMessages = useCallback(() => {
     refetchMessages();
   }, [refetchMessages]);
 
-  const handleMessageSelect = useCallback((message: MessageDto) => {
-    setSelectedMessage(message);
-  }, []);
-
-  const handlers = useMessageHandlers({
-    setSelectedMessage: handleMessageSelect,
-    detailModal,
-    refreshMessages,
-  });
-
   const handleSetFilters = useCallback((newFilters: MessageFilters) => {
     setFilters((prev: MessageFilters) => ({ ...prev, ...newFilters }));
   }, []);
 
-  const handleSetSelectedMessage = useCallback(
-    (message: MessageDto | null) => {
-      if (message) {
-        handleMessageSelect(message);
-      } else {
-        setSelectedMessage(null);
+  const handleSelectConversation = useCallback(
+    (conversation: MessageConversationGroupDto | null) => {
+      setSelectedConversation(conversation);
+    },
+    []
+  );
+
+  // Handle message selection - finds and sets the conversation group
+  const handleSelectMessage = useCallback(
+    (message: MessageDto) => {
+      const group = conversationGroups?.find((g: MessageConversationGroupDto) =>
+        g.conversations.some((conv) => conv.id === message.id)
+      );
+      if (group) {
+        setSelectedConversation(group);
       }
     },
-    [handleMessageSelect]
+    [conversationGroups]
   );
+
+  // Computed values for conversation selection
+  const selectedMessageId = selectedConversation?.userId || null;
 
   const contextValue: MessageContextType = {
     messages,
+    conversationGroups,
     loading: messageLoading,
     error: messageError,
-    // @ts-ignore
-    conversationGroups,
-    selectedMessage,
-    setSelectedMessage: handleSetSelectedMessage,
-    detailModal,
-    infoModal,
+    selectedConversation,
+    selectedMessageId,
+    setSelectedConversation: handleSelectConversation,
+    handleSelectMessage,
+    customStats,
     stats,
     statsData,
-    handlers,
     filters,
     setFilters: handleSetFilters,
     refreshMessages,

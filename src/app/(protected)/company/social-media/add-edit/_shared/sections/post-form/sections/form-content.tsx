@@ -33,31 +33,22 @@ export const PostFormContent: React.FC = () => {
   } = usePostAddEdit();
 
   const handleSubmit = async (values: any) => {
-    // Tarih alanlarını ISO 8601 formatına çevir
-    const formatDateToISO = (
-      dateString: string | undefined
-    ): string | undefined => {
-      if (!dateString) return undefined;
-
-      // Eğer zaten ISO formatında değilse, datetime-local formatından ISO'ya çevir
-      if (
-        dateString &&
-        !dateString.includes("Z") &&
-        !dateString.includes("+")
-      ) {
-        // datetime-local input'u 'YYYY-MM-DDTHH:mm' formatında gelir
-        // ISO 8601 formatına çevirmek için 'Z' ekle (UTC timezone)
-        return `${dateString}:00Z`;
-      }
-
-      return dateString;
-    };
+    // Items'ı formatla
+    const formattedItems = values.items?.map((item: any) => {
+      // Eğer item'da id varsa (mevcut item), ID'yi gönder
+      // Eğer item'da id yoksa (yeni item), ID'yi null gönder
+      return {
+        id: item.id || null, // Mevcut item için ID, yeni item için null
+        itemType: item.itemType,
+        fileUrl: item.fileUrl,
+        fileName: item.fileName,
+        sortOrder: item.sortOrder,
+      };
+    });
 
     const formattedValues = {
       ...values,
-      scheduledAt: formatDateToISO(values.scheduledAt),
-      expiresAt: formatDateToISO(values.expiresAt),
-      pinExpiresAt: formatDateToISO(values.pinExpiresAt),
+      items: formattedItems,
     };
 
     if (isEditing) {

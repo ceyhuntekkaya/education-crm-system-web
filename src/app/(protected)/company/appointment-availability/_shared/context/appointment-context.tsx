@@ -1,12 +1,23 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useCallback,
+} from "react";
 import { AppointmentAvailabilityContextType } from "../types";
+import type { CancelAppointmentFormValues } from "../sections/cancel-appointment-modal/types/form-values";
 import {
   useUnifiedAvailability,
   useFilterManagement,
   useAvailabilityActions,
   useAppointmentDetailsFilter,
+  useAppointmentModals,
+  useAppointmentActions,
+  useAppointmentTableData,
+  useAppointmentTableColumns,
+  useAppointmentModalHandlers,
 } from "../hooks";
 import { hasValidSearchCriteria } from "../utils";
 
@@ -58,6 +69,51 @@ export const AppointmentAvailabilityProvider: React.FC<
     removeAppointmentFilter,
   } = useAppointmentDetailsFilter(availabilities);
 
+  // Modal management hook
+  const {
+    confirmModalOpen,
+    openConfirmModal,
+    closeConfirmModal,
+    cancelModalOpen,
+    openCancelModal,
+    closeCancelModal,
+    selectedAppointment,
+  } = useAppointmentModals();
+
+  // Appointment actions hook
+  const {
+    confirmAppointment,
+    cancelAppointment,
+    confirmLoading,
+    cancelLoading,
+  } = useAppointmentActions();
+
+  // Table data management hook
+  const { dataToDisplay, emptyStateConfig } = useAppointmentTableData({
+    filters,
+    appointmentFilters,
+    filteredAppointments,
+    availabilities,
+  });
+
+  // Modal handlers hook
+  const { handleConfirmClick, handleCancelClick } = useAppointmentModalHandlers(
+    {
+      dataToDisplay,
+      openConfirmModal,
+      openCancelModal,
+    }
+  );
+
+  // Table columns hook
+  const columns = useAppointmentTableColumns({
+    onConfirm: handleConfirmClick,
+    onCancel: handleCancelClick,
+    confirmLoading,
+    cancelLoading,
+    selectedAppointment,
+  });
+
   // Veri durumunu hesapla
   const hasSearchCriteria = hasValidSearchCriteria(filters);
   const hasDataToFilter =
@@ -88,6 +144,26 @@ export const AppointmentAvailabilityProvider: React.FC<
     setAppointmentFilters,
     clearAppointmentFilters,
     removeAppointmentFilter,
+
+    // Appointment operations
+    confirmAppointment,
+    cancelAppointment,
+    confirmLoading,
+    cancelLoading,
+
+    // Modal management
+    confirmModalOpen,
+    cancelModalOpen,
+    selectedAppointment,
+    openConfirmModal,
+    closeConfirmModal,
+    openCancelModal,
+    closeCancelModal,
+
+    // Table specific
+    dataToDisplay,
+    emptyStateConfig,
+    columns,
   };
 
   return (

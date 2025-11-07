@@ -440,6 +440,19 @@ $selected-bg: #E4F1FF;
     }
   }
   
+  .header-school-info {
+    .school-name {
+      color: hsl(var(--main-600));
+      font-size: 14px;
+      font-weight: 600;
+      background: hsl(var(--main-50));
+      padding: 6px 16px;
+      border-radius: 8px;
+      display: inline-block;
+      letter-spacing: -0.01em;
+    }
+  }
+  
   i {
     color: hsl(var(--neutral-500));
     font-size: 20px;
@@ -538,8 +551,10 @@ $selected-bg: #E4F1FF;
   transition: all 0.2s ease;
   
   .messages-bubble.incoming & {
-    background: #ff9f29;
+    // background: #F3F4F6;
+    // border: 1px solid #E5E7EB;
     border-top-left-radius: 4px;
+        background: #487FFF;
     box-shadow: 0 2px 8px rgba(7, 20, 49, 0.08);
     
     // &:hover {
@@ -549,9 +564,9 @@ $selected-bg: #E4F1FF;
   }
   
   .messages-bubble.outgoing & {
-    background: #dc2626;
+    background: #487FFF;
     border-top-right-radius: 4px;
-    box-shadow: 0 3px 12px hsl(var(--main-600) / 0.35);
+    box-shadow: 0 3px 12px rgba(72, 127, 255, 0.35);
     
     // &:hover {
     //   background: linear-gradient(135deg, hsl(var(--main-700)) 0%, hsl(var(--main-800)) 100%);

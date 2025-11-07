@@ -44,6 +44,7 @@ export interface PostFormData {
 
   // Items (multi file upload)
   items?: Array<{
+    id?: number; // Mevcut item'lar için ID, yeni item'lar için null/undefined
     itemType: MediaType;
     fileUrl: string;
     fileName: string;

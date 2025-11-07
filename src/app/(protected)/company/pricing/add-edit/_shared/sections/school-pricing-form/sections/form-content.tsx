@@ -128,40 +128,40 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* TEMEL ÜCRETLER */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <hr className="my-24" />
           <h5 className="mb-16">Temel Ücretler</h5>
-        </div>
+        </div> */}
 
         {/* Kayıt Ücreti */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="registrationFee"
             label="Kayıt Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Başvuru Ücreti */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="applicationFee"
             label="Başvuru Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Kayıt Tescil Ücreti */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="enrollmentFee"
             label="Kayıt Tescil Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* ÖĞRENİM ÜCRETLERİ */}
         <div className="col-12">
@@ -199,240 +199,240 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* EK ÜCRETLER */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <hr className="my-24" />
           <h5 className="mb-16">Ek Ücretler</h5>
-        </div>
+        </div> */}
 
         {/* Kitap Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="bookFee"
             label="Kitap Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Üniforma Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="uniformFee"
             label="Üniforma Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Aktivite Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="activityFee"
             label="Aktivite Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Teknoloji Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="technologyFee"
             label="Teknoloji Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Laboratuvar Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="laboratoryFee"
             label="Laboratuvar Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Kütüphane Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="libraryFee"
             label="Kütüphane Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Spor Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="sportsFee"
             label="Spor Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Sanat Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="artFee"
             label="Sanat Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Müzik Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="musicFee"
             label="Müzik Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Ulaşım Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="transportationFee"
             label="Ulaşım Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Kafeterya Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="cafeteriaFee"
             label="Kafeterya Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Sigorta Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="insuranceFee"
             label="Sigorta Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Bakım Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="maintenanceFee"
             label="Bakım Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Güvenlik Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="securityFee"
             label="Güvenlik Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Sınav Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="examFee"
             label="Sınav Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Mezuniyet Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="graduationFee"
             label="Mezuniyet Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Uzatmalı Gün Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="extendedDayFee"
             label="Uzatmalı Gün Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Etüt Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="tutoringFee"
             label="Etüt Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Yaz Okulu Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="summerSchoolFee"
             label="Yaz Okulu Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Kış Kampı Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="winterCampFee"
             label="Kış Kampı Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Dil Kursu Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="languageCourseFee"
             label="Dil Kursu Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* Özel Ders Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="privateLessonFee"
             label="Özel Ders Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* İptal Ücreti */}
-        <div className="col-3">
+        {/* <div className="col-3">
           <FormInput
             name="cancellationFee"
             label="İptal Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
-        </div>
+        </div> */}
 
         {/* ÖDEME KOŞULLARI */}
         <div className="col-12">

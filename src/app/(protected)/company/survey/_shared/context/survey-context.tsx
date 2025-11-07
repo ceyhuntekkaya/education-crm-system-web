@@ -3,6 +3,7 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import { SurveyListContextType } from "../types/survey.types";
 import { useSurveys as useSurveysHook } from "../hooks/use-surveys";
+import { useSurveyStatistics } from "../hooks/use-survey-statistics";
 import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { useSnackbar } from "@/contexts/snackbar-context";
@@ -26,6 +27,9 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
     error: surveyError,
     refetch: refetchSurveys,
   } = useSurveysHook();
+
+  // Calculate survey statistics
+  const surveyStats = useSurveyStatistics(surveys);
 
   // Modal state
   const [selectedSurvey, setSelectedSurvey] =
@@ -84,6 +88,9 @@ export const SurveyListProvider: React.FC<SurveyListProviderProps> = ({
     surveyLoading,
     surveyError,
     refetchSurveys,
+
+    // Survey statistics
+    surveyStats,
 
     // Modal state
     selectedSurvey,

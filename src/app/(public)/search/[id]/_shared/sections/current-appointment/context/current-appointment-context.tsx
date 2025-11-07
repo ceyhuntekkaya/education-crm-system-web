@@ -3,6 +3,14 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { CurrentAppointmentContextType } from "../types";
 import { useCurrentAppointment } from "../hooks/use-current-appointment";
+import {
+  useAppointmentReschedule,
+  AppointmentRescheduleRequestDto,
+} from "../hooks/use-appointment-reschedule";
+import {
+  useAppointmentCancel,
+  AppointmentCancelRequestDto,
+} from "../hooks/use-appointment-cancel";
 
 const CurrentAppointmentContext = createContext<
   CurrentAppointmentContextType | undefined
@@ -24,11 +32,25 @@ export const CurrentAppointmentProvider: React.FC<
     refetchAppointment,
   } = useCurrentAppointment({ schoolId });
 
+  // Reschedule hook'unu kullan - başarılı işlemden sonra otomatik refetch
+  const { rescheduleAppointment, isRescheduling, rescheduleError } =
+    useAppointmentReschedule(refetchAppointment);
+
+  // Cancel hook'unu kullan - başarılı işlemden sonra otomatik refetch
+  const { cancelAppointment, isCancelling, cancelError } =
+    useAppointmentCancel(refetchAppointment);
+
   const contextValue: CurrentAppointmentContextType = {
     currentAppointment,
     isLoading: appointmentLoading,
     error: appointmentError,
     refetch: refetchAppointment,
+    rescheduleAppointment,
+    isRescheduling,
+    rescheduleError,
+    cancelAppointment,
+    isCancelling,
+    cancelError,
   };
 
   return (

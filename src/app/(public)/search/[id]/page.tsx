@@ -113,15 +113,20 @@ export default function InstitutionDetailPage({
       icon: "ph-bold ph-currency-circle-dollar",
       title: "Ücretler",
       label: "Ücretler",
-      content: <InstitutionPricingInfo />,
+      content: (
+        <>
+          <InstitutionPricingInfo />
+          <InstitutionCustomFees />
+        </>
+      ),
     },
-    {
-      id: "pills-custom-fees",
-      icon: "ph-bold ph-receipt",
-      title: "Ek Ücretler",
-      label: "Ek Ücretler",
-      content: <InstitutionCustomFees />,
-    },
+    // {
+    //   id: "pills-custom-fees",
+    //   icon: "ph-bold ph-receipt",
+    //   title: "Ek Ücretler",
+    //   label: "Ek Ücretler",
+    //   content: <InstitutionCustomFees />,
+    // },
     {
       id: "pills-campaigns",
       icon: "ph-bold ph-tag",
@@ -175,6 +180,7 @@ export default function InstitutionDetailPage({
       title: "Randevum",
       label: "Randevum",
       content: <CurrentAppointment />,
+      isActive: true,
     },
     {
       id: "pills-appointment-create",
@@ -182,7 +188,6 @@ export default function InstitutionDetailPage({
       title: "Randevu Oluştur",
       label: "Randevu Oluştur",
       content: <AppointmentCreate schoolId={schoolId} />,
-      isActive: true,
     },
   ];
 

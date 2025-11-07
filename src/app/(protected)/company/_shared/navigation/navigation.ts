@@ -60,20 +60,20 @@ export const companyLayoutNavigation: MenuItem[] = [
     icon: "ph-share-network",
   },
   {
-    href: "/company/messages",
+    href: "/company/messages-chat",
     label: "Mesajlar **",
     icon: "ph-chat-circle",
   },
   {
     href: "/company/survey",
-    label: "Anketler",
+    label: "Anketler ***",
     icon: "ph-clipboard",
   },
-  {
-    href: "/company/reports",
-    label: "Analitik Raporları",
-    icon: "ph-chart-bar",
-  },
+  // {
+  //   href: "/company/reports",
+  //   label: "Analitik Raporları",
+  //   icon: "ph-chart-bar",
+  // },
   {
     href: "/company/users",
     label: "Kullanıcılar ***",
@@ -84,11 +84,11 @@ export const companyLayoutNavigation: MenuItem[] = [
   //   label: "Üyelik Planları",
   //   icon: "ph-crown",
   // },
-  {
-    href: "/company/brands",
-    label: "Markalar ***",
-    icon: "ph-tag",
-  },
+  // {
+  //   href: "/company/brands",
+  //   label: "Markalar ***",
+  //   icon: "ph-tag",
+  // },
   {
     href: "/company/campus-detail",
     label: "Kampüs Bilgileri ***",
