@@ -14,17 +14,17 @@ import {
  * Kurum özel ücret bilgilerini gösteren bileşen
  */
 export const InstitutionCustomFees: React.FC = () => {
-  const { school, loading } = useInstitutionDetail();
+  const { customFees, school, loading } = useInstitutionDetail();
 
-  // CustomFees'leri school'dan al
+  // CustomFees'leri context'ten al (institutionDetail.customFees'den geliyor)
   const allCustomFees = useMemo(() => {
-    if (!school?.customFees || school.customFees.length === 0) return [];
+    if (!customFees || customFees.length === 0) return [];
 
     // displayOrder'a göre sırala
-    return [...school.customFees].sort(
+    return [...customFees].sort(
       (a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)
     );
-  }, [school?.customFees]);
+  }, [customFees]);
 
   // multiItems için section'ları oluştur
   const customFeeSections = useMemo(() => {
