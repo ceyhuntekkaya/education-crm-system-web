@@ -4,12 +4,14 @@ import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { PostCreateDto, PostDto } from "@/types";
 import { useRouter } from "next/navigation";
+import { useSocialMedia } from "../../../_shared/context";
 
 /**
  * Post ekleme hook'u
  */
 export const useAddPost = () => {
   const router = useRouter();
+  const { refetchPosts } = useSocialMedia();
 
   const {
     mutate: postPost,
@@ -18,6 +20,8 @@ export const useAddPost = () => {
   } = usePost<PostDto, PostCreateDto>(API_ENDPOINTS.CONTENT.POST_CREATE, {
     onSuccess: (data) => {
       console.log("✅ onSuccess alanı -> Post başarıyla eklendi:", data);
+      // Liste API'sine tekrar istek at
+      refetchPosts();
       // Social media sayfasına yönlendir
       router.push("/company/social-media");
     },

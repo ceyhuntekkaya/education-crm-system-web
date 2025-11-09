@@ -3,6 +3,7 @@
 import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { GalleryUpdateDto, GalleryDto, ApiResponseDto } from "@/types";
+import { useGallery } from "../../../_shared/context";
 
 interface UseEditGalleryProps {
   galleryId: number;
@@ -13,6 +14,8 @@ interface UseEditGalleryProps {
  * Gallery güncelleme hook'u
  */
 export const useEditGallery = ({ galleryId, refetch }: UseEditGalleryProps) => {
+  const { refetchGalleries } = useGallery();
+
   const {
     mutate: putGallery,
     loading: isLoading,
@@ -22,7 +25,9 @@ export const useEditGallery = ({ galleryId, refetch }: UseEditGalleryProps) => {
     {
       onSuccess: (data) => {
         console.log("✅ Gallery başarıyla güncellendi:", data);
-        // Refetch varsa çalıştır
+        // Liste API'sine tekrar istek at
+        refetchGalleries();
+        // Refetch varsa çalıştır (gallery detail için)
         if (refetch) {
           refetch();
         }
