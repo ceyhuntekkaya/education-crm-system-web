@@ -16,6 +16,7 @@ import { useForm } from "@/contexts/form-context";
 import { useCampaignAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
 import { CampaignCreateDto, CampaignUpdateDto } from "@/types";
+import { useCompany } from "@/app/(protected)/company/_shared";
 
 /**
  * Campaign form content component
@@ -31,6 +32,9 @@ export const CampaignFormContent: React.FC = () => {
   const { isEditing, postCampaign, putCampaign, campaignLoading, formOptions } =
     useCampaignAddEdit();
 
+  // Company context'ten seçili okul bilgisini al
+  const { selectedSchool } = useCompany();
+
   // Form options - context'ten gelen
   const { campaignTypeOptions, discountTypeOptions, targetAudienceOptions } =
     formOptions;
@@ -44,6 +48,10 @@ export const CampaignFormContent: React.FC = () => {
       // Add modunda CampaignCreateDto kullan
       const createData: CampaignCreateDto = {
         ...values,
+        // Seçili okul ID'sini ekle
+        // schoolId: selectedSchool?.id,
+        // schoolIds'yi kaldır (eğer varsa)
+        schoolIds: [selectedSchool?.id || 0],
       };
       await postCampaign(createData);
     }
@@ -182,7 +190,7 @@ export const CampaignFormContent: React.FC = () => {
           <FormInput
             name="startDate"
             label="Başlangıç Tarihi"
-            type="date"
+            type="datetime-local"
             required
           />
         </div>

@@ -3,6 +3,7 @@
 import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { CampaignUpdateDto, CampaignDto, ApiResponseDto } from "@/types";
+import { useCampaigns } from "../../../_shared/context";
 
 interface UseEditCampaignProps {
   campaignId: number;
@@ -16,6 +17,9 @@ export const useEditCampaign = ({
   campaignId,
   refetch,
 }: UseEditCampaignProps) => {
+  // Kampanya listesini yenileme fonksiyonunu context'ten al
+  const { refetchCampaigns } = useCampaigns();
+
   const {
     mutate: putCampaign,
     loading: isLoading,
@@ -25,10 +29,12 @@ export const useEditCampaign = ({
     {
       onSuccess: (data) => {
         console.log("✅ Campaign başarıyla güncellendi:", data);
-        // Refetch varsa çalıştır
+        // Kampanya detayını yenile
         if (refetch) {
           refetch();
         }
+        // Kampanya listesini yenile
+        refetchCampaigns();
       },
       onError: (error) => {
         console.error("❌ Campaign güncellenirken hata:", error);

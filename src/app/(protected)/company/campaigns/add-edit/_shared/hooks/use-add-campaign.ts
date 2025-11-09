@@ -4,12 +4,14 @@ import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { CampaignCreateDto, CampaignDto, ApiResponseDto } from "@/types";
 import { useRouter } from "next/navigation";
+import { useCampaigns } from "../../../_shared";
 
 /**
  * Campaign ekleme hook'u
  */
 export const useAddCampaign = () => {
   const router = useRouter();
+  const { refetchCampaigns } = useCampaigns();
 
   const {
     mutate: postCampaign,
@@ -20,6 +22,8 @@ export const useAddCampaign = () => {
     {
       onSuccess: (data) => {
         console.log("✅ onSuccess alanı -> Campaign başarıyla eklendi:", data);
+        // Liste API'sini refetch et
+        refetchCampaigns();
         // Kampanyalar sayfasına yönlendir
         router.push("/company/campaigns");
       },
