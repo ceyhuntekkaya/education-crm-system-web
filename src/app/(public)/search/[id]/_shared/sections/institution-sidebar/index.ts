@@ -5,3 +5,4 @@ export { default as InstitutionSidebar } from "./institution-sidebar";
 export * from "./components";
 export * from "./hooks";
 export * from "./types";
+export * from "./add-to-list";

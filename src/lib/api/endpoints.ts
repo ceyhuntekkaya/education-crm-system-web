@@ -185,6 +185,18 @@ export const API_ENDPOINTS = {
       `/users/${userId}/password/change`,
   },
 
+  // Parent School Lists endpoints
+  PARENT_SCHOOL_LISTS: {
+    CREATE_LIST: "/parent/school-lists",
+    GET_LISTS: "/parent/school-lists",
+    LIST_BY_ID: (id: string | number) => `/parent/school-lists/${id}`,
+    UPDATE_LIST: (id: string | number) => `/parent/school-lists/${id}`,
+    DELETE_LIST: (id: string | number) => `/parent/school-lists/${id}`,
+    ADD_SCHOOL: "/parent/school-lists/schools",
+    REMOVE_SCHOOL: (listId: string | number, schoolId: string | number) =>
+      `/parent/school-lists/${listId}/schools/${schoolId}`,
+  },
+
   // // Todos
   // TODOS: {
   //   LIST: '/todos',

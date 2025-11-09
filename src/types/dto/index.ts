@@ -7,6 +7,7 @@ export * from "./pricing";
 export * from "./subscription";
 export * from "./survey";
 export * from "./user";
+export * from "./parent";
 export * from "./institution";
 
 // Explicit re-exports to resolve CampaignSummaryDto naming conflict
