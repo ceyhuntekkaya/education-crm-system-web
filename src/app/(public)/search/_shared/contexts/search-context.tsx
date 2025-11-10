@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, Suspense, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  Suspense,
+  useState,
+  useEffect,
+} from "react";
 import { useFormHook } from "@/hooks";
 import { Loading } from "@/components";
 import { SchoolSearchResultDto } from "@/types";
@@ -18,6 +24,7 @@ import {
 } from "../hooks";
 
 import { SearchContextValue, SearchProviderProps } from "../types";
+import { createApiParams, cleanApiParams } from "../utils";
 
 // Context'in varsayılan değeri
 const SearchContext = createContext<SearchContextValue | undefined>(undefined);
@@ -29,6 +36,8 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
   const [totalElements, setTotalElements] = useState<number>(0);
   // İlk arama yapıldı mı kontrolü
   const [hasSearched, setHasSearched] = useState<boolean>(false);
+  // URL'den arama tetiklendiğini takip etmek için
+  const hasTriggeredUrlSearch = React.useRef(false);
 
   // Form hook'tan sadece gerekli değerleri al
   const {
@@ -72,7 +81,35 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
   useLocationDependencies(values, updateField);
 
   // URL parametrelerini form değerleriyle senkronize et (useSearchParams kullanır)
-  useUrlToFormSync();
+  const { hasUrlParams, urlPropertyFilters } = useUrlToFormSync();
+
+  // URL'den parametreler geldiğinde otomatik arama yap
+  useEffect(() => {
+    // Sadece URL'den parametre geldiyse ve henüz arama yapılmadıysa
+    if (
+      hasUrlParams &&
+      !hasTriggeredUrlSearch.current &&
+      values &&
+      institutionTypes.length > 0
+    ) {
+      hasTriggeredUrlSearch.current = true;
+
+      // Form değerlerini API formatına dönüştür
+      const apiParams = createApiParams(values, institutionTypes);
+
+      // Eğer URL'den propertyFilters geldiyse, onları kullan
+      if (urlPropertyFilters.length > 0) {
+        apiParams.propertyFilters = urlPropertyFilters;
+      }
+
+      const cleanParams = cleanApiParams(apiParams);
+
+      console.log("URL'den otomatik arama başlatılıyor:", cleanParams);
+
+      // Form değerleri güncellendiğinde arama yap
+      search(cleanParams);
+    }
+  }, [hasUrlParams, values, institutionTypes, urlPropertyFilters, search]);
 
   // Favori filtre senkronizasyonu (useSearchParams kullanır)
   useFavFilterSync();
