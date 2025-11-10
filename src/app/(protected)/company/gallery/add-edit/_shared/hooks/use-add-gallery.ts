@@ -4,12 +4,14 @@ import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { GalleryCreateDto, GalleryDto, ApiResponseDto } from "@/types";
 import { useRouter } from "next/navigation";
+import { useGallery } from "../../../_shared/context";
 
 /**
  * Gallery ekleme hook'u
  */
 export const useAddGallery = () => {
   const router = useRouter();
+  const { refetchGalleries } = useGallery();
 
   const {
     mutate: postGallery,
@@ -20,6 +22,8 @@ export const useAddGallery = () => {
     {
       onSuccess: (data) => {
         console.log("✅ onSuccess alanı -> Gallery başarıyla eklendi:", data);
+        // Liste API'sine tekrar istek at
+        refetchGalleries();
         // Gallery sayfasına yönlendir
         router.push("/company/gallery");
       },

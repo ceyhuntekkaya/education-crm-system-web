@@ -50,7 +50,7 @@ export const CampaignAddEditProvider: React.FC<
     error: addError,
   } = useAddCampaign();
 
-  // Edit campaign hook - refetch'i props olarak geçir
+  // Edit campaign hook
   const {
     putCampaign,
     isLoading: editLoading,

@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { TargetAudience } from "@/enums";
 
 export const validationSchema = Yup.object({
   // Basic Information - Required
@@ -114,6 +115,9 @@ export const validationSchema = Yup.object({
   badgeText: Yup.string().max(50, "Rozet metni en fazla 50 karakter olabilir"),
   badgeColor: Yup.string().max(20, "Rozet rengi en fazla 20 karakter olabilir"),
   targetGradeLevels: Yup.string(),
+  targetAudience: Yup.string()
+    .nullable()
+    .oneOf([...Object.values(TargetAudience), null], "Geçersiz hedef kitle değeri"),
   termsAndConditions: Yup.string(),
   finePrint: Yup.string(),
   exclusions: Yup.string(),

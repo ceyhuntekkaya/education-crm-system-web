@@ -19,6 +19,7 @@ interface InstitutionDetailState {
   campus: any;
   brand: any;
   pricings: any;
+  customFees: any[];
   campaigns: any[];
   galleries: any[];
   posts: any[];
@@ -58,13 +59,13 @@ export function InstitutionDetailProvider({
     refetch: refetchInstitution,
   } = useInstitutionDetailHook({ id });
 
-  // Pricing hook'unu kullan
-  const {
-    pricings: pricingData,
-    loading: pricingLoading,
-    error: pricingError,
-    refetch: refetchPricing,
-  } = useInstitutionPricingHook({ schoolId: id });
+  // Pricing hook'unu kullan (YORUM: Artık institutionDetail.pricings kullanılıyor)
+  // const {
+  //   pricings: pricingData,
+  //   loading: pricingLoading,
+  //   error: pricingError,
+  //   refetch: refetchPricing,
+  // } = useInstitutionPricingHook({ schoolId: id });
 
   // Campaigns hook'unu kullan
   const {
@@ -99,17 +100,20 @@ export function InstitutionDetailProvider({
   } = useInstitutionProperties({ schoolId: id });
 
   // school = tüm institution detail datası
-  // campus, brand, pricings = nested objeler
+  // campus, brand, pricings, customFees = nested objeler
   const school = institutionDetail;
   const campus = institutionDetail?.campus || null;
   const brand = institutionDetail?.brand || null;
+  const pricings = institutionDetail?.pricings || [];
+  const customFees = institutionDetail?.customFees || [];
 
   const contextValue: InstitutionDetailState = {
     institutionDetail,
     school: school,
     campus: campus,
     brand: brand,
-    pricings: pricingData || [],
+    pricings: pricings, // institutionDetail.pricings'den alınıyor
+    customFees: customFees, // institutionDetail.customFees'den alınıyor
     campaigns: campaignsData || [],
     galleries: galleriesData || [],
     posts: postsData || [],
@@ -118,21 +122,21 @@ export function InstitutionDetailProvider({
     propertiesError: propertiesError,
     loading:
       institutionLoading ||
-      pricingLoading ||
+      // pricingLoading || // YORUM: Artık pricing ayrı hook'tan gelmiyor
       campaignsLoading ||
       galleriesLoading ||
       postsLoading ||
       propertiesLoading,
     error:
       institutionError ||
-      pricingError ||
+      // pricingError || // YORUM: Artık pricing ayrı hook'tan gelmiyor
       campaignsError ||
       galleriesError ||
       postsError ||
       propertiesError,
     refetch: () => {
       refetchInstitution();
-      refetchPricing();
+      // refetchPricing(); // YORUM: Artık pricing ayrı hook'tan gelmiyor
       refetchCampaigns();
       refetchGalleries();
       refetchPosts();

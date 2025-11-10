@@ -3,6 +3,7 @@
 import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { PostUpdateDto, PostDto } from "@/types";
+import { useSocialMedia } from "../../../_shared/context";
 
 interface UseEditPostProps {
   postId: number;
@@ -13,6 +14,8 @@ interface UseEditPostProps {
  * Post güncelleme hook'u
  */
 export const useEditPost = ({ postId, refetch }: UseEditPostProps) => {
+  const { refetchPosts } = useSocialMedia();
+
   const {
     mutate: putPost,
     loading: isLoading,
@@ -22,7 +25,9 @@ export const useEditPost = ({ postId, refetch }: UseEditPostProps) => {
     {
       onSuccess: (data) => {
         console.log("✅ Post başarıyla güncellendi:", data);
-        // Refetch varsa çalıştır
+        // Liste API'sine tekrar istek at
+        refetchPosts();
+        // Refetch varsa çalıştır (post detail için)
         if (refetch) {
           refetch();
         }
