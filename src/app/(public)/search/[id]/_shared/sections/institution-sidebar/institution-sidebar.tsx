@@ -2,6 +2,7 @@ import React from "react";
 import { ProfileCard } from "./components";
 import { ContactForm } from "../index";
 import { useInstitutionSidebarData } from "./hooks";
+import { ProtectedUserGuard } from "../../components";
 
 export default function InstitutionSidebar() {
   const { school, campus } = useInstitutionSidebarData();
@@ -16,8 +17,10 @@ export default function InstitutionSidebar() {
       {/* Profile Card */}
       <ProfileCard />
 
-      {/* Contact Form */}
-      <ContactForm schoolId={school.id} campusId={campus.id} />
+      {/* Contact Form - Protected */}
+      <ProtectedUserGuard message="İletişim formu için lütfen giriş yapınız.">
+        <ContactForm schoolId={school.id} campusId={campus.id} />
+      </ProtectedUserGuard>
     </div>
   );
 }

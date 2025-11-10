@@ -20,6 +20,7 @@ import {
   Posts,
   Notes,
   useInstitutionDetail,
+  ProtectedUserGuard,
 } from "./_shared";
 
 // UI Components
@@ -30,12 +31,7 @@ import {
   CoverImage,
   CustomCard,
   LoadingSpinner,
-  Button,
-  Icon,
 } from "@/components";
-
-// Auth Context
-import { useAuth } from "@/contexts/auth-context";
 
 export default function InstitutionDetailPage({
   params,
@@ -45,42 +41,6 @@ export default function InstitutionDetailPage({
   const schoolId = parseInt(params.id);
 
   const { school, loading } = useInstitutionDetail();
-  const { user } = useAuth();
-
-  // Helper component for protected content
-  const ProtectedContent = ({ children }: { children: React.ReactNode }) => {
-    if (!user) {
-      return (
-        <CustomCard className="text-center mt-20">
-          <div className="d-flex flex-column align-items-center justify-content-center">
-            <Icon
-              icon="ph-bold ph-lock"
-              variant="inline"
-              size="lg"
-              className="text-neutral-400 mb-24"
-              style={{ width: "80px", height: "80px", fontSize: "48px" }}
-            />
-            <h4 className="text-neutral-700 mb-12">Giriş Yapmanız Gerekiyor</h4>
-            <p
-              className="text-neutral-500 mb-32 text-center"
-              style={{ maxWidth: "400px" }}
-            >
-              Bu bölüme erişim için lütfen önce giriş yapınız.
-            </p>
-            <Button
-              variant="inline"
-              size="md"
-              leftIcon="ph-bold ph-sign-in"
-              href="/login"
-            >
-              Giriş Yap
-            </Button>
-          </div>
-        </CustomCard>
-      );
-    }
-    return <>{children}</>;
-  };
 
   // Show loading state while data is being fetched
   if (loading) {
@@ -156,10 +116,10 @@ export default function InstitutionDetailPage({
       title: "Ücretler",
       label: "Ücretler",
       content: (
-        <ProtectedContent>
+        <ProtectedUserGuard message="Ücret bilgilerine erişim için lütfen giriş yapınız.">
           <InstitutionPricingInfo />
           <InstitutionCustomFees />
-        </ProtectedContent>
+        </ProtectedUserGuard>
       ),
     },
     // {
@@ -175,9 +135,9 @@ export default function InstitutionDetailPage({
       title: "Kampanyalar",
       label: "Kampanyalar",
       content: (
-        <ProtectedContent>
+        <ProtectedUserGuard message="Kampanya bilgilerine erişim için lütfen giriş yapınız.">
           <InstitutionCampaigns />
-        </ProtectedContent>
+        </ProtectedUserGuard>
       ),
     },
     {
@@ -186,12 +146,12 @@ export default function InstitutionDetailPage({
       title: "Analiz & Değerlendirme",
       label: "Analiz & Değerlendirme",
       content: (
-        <ProtectedContent>
+        <ProtectedUserGuard message="Analiz ve değerlendirme bilgilerine erişim için lütfen giriş yapınız.">
           <div>
             <InstitutionReviews />
             <InstitutionStatistics />
           </div>
-        </ProtectedContent>
+        </ProtectedUserGuard>
       ),
     },
     // {
@@ -214,9 +174,9 @@ export default function InstitutionDetailPage({
       title: "Galeri",
       label: "Galeri",
       content: (
-        <ProtectedContent>
+        <ProtectedUserGuard message="Galeri görüntüleme için lütfen giriş yapınız.">
           <Gallery institutionId={params.id} />
-        </ProtectedContent>
+        </ProtectedUserGuard>
       ),
     },
     {
@@ -225,9 +185,9 @@ export default function InstitutionDetailPage({
       title: "Sosyal Medya",
       label: "Sosyal Medya",
       content: (
-        <ProtectedContent>
+        <ProtectedUserGuard message="Sosyal medya paylaşımlarına erişim için lütfen giriş yapınız.">
           <Posts institutionId={params.id} />
-        </ProtectedContent>
+        </ProtectedUserGuard>
       ),
     },
     {
@@ -236,9 +196,9 @@ export default function InstitutionDetailPage({
       title: "Randevum",
       label: "Randevum",
       content: (
-        <ProtectedContent>
+        <ProtectedUserGuard message="Randevu bilgilerine erişim için lütfen giriş yapınız.">
           <CurrentAppointment />
-        </ProtectedContent>
+        </ProtectedUserGuard>
       ),
     },
     {
@@ -289,7 +249,10 @@ export default function InstitutionDetailPage({
               {/* Tab Content */}
               <TabContent tabs={tabItems} />
 
-              <Notes />
+              {/* Notes - Protected (Hidden mode - giriş yoksa hiçbir şey gösterme) */}
+              <ProtectedUserGuard hidden>
+                <Notes />
+              </ProtectedUserGuard>
             </div>
           </div>
         </div>

@@ -3,9 +3,15 @@ import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useCampaigns } from "./hooks";
 import { CampaignList } from "./sections";
 import { useInstitutionDetail } from "../../contexts";
+import { mapCampaignSchoolArrayToCampaignDtoArray } from "./utils";
 
 const InstitutionCampaigns = () => {
-  const { campaigns, loading } = useInstitutionDetail();
+  const { school, loading } = useInstitutionDetail();
+
+  // school.activeCampaigns'den kampanyaları al (ayrı API isteği yok)
+  // CampaignSchoolDto'yu CampaignDto'ya dönüştür
+  const campaignSchools = school?.activeCampaigns || [];
+  const campaigns = mapCampaignSchoolArrayToCampaignDtoArray(campaignSchools);
   const { activeCampaigns, inactiveCampaigns } = useCampaigns(campaigns);
 
   // Tab items for campaigns

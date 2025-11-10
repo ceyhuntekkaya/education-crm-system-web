@@ -5,9 +5,16 @@ import { useModal } from "@/hooks";
 import { AddToListModal } from "./add-to-list-modal";
 import { AddToListProvider } from "./_shared/context";
 import { Icon } from "@/components/ui/icon";
+import { useAuth } from "@/contexts/auth-context";
 
 export const AddToListButton: React.FC = () => {
   const addToListModal = useModal();
+  const { user } = useAuth();
+
+  // Kullanıcı giriş yapmamışsa butonu gösterme
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
