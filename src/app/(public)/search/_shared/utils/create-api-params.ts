@@ -15,13 +15,16 @@ export const createApiParams = (
   // PropertyFilters'ı oluştur
   const propertyFilters = createPropertyFilters(values, institutionTypes);
 
+  // institutionTypeIds'yi string'den number'a çevir
+  const institutionTypeIds = Array.isArray(values.institutionTypeIds) && values.institutionTypeIds.length
+    ? values.institutionTypeIds.map((id) => Number(id)).filter((id) => !isNaN(id))
+    : values.institutionTypeId 
+      ? [Number(values.institutionTypeId)].filter((id) => !isNaN(id))
+      : [];
+
   const apiParams: SchoolSearchDto = {
     searchTerm: values.searchTerm || "",
-    institutionTypeIds:
-      Array.isArray(values.institutionTypeIds) &&
-      values.institutionTypeIds.length
-        ? values.institutionTypeIds
-        : [values.institutionTypeId],
+    institutionTypeIds,
     // institutionTypeId: values.institutionTypeId ? Number(values.institutionTypeId) : undefined,
     minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : 1,
     maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : 80,

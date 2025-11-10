@@ -6,36 +6,10 @@ import {
   useSearchContext,
 } from "./_shared";
 import { Loading } from "@/components";
-import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 const SearchPageContent = () => {
   const { institutions } = useSearchContext();
-  const searchParams = useSearchParams();
-  const favId = searchParams.get("favId");
-
-  // FavId'ye göre doğrudan favori arama ismi mapping'i
-  const getFavSearchName = (favId: string) => {
-    const favSearchMap: { [key: string]: string } = {
-      "0": "Lise Araması",
-      "1": "Anaokulu Araması",
-      "2": "İlkokul Araması",
-      "3": "Ortaokul Araması",
-      "4": "Özel Kurslar",
-    };
-
-    return favSearchMap[favId] || "Favori Aramlarım";
-  };
-
-  // Breadcrumb başlığını belirle
-  const getBreadcrumbTitle = () => {
-    if (favId) {
-      return getFavSearchName(favId);
-    }
-    return "Okulları Listele";
-  };
-
-  const breadcrumbTitle = getBreadcrumbTitle();
 
   return (
     <div>

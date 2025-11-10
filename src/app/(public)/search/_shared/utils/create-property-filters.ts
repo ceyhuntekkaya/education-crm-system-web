@@ -2,45 +2,36 @@ import { InstitutionTypeListDto, PropertyGroupTypeDto, PropertyTypeDto, FormValu
 
 /**
  * Form değerlerine göre propertyFilters oluşturur
- * institutionTypes'ın aynısını döner ama PropertyTypeDto'larda isSelected bilgisi ile
+ * Sadece isSelected: true olan property'lerin ID'lerini döner
  * 
  * @param values - Form değerleri
  * @param institutionTypes - Kurum türleri verisi
- * @returns PropertyFilters array (InstitutionTypeListDto[] formatında)
+ * @returns Seçili property ID'lerinin array'i [1, 2, 3, ...]
  */
 export const createPropertyFilters = (
   values: FormValues,
   institutionTypes: InstitutionTypeListDto[]
-): InstitutionTypeListDto[] => {
-  return institutionTypes.map((institutionType) => {
-    const propertyGroupTypeDtos = institutionType.propertyGroupTypeDtos?.map(
-      (group: PropertyGroupTypeDto) => {
-        const propertyTypes = group.propertyTypes?.map(
-          (property: PropertyTypeDto) => {
-            // Bu property'nin form'da seçili olup olmadığını kontrol et
-            const groupFieldName = group.name || `property_group_${group.id}`;
-            const selectedValues = values[groupFieldName] || [];
-            const isSelected = Array.isArray(selectedValues)
-              ? selectedValues.includes(property.id?.toString())
-              : selectedValues === property.id?.toString();
+): number[] => {
+  const selectedPropertyIds: number[] = [];
 
-            return {
-              ...property,
-              isSelected,
-            };
-          }
-        );
+  // Tüm institution type'ları ve grupları dolaş
+  institutionTypes.forEach((institutionType) => {
+    institutionType.propertyGroupTypeDtos?.forEach((group: PropertyGroupTypeDto) => {
+      group.propertyTypes?.forEach((property: PropertyTypeDto) => {
+        // Bu property'nin form'da seçili olup olmadığını kontrol et
+        const groupFieldName = group.name || `property_group_${group.id}`;
+        const selectedValues = values[groupFieldName] || [];
+        const isSelected = Array.isArray(selectedValues)
+          ? selectedValues.includes(property.id?.toString())
+          : selectedValues === property.id?.toString();
 
-        return {
-          ...group,
-          propertyTypes,
-        };
-      }
-    );
-
-    return {
-      ...institutionType,
-      propertyGroupTypeDtos,
-    };
+        // Seçili ise ve ID varsa, listeye ekle
+        if (isSelected && property.id) {
+          selectedPropertyIds.push(property.id);
+        }
+      });
+    });
   });
+
+  return selectedPropertyIds;
 };

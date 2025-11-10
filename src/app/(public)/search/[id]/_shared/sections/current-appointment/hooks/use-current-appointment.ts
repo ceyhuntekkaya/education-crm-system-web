@@ -43,8 +43,11 @@ export const useCurrentAppointment = ({
     refetch: refetchAppointment,
   } = useGet<ApiResponseDto<AppointmentSlotDto[]>>(endpoint);
 
-  // İlk slot'u direkt olarak al
-  const currentAppointment = appointmentResponse?.data?.[0] || null;
+  // Son slot'u direkt olarak al
+  const currentAppointment = 
+    appointmentResponse?.data && appointmentResponse.data.length > 0
+      ? appointmentResponse.data[appointmentResponse.data.length - 1]
+      : null;
 
   return {
     currentAppointment,
