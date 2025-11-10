@@ -98,7 +98,11 @@ export const usePostForm = <
         Object.keys(dataObj).forEach((k) => {
           const v = dataObj[k];
           if (v === undefined || v === null) {
-            out[k] = "";
+            // Undefined ve null değerleri field'dan çıkar (backend'e gönderme)
+            return;
+          } else if (Array.isArray(v)) {
+            // Array'leri olduğu gibi koru
+            out[k] = v;
           } else if (typeof v === "object") {
             // Keep File-like objects intact, otherwise stringify
             const maybeFile = v as { name?: unknown; size?: unknown };

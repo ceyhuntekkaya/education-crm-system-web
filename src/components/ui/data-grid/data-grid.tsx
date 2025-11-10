@@ -823,49 +823,54 @@ export function DataGrid<T extends Record<string, any>>({
         </table>
       </div>
 
-      {/* Pagination positioned at bottom right - Based on attachment */}
+      {/* Custom Pagination Footer - Clean Modern Design */}
       <div
         className="data-grid-pagination"
         style={{
           flexShrink: 0,
-          padding: "16px 20px",
-          borderTop: "1px solid #e9ecef",
-          backgroundColor: "#fff",
+          padding: "16px 24px",
+          borderTop: "1px solid #f3f4f6",
+          backgroundColor: "#fafbfc",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           gap: "20px",
         }}
       >
+        {/* Left side - Rows per page */}
         <div
-          className="pagination-controls"
-          style={{ display: "flex", alignItems: "center", gap: "20px" }}
+          className="page-size-control"
+          style={{ display: "flex", alignItems: "center", gap: "12px" }}
         >
-          <div
-            className="page-size-control"
-            style={{ display: "flex", alignItems: "center", gap: "8px" }}
+          <span
+            className="pagination-label"
+            style={{
+              fontSize: "14px",
+              color: "#6b7280",
+              fontWeight: 500,
+              whiteSpace: "nowrap",
+            }}
           >
-            <span
-              className="pagination-label"
-              style={{
-                fontSize: "14px",
-                color: "#6b7280",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Sayfa Başına:
-            </span>
+            Göster:
+          </span>
+          <div style={{ position: "relative", display: "inline-flex" }}>
             <select
               className="pagination-select"
               value={pagination.pageSize}
               onChange={(e) => handlePageSizeChange(Number(e.target.value))}
               style={{
-                padding: "4px 8px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
+                padding: "6px 32px 6px 12px",
+                border: "none",
+                borderRadius: "8px",
                 fontSize: "14px",
+                fontWeight: 500,
                 backgroundColor: "#fff",
+                color: "#374151",
                 cursor: "pointer",
+                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)",
+                appearance: "none",
+                outline: "none",
+                transition: "all 0.2s ease",
               }}
             >
               {pageSizeOptions.map((size) => (
@@ -874,57 +879,119 @@ export function DataGrid<T extends Record<string, any>>({
                 </option>
               ))}
             </select>
+            <i
+              className="ph ph-caret-down"
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                fontSize: "14px",
+                color: "#9ca3af",
+                pointerEvents: "none",
+              }}
+            ></i>
           </div>
+          {/* <span
+            style={{
+              fontSize: "14px",
+              color: "#9ca3af",
+              whiteSpace: "nowrap",
+            }}
+          >
+            satır
+          </span> */}
+        </div>
 
+        {/* Right side - Navigation and info */}
+        <div
+          className="pagination-controls"
+          style={{ display: "flex", alignItems: "center", gap: "24px" }}
+        >
           <div
             className="pagination-info"
-            style={{ fontSize: "14px", color: "#6b7280", whiteSpace: "nowrap" }}
+            style={{
+              fontSize: "14px",
+              color: "#6b7280",
+              fontWeight: 500,
+              whiteSpace: "nowrap",
+            }}
           >
             {pagination.page * pagination.pageSize + 1}–
             {Math.min(
               (pagination.page + 1) * pagination.pageSize,
               processedData.total
             )}{" "}
-            of {processedData.total}
+            / {processedData.total}
           </div>
 
           <div
             className="pagination-buttons"
-            style={{ display: "flex", alignItems: "center", gap: "4px" }}
+            style={{ display: "flex", alignItems: "center", gap: "8px" }}
           >
             <button
               className="pagination-nav-btn"
               disabled={pagination.page === 0}
               onClick={() => handlePageChange(pagination.page - 1)}
-              title="Previous page"
+              title="Önceki sayfa"
               style={{
-                width: "32px",
-                height: "32px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
-                backgroundColor: "#fff",
+                width: "36px",
+                height: "36px",
+                border: "none",
+                borderRadius: "8px",
+                backgroundColor: pagination.page === 0 ? "#f3f4f6" : "#fff",
+                color: pagination.page === 0 ? "#d1d5db" : "#374151",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: pagination.page === 0 ? "not-allowed" : "pointer",
-                opacity: pagination.page === 0 ? 0.5 : 1,
+                boxShadow:
+                  pagination.page === 0
+                    ? "none"
+                    : "0 1px 3px rgba(0, 0, 0, 0.08)",
                 transition: "all 0.2s ease",
               }}
+              onMouseEnter={(e) => {
+                if (pagination.page !== 0) {
+                  e.currentTarget.style.backgroundColor = "#f9fafb";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 2px 6px rgba(0, 0, 0, 0.12)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (pagination.page !== 0) {
+                  e.currentTarget.style.backgroundColor = "#fff";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 1px 3px rgba(0, 0, 0, 0.08)";
+                }
+              }}
             >
-              <i className="ph ph-caret-left" style={{ fontSize: "16px" }}></i>
+              <i
+                className="ph-bold ph-caret-left"
+                style={{ fontSize: "18px" }}
+              ></i>
             </button>
 
             <button
               className="pagination-nav-btn"
               disabled={pagination.page >= processedData.totalPages - 1}
               onClick={() => handlePageChange(pagination.page + 1)}
-              title="Next page"
+              title="Sonraki sayfa"
               style={{
-                width: "32px",
-                height: "32px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
-                backgroundColor: "#fff",
+                width: "36px",
+                height: "36px",
+                border: "none",
+                borderRadius: "8px",
+                backgroundColor:
+                  pagination.page >= processedData.totalPages - 1
+                    ? "#f3f4f6"
+                    : "#fff",
+                color:
+                  pagination.page >= processedData.totalPages - 1
+                    ? "#d1d5db"
+                    : "#374151",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -932,12 +999,33 @@ export function DataGrid<T extends Record<string, any>>({
                   pagination.page >= processedData.totalPages - 1
                     ? "not-allowed"
                     : "pointer",
-                opacity:
-                  pagination.page >= processedData.totalPages - 1 ? 0.5 : 1,
+                boxShadow:
+                  pagination.page >= processedData.totalPages - 1
+                    ? "none"
+                    : "0 1px 3px rgba(0, 0, 0, 0.08)",
                 transition: "all 0.2s ease",
               }}
+              onMouseEnter={(e) => {
+                if (pagination.page < processedData.totalPages - 1) {
+                  e.currentTarget.style.backgroundColor = "#f9fafb";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 2px 6px rgba(0, 0, 0, 0.12)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (pagination.page < processedData.totalPages - 1) {
+                  e.currentTarget.style.backgroundColor = "#fff";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 1px 3px rgba(0, 0, 0, 0.08)";
+                }
+              }}
             >
-              <i className="ph ph-caret-right" style={{ fontSize: "16px" }}></i>
+              <i
+                className="ph-bold ph-caret-right"
+                style={{ fontSize: "18px" }}
+              ></i>
             </button>
           </div>
         </div>

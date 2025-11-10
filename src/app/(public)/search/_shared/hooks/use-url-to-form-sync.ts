@@ -1,5 +1,5 @@
 import { useSearchParams } from "next/navigation";
-import { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import { useForm } from "@/contexts";
 
 /**
@@ -10,6 +10,8 @@ export const useUrlToFormSync = () => {
   const searchParams = useSearchParams();
   const { setValue } = useForm();
   const hasInitialized = useRef(false);
+  const [hasUrlParams, setHasUrlParams] = useState(false);
+  const [urlPropertyFilters, setUrlPropertyFilters] = useState<number[]>([]);
 
   const syncUrlToForm = useCallback(async () => {
     // Eğer daha önce initialize edildiyse, tekrar çalışmasın
@@ -23,8 +25,12 @@ export const useUrlToFormSync = () => {
     // Eğer URL'de parametre yoksa hiçbir şey yapma
     if (params.toString() === "") {
       hasInitialized.current = true;
+      setHasUrlParams(false);
       return;
     }
+
+    // URL'de parametre var demektir
+    setHasUrlParams(true);
 
     // Tüm setValue işlemlerini paralel olarak çalıştır
     const updatePromises: Promise<void>[] = [];
@@ -42,6 +48,23 @@ export const useUrlToFormSync = () => {
 
       // Özel durumlar için kontroller
       switch (key) {
+        case "minFee":
+        case "maxFee":
+          // minFee ve maxFee'yi feeRange array'ine dönüştür
+          const minFeeValue = params.get("minFee");
+          const maxFeeValue = params.get("maxFee");
+          if (minFeeValue || maxFeeValue) {
+            const minFee = minFeeValue ? Number(minFeeValue) : 1;
+            const maxFee = maxFeeValue ? Number(maxFeeValue) : 1000000;
+            if (!isNaN(minFee) && !isNaN(maxFee)) {
+              // feeRange field'ına yaz (sadece bir kere yazılsın diye key'i kontrol et)
+              if (!processedParams["feeRange"]) {
+                processedParams["feeRange"] = [minFee, maxFee];
+              }
+            }
+          }
+          break;
+
         case "feeRange":
           // feeRange parametresi birden fazla değer alabilir (array olarak)
           const feeRangeValues = params.getAll("feeRange");
@@ -50,7 +73,7 @@ export const useUrlToFormSync = () => {
               .map((val) => Number(val))
               .filter((val) => !isNaN(val));
             if (numericValues.length > 0) {
-              processedParams[key] = numericValues;
+              processedParams["feeRange"] = numericValues;
             }
           }
           break;
@@ -76,6 +99,37 @@ export const useUrlToFormSync = () => {
           }
           break;
 
+        case "propertyFilters":
+          // Property filters için array'e çevir ve ayrı bir state'te tut
+          // Form'a yazmıyoruz çünkü form'da object olarak beklendiği için uyumsuzluk olur
+          const propertyFilterValues = params.getAll("propertyFilters");
+          if (propertyFilterValues.length > 0) {
+            const numericValues = propertyFilterValues
+              .map((val) => Number(val))
+              .filter((val) => !isNaN(val));
+            // State'e kaydet, form'a yazma
+            setUrlPropertyFilters(numericValues);
+          }
+          break;
+
+        case "minAge":
+        case "maxAge":
+          // minAge ve maxAge'i ageRange array'ine dönüştür
+          // Hem minAge hem de maxAge varsa ikisini birleştir
+          const minAgeValue = params.get("minAge");
+          const maxAgeValue = params.get("maxAge");
+          if (minAgeValue || maxAgeValue) {
+            const minAge = minAgeValue ? Number(minAgeValue) : 1;
+            const maxAge = maxAgeValue ? Number(maxAgeValue) : 80;
+            if (!isNaN(minAge) && !isNaN(maxAge)) {
+              // ageRange field'ına yaz (sadece bir kere yazılsın diye key'i kontrol et)
+              if (!processedParams["ageRange"]) {
+                processedParams["ageRange"] = [minAge, maxAge];
+              }
+            }
+          }
+          break;
+
         case "ageRange":
           // ageRange için array değerlerini kontrol et
           const ageRangeValues = params.getAll("ageRange");
@@ -84,7 +138,7 @@ export const useUrlToFormSync = () => {
               .map((val) => Number(val))
               .filter((val) => !isNaN(val));
             if (numericValues.length > 0) {
-              processedParams[key] = numericValues;
+              processedParams["ageRange"] = numericValues;
             }
           }
           break;
@@ -154,4 +208,6 @@ export const useUrlToFormSync = () => {
   useEffect(() => {
     syncUrlToForm();
   }, [syncUrlToForm]);
+
+  return { hasUrlParams, urlPropertyFilters };
 };

@@ -10,7 +10,9 @@ import {
   useInstitutionPosts,
   useInstitutionProperties,
   GroupedInstitutionProperty,
+  useAppointmentData,
 } from "../hooks";
+import { AppointmentSlotDto } from "@/types";
 
 // Context State Interface
 interface InstitutionDetailState {
@@ -33,6 +35,17 @@ interface InstitutionDetailState {
   // Utility functions
   renderStars: typeof renderStars;
   formatCurrency: typeof formatCurrency;
+  // Appointment data
+  appointmentSlots: AppointmentSlotDto[];
+  appointmentSlotsLoading: boolean;
+  appointmentSlotsError: string | null;
+  currentAppointment: AppointmentSlotDto | null;
+  currentAppointmentLoading: boolean;
+  currentAppointmentError: string | null;
+  hasCurrentAppointment: boolean;
+  hasFutureAppointment: boolean;
+  refetchAppointmentSlots: () => void;
+  refetchCurrentAppointment: () => void;
 }
 
 // Context Props Interface
@@ -99,6 +112,23 @@ export function InstitutionDetailProvider({
     refetch: refetchProperties,
   } = useInstitutionProperties({ schoolId: id });
 
+  // Appointment data hook'unu kullan - TEK SEFERLIK
+  const {
+    slots: appointmentSlots,
+    slotsLoading: appointmentSlotsLoading,
+    slotsError: appointmentSlotsError,
+    refetchSlots: refetchAppointmentSlots,
+    currentAppointment,
+    currentAppointmentLoading,
+    currentAppointmentError,
+    refetchCurrentAppointment,
+    hasCurrentAppointment,
+    hasFutureAppointment,
+  } = useAppointmentData({
+    schoolId: id,
+    enabled: true,
+  });
+
   // school = tüm institution detail datası
   // campus, brand, pricings, customFees = nested objeler
   const school = institutionDetail;
@@ -141,9 +171,22 @@ export function InstitutionDetailProvider({
       refetchGalleries();
       refetchPosts();
       refetchProperties();
+      refetchAppointmentSlots();
+      refetchCurrentAppointment();
     },
     renderStars,
     formatCurrency,
+    // Appointment data
+    appointmentSlots,
+    appointmentSlotsLoading,
+    appointmentSlotsError,
+    currentAppointment,
+    currentAppointmentLoading,
+    currentAppointmentError,
+    hasCurrentAppointment,
+    hasFutureAppointment,
+    refetchAppointmentSlots,
+    refetchCurrentAppointment,
   };
 
   return (

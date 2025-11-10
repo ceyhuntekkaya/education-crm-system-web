@@ -57,7 +57,9 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   // Variant bazlı container stilleri
   const getContainerClasses = () => {
     if (variant === "outlined") {
-      return "bg-white rounded-32 px-24 py-12";
+      return grouped
+        ? "bg-white rounded-32 px-24 pt-24 pb-32"
+        : "bg-white rounded-32 px-24 py-12";
     }
     return "";
   };

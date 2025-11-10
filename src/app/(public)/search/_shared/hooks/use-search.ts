@@ -7,10 +7,14 @@ import {
 } from "@/types";
 import { SearchReturn } from "../types";
 
+interface UseSearchParams {
+  onSearchSuccess?: (data: any) => void;
+}
+
 /**
  * Arama fonksiyonalitesini yönetir
  */
-export function useSearch(): SearchReturn {
+export function useSearch(params?: UseSearchParams): SearchReturn {
   const {
     submitForm: search,
     loading: searchLoading,
@@ -18,8 +22,11 @@ export function useSearch(): SearchReturn {
   } = usePostForm<SchoolSearchDto, ApiResponseDto<SchoolSearchResultDto[]>>(
     API_ENDPOINTS.INSTITUTIONS.SCHOOLS_SEARCH,
     {
-      onSuccess: (data) => {
-        console.log("Arama başarılı:", data);
+      onSuccess: (response) => {
+        console.log("Arama başarılı:", response);
+        if (response?.success && response?.data) {
+          params?.onSearchSuccess?.(response.data);
+        }
       },
       onError: (err) => {
         console.error("Arama hatası:", err);

@@ -27,12 +27,6 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
       return [];
     }
     const values = schoolPropertyTypeIds.map((id) => id.toString());
-    console.log("🔍 School Form - Property Values:", {
-      isEditing,
-      schoolPropertiesLoading,
-      schoolPropertyTypeIds,
-      propertyValues: values,
-    });
     return values;
   }, [isEditing, schoolPropertiesLoading, schoolPropertyTypeIds]);
 

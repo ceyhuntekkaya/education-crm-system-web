@@ -32,7 +32,7 @@ interface Section {
 
 const FormContent = () => {
   const { resetForm } = useFormHook();
-  const { search, sectionChanges, institutionTypes } = useSearchContext();
+  const { search, sectionChanges, institutionTypes, resetSearch } = useSearchContext();
 
   // Favori Modal için
   const FavoriteSearchButton = () => {
@@ -182,7 +182,10 @@ const FormContent = () => {
               variant="outline"
               leftIcon="ph-arrow-clockwise"
               fullWidth
-              onClick={() => resetForm()}
+              onClick={() => {
+                resetForm();
+                resetSearch();
+              }}
               size="xxs"
             >
               {" "}

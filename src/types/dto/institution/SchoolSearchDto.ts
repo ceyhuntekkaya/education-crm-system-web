@@ -1,5 +1,3 @@
-import { InstitutionTypeListDto } from "./InstitutionTypeListDto";
-
 export interface SchoolSearchDto {
   searchTerm?: string;
   institutionTypeIds?: number[];
@@ -19,7 +17,7 @@ export interface SchoolSearchDto {
   minRating?: number;
   hasActiveCampaigns?: boolean;
   isSubscribed?: boolean;
-  propertyFilters?: InstitutionTypeListDto[];
+  propertyFilters?: number[]; // Sadece seçili property ID'leri
   sortBy?: string;
   sortDirection?: string;
   page?: number;

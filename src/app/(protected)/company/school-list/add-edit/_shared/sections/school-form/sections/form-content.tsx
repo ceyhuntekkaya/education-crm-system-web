@@ -10,7 +10,7 @@ import {
   FormAutocomplete,
   FormCheckbox,
 } from "@/components/forms";
-import { Button } from "@/components/ui/button";
+import { Button, Divider } from "@/components/ui";
 import { FileInput } from "@/components/file-input";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
@@ -92,11 +92,7 @@ export const SchoolFormContent: React.FC = () => {
 
       // 2. School güncelleme başarılıysa, property'leri güncelle
       if (schoolUpdateResponse && "success" in schoolUpdateResponse) {
-        await updateProperties(propertyTypeIds, {
-          onSuccess: () => {
-            router.push("/company/school-list");
-          },
-        });
+        await updateProperties(propertyTypeIds);
       }
     } else {
       // Add modunda:
@@ -189,9 +185,14 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
         {/* İLETİŞİM BİLGİLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">İletişim Bilgileri</h5>
+          <h5 className="mb-16">İletişim Bilgileri</h5>
         </div>
 
         {/* E-posta */}
@@ -223,9 +224,14 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
         {/* EĞİTİM BİLGİLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Eğitim Bilgileri</h5>
+          <h5 className="mb-16">Eğitim Bilgileri</h5>
         </div>
 
         {/* Minimum Yaş */}
@@ -298,9 +304,14 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
         {/* GÖRSEL BİLGİLER */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">Görsel Bilgiler</h5>
+          <h5 className="mb-16">Görsel Bilgiler</h5>
         </div>
 
         {/* Logo */}
@@ -347,9 +358,14 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
         {/* SEO BİLGİLERİ */}
         <div className="col-12">
-          <h5 className="mb-16 mt-16">SEO Bilgileri</h5>
+          <h5 className="mb-16">SEO Bilgileri</h5>
         </div>
 
         {/* Meta Başlık */}
@@ -382,20 +398,27 @@ export const SchoolFormContent: React.FC = () => {
 
         {/* ÖZELLİK DEĞERLERİ - PropertyValues */}
         {currentPropertyGroups.length > 0 && (
-          <div className="col-12">
-            <FormCheckbox
-              name="propertyValues"
-              label=""
-              grouped={true}
-              groups={currentPropertyGroups}
-              groupedTitle="Özellikler"
-              groupedDescription="Seçili kurum tipine özel özellikleri seçiniz."
-              disabled={propertyValuesLoading}
-              direction="horizontal"
-              col={4}
-              variant="outlined"
-            />
-          </div>
+          <>
+            {/* Divider */}
+            <div className="col-12">
+              <Divider />
+            </div>
+
+            <div className="col-12">
+              <FormCheckbox
+                name="propertyValues"
+                label=""
+                grouped
+                groups={currentPropertyGroups}
+                groupedTitle="Özellikler"
+                groupedDescription="Seçili kurum tipine özel özellikleri seçiniz."
+                disabled={propertyValuesLoading}
+                direction="horizontal"
+                col={4}
+                variant="outlined"
+              />
+            </div>
+          </>
         )}
 
         {/* FORM BUTONLARI */}

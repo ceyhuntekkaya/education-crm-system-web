@@ -1,10 +1,11 @@
-import { SchoolSearchDto } from "@/types";
-import { mockInstitutions } from "../mock";
+import { SchoolSearchDto, SchoolSearchResultDto } from "@/types";
 
 // Context'te tutulacak değerlerin tipi
 export interface SearchContextValue {
-  // Mock veriler (geliştirme aşamasında kullanılıyor)
-  institutions: typeof mockInstitutions;
+  // API'den gelen veriler
+  institutions: SchoolSearchResultDto[];
+  totalElements: number;
+  hasSearched: boolean; // İlk arama yapıldı mı?
 
   // Kurum türleri ham verisi
   institutionTypes: any[];
@@ -72,6 +73,7 @@ export interface SearchContextValue {
   search: (data: SchoolSearchDto) => Promise<any>; // Arama fonksiyonu
   searchLoading: boolean; // Arama yükleniyor durumu
   searchError: any; // Arama hata durumu
+  resetSearch: () => void; // Arama'yı sıfırla ve initial state'e dön
 }
 
 // Context Provider component'i için props tipi

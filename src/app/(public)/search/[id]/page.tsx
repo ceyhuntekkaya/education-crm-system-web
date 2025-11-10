@@ -126,6 +126,7 @@ export default function InstitutionDetailPage({
           <InstitutionLocationInfo />
         </div>
       ),
+      isActive: true,
     },
     // {
     //   id: "pills-brand",
@@ -239,7 +240,6 @@ export default function InstitutionDetailPage({
           <CurrentAppointment />
         </ProtectedContent>
       ),
-      isActive: true,
     },
     {
       id: "pills-appointment-create",

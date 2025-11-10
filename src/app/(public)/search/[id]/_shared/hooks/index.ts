@@ -4,3 +4,4 @@ export * from "./use-institution-campaigns";
 export * from "./use-institution-galleries";
 export * from "./use-institution-posts";
 export * from "./use-institution-properties";
+export * from "./use-appointment-data";

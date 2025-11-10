@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { getSlotTypeIcon, getTypeDisplayName } from "@/utils";
 import { AppointmentSlotDto } from "@/types";
-import { useAppointmentSlots } from "../../../appointment-create/hooks";
+import { useInstitutionDetail } from "../../../../contexts";
 import { useForm } from "@/contexts";
 import { FormAutocomplete } from "@/components/forms";
 
@@ -24,10 +24,12 @@ export const RescheduleDateTimeStep: React.FC<RescheduleDateTimeStepProps> = ({
   const appointmentDate = getValue("appointmentDate") || "";
   const selectedSlotId = getValue("selectedSlotId");
 
-  // Slot'ları getir
-  const { slots, slotsLoading, refetchSlots } = useAppointmentSlots({
-    schoolId: Number(schoolId),
-  });
+  // InstitutionDetailContext'ten slots'u al - TEK KAYNAK
+  const { 
+    appointmentSlots: slots, 
+    appointmentSlotsLoading: slotsLoading,
+    refetchAppointmentSlots: refetchSlots 
+  } = useInstitutionDetail();
 
   // Tarihe göre gruplandırılmış slotlar
   const slotsByDate = useMemo(() => {

@@ -6,6 +6,7 @@ import {
   isFormDataReadyForDto,
 } from "../schemas/dto-mapping-schema";
 import { useCreateAppointment } from "./use-create-appointment";
+import { useInstitutionDetail } from "../../../contexts";
 
 export interface UseAppointmentSubmissionReturn {
   // State
@@ -24,6 +25,9 @@ export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
   // Get form data and validation directly from useFormHook
   const { values, validateForm } = useFormHook();
 
+  // InstitutionDetailContext'ten refetch fonksiyonlarını al
+  const { refetchCurrentAppointment, refetchAppointmentSlots } = useInstitutionDetail();
+
   // API hook for creating appointment
   const { createAppointment, isCreating } = useCreateAppointment(
     (appointment) => {
@@ -34,6 +38,10 @@ export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
         message: "Randevu başarıyla oluşturuldu!",
         appointment,
       });
+
+      // Randevu oluşturulduktan sonra mevcut randevu ve slot verilerini yenile
+      refetchCurrentAppointment();
+      refetchAppointmentSlots();
     },
     (error) => {
       // Error callback

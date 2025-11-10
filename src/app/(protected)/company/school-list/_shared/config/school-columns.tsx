@@ -10,31 +10,13 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
     width: 80,
     sortable: false,
     renderCell: (params) => (
-      <div className="d-flex align-items-center justify-content-center h-100">
-        {params?.row?.logoUrl ? (
-          <CustomImage
-            src={params.row.logoUrl}
-            alt={params?.row?.name || "Okul Logosu"}
-            width={36}
-            height={36}
-            className="rounded-circle"
-            style={{ objectFit: "cover", border: "1px solid #e9ecef" }}
-          />
-        ) : (
-          <div
-            className="rounded-circle d-flex align-items-center justify-content-center"
-            style={{
-              width: "36px",
-              height: "36px",
-              backgroundColor:
-                params?.row?.institutionType?.colorCode || "#8B5CF6",
-              color: "white",
-            }}
-          >
-            <i className="ph ph-graduation-cap" style={{ fontSize: "18px" }} />
-          </div>
-        )}
-      </div>
+      <CustomImage
+        src={params.row.logoUrl}
+        alt={params?.row?.name || "Okul Logosu"}
+        width={40}
+        height={40}
+        variant="card"
+      />
     ),
   },
 
