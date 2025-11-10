@@ -22,7 +22,11 @@ export const usePut = <TData = unknown, TVariables = unknown>(
       const endpoint = typeof url === "function" ? url(data) : url;
 
       return api.executeMutation(
-        (variables: TVariables) => apiClient.put<TData>(endpoint, variables),
+        (variables: TVariables) => apiClient.put<TData>(endpoint, variables, {
+          headers: {
+            'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+          }
+        }),
         data,
         combinedOptions
       );
@@ -72,7 +76,11 @@ export const usePatch = <TData = unknown, TVariables = unknown>(
       const endpoint = typeof url === "function" ? url(data) : url;
 
       return api.executeMutation(
-        (variables: TVariables) => apiClient.patch<TData>(endpoint, variables),
+        (variables: TVariables) => apiClient.patch<TData>(endpoint, variables, {
+          headers: {
+            'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+          }
+        }),
         data,
         combinedOptions
       );

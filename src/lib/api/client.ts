@@ -95,8 +95,9 @@ class ApiClient {
         }
 
         // Success snackbar göster (GET istekleri hariç)
+        const showSnackbar = response.config.headers?.['X-Show-Snackbar'] !== 'false';
         const method = response.config.method?.toUpperCase();
-        if (method && ["POST", "PUT", "DELETE", "PATCH"].includes(method)) {
+        if (showSnackbar && method && ["POST", "PUT", "DELETE", "PATCH"].includes(method)) {
           const successMessages: { [key: string]: string } = {
             POST: "İşlem başarıyla oluşturuldu",
             PUT: "İşlem başarıyla güncellendi",
@@ -151,7 +152,10 @@ class ApiClient {
         }
 
         // Error snackbar göster
-        snackbarService.error(errorMessage);
+        const showSnackbar = error.config?.headers?.['X-Show-Snackbar'] !== 'false';
+        if (showSnackbar) {
+          snackbarService.error(errorMessage);
+        }
 
         return Promise.reject(error);
       }
