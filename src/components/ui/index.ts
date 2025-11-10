@@ -12,6 +12,7 @@ export { default as CustomImage } from "./custom-image";
 export { default as CustomCard } from "./custom-card";
 export { default as SnackbarContainer } from "./snackbar";
 export { CoverImage } from "./cover-image";
+export { Divider } from "./divider";
 
 // Modal Components - Using the new modal structure
 export * from "./modal";

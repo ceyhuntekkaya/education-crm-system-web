@@ -8,14 +8,38 @@ import { UPLOAD_SERVE_URL } from "@/lib/api/constants";
 const DEFAULT_ERROR_IMAGE =
   "https://static.thenounproject.com/png/504708-200.png";
 
+export type ImageVariant =
+  | "default"
+  | "rounded"
+  | "rounded-sm"
+  | "rounded-lg"
+  | "card"
+  | "circle"
+  | "square";
+
 interface CustomImageProps extends Omit<ImageProps, "src"> {
   src?: string | undefined | null;
   tempImage?: string;
   onError?: () => void;
+  variant?: ImageVariant;
 }
 
+// Variant'a göre CSS class'ları
+const variantStyles: Record<ImageVariant, string> = {
+  default: "",
+  "rounded-sm": "rounded-4",
+  rounded: "rounded-8",
+  "rounded-lg": "rounded-16",
+  card: "rounded-16",
+  circle: "rounded-circle",
+  square: "rounded-0",
+};
+
 const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
-  ({ src, tempImage, onError, alt, ...props }, ref) => {
+  (
+    { src, tempImage, onError, alt, variant = "default", className, ...props },
+    ref
+  ) => {
     const [imageError, setImageError] = useState(false);
 
     // src veya tempImage değiştiğinde imageError state'ini sıfırla
@@ -74,6 +98,94 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
       return normalizeImageUrl(tempImage) || DEFAULT_ERROR_IMAGE;
     })();
 
+    // Error image kontrolü
+    const isErrorImage = imageSrc === DEFAULT_ERROR_IMAGE;
+
+    // Circle variant için özel işlem
+    if (variant === "circle") {
+      const { width, height, style, ...restProps } = props;
+
+      // Width veya height verilmişse, en büyük olanı kullan (kare yap)
+      const size = width || height || 100;
+
+      return (
+        <div
+          style={{
+            width: typeof size === "number" ? `${size}px` : size,
+            height: typeof size === "number" ? `${size}px` : size,
+            position: "relative",
+            overflow: "hidden",
+            borderRadius: "50%",
+            flexShrink: 0,
+            backgroundColor: isErrorImage ? "#f5f6f7" : "transparent",
+            ...style,
+          }}
+          className={className}
+        >
+          <Image
+            ref={ref}
+            {...restProps}
+            fill
+            src={imageSrc}
+            alt={alt}
+            onError={handleImageError}
+            style={{
+              objectFit: isErrorImage ? "contain" : "cover",
+              padding: isErrorImage ? "20%" : "0",
+            }}
+          />
+        </div>
+      );
+    }
+
+    // Card variant için özel işlem
+    if (variant === "card") {
+      const { width, height, style, ...restProps } = props;
+
+      return (
+        <div
+          style={{
+            width: width
+              ? typeof width === "number"
+                ? `${width}px`
+                : width
+              : "100%",
+            height: height
+              ? typeof height === "number"
+                ? `${height}px`
+                : height
+              : "auto",
+            position: "relative",
+            overflow: "hidden",
+            borderRadius: "16px",
+            backgroundColor: isErrorImage ? "#f5f6f7" : "transparent",
+            ...style,
+          }}
+          className={className}
+        >
+          <Image
+            ref={ref}
+            {...restProps}
+            fill={!!(width && height)}
+            width={!width || !height ? width : undefined}
+            height={!width || !height ? height : undefined}
+            src={imageSrc}
+            alt={alt}
+            onError={handleImageError}
+            style={{
+              objectFit: isErrorImage ? "contain" : "cover",
+              padding: isErrorImage ? "15%" : "0",
+            }}
+          />
+        </div>
+      );
+    }
+
+    // Diğer variant'lar için normal işlem
+    const imageClassName = [variantStyles[variant], className]
+      .filter(Boolean)
+      .join(" ");
+
     return (
       <Image
         ref={ref}
@@ -81,6 +193,7 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
         src={imageSrc}
         alt={alt}
         onError={handleImageError}
+        className={imageClassName || undefined}
       />
     );
   }
