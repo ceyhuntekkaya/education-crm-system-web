@@ -76,6 +76,17 @@ export const useUrlToFormSync = () => {
           }
           break;
 
+        case "propertyFilters":
+          // Property filters için array'e çevir
+          const propertyFilterValues = params.getAll("propertyFilters");
+          if (propertyFilterValues.length > 0) {
+            const numericValues = propertyFilterValues
+              .map((val) => Number(val))
+              .filter((val) => !isNaN(val));
+            processedParams[key] = numericValues;
+          }
+          break;
+
         case "ageRange":
           // ageRange için array değerlerini kontrol et
           const ageRangeValues = params.getAll("ageRange");
