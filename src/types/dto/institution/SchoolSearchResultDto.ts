@@ -36,4 +36,9 @@ export interface SchoolSearchResultDto {
   };
   // Notlar için
   isActiveNotes?: boolean;
+  // Properties (institution type ve property group bilgileri)
+  properties?: {
+    institutionTypeDto?: any;
+    propertyGroupTypeDtos?: any[];
+  };
 }

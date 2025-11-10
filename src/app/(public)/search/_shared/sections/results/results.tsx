@@ -1,17 +1,20 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { InstitutionCard } from "./institution-card/institution-card";
+import { InstitutionCard } from "../institution-card/institution-card";
 import { SchoolSearchResultDto } from "@/types/dto/institution/InstitutionSearch.types";
+import NoResults from "./no-results";
+import LoadingState from "./loading-state";
 
 const CARDS_PER_ROW = 3;
 const ANIMATION_DELAY_INCREMENT = 100;
 
 interface ResultsProps {
   institutions: SchoolSearchResultDto[];
+  loading?: boolean;
 }
 
-const Results = ({ institutions }: ResultsProps) => {
+const Results = ({ institutions, loading = false }: ResultsProps) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
@@ -47,6 +50,16 @@ const Results = ({ institutions }: ResultsProps) => {
       }
     }, 50);
   };
+
+  // Loading state - skeleton cards göster
+  if (loading) {
+    return <LoadingState count={6} />;
+  }
+
+  // No results state
+  if (!loading && institutions.length === 0) {
+    return <NoResults />;
+  }
 
   // Split institutions into rows
   const rows: SchoolSearchResultDto[][] = [];

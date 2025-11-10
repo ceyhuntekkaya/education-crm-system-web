@@ -4,12 +4,13 @@ import {
   Results,
   ActiveFilters,
   useSearchContext,
+  InitialSearchState,
 } from "./_shared";
 import { Loading } from "@/components";
 import { Suspense } from "react";
 
 const SearchPageContent = () => {
-  const { institutions } = useSearchContext();
+  const { institutions, hasSearched, searchLoading } = useSearchContext();
 
   return (
     <div>
@@ -25,8 +26,14 @@ const SearchPageContent = () => {
               <FilterForm />
             </div>
             <div className="col-lg-9">
-              <ActiveFilters />
-              <Results institutions={institutions} />
+              {!hasSearched ? (
+                <InitialSearchState />
+              ) : (
+                <>
+                  <ActiveFilters />
+                  <Results institutions={institutions} loading={searchLoading} />
+                </>
+              )}
             </div>
           </div>
         </div>

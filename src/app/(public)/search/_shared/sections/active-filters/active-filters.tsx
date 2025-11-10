@@ -4,10 +4,42 @@ import React from "react";
 import { Button } from "@/components";
 import { SearchResultsInfo, GroupedFiltersContainer } from "./components";
 import { useActiveFilters } from "./hooks";
+import { useSearchContext } from "../../contexts";
+import { createApiParams, cleanApiParams } from "../../utils";
 
 const ActiveFilters: React.FC = () => {
-  const { totalActiveFilters, resultCount, hasActiveFilters, resetForm } =
-    useActiveFilters();
+  const {
+    totalActiveFilters,
+    resultCount,
+    hasActiveFilters,
+    resetForm,
+    values,
+    isDirty,
+  } = useActiveFilters();
+  const { search, searchLoading, institutionTypes, hasSearched, resetSearch } = useSearchContext();
+
+  // Değişiklikleri kaydet ve API'ye gönder
+  const handleSaveChanges = () => {
+    // API parametrelerini oluştur
+    const apiParams = createApiParams(values, institutionTypes);
+    const cleanParams = cleanApiParams(apiParams);
+
+    console.log("Değişiklikler kaydediliyor, API parametreleri:", cleanParams);
+
+    // Arama yap
+    search(cleanParams);
+  };
+
+  // Form'u temizle ve initial state'e dön
+  const handleReset = () => {
+    resetForm();
+    resetSearch();
+  };
+
+  // Henüz arama yapılmadıysa hiçbir şey gösterme
+  if (!hasSearched) {
+    return null;
+  }
 
   // Aktif filter yoksa sadece sonuç sayısını göster
   if (!hasActiveFilters) {
@@ -38,16 +70,32 @@ const ActiveFilters: React.FC = () => {
             </div>
           </div>
         </div>
-        <Button
-          type="button"
-          variant="outline"
-          size="xxs"
-          leftIcon="ph-trash"
-          onClick={resetForm}
-          className="text-neutral-500 hover-text-danger-600"
-        >
-          Temizle
-        </Button>
+        <div className="d-flex gap-8">
+          {isDirty && (
+            <Button
+              type="button"
+              variant="inline"
+              size="xxs"
+              leftIcon="ph-floppy-disk"
+              onClick={handleSaveChanges}
+              loading={searchLoading}
+              disabled={searchLoading}
+              className="text-white"
+            >
+              Değişiklikleri Kaydet
+            </Button>
+          )}
+          <Button
+            type="button"
+            variant="outline"
+            size="xxs"
+            leftIcon="ph-trash"
+            onClick={handleReset}
+            className="text-neutral-500 hover-text-danger-600"
+          >
+            Temizle
+          </Button>
+        </div>
       </div>
 
       <GroupedFiltersContainer />

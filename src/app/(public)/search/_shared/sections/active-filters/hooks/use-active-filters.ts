@@ -22,7 +22,7 @@ export interface UseActiveFiltersReturn {
 }
 
 export const useActiveFilters = (): UseActiveFiltersReturn => {
-  const { options, institutions, institutionTypes } = useSearchContext();
+  const { options, institutions, institutionTypes, totalElements } = useSearchContext();
   const { values, updateField, resetForm, isDirty } = useFormHook();
 
   // Compute filter groups
@@ -38,7 +38,8 @@ export const useActiveFilters = (): UseActiveFiltersReturn => {
     );
   }, [filterGroups]);
 
-  const resultCount = institutions.length;
+  // API'den gelen totalElements'i kullan, yoksa institutions.length kullan
+  const resultCount = totalElements || institutions.length;
   const hasActiveFilters = totalActiveFilters > 0;
 
   // Filter removal logic

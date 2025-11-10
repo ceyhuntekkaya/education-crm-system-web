@@ -13,3 +13,4 @@ export { ExpandTrigger } from "./expand-trigger";
 export { Description } from "./description";
 export { Actions } from "./actions";
 export { StatusIndicators } from "./status-indicators";
+export { default as SkeletonCard } from "./skeleton-card";
