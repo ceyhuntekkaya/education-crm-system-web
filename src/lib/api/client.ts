@@ -10,7 +10,7 @@ import { snackbarService } from "../snackbar-service";
 class ApiClient {
   private client: AxiosInstance;
 
-  constructor(baseURL: string = "https://api.egitimiste.com/api") {
+  constructor(baseURL: string = "https://demo.designexium.co.uk/api") {
     this.client = axios.create({
       baseURL,
       timeout: 10000,
