@@ -66,9 +66,12 @@ export const NewListForm: React.FC<NewListFormProps> = ({ isVisible }) => {
                 className="btn-main w-100 h-100 d-flex align-items-center justify-content-center p-0"
                 onClick={handleCreateList}
                 disabled={isCreating || listsLoading}
-                title={isCreating ? "Oluşturuluyor..." : "Yeni Liste Oluştur"}
               >
-                <i className={`ph-bold ${isCreating ? 'ph-spinner ph-spin' : 'ph-plus'} text-xl`} />
+                <i
+                  className={`ph-bold ${
+                    isCreating ? "ph-spinner ph-spin" : "ph-plus"
+                  } text-xl`}
+                />
               </Button>
             </div>
           </div>
@@ -85,4 +88,3 @@ export const NewListForm: React.FC<NewListFormProps> = ({ isVisible }) => {
     </div>
   );
 };
-
