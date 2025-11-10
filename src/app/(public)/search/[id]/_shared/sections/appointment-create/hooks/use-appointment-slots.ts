@@ -1,7 +1,7 @@
 "use client";
 
 import { usePost } from "@/hooks";
-import { API_ENDPOINTS } from "@/lib";
+import { API_ENDPOINTS, ApiResponse } from "@/lib";
 import { AppointmentSlotDto } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -17,14 +17,7 @@ interface AppointmentSlotSearchRequest {
 /**
  * API Response wrapper - Backend'den gelen standart response yapısı
  */
-interface ApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
-  errors: any | null;
-  timestamp: string;
-  path: string;
-}
+
 
 interface UseAppointmentSlotsProps {
   schoolId: number;
@@ -58,6 +51,7 @@ export const useAppointmentSlots = ({
     ApiResponse<AppointmentSlotDto[]>,
     AppointmentSlotSearchRequest
   >(API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_DATE, {
+    showSnackbar: false, // ⚠️ Snackbar gösterimini kapat
     onSuccess: (response) => {
       console.log("✅ Slot API Response:", response);
 

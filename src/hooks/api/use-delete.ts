@@ -22,7 +22,11 @@ export const useDelete = <TData = unknown, TVariables = unknown>(
       const endpoint = typeof url === "function" ? url(data) : url;
 
       return api.executeMutation(
-        () => apiClient.delete<TData>(endpoint),
+        () => apiClient.delete<TData>(endpoint, {
+          headers: {
+            'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+          }
+        }),
         data,
         combinedOptions
       );
@@ -74,7 +78,11 @@ export const useDeleteById = <TData = unknown>(
       const url = `${baseUrl}/${id}`;
 
       return api.executeMutation(
-        () => apiClient.delete<TData>(url),
+        () => apiClient.delete<TData>(url, {
+          headers: {
+            'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+          }
+        }),
         id,
         combinedOptions
       );
@@ -124,7 +132,12 @@ export const useBulkDelete = <TData = unknown>(
 
       return api.executeMutation(
         (variables: (string | number)[]) =>
-          apiClient.delete<TData>(url, { data: { ids: variables } }),
+          apiClient.delete<TData>(url, { 
+            data: { ids: variables },
+            headers: {
+              'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+            }
+          }),
         ids,
         combinedOptions
       );

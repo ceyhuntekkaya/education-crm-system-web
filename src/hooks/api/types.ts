@@ -24,6 +24,8 @@ export interface MutationOptions<TData = unknown, TVariables = unknown> {
   onSuccess?: (data: TData, variables: TVariables) => void;
   onError?: (error: string, variables: TVariables) => void;
   onFinally?: (variables: TVariables) => void;
+  // Snackbar gösterimini kontrol eder (default: true)
+  showSnackbar?: boolean;
 }
 
 // Pagination için

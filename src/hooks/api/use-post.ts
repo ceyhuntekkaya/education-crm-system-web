@@ -21,7 +21,11 @@ export const usePost = <TData = unknown, TVariables = unknown>(
       const combinedOptions = { ...options, ...mutationOptions };
 
       return api.executeMutation(
-        (variables: TVariables) => apiClient.post<TData>(url, variables),
+        (variables: TVariables) => apiClient.post<TData>(url, variables, {
+          headers: {
+            'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+          }
+        }),
         data,
         combinedOptions
       );
@@ -112,7 +116,11 @@ export const usePostForm = <
       const payload = normalizeForm(formData);
 
       return api.executeMutation(
-        (variables: TFormData) => apiClient.post<TResponse>(url, variables),
+        (variables: TFormData) => apiClient.post<TResponse>(url, variables, {
+          headers: {
+            'X-Show-Snackbar': combinedOptions.showSnackbar !== false ? 'true' : 'false'
+          }
+        }),
         payload,
         combinedOptions
       );
