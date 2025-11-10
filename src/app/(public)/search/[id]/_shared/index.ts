@@ -1,5 +1,6 @@
 // Detail Page Components
 export * from "./sections";
+export * from "./components";
 
 // Detail Page Hooks
 export * from "./hooks";

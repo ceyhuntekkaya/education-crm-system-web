@@ -4,8 +4,6 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { formatCurrency, renderStars } from "../utils";
 import {
   useInstitutionDetailHook,
-  useInstitutionPricingHook,
-  useInstitutionCampaigns,
   useInstitutionGalleries,
   useInstitutionPosts,
   useInstitutionProperties,
@@ -80,13 +78,13 @@ export function InstitutionDetailProvider({
   //   refetch: refetchPricing,
   // } = useInstitutionPricingHook({ schoolId: id });
 
-  // Campaigns hook'unu kullan
-  const {
-    campaigns: campaignsData,
-    loading: campaignsLoading,
-    error: campaignsError,
-    refetch: refetchCampaigns,
-  } = useInstitutionCampaigns({ schoolId: id });
+  // Campaigns artık institutionDetail.activeCampaigns'den alınıyor (ayrı API isteği yok)
+  // const {
+  //   campaigns: campaignsData,
+  //   loading: campaignsLoading,
+  //   error: campaignsError,
+  //   refetch: refetchCampaigns,
+  // } = useInstitutionCampaigns({ schoolId: id });
 
   // Galleries hook'unu kullan
   const {
@@ -130,12 +128,13 @@ export function InstitutionDetailProvider({
   });
 
   // school = tüm institution detail datası
-  // campus, brand, pricings, customFees = nested objeler
+  // campus, brand, pricings, customFees, activeCampaigns = nested objeler
   const school = institutionDetail;
   const campus = institutionDetail?.campus || null;
   const brand = institutionDetail?.brand || null;
   const pricings = institutionDetail?.pricings || [];
   const customFees = institutionDetail?.customFees || [];
+  const campaigns = institutionDetail?.activeCampaigns || [];
 
   const contextValue: InstitutionDetailState = {
     institutionDetail,
@@ -144,7 +143,7 @@ export function InstitutionDetailProvider({
     brand: brand,
     pricings: pricings, // institutionDetail.pricings'den alınıyor
     customFees: customFees, // institutionDetail.customFees'den alınıyor
-    campaigns: campaignsData || [],
+    campaigns: campaigns, // institutionDetail.activeCampaigns'den alınıyor
     galleries: galleriesData || [],
     posts: postsData || [],
     institutionProperties: propertiesData || [],
@@ -153,21 +152,21 @@ export function InstitutionDetailProvider({
     loading:
       institutionLoading ||
       // pricingLoading || // YORUM: Artık pricing ayrı hook'tan gelmiyor
-      campaignsLoading ||
+      // campaignsLoading || // YORUM: Artık campaigns ayrı hook'tan gelmiyor
       galleriesLoading ||
       postsLoading ||
       propertiesLoading,
     error:
       institutionError ||
       // pricingError || // YORUM: Artık pricing ayrı hook'tan gelmiyor
-      campaignsError ||
+      // campaignsError || // YORUM: Artık campaigns ayrı hook'tan gelmiyor
       galleriesError ||
       postsError ||
       propertiesError,
     refetch: () => {
       refetchInstitution();
       // refetchPricing(); // YORUM: Artık pricing ayrı hook'tan gelmiyor
-      refetchCampaigns();
+      // refetchCampaigns(); // YORUM: Artık campaigns ayrı hook'tan gelmiyor
       refetchGalleries();
       refetchPosts();
       refetchProperties();
