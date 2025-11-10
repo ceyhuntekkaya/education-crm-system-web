@@ -1,4 +1,3 @@
-export { useCurrentAppointment } from "./use-current-appointment";
 export {
   useAppointmentReschedule,
   type AppointmentRescheduleRequestDto,

@@ -8,9 +8,9 @@ import {
   useStepNavigation,
   useAppointmentSubmission,
   useAppointmentFormData,
-  useAppointmentSlots,
 } from "../hooks";
 import { useFormHook } from "@/hooks/use-form-hook";
+import { useInstitutionDetail } from "../../../contexts";
 
 /**
  * Appointment Context Type - Register form mimarisini takip eder
@@ -47,6 +47,11 @@ interface AppointmentContextType {
   // Slot management - Hook'tan gelen tüm fonksiyonlar
   slots: any[];
   refetchSlots: () => void;
+
+  // Current appointment info
+  hasCurrentAppointment: boolean;
+  hasFutureAppointment: boolean;
+  currentAppointment: any;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -98,13 +103,16 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
   const { submitForm, isSubmitting, submissionResult } =
     useAppointmentSubmission();
 
-  // Slots
-  const { slots, slotsLoading, slotsError, refetchSlots } = useAppointmentSlots(
-    {
-      schoolId,
-      enabled: !!schoolId,
-    }
-  );
+  // InstitutionDetailContext'ten appointment verilerini al - TEK KAYNAK
+  const {
+    appointmentSlots: slots,
+    appointmentSlotsLoading: slotsLoading,
+    appointmentSlotsError: slotsError,
+    refetchAppointmentSlots: refetchSlots,
+    hasCurrentAppointment,
+    hasFutureAppointment,
+    currentAppointment,
+  } = useInstitutionDetail();
 
   // Context value
   const contextValue: AppointmentContextType = useMemo(
@@ -140,6 +148,11 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
       // Slot data
       slots,
       refetchSlots,
+
+      // Current appointment info
+      hasCurrentAppointment,
+      hasFutureAppointment,
+      currentAppointment,
     }),
     [
       values,
@@ -160,6 +173,9 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
       handleStepClick,
       slots,
       refetchSlots,
+      hasCurrentAppointment,
+      hasFutureAppointment,
+      currentAppointment,
     ]
   );
 

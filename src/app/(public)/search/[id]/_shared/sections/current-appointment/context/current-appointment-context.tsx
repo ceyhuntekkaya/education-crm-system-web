@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { CurrentAppointmentContextType } from "../types";
-import { useCurrentAppointment } from "../hooks/use-current-appointment";
+import { useInstitutionDetail } from "../../../contexts";
 import {
   useAppointmentReschedule,
   AppointmentRescheduleRequestDto,
@@ -24,27 +24,34 @@ interface CurrentAppointmentProviderProps {
 export const CurrentAppointmentProvider: React.FC<
   CurrentAppointmentProviderProps
 > = ({ children, schoolId }) => {
-  // Current appointment hook'unu kullan (userId useAuth'dan alınıyor)
+  // InstitutionDetailContext'ten appointment verilerini al - TEK KAYNAK
   const {
     currentAppointment,
-    appointmentLoading,
-    appointmentError,
-    refetchAppointment,
-  } = useCurrentAppointment({ schoolId });
+    currentAppointmentLoading,
+    currentAppointmentError,
+    refetchCurrentAppointment,
+    refetchAppointmentSlots,
+  } = useInstitutionDetail();
+
+  // Refetch callback'i - hem current appointment hem de slots'u yenile
+  const handleRefetchAfterChange = () => {
+    refetchCurrentAppointment();
+    refetchAppointmentSlots();
+  };
 
   // Reschedule hook'unu kullan - başarılı işlemden sonra otomatik refetch
   const { rescheduleAppointment, isRescheduling, rescheduleError } =
-    useAppointmentReschedule(refetchAppointment);
+    useAppointmentReschedule(handleRefetchAfterChange);
 
   // Cancel hook'unu kullan - başarılı işlemden sonra otomatik refetch
   const { cancelAppointment, isCancelling, cancelError } =
-    useAppointmentCancel(refetchAppointment);
+    useAppointmentCancel(handleRefetchAfterChange);
 
   const contextValue: CurrentAppointmentContextType = {
     currentAppointment,
-    isLoading: appointmentLoading,
-    error: appointmentError,
-    refetch: refetchAppointment,
+    isLoading: currentAppointmentLoading,
+    error: currentAppointmentError,
+    refetch: refetchCurrentAppointment,
     rescheduleAppointment,
     isRescheduling,
     rescheduleError,
