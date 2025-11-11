@@ -4,7 +4,7 @@
 
 import type { RegisterFormData, RegisterResponse } from "./register.types";
 import type { RegistrationType } from "../register-form";
-import type { SubscriptionPlanDto } from "@/types";
+import type { SubscriptionPlanDto, ApiResponseDto, UserDto } from "@/types";
 
 // Location data interface
 export interface LocationOption {
@@ -103,7 +103,7 @@ export interface RegisterContextType {
   updateFormData: (step: number, data: any) => void;
   sendVerificationCode: () => Promise<void>;
   verifyCode: (code: string) => Promise<boolean>;
-  submitRegistration: () => Promise<RegisterResponse | null>;
+  submitRegistration: () => Promise<ApiResponseDto<UserDto> | null>;
 
   // Verification UI Handlers
   handleInputChange: (index: number, value: string) => void;

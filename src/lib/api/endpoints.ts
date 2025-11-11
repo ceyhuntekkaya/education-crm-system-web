@@ -186,6 +186,7 @@ export const API_ENDPOINTS = {
 
   // Users endpoints
   USERS: {
+    REGISTER: "/users/register",
     BY_CAMPUS: (campusId: string | number) => `/users/campus/${campusId}`,
     BY_ID: (userId: string | number) => `/users/${userId}`,
     PROFILE: (userId: string | number) => `/users/${userId}/profile`,

@@ -15,6 +15,7 @@ export * from "./UserInstitutionAccessGrantDto";
 export * from "./UserListDto";
 export * from "./UserLoginDto";
 export * from "./UserProfileDto";
+export * from "./UserRegistrationDto";
 export * from "./UserRoleAssignDto";
 export * from "./UserSearchDto";
 export * from "./UserStatisticsDto";

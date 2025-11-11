@@ -11,6 +11,5 @@ export { RegisterProvider, useRegister } from "./context";
 export {
   useRegisterSteps,
   useStepValidation,
-  useRegistrationSubmit,
   useVerificationFlow,
 } from "./hooks";

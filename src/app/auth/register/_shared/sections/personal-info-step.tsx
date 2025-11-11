@@ -52,7 +52,7 @@ export const PersonalInfoStep: React.FC = () => {
             />
             <small className="text-neutral-500 mt-4 d-block">
               <i className="ph-info me-4" />
-              E-posta adresi Step 1'de kaydedildi
+              E-posta adresi Step 1&apos;de kaydedildi
             </small>
           </div>
 

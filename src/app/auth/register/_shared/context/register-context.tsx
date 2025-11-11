@@ -210,8 +210,9 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     }
   }, [userId, values, submitPayment, showSnackbar, nextStep]);
 
-  const handleSubmitStep7 = useCallback(async () => {
-    if (!userId) return;
+  // Internal submit function with return value
+  const handleSubmitStep7WithResponse = useCallback(async () => {
+    if (!userId) return null;
     
     // Backend: RegisterVerificationDto (userId)
     const payload = {
@@ -223,7 +224,13 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
       showSnackbar("Kayıt işlemi başarıyla tamamlandı!", "success");
       // Step 7 son adım, success page gösterilecek (nextStep çağrılmaz)
     }
+    return response || null;
   }, [userId, submitVerification, showSnackbar]);
+
+  // Void wrapper for submitStep7
+  const handleSubmitStep7 = useCallback(async () => {
+    await handleSubmitStep7WithResponse();
+  }, [handleSubmitStep7WithResponse]);
 
   // Context value
   const contextValue: RegisterContextType = {
@@ -287,7 +294,7 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     updateFormData: () => {}, // FormProvider handles this
     sendVerificationCode,
     verifyCode,
-    submitRegistration: handleSubmitStep7, // Son adımda çağrılacak (legacy uyumluluk için)
+    submitRegistration: handleSubmitStep7WithResponse, // Son adımda çağrılacak (legacy uyumluluk için)
     handleStepClick,
 
     // Verification UI Handlers
