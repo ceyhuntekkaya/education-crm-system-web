@@ -4,12 +4,13 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import {
   ApiResponseDto,
-  PageParentSchoolListItemResponse,
+  SchoolSearchResultDto,
 } from "@/types";
 
 /**
  * Hook to fetch parent school list items
- * Simply fetches all items for a given list ID
+ * Fetches all schools for a given list ID
+ * API returns school data directly in the format needed for cards
  */
 export const useGetListItems = (listId: number | null) => {
   // Build endpoint URL: /parent/school-lists/{listId}/schools
@@ -20,12 +21,12 @@ export const useGetListItems = (listId: number | null) => {
     loading,
     error,
     refetch,
-  } = useGet<ApiResponseDto<PageParentSchoolListItemResponse>>(url, {
+  } = useGet<ApiResponseDto<SchoolSearchResultDto[]>>(url, {
     enabled: !!listId,
   });
 
   return {
-    listItems: response?.data?.content || [],
+    listItems: response?.data || [],
     loading,
     error,
     refetch,

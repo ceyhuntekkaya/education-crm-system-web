@@ -1,6 +1,6 @@
 import {
-  ParentSchoolListItemResponse,
   ParentSchoolListResponse,
+  SchoolSearchResultDto,
 } from "@/types";
 
 export interface MyListContextType {
@@ -12,8 +12,8 @@ export interface MyListContextType {
   parentLists: ParentSchoolListResponse[];
   listsLoading: boolean;
 
-  // List items data
-  listItems: ParentSchoolListItemResponse[];
+  // List items data (now directly school data)
+  listItems: SchoolSearchResultDto[];
   loading: boolean;
   error: string | null;
 

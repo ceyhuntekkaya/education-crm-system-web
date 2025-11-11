@@ -1,12 +1,13 @@
 "use client";
 
 import { Results } from "../../search/_shared";
-import { transformListItemsToSchoolResults, useMyList } from "./_shared";
+import { useMyList } from "./_shared";
 
 /**
  * My List Page Component
  * Displays schools in a specific parent list
  * Uses centralized context for state management
+ * Directly passes school data from API to card component
  */
 export default function MyListPage() {
   // Get data from context (similar to useInstitutionDetail)
@@ -26,11 +27,8 @@ export default function MyListPage() {
     );
   }
 
-  // Transform list items to school results format
-  const institutions = transformListItemsToSchoolResults(listItems);
-
   // Empty list state
-  if (!loading && institutions.length === 0) {
+  if (!loading && listItems.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
@@ -45,5 +43,6 @@ export default function MyListPage() {
     );
   }
 
-  return <Results institutions={institutions} loading={loading} />;
+  // Directly pass school data from API to Results component
+  return <Results institutions={listItems} loading={loading} />;
 }
