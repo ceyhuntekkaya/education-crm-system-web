@@ -2,9 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
-import { LoadingStateProps } from "../types/component.types";
+import { FileInputLoadingStateProps } from "../types/component.types";
 
-export const LoadingState: React.FC<LoadingStateProps> = ({
+export const FileInputLoadingState: React.FC<FileInputLoadingStateProps> = ({
   message = "Dosyalar yükleniyor...",
   subMessage = "Lütfen bekleyin, dosyalarınız işleniyor",
 }) => {

@@ -75,7 +75,7 @@ export interface SimpleFileInputProps {
 // ============================================
 // Section Component Props
 // ============================================
-export interface LoadingStateProps {
+export interface FileInputLoadingStateProps {
   message?: string;
   subMessage?: string;
 }
