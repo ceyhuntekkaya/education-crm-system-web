@@ -2,16 +2,12 @@ import * as Yup from "yup";
 
 /**
  * Step 1: Login Credentials Validation
+ * Backend: RegisterCredentialDto (email, password, passwordControl)
  */
 export const loginCredentialsSchema = Yup.object({
-  username: Yup.string()
-    .min(3, "Kullanıcı adı en az 3 karakter olmalıdır")
-    .max(50, "Kullanıcı adı en fazla 50 karakter olabilir")
-    .matches(
-      /^[a-zA-Z0-9_]+$/,
-      "Kullanıcı adı sadece harf, rakam ve alt çizgi içerebilir"
-    )
-    .required("Kullanıcı adı gereklidir"),
+  email: Yup.string()
+    .email("Geçerli bir e-posta adresi giriniz")
+    .required("E-posta gereklidir"),
   password: Yup.string()
     .min(8, "Şifre en az 8 karakter olmalıdır")
     .matches(

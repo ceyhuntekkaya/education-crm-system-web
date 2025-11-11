@@ -1,16 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomCard from "@/components/ui/custom-card";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@/contexts/form-context";
+import { useRegister } from "../context";
 
 /**
- * Step 7: Success / Özet
+ * Step 7: Success / Final Verification
  * Kayıt işlemi tamamlandığında gösterilen başarı ekranı
+ * Backend: POST /register/step/7/ (final verification)
  */
 export const SuccessStep: React.FC = () => {
   const { values } = useForm();
+  const { submitStep7, isSubmitting, userId } = useRegister();
+  const [verificationCompleted, setVerificationCompleted] = useState(false);
+
+  // Sayfa yüklendiğinde otomatik olarak final verification API'sini çağır
+  useEffect(() => {
+    if (userId && !verificationCompleted && !isSubmitting) {
+      const performFinalVerification = async () => {
+        try {
+          await submitStep7();
+          setVerificationCompleted(true);
+        } catch (error) {
+          console.error("Final verification failed:", error);
+        }
+      };
+      performFinalVerification();
+    }
+  }, [userId, submitStep7, verificationCompleted, isSubmitting]);
 
   // Form verilerinden bilgileri al
   const loginInfo = values?.loginCredentials || {};
@@ -284,51 +303,81 @@ export const SuccessStep: React.FC = () => {
 
   return (
     <div className="register-step-content">
-      {/* Main Success Message */}
-      <CustomCard className="mb-24">
-        <div className="text-center py-40">
-          <i
-            className="ph-fill ph-check-circle text-success-600 d-block mb-20"
-            style={{ fontSize: "80px" }}
-          ></i>
-          <h2 className="text-neutral-900 fw-bold mb-12">
-            Kayıt İşlemi Tamamlandı!
-          </h2>
-          <p className="text-neutral-600 mb-24">
-            Hoş geldiniz! Hesabınız başarıyla oluşturuldu.
-          </p>
-
-          {/* E-posta Bilgilendirme */}
-          <div className="d-inline-flex align-items-center gap-12 bg-success-50 text-success-700 px-20 py-12 rounded-8">
-            <i className="ph-bold ph-envelope"></i>
-            <span className="text-sm fw-medium">
-              Onay e-postası{" "}
-              <strong className="fw-semibold">{personalInfo.email}</strong>{" "}
-              adresinize gönderildi.
-            </span>
+      {/* Loading State */}
+      {isSubmitting && !verificationCompleted && (
+        <CustomCard className="mb-24">
+          <div className="text-center py-40">
+            <div
+              className="spinner-border text-main-600 mb-20"
+              style={{ width: "80px", height: "80px" }}
+              role="status"
+            >
+              <span className="visually-hidden">İşleniyor...</span>
+            </div>
+            <h2 className="text-neutral-900 fw-bold mb-12">
+              Kayıt Tamamlanıyor...
+            </h2>
+            <p className="text-neutral-600 mb-24">
+              Lütfen bekleyiniz, hesabınız oluşturuluyor.
+            </p>
           </div>
-        </div>
-      </CustomCard>
+        </CustomCard>
+      )}
 
-      {/* Registration Summary with multiItems */}
-      <CustomCard
-        title="Kayıt Özeti"
-        multiItems={registrationSections}
-        className="mb-24"
-      />
+      {/* Success State */}
+      {(!isSubmitting || verificationCompleted) && (
+        <>
+          {/* Main Success Message */}
+          <CustomCard className="mb-24">
+            <div className="text-center py-40">
+              <i
+                className="ph-fill ph-check-circle text-success-600 d-block mb-20"
+                style={{ fontSize: "80px" }}
+              ></i>
+              <h2 className="text-neutral-900 fw-bold mb-12">
+                Kayıt İşlemi Tamamlandı!
+              </h2>
+              <p className="text-neutral-600 mb-24">
+                Hoş geldiniz! Hesabınız başarıyla oluşturuldu.
+              </p>
 
-      {/* Next Steps */}
-      <CustomCard multiItems={nextStepsSections} className="mb-24" />
+              {/* E-posta Bilgilendirme */}
+              <div className="d-inline-flex align-items-center gap-12 bg-success-50 text-success-700 px-20 py-12 rounded-8">
+                <i className="ph-bold ph-envelope"></i>
+                <span className="text-sm fw-medium">
+                  Onay e-postası{" "}
+                  <strong className="fw-semibold">{personalInfo.email}</strong>{" "}
+                  adresinize gönderildi.
+                </span>
+              </div>
+            </div>
+          </CustomCard>
+        </>
+      )}
 
-      {/* Action Buttons */}
-      <div className="d-flex flex-column flex-sm-row gap-24 justify-content-center">
-        <Button variant="inline" href="/auth/login" leftIcon="ph-sign-in">
-          Giriş Yap
-        </Button>
-        <Button variant="outline" href="/" leftIcon="ph-house">
-          Ana Sayfaya Dön
-        </Button>
-      </div>
+      {(!isSubmitting || verificationCompleted) && (
+        <>
+          {/* Registration Summary with multiItems */}
+          <CustomCard
+            title="Kayıt Özeti"
+            multiItems={registrationSections}
+            className="mb-24"
+          />
+
+          {/* Next Steps */}
+          <CustomCard multiItems={nextStepsSections} className="mb-24" />
+
+          {/* Action Buttons */}
+          <div className="d-flex flex-column flex-sm-row gap-24 justify-content-center">
+            <Button variant="inline" href="/auth/login" leftIcon="ph-sign-in">
+              Giriş Yap
+            </Button>
+            <Button variant="outline" href="/" leftIcon="ph-house">
+              Ana Sayfaya Dön
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

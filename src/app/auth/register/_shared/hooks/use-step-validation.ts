@@ -14,9 +14,9 @@ export const useStepValidation = () => {
       try {
         switch (step) {
           case 1:
-            // Login credentials check
+            // Login credentials check (Backend: RegisterCredentialDto)
             return !!(
-              values.loginCredentials?.username &&
+              values.loginCredentials?.email &&
               values.loginCredentials?.password &&
               values.loginCredentials?.confirmPassword &&
               values.loginCredentials?.password ===
@@ -60,6 +60,9 @@ export const useStepValidation = () => {
               values.paymentInfo?.acceptTerms &&
               values.paymentInfo?.acceptPrivacy
             );
+          case 7:
+            // Step 7 (Tamamlandı) - Her zaman true (final verification için)
+            return true;
           default:
             return false;
         }

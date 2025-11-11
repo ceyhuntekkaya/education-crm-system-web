@@ -172,9 +172,20 @@ export const API_ENDPOINTS = {
     CARTS: "/carts",
   },
 
+  // Register endpoints - Step by step registration
+  REGISTER: {
+    STEP_1_CREDENTIAL: "/register/step/1/credential",
+    STEP_2_IDENTITY: "/register/step/2/identity",
+    STEP_3_CONFIRM: "/register/step/3/confirm",
+    STEP_4_CAMPUS: "/register/step/4/campus",
+    STEP_5_SUBSCRIPTION: "/register/step/5/subscription",
+    STEP_6_PAYMENT: "/register/step/6/payment",
+    STEP_7_VERIFICATION: "/register/step/7/",
+    SEND_CODE: "/register/send",
+  },
+
   // Users endpoints
   USERS: {
-    REGISTER: "/users/register",
     BY_CAMPUS: (campusId: string | number) => `/users/campus/${campusId}`,
     BY_ID: (userId: string | number) => `/users/${userId}`,
     PROFILE: (userId: string | number) => `/users/${userId}/profile`,

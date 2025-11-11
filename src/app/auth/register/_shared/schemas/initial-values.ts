@@ -6,7 +6,7 @@ import { UserType } from "@/enums/UserType";
  */
 export const initialValues: RegisterFormData = {
   loginCredentials: {
-    username: "",
+    email: "",
     password: "",
     confirmPassword: "",
   },

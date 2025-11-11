@@ -53,6 +53,10 @@ export interface RegisterContextType {
   // Registration type
   registrationType: RegistrationType;
 
+  // User ID (backend'den dönen, her step'te kullanılacak)
+  userId: number | null;
+  setUserId: (userId: number) => void;
+
   // Current step
   currentStep: number;
 
@@ -80,6 +84,15 @@ export interface RegisterContextType {
   // Subscription plans data
   subscriptionPlans: SubscriptionPlanDto[];
   plansLoading: boolean;
+
+  // Step Actions - Her step için API isteği
+  submitStep1: () => Promise<void>;
+  submitStep2: () => Promise<void>;
+  submitStep3: () => Promise<void>;
+  submitStep4: () => Promise<void>;
+  submitStep5: () => Promise<void>;
+  submitStep6: () => Promise<void>;
+  submitStep7: () => Promise<void>;
 
   // Actions
   setCurrentStep: (step: number) => void;

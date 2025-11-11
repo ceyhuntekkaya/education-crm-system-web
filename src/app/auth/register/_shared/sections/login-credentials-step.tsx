@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { FormInput, FormValues } from "@/components/forms";
+import { FormInput } from "@/components/forms";
 import CustomCard from "@/components/ui/custom-card";
 
 /**
  * Step 1: Login Credentials
- * Kullanıcı adı ve şifre bilgileri
+ * Email ve şifre bilgileri (Backend: RegisterCredentialDto)
  */
 export const LoginCredentialsStep: React.FC = () => {
   return (
@@ -14,18 +14,23 @@ export const LoginCredentialsStep: React.FC = () => {
       {/* Ana Card - Form içeriği */}
       <CustomCard
         title="Giriş Bilgileri"
-        subtitle="Sisteme giriş yapmak için kullanacağınız kullanıcı adı ve şifrenizi belirleyin"
+        subtitle="Sisteme giriş yapmak için kullanacağınız email ve şifrenizi belirleyin"
       >
         <div className="row row-gap-24">
-          {/* Kullanıcı Adı */}
+          {/* Email - Backend'e gönderilecek */}
           <div className="col-12">
             <FormInput
-              name="loginCredentials.username"
-              label="Kullanıcı Adı"
-              placeholder="Kullanıcı adınızı giriniz..."
+              name="loginCredentials.email"
+              type="email"
+              label="E-posta Adresi"
+              placeholder="ornek@email.com"
               required
-              autoComplete="username"
+              autoComplete="email"
             />
+            <small className="text-neutral-500 mt-4 d-block">
+              <i className="ph-info me-4" />
+              Bu email adresi sisteme giriş için kullanılacaktır
+            </small>
           </div>
 
           {/* Şifre */}

@@ -7,10 +7,14 @@ import { UserType } from "@/enums/UserType";
 
 /**
  * Step 1: Login Bilgileri
+ * Backend: RegisterCredentialDto (email, password, passwordControl)
  */
 export interface LoginCredentials {
-  username: string;
+  /** Email adresi (backend'de email olarak gider) */
+  email: string;
+  /** Şifre */
   password: string;
+  /** Şifre onayı (backend'de passwordControl olarak gider) */
   confirmPassword: string;
 }
 
