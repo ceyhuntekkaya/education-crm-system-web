@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useFormHook } from "@/hooks";
+import { useForm } from "@/contexts";
 import {
   FormValues,
   CreateParentSchoolListRequest,
@@ -38,11 +38,10 @@ interface UseAddToListFormReturn {
 export const useAddToListForm = ({
   listOptions,
   schoolId,
-  createList,
   addSchoolToList,
   onSuccess,
 }: UseAddToListFormProps): UseAddToListFormReturn => {
-  const { values, setValue } = useFormHook();
+  const { values, setValue } = useForm();
   const [showAllOptions, setShowAllOptions] = useState(false);
 
   // Set default selection when lists are loaded
@@ -59,12 +58,17 @@ export const useAddToListForm = ({
   };
 
   const handleFormSubmit = async (formValues: FormValues) => {
+    console.log("handleFormSubmit çağrıldı");
+    console.log("formValues:", formValues);
     const selectedListId = formValues.selectedListId as string;
+    console.log("selectedListId:", selectedListId);
+
     if (!schoolId || !selectedListId) return;
+    console.log("selectedListId:", selectedListId);
 
     const listId = parseInt(selectedListId);
     if (!listId) return;
-
+    console.log("listId:", listId);
     // Add school to selected list
     const response = await addSchoolToList({
       schoolId,
@@ -72,7 +76,7 @@ export const useAddToListForm = ({
       isFavorite: false,
       addedFromSearch: window.location.pathname,
     });
-
+    console.log("response:", response);
     if (response?.data) {
       onSuccess();
     }

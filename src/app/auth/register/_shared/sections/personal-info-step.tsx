@@ -7,6 +7,7 @@ import CustomCard from "@/components/ui/custom-card";
 /**
  * Step 2: Personal Info
  * Kişisel bilgiler (Ad, Soyad, E-posta, Telefon)
+ * Email Step 1'de kaydedildiği için kontrol gerekmiyor
  */
 export const PersonalInfoStep: React.FC = () => {
   return (
@@ -38,7 +39,7 @@ export const PersonalInfoStep: React.FC = () => {
             />
           </div>
 
-          {/* E-posta */}
+          {/* E-posta - Step 1'den gelecek, read-only */}
           <div className="col-12">
             <FormInput
               name="personalInfo.email"
@@ -47,7 +48,12 @@ export const PersonalInfoStep: React.FC = () => {
               placeholder="ornek@email.com"
               required
               autoComplete="email"
+              disabled
             />
+            <small className="text-neutral-500 mt-4 d-block">
+              <i className="ph-info me-4" />
+              E-posta adresi Step 1&apos;de kaydedildi
+            </small>
           </div>
 
           {/* Telefon */}

@@ -1,1 +1,1 @@
-export { default as ListSidebar } from "./list-sidebar";
+export * from "./list-sidebar-content";

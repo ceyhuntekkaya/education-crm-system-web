@@ -18,64 +18,37 @@ import { UserType } from "@/enums/UserType";
 
 /**
  * Register Form Content
- * Step'lere göre içerik gösterimi - Brand yapısına benzer tasarım
- * User ve Institution kayıtlarında farklı adımlar gösterir
+ * Institution kayıt adımlarını gösterir (7 adım)
+ * Veli kaydı devre dışı
  */
 export const RegisterFormContent: React.FC = () => {
-  const { currentStep, submitRegistration, registrationType } = useRegister();
+  const { currentStep } = useRegister();
 
   const renderStep = () => {
-    // User kayıt adımları: 1. Login, 2. Personal Info, 3. Verification, 4. Success
     // Institution kayıt adımları: 1. Login, 2. Personal Info, 3. Verification, 4. Campus Info, 5. Package, 6. Payment, 7. Success
-
-    if (registrationType === UserType.PARENT) {
-      // User için 4 adım
-      switch (currentStep) {
-        case 1:
-          return <LoginCredentialsStep />;
-        case 2:
-          return <PersonalInfoStep />;
-        case 3:
-          return <VerificationCodeStep />;
-        case 4:
-          return <SuccessStep />;
-        default:
-          return <LoginCredentialsStep />;
-      }
-    } else {
-      // Institution için 7 adım
-      switch (currentStep) {
-        case 1:
-          return <LoginCredentialsStep />;
-        case 2:
-          return <PersonalInfoStep />;
-        case 3:
-          return <VerificationCodeStep />;
-        case 4:
-          return <CampusInfoStep />;
-        case 5:
-          return <PackageSelectionStep />;
-        case 6:
-          return <PaymentInfoStep />;
-        case 7:
-          return <SuccessStep />;
-        default:
-          return <LoginCredentialsStep />;
-      }
+    switch (currentStep) {
+      case 1:
+        return <LoginCredentialsStep />;
+      case 2:
+        return <PersonalInfoStep />;
+      case 3:
+        return <VerificationCodeStep />;
+      case 4:
+        return <CampusInfoStep />;
+      case 5:
+        return <PackageSelectionStep />;
+      case 6:
+        return <PaymentInfoStep />;
+      case 7:
+        return <SuccessStep />;
+      default:
+        return <LoginCredentialsStep />;
     }
   };
 
   const handleSubmit = async (values: any) => {
-    // User için step 3'te, Institution için step 6'da submit işlemi
-    const submitStep = registrationType === UserType.PARENT ? 3 : 6;
-
-    if (currentStep === submitStep) {
-      const result = await submitRegistration();
-      // Başarılıysa success step'ine geç
-      // if (result) {
-      //   nextStep();
-      // }
-    }
+    // Form submit işlemi navigation component'inde yapılıyor
+    // Her step'te ileri butonuna basıldığında API isteği atılıyor
   };
 
   return (

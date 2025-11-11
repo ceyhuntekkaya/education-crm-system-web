@@ -1,43 +1,43 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useSnackbar } from "@/contexts/snackbar-context";
 
 /**
  * Email verification hook
+ * Sadece Step 3'te kullanılacak
+ * Backend'de GET /register/send endpoint'i var ama şu an kullanılmıyor
+ * Doğrulama kodu kontrolü Step 3'te submitStep3() ile yapılacak
  */
 export const useVerification = () => {
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [verificationError, setVerificationError] = useState<string | null>(
-    null
-  );
   const { showSnackbar } = useSnackbar();
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
 
   /**
    * Doğrulama kodu gönderme
+   * Backend'de GET /register/send endpoint'i var (email service test için)
+   * Gerçek kullanımda email Step 2'de kaydediliyor, 
+   * backend otomatik olarak kod gönderecek
    */
   const sendVerificationCode = useCallback(
     async (email: string): Promise<void> => {
-      setIsVerifying(true);
-      setVerificationError(null);
-
       try {
-        // TODO: API entegrasyonu
-        // await apiClient.post("/auth/send-verification-code", { email });
-
-        // Mock delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
+        setIsVerifying(true);
+        setVerificationError(null);
+        
+        // Mock delay - Backend otomatik olarak kod gönderecek
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        
         showSnackbar(
           "Doğrulama kodu e-posta adresinize gönderildi.",
           "success"
         );
       } catch (err: any) {
-        const errorMessage =
-          err.response?.data?.message || "Doğrulama kodu gönderilemedi";
+        const errorMessage = "Doğrulama kodu gönderilemedi";
         setVerificationError(errorMessage);
-
         showSnackbar(errorMessage, "error");
+        throw err;
       } finally {
         setIsVerifying(false);
       }
@@ -47,39 +47,15 @@ export const useVerification = () => {
 
   /**
    * Doğrulama kodunu kontrol etme
+   * Gerçek kontrol Step 3'te submitStep3() ile yapılacak
    */
   const verifyCode = useCallback(
     async (email: string, code: string): Promise<boolean> => {
-      setIsVerifying(true);
-      setVerificationError(null);
-
-      try {
-        // TODO: API entegrasyonu
-        // const response = await apiClient.post("/auth/verify-code", { email, code });
-
-        // Mock delay & validation
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Mock: 1234 kabul ediliyor
-        if (code === "1234") {
-          showSnackbar("E-posta adresiniz başarıyla doğrulandı.", "success");
-          return true;
-        } else {
-          throw new Error("Geçersiz doğrulama kodu");
-        }
-      } catch (err: any) {
-        const errorMessage =
-          err.response?.data?.message || "Geçersiz doğrulama kodu";
-        setVerificationError(errorMessage);
-
-        showSnackbar(errorMessage, "error");
-
-        return false;
-      } finally {
-        setIsVerifying(false);
-      }
+      // Bu fonksiyon Step 3'te kullanılmayacak
+      // submitStep3() direkt API'ye istek atacak
+      return true;
     },
-    [showSnackbar]
+    []
   );
 
   return {

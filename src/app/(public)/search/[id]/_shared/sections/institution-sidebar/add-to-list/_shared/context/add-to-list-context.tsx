@@ -45,8 +45,7 @@ export const AddToListProvider: React.FC<AddToListProviderProps> = ({
     });
 
   // Add school to list hook
-  const { addSchoolToList: addSchoolMutation, loading: addLoading } =
-    useAddSchoolToList();
+  const { addSchoolToList, loading: addLoading } = useAddSchoolToList();
 
   // Sort and transform lists
   const listOptions = useMemo(() => {
@@ -59,7 +58,7 @@ export const AddToListProvider: React.FC<AddToListProviderProps> = ({
     listOptions,
     schoolId: school?.id || null,
     createList: createListMutation,
-    addSchoolToList: addSchoolMutation,
+    addSchoolToList,
     onSuccess: onSuccess || (() => {}),
   });
 
@@ -73,7 +72,7 @@ export const AddToListProvider: React.FC<AddToListProviderProps> = ({
     // Actions
     fetchLists,
     createList: createListMutation,
-    addSchoolToList: addSchoolMutation,
+    addSchoolToList,
 
     // Current school
     schoolId: school?.id || null,

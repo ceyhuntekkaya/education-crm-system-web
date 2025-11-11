@@ -172,6 +172,18 @@ export const API_ENDPOINTS = {
     CARTS: "/carts",
   },
 
+  // Register endpoints - Step by step registration
+  REGISTER: {
+    STEP_1_CREDENTIAL: "/register/step/1/credential",
+    STEP_2_IDENTITY: "/register/step/2/identity",
+    STEP_3_CONFIRM: "/register/step/3/confirm",
+    STEP_4_CAMPUS: "/register/step/4/campus",
+    STEP_5_SUBSCRIPTION: "/register/step/5/subscription",
+    STEP_6_PAYMENT: "/register/step/6/payment",
+    STEP_7_VERIFICATION: "/register/step/7/",
+    SEND_CODE: "/register/send",
+  },
+
   // Users endpoints
   USERS: {
     REGISTER: "/users/register",
@@ -195,6 +207,8 @@ export const API_ENDPOINTS = {
     ADD_SCHOOL: "/parent/school-lists/schools",
     REMOVE_SCHOOL: (listId: string | number, schoolId: string | number) =>
       `/parent/school-lists/${listId}/schools/${schoolId}`,
+    GET_LIST_ITEMS: (listId: string | number) =>
+      `/parent/school-lists/${listId}/schools`,
   },
 
   // // Todos

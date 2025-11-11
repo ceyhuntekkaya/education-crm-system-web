@@ -1,10 +1,17 @@
 "use client";
 
-// import { Breadcrumb } from "@/components";
-import ListSidebar from "./_shared/sections/list-sidebar";
+import React from "react";
 import { useParams } from "next/navigation";
-import { getListById } from "./_shared/utils";
+import {
+  parseListIdFromUrl,
+  MyListProvider,
+  ListSidebarContent,
+} from "./_shared";
 
+/**
+ * My List Layout Component
+ * Wraps page with MyListProvider for shared state
+ */
 export default function MyListLayout({
   children,
 }: {
@@ -12,22 +19,18 @@ export default function MyListLayout({
 }) {
   const params = useParams();
   const id = params.id as string;
-  const listData = getListById(parseInt(id));
-  const listTitle = listData?.label || `Liste ${id}`;
+  const listId = parseListIdFromUrl(id);
 
   return (
-    <>
-      <div>
-        {/* <Breadcrumb title={`Listem: ${listTitle}`} /> */}
-        <div className="container py-40">
-          <div className="row">
-            <div className="col-lg-3">
-              <ListSidebar listId={id} />
-            </div>
-            <div className="col-lg-9">{children}</div>
+    <MyListProvider key={listId} listId={listId}>
+      <div className="container py-40">
+        <div className="row">
+          <div className="col-lg-3">
+            <ListSidebarContent listId={id} />
           </div>
+          <div className="col-lg-9">{children}</div>
         </div>
       </div>
-    </>
+    </MyListProvider>
   );
 }

@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import CustomCard from "@/components/ui/custom-card";
 import { useRegister } from "../context";
 import { useForm } from "@/contexts/form-context";
+import { useSendVerificationCode } from "../hooks";
 
 /**
  * Step 3: Verification Code
  * 4 basamaklı doğrulama kodu girişi
+ * Backend: GET /register/send (email gönderimi)
  */
 export const VerificationCodeStep: React.FC = () => {
   const {
@@ -24,6 +26,16 @@ export const VerificationCodeStep: React.FC = () => {
     getCodeValue,
   } = useRegister();
   const { values } = useForm();
+  const { sendVerificationCodeToEmail, isSending } = useSendVerificationCode();
+
+  // Backend API'sini kullanarak email gönder
+  const handleSendCode = async () => {
+    const success = await sendVerificationCodeToEmail();
+    if (success) {
+      // UI state'ini güncelle (mock flow'u tetikle)
+      await sendVerificationCode();
+    }
+  };
 
   return (
     <div className="register-step-content">
@@ -50,13 +62,19 @@ export const VerificationCodeStep: React.FC = () => {
                 <Button
                   type="button"
                   variant="success"
-                  onClick={sendVerificationCode}
-                  disabled={isVerifying}
+                  onClick={handleSendCode}
+                  disabled={isVerifying || isSending}
                   className="btn-lg px-32"
-                  leftIcon={!isVerifying ? "ph-envelope-simple" : undefined}
-                  loading={isVerifying}
+                  leftIcon={
+                    !isVerifying && !isSending
+                      ? "ph-envelope-simple"
+                      : undefined
+                  }
+                  loading={isVerifying || isSending}
                 >
-                  {isVerifying ? "Gönderiliyor..." : "Doğrulama Kodu Gönder"}
+                  {isVerifying || isSending
+                    ? "Gönderiliyor..."
+                    : "Doğrulama Kodu Gönder"}
                 </Button>
               </div>
             </div>
@@ -93,8 +111,8 @@ export const VerificationCodeStep: React.FC = () => {
                     <button
                       type="button"
                       className="btn-link text-main-600 fw-semibold"
-                      onClick={sendVerificationCode}
-                      disabled={isVerifying}
+                      onClick={handleSendCode}
+                      disabled={isVerifying || isSending}
                     >
                       Tekrar Gönder
                     </button>

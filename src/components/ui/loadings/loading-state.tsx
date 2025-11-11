@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SkeletonCard } from "../institution-card/components";
+import SkeletonCard from "./skeleton-card";
 
 interface LoadingStateProps {
   count?: number;

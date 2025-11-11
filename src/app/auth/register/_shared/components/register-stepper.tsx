@@ -29,17 +29,21 @@ export const RegisterStepper: React.FC = () => {
   } = useRegister();
 
   const stepConfigs = getStepConfigs(registrationType);
+  
+  // Step 7 (Success/Tamamlandı) stepper'da gösterilmemeli
+  // Sadece kayıt tamamlandığında otomatik gösterilir
+  const visibleSteps = stepConfigs.filter(step => step.step !== 7);
 
   return (
     <CustomCard>
       <div className="register-stepper">
         <div className="d-flex align-items-start justify-content-between gap-2">
-          {stepConfigs.map((step, index) => {
+          {visibleSteps.map((step, index) => {
             const isActive = currentStep === step.step;
             const isCompleted = isStepCompleted(step.step);
             const isPast = currentStep > step.step;
             const isClickable = isStepClickable(step.step);
-            const showConnector = index < stepConfigs.length - 1;
+            const showConnector = index < visibleSteps.length - 1;
 
             return (
               <React.Fragment key={step.step}>

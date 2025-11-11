@@ -5,7 +5,7 @@ import Icon from "@/components/ui/icon";
 import { FileInputType } from "../types/file.types";
 import { getFileIcon, getVariantClasses } from "../utils";
 import { useFileInputContext } from "../contexts";
-import { LoadingState } from "./loading-state";
+import { FileInputLoadingState } from "./loading-state";
 
 interface FileUploadAreaProps {
   variant?: "inline" | "outline";
@@ -80,7 +80,7 @@ export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
       onClick={handleUploadAreaClick}
     >
       {isLoading ? (
-        <LoadingState />
+        <FileInputLoadingState />
       ) : (
         <div className="d-flex flex-column align-items-center gap-8">
           <Icon

@@ -16,6 +16,11 @@ export const useRegisterSteps = (registrationType: RegistrationType) => {
       const parsedStep = parseInt(stepIdParam, 10);
       const totalSteps = getTotalSteps(registrationType);
 
+      // Step 7'ye direkt geçiş yasak (sadece kayıt tamamlandıktan sonra)
+      if (parsedStep === 7) {
+        return 1;
+      }
+
       // Geçerli bir step numarası mı kontrol et (1 ile totalSteps arasında)
       if (!isNaN(parsedStep) && parsedStep >= 1 && parsedStep <= totalSteps) {
         return parsedStep;
@@ -31,6 +36,12 @@ export const useRegisterSteps = (registrationType: RegistrationType) => {
   useEffect(() => {
     if (stepIdParam) {
       const parsedStep = parseInt(stepIdParam, 10);
+
+      // Step 7'ye direkt geçiş yasak
+      if (parsedStep === 7) {
+        setCurrentStep(1);
+        return;
+      }
 
       if (!isNaN(parsedStep) && parsedStep >= 1 && parsedStep <= totalSteps) {
         setCurrentStep(parsedStep);
@@ -52,6 +63,9 @@ export const useRegisterSteps = (registrationType: RegistrationType) => {
 
   const goToStep = useCallback(
     (step: number) => {
+      // Step 7'ye direkt geçiş yasak (sadece Step 6'dan sonra otomatik geçiş)
+      if (step === 7) return;
+      
       if (step >= 1 && step <= totalSteps) {
         setCurrentStep(step);
       }

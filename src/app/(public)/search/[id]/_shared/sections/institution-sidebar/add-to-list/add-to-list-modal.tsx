@@ -5,7 +5,7 @@ import { Modal, ModalHeader, ModalBody } from "@/components/ui";
 import { Form, FormValues as FormValuesComponent } from "@/components/forms";
 import { FormProvider } from "@/contexts";
 import { FormValues } from "@/types";
-import { useAddToList } from "./_shared/context";
+import { useAddToList, AddToListProvider } from "./_shared/context";
 import {
   SchoolCard,
   ListSection,
@@ -87,7 +87,9 @@ export const AddToListModal: React.FC<AddToListModalProps> = ({
         <ModalHeader title="Listeye Ekle" onClose={onClose} />
         <ModalBody scrollable={true}>
           <FormProvider initialValues={initialValues}>
-            <AddToListModalContent onClose={onClose} />
+            <AddToListProvider onSuccess={onClose}>
+              <AddToListModalContent onClose={onClose} />
+            </AddToListProvider>
           </FormProvider>
         </ModalBody>
       </Modal>

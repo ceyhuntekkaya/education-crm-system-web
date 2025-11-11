@@ -1,7 +1,12 @@
 "use client";
-import { createContext, useContext, ReactNode } from "react";
-import { useScroll, useMobileMenu, useSubmenu } from "../hooks";
-import { menuItems } from "../config";
+import { createContext, useContext, ReactNode, useMemo } from "react";
+import {
+  useScroll,
+  useMobileMenu,
+  useSubmenu,
+  useDynamicLists,
+} from "../hooks";
+import { menuItems as staticMenuItems } from "../config";
 import { MenuItem } from "../types";
 import { Loading } from "@/components/ui";
 import { useAuth } from "@/contexts";
@@ -32,11 +37,31 @@ interface HeaderProviderProps {
 export const HeaderProvider = ({ children }: HeaderProviderProps) => {
   // Hook'ları burada çağırıyoruz
 
-  const { isLoading } = useAuth();
+  const { isLoading, user } = useAuth();
 
   const scroll = useScroll();
   const { isMenuActive, toggleMenu, closeMenu } = useMobileMenu();
   const { activeSubmenu, handleSubmenuClick } = useSubmenu();
+  const { listMenuLinks, loading: listsLoading } = useDynamicLists();
+
+  // Dinamik menü öğeleri oluştur
+  const menuItems = useMemo(() => {
+    // Kullanıcı giriş yapmamışsa statik menü öğelerini kullan
+    if (!user) {
+      return staticMenuItems;
+    }
+
+    // "Listelerim" menü öğesini bul ve güncelle
+    return staticMenuItems.map((item) => {
+      if (item.label === "Listelerim" && listMenuLinks.length > 0) {
+        return {
+          ...item,
+          links: listMenuLinks,
+        };
+      }
+      return item;
+    });
+  }, [user, listMenuLinks]);
 
   if (isLoading) return <Loading />;
 
@@ -53,7 +78,7 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
     activeSubmenu,
     handleSubmenuClick,
 
-    // Menu bilgileri (static)
+    // Menu bilgileri (dinamik)
     menuItems,
   };
 
