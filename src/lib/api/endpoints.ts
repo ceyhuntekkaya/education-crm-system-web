@@ -195,6 +195,8 @@ export const API_ENDPOINTS = {
     ADD_SCHOOL: "/parent/school-lists/schools",
     REMOVE_SCHOOL: (listId: string | number, schoolId: string | number) =>
       `/parent/school-lists/${listId}/schools/${schoolId}`,
+    GET_LIST_ITEMS: (listId: string | number) =>
+      `/parent/school-lists/${listId}/schools`,
   },
 
   // // Todos

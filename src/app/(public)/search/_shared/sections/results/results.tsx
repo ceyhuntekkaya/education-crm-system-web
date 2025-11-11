@@ -3,8 +3,8 @@
 import { useRef, useState } from "react";
 import { InstitutionCard } from "../institution-card/institution-card";
 import { SchoolSearchResultDto } from "@/types/dto/institution/InstitutionSearch.types";
+import { LoadingState } from "@/components/ui/loadings";
 import NoResults from "./no-results";
-import LoadingState from "./loading-state";
 
 const CARDS_PER_ROW = 3;
 const ANIMATION_DELAY_INCREMENT = 100;

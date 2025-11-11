@@ -1,49 +1,49 @@
 "use client";
 
 import { Results } from "../../search/_shared";
-import {
-  getInstitutionsByListId,
-  parseListIdFromUrl,
-  isValidListId,
-} from "./_shared/utils";
-import { useParams } from "next/navigation";
+import { transformListItemsToSchoolResults, useMyList } from "./_shared";
 
+/**
+ * My List Page Component
+ * Displays schools in a specific parent list
+ * Uses centralized context for state management
+ */
 export default function MyListPage() {
-  const params = useParams();
-  const listId = parseListIdFromUrl(params?.id as string);
+  // Get data from context (similar to useInstitutionDetail)
+  const { listItems, listDetail, loading, error } = useMyList();
 
-  // Geçersiz ID kontrolü
-  if (!isValidListId(listId)) {
+  // Error state
+  if (error) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
-            Geçersiz Liste ID&apos;si
+            Bir hata oluştu
           </h2>
-          <p className="text-gray-600">Belirtilen liste bulunamadı.</p>
+          <p className="text-gray-600">{error}</p>
         </div>
       </div>
     );
   }
 
-  // Liste ID'sine göre filtrelenmiş kurumları al
-  const filteredInstitutions = getInstitutionsByListId(listId);
+  // Transform list items to school results format
+  const institutions = transformListItemsToSchoolResults(listItems);
 
-  // Boş liste durumunda bilgi mesajı (artık olmamalı ama yine de kontrol edelim)
-  if (filteredInstitutions.length === 0) {
+  // Empty list state
+  if (!loading && institutions.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
-            Bu listede henüz kurum yok
+            {listDetail?.listName || "Bu listede"} henüz kurum yok
           </h2>
           <p className="text-gray-600">
-            Liste ID: {listId} için kurum bulunamadı.
+            Arama sayfasından okul ekleyerek listeyi oluşturabilirsiniz.
           </p>
         </div>
       </div>
     );
   }
 
-  return <Results institutions={filteredInstitutions} />;
+  return <Results institutions={institutions} loading={loading} />;
 }

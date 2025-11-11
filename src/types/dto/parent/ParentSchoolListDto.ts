@@ -100,3 +100,36 @@ export interface ParentSchoolListItemResponse {
   lastUpdatedAt?: string;
 }
 
+export interface ParentSchoolListSearchRequest {
+  keyword?: string;
+  onlyFavorites?: boolean;
+  onlyBlocked?: boolean;
+  sortBy?: "priorityOrder" | "addedAt" | "schoolName" | "starRating";
+  sortDirection?: "ASC" | "DESC";
+  /** Format: int32 */
+  page?: number;
+  /** Format: int32 */
+  size?: number;
+  /** Format: int32 */
+  minStarRating?: number;
+  /** Format: int32 */
+  maxStarRating?: number;
+}
+
+export interface PageParentSchoolListItemResponse {
+  /** Format: int64 */
+  totalElements?: number;
+  /** Format: int32 */
+  totalPages?: number;
+  first?: boolean;
+  last?: boolean;
+  /** Format: int32 */
+  size?: number;
+  content?: ParentSchoolListItemResponse[];
+  /** Format: int32 */
+  number?: number;
+  /** Format: int32 */
+  numberOfElements?: number;
+  empty?: boolean;
+}
+
