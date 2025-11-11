@@ -3,7 +3,6 @@
 import React from "react";
 import { useModal } from "@/hooks";
 import { AddToListModal } from "./add-to-list-modal";
-import { AddToListProvider } from "./_shared/context";
 import { Icon } from "@/components/ui/icon";
 import { useAuth } from "@/contexts/auth-context";
 
@@ -29,12 +28,10 @@ export const AddToListButton: React.FC = () => {
         />
       </div>
 
-      <AddToListProvider onSuccess={addToListModal.close}>
-        <AddToListModal
-          isOpen={addToListModal.isOpen}
-          onClose={addToListModal.close}
-        />
-      </AddToListProvider>
+      <AddToListModal
+        isOpen={addToListModal.isOpen}
+        onClose={addToListModal.close}
+      />
     </>
   );
 };
