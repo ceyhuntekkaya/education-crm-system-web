@@ -2,6 +2,9 @@ import { SchoolSearchDto, SchoolSearchResultDto } from "@/types";
 
 // Context'te tutulacak değerlerin tipi
 export interface SearchContextValue {
+  // Form values (search form'unun mevcut değerleri)
+  formValues: Record<string, any>;
+
   // API'den gelen veriler
   institutions: SchoolSearchResultDto[];
   totalElements: number;

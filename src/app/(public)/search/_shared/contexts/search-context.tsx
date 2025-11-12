@@ -129,6 +129,9 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
 
   // Context değerini oluştur
   const contextValue: SearchContextValue = {
+    // Form values (search form'unun mevcut değerleri)
+    formValues: values,
+
     // API'den gelen veriler
     institutions,
     totalElements,

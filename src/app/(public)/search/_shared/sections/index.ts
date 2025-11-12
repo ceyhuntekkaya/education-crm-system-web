@@ -6,3 +6,6 @@ export { default as ActiveFilters } from "./active-filters";
 export * from "./active-filters";
 export { InstitutionCard } from "./institution-card/institution-card";
 export { InstitutionCard as InstitutionCardComponent } from "./institution-card/institution-card";
+export { SaveFavoriteSearchModal } from "./save-favorite-search-modal";
+export { SaveFavoriteSearchButton } from "./save-favorite-search-button";
+export { SearchResultsHeader } from "./search-results-header";

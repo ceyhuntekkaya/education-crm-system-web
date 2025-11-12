@@ -1,7 +1,7 @@
 // Search Page Components & Contexts
 export * from "./contexts";
 export * from "./sections";
-export * from "./components";
+export * from "./hooks";
 
 // Search Page Types & Utils
 export * from "./types";

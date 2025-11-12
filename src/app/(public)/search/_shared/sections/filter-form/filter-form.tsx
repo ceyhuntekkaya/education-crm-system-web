@@ -4,7 +4,7 @@ import { Form, Button, FormValues as FormDebug } from "@/components";
 import { Accordion, AccordionItem } from "@/components/ui";
 import { useAccordion, useFormHook, useModal } from "@/hooks";
 import { useSearchContext } from "../../contexts";
-import { SaveFavoriteSearchModal } from "../../components/save-favorite-search-modal";
+import { SaveFavoriteSearchModal } from "../save-favorite-search-modal";
 import { FormValues } from "@/types";
 import { createApiParams, cleanApiParams } from "../../utils";
 import {
@@ -32,7 +32,8 @@ interface Section {
 
 const FormContent = () => {
   const { resetForm } = useFormHook();
-  const { search, sectionChanges, institutionTypes, resetSearch } = useSearchContext();
+  const { search, sectionChanges, institutionTypes, resetSearch } =
+    useSearchContext();
 
   // Favori Modal için
   const FavoriteSearchButton = () => {
