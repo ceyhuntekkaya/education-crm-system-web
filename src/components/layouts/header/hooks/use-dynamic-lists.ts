@@ -5,22 +5,31 @@ import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, ParentSchoolListResponse } from "@/types";
 import { MenuLink } from "../types";
 import { useMemo } from "react";
+import { useAuth } from "@/contexts";
 
 /**
  * Hook to fetch and transform parent school lists for header menu
+ * Only fetches when user is logged in
  */
 export const useDynamicLists = () => {
+  const { user } = useAuth();
+
+  // API isteği sadece user varsa yapılsın
   const {
     data: response,
     loading,
     error,
     refetch,
   } = useGet<ApiResponseDto<ParentSchoolListResponse[]>>(
-    API_ENDPOINTS.PARENT_SCHOOL_LISTS.GET_LISTS
+    user ? API_ENDPOINTS.PARENT_SCHOOL_LISTS.GET_LISTS : null,
+    {
+      enabled: !!user, // User yoksa API isteği atılmasın
+    }
   );
 
   const listMenuLinks = useMemo(() => {
-    if (!response?.data) return [];
+    // User yoksa veya data yoksa boş array dön
+    if (!user || !response?.data) return [];
 
     // Sort lists: default lists first, then by creation date
     const sortedLists = [...response.data].sort((a, b) => {
@@ -41,7 +50,7 @@ export const useDynamicLists = () => {
         label: list.listName || "İsimsiz Liste",
         // count: list.schoolCount,
       }));
-  }, [response?.data]);
+  }, [user, response?.data]);
 
   return {
     listMenuLinks,
