@@ -2,6 +2,9 @@ import { SchoolSearchDto, SchoolSearchResultDto } from "@/types";
 
 // Context'te tutulacak değerlerin tipi
 export interface SearchContextValue {
+  // Form values (search form'unun mevcut değerleri)
+  formValues: Record<string, any>;
+
   // API'den gelen veriler
   institutions: SchoolSearchResultDto[];
   totalElements: number;
@@ -65,9 +68,6 @@ export interface SearchContextValue {
 
   // Section değişiklik durumları (filter form'da yönetilecek)
   sectionChanges: Record<string, boolean>;
-
-  // Kurum türü değişiklik counter'ı (dynamic sections için signal)
-  institutionTypeChangeCounter: number;
 
   // Arama fonksiyonalitesi
   search: (data: SchoolSearchDto) => Promise<any>; // Arama fonksiyonu

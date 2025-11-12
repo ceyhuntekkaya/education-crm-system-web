@@ -24,16 +24,5 @@ export interface InstitutionTypesReturn {
   };
 }
 
-export interface InstitutionChangesReturn {
-  institutionTypeChangeCounter: number;
-}
-
 // Section changes için tipler
 export type SectionChangesReturn = Record<string, boolean>;
-
-// Search hooks için tipler
-export interface SearchReturn {
-  search: (data: any) => Promise<any>;
-  searchLoading: boolean;
-  searchError: any;
-}

@@ -1,57 +1,66 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  Suspense,
-  useState,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, Suspense } from "react";
 import { useFormHook } from "@/hooks";
 import { Loading } from "@/components";
-import { SchoolSearchResultDto } from "@/types";
 
-// Yeni modüler hooks'ları import et
+// 🎯 CLEAN ESSENTIAL HOOKS
 import {
   useLocationData,
   useLocationDependencies,
   useInstitutionTypes,
-  useInstitutionChanges,
   useSectionChanges,
   useSearch,
   useUrlToFormSync,
-  useFavFilterSync,
+  useUrlAutoSearch,
+  useFavoriteSearchLoad,
 } from "../hooks";
 
 import { SearchContextValue, SearchProviderProps } from "../types";
-import { createApiParams, cleanApiParams } from "../utils";
 
-// Context'in varsayılan değeri
+/**
+ * 🔍 SEARCH CONTEXT
+ * Sadece hook koordinasyonu yapar - tüm logic hook'larda
+ */
+
 const SearchContext = createContext<SearchContextValue | undefined>(undefined);
 
-// Suspense boundary gerektiren hooks için ayrı component
 const SearchProviderContent = ({ children }: SearchProviderProps) => {
-  // Institutions state'i
-  const [institutions, setInstitutions] = useState<SchoolSearchResultDto[]>([]);
-  const [totalElements, setTotalElements] = useState<number>(0);
-  // İlk arama yapıldı mı kontrolü
-  const [hasSearched, setHasSearched] = useState<boolean>(false);
-  // URL'den arama tetiklendiğini takip etmek için
-  const hasTriggeredUrlSearch = React.useRef(false);
-
-  // Form hook'tan sadece gerekli değerleri al
+  // 📝 FORM MANAGEMENT
   const {
     values,
     updateField,
     isDirty,
     areFieldsDirty,
     initialValues,
-    clearAllFieldsExcept,
+    resetForm,
   } = useFormHook();
 
-  // Modüler hooks'ları kullan
+  // 🗺️ LOCATION DATA
   const locationData = useLocationData(values);
+  useLocationDependencies(values, updateField);
+
+  // 🏫 INSTITUTION TYPES
   const { institutionTypes, institutionTypesOptions } = useInstitutionTypes();
+
+  // 🔍 SEARCH WITH RESULTS
+  const {
+    search,
+    searchLoading,
+    searchError,
+    institutions,
+    totalElements,
+    hasSearched,
+    resetSearchResults,
+  } = useSearch();
+
+  // ⭐ FAVORITE SEARCH LOADING (öncelikli - diğer URL işlemlerinden önce)
+  useFavoriteSearchLoad({
+    search,
+    institutionTypes,
+  });
+
+  // 🎨 SECTION CHANGES
   const sectionChanges = useSectionChanges(
     isDirty,
     areFieldsDirty,
@@ -60,99 +69,58 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
     institutionTypes
   );
 
-  // useSearch hook'una setInstitutions callback'ini geçiyoruz
-  const { search, searchLoading, searchError } = useSearch({
-    onSearchSuccess: (data) => {
-      if (data?.content) {
-        setInstitutions(data.content);
-        setTotalElements(data.totalElements || 0);
-        // Başarılı arama sonrası hasSearched'i true yap
-        setHasSearched(true);
-      }
-    },
-  });
-
-  const { institutionTypeChangeCounter } = useInstitutionChanges(
-    values,
-    clearAllFieldsExcept
-  );
-
-  // Lokasyon bağımlılıklarını yönet
-  useLocationDependencies(values, updateField);
-
-  // URL parametrelerini form değerleriyle senkronize et (useSearchParams kullanır)
+  // 🔗 URL SYNC
   const { hasUrlParams, urlPropertyFilters } = useUrlToFormSync();
 
-  // URL'den parametreler geldiğinde otomatik arama yap
-  useEffect(() => {
-    // Sadece URL'den parametre geldiyse ve henüz arama yapılmadıysa
-    if (
-      hasUrlParams &&
-      !hasTriggeredUrlSearch.current &&
-      values &&
-      institutionTypes.length > 0
-    ) {
-      hasTriggeredUrlSearch.current = true;
+  // 🔗 URL AUTO-SEARCH
+  const { hasTriggeredUrlSearch } = useUrlAutoSearch({
+    hasUrlParams,
+    values,
+    institutionTypes,
+    urlPropertyFilters,
+    search,
+  });
 
-      // Form değerlerini API formatına dönüştür
-      const apiParams = createApiParams(values, institutionTypes);
-
-      // Eğer URL'den propertyFilters geldiyse, onları kullan
-      if (urlPropertyFilters.length > 0) {
-        apiParams.propertyFilters = urlPropertyFilters;
-      }
-
-      const cleanParams = cleanApiParams(apiParams);
-
-      console.log("URL'den otomatik arama başlatılıyor:", cleanParams);
-
-      // Form değerleri güncellendiğinde arama yap
-      search(cleanParams);
-    }
-  }, [hasUrlParams, values, institutionTypes, urlPropertyFilters, search]);
-
-  // Favori filtre senkronizasyonu (useSearchParams kullanır)
-  useFavFilterSync();
-
-  // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
+  // 🎛️ OPTIONS FOR COMPONENTS
   const options = {
     institution: institutionTypesOptions,
     location: locationData,
   };
 
-  // Reset search - form'u temizle ve initial state'e dön
+  // 🔄 RESET FUNCTION
   const resetSearch = () => {
-    setHasSearched(false);
-    setInstitutions([]);
-    setTotalElements(0);
+    resetSearchResults();
+    if (hasTriggeredUrlSearch?.current !== undefined) {
+      hasTriggeredUrlSearch.current = false;
+    }
   };
 
-  // Context değerini oluştur
+  // 🎯 CONTEXT VALUE
   const contextValue: SearchContextValue = {
-    // API'den gelen veriler
+    // Search Results
     institutions,
     totalElements,
     hasSearched,
 
-    // Kurum türleri ham verisi
+    // Form State
+    formValues: values,
+
+    // Institution Data
     institutionTypes,
 
-    // Lokasyon verileri (ayrı ayrı erişim için)
+    // Location Data
     countries: locationData.countries,
     provinces: locationData.provinces,
     districts: locationData.districts,
     neighborhoods: locationData.neighborhoods,
 
-    // Gruplandırılmış seçenekler (component'lerde kolayca kullanım için)
+    // Options
     options,
 
-    // Section değişiklik durumları
+    // UI State
     sectionChanges,
 
-    // Kurum türü değişiklik counter'ı
-    institutionTypeChangeCounter,
-
-    // Arama fonksiyonalitesi
+    // Actions
     search,
     searchLoading,
     searchError,
@@ -174,7 +142,6 @@ export function SearchProvider({ children }: SearchProviderProps) {
   );
 }
 
-// Context'i kullanmak için custom hook
 export function useSearchContext() {
   const context = useContext(SearchContext);
   if (context === undefined) {

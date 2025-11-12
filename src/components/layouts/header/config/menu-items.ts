@@ -21,13 +21,7 @@ export const menuItems: MenuItem[] = [
   {
     label: "Favori Aramalarım",
     href: "/fav-searches",
-    links: [
-      { href: "/search?favId=0", label: "Lise Araması" },
-      { href: "/search?favId=1", label: "Anaokulu Araması" },
-      { href: "/search?favId=2", label: "İlkokul Araması" },
-      { href: "/search?favId=3", label: "Ortaokul Araması" },
-      { href: "/search?favId=4", label: "Özel Kurslar" },
-    ],
+    links: [], // Dinamik olarak doldurulacak
   },
   { href: "/messages", label: "Mesajlarım", count: 7 },
 ];

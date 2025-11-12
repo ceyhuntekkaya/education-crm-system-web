@@ -201,6 +201,8 @@ export const API_ENDPOINTS = {
   PARENT_SCHOOL_LISTS: {
     CREATE_LIST: "/parent/school-lists",
     GET_LISTS: "/parent/school-lists",
+    GET_LISTS_BY_PARENT: (parentId: string | number) =>
+      `/parent/school-lists/${parentId}`,
     LIST_BY_ID: (id: string | number) => `/parent/school-lists/${id}`,
     UPDATE_LIST: (id: string | number) => `/parent/school-lists/${id}`,
     DELETE_LIST: (id: string | number) => `/parent/school-lists/${id}`,
@@ -209,6 +211,19 @@ export const API_ENDPOINTS = {
       `/parent/school-lists/${listId}/schools/${schoolId}`,
     GET_LIST_ITEMS: (listId: string | number) =>
       `/parent/school-lists/${listId}/schools`,
+  },
+
+  // Parent Search Lists endpoints (Favori Aramalar)
+  PARENT_SEARCH_LISTS: {
+    CREATE_LIST: "/parent/school-lists/search-list/",
+    GET_LISTS_BY_PARENT: (userId: string | number) =>
+      `/parent/school-lists/search-list/${userId}`,
+    LIST_BY_ID: (id: string | number) =>
+      `/parent/school-lists/search-list/${id}`,
+    UPDATE_LIST: (id: string | number) =>
+      `/parent/school-lists/search-list/${id}`,
+    DELETE_LIST: (id: string | number) =>
+      `/parent/school-lists/search-list/${id}`,
   },
 
   // // Todos

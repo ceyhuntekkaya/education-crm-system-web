@@ -3,4 +3,6 @@ export * from "./search-form-values";
 export * from "./search-context-types";
 export * from "./use-institution-search-hook-params";
 export * from "./hook-types";
+export * from "./hook-props";
 export * from "./fav-filter-types";
+export * from "./parent-search-list";

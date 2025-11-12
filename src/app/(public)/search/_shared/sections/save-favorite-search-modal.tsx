@@ -12,7 +12,10 @@ import { FormProvider } from "@/contexts";
 import { Loading } from "@/components";
 import { FormValues } from "@/types";
 import { useFormHook } from "@/hooks";
-import { useSearchParams } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
+import { useSaveFavoriteSearch } from "../hooks";
+import { useSearchContext } from "../contexts";
+import { createApiParams, cleanApiParams } from "../utils";
 
 interface SaveFavoriteSearchModalProps {
   isOpen: boolean;
@@ -20,41 +23,64 @@ interface SaveFavoriteSearchModalProps {
 }
 
 // Form içeriği component'i
-const SaveFavoriteSearchModalContent: React.FC<{ onClose: () => void }> = ({
-  onClose,
-}) => {
-  const { setValue } = useFormHook();
-  const searchParams = useSearchParams();
+const SaveFavoriteSearchModalContent: React.FC<{
+  onClose: () => void;
+}> = ({ onClose }) => {
+  const { setValue, values: modalFormValues } = useFormHook();
+  const { formValues, institutionTypes } = useSearchContext();
+  const { user } = useAuth();
+  const { saveFavoriteSearch, loading, error } = useSaveFavoriteSearch(onClose);
 
-  const handleFormSubmit = (formValues: FormValues) => {
+  // Form values'ların bir kopyasını al (reference koparmak için)
+  const searchFormData = React.useMemo(() => {
+    return JSON.parse(JSON.stringify(formValues));
+  }, [formValues]);
+
+  const handleSaveClick = () => {
     if (
-      !formValues.favoriteSearchName ||
-      !(formValues.favoriteSearchName as string).trim()
+      !modalFormValues.favoriteSearchName ||
+      !(modalFormValues.favoriteSearchName as string).trim()
     ) {
-      alert("Lütfen favori arama adını giriniz.");
       return;
     }
 
-    const favoriteSearchName = (formValues.favoriteSearchName as string).trim();
+    if (!user?.id) {
+      console.error("User ID not found");
+      return;
+    }
 
-    // Mevcut arama parametrelerini al
-    const currentParams = Array.from(searchParams.entries())
-      .filter(([key]) => key !== "favId") // favId parametresini hariç tut
-      .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+    const favoriteSearchName = (
+      modalFormValues.favoriteSearchName as string
+    ).trim();
 
-    const saveData = {
+    // Debug: Context'teki form values'ları kontrol et
+    console.log("Search formValues from context:", searchFormData);
+
+    // Form values'ları search ile aynı API formatına dönüştür
+    const apiParams = createApiParams(searchFormData, institutionTypes || []);
+    const cleanParams = cleanApiParams(apiParams);
+
+    console.log("API formatında kayıt edilecek data:", cleanParams);
+
+    // API formatındaki data'yı JSON string'e çevir
+    const dataString = JSON.stringify(cleanParams);
+
+    saveFavoriteSearch({
+      parentId: user.id,
       name: favoriteSearchName,
-      searchParams: currentParams,
-      createdAt: new Date().toISOString(),
-    };
+      data: dataString,
+    });
+  };
 
-    // Favori arama kaydet işlemi burada yapılacak
-    console.log("Favori arama kaydedildi:", saveData);
+  const handleFormSubmit = (
+    modalFormValues: FormValues,
+    event?: React.FormEvent
+  ): void => {
+    // Form'un default submit behavior'ını engelle
+    event?.preventDefault();
 
-    // Başarı mesajı göster
-    alert(`"${favoriteSearchName}" adlı favori arama başarıyla kaydedildi!`);
-
-    onClose();
+    // Form submit'i sadece engellemek için, işlem handleSaveClick'te
+    return;
   };
 
   return (
@@ -103,11 +129,14 @@ const SaveFavoriteSearchModalContent: React.FC<{ onClose: () => void }> = ({
           </Button>
           <Button
             variant="inline"
-            type="submit"
+            type="button"
+            onClick={handleSaveClick}
             leftIcon="ph-bold ph-heart"
             className="flex-grow-1"
+            loading={loading}
+            disabled={loading}
           >
-            Kaydet
+            {loading ? "Kaydediliyor..." : "Kaydet"}
           </Button>
         </div>
       </Form>

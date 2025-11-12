@@ -5,6 +5,7 @@ import {
   useMobileMenu,
   useSubmenu,
   useDynamicLists,
+  useDynamicFavoriteSearches,
 } from "../hooks";
 import { menuItems as staticMenuItems } from "../config";
 import { MenuItem } from "../types";
@@ -43,6 +44,8 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
   const { isMenuActive, toggleMenu, closeMenu } = useMobileMenu();
   const { activeSubmenu, handleSubmenuClick } = useSubmenu();
   const { listMenuLinks, loading: listsLoading } = useDynamicLists();
+  const { favoriteSearchMenuLinks, loading: favSearchLoading } =
+    useDynamicFavoriteSearches();
 
   // Dinamik menü öğeleri oluştur
   const menuItems = useMemo(() => {
@@ -51,17 +54,30 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
       return staticMenuItems;
     }
 
-    // "Listelerim" menü öğesini bul ve güncelle
+    // Menü öğelerini dinamik olarak güncelle
     return staticMenuItems.map((item) => {
+      // "Listelerim" menü öğesini bul ve güncelle
       if (item.label === "Listelerim" && listMenuLinks.length > 0) {
         return {
           ...item,
           links: listMenuLinks,
         };
       }
+
+      // "Favori Aramalarım" menü öğesini bul ve güncelle
+      if (
+        item.label === "Favori Aramalarım" &&
+        favoriteSearchMenuLinks.length > 0
+      ) {
+        return {
+          ...item,
+          links: favoriteSearchMenuLinks,
+        };
+      }
+
       return item;
     });
-  }, [user, listMenuLinks]);
+  }, [user, listMenuLinks, favoriteSearchMenuLinks]);
 
   if (isLoading) return <Loading />;
 
