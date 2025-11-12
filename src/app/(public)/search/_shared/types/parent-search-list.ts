@@ -5,6 +5,9 @@ export interface ParentSearchList {
   data: string;
   createdAt?: string;
   updatedAt?: string;
+  createdBy?: any;
+  updatedBy?: any;
+  isActive?: boolean;
 }
 
 export interface CreateParentSearchListRequest {
@@ -14,3 +17,8 @@ export interface CreateParentSearchListRequest {
 }
 
 export interface ParentSearchListResponse extends ParentSearchList {}
+
+// Backend array döndürüyor, wrapper object değil
+export interface ParentSearchListsResponse {
+  data: ParentSearchList[];
+}

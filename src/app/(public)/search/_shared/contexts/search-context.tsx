@@ -21,6 +21,7 @@ import {
   useSearch,
   useUrlToFormSync,
   useFavFilterSync,
+  useFavoriteSearchLoad,
 } from "../hooks";
 
 import { SearchContextValue, SearchProviderProps } from "../types";
@@ -113,6 +114,9 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
 
   // Favori filtre senkronizasyonu (useSearchParams kullanır)
   useFavFilterSync();
+
+  // Favori arama yükleme (URL'den favSearchId'ye göre)
+  useFavoriteSearchLoad();
 
   // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
   const options = {
