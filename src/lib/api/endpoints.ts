@@ -215,7 +215,7 @@ export const API_ENDPOINTS = {
 
   // Parent Search Lists endpoints (Favori Aramalar)
   PARENT_SEARCH_LISTS: {
-    CREATE_LIST: "/parent/school-lists/search-list",
+    CREATE_LIST: "/parent/school-lists/search-list/",
     GET_LISTS_BY_PARENT: (userId: string | number) =>
       `/parent/school-lists/search-list/${userId}`,
     LIST_BY_ID: (id: string | number) =>

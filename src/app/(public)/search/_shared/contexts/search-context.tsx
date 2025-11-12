@@ -20,7 +20,6 @@ import {
   useSectionChanges,
   useSearch,
   useUrlToFormSync,
-  useFavFilterSync,
   useFavoriteSearchLoad,
 } from "../hooks";
 
@@ -39,6 +38,8 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
   const [hasSearched, setHasSearched] = useState<boolean>(false);
   // URL'den arama tetiklendiğini takip etmek için
   const hasTriggeredUrlSearch = React.useRef(false);
+  // Favori arama yüklenirken institution change clearing'i devre dışı bırakmak için
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState<boolean>(false);
 
   // Form hook'tan sadece gerekli değerleri al
   const {
@@ -75,7 +76,8 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
 
   const { institutionTypeChangeCounter } = useInstitutionChanges(
     values,
-    clearAllFieldsExcept
+    clearAllFieldsExcept,
+    isFavoriteLoading // Favori yüklenirken clearing'i devre dışı bırak
   );
 
   // Lokasyon bağımlılıklarını yönet
@@ -87,11 +89,16 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
   // URL'den parametreler geldiğinde otomatik arama yap
   useEffect(() => {
     // Sadece URL'den parametre geldiyse ve henüz arama yapılmadıysa
+    // Ancak favSearchId varsa bu arama'yı skip et (useFavoriteSearchLoad halledecek)
+    const searchParams = new URLSearchParams(window.location.search);
+    const favSearchId = searchParams.get("favSearchId");
+
     if (
       hasUrlParams &&
       !hasTriggeredUrlSearch.current &&
       values &&
-      institutionTypes.length > 0
+      institutionTypes.length > 0 &&
+      !favSearchId // favSearchId varsa bu arama'yı skip et
     ) {
       hasTriggeredUrlSearch.current = true;
 
@@ -112,11 +119,13 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
     }
   }, [hasUrlParams, values, institutionTypes, urlPropertyFilters, search]);
 
-  // Favori filtre senkronizasyonu (useSearchParams kullanır)
-  useFavFilterSync();
-
   // Favori arama yükleme (URL'den favSearchId'ye göre)
-  useFavoriteSearchLoad();
+  useFavoriteSearchLoad({
+    search,
+    institutionTypes,
+    hasTriggeredUrlSearchRef: hasTriggeredUrlSearch,
+    setIsFavoriteLoading, // Favori yüklenme state'ini kontrol et
+  });
 
   // SELECT COMPONENTLERİ İÇİN OPTION GRUPLARİ
   const options = {
@@ -130,6 +139,8 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
     setInstitutions([]);
     setTotalElements(0);
   };
+
+  console.log("values ==> ", values);
 
   // Context değerini oluştur
   const contextValue: SearchContextValue = {

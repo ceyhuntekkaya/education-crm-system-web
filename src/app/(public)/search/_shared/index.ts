@@ -6,4 +6,3 @@ export * from "./hooks";
 // Search Page Types & Utils
 export * from "./types";
 export * from "./utils";
-export * from "./mock";

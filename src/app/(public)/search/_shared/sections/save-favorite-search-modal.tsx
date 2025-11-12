@@ -15,6 +15,7 @@ import { useFormHook } from "@/hooks";
 import { useAuth } from "@/contexts/auth-context";
 import { useSaveFavoriteSearch } from "../hooks";
 import { useSearchContext } from "../contexts";
+import { createApiParams, cleanApiParams } from "../utils";
 
 interface SaveFavoriteSearchModalProps {
   isOpen: boolean;
@@ -26,7 +27,7 @@ const SaveFavoriteSearchModalContent: React.FC<{
   onClose: () => void;
 }> = ({ onClose }) => {
   const { setValue, values: modalFormValues } = useFormHook();
-  const { formValues } = useSearchContext();
+  const { formValues, institutionTypes } = useSearchContext();
   const { user } = useAuth();
   const { saveFavoriteSearch, loading, error } = useSaveFavoriteSearch(onClose);
 
@@ -55,8 +56,14 @@ const SaveFavoriteSearchModalContent: React.FC<{
     // Debug: Context'teki form values'ları kontrol et
     console.log("Search formValues from context:", searchFormData);
 
-    // Kopya form values'ları JSON string'e çevir ve parentId ile birlikte gönder
-    const dataString = JSON.stringify(searchFormData);
+    // Form values'ları search ile aynı API formatına dönüştür
+    const apiParams = createApiParams(searchFormData, institutionTypes || []);
+    const cleanParams = cleanApiParams(apiParams);
+
+    console.log("API formatında kayıt edilecek data:", cleanParams);
+
+    // API formatındaki data'yı JSON string'e çevir
+    const dataString = JSON.stringify(cleanParams);
 
     saveFavoriteSearch({
       parentId: user.id,

@@ -6,7 +6,8 @@ import { InstitutionChangesReturn } from "../types";
  */
 export function useInstitutionChanges(
   values: any,
-  clearAllFieldsExcept: (fields: string[]) => void
+  clearAllFieldsExcept: (fields: string[]) => void,
+  isFavoriteLoading?: boolean // Favori yüklenirken clearing'i devre dışı bırakmak için
 ): InstitutionChangesReturn {
   const [institutionTypeChangeCounter, setInstitutionTypeChangeCounter] =
     useState(0);
@@ -21,8 +22,18 @@ export function useInstitutionChanges(
       // Counter'ı artır (child component'lar için signal)
       setInstitutionTypeChangeCounter((prev) => prev + 1);
 
+      // Favori yüklenirken clearing yapma!
+      if (isFavoriteLoading) {
+        console.log(
+          "Favori yüklenirken institution change clearing atlanıyor..."
+        );
+        return;
+      }
+
       // Kurum türü değiştiyse ve bir değer varsa, diğer alanları sıfırla
       if (values?.institutionTypeId) {
+        console.log("Institution type değişti, form clearing yapılıyor...");
+
         const fieldsToKeep = [
           "institutionTypeId", // Kurum türü kendisi
           "countryId",
@@ -40,7 +51,7 @@ export function useInstitutionChanges(
         clearAllFieldsExcept(fieldsToKeep);
       }
     }
-  }, [values?.institutionTypeId, clearAllFieldsExcept]);
+  }, [values?.institutionTypeId, clearAllFieldsExcept, isFavoriteLoading]);
 
   return {
     institutionTypeChangeCounter,
