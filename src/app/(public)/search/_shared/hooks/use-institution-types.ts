@@ -1,42 +1,11 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-import {
-  ApiResponseDto,
-  InstitutionTypeDto,
-  InstitutionTypeListDto,
-} from "@/types";
+import { ApiResponseDto, InstitutionTypeListDto } from "@/types";
 import { InstitutionTypesReturn } from "../types";
+import { transformInstitutionTypeData } from "../utils";
 
 /**
- * Kurum türü verilerini transform eder
- */
-const transformInstitutionTypeData = (
-  data: InstitutionTypeListDto[] | undefined,
-  placeholder: string
-) => [
-  { value: "", label: placeholder },
-  ...(data
-    ?.map((type: InstitutionTypeListDto) => {
-      // Güvenli veri kontrolü
-      if (
-        !type.institutionTypeDto?.id ||
-        !type.institutionTypeDto?.displayName
-      ) {
-        return null;
-      }
-      return {
-        value: type.institutionTypeDto.id.toString(),
-        label: type.institutionTypeDto.displayName,
-      };
-    })
-    .filter(
-      (
-        option: { value: string; label: string } | null
-      ): option is { value: string; label: string } => option !== null
-    ) || []),
-];
-
-/**
+ * 🏫 INSTITUTION TYPES HOOK
  * Kurum türü verilerini yönetir
  */
 export function useInstitutionTypes(): InstitutionTypesReturn {

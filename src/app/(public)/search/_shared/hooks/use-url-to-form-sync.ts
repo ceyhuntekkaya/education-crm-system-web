@@ -22,6 +22,15 @@ export const useUrlToFormSync = () => {
     // URL'den gelen tüm parametreleri al
     const params = new URLSearchParams(searchParams.toString());
 
+    // Favori arama varsa normal URL sync'i skip et
+    const favSearchId = params.get("favSearchId");
+    if (favSearchId) {
+      hasInitialized.current = true;
+      setHasUrlParams(false);
+      console.log("🔗 URL sync skipped - favori arama mevcut:", favSearchId);
+      return;
+    }
+
     // Eğer URL'de parametre yoksa hiçbir şey yapma
     if (params.toString() === "") {
       hasInitialized.current = true;

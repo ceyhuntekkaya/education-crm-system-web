@@ -5,6 +5,10 @@ import {
   ParentSearchListResponse,
 } from "../types";
 
+/**
+ * 💾 SAVE FAVORITE SEARCH HOOK
+ * Favori arama kaydetme işlemlerini yönetir
+ */
 export const useSaveFavoriteSearch = (onSuccess?: () => void) => {
   const { mutate, loading, error } = usePost<
     ParentSearchListResponse,

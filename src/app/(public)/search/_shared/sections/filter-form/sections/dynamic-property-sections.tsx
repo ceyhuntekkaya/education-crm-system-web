@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { FormRadio, FormCheckbox } from "@/components";
 import { useFormHook } from "@/hooks";
 import { formatTitle } from "@/utils";
@@ -12,10 +12,11 @@ interface SearchTerms {
 
 export const DynamicPropertySections = () => {
   const { values } = useFormHook();
-  const { institutionTypeChangeCounter, institutionTypes } = useSearchContext();
+  const { institutionTypes } = useSearchContext();
 
   // Her section için ayrı arama state'i
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
+  const prevInstitutionTypeId = useRef(values?.institutionTypeId);
 
   // Seçilen kurum tipine göre dinamik grupları al
   const dynamicGroups = useMemo(() => {
@@ -28,8 +29,11 @@ export const DynamicPropertySections = () => {
 
   // Kurum türü değiştiğinde arama terimlerini sıfırla
   useEffect(() => {
-    setSearchTerms({});
-  }, [institutionTypeChangeCounter]);
+    if (prevInstitutionTypeId.current !== values?.institutionTypeId) {
+      prevInstitutionTypeId.current = values?.institutionTypeId;
+      setSearchTerms({});
+    }
+  }, [values?.institutionTypeId]);
 
   // Arama terimini güncelleme fonksiyonu
   const updateSearchTerm = (groupId: string, term: string) => {
