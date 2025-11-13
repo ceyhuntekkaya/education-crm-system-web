@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { NumericFormat, PatternFormat } from "react-number-format";
 import { useFormField } from "@/contexts";
+import { getMinDate } from "@/utils";
 
 type FormInputVariant = "inline" | "outline";
 
@@ -15,6 +16,7 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconRight?: string;
   fullWidth?: boolean;
   helperText?: string; // Yardımcı metin
+  minToday?: boolean; // Bugünün tarihini minimum değer olarak ayarlar (date ve datetime-local için)
   type?:
     | "text"
     | "email"
@@ -60,6 +62,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   helperText,
   numberFormat,
   numberFormatProps,
+  minToday = false,
   ...rest
 }) => {
   const { value, error, required, onChange } = useFormField(name);
@@ -530,6 +533,9 @@ export const FormInput: React.FC<FormInputProps> = ({
           }
           onChange={handleChange}
           required={required}
+          {...(minToday && (type === "date" || type === "datetime-local")
+            ? { min: getMinDate(type) }
+            : {})}
           {...rest}
         />
         {iconLeft && (
