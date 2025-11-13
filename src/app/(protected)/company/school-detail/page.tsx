@@ -28,11 +28,8 @@ const SchoolDetailPage: React.FC = () => {
 
   return (
     <div className="d-flex flex-column gap-24">
-      {/* <SchoolHeaderSection /> */}
       <SchoolCoverImage />
-
       <SchoolGeneralInfo />
-      {/* <SchoolPricingInfo /> */}
       <SchoolBrandDetail />
       <SchoolCampusDetail />
       <SchoolLocationInfo />

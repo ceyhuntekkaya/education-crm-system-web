@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/components/layouts/header/sections/logo";
 import { SidebarHeaderProps } from "../types";
+import { Button } from "@/components/ui";
 
 // Company context'i import et
 import { useCompany } from "@/app/(protected)/company/_shared";
@@ -88,26 +89,53 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = () => {
             {isSchoolDropdownOpen && (
               <div className="sidebar-school-dropdown-menu position-absolute top-100 start-0 w-100 mt-2 bg-white border border-neutral-100 rounded-8 shadow-sm z-3 sidebar-submenu-animate">
                 <div className="p-2">
-                  {schools.map((school) => (
-                    <button
-                      key={school.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedSchool(school);
-                        setIsSchoolDropdownOpen(false);
-                      }}
-                      className={`d-flex align-items-center gap-8 p-6 rounded-6 text-decoration-none w-100 border-0 bg-transparent transition-2 sidebar-link-animate ${
-                        selectedSchool?.id === school.id
-                          ? "bg-main-50 text-main-600"
-                          : "text-neutral-700 hover-bg-neutral-25"
-                      }`}
-                    >
-                      <span className="text-xs fw-medium">{school.name}</span>
-                      {selectedSchool?.id === school.id && (
-                        <i className="ph-bold ph-check text-main-600 ms-auto" />
-                      )}
-                    </button>
-                  ))}
+                  {schools.length === 0 ? (
+                    <div className="p-8 text-center">
+                      <i
+                        className="ph-bold ph-warning-circle text-warning-600 d-block mb-8"
+                        style={{ fontSize: "24px" }}
+                      />
+                      <p className="text-sm fw-medium text-neutral-800 mb-4">
+                        Henüz Okul Bulunmuyor
+                      </p>
+                      <p className="text-xs text-neutral-600 mb-12">
+                        Devam etmek için önce bir okul eklemeniz gerekmektedir.
+                      </p>
+                      <Link
+                        href="/company/school-list"
+                        onClick={() => setIsSchoolDropdownOpen(false)}
+                      >
+                        <Button
+                          variant="inline"
+                          size="sm"
+                          leftIcon="ph-bold ph-plus"
+                        >
+                          Okul Ekle
+                        </Button>
+                      </Link>
+                    </div>
+                  ) : (
+                    schools.map((school) => (
+                      <button
+                        key={school.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedSchool(school);
+                          setIsSchoolDropdownOpen(false);
+                        }}
+                        className={`d-flex align-items-center gap-8 p-6 rounded-6 text-decoration-none w-100 border-0 bg-transparent transition-2 sidebar-link-animate ${
+                          selectedSchool?.id === school.id
+                            ? "bg-main-50 text-main-600"
+                            : "text-neutral-700 hover-bg-neutral-25"
+                        }`}
+                      >
+                        <span className="text-xs fw-medium">{school.name}</span>
+                        {selectedSchool?.id === school.id && (
+                          <i className="ph-bold ph-check text-main-600 ms-auto" />
+                        )}
+                      </button>
+                    ))
+                  )}
                 </div>
               </div>
             )}
