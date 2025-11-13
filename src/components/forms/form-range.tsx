@@ -39,12 +39,18 @@ export const FormRange: React.FC<FormRangeProps> = ({
 
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMin = Number(e.target.value);
-    onChange([newMin, maxValue] as any);
+    // Sol değer sağ değerden büyük olamaz
+    if (newMin <= maxValue) {
+      onChange([newMin, maxValue] as any);
+    }
   };
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMax = Number(e.target.value);
-    onChange([minValue, newMax] as any);
+    // Sağ değer sol değerden küçük olamaz
+    if (newMax >= minValue) {
+      onChange([minValue, newMax] as any);
+    }
   };
 
   const handleMinMouseDown = () => setIsDragging("min");
