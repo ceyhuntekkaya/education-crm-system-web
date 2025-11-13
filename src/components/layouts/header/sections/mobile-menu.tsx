@@ -38,20 +38,34 @@ const MobileMenu = () => {
                   )}
                   onClick={() => handleSubmenuClick(index)}
                 >
-                  <Link href={item.href || "#"} className="nav-menu__link">
+                  <a
+                    href="#"
+                    className="nav-menu__link"
+                    onClick={(e) => e.preventDefault()}
+                  >
                     {item.label}
-                  </Link>
+                  </a>
                   <ul className="nav-submenu scroll-sm">
-                    {item.links.map((link, linkIndex) => (
-                      <li key={linkIndex} className="nav-submenu__item">
-                        <Link
-                          href={link.href}
-                          className="nav-submenu__link hover-bg-neutral-30"
-                        >
-                          {link.label}
-                        </Link>
+                    {item.hasNoData ? (
+                      // Veri yoksa boş mesajı göster
+                      <li className="nav-submenu__item">
+                        <div className="nav-submenu__link text-neutral-500 text-center py-12">
+                          Henüz liste yok
+                        </div>
                       </li>
-                    ))}
+                    ) : (
+                      // Veri varsa linkleri göster
+                      item.links.map((link, linkIndex) => (
+                        <li key={linkIndex} className="nav-submenu__item">
+                          <Link
+                            href={link.href}
+                            className="nav-submenu__link hover-bg-neutral-30"
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </li>
               ) : (

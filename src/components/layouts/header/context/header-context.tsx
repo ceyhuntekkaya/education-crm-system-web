@@ -57,21 +57,22 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
     // Menü öğelerini dinamik olarak güncelle
     return staticMenuItems.map((item) => {
       // "Listelerim" menü öğesini bul ve güncelle
-      if (item.label === "Listelerim" && listMenuLinks.length > 0) {
+      if (item.label === "Listelerim") {
+        // Eğer listMenuLinks null ise (veri yok), boş bir link dizisi ile item döndür
+        // Bu durumda UI'da "Henüz liste yok" mesajı gösterilebilir
         return {
           ...item,
-          links: listMenuLinks,
+          links: listMenuLinks || [],
+          hasNoData: listMenuLinks === null, // Veri olmadığını belirten flag
         };
       }
 
       // "Favori Aramalarım" menü öğesini bul ve güncelle
-      if (
-        item.label === "Favori Aramalarım" &&
-        favoriteSearchMenuLinks.length > 0
-      ) {
+      if (item.label === "Favori Aramalarım") {
         return {
           ...item,
-          links: favoriteSearchMenuLinks,
+          links: favoriteSearchMenuLinks || [],
+          hasNoData: favoriteSearchMenuLinks === null, // Veri olmadığını belirten flag
         };
       }
 

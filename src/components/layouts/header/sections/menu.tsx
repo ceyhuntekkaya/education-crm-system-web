@@ -19,35 +19,49 @@ const UserNavigation = ({ className = "" }: UserNavigationProps) => {
               key={getMenuItemKey("menu-item", index)}
               className="nav-menu__item has-submenu"
             >
-              <Link href={item.href || "#"} className="nav-menu__link">
+              <a
+                href="#"
+                className="nav-menu__link"
+                onClick={(e) => e.preventDefault()}
+              >
                 {item.label}
                 {item.count !== undefined && item.count > 0 && (
                   <span className="nav-badge nav-badge--warning">
                     {item.count > 99 ? "99+" : item.count}
                   </span>
                 )}
-              </Link>
+              </a>
               <ul className="nav-submenu scroll-sm">
-                {item.links.map((link, linkIndex) => (
-                  <li
-                    key={getMenuItemKey("submenu-item", linkIndex)}
-                    className={`nav-submenu__item ${
-                      isActivePage(pathname, link.href) ? "activePage" : ""
-                    }`}
-                  >
-                    <Link
-                      href={link.href}
-                      className="nav-submenu__link hover-bg-neutral-30"
-                    >
-                      {link.label}
-                      {link.count !== undefined && link.count > 0 && (
-                        <span className="nav-badge nav-badge--warning">
-                          {link.count > 99 ? "99+" : link.count}
-                        </span>
-                      )}
-                    </Link>
+                {item.hasNoData ? (
+                  // Veri yoksa boş mesajı göster
+                  <li className="nav-submenu__item">
+                    <div className="nav-submenu__link text-neutral-500 text-center py-12">
+                      Henüz liste yok
+                    </div>
                   </li>
-                ))}
+                ) : (
+                  // Veri varsa linkleri göster
+                  item.links.map((link, linkIndex) => (
+                    <li
+                      key={getMenuItemKey("submenu-item", linkIndex)}
+                      className={`nav-submenu__item ${
+                        isActivePage(pathname, link.href) ? "activePage" : ""
+                      }`}
+                    >
+                      <Link
+                        href={link.href}
+                        className="nav-submenu__link hover-bg-neutral-30"
+                      >
+                        {link.label}
+                        {link.count !== undefined && link.count > 0 && (
+                          <span className="nav-badge nav-badge--warning">
+                            {link.count > 99 ? "99+" : link.count}
+                          </span>
+                        )}
+                      </Link>
+                    </li>
+                  ))
+                )}
               </ul>
             </li>
           ) : (
