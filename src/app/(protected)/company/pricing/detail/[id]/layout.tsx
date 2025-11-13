@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { notFound } from "next/navigation";
 import { PricingDetailProvider } from "./_shared";
 import { validatePricingId } from "./_shared/utils";
 import { useCompany } from "@/app/(protected)/company/_shared";
@@ -29,11 +28,9 @@ const PricingDetailLayout: React.FC<PricingDetailLayoutProps> = ({
     return null;
   }
 
-  // Hala geçerli bir ID yoksa 404 sayfasına yönlendir
-  if (!pricingId) notFound();
-
+  // ID yoksa bile devam et, CustomCard içinde empty state gösterilecek
   return (
-    <PricingDetailProvider pricingId={pricingId}>
+    <PricingDetailProvider pricingId={pricingId ?? 0}>
       {children}
     </PricingDetailProvider>
   );

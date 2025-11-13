@@ -2,58 +2,48 @@
 
 import React from "react";
 
-import { CustomCard, LoadingSpinner } from "@/components/ui";
+import { CustomCard } from "@/components/ui";
 import { usePricingDetail, usePricingSections } from "./_shared";
+import { useCompany } from "@/app/(protected)/company/_shared";
 
 /**
  * Pricing detay bilgilerini gösteren kart bileşeni
  */
 const PricingDetailPage: React.FC = () => {
-  const { pricing, isLoading, error } = usePricingDetail();
+  const { pricing, isLoading, error, pricingId } = usePricingDetail();
+  const { selectedSchool } = useCompany();
 
   // Ana section'ları oluştur - hook'u en üstte çağırıyoruz
   const allSections = usePricingSections(pricing);
 
-  if (isLoading) {
-    return (
-      <CustomCard title="Fiyat Bilgisi Detayı">
-        <LoadingSpinner message="Fiyat bilgisi yükleniyor..." />
-      </CustomCard>
-    );
-  }
-
-  if (error) {
-    return (
-      <CustomCard
-        title="Hata"
-        bgColor="bg-danger-25"
-        border="border border-danger-30"
-      >
-        <div className="text-center py-8">
-          <i className="ph ph-warning-circle text-danger fs-2 mb-3"></i>
-          <p className="text-danger mb-0">
-            Fiyat bilgisi yüklenirken hata oluştu: {error}
-          </p>
-        </div>
-      </CustomCard>
-    );
-  }
-
-  if (!pricing) {
-    return (
-      <CustomCard title="Bilgi">
-        <div className="text-center py-8">
-          <i className="ph ph-info text-neutral-500 fs-2 mb-3"></i>
-          <p className="text-neutral-600 mb-0">Fiyat bilgisi bulunamadı.</p>
-        </div>
-      </CustomCard>
-    );
-  }
+  // ID yoksa veya 0 ise özel mesaj göster
+  const hasValidId = !!(pricingId && pricingId > 0);
+  const showNoSchoolMessage = !hasValidId && !selectedSchool;
 
   return (
     <CustomCard
       title="Fiyat Bilgisi Detayı"
       subtitle="Okul fiyat bilgilerini detaylı olarak görüntüleyin"
+      isLoading={isLoading && hasValidId}
+      loadingMessage="Fiyat bilgisi yükleniyor..."
+      isError={!!error && hasValidId}
+      errorMessage={
+        error ? `Fiyat bilgisi yüklenirken hata oluştu: ${error}` : undefined
+      }
+      isEmpty={
+        showNoSchoolMessage || (!pricing && !isLoading && !error && hasValidId)
+      }
+      emptyMessage={
+        showNoSchoolMessage
+          ? "Lütfen önce bir okul seçin"
+          : "Fiyat bilgisi bulunamadı"
+      }
+      emptyDescription={
+        showNoSchoolMessage
+          ? "Fiyat bilgilerini görüntülemek için yan menüden bir okul seçmeniz gerekmektedir."
+          : undefined
+      }
+      emptyIcon={showNoSchoolMessage ? "ph-buildings" : "ph-info"}
       editButtonUrl={
         pricing?.id ? `/company/pricing/add-edit/${pricing.id}` : undefined
       }

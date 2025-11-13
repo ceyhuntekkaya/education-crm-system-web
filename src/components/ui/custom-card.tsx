@@ -291,16 +291,16 @@ export default function CustomCard({
 
     if (isError) {
       return (
-        <div className="text-center py-5">
-          <div className="mb-3">
+        <div className="text-center py-8">
+          <div className="mb-4">
             <i
-              className={`${errorIcon} text-danger`}
-              style={{ fontSize: "3rem" }}
+              className={`ph ${errorIcon} text-danger`}
+              style={{ fontSize: "4rem" }}
             ></i>
           </div>
-          <h6 className="text-danger mb-2">{errorMessage}</h6>
+          <h5 className="text-danger fw-semibold mb-2">{errorMessage}</h5>
           {errorMessage === "Bir hata oluştu" && (
-            <p className="text-muted small mb-0">
+            <p className="text-neutral-500 mb-0">
               Lütfen sayfayı yenileyin veya daha sonra tekrar deneyin.
             </p>
           )}
@@ -310,16 +310,21 @@ export default function CustomCard({
 
     if (isEmpty) {
       return (
-        <div className="text-center py-5">
-          <div className="mb-3">
+        <div className="text-center py-8">
+          <div className="mb-4">
             <i
-              className={`${emptyIcon} text-muted`}
-              style={{ fontSize: "3rem" }}
+              className={`ph ${emptyIcon} text-neutral-400`}
+              style={{ fontSize: "4rem" }}
             ></i>
           </div>
-          <h6 className="text-muted mb-2">{emptyMessage}</h6>
+          <h5 className="text-neutral-700 fw-semibold mb-2">{emptyMessage}</h5>
           {emptyDescription && (
-            <p className="text-muted small mb-0">{emptyDescription}</p>
+            <p
+              className="text-neutral-500 mb-0"
+              style={{ maxWidth: "400px", margin: "0 auto" }}
+            >
+              {emptyDescription}
+            </p>
           )}
         </div>
       );
