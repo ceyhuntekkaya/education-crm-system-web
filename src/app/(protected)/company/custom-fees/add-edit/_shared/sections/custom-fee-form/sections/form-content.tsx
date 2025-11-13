@@ -117,6 +117,7 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Durum"
             options={statusOptions}
             placeholder="Durumu seçiniz..."
+            helperText="Sadece durumu aktif olanlar veli tarafında görülecektir"
           />
         </div>
 
