@@ -69,7 +69,7 @@ export const PostFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormValues />
+      {/* <FormValues /> */}
       <div className="row row-gap-24">
         <div className="col-12">
           <h5 className="mb-16">Temel Bilgiler</h5>
