@@ -147,6 +147,12 @@ class ApiClient {
           }
         }
 
+        // 409 durumunda mevcut kayıt hatası
+        if (error.response?.status === 409) {
+          errorMessage =
+            "Bu kayıt zaten mevcut. Lütfen farklı bir kayıt deneyin.";
+        }
+
         // Özel hata mesajları
         if (error.message === "Network Error") {
           errorMessage =

@@ -110,6 +110,16 @@ export const useApi = <T>() => {
           }
         }
 
+        // Axios error kontrolü
+        if (error && typeof error === "object" && "response" in error) {
+          const axiosError = error as any;
+          // 409 Conflict hatası
+          if (axiosError.response?.status === 409) {
+            errorMessage =
+              "Bu kayıt zaten mevcut. Lütfen farklı bir değer deneyin.";
+          }
+        }
+
         console.error("API Mutation Error:", {
           error,
           variables,
