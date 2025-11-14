@@ -9,4 +9,5 @@ export interface MenuItem {
   href?: string;
   links?: MenuLink[];
   count?: number;
+  hasNoData?: boolean; // Veri olmadığını belirten flag
 }

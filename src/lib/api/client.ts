@@ -7,10 +7,11 @@ import { snackbarService } from "../snackbar-service";
 // http://192.168.1.105:8080/api
 // http://192.168.1.87:8080/api
 // https://demo.designexium.co.uk/api
+// https://api.egitimiste.com/
 class ApiClient {
   private client: AxiosInstance;
 
-  constructor(baseURL: string = "https://demo.designexium.co.uk/api") {
+  constructor(baseURL: string = "https://api.egitimiste.com/api") {
     this.client = axios.create({
       baseURL,
       timeout: 10000,
@@ -95,9 +96,14 @@ class ApiClient {
         }
 
         // Success snackbar göster (GET istekleri hariç)
-        const showSnackbar = response.config.headers?.['X-Show-Snackbar'] !== 'false';
+        const showSnackbar =
+          response.config.headers?.["X-Show-Snackbar"] !== "false";
         const method = response.config.method?.toUpperCase();
-        if (showSnackbar && method && ["POST", "PUT", "DELETE", "PATCH"].includes(method)) {
+        if (
+          showSnackbar &&
+          method &&
+          ["POST", "PUT", "DELETE", "PATCH"].includes(method)
+        ) {
           const successMessages: { [key: string]: string } = {
             POST: "İşlem başarıyla oluşturuldu",
             PUT: "İşlem başarıyla güncellendi",
@@ -141,6 +147,12 @@ class ApiClient {
           }
         }
 
+        // 409 durumunda mevcut kayıt hatası
+        if (error.response?.status === 409) {
+          errorMessage =
+            "Bu kayıt zaten mevcut. Lütfen farklı bir kayıt deneyin.";
+        }
+
         // Özel hata mesajları
         if (error.message === "Network Error") {
           errorMessage =
@@ -152,7 +164,8 @@ class ApiClient {
         }
 
         // Error snackbar göster
-        const showSnackbar = error.config?.headers?.['X-Show-Snackbar'] !== 'false';
+        const showSnackbar =
+          error.config?.headers?.["X-Show-Snackbar"] !== "false";
         if (showSnackbar) {
           snackbarService.error(errorMessage);
         }

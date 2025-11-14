@@ -60,7 +60,7 @@ export const CustomFeeFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormValues />
+      {/* <FormValues /> */}
       <div className="row row-gap-24">
         {/* TEMEL BİLGİLER */}
         <div className="col-12">
@@ -117,6 +117,7 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Durum"
             options={statusOptions}
             placeholder="Durumu seçiniz..."
+            helperText="Sadece durumu aktif olanlar veli tarafında görülecektir"
           />
         </div>
 

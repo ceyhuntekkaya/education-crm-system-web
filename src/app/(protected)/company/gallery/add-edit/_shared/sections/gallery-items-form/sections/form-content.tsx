@@ -61,7 +61,7 @@ export const GalleryItemFormContent: React.FC<GalleryItemFormContentProps> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormValues />
+      {/* <FormValues /> */}
       <div className="row row-gap-24">
         {/* Sol Kolon - Medya Bilgileri */}
         <div className="col-6">

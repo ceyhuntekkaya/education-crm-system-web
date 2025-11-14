@@ -51,7 +51,7 @@ export const GalleryFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormValues />
+      {/* <FormValues /> */}
       <div className="row row-gap-24">
         {/* Sol Kolon - Temel Bilgiler */}
         <div className="col-6">

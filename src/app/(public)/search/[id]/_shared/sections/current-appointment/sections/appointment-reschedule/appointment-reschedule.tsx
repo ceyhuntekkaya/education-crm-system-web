@@ -94,7 +94,7 @@ export const AppointmentReschedule: React.FC<
         initialValues={initialValues}
         validationSchema={rescheduleValidationSchema}
       >
-        <FormValues />
+        {/* <FormValues /> */}
         <div className="mb-24">
           <CustomCard
             type="accordion"

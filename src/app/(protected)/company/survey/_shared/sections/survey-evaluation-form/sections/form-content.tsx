@@ -144,7 +144,7 @@ export const SurveyEvaluationFormContent: React.FC = () => {
 
       {/* EVALUATION FORM */}
       <Form onSubmit={handleSubmit}>
-        <FormValues />
+        {/* <FormValues /> */}
 
         {/* RATING QUESTIONS */}
         <div className="questions-container">

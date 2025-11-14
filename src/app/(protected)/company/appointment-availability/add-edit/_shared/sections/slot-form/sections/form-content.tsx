@@ -115,6 +115,7 @@ export const SlotFormContent: React.FC = () => {
             type="datetime-local"
             placeholder="Slot tarihini seçiniz..."
             required
+            minToday
           />
         </div>
 

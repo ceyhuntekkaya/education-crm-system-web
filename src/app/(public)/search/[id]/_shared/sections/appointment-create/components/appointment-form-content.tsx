@@ -31,7 +31,7 @@ export const AppointmentFormContent: React.FC = () => {
       {/* Form Content */}
       <div className="bg-white rounded-8 p-24">
         <StepRenderer />
-        <FormValues />
+        {/* <FormValues /> */}
         <NavigationControls />
       </div>
     </>
