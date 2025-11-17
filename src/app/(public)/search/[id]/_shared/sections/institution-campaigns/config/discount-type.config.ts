@@ -7,6 +7,18 @@ export const DISCOUNT_TYPE_CONFIG = {
     getColorClass: (isActive: boolean) =>
       isActive ? "text-success-600" : "text-neutral-400",
   },
+  AMOUNT: {
+    icon: "ph-currency-circle-dollar",
+    getText: (campaign: { discountAmount?: string | number }) => {
+      const amount =
+        typeof campaign.discountAmount === "string"
+          ? parseFloat(campaign.discountAmount)
+          : campaign.discountAmount;
+      return `${amount} TL İndirim`;
+    },
+    getColorClass: (isActive: boolean) =>
+      isActive ? "text-success-600" : "text-neutral-400",
+  },
   FIXED_AMOUNT: {
     icon: "ph-currency-circle-dollar",
     getText: (campaign: { discountAmount?: string | number }) => {

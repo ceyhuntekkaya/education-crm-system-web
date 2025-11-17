@@ -37,10 +37,12 @@ export const SchoolSelector: React.FC<SchoolSelectorProps> = ({
     );
   }
 
-  const schoolOptions = schools.map((school) => ({
-    value: school.id.toString(),
-    label: school.name,
-  }));
+  const schoolOptions = schools
+    .filter((school) => school.id !== undefined)
+    .map((school) => ({
+      value: school.id!.toString(),
+      label: school.name || "",
+    }));
 
   return (
     <div className={`${className}`}>
@@ -61,11 +63,13 @@ export const SchoolSelector: React.FC<SchoolSelectorProps> = ({
         }}
       >
         <option value="">{placeholder}</option>
-        {schools.map((school) => (
-          <option key={school.id} value={school.id.toString()}>
-            {school.name}
-          </option>
-        ))}
+        {schools
+          .filter((school) => school.id !== undefined)
+          .map((school) => (
+            <option key={school.id} value={school.id!.toString()}>
+              {school.name}
+            </option>
+          ))}
       </select>
     </div>
   );

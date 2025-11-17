@@ -15,11 +15,7 @@ export const CompanyProvider: React.FC<CompanyProviderProps> = ({
   const { user } = useAuth();
 
   const schools = useMemo(() => {
-    const userSchools = user?.userRoles?.[0]?.schools || [];
-    return userSchools.map((school) => ({
-      id: school.id || 0,
-      name: school.name || "",
-    }));
+    return user?.userRoles?.[0]?.schools || [];
   }, [user?.userRoles]);
 
   // Custom hook ile seçili okul yönetimi

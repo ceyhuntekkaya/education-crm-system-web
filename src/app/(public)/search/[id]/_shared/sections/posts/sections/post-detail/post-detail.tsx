@@ -1,10 +1,7 @@
 import React from "react";
+import { MediaGallery } from "@/components/ui";
 import { PostDetailProps } from "../../types";
-import {
-  PostDetailHeader,
-  PostDetailMediaColumn,
-  PostDetailContentColumn,
-} from "./components";
+import { PostDetailHeader, PostDetailContentColumn } from "./components";
 
 interface ExtendedPostDetailProps extends PostDetailProps {
   variant?: "inPage" | "modal";
@@ -41,7 +38,7 @@ const PostDetail: React.FC<ExtendedPostDetailProps> = ({
         <PostDetailHeader post={post} onClose={onClose} />
         <div className="gallery-modal-grid">
           <div className="gallery-viewer-column">
-            <PostDetailMediaColumn post={post} />
+            <MediaGallery items={post.items || []} />
           </div>
           <div className="gallery-info-column">
             <PostDetailContentColumn post={post} variant={variant} />
@@ -57,7 +54,7 @@ const PostDetail: React.FC<ExtendedPostDetailProps> = ({
       <PostDetailHeader post={post} onClose={onClose} />
       <div className="gallery-modal-grid">
         <div className="gallery-viewer-column">
-          <PostDetailMediaColumn post={post} />
+          <MediaGallery items={post.items || []} />
         </div>
         <div className="gallery-info-column">
           <PostDetailContentColumn post={post} variant={variant} />
