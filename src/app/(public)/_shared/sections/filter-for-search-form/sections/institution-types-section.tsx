@@ -15,6 +15,8 @@ export const InstitutionTypesSection = () => {
         multi={true}
         direction="horizontal"
         col={6}
+        isShowAll={true}
+        minShowingValues={6}
       />
       {options.institutionTypes.loading && (
         <LoadingSpinner
