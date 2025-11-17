@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { BrandDto } from "@/types";
+import { BrandDto, SchoolDto } from "@/types";
 
 /**
  * Brand Detail Provider Props
@@ -52,8 +52,8 @@ export interface BrandDetailContextType {
   error: string | null;
   refreshBrand: () => void;
   // Company context'ten gelen değerler
-  selectedSchool: { id: number; name: string } | null;
-  schools: { id: number; name: string }[];
+  selectedSchool: SchoolDto | null;
+  schools: SchoolDto[];
   // Config-based sections
   allSections: any[];
 }

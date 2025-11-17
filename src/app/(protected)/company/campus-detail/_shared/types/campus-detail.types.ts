@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { CampusDto } from "@/types";
+import { CampusDto, SchoolDto } from "@/types";
 
 /**
  * Campus Detail Provider Props
@@ -52,8 +52,8 @@ export interface CampusDetailContextType {
   error: string | null;
   refreshCampus: () => void;
   // Company context'ten gelen değerler
-  selectedSchool: { id: number; name: string } | null;
-  schools: { id: number; name: string }[];
+  selectedSchool: SchoolDto | null;
+  schools: SchoolDto[];
   // Config-based sections
   allSections: any[];
 }

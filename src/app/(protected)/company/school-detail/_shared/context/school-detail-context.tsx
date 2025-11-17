@@ -14,8 +14,8 @@ export interface SchoolDetailContextType {
   error: string | null;
   refreshSchool: () => void;
   // Company context'ten gelen değerler
-  selectedSchool: { id: number; name: string } | null;
-  schools: { id: number; name: string }[];
+  selectedSchool: SchoolDto | null;
+  schools: SchoolDto[];
   // School properties
   schoolProperties: GroupedSchoolProperty[];
   isPropertiesLoading: boolean;
