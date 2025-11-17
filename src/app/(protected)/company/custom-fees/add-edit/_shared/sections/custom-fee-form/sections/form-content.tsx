@@ -18,6 +18,7 @@ import { useCustomFeeAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
 import { CustomFeeCreateDto } from "@/types";
 import { useAuth } from "@/contexts";
+import { useCompany } from "@/app/(protected)/company/_shared";
 
 /**
  * Custom fee form content component
@@ -25,6 +26,7 @@ import { useAuth } from "@/contexts";
 export const CustomFeeFormContent: React.FC = () => {
   // Auth context'ten user bilgisini al
   const { user } = useAuth();
+  const { selectedSchool } = useCompany();
 
   // Context'ten verileri al
   // formLoading: Sadece form submit sırasında aktif olan loading durumu
@@ -42,6 +44,7 @@ export const CustomFeeFormContent: React.FC = () => {
       ...values,
       // createdByUserId'yi auth context'teki user'dan al
       createdByUserId: user?.id || 1,
+      schoolId: selectedSchool?.id || null,
     };
 
     if (isEditing) {

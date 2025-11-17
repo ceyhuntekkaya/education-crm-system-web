@@ -3,6 +3,8 @@
 import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { CustomFeeCreateDto, CustomFeeDto, ApiResponseDto } from "@/types";
+import { useRouter } from "next/navigation";
+import { useCustomFeeList } from "../../../_shared";
 
 interface UseEditCustomFeeProps {
   customFeeId: number;
@@ -24,6 +26,9 @@ export const useEditCustomFee = ({
   customFeeId,
   refetch,
 }: UseEditCustomFeeProps) => {
+  const router = useRouter();
+  const { refetchCustomFees } = useCustomFeeList();
+
   const {
     mutate: putCustomFee,
     loading: isLoading,
@@ -34,6 +39,10 @@ export const useEditCustomFee = ({
       onSuccess: (data) => {
         console.log("✅ Ek ücret başarıyla güncellendi:", data);
         refetch?.();
+        // Liste sayfasını yenile
+        refetchCustomFees();
+        // Liste sayfasına yönlendir
+        router.push("/company/custom-fees");
       },
       onError: (error) => {
         console.error("❌ Ek ücret güncellenirken hata:", error);
