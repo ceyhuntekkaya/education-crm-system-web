@@ -144,19 +144,21 @@
 
       .thumbnail-strip {
         flex: 0 0 auto;
-        height: 110px;
+        height: auto;
         overflow: visible;
         margin-top: 8px;
         margin-bottom: 20px;
-        padding-bottom: 4px;
+        padding: 12px 0;
 
         .thumbnail-container {
           display: flex;
+          align-items: center;
           gap: 8px;
-          height: 100%;
+          height: auto;
+          max-height: none;
           overflow-x: auto;
           overflow-y: hidden;
-          padding: 8px 0 8px 0;
+          padding: 8px 8px;
           scrollbar-width: thin;
           scrollbar-color: var(--primary-300) transparent;
 
