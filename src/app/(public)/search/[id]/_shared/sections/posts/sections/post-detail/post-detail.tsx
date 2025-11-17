@@ -4,7 +4,6 @@ import {
   PostDetailHeader,
   PostDetailMediaColumn,
   PostDetailContentColumn,
-  PostDetailNotFound,
 } from "./components";
 
 interface ExtendedPostDetailProps extends PostDetailProps {

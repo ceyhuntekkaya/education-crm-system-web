@@ -1,6 +1,6 @@
 import React from "react";
 import { CustomImage } from "@/components/ui";
-import { formatDate } from "../../../utils";
+import { getFileServeUrl } from "@/lib/api/constants";
 import { PostDto } from "@/types/dto/content";
 
 interface PostDetailHeaderProps {
@@ -14,45 +14,70 @@ const PostDetailHeader: React.FC<PostDetailHeaderProps> = ({
 }) => {
   if (!post) return null;
 
+  // URL helper
+  const getFullUrl = (url: string | undefined): string => {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
+    }
+    return getFileServeUrl(url);
+  };
+
+  // Date formatter
+  const formatDate = (dateString: string | undefined) => {
+    if (!dateString) return "-";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
-    <div className="d-flex align-items-center justify-content-between  border-bottom border-neutral-200 px-24 py-20">
-      <div className="d-flex align-items-center gap-12">
-        <div className="avatar avatar-sm">
-          <CustomImage
-            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-              post.author?.fullName || "User"
-            )}&background=6366f1&color=fff&size=32&rounded=true`}
-            alt={post.author?.fullName || "User"}
-            width={32}
-            height={32}
-            className="rounded-circle"
-          />
-        </div>
-        <div className="flex-1">
-          <h4 className="text-neutral-900 fw-medium fs-14 mb-2">
-            {post.author?.fullName || "Anonim Kullanıcı"}
-          </h4>
-          <div className="d-flex align-items-center gap-8">
-            <span className="text-neutral-500 fs-12">
-              {post.school?.name || "Okul Belirtilmemiş"}
-            </span>
-            <span className="text-neutral-400">•</span>
-            <time className="text-neutral-500 fs-12">
+    <div className="">
+      <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center gap-12">
+          <div className="avatar">
+            {post.featuredImageUrl ? (
+              <CustomImage
+                src={getFullUrl(post.featuredImageUrl)}
+                alt={post.title || "Post"}
+                width={48}
+                height={48}
+                variant="rounded"
+              />
+            ) : (
+              <div
+                className="bg-neutral-100 rounded-circle d-flex align-items-center justify-content-center"
+                style={{ width: 48, height: 48 }}
+              >
+                <i className="ph ph-image text-neutral-400 fs-24"></i>
+              </div>
+            )}
+          </div>
+          <div>
+            <h4 className="text-neutral-900 fw-semibold mb-2">
+              {post.title || "Başlıksız Gönderi"}
+            </h4>
+            <p className="text-neutral-600 mb-0 fs-14">
+              {post.author?.fullName || "Anonim Kullanıcı"} •{" "}
               {formatDate(post.publishedAt)}
-            </time>
+            </p>
           </div>
         </div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="btn btn-icon btn-sm text-neutral-400 hover:text-neutral-600"
+            type="button"
+            aria-label="Kapat"
+          >
+            <i className="ph ph-x fs-20"></i>
+          </button>
+        )}
       </div>
-      {onClose && (
-        <button
-          onClick={onClose}
-          className="btn btn-icon btn-sm text-neutral-400 hover:text-neutral-600"
-          type="button"
-          aria-label="Kapat"
-        >
-          <i className="ph ph-x fs-18"></i>
-        </button>
-      )}
+      <span className="d-block border border-neutral-30 my-24 border-dashed" />
     </div>
   );
 };
