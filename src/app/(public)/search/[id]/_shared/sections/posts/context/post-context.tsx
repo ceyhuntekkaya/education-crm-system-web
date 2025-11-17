@@ -5,6 +5,7 @@ import { useModal } from "@/hooks";
 import { useInstitutionDetail } from "../../../contexts/institution-detail-context";
 import { PostDto } from "@/types";
 import { PostSearchDto } from "@/types/dto/content/PostSearchDto";
+import { usePostDetail } from "../hooks/use-post-detail";
 
 // Types
 interface PostContextType {
@@ -17,9 +18,10 @@ interface PostContextType {
   selectedPostId: number | null;
   setSelectedPostId: (id: number | null) => void;
   postData: PostDto[];
-  selectedPost: PostDto | null;
+  postDetail: PostDto | null;
   loading: boolean;
   error: string | null;
+  postDetailLoading: boolean;
 
   // Utility function to get post by ID
   getPostById: (id: number | undefined) => PostDto | null;
@@ -40,13 +42,17 @@ const PostContext = createContext<PostContextType | undefined>(undefined);
 export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const { isOpen, open, close } = useModal();
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
-  const [selectedPost, setSelectedPost] = useState<PostDto | null>(null);
 
   // Institution detail context'ten posts verisini al
   const { posts, loading, error } = useInstitutionDetail();
 
   // Posts data'yı kullan (API'den gelen veri)
   const postData = posts || [];
+
+  // API'den post detayını çek - selectedPostId değiştiğinde otomatik çalışır
+  const { postDetail, postDetailLoading } = usePostDetail({
+    postId: selectedPostId,
+  });
 
   // Utility function to get post by ID
   const getPostById = (id: number | undefined): PostDto | null => {
@@ -56,15 +62,11 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
 
   const handleCardClick = (postId: number) => {
     setSelectedPostId(postId);
-    // Set selected post when card is clicked
-    const post = postData.find((p) => p.id === postId);
-    setSelectedPost(post || null);
     open();
   };
 
   // Custom close function that also clears selected post
   const handleModalClose = () => {
-    setSelectedPost(null);
     setSelectedPostId(null);
     close();
   };
@@ -85,9 +87,10 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
     selectedPostId,
     setSelectedPostId,
     postData,
-    selectedPost,
+    postDetail,
     loading,
     error,
+    postDetailLoading,
 
     // Utility function
     getPostById,

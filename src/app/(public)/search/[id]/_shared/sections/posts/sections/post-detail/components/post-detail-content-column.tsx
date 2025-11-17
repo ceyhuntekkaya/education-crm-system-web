@@ -111,7 +111,7 @@ const PostDetailContentColumn: React.FC<PostDetailContentColumnProps> = ({
                 alt={post.school.name || "School logo"}
                 width={40}
                 height={40}
-                className="rounded-circle"
+                variant="circle"
               />
             ) : (
               <div
@@ -142,7 +142,7 @@ const PostDetailContentColumn: React.FC<PostDetailContentColumnProps> = ({
                 alt={post.author.fullName || "Author"}
                 width={40}
                 height={40}
-                className="rounded-circle"
+                variant="circle"
               />
             ) : (
               <div

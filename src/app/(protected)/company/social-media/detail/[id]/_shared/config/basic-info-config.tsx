@@ -24,7 +24,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "İçerik",
     value: (post) => (
-      <div className="p-3 bg-neutral-25 rounded-8 border border-neutral-100">
+      <div className="p-3 bg-neutral-25 ">
         <div style={{ whiteSpace: "pre-wrap", lineHeight: "1.6" }}>
           {post?.content || "İçerik girilmemiş"}
         </div>

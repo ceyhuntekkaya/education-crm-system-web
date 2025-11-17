@@ -1,15 +1,21 @@
 "use client";
 
 import React from "react";
-import { Modal, CustomCard } from "@/components/ui";
+import { Modal, CustomCard, LoadingSpinner } from "@/components/ui";
 import { PostProvider, usePostContext } from "./context/post-context";
 import { PostProps } from "./types/index";
 
 import { PostDetail, PostEmptyState, PostGrid, PostHeader } from "./sections";
 
 const PostContent: React.FC = () => {
-  const { isOpen, close, selectedPostId, postData, selectedPost } =
-    usePostContext();
+  const {
+    isOpen,
+    close,
+    selectedPostId,
+    postData,
+    postDetail,
+    postDetailLoading,
+  } = usePostContext();
 
   return (
     <>
@@ -48,9 +54,26 @@ const PostContent: React.FC = () => {
         closeOnBackdropClick={true}
         scrollable={true}
       >
-        {selectedPostId && selectedPost && (
-          <PostDetail post={selectedPost} onClose={close} />
-        )}
+        <div style={{ minHeight: "600px" }}>
+          {postDetailLoading ||
+          !postDetail ||
+          postDetail.id !== selectedPostId ? (
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{ minHeight: "600px" }}
+            >
+              <LoadingSpinner
+                message="Gönderi detayı yükleniyor..."
+                variant="dots"
+                size="lg"
+              />
+            </div>
+          ) : (
+            <div className="p-16">
+              <PostDetail post={postDetail} onClose={close} />
+            </div>
+          )}
+        </div>
       </Modal>
     </>
   );

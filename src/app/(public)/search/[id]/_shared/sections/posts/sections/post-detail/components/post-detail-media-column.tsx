@@ -50,7 +50,15 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
     switch (item.itemType) {
       case "IMAGE":
         return (
-          <div className="image-container">
+          <div
+            className="image-container"
+            style={{
+              height: "550px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <CustomImage
               src={getFullUrl(item.fileUrl)}
               alt={
@@ -68,7 +76,15 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
 
       case "VIDEO":
         return (
-          <div className="video-container" style={{ minHeight: "500px" }}>
+          <div
+            className="video-container"
+            style={{
+              height: "550px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <video
               src={getFullUrl(item.fileUrl)}
               controls
@@ -81,7 +97,15 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
 
       case "DOCUMENT":
         return (
-          <div className="document-viewer" style={{ minHeight: "500px" }}>
+          <div
+            className="document-viewer"
+            style={{
+              height: "550px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <div className="document-preview-card">
               <div className="document-header">
                 <div className="file-type-badge">
@@ -135,7 +159,16 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
 
       default:
         return (
-          <div className="text-center py-40">
+          <div
+            className="text-center py-40"
+            style={{
+              height: "550px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <i
               className="ph ph-file text-neutral-400"
               style={{ fontSize: "48px" }}
