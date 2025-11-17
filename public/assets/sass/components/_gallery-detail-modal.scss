@@ -41,20 +41,38 @@
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     height: 80vh;
-    max-height: 700px;
+    max-height: 750px;
     max-width: 1200px;
     margin: 0 auto;
+    overflow: hidden;
 
     // Left Column - Gallery Viewer
     .gallery-viewer-column {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      overflow: hidden;
-      // padding: 20px;
+      // gap: 8px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0 4px 24px 0;
+      max-height: 100%;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-300) transparent;
+      
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--primary-300);
+        border-radius: 2px;
+      }
 
       .gallery-main-viewer {
-        flex: 1;
+        flex: 0 0 auto;
         position: relative;
         background: var(--neutral-50);
         border-radius: 12px;
@@ -125,15 +143,20 @@
       }
 
       .thumbnail-strip {
-        height: 80px;
-        overflow: hidden;
+        flex: 0 0 auto;
+        height: 110px;
+        overflow: visible;
+        margin-top: 8px;
+        margin-bottom: 20px;
+        padding-bottom: 4px;
 
         .thumbnail-container {
           display: flex;
           gap: 8px;
           height: 100%;
           overflow-x: auto;
-          padding: 4px 0;
+          overflow-y: hidden;
+          padding: 8px 0 8px 0;
           scrollbar-width: thin;
           scrollbar-color: var(--primary-300) transparent;
 
@@ -152,8 +175,8 @@
 
           .thumbnail-item {
             position: relative;
-            width: 80px;
-            height: 60px;
+            width: 100px;
+            height: 85px;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
@@ -806,6 +829,7 @@
 
       .gallery-viewer-column {
         padding: 16px;
+        overflow-y: auto;
         
         .gallery-main-viewer {
           .main-image-container {
@@ -893,12 +917,15 @@
         }
 
         .thumbnail-strip {
-          height: 60px;
+          height: 80px;
+          margin-top: 8px;
 
           .thumbnail-container {
+            padding: 6px 0;
+            
             .thumbnail-item {
-              width: 60px;
-              height: 45px;
+              width: 70px;
+              height: 55px;
             }
           }
         }

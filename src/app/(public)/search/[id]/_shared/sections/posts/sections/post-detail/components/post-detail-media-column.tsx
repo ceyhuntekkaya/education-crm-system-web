@@ -187,7 +187,7 @@ const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
   };
 
   return (
-    <div className="gallery-viewer-column mt-24">
+    <div className="gallery-viewer-column">
       {hasItems ? (
         <>
           {/* Main Media Display */}
