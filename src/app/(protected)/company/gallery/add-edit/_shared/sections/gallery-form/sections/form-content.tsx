@@ -101,6 +101,7 @@ export const GalleryFormContent: React.FC = () => {
               maxSize={5}
               uploadButtonText="Görsel Yükle"
               name="coverImageUrl"
+              isAutoUpload
             />
             <FormInput
               name="coverImageUrl"
@@ -136,26 +137,47 @@ export const GalleryFormContent: React.FC = () => {
         <div className="col-12">
           <div className="d-flex flex-column gap-16">
             <h5>Görünürlük ve Ayarlar</h5>
-            <FormAutocomplete
-              name="visibility"
-              label="Görünürlük"
-              options={visibilityOptions}
-              placeholder="Görünürlük seçin"
-              required
-            />
-            <FormInput
-              name="sortOrder"
-              label="Sıralama"
-              type="number"
-              placeholder="Sıralama numarası girin"
-            />
-            <div className="d-flex flex-column gap-12">
-              <FormCheckbox name="isFeatured" label="Öne Çıkan" />
-              <FormCheckbox name="allowComments" label="Yorumlara İzin Ver" />
-              <FormCheckbox
-                name="allowDownloads"
-                label="İndirmelere İzin Ver"
-              />
+            <div className="row row-gap-16">
+              <div className="col-6">
+                <FormAutocomplete
+                  name="visibility"
+                  label="Görünürlük"
+                  options={visibilityOptions}
+                  placeholder="Görünürlük seçin"
+                  required
+                />
+              </div>
+              <div className="col-6">
+                <FormInput
+                  name="sortOrder"
+                  label="Sıralama"
+                  type="number"
+                  placeholder="Sıralama numarası girin"
+                />
+              </div>
+            </div>
+            <div className="row row-gap-16 mt-16">
+              <div className="col-4">
+                <FormCheckbox
+                  name="isFeatured"
+                  label="Öne Çıkan"
+                  variant="outlined"
+                />
+              </div>
+              <div className="col-4">
+                <FormCheckbox
+                  name="allowComments"
+                  label="Yorumlara İzin Ver"
+                  variant="outlined"
+                />
+              </div>
+              <div className="col-4">
+                <FormCheckbox
+                  name="allowDownloads"
+                  label="İndirmelere İzin Ver"
+                  variant="outlined"
+                />
+              </div>
             </div>
           </div>
         </div>

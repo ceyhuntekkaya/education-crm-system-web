@@ -95,12 +95,12 @@ export const CAMPAIGN_SECTIONS: SectionConfig[] = [
     titleIcon: "ph-bold ph-image",
     config: mediaConfig,
   },
-  {
-    title: "CTA ve Görsel Bilgiler",
-    titleColor: "text-primary-600",
-    titleIcon: "ph-bold ph-cursor-click",
-    config: ctaInfoConfig,
-  },
+  // {
+  //   title: "CTA ve Görsel Bilgiler",
+  //   titleColor: "text-primary-600",
+  //   titleIcon: "ph-bold ph-cursor-click",
+  //   config: ctaInfoConfig,
+  // },
 
   // 8. KAMPANYA İLİŞKİLERİ
   {
