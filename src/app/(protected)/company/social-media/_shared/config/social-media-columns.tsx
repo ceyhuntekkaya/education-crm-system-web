@@ -58,16 +58,16 @@ export const createSocialMediaColumns = (): GridColDef<PostDto>[] => [
       </div>
     ),
   },
-  {
-    field: "school",
-    headerName: "Okul",
-    width: 300,
-    renderCell: (params: any) => (
-      <div className="text-truncate" title={params.row.school?.name}>
-        {params.row.school?.name || "-"}
-      </div>
-    ),
-  },
+  // {
+  //   field: "school",
+  //   headerName: "Okul",
+  //   width: 300,
+  //   renderCell: (params: any) => (
+  //     <div className="text-truncate" title={params.row.school?.name}>
+  //       {params.row.school?.name || "-"}
+  //     </div>
+  //   ),
+  // },
   {
     field: "postType",
     headerName: "Tür",
