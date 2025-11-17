@@ -7,7 +7,7 @@ export default function Banner() {
   return (
     <>
       <Animation />
-      <section className="banner py-80 position-relative overflow-hidden">
+      <section className="banner pb-80 pt-40 position-relative overflow-hidden">
         {/* Animasyonlu şekiller */}
         <Image
           src="/assets/images/shapes/shape1.png"

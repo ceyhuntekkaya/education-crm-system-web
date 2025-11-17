@@ -14,6 +14,7 @@ interface FormRadioProps
   col?: number; // Bootstrap col değeri (3, 4, 6, etc.)
   isShowAll?: boolean; // Devamını göster özelliği aktif mi
   minShowingValues?: number; // Başlangıçta gösterilecek minimum değer sayısı (default: 6)
+  showAllButtonPosition?: "left" | "center" | "right"; // Hepsini Göster butonu pozisyonu (default: center)
 }
 
 export const FormRadio: React.FC<FormRadioProps> = ({
@@ -29,6 +30,7 @@ export const FormRadio: React.FC<FormRadioProps> = ({
   disabled = false,
   isShowAll = false,
   minShowingValues = 6,
+  showAllButtonPosition = "center",
   ...rest
 }) => {
   const { value: formValue, error, onChange } = useFormField(name);
@@ -199,7 +201,15 @@ export const FormRadio: React.FC<FormRadioProps> = ({
 
         {/* Hepsini Göster Butonu - Sade ve Ortalanmış */}
         {hasMoreOptions && (
-          <div className="text-center mt-24">
+          <div
+            className={`mt-24 ${
+              showAllButtonPosition === "center"
+                ? "text-center"
+                : showAllButtonPosition === "right"
+                ? "text-end"
+                : "text-start"
+            }`}
+          >
             <button
               type="button"
               onClick={toggleShowAll}

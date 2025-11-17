@@ -17,6 +17,7 @@ export const InstitutionTypesSection = () => {
         col={6}
         isShowAll={true}
         minShowingValues={4}
+        showAllButtonPosition="right"
       />
       {options.institutionTypes.loading && (
         <LoadingSpinner
