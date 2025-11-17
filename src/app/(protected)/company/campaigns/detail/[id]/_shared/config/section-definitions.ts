@@ -125,12 +125,12 @@ export const CAMPAIGN_SECTIONS: SectionConfig[] = [
   },
 
   // 10. TEKNİK VE YÖNETİM BİLGİLERİ
-  {
-    title: "SEO Bilgileri",
-    titleColor: "text-warning-600",
-    titleIcon: "ph-bold ph-globe",
-    config: metaInfoConfig,
-  },
+  // {
+  //   title: "SEO Bilgileri",
+  //   titleColor: "text-warning-600",
+  //   titleIcon: "ph-bold ph-globe",
+  //   config: metaInfoConfig,
+  // },
   {
     title: "Yönetim Bilgileri",
     titleColor: "text-primary-600",

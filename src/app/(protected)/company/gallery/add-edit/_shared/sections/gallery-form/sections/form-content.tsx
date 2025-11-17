@@ -133,7 +133,7 @@ export const GalleryFormContent: React.FC = () => {
         <span className="d-block border border-neutral-30 my-12 border-dashed" />
 
         {/* Alt Satır - Görünürlük ve Ayarlar (Sol) */}
-        <div className="col-6">
+        <div className="col-12">
           <div className="d-flex flex-column gap-16">
             <h5>Görünürlük ve Ayarlar</h5>
             <FormAutocomplete
@@ -161,7 +161,7 @@ export const GalleryFormContent: React.FC = () => {
         </div>
 
         {/* Alt Satır - SEO Bilgileri (Sağ) */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <div className="d-flex flex-column gap-16">
             <h5>SEO Bilgileri</h5>
             <FormInput
@@ -183,7 +183,7 @@ export const GalleryFormContent: React.FC = () => {
               placeholder="Virgülle ayrılmış etiketler giriniz..."
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Form Actions */}
         <div className="col-12">

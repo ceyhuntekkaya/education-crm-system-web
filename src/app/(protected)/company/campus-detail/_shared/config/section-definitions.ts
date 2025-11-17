@@ -24,10 +24,10 @@ export const CAMPUS_SECTIONS: CampusSectionConfig[] = [
   },
 
   // 3. SEO BİLGİLERİ
-  {
-    title: "SEO Bilgileri",
-    titleColor: "text-success-600",
-    titleIcon: "ph-bold ph-magnifying-glass",
-    config: campusSeoConfig,
-  },
+  // {
+  //   title: "SEO Bilgileri",
+  //   titleColor: "text-success-600",
+  //   titleIcon: "ph-bold ph-magnifying-glass",
+  //   config: campusSeoConfig,
+  // },
 ];

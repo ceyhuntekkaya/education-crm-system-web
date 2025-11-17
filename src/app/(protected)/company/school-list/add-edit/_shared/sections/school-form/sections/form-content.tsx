@@ -364,11 +364,11 @@ export const SchoolFormContent: React.FC = () => {
         </div>
 
         {/* SEO BİLGİLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">SEO Bilgileri</h5>
         </div>
 
-        {/* Meta Başlık */}
+
         <div className="col-12">
           <FormInput
             name="metaTitle"
@@ -377,7 +377,7 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Meta Açıklama */}
+
         <div className="col-12">
           <FormTextarea
             name="metaDescription"
@@ -387,14 +387,13 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Meta Anahtar Kelimeler */}
         <div className="col-12">
           <FormInput
             name="metaKeywords"
             label="Meta Anahtar Kelimeler"
             placeholder="Meta anahtar kelimeleri giriniz (virgülle ayırarak)..."
           />
-        </div>
+        </div> */}
 
         {/* ÖZELLİK DEĞERLERİ - PropertyValues */}
         {currentPropertyGroups.length > 0 && (

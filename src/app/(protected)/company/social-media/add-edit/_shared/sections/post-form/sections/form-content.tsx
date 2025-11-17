@@ -257,7 +257,7 @@ export const PostFormContent: React.FC = () => {
           />
         </div>
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16 mt-16">SEO Bilgileri</h5>
         </div>
 
@@ -294,7 +294,7 @@ export const PostFormContent: React.FC = () => {
             label="Hashtag'ler"
             placeholder="Virgülle ayrılmış hashtag'ler giriniz..."
           />
-        </div>
+        </div> */}
 
         <div className="col-12">
           <h5 className="mb-16 mt-16">Harici Linkler</h5>

@@ -541,11 +541,10 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* SEO BİLGİLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">SEO Bilgileri</h5>
         </div>
 
-        {/* Meta Başlık */}
         <div className="col-12">
           <FormInput
             name="metaTitle"
@@ -554,7 +553,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Meta Açıklama */}
+      
         <div className="col-12">
           <FormTextarea
             name="metaDescription"
@@ -564,7 +563,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Meta Anahtar Kelimeler */}
+  
         <div className="col-12">
           <FormInput
             name="metaKeywords"
@@ -573,10 +572,10 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Divider */}
+
         <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* EK ÖZELLİKLER */}
         <div className="col-12">
