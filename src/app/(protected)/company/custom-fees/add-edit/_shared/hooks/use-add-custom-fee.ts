@@ -3,6 +3,8 @@
 import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { CustomFeeCreateDto, CustomFeeDto, ApiResponseDto } from "@/types";
+import { useRouter } from "next/navigation";
+import { useCustomFeeList } from "../../../_shared";
 
 /**
  * Custom fee ekleme hook'u
@@ -13,6 +15,9 @@ import { CustomFeeCreateDto, CustomFeeDto, ApiResponseDto } from "@/types";
  * - error: Hata durumu
  */
 export const useAddCustomFee = () => {
+  const router = useRouter();
+  const { refetchCustomFees } = useCustomFeeList();
+
   const {
     mutate: postCustomFee,
     loading: isLoading,
@@ -22,6 +27,10 @@ export const useAddCustomFee = () => {
     {
       onSuccess: (data) => {
         console.log("✅ Ek ücret başarıyla eklendi:", data);
+        // Liste sayfasını yenile
+        refetchCustomFees();
+        // Liste sayfasına yönlendir
+        router.push("/company/custom-fees");
       },
       onError: (error) => {
         console.error("❌ Ek ücret eklenirken hata:", error);

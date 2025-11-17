@@ -18,6 +18,8 @@ export const InstitutionTypesSection = () => {
           value=""
           options={options.institution.data}
           multi={true}
+          isShowAll
+          minShowingValues={5}
         />
       </div>
     ),

@@ -13,6 +13,13 @@ import {
 const GalleryContent: React.FC = () => {
   const { isOpen, close, selectedGalleryId, galleryData } = useGalleryContext();
 
+  console.log(
+    "galleryData.find((g) => g.id === selectedGalleryId) =>",
+    galleryData.find((g) => g.id === selectedGalleryId)
+  );
+
+  console.log("galleryData =>", galleryData);
+
   return (
     <>
       <CustomCard

@@ -4,7 +4,6 @@ import {
   PostDetailHeader,
   PostDetailMediaColumn,
   PostDetailContentColumn,
-  PostDetailNotFound,
 } from "./components";
 
 interface ExtendedPostDetailProps extends PostDetailProps {
@@ -35,42 +34,35 @@ const PostDetail: React.FC<ExtendedPostDetailProps> = ({
     );
   }
 
-  // InPage variant için farklı layout structure
+  // InPage variant için gallery-style layout
   if (variant === "inPage") {
     return (
-      <div className="bg-white border rounded-12 overflow-hidden post-detail-in-page">
+      <div className="gallery-detail-modal">
         <PostDetailHeader post={post} onClose={onClose} />
-        <div className="row g-0 post-detail-layout post-detail-in-page-layout">
-          <div className="col-6">
+        <div className="gallery-modal-grid">
+          <div className="gallery-viewer-column">
             <PostDetailMediaColumn post={post} />
           </div>
-          <div className="col-6">
-            <div className="post-detail-content-wrapper">
-              <PostDetailContentColumn post={post} variant={variant} />
-            </div>
+          <div className="gallery-info-column">
+            <PostDetailContentColumn post={post} variant={variant} />
           </div>
         </div>
       </div>
     );
   }
 
-  // Modal variant (default)
-  const content = (
-    <div className="row g-0 post-detail-layout">
-      <div className="col-6">
-        <PostDetailMediaColumn post={post} />
-      </div>
-
-      <div className="col-6">
-        <PostDetailContentColumn post={post} variant={variant} />
-      </div>
-    </div>
-  );
-
+  // Modal variant (default) - also use gallery-style layout
   return (
-    <div>
+    <div className="gallery-detail-modal">
       <PostDetailHeader post={post} onClose={onClose} />
-      <div>{content}</div>
+      <div className="gallery-modal-grid">
+        <div className="gallery-viewer-column">
+          <PostDetailMediaColumn post={post} />
+        </div>
+        <div className="gallery-info-column">
+          <PostDetailContentColumn post={post} variant={variant} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 import { FormProvider } from "@/contexts";
-import { Button, Form, FormValues } from "@/components";
+import { Button, Divider, Form, FormValues } from "@/components";
 import { useFormHook } from "@/hooks";
 import { initialValues, validationSchema } from "./schemas";
 import { FilterSearchProvider, useFilterSearchContext } from "./contexts";
@@ -31,7 +31,7 @@ const FormContent = () => {
       </div>
 
       {/* Divider */}
-      <hr className="border-neutral-100" />
+      <Divider />
 
       {/* Location Section */}
       <div className="mb-16">
@@ -42,29 +42,28 @@ const FormContent = () => {
       </div>
 
       {/* Divider */}
-      <hr className="border-neutral-100" />
+      <Divider />
 
-      {/* Fee Range & Institution Types - Yan Yana */}
-      <div className="row g-3 mb-1">
-        {/* Institution Types Section */}
-        <div className="col-md-6">
-          <h6 className="fw-medium text-neutral-900 mb-16">Kurum Türü</h6>
-          <div className="p-12 bg-neutral-10">
-            <InstitutionTypesSection />
-          </div>
+      {/* Institution Types Section */}
+      <div className="col-12">
+        <h6 className="fw-medium text-neutral-900 mb-16">Kurum Türü</h6>
+        <div className="p-12 bg-neutral-10">
+          <InstitutionTypesSection />
         </div>
+      </div>
 
-        {/* Fee Range Section */}
-        <div className="col-md-6">
-          <h6 className="fw-medium text-neutral-900 mb-16">Ücret Aralığı</h6>
-          <div className="bg-neutral-10">
-            <FeeRangeSection />
-          </div>
+      <Divider />
+
+      {/* Fee Range Section */}
+      <div className="col-12">
+        <h6 className="fw-medium text-neutral-900 mb-16">Ücret Aralığı</h6>
+        <div className="bg-neutral-10">
+          <FeeRangeSection />
         </div>
       </div>
 
       {/* Divider */}
-      <hr className="border-neutral-100" />
+      <Divider />
 
       {/* Actions */}
       <div className="d-flex flex-wrap gap-12 justify-content-end">

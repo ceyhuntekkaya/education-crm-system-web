@@ -10,33 +10,33 @@ export const companyLayoutNavigation: MenuItem[] = [
   //
   {
     href: "/company/school-list",
-    label: "Okul Listesi ***",
+    label: "Okul Listesi",
     icon: "ph-buildings",
   },
   {
     href: "/company/school-detail",
-    label: "Okul Bilgileri ***",
+    label: "Okul Bilgileri",
     icon: "ph-graduation-cap",
   },
 
   // {
   //   href: "/company/pricing",
-  //   label: "Fiyat Bilgileri ***",
+  //   label: "Fiyat Bilgileri",
   //   icon: "ph-coins",
   // },
   {
     href: "/company/pricing/detail/school",
-    label: "Fiyat Bilgileri ***",
+    label: "Fiyat Bilgileri",
     icon: "ph-coins",
   },
   {
     href: "/company/custom-fees",
-    label: "Ek Ücretler ***",
+    label: "Ek Ücretler",
     icon: "ph-currency-circle-dollar",
   },
   {
     href: "/company/campaigns",
-    label: "Kampanyalar ***",
+    label: "Kampanyalar",
     icon: "ph-megaphone",
   },
   // {
@@ -46,17 +46,17 @@ export const companyLayoutNavigation: MenuItem[] = [
   // },
   {
     href: "/company/appointment-availability",
-    label: "Randevu Bilgileri ***",
+    label: "Randevu Bilgileri",
     icon: "ph-calendar-check",
   },
   {
     href: "/company/gallery",
-    label: "Galeri ***",
+    label: "Galeri",
     icon: "ph-image",
   },
   {
     href: "/company/social-media",
-    label: "Sosyal Medya ***",
+    label: "Sosyal Medya",
     icon: "ph-share-network",
   },
   {
@@ -66,7 +66,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/company/survey",
-    label: "Anketler ***",
+    label: "Anketler",
     icon: "ph-clipboard",
   },
   // {
@@ -76,7 +76,7 @@ export const companyLayoutNavigation: MenuItem[] = [
   // },
   {
     href: "/company/users",
-    label: "Kullanıcılar ***",
+    label: "Kullanıcılar",
     icon: "ph-users",
   },
   // {
@@ -86,19 +86,19 @@ export const companyLayoutNavigation: MenuItem[] = [
   // },
   // {
   //   href: "/company/brands",
-  //   label: "Markalar ***",
+  //   label: "Markalar",
   //   icon: "ph-tag",
   // },
   {
     href: "/company/campus-detail",
-    label: "Kampüs Bilgileri ***",
+    label: "Kampüs Bilgileri",
     icon: "ph-school",
   },
   // Kampüs detayı dinamik route olduğu için hem menüde görünebilir
   // hem de Brand detay sayfasındaki kampüslerden erişilebilir
   // {
   //   href: "/company/campus-detail",
-  //   label: "Kampüs Bilgileri ***",
+  //   label: "Kampüs Bilgileri",
   //   icon: "ph-school",
   // },
   // {

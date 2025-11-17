@@ -149,6 +149,8 @@ export const PostFormContent: React.FC = () => {
           />
         </div>
 
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
         <div className="col-12">
           <h5 className="mb-16 mt-16">Medya İçeriği</h5>
         </div>
@@ -163,6 +165,7 @@ export const PostFormContent: React.FC = () => {
               maxSize={5}
               uploadButtonText="Görsel Yükle"
               name="featuredImageUrl"
+              isAutoUpload
             />
             {/* Manuel Featured Image URL */}
             <FormInput
@@ -183,6 +186,7 @@ export const PostFormContent: React.FC = () => {
               maxSize={50}
               uploadButtonText="Video Yükle"
               name="videoUrl"
+              isAutoUpload
             />
             {/* Manuel Video URL */}
             <FormInput
@@ -203,6 +207,7 @@ export const PostFormContent: React.FC = () => {
               maxSize={5}
               uploadButtonText="Thumbnail Yükle"
               name="videoThumbnailUrl"
+              isAutoUpload
             />
             {/* Manuel Video Thumbnail URL */}
             <FormInput
@@ -233,19 +238,42 @@ export const PostFormContent: React.FC = () => {
           </div>
         </div>
 
-        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+        {/* <span className="d-block border border-neutral-30 my-12 border-dashed" />
 
         <div className="col-12">
           <h5 className="mb-16 mt-16">Ayarlar</h5>
         </div>
 
-        <div className="col-12">
-          <div className="d-flex gap-24">
-            <FormCheckbox name="allowComments" label="Yorumlara İzin Ver" />
-            <FormCheckbox name="allowLikes" label="Beğenilere İzin Ver" />
-            <FormCheckbox name="isFeatured" label="Öne Çıkan" />
-            <FormCheckbox name="isPinned" label="Sabitlenmiş" />
-          </div>
+        <div className="col-3">
+          <FormCheckbox
+            name="allowComments"
+            label="Yorumlara İzin Ver"
+            variant="outlined"
+          />
+        </div>
+
+        <div className="col-3">
+          <FormCheckbox
+            name="allowLikes"
+            label="Beğenilere İzin Ver"
+            variant="outlined"
+          />
+        </div>
+
+        <div className="col-3">
+          <FormCheckbox
+            name="isFeatured"
+            label="Öne Çıkan"
+            variant="outlined"
+          />
+        </div>
+
+        <div className="col-3">
+          <FormCheckbox
+            name="isPinned"
+            label="Sabitlenmiş"
+            variant="outlined"
+          />
         </div>
 
         <div className="col-12">
@@ -255,9 +283,9 @@ export const PostFormContent: React.FC = () => {
             type="datetime-local"
             placeholder="Tarih ve saat seçiniz..."
           />
-        </div>
+        </div> */}
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16 mt-16">SEO Bilgileri</h5>
         </div>
 
@@ -294,7 +322,9 @@ export const PostFormContent: React.FC = () => {
             label="Hashtag'ler"
             placeholder="Virgülle ayrılmış hashtag'ler giriniz..."
           />
-        </div>
+        </div> */}
+
+        {/* <span className="d-block border border-neutral-30 my-12 border-dashed" />
 
         <div className="col-12">
           <h5 className="mb-16 mt-16">Harici Linkler</h5>
@@ -322,7 +352,9 @@ export const PostFormContent: React.FC = () => {
             label="Eylem Çağrısı URL"
             placeholder="Eylem çağrısı URL'si giriniz..."
           />
-        </div>
+        </div> */}
+        {/* 
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
 
         <div className="col-12">
           <h5 className="mb-16 mt-16">Konum Bilgileri</h5>
@@ -352,7 +384,7 @@ export const PostFormContent: React.FC = () => {
             type="number"
             placeholder="Boylam giriniz..."
           />
-        </div>
+        </div> */}
 
         <div className="col-12">
           <div className="d-flex justify-content-end gap-12 mt-24">

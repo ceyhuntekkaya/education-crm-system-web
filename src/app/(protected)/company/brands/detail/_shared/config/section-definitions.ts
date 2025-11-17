@@ -24,10 +24,10 @@ export const BRAND_SECTIONS: BrandSectionConfig[] = [
   },
 
   // 4. SEO BİLGİLERİ
-  {
-    title: "SEO Bilgileri",
-    titleColor: "text-success-600",
-    titleIcon: "ph-bold ph-magnifying-glass",
-    config: brandSeoConfig,
-  },
+  // {
+  //   title: "SEO Bilgileri",
+  //   titleColor: "text-success-600",
+  //   titleIcon: "ph-bold ph-magnifying-glass",
+  //   config: brandSeoConfig,
+  // },
 ];

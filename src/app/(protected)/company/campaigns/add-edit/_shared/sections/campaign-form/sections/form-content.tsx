@@ -267,17 +267,29 @@ export const CampaignFormContent: React.FC = () => {
 
         {/* Öne Çıkan */}
         <div className="col-4">
-          <FormCheckbox name="isFeatured" label="Öne Çıkan" />
+          <FormCheckbox
+            name="isFeatured"
+            label="Öne Çıkan"
+            variant="outlined"
+          />
         </div>
 
         {/* Herkese Açık */}
         <div className="col-4">
-          <FormCheckbox name="isPublic" label="Herkese Açık" />
+          <FormCheckbox
+            name="isPublic"
+            label="Herkese Açık"
+            variant="outlined"
+          />
         </div>
 
         {/* Onay Gerekli */}
         <div className="col-4">
-          <FormCheckbox name="requiresApproval" label="Onay Gerekli" />
+          <FormCheckbox
+            name="requiresApproval"
+            label="Onay Gerekli"
+            variant="outlined"
+          />
         </div>
 
         {/* Divider */}
@@ -374,12 +386,17 @@ export const CampaignFormContent: React.FC = () => {
           <FormCheckbox
             name="targetNewStudentsOnly"
             label="Sadece Yeni Öğrenciler"
+            variant="outlined"
           />
         </div>
 
         {/* Kardeş İndirimi */}
         <div className="col-6">
-          <FormCheckbox name="targetSiblingDiscount" label="Kardeş İndirimi" />
+          <FormCheckbox
+            name="targetSiblingDiscount"
+            label="Kardeş İndirimi"
+            variant="outlined"
+          />
         </div>
 
         {/* Divider */}
@@ -405,28 +422,28 @@ export const CampaignFormContent: React.FC = () => {
         <div className="col-6">
           <FormInput
             name="ctaText"
-            label="CTA Metni"
+            label="Promosyon Metni"
             placeholder="Örn: Hemen Başvur"
           />
         </div>
 
         {/* CTA URL */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormInput
             name="ctaUrl"
-            label="CTA URL"
-            placeholder="CTA URL'ini giriniz..."
+            label="Promosyon URL"
+            placeholder="Promosyon URL'ini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Video URL */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormInput
             name="videoUrl"
             label="Video URL"
             placeholder="Video URL'ini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -448,6 +465,7 @@ export const CampaignFormContent: React.FC = () => {
             maxSize={5}
             uploadButtonText="Banner Yükle"
             name="bannerImageUrl"
+            isAutoUpload
           />
           <FormInput
             name="bannerImageUrl"
@@ -467,6 +485,7 @@ export const CampaignFormContent: React.FC = () => {
             maxSize={5}
             uploadButtonText="Thumbnail Yükle"
             name="thumbnailImageUrl"
+            isAutoUpload
           />
           <FormInput
             name="thumbnailImageUrl"
@@ -541,11 +560,10 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* SEO BİLGİLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">SEO Bilgileri</h5>
         </div>
 
-        {/* Meta Başlık */}
         <div className="col-12">
           <FormInput
             name="metaTitle"
@@ -554,7 +572,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Meta Açıklama */}
+      
         <div className="col-12">
           <FormTextarea
             name="metaDescription"
@@ -564,7 +582,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Meta Anahtar Kelimeler */}
+  
         <div className="col-12">
           <FormInput
             name="metaKeywords"
@@ -573,10 +591,10 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Divider */}
+
         <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* EK ÖZELLİKLER */}
         <div className="col-12">

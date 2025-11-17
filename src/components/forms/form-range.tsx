@@ -13,6 +13,7 @@ interface FormRangeProps {
   prefix?: string;
   suffix?: string;
   className?: string;
+  direction?: "horizontal" | "vertical";
 }
 
 export const FormRange: React.FC<FormRangeProps> = ({
@@ -24,6 +25,7 @@ export const FormRange: React.FC<FormRangeProps> = ({
   prefix = "",
   suffix = "",
   className,
+  direction = "vertical",
 }) => {
   const { value, onChange } = useFormField(name);
   const [isDragging, setIsDragging] = useState<"min" | "max" | null>(null);
@@ -76,8 +78,17 @@ export const FormRange: React.FC<FormRangeProps> = ({
   return (
     <div className={className}>
       {label && <h6 className="text-lg mb-20 fw-medium">{label}</h6>}
-      <div className="custom--range">
-        <div className="custom--range__content">
+      <div
+        className={`custom--range ${
+          direction === "horizontal" ? "row align-items-end" : ""
+        }`}
+      >
+        {/* Sayı gösterimi - Horizontal modda sol tarafta col-4 */}
+        <div
+          className={`custom--range__content ${
+            direction === "horizontal" ? "col-4" : ""
+          }`}
+        >
           <input
             type="text"
             readOnly
@@ -105,7 +116,13 @@ export const FormRange: React.FC<FormRangeProps> = ({
             </div>
           )}
         </div>
-        <div className="d-flex gap-12 mt-16">
+
+        {/* Range inputları - Horizontal modda sağ tarafta col-8 */}
+        <div
+          className={`d-flex gap-12 ${
+            direction === "horizontal" ? "col-8 mt-0" : "mt-16"
+          }`}
+        >
           <div className="flex-grow-1 position-relative">
             <label className="text-sm text-neutral-500 mb-8">Min</label>
             <input

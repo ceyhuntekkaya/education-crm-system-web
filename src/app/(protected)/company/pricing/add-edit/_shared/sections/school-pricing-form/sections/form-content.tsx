@@ -650,12 +650,14 @@ export const SchoolPricingFormContent: React.FC = () => {
           <FormCheckbox
             name="needBasedAidAvailable"
             label="İhtiyaç Bazlı Burs Mevcut"
+            variant="outlined"
           />
         </div>
         <div className="col-6">
           <FormCheckbox
             name="meritBasedAidAvailable"
             label="Başarı Bazlı Burs Mevcut"
+            variant="outlined"
           />
         </div>
 
@@ -664,12 +666,14 @@ export const SchoolPricingFormContent: React.FC = () => {
           <FormCheckbox
             name="showDetailedBreakdown"
             label="Detaylı Ücret Dökümü Göster"
+            variant="outlined"
           />
         </div>
         <div className="col-6">
           <FormCheckbox
             name="highlightTotalCost"
             label="Toplam Maliyeti Vurgula"
+            variant="outlined"
           />
         </div>
 
@@ -677,12 +681,14 @@ export const SchoolPricingFormContent: React.FC = () => {
           <FormCheckbox
             name="showPaymentOptions"
             label="Ödeme Seçeneklerini Göster"
+            variant="outlined"
           />
         </div>
         <div className="col-6">
           <FormCheckbox
             name="showFinancialAidInfo"
             label="Burs Bilgilerini Göster"
+            variant="outlined"
           />
         </div>
 
