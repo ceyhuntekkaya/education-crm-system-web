@@ -1,6 +1,7 @@
 import { CampaignSchoolStatus } from "@/enums";
 
 export interface CampaignSchoolDto {
+  thumbnailImageUrl?: string;
   id: number;
   campaignId: number;
   campaignTitle: string;

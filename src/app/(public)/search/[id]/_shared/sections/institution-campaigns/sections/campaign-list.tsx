@@ -1,9 +1,10 @@
-import { CampaignDto } from "@/types";
+import { CampaignDto, CampaignSchoolDto } from "@/types";
 import { EMPTY_STATE_CONFIG } from "../config";
 import { CampaignCard } from "./";
+import { mapCampaignSchoolToCampaignDto } from "../utils";
 
 interface CampaignListProps {
-  campaigns?: CampaignDto[];
+  campaigns?: CampaignDto[] | CampaignSchoolDto[];
   type: "all" | "active" | "inactive";
 }
 
@@ -28,9 +29,19 @@ const CampaignList = ({ campaigns = [], type }: CampaignListProps) => {
     return renderEmptyState();
   }
 
+  // CampaignSchoolDto'yu CampaignDto'ya dönüştür
+  const normalizedCampaigns: CampaignDto[] = campaigns.map((campaign) => {
+    // Eğer campaignTitle varsa CampaignSchoolDto'dur, dönüştür
+    if ("campaignTitle" in campaign) {
+      return mapCampaignSchoolToCampaignDto(campaign as CampaignSchoolDto);
+    }
+    // Zaten CampaignDto ise direkt döndür
+    return campaign as CampaignDto;
+  });
+
   return (
     <div className="row gy-20 gap-20">
-      {campaigns.map((campaign) => (
+      {normalizedCampaigns.map((campaign) => (
         <div key={campaign.id} className="col-12">
           <CampaignCard campaign={campaign} />
         </div>
