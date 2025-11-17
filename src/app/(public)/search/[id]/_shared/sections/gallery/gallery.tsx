@@ -42,6 +42,7 @@ const GalleryContent: React.FC = () => {
         {selectedGalleryId && (
           <GalleryDetailContent
             gallery={galleryData.find((g) => g.id === selectedGalleryId)}
+            onClose={close}
           />
         )}
       </Modal>

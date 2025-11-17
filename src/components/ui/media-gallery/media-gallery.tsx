@@ -26,6 +26,7 @@ interface MediaGalleryProps {
   showNavigation?: boolean;
   showCounter?: boolean;
   initialIndex?: number;
+  onIndexChange?: (index: number) => void;
 }
 
 export const MediaGallery: React.FC<MediaGalleryProps> = ({
@@ -36,8 +37,14 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
   showNavigation = true,
   showCounter = true,
   initialIndex = 0,
+  onIndexChange,
 }) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(initialIndex);
+
+  const handleIndexChange = (index: number) => {
+    setCurrentItemIndex(index);
+    onIndexChange?.(index);
+  };
 
   // URL helper - eğer tam URL değilse serve prefix ekle
   const getFullUrl = (url: string | undefined): string => {
@@ -53,18 +60,18 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
   const nextImage = () => {
     if (hasItems && currentItemIndex < items.length - 1) {
-      setCurrentItemIndex(currentItemIndex + 1);
+      handleIndexChange(currentItemIndex + 1);
     }
   };
 
   const prevImage = () => {
     if (currentItemIndex > 0) {
-      setCurrentItemIndex(currentItemIndex - 1);
+      handleIndexChange(currentItemIndex - 1);
     }
   };
 
   const goToImage = (index: number) => {
-    setCurrentItemIndex(index);
+    handleIndexChange(index);
   };
 
   // Medya tipine göre içerik render etme

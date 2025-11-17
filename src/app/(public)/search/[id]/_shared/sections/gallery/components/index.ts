@@ -4,3 +4,5 @@ export { default as GalleryGrid } from "./gallery-grid";
 export { default as GalleryEmptyState } from "./gallery-empty-state";
 export { default as GalleryFooter } from "./gallery-footer";
 export { default as GalleryDetailContent } from "./gallery-detail-content";
+export { default as GalleryInfoColumn } from "./gallery-info-column";
+export { default as GalleryDetailHeader } from "./gallery-detail-header";
