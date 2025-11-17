@@ -605,6 +605,24 @@
     }
   }
 
+  // Image Container Styles
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: var(--neutral-50);
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 500px;
+
+    .main-image {
+      border-radius: 12px;
+    }
+  }
+
   // Video Container Styles
   .video-container {
     display: flex;

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { CustomImage } from "@/components/ui";
-import { PostDetailVideoPlayer, PostDetailMediaGallery } from ".";
 import { PostDto } from "@/types/dto/content";
+import { getFileServeUrl } from "@/lib/api/constants";
 
 interface PostDetailMediaColumnProps {
   post: PostDto;
@@ -10,122 +10,252 @@ interface PostDetailMediaColumnProps {
 const PostDetailMediaColumn: React.FC<PostDetailMediaColumnProps> = ({
   post,
 }) => {
-  const [currentMedia, setCurrentMedia] = useState<{
-    type: "image" | "video";
-    url: string;
-    thumbnailUrl?: string;
-    duration?: number;
-  } | null>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
 
-  // Initialize current media on component mount
-  useEffect(() => {
-    if (post) {
-      if (post.videoUrl) {
-        setCurrentMedia({
-          type: "video",
-          url: post.videoUrl,
-          thumbnailUrl: post.videoThumbnailUrl,
-          duration: post.videoDurationSeconds,
-        });
-      } else if (post.featuredImageUrl) {
-        setCurrentMedia({
-          type: "image",
-          url: post.featuredImageUrl,
-        });
-      }
+  // URL helper - eğer tam URL değilse serve prefix ekle
+  const getFullUrl = (url: string | undefined): string => {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
     }
-  }, [post]);
+    return getFileServeUrl(url);
+  };
 
   if (!post) return null;
 
-  // Handle media switching
-  const handleMediaSwitch = (mediaItem: any) => {
-    if (mediaItem.type === "video") {
-      setCurrentMedia({
-        type: "video",
-        url: mediaItem.url,
-        thumbnailUrl: mediaItem.thumbnailUrl,
-        duration: mediaItem.duration,
-      });
-      setIsVideoPlaying(false);
-    } else if (mediaItem.type === "image") {
-      setCurrentMedia({
-        type: "image",
-        url: mediaItem.url,
-      });
-      setIsVideoPlaying(false);
+  const hasItems = post.items && post.items.length > 0;
+  const currentItem =
+    hasItems && post.items ? post.items[currentItemIndex] : null;
+
+  const nextImage = () => {
+    if (hasItems && post.items && currentItemIndex < post.items.length - 1) {
+      setCurrentItemIndex(currentItemIndex + 1);
     }
   };
 
-  // Handle video play
-  const handleVideoPlay = () => {
-    setIsVideoPlaying(true);
-  };
-
-  // Handle thumbnail clicks (switch back to original)
-  const handleOriginalImageClick = () => {
-    if (post?.featuredImageUrl) {
-      setCurrentMedia({
-        type: "image",
-        url: post.featuredImageUrl,
-      });
-      setIsVideoPlaying(false);
+  const prevImage = () => {
+    if (currentItemIndex > 0) {
+      setCurrentItemIndex(currentItemIndex - 1);
     }
   };
 
-  const handleOriginalVideoClick = () => {
-    if (post?.videoUrl) {
-      setCurrentMedia({
-        type: "video",
-        url: post.videoUrl,
-        thumbnailUrl: post.videoThumbnailUrl,
-        duration: post.videoDurationSeconds,
-      });
-      setIsVideoPlaying(false);
-    }
+  const goToImage = (index: number) => {
+    setCurrentItemIndex(index);
   };
 
-  const mediaAttachments = post.mediaAttachments
-    ? JSON.parse(post.mediaAttachments)
-    : [];
+  // Medya tipine göre içerik render etme
+  const renderMediaItem = (item: any) => {
+    if (!item) return null;
 
-  return (
-    <div className="p-24 post-detail-media-column">
-      {/* Main Media Display */}
-      <div className="mb-20">
-        {/* Video Section */}
-        {currentMedia && currentMedia.type === "video" && (
-          <PostDetailVideoPlayer
-            currentMedia={currentMedia}
-            isVideoPlaying={isVideoPlaying}
-            onVideoPlay={handleVideoPlay}
-          />
-        )}
+    switch (item.itemType) {
+      case "IMAGE":
+        return (
+          <div className="image-container">
+            <CustomImage
+              src={getFullUrl(item.fileUrl)}
+              alt={
+                item.altText ||
+                item.title ||
+                `Post item ${currentItemIndex + 1}`
+              }
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              style={{ objectFit: "contain" }}
+              className="main-image"
+            />
+          </div>
+        );
 
-        {/* Current Image Section */}
-        {currentMedia && currentMedia.type === "image" && (
-          <div className="featured-image position-relative">
-            <div className="post-detail-image-container">
-              <CustomImage
-                src={currentMedia.url}
-                alt={post.title || ""}
-                fill
-                className="w-100 rounded-8 post-detail-image"
-              />
+      case "VIDEO":
+        return (
+          <div className="video-container" style={{ minHeight: "500px" }}>
+            <video
+              src={getFullUrl(item.fileUrl)}
+              controls
+              className="video-player"
+            >
+              Tarayıcınız video oynatmayı desteklemiyor.
+            </video>
+          </div>
+        );
+
+      case "DOCUMENT":
+        return (
+          <div className="document-viewer" style={{ minHeight: "500px" }}>
+            <div className="document-preview-card">
+              <div className="document-header">
+                <div className="file-type-badge">
+                  {item.fileName?.split(".").pop()?.toUpperCase() || "DOC"}
+                </div>
+              </div>
+
+              <div className="document-icon-wrapper">
+                <div className="document-icon-circle">
+                  <i className="ph-fill ph-file-text"></i>
+                </div>
+              </div>
+
+              <div className="document-details">
+                <h3 className="document-title">{item.fileName || "Belge"}</h3>
+
+                <div className="document-meta">
+                  {item.fileSizeBytes && (
+                    <div className="meta-item">
+                      <i className="ph ph-database"></i>
+                      <span>
+                        {(item.fileSizeBytes / 1024 / 1024).toFixed(2)} MB
+                      </span>
+                    </div>
+                  )}
+                  <div className="meta-item">
+                    <i className="ph ph-file"></i>
+                    <span>
+                      {item.fileName?.split(".").pop()?.toUpperCase() || "DOC"}{" "}
+                      Dosyası
+                    </span>
+                  </div>
+                </div>
+
+                <div className="document-button-wrapper">
+                  <a
+                    href={getFullUrl(item.fileUrl)}
+                    download={item.fileName}
+                    className="btn btn-main rounded-pill flex-align gap-8 document-download-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="ph-bold ph-download"></i>
+                    <span>Belgeyi İndir</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        )}
-      </div>
+        );
 
-      {/* Media Gallery Thumbnails */}
-      <PostDetailMediaGallery
-        post={post}
-        mediaAttachments={mediaAttachments}
-        onMediaSwitch={handleMediaSwitch}
-        onOriginalImageClick={handleOriginalImageClick}
-        onOriginalVideoClick={handleOriginalVideoClick}
-      />
+      default:
+        return (
+          <div className="text-center py-40">
+            <i
+              className="ph ph-file text-neutral-400"
+              style={{ fontSize: "48px" }}
+            ></i>
+            <p className="text-neutral-500 mt-16">Desteklenmeyen medya türü</p>
+          </div>
+        );
+    }
+  };
+
+  // Farklı medya tipleri için thumbnail kaynağı al
+  const getThumbnailSrc = (item: any) => {
+    if (item.thumbnailUrl) return getFullUrl(item.thumbnailUrl);
+    if (item.itemType === "IMAGE") return getFullUrl(item.fileUrl);
+    return getFullUrl(item.fileUrl);
+  };
+
+  return (
+    <div className="gallery-viewer-column mt-24">
+      {hasItems ? (
+        <>
+          {/* Main Media Display */}
+          <div className="gallery-main-viewer" style={{ minHeight: "500px" }}>
+            {currentItem && (
+              <div className="main-image-container">
+                {renderMediaItem(currentItem)}
+
+                {/* Navigation Controls */}
+                {post.items && post.items.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      disabled={currentItemIndex === 0}
+                      className="nav-button nav-prev"
+                    >
+                      <i className="ph ph-caret-left"></i>
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      disabled={currentItemIndex === post.items.length - 1}
+                      className="nav-button nav-next"
+                    >
+                      <i className="ph ph-caret-right"></i>
+                    </button>
+                  </>
+                )}
+
+                {/* Image Counter */}
+                {post.items && (
+                  <div className="image-counter">
+                    <span>
+                      {currentItemIndex + 1} / {post.items.length}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Thumbnail Strip */}
+          {post.items && post.items.length > 1 && (
+            <div className="thumbnail-strip">
+              <div className="thumbnail-container">
+                {post.items.map((item: any, index: number) => (
+                  <div
+                    key={`thumb-${item.id}`}
+                    onClick={() => goToImage(index)}
+                    className={`thumbnail-item ${
+                      index === currentItemIndex ? "active" : ""
+                    }`}
+                  >
+                    {item.itemType === "IMAGE" ? (
+                      <CustomImage
+                        src={getThumbnailSrc(item)}
+                        alt={`Thumbnail ${index + 1}`}
+                        fill
+                        sizes="80px"
+                        style={{ objectFit: "cover" }}
+                      />
+                    ) : item.itemType === "VIDEO" ? (
+                      <div className="thumbnail-video">
+                        <div className="video-placeholder">
+                          <i className="ph-fill ph-film-slate"></i>
+                          <span className="video-text">VIDEO</span>
+                        </div>
+                        <div className="play-icon-overlay">
+                          <i className="ph-fill ph-play-circle"></i>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="thumbnail-document">
+                        <div className="document-bg">
+                          <i className="ph ph-file-text"></i>
+                        </div>
+                        <div className="document-badge">
+                          {item.fileName && (
+                            <span className="file-extension">
+                              {item.fileName.split(".").pop()?.toUpperCase() ||
+                                "DOC"}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        /* Empty State */
+        <div className="gallery-empty-state">
+          <div className="empty-icon">
+            <i className="ph ph-images"></i>
+          </div>
+          <h3>Medya Yok</h3>
+          <p>Bu gönderide henüz medya içerik bulunmuyor.</p>
+        </div>
+      )}
     </div>
   );
 };
