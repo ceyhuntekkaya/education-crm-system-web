@@ -1,4 +1,4 @@
-import { School } from "../types";
+import { SchoolDto } from "@/types";
 
 // localStorage utility fonksiyonları
 // Company context için localStorage işlemleri
@@ -12,9 +12,9 @@ export const STORAGE_KEYS = {
  * localStorage'dan seçili okulu güvenli bir şekilde çeker
  * @returns School object veya null
  */
-export const getStoredSelectedSchool = (): School | null => {
+export const getStoredSelectedSchool = (): SchoolDto | null => {
   if (typeof window === "undefined") return null;
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEYS.SELECTED_SCHOOL);
     return stored ? JSON.parse(stored) : null;
@@ -28,9 +28,9 @@ export const getStoredSelectedSchool = (): School | null => {
  * Seçili okulu localStorage'a güvenli bir şekilde kaydeder
  * @param school - Kaydedilecek okul objesi
  */
-export const setStoredSelectedSchool = (school: School): void => {
+export const setStoredSelectedSchool = (school: SchoolDto): void => {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.setItem(STORAGE_KEYS.SELECTED_SCHOOL, JSON.stringify(school));
   } catch (error) {
@@ -43,7 +43,7 @@ export const setStoredSelectedSchool = (school: School): void => {
  */
 export const removeStoredSelectedSchool = (): void => {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.removeItem(STORAGE_KEYS.SELECTED_SCHOOL);
   } catch (error) {
@@ -57,7 +57,7 @@ export const removeStoredSelectedSchool = (): void => {
  */
 export const hasStoredSelectedSchool = (): boolean => {
   if (typeof window === "undefined") return false;
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEYS.SELECTED_SCHOOL);
     return stored !== null;

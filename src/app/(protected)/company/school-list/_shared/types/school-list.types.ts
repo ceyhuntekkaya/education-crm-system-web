@@ -40,9 +40,7 @@ export interface SchoolActionButtonsProps {
 /**
  * School table component props
  */
-export interface SchoolTableProps {
-  loading?: boolean;
-}
+export interface SchoolTableProps {}
 
 /**
  * School List context type

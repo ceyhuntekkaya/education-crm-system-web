@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { DataGrid } from "@/components/ui/data-grid";
-import { SchoolDto } from "@/types";
 import { createSchoolColumns } from "../config/school-columns";
-import { SchoolColumnHandlers, SchoolTableProps } from "../types";
-import { useSchoolList } from "../context";
+import { SchoolTableProps } from "../types";
+import { useCompany } from "@/app/(protected)/company/_shared";
+import { useAuth } from "@/contexts";
 
-export const SchoolTable: React.FC<SchoolTableProps> = ({
-  loading: propLoading = false,
-}) => {
-  const { schools, loading: contextLoading } = useSchoolList();
-  const loading = propLoading || contextLoading;
+export const SchoolTable: React.FC<SchoolTableProps> = () => {
+  const { schools } = useCompany();
+  const { isLoading } = useAuth();
 
   // Kolonları oluştur
   const columns = createSchoolColumns();
@@ -21,7 +19,7 @@ export const SchoolTable: React.FC<SchoolTableProps> = ({
       <DataGrid
         rows={schools}
         columns={columns}
-        loading={loading}
+        loading={isLoading}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
