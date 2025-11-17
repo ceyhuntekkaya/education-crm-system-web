@@ -40,8 +40,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    height: 80vh;
-    max-height: 750px;
+    height: auto;
+    max-height: 85vh;
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
@@ -53,8 +53,8 @@
       // gap: 8px;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 0 4px 24px 0;
-      max-height: 100%;
+      padding: 0 4px 36px 0;
+      max-height: 85vh;
       scrollbar-width: thin;
       scrollbar-color: var(--primary-300) transparent;
       
@@ -147,7 +147,7 @@
         height: auto;
         overflow: visible;
         margin-top: 8px;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         padding: 12px 0;
 
         .thumbnail-container {
