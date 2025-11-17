@@ -1,9 +1,5 @@
 import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CustomCard } from "@/components/ui";
-import {
-  getSchoolPropertyGroupIcon,
-  getSchoolPropertyGroupColor,
-} from "../utils";
 
 export default function SchoolAdditionalFeatures() {
   const {
@@ -20,27 +16,6 @@ export default function SchoolAdditionalFeatures() {
     : "Bu okul için henüz ek özellik tanımlanmamış";
   const emptyIcon = !selectedSchool ? "ph-graduation-cap" : "ph-list-bullets";
 
-  // multiItems formatında hazırla
-  const propertySections = schoolProperties.map((group) => ({
-    title: group.groupDisplayName,
-    titleColor: getSchoolPropertyGroupColor(group.groupName),
-    titleIcon: getSchoolPropertyGroupIcon(group.groupName),
-    items: group.properties.map((property) => ({
-      label: property.displayName,
-      sublabel:
-        property.displayName !== property.name ? property.name : undefined,
-      value: (
-        <div className="d-flex align-items-center gap-8 ">
-          <span className="text-success-600 fw-semibold d-flex align-items-center gap-4">
-            <i className="ph ph-check-circle text-sm"></i>
-            Mevcut
-          </span>
-        </div>
-      ),
-      isShowing: true,
-    })),
-  }));
-
   return (
     <CustomCard
       title="Ek Özellikler"
@@ -54,7 +29,54 @@ export default function SchoolAdditionalFeatures() {
       isEmpty={isEmpty}
       emptyMessage={emptyMessage}
       emptyIcon={emptyIcon}
-      multiItems={isEmpty ? undefined : propertySections}
-    />
+    >
+      {!isEmpty && (
+        <div className="p-24">
+          {/* Başlık ve Açıklama */}
+          <div className="mb-24">
+            <h5 className="mb-16">Özellikler</h5>
+            <p className="text-neutral-500 text-sm mb-16">
+              Bu okula tanımlanmış olan ek özellikler aşağıda listelenmektedir.
+            </p>
+          </div>
+
+          {/* Checkbox Grupları */}
+          <div className="d-flex flex-column gap-20">
+            {schoolProperties.map((group) => (
+              <div
+                key={group.groupId}
+                className="property-group mb-20 bg-white rounded-32 px-24 pt-24 pb-32"
+              >
+                <h6 className="mb-12 text-neutral-600 fw-semibold">
+                  {group.groupDisplayName}
+                </h6>
+                <div className="row row-gap-12">
+                  {group.properties.map((property) => (
+                    <div
+                      key={property.propertyTypeId}
+                      className="col-4 form-check common-check mb-0 mt-20 ps-32"
+                    >
+                      <input
+                        id={`property-${property.propertyTypeId}`}
+                        type="checkbox"
+                        className="form-check-input bg-main-25"
+                        checked={true}
+                        readOnly
+                      />
+                      <label
+                        className="form-check-label fw-normal flex-grow-1"
+                        htmlFor={`property-${property.propertyTypeId}`}
+                      >
+                        {property.displayName}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </CustomCard>
   );
 }
