@@ -43,7 +43,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   iconLeft,
   iconRight,
   filterFunction,
-  maxResults = 10,
+  maxResults = 1000000,
   noOptionsText = "Sonuç bulunamadı",
   loadingText = "Yükleniyor...",
   isLoading = false,
