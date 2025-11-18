@@ -66,10 +66,11 @@ export const usePostLoginRedirect = () => {
       console.log("🏢 Campus bilgisi yok");
     }
     // 4. Subscription kontrolü
-    else if (!user.subscription) {
-      targetStep = 5;
-      console.log("💳 Subscription bilgisi yok");
-    }
+    //  ** sonradan açılacak
+    // else if (!user.subscription) {
+    //   targetStep = 5;
+    //   console.log("💳 Subscription bilgisi yok");
+    // }
 
     // Yönlendirme yap
     if (targetStep !== null) {

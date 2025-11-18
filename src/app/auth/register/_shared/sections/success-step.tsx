@@ -15,8 +15,7 @@ import { useRegister } from "../context";
 export const SuccessStep: React.FC = () => {
   const router = useRouter();
   const { values } = useForm();
-  const { submitStep7, isSubmitting, userId, resetRegistration } =
-    useRegister();
+  const { submitStep7, isSubmitting, userId } = useRegister();
   const [verificationCompleted, setVerificationCompleted] = useState(false);
 
   // Sayfa yüklendiğinde otomatik olarak final verification API'sini çağır
@@ -34,9 +33,9 @@ export const SuccessStep: React.FC = () => {
     }
   }, [userId, submitStep7, verificationCompleted, isSubmitting]);
 
-  // Login sayfasına yönlendir ve state'i sıfırla
+  // Login sayfasına yönlendir
   const handleGoToLogin = () => {
-    resetRegistration(); // State'i temizle
+    // TODO: Add state cleanup if needed
     router.push("/auth/login"); // Login sayfasına yönlendir
   };
 

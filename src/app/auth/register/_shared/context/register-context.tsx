@@ -55,11 +55,16 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
 
   const { isStepCompleted, canProceedToNextStep } = useStepValidation();
 
-  const { handleStepClick, isStepClickable } = useStepNavigation(
-    currentStep,
-    isStepCompleted,
-    goToStep
-  );
+  // TODO: Step navigation temporarily disabled - stepper steps are not clickable
+  // const { handleStepClick, isStepClickable } = useStepNavigation(
+  //   currentStep,
+  //   isStepCompleted,
+  //   goToStep
+  // );
+
+  // Temporary disabled step navigation handlers
+  const handleStepClick = () => {}; // Disabled
+  const isStepClickable = () => false; // Always return false
 
   // Verification flow hook
   const {
