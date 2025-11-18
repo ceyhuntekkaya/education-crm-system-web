@@ -6,6 +6,7 @@ import {
   SchoolSearchDto,
   SchoolSearchResultDto,
 } from "@/types";
+import { scrollToTop } from "@/utils";
 import { UseSearchParams } from "../types";
 
 interface UseSearchReturn {
@@ -50,11 +51,17 @@ export function useSearch(params?: UseSearchParams): UseSearchReturn {
           setTotalElements(response.data.totalElements || 0);
           setHasSearched(true);
           params?.onSearchSuccess?.(response.data);
+
+          // 📜 Sayfa başına scroll
+          scrollToTop();
         }
       },
       onError: (err) => {
         console.error("❌ Arama hatası:", err);
         setHasSearched(true); // Hata durumunda da searched olarak işaretle
+
+        // 📜 Hata durumunda da sayfa başına scroll
+        scrollToTop();
       },
     }
   );
