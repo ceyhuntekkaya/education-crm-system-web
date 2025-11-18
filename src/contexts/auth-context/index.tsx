@@ -11,6 +11,7 @@ import {
   useAuthLogin,
   useAuthLogout,
   useAuthInitialization,
+  usePostLoginRedirect,
 } from "./hooks";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,6 +32,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     resetRolePermissions,
   } = useAuthRolePermissions();
 
+  // Post-login redirect hook
+  const { checkAndRedirect } = usePostLoginRedirect();
+
   // Handle login success
   const handleLoginSuccess = (data: AuthenticationResponse) => {
     const userData = data.user || null;
@@ -40,6 +44,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(userData);
       saveUser(userData);
       updateRolePermissions(userData);
+
+      // Login sonrası kullanıcı bilgilerine göre yönlendirme kontrolü
+      // Eğer yönlendirme yapıldıysa, bunu response'a ekle
+      const wasRedirected = checkAndRedirect(userData);
+
+      // Response'a yönlendirme bilgisini ekle
+      (data as any).wasRedirectedToRegistration = wasRedirected;
     }
 
     if (data.accessToken) {
