@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import CustomCard from "@/components/ui/custom-card";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@/contexts/form-context";
@@ -12,8 +13,10 @@ import { useRegister } from "../context";
  * Backend: POST /register/step/7/ (final verification)
  */
 export const SuccessStep: React.FC = () => {
+  const router = useRouter();
   const { values } = useForm();
-  const { submitStep7, isSubmitting, userId } = useRegister();
+  const { submitStep7, isSubmitting, userId, resetRegistration } =
+    useRegister();
   const [verificationCompleted, setVerificationCompleted] = useState(false);
 
   // Sayfa yüklendiğinde otomatik olarak final verification API'sini çağır
@@ -30,6 +33,12 @@ export const SuccessStep: React.FC = () => {
       performFinalVerification();
     }
   }, [userId, submitStep7, verificationCompleted, isSubmitting]);
+
+  // Login sayfasına yönlendir ve state'i sıfırla
+  const handleGoToLogin = () => {
+    resetRegistration(); // State'i temizle
+    router.push("/auth/login"); // Login sayfasına yönlendir
+  };
 
   // Form verilerinden bilgileri al
   const loginInfo = values?.loginCredentials || {};
@@ -369,7 +378,11 @@ export const SuccessStep: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="d-flex flex-column flex-sm-row gap-24 justify-content-center">
-            <Button variant="inline" href="/auth/login" leftIcon="ph-sign-in">
+            <Button
+              variant="inline"
+              onClick={handleGoToLogin}
+              leftIcon="ph-sign-in"
+            >
               Giriş Yap
             </Button>
             <Button variant="outline" href="/" leftIcon="ph-house">
