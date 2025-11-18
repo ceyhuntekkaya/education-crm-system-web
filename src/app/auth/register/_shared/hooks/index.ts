@@ -21,6 +21,5 @@ export * from "./use-submit-step-4";
 export * from "./use-submit-step-5";
 export * from "./use-submit-step-6";
 export * from "./use-submit-step-7";
-export * from "./use-reset-registration";
 export * from "./use-submit-steps";
 export * from "./use-register-api-steps";

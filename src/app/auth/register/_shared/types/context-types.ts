@@ -104,7 +104,6 @@ export interface RegisterContextType {
   sendVerificationCode: () => Promise<void>;
   verifyCode: (code: string) => Promise<boolean>;
   submitRegistration: () => Promise<ApiResponseDto<UserDto> | null>;
-  resetRegistration: () => void; // Tüm kayıt state'ini sıfırla
 
   // Verification UI Handlers
   handleInputChange: (index: number, value: string) => void;

@@ -12,7 +12,6 @@ import {
   useFormPrefill,
   useRegisterApiSteps,
   useSubmitSteps,
-  useResetRegistration,
 } from "../hooks";
 import { useSubscriptionPlans } from "@/app/(public)/memberships/_shared/hooks";
 import { useForm } from "@/contexts/form-context";
@@ -93,9 +92,6 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     handleSubmitStep7WithResponse,
   } = useSubmitSteps(userId, setUserId, nextStep, fullCode);
 
-  // Reset registration hook - pathname dinleme ve reset logic dahil
-  const { resetRegistration } = useResetRegistration(setCurrentStep, setUserId);
-
   // Context value
   const contextValue: RegisterContextType = {
     // Form data
@@ -160,7 +156,6 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({
     verifyCode,
     submitRegistration: handleSubmitStep7WithResponse, // Son adımda çağrılacak (legacy uyumluluk için)
     handleStepClick,
-    resetRegistration, // Tüm kayıt state'ini sıfırla
 
     // Verification UI Handlers
     handleInputChange,
