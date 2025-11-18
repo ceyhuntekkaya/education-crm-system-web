@@ -75,6 +75,14 @@ const LoginFormContent: React.FC = () => {
 
     // Login başarılı ise önceki sayfaya yönlendir
     if (res?.accessToken) {
+      // Eğer registration'a yönlendirme yapıldıysa, başka yönlendirme yapma
+      if ((res as any).wasRedirectedToRegistration) {
+        console.log(
+          "✅ Kullanıcı registration'a yönlendirildi, başka yönlendirme yapılmayacak"
+        );
+        return;
+      }
+
       // URL parametrelerinden returnUrl'i al
       const urlParams = new URLSearchParams(window.location.search);
       const returnUrl = urlParams.get("returnUrl");

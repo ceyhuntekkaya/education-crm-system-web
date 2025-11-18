@@ -24,16 +24,43 @@ export const useStepValidation = () => {
             );
           case 2:
             // Personal info check
-            return !!(
+            const isStep2Valid = !!(
               values.personalInfo?.firstName &&
               values.personalInfo?.lastName &&
               values.personalInfo?.email &&
               values.personalInfo?.phone
             );
+            return isStep2Valid;
           case 3:
-            // Verification code check
-            const code = Object.values(values.verificationCode || {}).join("");
-            return code.length === 4 && /^\d{4}$/.test(code);
+            // Verification code check - digit1-4 veya code1-4 alanlarını kontrol et
+            const verificationObj = values.verificationCode || {};
+
+            // Önce digit1-4 kontrol et
+            const digitCode = [
+              verificationObj.digit1,
+              verificationObj.digit2,
+              verificationObj.digit3,
+              verificationObj.digit4,
+            ]
+              .filter(Boolean)
+              .join("");
+
+            // Sonra code1-4 kontrol et
+            const codeCode = [
+              verificationObj.code1,
+              verificationObj.code2,
+              verificationObj.code3,
+              verificationObj.code4,
+            ]
+              .filter(Boolean)
+              .join("");
+
+            // Hangisi 4 haneli ise onu kullan
+            const finalCode = digitCode.length === 4 ? digitCode : codeCode;
+            const isStep3Valid =
+              finalCode.length === 4 && /^\d{4}$/.test(finalCode);
+
+            return isStep3Valid;
           case 4:
             // Campus info check - Sadece required alanlar kontrol ediliyor
             return !!(
