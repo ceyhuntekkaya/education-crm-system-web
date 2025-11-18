@@ -10,10 +10,6 @@ export const loginCredentialsSchema = Yup.object({
     .required("E-posta gereklidir"),
   password: Yup.string()
     .min(8, "Şifre en az 8 karakter olmalıdır")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      "Şifre en az bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir"
-    )
     .required("Şifre gereklidir"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Şifreler eşleşmiyor")
