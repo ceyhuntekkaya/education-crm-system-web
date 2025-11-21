@@ -107,7 +107,8 @@ export const useFileUpload = ({
         return;
       }
 
-      const schoolId = selectedSchool?.id?.toString();
+      const schoolId = selectedSchool?.id?.toString() || "1";
+      // ** konuşulup düzenlenmesi lazım
       if (!schoolId || !name) {
         throw new Error("School ID veya upload type tanımlı değil");
       }
