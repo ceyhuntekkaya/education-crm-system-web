@@ -303,17 +303,16 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* Kullanım Limiti */}
-        <div className="col-4">
+        <div className="col-12">
           <FormInput
             name="usageLimit"
-            label="Kullanım Limiti"
+            label="Okul Başına Kullanılabilirlik Limiti"
             type="number"
-            placeholder="Toplam kullanım limiti..."
+            placeholder="Okul Başına kullanım limiti..."
           />
         </div>
 
-        {/* Kullanıcı Başına Limit */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="perUserLimit"
             label="Kullanıcı Başına Limit"
@@ -322,7 +321,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Okul Başına Limit */}
+
         <div className="col-4">
           <FormInput
             name="perSchoolLimit"
@@ -330,7 +329,7 @@ export const CampaignFormContent: React.FC = () => {
             type="number"
             placeholder="Okul başına limit..."
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
