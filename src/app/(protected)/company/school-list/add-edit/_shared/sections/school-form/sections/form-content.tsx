@@ -288,13 +288,13 @@ export const SchoolFormContent: React.FC = () => {
         </div>
 
         {/* Müfredat Tipi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="curriculumType"
             label="Müfredat Tipi"
             placeholder="Müfredat tipini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Eğitim Dili */}
         <div className="col-6">

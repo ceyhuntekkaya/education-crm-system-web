@@ -411,48 +411,85 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
           )}
 
           {/* Son Adım - Onay Bölümü */}
-          <h5 className="mb-16 d-flex align-items-center gap-4">
-            <i className="ph ph-check-circle text-neutral-900 text-lg"></i>
-            Son Adım
-          </h5>
+          <span className="d-block border border-neutral-30 my-32 border-dashed" />
 
-          <ul className="tution-info-list bg-white rounded-8 mb-32">
-            <li className="d-flex align-items-start px-32 py-24">
-              <span className="w-100-percent">
-                <div className="d-flex align-items-center gap-3 mb-16">
-                  <i className="ph ph-shield-check text-success-600 text-xl"></i>
-                  <h6 className="text-neutral-900 mb-0">Onay Gereklidir</h6>
+          <div
+            className="bg-gradient-warning rounded-12 p-4 mb-24"
+            style={{
+              background: "linear-gradient(135deg, #FFF9E6 0%, #FFF4CC 100%)",
+            }}
+          >
+            <div className="bg-white rounded-8 border-2 border-warning-600 p-32">
+              <div className="d-flex align-items-center justify-content-center gap-3 mb-24">
+                <div
+                  className="bg-warning-600 rounded-circle d-flex align-items-center justify-content-center"
+                  style={{ width: "56px", height: "56px" }}
+                >
+                  <i
+                    className="ph-bold ph-seal-check text-white"
+                    style={{ fontSize: "32px" }}
+                  ></i>
                 </div>
-                <p className="text-neutral-600 mb-20 text-sm">
-                  Randevu oluşturmak için aşağıdaki koşulları kabul etmeniz
-                  gerekmektedir
-                </p>
+                <div>
+                  <h4 className="text-warning-900 mb-4 fw-bold">
+                    Önemli: Onay Gereklidir
+                  </h4>
+                  <p className="text-warning-700 mb-0 text-sm fw-medium">
+                    Randevunuzu tamamlamak için lütfen aşağıdaki koşulları kabul
+                    edin
+                  </p>
+                </div>
+              </div>
 
-                <div className="bg-main-25 rounded-8 p-20 mb-16">
-                  <FormCheckbox
-                    name="agreedToTerms"
-                    label="Kullanım şartlarını ve gizlilik politikasını okudum ve kabul ediyorum. Kişisel verilerimin işlenmesine onay veriyorum."
-                  />
+              <div className="bg-warning-50 border-2 border-warning-400 rounded-12 p-24 mb-20">
+                <FormCheckbox
+                  name="agreedToTerms"
+                  label={
+                    <span className="fw-semibold text-neutral-900 text-md">
+                      <i className="ph-bold ph-check-circle text-warning-600 me-2"></i>
+                      Kullanım şartlarını ve gizlilik politikasını okudum ve
+                      kabul ediyorum. Kişisel verilerimin işlenmesine onay
+                      veriyorum.
+                    </span>
+                  }
+                />
+              </div>
+
+              <div className="d-flex flex-column gap-3">
+                <div className="d-flex align-items-start gap-3 bg-success-25 rounded-8 p-16 border border-success-200">
+                  <i
+                    className="ph-bold ph-shield-check text-success-600 text-xl mt-1"
+                    style={{ fontSize: "24px" }}
+                  ></i>
+                  <div>
+                    <h6 className="text-success-900 mb-4 fw-semibold">
+                      KVKK Güvencesi
+                    </h6>
+                    <small className="text-success-700">
+                      Tüm verileriniz KVKK kapsamında güvenli bir şekilde
+                      şifrelenerek saklanmaktadır.
+                    </small>
+                  </div>
                 </div>
 
-                <div className="d-flex align-items-center gap-2 text-neutral-600 mb-16">
-                  <i className="ph ph-shield-check text-main-600"></i>
-                  <small>
-                    Bu randevu KVKK kapsamında güvenli bir şekilde
-                    işlenmektedir.
-                  </small>
+                <div className="d-flex align-items-start gap-3 bg-info-25 rounded-8 p-16 border border-info-200">
+                  <i
+                    className="ph-bold ph-envelope-simple text-info-600 text-xl mt-1"
+                    style={{ fontSize: "24px" }}
+                  ></i>
+                  <div>
+                    <h6 className="text-info-900 mb-4 fw-semibold">
+                      Bilgilendirme
+                    </h6>
+                    <small className="text-info-700">
+                      Randevunuz onaylandıktan sonra size detaylı bilgilendirme
+                      e-postası ve SMS gönderilecektir.
+                    </small>
+                  </div>
                 </div>
-
-                <div className="alert alert-info d-flex align-items-center px-16 py-12 rounded-6 border-0 bg-info-25 mb-0">
-                  <i className="ph ph-info text-info-600 me-8"></i>
-                  <small className="text-info-700 mb-0">
-                    Randevunuz onaylandıktan sonra size bilgilendirme e-postası
-                    gönderilecektir.
-                  </small>
-                </div>
-              </span>
-            </li>
-          </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

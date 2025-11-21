@@ -154,7 +154,7 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* Maksimum İndirim Tutarı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="maxDiscountAmount"
             label="Maksimum İndirim Tutarı (TL)"
@@ -162,10 +162,10 @@ export const CampaignFormContent: React.FC = () => {
             numberFormat="currency"
             placeholder="Maksimum indirim tutarını giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Minimum Alış Tutarı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="minPurchaseAmount"
             label="Minimum Alış Tutarı (TL)"
@@ -173,7 +173,7 @@ export const CampaignFormContent: React.FC = () => {
             numberFormat="currency"
             placeholder="Minimum alış tutarını giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -306,9 +306,9 @@ export const CampaignFormContent: React.FC = () => {
         <div className="col-12">
           <FormInput
             name="usageLimit"
-            label="Okul Başına Kullanılabilirlik Limiti"
+            label="Kampanyayı Kullanabilecek Kişi Sayısı"
             type="number"
-            placeholder="Okul Başına kullanım limiti..."
+            placeholder="Kampanyayı kullanabilecek kişi sayısını giriniz..."
           />
         </div>
 
@@ -456,61 +456,61 @@ export const CampaignFormContent: React.FC = () => {
         {/* Banner Resmi */}
         <div className="col-6">
           <FileInput
-            label="Banner Resmi"
+            label="Kapak Görseli"
             type="img"
             variant="outline"
-            placeholder="Banner resmi yüklemek için tıklayın"
+            placeholder="Kapak görseli yüklemek için tıklayın"
             maxSize={5}
-            uploadButtonText="Banner Yükle"
+            uploadButtonText="Kapak Görseli Yükle"
             name="bannerImageUrl"
             isAutoUpload
           />
-          <FormInput
+          {/* <FormInput
             name="bannerImageUrl"
-            label="Banner URL (Manuel)"
-            placeholder="Banner URL'ini giriniz..."
+            label="Kapak Görseli URL (Manuel)"
+            placeholder="Kapak görseli URL'ini giriniz..."
             className="mt-12"
-          />
+          /> */}
         </div>
 
         {/* Thumbnail Resmi */}
         <div className="col-6">
           <FileInput
-            label="Thumbnail Resmi"
+            label="Küçük Resim"
             type="img"
             variant="outline"
-            placeholder="Thumbnail resmi yüklemek için tıklayın"
+            placeholder="Küçük resim yüklemek için tıklayın"
             maxSize={5}
-            uploadButtonText="Thumbnail Yükle"
+            uploadButtonText="Küçük Resim Yükle"
             name="thumbnailImageUrl"
             isAutoUpload
           />
-          <FormInput
+          {/* <FormInput
             name="thumbnailImageUrl"
             label="Thumbnail URL (Manuel)"
             placeholder="Thumbnail URL'ini giriniz..."
             className="mt-12"
-          />
+          /> */}
         </div>
 
         {/* Rozet Metni */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="badgeText"
             label="Rozet Metni"
             placeholder="Örn: Yeni"
           />
-        </div>
+        </div> */}
 
         {/* Rozet Rengi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="badgeColor"
             label="Rozet Rengi"
             type="color"
             placeholder="#FF0000"
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">

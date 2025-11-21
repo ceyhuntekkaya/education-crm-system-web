@@ -28,7 +28,7 @@ export const validationSchema = Yup.object({
   classSizeAverage: Yup.number()
     .min(0, "Ortalama sınıf büyüklüğü 0'dan küçük olamaz")
     .optional(),
-  curriculumType: Yup.string().optional(),
+  // curriculumType: Yup.string().optional(),
   languageOfInstruction: Yup.string().optional(),
   // foreignLanguages: Yup.mixed().optional(), // String veya array olabilir
 
