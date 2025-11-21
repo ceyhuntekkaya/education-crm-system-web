@@ -69,18 +69,49 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     return Array.isArray(value) ? value : value ? [value] : [];
   }, [value, multiple]);
 
+  // Türkçe karakterleri normalize etme fonksiyonu
+  const normalizeTurkish = useCallback((text: string): string => {
+    const turkishCharMap: { [key: string]: string } = {
+      ç: "c",
+      Ç: "c",
+      ğ: "g",
+      Ğ: "g",
+      ı: "i",
+      I: "i",
+      İ: "i",
+      i: "i",
+      ö: "o",
+      Ö: "o",
+      ş: "s",
+      Ş: "s",
+      ü: "u",
+      Ü: "u",
+    };
+
+    return text
+      .split("")
+      .map((char) => turkishCharMap[char] || char.toLowerCase())
+      .join("");
+  }, []);
+
   // Default filter function
   const defaultFilterFunction = useCallback(
     (opts: AutocompleteOption[], search: string): AutocompleteOption[] => {
+      const normalizedSearch = normalizeTurkish(search);
+
       return opts
-        .filter(
-          (option) =>
-            option.label.toLowerCase().includes(search.toLowerCase()) ||
-            option.value.toLowerCase().includes(search.toLowerCase())
-        )
+        .filter((option) => {
+          const normalizedLabel = normalizeTurkish(option.label);
+          const normalizedValue = normalizeTurkish(option.value);
+
+          return (
+            normalizedLabel.includes(normalizedSearch) ||
+            normalizedValue.includes(normalizedSearch)
+          );
+        })
         .slice(0, maxResults);
     },
-    [maxResults]
+    [maxResults, normalizeTurkish]
   );
 
   // Filter options based on search term
