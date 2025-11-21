@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { appointmentTypeOptions } from "../mock";
 import { useFormHook } from "@/hooks/use-form-hook";
 import { AppointmentTypeStepProps } from "../types";
+import { useAppointment } from "../contexts";
 
 export const AppointmentTypeStep: React.FC<AppointmentTypeStepProps> = ({
   className = "",
 }) => {
   const { updateField, values } = useFormHook();
+  const { nextStep } = useAppointment();
   const selectedType = values.appointmentType || "";
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleTypeSelect = (value: string) => {
     updateField("appointmentType", value);
+
+    // Önceki timeout varsa temizle
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // 500ms sonra otomatik olarak sonraki adıma geç
+    timeoutRef.current = setTimeout(() => {
+      nextStep();
+    }, 500);
   };
+
+  // Component unmount olduğunda timeout'u temizle
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className={`appointment-type-step ${className}`}>

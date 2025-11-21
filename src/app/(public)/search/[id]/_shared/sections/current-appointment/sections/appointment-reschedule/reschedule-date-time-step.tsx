@@ -25,10 +25,10 @@ export const RescheduleDateTimeStep: React.FC<RescheduleDateTimeStepProps> = ({
   const selectedSlotId = getValue("selectedSlotId");
 
   // InstitutionDetailContext'ten slots'u al - TEK KAYNAK
-  const { 
-    appointmentSlots: slots, 
+  const {
+    appointmentSlots: slots,
     appointmentSlotsLoading: slotsLoading,
-    refetchAppointmentSlots: refetchSlots 
+    refetchAppointmentSlots: refetchSlots,
   } = useInstitutionDetail();
 
   // Tarihe göre gruplandırılmış slotlar
@@ -245,7 +245,7 @@ export const RescheduleDateTimeStep: React.FC<RescheduleDateTimeStepProps> = ({
                       {slot.requiresApproval && (
                         <div className="slot-approval">
                           <i className="ph ph-check-circle" />
-                          <span>Onay gerektirir</span>
+                          <span>Onaylayınız</span>
                         </div>
                       )}
                     </div>

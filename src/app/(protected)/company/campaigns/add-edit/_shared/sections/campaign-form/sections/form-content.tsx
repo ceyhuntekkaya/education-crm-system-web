@@ -154,7 +154,7 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* Maksimum İndirim Tutarı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="maxDiscountAmount"
             label="Maksimum İndirim Tutarı (TL)"
@@ -162,10 +162,10 @@ export const CampaignFormContent: React.FC = () => {
             numberFormat="currency"
             placeholder="Maksimum indirim tutarını giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Minimum Alış Tutarı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="minPurchaseAmount"
             label="Minimum Alış Tutarı (TL)"
@@ -173,7 +173,7 @@ export const CampaignFormContent: React.FC = () => {
             numberFormat="currency"
             placeholder="Minimum alış tutarını giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -201,22 +201,22 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* Erken Kayıt Bitiş Tarihi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="earlyBirdEndDate"
             label="Erken Kayıt Bitiş Tarihi"
             type="date"
           />
-        </div>
+        </div> */}
 
         {/* Kayıt Son Tarihi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="registrationDeadline"
             label="Kayıt Son Tarihi"
             type="date"
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -224,11 +224,11 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* KAYIT TARİHLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Kayıt Tarihleri</h5>
         </div>
 
-        {/* Kayıt Başlangıç Tarihi */}
+ 
         <div className="col-6">
           <FormInput
             name="enrollmentStartDate"
@@ -237,7 +237,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Kayıt Bitiş Tarihi */}
+   
         <div className="col-6">
           <FormInput
             name="enrollmentEndDate"
@@ -246,7 +246,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Akademik Yıl */}
+   
         <div className="col-6">
           <FormInput
             name="academicYear"
@@ -255,10 +255,10 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Divider */}
+
         <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* KAMPANYA AYARLARI */}
         <div className="col-12">
@@ -303,17 +303,16 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* Kullanım Limiti */}
-        <div className="col-4">
+        <div className="col-12">
           <FormInput
             name="usageLimit"
-            label="Kullanım Limiti"
+            label="Kampanyayı Kullanabilecek Kişi Sayısı"
             type="number"
-            placeholder="Toplam kullanım limiti..."
+            placeholder="Kampanyayı kullanabilecek kişi sayısını giriniz..."
           />
         </div>
 
-        {/* Kullanıcı Başına Limit */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="perUserLimit"
             label="Kullanıcı Başına Limit"
@@ -322,7 +321,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Okul Başına Limit */}
+
         <div className="col-4">
           <FormInput
             name="perSchoolLimit"
@@ -330,7 +329,7 @@ export const CampaignFormContent: React.FC = () => {
             type="number"
             placeholder="Okul başına limit..."
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -338,11 +337,11 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* HEDEF KİTLE */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Hedef Kitle</h5>
         </div>
 
-        {/* Hedef Kitle */}
+
         <div className="col-12">
           <FormAutocomplete
             name="targetAudience"
@@ -352,7 +351,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Hedef Sınıf Seviyeleri */}
+
         <div className="col-12">
           <FormInput
             name="targetGradeLevels"
@@ -361,7 +360,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Minimum Yaş */}
+  
         <div className="col-6">
           <FormInput
             name="targetAgeMin"
@@ -371,7 +370,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Maksimum Yaş */}
+ 
         <div className="col-6">
           <FormInput
             name="targetAgeMax"
@@ -381,7 +380,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Sadece Yeni Öğrenciler */}
+ 
         <div className="col-6">
           <FormCheckbox
             name="targetNewStudentsOnly"
@@ -390,7 +389,6 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Kardeş İndirimi */}
         <div className="col-6">
           <FormCheckbox
             name="targetSiblingDiscount"
@@ -399,10 +397,10 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Divider */}
+
         <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* PROMOSYON İÇERİĞİ */}
         <div className="col-12">
@@ -458,61 +456,61 @@ export const CampaignFormContent: React.FC = () => {
         {/* Banner Resmi */}
         <div className="col-6">
           <FileInput
-            label="Banner Resmi"
+            label="Kapak Görseli"
             type="img"
             variant="outline"
-            placeholder="Banner resmi yüklemek için tıklayın"
+            placeholder="Kapak görseli yüklemek için tıklayın"
             maxSize={5}
-            uploadButtonText="Banner Yükle"
+            uploadButtonText="Kapak Görseli Yükle"
             name="bannerImageUrl"
             isAutoUpload
           />
-          <FormInput
+          {/* <FormInput
             name="bannerImageUrl"
-            label="Banner URL (Manuel)"
-            placeholder="Banner URL'ini giriniz..."
+            label="Kapak Görseli URL (Manuel)"
+            placeholder="Kapak görseli URL'ini giriniz..."
             className="mt-12"
-          />
+          /> */}
         </div>
 
         {/* Thumbnail Resmi */}
         <div className="col-6">
           <FileInput
-            label="Thumbnail Resmi"
+            label="Küçük Resim"
             type="img"
             variant="outline"
-            placeholder="Thumbnail resmi yüklemek için tıklayın"
+            placeholder="Küçük resim yüklemek için tıklayın"
             maxSize={5}
-            uploadButtonText="Thumbnail Yükle"
+            uploadButtonText="Küçük Resim Yükle"
             name="thumbnailImageUrl"
             isAutoUpload
           />
-          <FormInput
+          {/* <FormInput
             name="thumbnailImageUrl"
             label="Thumbnail URL (Manuel)"
             placeholder="Thumbnail URL'ini giriniz..."
             className="mt-12"
-          />
+          /> */}
         </div>
 
         {/* Rozet Metni */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="badgeText"
             label="Rozet Metni"
             placeholder="Örn: Yeni"
           />
-        </div>
+        </div> */}
 
         {/* Rozet Rengi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="badgeColor"
             label="Rozet Rengi"
             type="color"
             placeholder="#FF0000"
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -676,11 +674,11 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* GÖRÜNTÜLEME VE ÖNCELİK */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Görüntüleme ve Öncelik</h5>
         </div>
 
-        {/* Öncelik */}
+
         <div className="col-6">
           <FormInput
             name="priority"
@@ -690,7 +688,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Sıralama */}
+
         <div className="col-6">
           <FormInput
             name="sortOrder"
@@ -698,7 +696,7 @@ export const CampaignFormContent: React.FC = () => {
             type="number"
             placeholder="Sıralama değeri..."
           />
-        </div>
+        </div> */}
 
         {/* FORM ACTIONS */}
         <div className="col-12">

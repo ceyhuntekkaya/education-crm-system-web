@@ -1,6 +1,7 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { SchoolDto } from "@/types";
 import { Badge, CustomImage } from "@/components";
+import { getLanguageTypeLabel } from "@/utils";
 
 export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   // Logo
@@ -97,7 +98,10 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
     field: "languageOfInstruction",
     headerName: "Eğitim Dili",
     width: 150,
-    renderCell: (params) => params?.row?.languageOfInstruction || "-",
+    renderCell: (params) =>
+      params?.row?.languageOfInstruction
+        ? getLanguageTypeLabel(params.row.languageOfInstruction)
+        : "-",
   },
   {
     field: "foreignLanguages",

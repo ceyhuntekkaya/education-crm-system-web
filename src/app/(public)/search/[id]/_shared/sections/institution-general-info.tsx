@@ -1,6 +1,7 @@
 import { CustomImage } from "@/components";
 import { useInstitutionDetail } from "../contexts";
 import InstitutionAdditionalFeatures from "./institution-additional-features";
+import { getLanguageTypeLabel } from "@/utils";
 
 const tempIconUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
@@ -62,7 +63,9 @@ export default function InstitutionGeneralInfo() {
     },
     {
       label: "Eğitim Dili",
-      value: school.languageOfInstruction,
+      value: school.languageOfInstruction
+        ? getLanguageTypeLabel(school.languageOfInstruction)
+        : "-",
       isShowing:
         school.languageOfInstruction &&
         school.languageOfInstruction.trim() !== "",

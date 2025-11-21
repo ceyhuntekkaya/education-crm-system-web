@@ -24,6 +24,7 @@ import {
 import { usePricingAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
 import { SchoolPricingCreateDto, SchoolPricingUpdateDto } from "@/types";
+import { Divider } from "@/components";
 
 /**
  * School pricing form content component
@@ -97,7 +98,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* Sınıf Seviyesi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormAutocomplete
             name="gradeLevel"
             label="Sınıf Seviyesi"
@@ -105,16 +106,16 @@ export const SchoolPricingFormContent: React.FC = () => {
             placeholder="Sınıf seviyesi seçiniz..."
             required
           />
-        </div>
+        </div> */}
 
         {/* Sınıf Düzeyi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="classLevel"
             label="Sınıf Düzeyi"
             placeholder="Örn: A, B, C"
           />
-        </div>
+        </div> */}
 
         {/* Para Birimi */}
         <div className="col-6">
@@ -124,12 +125,13 @@ export const SchoolPricingFormContent: React.FC = () => {
             options={currencyOptions}
             placeholder="Para birimi seçiniz..."
             required
+            disabled
           />
         </div>
 
         {/* TEMEL ÜCRETLER */}
         {/* <div className="col-12">
-          <hr className="my-24" />
+           <Divider />
           <h5 className="mb-16">Temel Ücretler</h5>
         </div> */}
 
@@ -162,6 +164,8 @@ export const SchoolPricingFormContent: React.FC = () => {
             placeholder="₺ 0,00"
           />
         </div> */}
+
+        <Divider />
 
         {/* ÖĞRENİM ÜCRETLERİ */}
         <div className="col-12">
@@ -200,7 +204,7 @@ export const SchoolPricingFormContent: React.FC = () => {
 
         {/* EK ÜCRETLER */}
         {/* <div className="col-12">
-          <hr className="my-24" />
+           <Divider />
           <h5 className="mb-16">Ek Ücretler</h5>
         </div> */}
 
@@ -436,7 +440,7 @@ export const SchoolPricingFormContent: React.FC = () => {
 
         {/* ÖDEME KOŞULLARI */}
         <div className="col-12">
-          <hr className="my-24" />
+          <Divider />
           <h5 className="mb-16">Ödeme Koşulları</h5>
         </div>
 
@@ -543,7 +547,7 @@ export const SchoolPricingFormContent: React.FC = () => {
 
         {/* GEÇERLİLİK TARİHLERİ */}
         <div className="col-12">
-          <hr className="my-24" />
+          <Divider />
           <h5 className="mb-16">Geçerlilik Tarihleri</h5>
         </div>
 
@@ -568,12 +572,12 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* AÇIKLAMALAR */}
-        <div className="col-12">
-          <hr className="my-24" />
+        {/* <div className="col-12">
+           <Divider />
           <h5 className="mb-16">Açıklamalar</h5>
         </div>
 
-        {/* İade Politikası */}
+
         <div className="col-6">
           <FormTextarea
             name="refundPolicy"
@@ -584,7 +588,7 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Ödeme Koşulları */}
+ 
         <div className="col-6">
           <FormTextarea
             name="paymentTerms"
@@ -595,7 +599,7 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Genel Açıklama */}
+     
         <div className="col-12">
           <FormTextarea
             name="publicDescription"
@@ -606,7 +610,7 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
-        {/* İç Notlar */}
+  
         <div className="col-6">
           <FormTextarea
             name="internalNotes"
@@ -617,7 +621,7 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Ücret Döküm Notları */}
+ 
         <div className="col-6">
           <FormTextarea
             name="feeBreakdownNotes"
@@ -628,7 +632,7 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Pazar Pozisyonu */}
+
         <div className="col-12">
           <FormTextarea
             name="marketPosition"
@@ -637,11 +641,11 @@ export const SchoolPricingFormContent: React.FC = () => {
             rows={3}
             maxLength={500}
           />
-        </div>
+        </div> */}
 
         {/* AYARLAR */}
         <div className="col-12">
-          <hr className="my-24" />
+          <Divider />
           <h5 className="mb-16">Görüntüleme Ayarları</h5>
         </div>
 
@@ -703,7 +707,7 @@ export const SchoolPricingFormContent: React.FC = () => {
 
         {/* BUTONLAR */}
         <div className="col-12">
-          <hr className="my-24" />
+          <Divider />
           <div className="d-flex gap-12 justify-content-end me-64">
             <Button
               type="button"

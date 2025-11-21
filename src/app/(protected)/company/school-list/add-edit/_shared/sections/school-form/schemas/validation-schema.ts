@@ -4,7 +4,7 @@ import * as Yup from "yup";
  * School form validation schema
  */
 export const validationSchema = Yup.object({
-  campusId: Yup.number().required("Kampüs seçimi gereklidir"),
+  // campusId: Yup.number().required("Kampüs seçimi gereklidir"),
   institutionTypeId: Yup.number().required("Kurum tipi seçimi gereklidir"),
   name: Yup.string().required("Okul adı gereklidir"),
   description: Yup.string().optional(),
@@ -28,7 +28,7 @@ export const validationSchema = Yup.object({
   classSizeAverage: Yup.number()
     .min(0, "Ortalama sınıf büyüklüğü 0'dan küçük olamaz")
     .optional(),
-  curriculumType: Yup.string().optional(),
+  // curriculumType: Yup.string().optional(),
   languageOfInstruction: Yup.string().optional(),
   // foreignLanguages: Yup.mixed().optional(), // String veya array olabilir
 

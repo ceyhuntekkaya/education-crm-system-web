@@ -228,7 +228,7 @@ export const DateTimeStep = () => {
                       {slot.requiresApproval && (
                         <div className="slot-approval">
                           <i className="ph ph-check-circle" />
-                          <span>Onay gerektirir</span>
+                          <span>Onaylayınız</span>
                         </div>
                       )}
                     </div>

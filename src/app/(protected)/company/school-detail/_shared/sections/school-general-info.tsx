@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { useSchoolDetailContext } from "../context/school-detail-context";
-import { CustomCard } from "@/components/ui";
-import { renderStars } from "@/utils";
+import { CustomCard, CustomImage } from "@/components/ui";
+import { renderStars, getLanguageTypeLabel } from "@/utils";
 
 const tempIconUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
@@ -32,8 +31,9 @@ export default function SchoolGeneralInfo() {
         <span className="fw-semibold text-warning-600 text-md">
           <div className="d-flex align-items-center gap-8">
             {school.institutionType?.iconUrl && (
-              <Image
-                src={tempIconUrl || school.institutionType.iconUrl}
+              <CustomImage
+                src={school.institutionType.iconUrl}
+                tempImage={tempIconUrl}
                 alt={school.institutionType.displayName || ""}
                 width={20}
                 height={20}
@@ -69,7 +69,9 @@ export default function SchoolGeneralInfo() {
     },
     {
       label: "Eğitim Dili",
-      value: school.languageOfInstruction,
+      value: school.languageOfInstruction
+        ? getLanguageTypeLabel(school.languageOfInstruction)
+        : "-",
       isShowing:
         school.languageOfInstruction &&
         school.languageOfInstruction.trim() !== "",

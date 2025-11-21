@@ -17,6 +17,7 @@ import { useForm } from "@/contexts/form-context";
 import { useSchoolAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
 import { SchoolCreateDto } from "@/types";
+import { useAuth } from "@/contexts";
 
 /**
  * School form content component
@@ -46,6 +47,8 @@ export const SchoolFormContent: React.FC = () => {
     propertyValuesLoading,
   } = useSchoolAddEdit();
 
+  const { user } = useAuth();
+
   // Seçili institutionTypeId'ye göre property gruplarını al
   const currentPropertyGroups = useMemo(() => {
     const institutionTypeId = values?.institutionTypeId;
@@ -68,7 +71,7 @@ export const SchoolFormContent: React.FC = () => {
     const formData: SchoolCreateDto = {
       ...cleanValues,
       // Sayısal alanları number'a çevir
-      campusId: cleanValues.campusId ? Number(cleanValues.campusId) : undefined,
+      campusId: user?.campus?.id,
       institutionTypeId: cleanValues.institutionTypeId
         ? Number(cleanValues.institutionTypeId)
         : undefined,
@@ -136,7 +139,7 @@ export const SchoolFormContent: React.FC = () => {
         </div>
 
         {/* Kampüs Seçimi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormAutocomplete
             name="campusId"
             label="Kampüs"
@@ -147,6 +150,16 @@ export const SchoolFormContent: React.FC = () => {
             isLoading={campusesLoading}
             noOptionsText="Kampüs bulunamadı"
             loadingText="Kampüsler yükleniyor..."
+          />
+        </div> */}
+
+        {/* Okul Adı */}
+        <div className="col-6">
+          <FormInput
+            name="name"
+            label="Okul Adı"
+            placeholder="Okul adını giriniz..."
+            required
           />
         </div>
 
@@ -162,16 +175,6 @@ export const SchoolFormContent: React.FC = () => {
             isLoading={institutionTypesLoading}
             noOptionsText="Kurum tipi bulunamadı"
             loadingText="Kurum tipleri yükleniyor..."
-          />
-        </div>
-
-        {/* Okul Adı */}
-        <div className="col-12">
-          <FormInput
-            name="name"
-            label="Okul Adı"
-            placeholder="Okul adını giriniz..."
-            required
           />
         </div>
 
@@ -285,13 +288,13 @@ export const SchoolFormContent: React.FC = () => {
         </div>
 
         {/* Müfredat Tipi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="curriculumType"
             label="Müfredat Tipi"
             placeholder="Müfredat tipini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Eğitim Dili */}
         <div className="col-6">

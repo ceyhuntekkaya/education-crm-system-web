@@ -6,9 +6,9 @@ import * as Yup from "yup";
 export const validationSchema = Yup.object({
   academicYear: Yup.string().required("Akademik yıl gereklidir"),
 
-  gradeLevel: Yup.string().required("Sınıf seviyesi gereklidir"),
+  // gradeLevel: Yup.string().required("Sınıf seviyesi gereklidir"),
 
-  classLevel: Yup.string().optional(),
+  // classLevel: Yup.string().optional(),
 
   currency: Yup.string()
     .required("Para birimi gereklidir")
@@ -193,27 +193,27 @@ export const validationSchema = Yup.object({
     ),
 
   // Metin alanları
-  refundPolicy: Yup.string()
-    .max(2000, "İade politikası en fazla 2000 karakter olabilir")
-    .optional(),
+  // refundPolicy: Yup.string()
+  //   .max(2000, "İade politikası en fazla 2000 karakter olabilir")
+  //   .optional(),
 
-  paymentTerms: Yup.string()
-    .max(2000, "Ödeme koşulları en fazla 2000 karakter olabilir")
-    .optional(),
+  // paymentTerms: Yup.string()
+  //   .max(2000, "Ödeme koşulları en fazla 2000 karakter olabilir")
+  //   .optional(),
 
-  internalNotes: Yup.string()
-    .max(2000, "İç notlar en fazla 2000 karakter olabilir")
-    .optional(),
+  // internalNotes: Yup.string()
+  //   .max(2000, "İç notlar en fazla 2000 karakter olabilir")
+  //   .optional(),
 
-  publicDescription: Yup.string()
-    .max(1000, "Genel açıklama en fazla 1000 karakter olabilir")
-    .optional(),
+  // publicDescription: Yup.string()
+  //   .max(1000, "Genel açıklama en fazla 1000 karakter olabilir")
+  //   .optional(),
 
-  feeBreakdownNotes: Yup.string()
-    .max(1000, "Ücret döküm notları en fazla 1000 karakter olabilir")
-    .optional(),
+  // feeBreakdownNotes: Yup.string()
+  //   .max(1000, "Ücret döküm notları en fazla 1000 karakter olabilir")
+  //   .optional(),
 
-  marketPosition: Yup.string()
-    .max(500, "Pazar pozisyonu en fazla 500 karakter olabilir")
-    .optional(),
+  // marketPosition: Yup.string()
+  //   .max(500, "Pazar pozisyonu en fazla 500 karakter olabilir")
+  //   .optional(),
 });

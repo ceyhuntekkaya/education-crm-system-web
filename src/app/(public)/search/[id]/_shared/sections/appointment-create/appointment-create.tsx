@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { FormProvider } from "@/contexts";
 import { useAuth } from "@/contexts";
 import { AppointmentProvider, useAppointment } from "./contexts";
@@ -13,8 +13,21 @@ import { CustomCard, Icon } from "@/components";
  * AppointmentCreate içerik komponenti
  * Mevcut randevu varsa uyarı gösterir
  */
-const AppointmentCreateContent: React.FC = () => {
-  const { hasFutureAppointment, currentAppointment } = useAppointment();
+const AppointmentCreateContent: React.FC<{
+  cardRef: React.RefObject<HTMLDivElement>;
+}> = ({ cardRef }) => {
+  const { hasFutureAppointment, currentAppointment, currentStep } =
+    useAppointment();
+
+  // Step değiştiğinde kartın başına scroll yap
+  useEffect(() => {
+    if (cardRef.current) {
+      cardRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [currentStep, cardRef]);
 
   // Mevcut randevu varsa uyarı göster
   if (hasFutureAppointment && currentAppointment?.appointment) {
@@ -80,6 +93,25 @@ const AppointmentCreateContent: React.FC = () => {
 };
 
 /**
+ * Wrapper component with scroll ref
+ */
+const AppointmentCreateWrapper: React.FC<{
+  schoolId: number;
+  isOnline: boolean;
+  cardRef: React.RefObject<HTMLDivElement>;
+}> = ({ schoolId, isOnline, cardRef }) => {
+  return (
+    <div ref={cardRef}>
+      <CustomCard title="Randevu Oluştur" className="mt-20">
+        <AppointmentProvider schoolId={schoolId} isOnline={isOnline}>
+          <AppointmentCreateContent cardRef={cardRef} />
+        </AppointmentProvider>
+      </CustomCard>
+    </div>
+  );
+};
+
+/**
  * Main AppointmentCreate component with providers
  * This component serves as the entry point for appointment creation
  */
@@ -89,17 +121,18 @@ export const AppointmentCreate: React.FC<AppointmentCreateProps> = ({
 }) => {
   // Get user from auth context for parentUserId
   const { user } = useAuth();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Schema'dan initial values oluştur ve parentUserId ekle
   const initialValues = createInitialValues(schoolId, isOnline, user?.id);
 
   return (
-    <CustomCard title="Randevu Oluştur" className="mt-20">
-      <FormProvider initialValues={initialValues}>
-        <AppointmentProvider schoolId={schoolId} isOnline={isOnline}>
-          <AppointmentCreateContent />
-        </AppointmentProvider>
-      </FormProvider>
-    </CustomCard>
+    <FormProvider initialValues={initialValues}>
+      <AppointmentCreateWrapper
+        schoolId={schoolId}
+        isOnline={isOnline}
+        cardRef={cardRef}
+      />
+    </FormProvider>
   );
 };

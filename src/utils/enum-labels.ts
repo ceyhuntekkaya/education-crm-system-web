@@ -1,4 +1,4 @@
-import { AccessType } from "@/enums";
+import { AccessType, LanguageType } from "@/enums";
 
 /**
  * AccessType enum değerlerini Türkçe karşılıklarına çevirir
@@ -26,4 +26,27 @@ export const getAccessTypeBadgeClass = (
   };
 
   return badgeClasses[accessType] || "bg-secondary";
+};
+
+/**
+ * LanguageType enum değerlerini Türkçe karşılıklarına çevirir
+ */
+export const getLanguageTypeLabel = (
+  languageType: LanguageType | string
+): string => {
+  const labels: Record<string, string> = {
+    [LanguageType.TURKISH]: "Türkçe",
+    [LanguageType.ENGLISH]: "İngilizce",
+    [LanguageType.GERMAN]: "Almanca",
+    [LanguageType.FRENCH]: "Fransızca",
+    [LanguageType.CHINESE]: "Çince",
+    [LanguageType.RUSSIAN]: "Rusça",
+    [LanguageType.ARABIC]: "Arapça",
+    [LanguageType.SPANISH]: "İspanyolca",
+    [LanguageType.ITALIAN]: "İtalyanca",
+    [LanguageType.JAPANESE]: "Japonca",
+    [LanguageType.OTHER]: "Diğer",
+  };
+
+  return labels[languageType] || languageType;
 };

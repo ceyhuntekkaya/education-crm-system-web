@@ -15,5 +15,5 @@ export interface SidebarMenuItemProps {
   pathname: string;
   expandedItems: Set<string>;
   onToggleExpanded: (href: string) => void;
+  isDisabled: boolean;
 }
-

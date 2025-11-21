@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button, Form, FormTextarea } from "@/components";
+import { Button, Form, FormTextarea, CustomCard } from "@/components";
 import { FormProvider, useAuth } from "@/contexts";
 import { FormValues } from "@/types";
 import { useEffect } from "react";
@@ -13,19 +13,14 @@ import { noteInitialValues, noteValidationSchema } from "./schemas";
 
 const Notes: React.FC = () => {
   return (
-    <div className="border border-neutral-30 rounded-12 bg-white p-8 mt-24">
-      <div className="border border-neutral-30 rounded-12 bg-main-25 p-32">
-        <h4 className="mb-16">Notlar</h4>
-        <span className="d-block border border-neutral-30 my-24 border-dashed" />
-
-        <FormProvider
-          initialValues={noteInitialValues}
-          validationSchema={noteValidationSchema}
-        >
-          <NotesFormContent />
-        </FormProvider>
-      </div>
-    </div>
+    <CustomCard type="accordion" title="Notlar" spacing="my-24">
+      <FormProvider
+        initialValues={noteInitialValues}
+        validationSchema={noteValidationSchema}
+      >
+        <NotesFormContent />
+      </FormProvider>
+    </CustomCard>
   );
 };
 

@@ -58,6 +58,9 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
     ): string | null => {
       if (!url) return null;
 
+      // Trim whitespace
+      url = url.trim();
+
       // If it's already a full URL, return it
       if (url.startsWith("http://") || url.startsWith("https://")) {
         return url;
@@ -79,7 +82,7 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
         return `${UPLOAD_SERVE_URL}${url}`;
       }
 
-      // Otherwise, prepend /
+      // For any other relative path (e.g., "default_logo.jpg"), prepend /
       return `/${url}`;
     };
 
@@ -90,12 +93,26 @@ const CustomImage = forwardRef<HTMLImageElement, CustomImageProps>(
     // 4. Eğer hiçbiri yoksa -> DEFAULT_ERROR_IMAGE
     const imageSrc = (() => {
       if (imageError) {
-        return normalizeImageUrl(tempImage) || DEFAULT_ERROR_IMAGE;
+        const normalizedTemp = normalizeImageUrl(tempImage);
+        return normalizedTemp || DEFAULT_ERROR_IMAGE;
       }
       if (src) {
-        return normalizeImageUrl(src) || DEFAULT_ERROR_IMAGE;
+        const normalizedSrc = normalizeImageUrl(src);
+        // Additional validation: if normalized src doesn't start with / or http, use fallback
+        if (
+          normalizedSrc &&
+          !normalizedSrc.startsWith("/") &&
+          !normalizedSrc.startsWith("http")
+        ) {
+          console.warn(
+            `Invalid image src: "${src}" normalized to "${normalizedSrc}". Using fallback.`
+          );
+          return normalizeImageUrl(tempImage) || DEFAULT_ERROR_IMAGE;
+        }
+        return normalizedSrc || DEFAULT_ERROR_IMAGE;
       }
-      return normalizeImageUrl(tempImage) || DEFAULT_ERROR_IMAGE;
+      const normalizedTemp = normalizeImageUrl(tempImage);
+      return normalizedTemp || DEFAULT_ERROR_IMAGE;
     })();
 
     // Error image kontrolü
