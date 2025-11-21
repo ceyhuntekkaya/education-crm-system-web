@@ -66,6 +66,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
           <CustomImage
             key={file.preview}
             src={file.preview}
+            tempImage={file.preview}
             alt={file.name}
             width={200}
             height={160}

@@ -148,36 +148,45 @@ export const GalleryFormContent: React.FC = () => {
                 />
               </div>
               <div className="col-6">
+                <div className="mt-40">
+                  <FormCheckbox
+                    name="isFeatured"
+                    label="Öne Çıkan"
+                    variant="outlined"
+                  />
+                </div>
+              </div>
+              {/* <div className="col-6">
                 <FormInput
                   name="sortOrder"
                   label="Sıralama"
                   type="number"
                   placeholder="Sıralama numarası girin"
                 />
-              </div>
+              </div> */}
             </div>
             <div className="row row-gap-16 mt-16">
-              <div className="col-4">
+              {/* <div className="col-4">
                 <FormCheckbox
                   name="isFeatured"
                   label="Öne Çıkan"
                   variant="outlined"
                 />
-              </div>
-              <div className="col-4">
+              </div> */}
+              {/* <div className="col-4">
                 <FormCheckbox
                   name="allowComments"
                   label="Yorumlara İzin Ver"
                   variant="outlined"
                 />
-              </div>
-              <div className="col-4">
+              </div> */}
+              {/* <div className="col-4">
                 <FormCheckbox
                   name="allowDownloads"
                   label="İndirmelere İzin Ver"
                   variant="outlined"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
