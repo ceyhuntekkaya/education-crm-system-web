@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useGuardHook } from "@/hooks";
+import { useCompany } from "../../context/company-context";
 import { SidebarProps } from "./types";
 import { findActiveParents, getSidebarClasses } from "./utils";
 import {
@@ -19,6 +20,7 @@ const DashboardSidebar: React.FC<SidebarProps> = ({
   className = "",
 }) => {
   const { filterMenuItems } = useGuardHook();
+  const { selectedSchool } = useCompany();
   const filteredMenuItems = filterMenuItems(menuItems);
   const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
@@ -66,6 +68,7 @@ const DashboardSidebar: React.FC<SidebarProps> = ({
                   pathname={pathname}
                   expandedItems={expandedItems}
                   onToggleExpanded={toggleExpanded}
+                  isDisabled={!selectedSchool}
                 />
               ))}
             </ul>

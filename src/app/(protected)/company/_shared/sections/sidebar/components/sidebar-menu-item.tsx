@@ -17,11 +17,20 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   pathname,
   expandedItems,
   onToggleExpanded,
+  isDisabled,
 }) => {
   const hasChildren = Boolean(item.children?.length);
   const isExpanded = expandedItems.has(item.href);
   const itemIsActive = isActive(item.href, pathname);
   const hasActiveChildItem = hasActiveChild(item.children, pathname);
+
+  // Okul seçili değilse ve menü disabled olması gerekiyorsa kontrol et
+  // Giriş, Okul Listesi ve Kampüs Bilgileri hariç tüm menüler disabled
+  const shouldBeDisabled =
+    isDisabled &&
+    item.href !== "/company" &&
+    item.href !== "/company/school-list" &&
+    item.href !== "/company/campus-detail";
 
   // Full tab render
   const renderFullTab = () => {
@@ -46,7 +55,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
         )}
 
         {/* Active indicator */}
-        {itemIsActive && (
+        {itemIsActive && !shouldBeDisabled && (
           <div className="sidebar-tab-indicator position-absolute top-50 start-0 translate-middle-y w-4 h-24 bg-white rounded-end-pill sidebar-indicator-animate"></div>
         )}
       </>
@@ -56,12 +65,20 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
       return (
         <button
           type="button"
-          onClick={() => onToggleExpanded(item.href)}
+          onClick={
+            shouldBeDisabled ? undefined : () => onToggleExpanded(item.href)
+          }
           className={`${getTabLinkClasses(
             itemIsActive,
             hasActiveChildItem,
             level
           )} sidebar-link-animate`}
+          style={
+            shouldBeDisabled
+              ? { opacity: 0.4, pointerEvents: "none", cursor: "not-allowed" }
+              : {}
+          }
+          disabled={shouldBeDisabled}
         >
           {commonContent}
         </button>
@@ -70,12 +87,18 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
 
     return (
       <Link
-        href={item.href}
+        href={shouldBeDisabled ? "#" : item.href}
         className={`${getTabLinkClasses(
           itemIsActive,
           hasActiveChildItem,
           level
         )} sidebar-link-animate`}
+        style={
+          shouldBeDisabled
+            ? { opacity: 0.4, pointerEvents: "none", cursor: "not-allowed" }
+            : {}
+        }
+        onClick={shouldBeDisabled ? (e) => e.preventDefault() : undefined}
       >
         {commonContent}
       </Link>
@@ -87,7 +110,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
       {renderFullTab()}
 
       {/* Alt menü */}
-      {hasChildren && isExpanded && (
+      {hasChildren && isExpanded && !shouldBeDisabled && (
         <ul className="sidebar-submenu list-unstyled ms-12 sidebar-submenu-animate">
           {item.children?.map((child) => (
             <SidebarMenuItem
@@ -97,6 +120,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
               pathname={pathname}
               expandedItems={expandedItems}
               onToggleExpanded={onToggleExpanded}
+              isDisabled={isDisabled}
             />
           ))}
         </ul>
