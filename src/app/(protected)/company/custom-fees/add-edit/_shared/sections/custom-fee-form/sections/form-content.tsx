@@ -10,7 +10,6 @@ import {
   FormValues,
 } from "@/components/forms";
 import { Button } from "@/components/ui/button";
-import { CustomFeeFormData } from "../types/form-data";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { feeTypeOptions, feeFrequencyOptions, statusOptions } from "../options";
@@ -176,7 +175,7 @@ export const CustomFeeFormContent: React.FC = () => {
         </div>
 
         {/* Uygulanacak Sınıflar */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="appliesToGrades"
             label="Uygulanacak Sınıflar"
@@ -185,7 +184,6 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Minimum Yaş */}
         <div className="col-3">
           <FormInput
             name="minimumAge"
@@ -195,7 +193,6 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Maksimum Yaş */}
         <div className="col-3">
           <FormInput
             name="maximumAge"
@@ -203,15 +200,15 @@ export const CustomFeeFormContent: React.FC = () => {
             type="number"
             placeholder="Maksimum yaş giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* GEÇERLİLİK TARİHLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <hr className="my-24" />
           <h5 className="mb-16">Geçerlilik Tarihleri</h5>
         </div>
 
-        {/* Başlangıç Tarihi */}
+       
         <div className="col-6">
           <FormInput
             name="validFrom"
@@ -220,10 +217,10 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Bitiş Tarihi */}
+       
         <div className="col-6">
           <FormInput name="validUntil" label="Geçerlilik Bitişi" type="date" />
-        </div>
+        </div> */}
 
         {/* ÖDEME AYARLARI */}
         <div className="col-12">
@@ -291,12 +288,12 @@ export const CustomFeeFormContent: React.FC = () => {
         </div>
 
         {/* GÖRÜNÜRLÜK VE BİLDİRİM */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <hr className="my-24" />
           <h5 className="mb-16">Görünürlük ve Bildirim</h5>
         </div>
 
-        {/* Faturada Göster */}
+
         <div className="col-4">
           <FormCheckbox
             name="displayOnInvoice"
@@ -305,7 +302,7 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Doküman Gerekli */}
+
         <div className="col-4">
           <FormCheckbox
             name="documentationRequired"
@@ -314,7 +311,7 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Veli Bildirimi Gerekli */}
+
         <div className="col-4">
           <FormCheckbox
             name="parentNotificationRequired"
@@ -323,7 +320,7 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Onay Gerekli */}
+
         <div className="col-4">
           <FormCheckbox
             name="requiresApproval"
@@ -332,7 +329,7 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Görüntülenme Sırası */}
+
         <div className="col-6">
           <FormInput
             name="displayOrder"
@@ -343,7 +340,7 @@ export const CustomFeeFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Bildirim Süresi */}
+
         <div className="col-6">
           <FormInput
             name="advanceNoticeDays"
@@ -352,7 +349,7 @@ export const CustomFeeFormContent: React.FC = () => {
             placeholder="Gün sayısını giriniz..."
             helperText="Kaç gün önceden bildirim yapılacak"
           />
-        </div>
+        </div> */}
 
         {/* Gerekli Dokümanlar */}
         {/* @ts-ignore */}

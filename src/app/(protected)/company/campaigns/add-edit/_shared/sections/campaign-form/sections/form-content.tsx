@@ -201,22 +201,22 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* Erken Kayıt Bitiş Tarihi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="earlyBirdEndDate"
             label="Erken Kayıt Bitiş Tarihi"
             type="date"
           />
-        </div>
+        </div> */}
 
         {/* Kayıt Son Tarihi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="registrationDeadline"
             label="Kayıt Son Tarihi"
             type="date"
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -224,11 +224,11 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* KAYIT TARİHLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Kayıt Tarihleri</h5>
         </div>
 
-        {/* Kayıt Başlangıç Tarihi */}
+ 
         <div className="col-6">
           <FormInput
             name="enrollmentStartDate"
@@ -237,7 +237,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Kayıt Bitiş Tarihi */}
+   
         <div className="col-6">
           <FormInput
             name="enrollmentEndDate"
@@ -246,7 +246,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Akademik Yıl */}
+   
         <div className="col-6">
           <FormInput
             name="academicYear"
@@ -255,10 +255,10 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Divider */}
+
         <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* KAMPANYA AYARLARI */}
         <div className="col-12">
@@ -337,11 +337,11 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* HEDEF KİTLE */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Hedef Kitle</h5>
         </div>
 
-        {/* Hedef Kitle */}
+
         <div className="col-12">
           <FormAutocomplete
             name="targetAudience"
@@ -351,7 +351,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Hedef Sınıf Seviyeleri */}
+
         <div className="col-12">
           <FormInput
             name="targetGradeLevels"
@@ -360,7 +360,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Minimum Yaş */}
+  
         <div className="col-6">
           <FormInput
             name="targetAgeMin"
@@ -370,7 +370,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Maksimum Yaş */}
+ 
         <div className="col-6">
           <FormInput
             name="targetAgeMax"
@@ -380,7 +380,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Sadece Yeni Öğrenciler */}
+ 
         <div className="col-6">
           <FormCheckbox
             name="targetNewStudentsOnly"
@@ -389,7 +389,6 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Kardeş İndirimi */}
         <div className="col-6">
           <FormCheckbox
             name="targetSiblingDiscount"
@@ -398,10 +397,10 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Divider */}
+
         <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* PROMOSYON İÇERİĞİ */}
         <div className="col-12">
@@ -675,11 +674,11 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* GÖRÜNTÜLEME VE ÖNCELİK */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Görüntüleme ve Öncelik</h5>
         </div>
 
-        {/* Öncelik */}
+
         <div className="col-6">
           <FormInput
             name="priority"
@@ -689,7 +688,7 @@ export const CampaignFormContent: React.FC = () => {
           />
         </div>
 
-        {/* Sıralama */}
+
         <div className="col-6">
           <FormInput
             name="sortOrder"
@@ -697,7 +696,7 @@ export const CampaignFormContent: React.FC = () => {
             type="number"
             placeholder="Sıralama değeri..."
           />
-        </div>
+        </div> */}
 
         {/* FORM ACTIONS */}
         <div className="col-12">
