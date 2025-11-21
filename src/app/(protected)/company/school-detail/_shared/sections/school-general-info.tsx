@@ -1,6 +1,5 @@
-import Image from "next/image";
 import { useSchoolDetailContext } from "../context/school-detail-context";
-import { CustomCard } from "@/components/ui";
+import { CustomCard, CustomImage } from "@/components/ui";
 import { renderStars } from "@/utils";
 
 const tempIconUrl =
@@ -32,8 +31,9 @@ export default function SchoolGeneralInfo() {
         <span className="fw-semibold text-warning-600 text-md">
           <div className="d-flex align-items-center gap-8">
             {school.institutionType?.iconUrl && (
-              <Image
-                src={tempIconUrl || school.institutionType.iconUrl}
+              <CustomImage
+                src={school.institutionType.iconUrl}
+                tempImage={tempIconUrl}
                 alt={school.institutionType.displayName || ""}
                 width={20}
                 height={20}

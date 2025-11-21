@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { CustomCard } from "@/components/ui";
+import { CustomCard, CustomImage } from "@/components/ui";
 import { renderStars } from "@/utils/rating-utils";
 import { useSchoolDetailContext } from "../context/school-detail-context";
 
@@ -48,7 +47,7 @@ export default function SchoolCampusDetail() {
     {
       label: "Kampüs Logosu",
       value: campus.logoUrl ? (
-        <Image
+        <CustomImage
           src={campus.logoUrl}
           alt={campus.name || ""}
           width={60}
