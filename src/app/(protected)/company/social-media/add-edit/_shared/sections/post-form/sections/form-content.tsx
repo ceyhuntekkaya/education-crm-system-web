@@ -155,10 +155,10 @@ export const PostFormContent: React.FC = () => {
           <h5 className="mb-16 mt-16">Medya İçeriği</h5>
         </div>
 
-        <div className="col-4">
+        <div className="col-12">
           <div className="d-flex flex-column gap-12">
             <FileInput
-              label="Öne Çıkan Görsel"
+              label="Kapak Görseli"
               type="img"
               variant="outline"
               placeholder="Görsel yüklemek için tıklayın veya sürükleyin"
@@ -168,15 +168,15 @@ export const PostFormContent: React.FC = () => {
               isAutoUpload
             />
             {/* Manuel Featured Image URL */}
-            <FormInput
+            {/* <FormInput
               name="featuredImageUrl"
               label="Veya Manuel Görsel URL"
               placeholder="Görsel URL'sini giriniz..."
-            />
+            /> */}
           </div>
         </div>
 
-        <div className="col-4">
+        {/* <div className="col-4">
           <div className="d-flex flex-column gap-12">
             <FileInput
               label="Video"
@@ -188,7 +188,7 @@ export const PostFormContent: React.FC = () => {
               name="videoUrl"
               isAutoUpload
             />
-            {/* Manuel Video URL */}
+ 
             <FormInput
               name="videoUrl"
               label="Veya Manuel Video URL"
@@ -209,14 +209,14 @@ export const PostFormContent: React.FC = () => {
               name="videoThumbnailUrl"
               isAutoUpload
             />
-            {/* Manuel Video Thumbnail URL */}
+
             <FormInput
               name="videoThumbnailUrl"
               label="Veya Manuel Thumbnail URL"
               placeholder="Thumbnail URL'sini giriniz..."
             />
           </div>
-        </div>
+        </div> */}
 
         <span className="d-block border border-neutral-30 my-12 border-dashed" />
 
