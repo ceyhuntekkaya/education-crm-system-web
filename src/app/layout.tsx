@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="tr" translate="no">
       <body suppressHydrationWarning={true}>
         <AuthProvider>
           <SnackbarProvider>
