@@ -12,6 +12,8 @@ interface FormTextareaProps
   variant?: FormTextareaVariant;
   customStyle?: boolean;
   helperText?: string; // Yardımcı metin
+  isRequired?: boolean; // Helper text kırmızı renkte gösterilir
+  isRequiredText?: string; // isRequired aktifken gösterilecek özel metin
 }
 
 export const FormTextarea: React.FC<FormTextareaProps> = ({
@@ -23,6 +25,8 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
   variant = "primary",
   disabled = false,
   helperText,
+  isRequired = false,
+  isRequiredText,
   rows = 4,
   ...rest
 }) => {
@@ -83,9 +87,16 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
         required={required}
         {...rest}
       />
-      {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      {error && (
+        <div className="text-danger-600 text-sm mt-8 ms-28">{error}</div>
+      )}
       {helperText && !error && (
         <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+      )}
+      {isRequired && !error && (
+        <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
+          {isRequiredText || "* Bu alan zorunludur."}
+        </small>
       )}
     </div>
   );

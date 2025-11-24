@@ -64,21 +64,21 @@ export const GalleryFormContent: React.FC = () => {
               value={selectedSchool?.name || "Okul seçilmedi"}
               placeholder="Okul bilgisi..."
               disabled
-              required
+              isRequired
             /> */}
             <FormAutocomplete
               name="galleryType"
               label="Galeri Tipi"
               options={galleryTypeOptions}
               placeholder="Galeri tipi seçin"
-              required
+              isRequired
               disabled={isEditing}
             />
             <FormInput
               name="title"
               label="Başlık"
               placeholder="Galeri başlığını giriniz..."
-              required
+              isRequired
             />
             <FormTextarea
               name="description"
@@ -144,7 +144,7 @@ export const GalleryFormContent: React.FC = () => {
                   label="Görünürlük"
                   options={visibilityOptions}
                   placeholder="Görünürlük seçin"
-                  required
+                  isRequired
                 />
               </div>
               <div className="col-6">
