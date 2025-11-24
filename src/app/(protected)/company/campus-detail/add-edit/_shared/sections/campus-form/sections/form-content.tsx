@@ -24,6 +24,7 @@ import { CampusCreateDto } from "@/types";
 export const CampusFormContent: React.FC = () => {
   // Form hook - validation ve error kontrolü için
   const { hasErrors, values, errors } = useFormHook();
+  console.log("errrors ", errors);
 
   // Form context
   const { reset } = useForm();
@@ -50,8 +51,15 @@ export const CampusFormContent: React.FC = () => {
       ...rest
     } = formValues;
 
+    // Boş string değerlerini null'a çevir
+    const cleanedRest = Object.keys(rest).reduce((acc, key) => {
+      const value = rest[key];
+      acc[key] = value === "" ? null : value;
+      return acc;
+    }, {} as any);
+
     const formData: CampusCreateDto = {
-      ...rest,
+      ...cleanedRest,
       // useAuth'dan gelen brand.id'yi kullan
       brandId: user?.brand?.id || (undefined as any),
       // Location objelerini tam veriyle gönder (API'den gelen tüm alanlarla)
