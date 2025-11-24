@@ -3,39 +3,57 @@ import { useInstitutionDetail } from "../../../contexts";
 import { formatViewCount } from "../../../utils";
 import { SocialMediaLink, QuickInfoStat } from "../types";
 
+/**
+ * URL'ye protokol ekler (eğer yoksa)
+ */
+const ensureProtocol = (url: string | undefined): string | undefined => {
+  if (!url) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+  return `https://${url}`;
+};
+
 export const useInstitutionSidebarData = () => {
   const { school, campus, renderStars } = useInstitutionDetail();
 
-  const socialMediaLinks: SocialMediaLink[] = useMemo(
-    () => [
+  const socialMediaLinks: SocialMediaLink[] = useMemo(() => {
+    const links = [
       {
-        url: campus?.facebookUrl,
+        url: ensureProtocol(school?.facebookUrl),
         icon: "ph-facebook-logo",
         platform: "Facebook",
       },
       {
-        url: campus?.twitterUrl,
+        url: ensureProtocol(school?.twitterUrl),
         icon: "ph-twitter-logo",
         platform: "Twitter",
       },
       {
-        url: campus?.instagramUrl,
+        url: ensureProtocol(school?.instagramUrl),
         icon: "ph-instagram-logo",
         platform: "Instagram",
       },
       {
-        url: campus?.linkedinUrl,
+        url: ensureProtocol(school?.linkedinUrl),
         icon: "ph-linkedin-logo",
         platform: "LinkedIn",
       },
-    ],
-    [
-      campus?.facebookUrl,
-      campus?.twitterUrl,
-      campus?.instagramUrl,
-      campus?.linkedinUrl,
-    ]
-  );
+      {
+        url: ensureProtocol(school?.youtubeUrl),
+        icon: "ph-youtube-logo",
+        platform: "Youtube",
+      },
+    ];
+    // Sadece URL'si olan linkleri döndür
+    return links.filter((link) => link.url) as SocialMediaLink[];
+  }, [
+    school?.facebookUrl,
+    school?.twitterUrl,
+    school?.instagramUrl,
+    school?.linkedinUrl,
+    school?.youtubeUrl,
+  ]);
 
   const quickInfoStats: QuickInfoStat[] = useMemo(
     () => [
