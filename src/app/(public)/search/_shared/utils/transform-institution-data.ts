@@ -1,6 +1,40 @@
 import { InstitutionTypeListDto } from "@/types";
 
 /**
+ * Metni title case formatına çevirir
+ * Her kelimenin ilk harfi büyük, bağlaçlar küçük (ve, veya, ile, vb.)
+ */
+const toTitleCase = (text: string): string => {
+  const lowerCaseWords = [
+    "ve",
+    "veya",
+    "ile",
+    "için",
+    "de",
+    "da",
+    "bir",
+    "gibi",
+  ];
+
+  return text
+    .toLowerCase()
+    .split(" ")
+    .map((word, index) => {
+      // İlk kelime her zaman büyük harfle başlar
+      if (index === 0) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }
+      // Bağlaçlar küçük kalır
+      if (lowerCaseWords.includes(word)) {
+        return word;
+      }
+      // Diğer kelimeler ilk harfi büyük
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+};
+
+/**
  * 🏫 TRANSFORM INSTITUTION TYPE DATA
  * Kurum türü verilerini select component için uygun formata dönüştürür
  */
@@ -20,31 +54,19 @@ export const transformInstitutionTypeData = (
   }
 
   const mappedData = data
-    .map((type: InstitutionTypeListDto) => {
-      // Güvenli veri kontrolü
-      if (
-        !type.institutionTypeDto?.id ||
-        !type.institutionTypeDto?.displayName
-      ) {
-        return null;
-      }
-      return {
-        value: type.institutionTypeDto.id.toString(),
-        label: type.institutionTypeDto.displayName,
-        groupId: type.institutionTypeDto.groupId,
-        groupName: type.institutionTypeDto.groupName,
-      };
-    })
     .filter(
-      (
-        option
-      ): option is {
-        value: string;
-        label: string;
-        groupId?: number;
-        groupName?: string;
-      } => option !== null
-    );
+      (type: InstitutionTypeListDto) =>
+        type.institutionTypeDto?.id && type.institutionTypeDto?.displayName
+    )
+    .map((type: InstitutionTypeListDto) => {
+      const dto = type.institutionTypeDto!;
+      return {
+        value: dto.id!.toString(),
+        label: toTitleCase(dto.displayName!),
+        groupId: dto.groupId,
+        groupName: dto.groupName,
+      };
+    });
 
   return [placeholderOption, ...mappedData];
 };
@@ -81,7 +103,7 @@ export const transformInstitutionGroups = (
     { value: "", label: placeholder },
     ...groups.map((group) => ({
       value: group.groupId.toString(),
-      label: group.groupName,
+      label: toTitleCase(group.groupName),
     })),
   ];
 };

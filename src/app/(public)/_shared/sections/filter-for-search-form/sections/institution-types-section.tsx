@@ -84,7 +84,7 @@ export const InstitutionTypesSection = () => {
                 options={filteredInstitutionTypes}
                 multi={true}
                 isShowAll
-                minShowingValues={3}
+                minShowingValues={4}
               />
 
               {options.institutionTypes.loading && (
