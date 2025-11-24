@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import {
@@ -8,6 +9,7 @@ import {
   ProvinceDto,
 } from "@/types";
 import { LocationDataReturn } from "../types";
+import { useFormHook } from "@/hooks";
 
 /**
  * API'den gelen lokasyon verilerini select component'i için uygun formata dönüştürür
@@ -27,6 +29,24 @@ const transformLocationData = <T extends { id?: number; name?: string }>(
  * Lokasyon verilerini yönetir (ülke, il, ilçe, mahalle)
  */
 export function useLocationData(values?: any): LocationDataReturn {
+  const { setValue } = useFormHook();
+
+  // ID'leri number'a çevir (form'dan string veya number geliyor)
+  const countryId = values?.countryId
+    ? parseInt(values.countryId.toString())
+    : null;
+  const provinceId = values?.provinceId
+    ? parseInt(values.provinceId.toString())
+    : null;
+  const districtId = values?.districtId
+    ? parseInt(values.districtId.toString())
+    : null;
+
+  // Önceki değerleri takip et
+  const prevCountryIdRef = useRef(countryId);
+  const prevProvinceIdRef = useRef(provinceId);
+  const prevDistrictIdRef = useRef(districtId);
+
   // Tüm ülkeleri getir
   const {
     data: countriesResponse,
@@ -40,9 +60,7 @@ export function useLocationData(values?: any): LocationDataReturn {
     loading: provincesLoading,
     error: provincesError,
   } = useGet<ApiResponseDto<ProvinceDto[]>>(
-    values?.countryId
-      ? API_ENDPOINTS.LOCATION.PROVINCES(values.countryId)
-      : null
+    countryId ? API_ENDPOINTS.LOCATION.PROVINCES(countryId) : null
   );
 
   // İlçeleri getir - il seçilmişse
@@ -51,9 +69,7 @@ export function useLocationData(values?: any): LocationDataReturn {
     loading: districtsLoading,
     error: districtsError,
   } = useGet<ApiResponseDto<DistrictDto[]>>(
-    values?.provinceId
-      ? API_ENDPOINTS.LOCATION.DISTRICTS(values.provinceId)
-      : null
+    provinceId ? API_ENDPOINTS.LOCATION.DISTRICTS(provinceId) : null
   );
 
   // Mahalleleri getir - ilçe seçilmişse
@@ -62,10 +78,65 @@ export function useLocationData(values?: any): LocationDataReturn {
     loading: neighborhoodsLoading,
     error: neighborhoodsError,
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
-    values?.districtId
-      ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(values.districtId)
-      : null
+    districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(districtId) : null
   );
+
+  // Ülke değiştiğinde il, ilçe ve mahalleyi sıfırla
+  useEffect(() => {
+    if (prevCountryIdRef.current !== countryId) {
+      if (
+        prevCountryIdRef.current !== undefined &&
+        prevCountryIdRef.current !== null
+      ) {
+        setValue("provinceId", "");
+        setValue("districtId", "");
+        setValue("neighborhoodId", "");
+      }
+      prevCountryIdRef.current = countryId;
+    }
+  }, [countryId, setValue]);
+
+  // İl değiştiğinde ilçe ve mahalleyi sıfırla
+  useEffect(() => {
+    if (prevProvinceIdRef.current !== provinceId) {
+      if (
+        prevProvinceIdRef.current !== undefined &&
+        prevProvinceIdRef.current !== null
+      ) {
+        setValue("districtId", "");
+        setValue("neighborhoodId", "");
+      }
+      prevProvinceIdRef.current = provinceId;
+    }
+  }, [provinceId, setValue]);
+
+  // İlçe değiştiğinde mahalleyi sıfırla
+  useEffect(() => {
+    if (prevDistrictIdRef.current !== districtId) {
+      if (
+        prevDistrictIdRef.current !== undefined &&
+        prevDistrictIdRef.current !== null
+      ) {
+        setValue("neighborhoodId", "");
+      }
+      prevDistrictIdRef.current = districtId;
+    }
+  }, [districtId, setValue]);
+
+  // İl boşaltıldığında ilçe ve mahalleyi sıfırla
+  useEffect(() => {
+    if (!provinceId && (values?.districtId || values?.neighborhoodId)) {
+      setValue("districtId", "");
+      setValue("neighborhoodId", "");
+    }
+  }, [provinceId, values?.districtId, values?.neighborhoodId, setValue]);
+
+  // İlçe boşaltıldığında mahalleyi sıfırla
+  useEffect(() => {
+    if (!districtId && values?.neighborhoodId) {
+      setValue("neighborhoodId", "");
+    }
+  }, [districtId, values?.neighborhoodId, setValue]);
 
   // Verileri transform et
   const countries = {

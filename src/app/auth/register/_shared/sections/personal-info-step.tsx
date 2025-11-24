@@ -24,7 +24,7 @@ export const PersonalInfoStep: React.FC = () => {
               name="personalInfo.firstName"
               label="Ad"
               placeholder="Adınızı giriniz..."
-              required
+              isRequired
               autoComplete="given-name"
             />
           </div>
@@ -34,7 +34,7 @@ export const PersonalInfoStep: React.FC = () => {
               name="personalInfo.lastName"
               label="Soyad"
               placeholder="Soyadınızı giriniz..."
-              required
+              isRequired
               autoComplete="family-name"
             />
           </div>
@@ -46,13 +46,13 @@ export const PersonalInfoStep: React.FC = () => {
               type="email"
               label="E-posta Adresi"
               placeholder="ornek@email.com"
-              required
+              isRequired
               autoComplete="email"
               disabled
             />
             <small className="text-neutral-500 mt-4 d-block">
               <i className="ph-info me-4" />
-              E-posta adresi Step 1&apos;de kaydedildi
+              E-posta adresi Adım 1&apos;de kaydedildi
             </small>
           </div>
 
@@ -63,7 +63,7 @@ export const PersonalInfoStep: React.FC = () => {
               type="tel"
               label="Telefon Numarası"
               placeholder="5xxxxxxxxx (10 hane)"
-              required
+              isRequired
               autoComplete="tel"
             />
           </div>
