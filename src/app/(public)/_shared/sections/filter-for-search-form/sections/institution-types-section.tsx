@@ -83,8 +83,7 @@ export const InstitutionTypesSection = () => {
                 value=""
                 options={filteredInstitutionTypes}
                 multi={true}
-                isShowAll
-                minShowingValues={4}
+                isScrolling
               />
 
               {options.institutionTypes.loading && (
