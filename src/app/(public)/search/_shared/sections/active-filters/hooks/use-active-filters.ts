@@ -22,7 +22,8 @@ export interface UseActiveFiltersReturn {
 }
 
 export const useActiveFilters = (): UseActiveFiltersReturn => {
-  const { options, institutions, institutionTypes, totalElements } = useSearchContext();
+  const { options, institutions, institutionTypes, totalElements } =
+    useSearchContext();
   const { values, updateField, resetForm, isDirty } = useFormHook();
 
   // Compute filter groups
