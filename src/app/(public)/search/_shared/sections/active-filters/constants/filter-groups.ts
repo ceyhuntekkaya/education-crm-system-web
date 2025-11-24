@@ -5,9 +5,14 @@ export const FILTER_GROUPS = {
     fields: ["countryId", "provinceId", "districtId", "neighborhoodId"],
     icon: "ph-map-pin",
   },
+  search: {
+    title: "Arama",
+    fields: ["searchTerm"],
+    icon: "ph-magnifying-glass",
+  },
   institution: {
     title: "Kurum",
-    fields: ["institutionTypeId", "searchTerm"],
+    fields: ["institutionGroupId", "institutionTypeId"],
     icon: "ph-buildings",
   },
   academic: {

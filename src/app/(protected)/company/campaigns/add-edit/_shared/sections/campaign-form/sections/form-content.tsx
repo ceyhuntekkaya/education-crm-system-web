@@ -76,7 +76,7 @@ export const CampaignFormContent: React.FC = () => {
             name="title"
             label="Kampanya Başlığı"
             placeholder="Kampanya başlığını giriniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -87,7 +87,7 @@ export const CampaignFormContent: React.FC = () => {
             label="Kampanya Tipi"
             options={campaignTypeOptions}
             placeholder="Kampanya tipi seçiniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -98,7 +98,7 @@ export const CampaignFormContent: React.FC = () => {
             label="İndirim Tipi"
             options={discountTypeOptions}
             placeholder="İndirim tipi seçiniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -191,13 +191,18 @@ export const CampaignFormContent: React.FC = () => {
             name="startDate"
             label="Başlangıç Tarihi"
             type="datetime-local"
-            required
+            isRequired
           />
         </div>
 
         {/* Bitiş Tarihi */}
         <div className="col-6">
-          <FormInput name="endDate" label="Bitiş Tarihi" type="date" required />
+          <FormInput
+            name="endDate"
+            label="Bitiş Tarihi"
+            type="date"
+            isRequired
+          />
         </div>
 
         {/* Erken Kayıt Bitiş Tarihi */}

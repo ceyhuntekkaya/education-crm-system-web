@@ -16,6 +16,8 @@ interface FormAutocompleteProps
   label?: string;
   variant?: FormAutocompleteVariant;
   helperText?: string; // Yardımcı metin
+  isRequired?: boolean; // Helper text kırmızı renkte gösterilir
+  isRequiredText?: string; // isRequired aktifken gösterilecek özel metin
   options: AutocompleteOption[];
   iconLeft?: string;
   iconRight?: string;
@@ -37,6 +39,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   label,
   variant = "primary",
   helperText,
+  isRequired = false,
+  isRequiredText,
   options = [],
   className,
   disabled = false,
@@ -608,7 +612,12 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
       {error && (
         <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
       )}
-      {helperText && !error && (
+      {!error && isRequired && !value && (
+        <small className="text-danger-600 fw-semibold d-block mt-8 ps-24">
+          {isRequiredText || "* Bu alan zorunludur."}
+        </small>
+      )}
+      {!error && !isRequired && helperText && (
         <small className="text-muted d-block mt-8 ps-24">{helperText}</small>
       )}
     </div>

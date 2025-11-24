@@ -3,7 +3,12 @@
 import React, { createContext, useContext } from "react";
 import { useParams } from "next/navigation";
 import { UserAddEditContextType } from "../types";
-import { useUserById, useChangePassword } from "../hooks";
+import {
+  useUserById,
+  useChangePassword,
+  useAddUser,
+  useEditUser,
+} from "../hooks";
 import { parseId } from "../utils";
 
 const UserAddEditContext = createContext<UserAddEditContextType | undefined>(
@@ -20,6 +25,8 @@ export const UserAddEditProvider: React.FC<{ children: React.ReactNode }> = ({
   const { user, isLoading: userLoading } = useUserById(userId);
   const { changePassword, isLoading: changePasswordLoading } =
     useChangePassword(userId);
+  const { postUser, isLoading: isAdding } = useAddUser();
+  const { putUser, isLoading: isUpdating } = useEditUser(userId || 0);
 
   const value: UserAddEditContextType = {
     isEditing,
@@ -28,6 +35,10 @@ export const UserAddEditProvider: React.FC<{ children: React.ReactNode }> = ({
     userLoading,
     changePassword,
     changePasswordLoading,
+    postUser,
+    isAdding,
+    putUser,
+    isUpdating,
   };
 
   return (

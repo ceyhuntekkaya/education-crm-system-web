@@ -22,7 +22,8 @@ export interface UseActiveFiltersReturn {
 }
 
 export const useActiveFilters = (): UseActiveFiltersReturn => {
-  const { options, institutions, institutionTypes, totalElements } = useSearchContext();
+  const { options, institutions, institutionTypes, totalElements } =
+    useSearchContext();
   const { values, updateField, resetForm, isDirty } = useFormHook();
 
   // Compute filter groups
@@ -73,6 +74,10 @@ export const useActiveFilters = (): UseActiveFiltersReturn => {
       updateField("ageRange", [1, 80] as any);
     } else if (filterKey === "feeRange") {
       updateField("feeRange", [0.1, 1000000] as any);
+    } else if (filterKey === "institutionGroupId") {
+      // Kurum kategorisi silindiğinde kurum tipini de sıfırla
+      updateField("institutionGroupId", "");
+      updateField("institutionTypeId", "");
     } else {
       updateField(
         filterKey,

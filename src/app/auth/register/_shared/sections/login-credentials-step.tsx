@@ -24,7 +24,7 @@ export const LoginCredentialsStep: React.FC = () => {
               type="email"
               label="E-posta Adresi"
               placeholder="ornek@email.com"
-              required
+              isRequired
               autoComplete="email"
             />
             <small className="text-neutral-500 mt-4 d-block">
@@ -40,7 +40,7 @@ export const LoginCredentialsStep: React.FC = () => {
               type="password"
               label="Şifre"
               placeholder="Şifrenizi giriniz..."
-              required
+              isRequired
               autoComplete="new-password"
             />
           </div>
@@ -52,7 +52,7 @@ export const LoginCredentialsStep: React.FC = () => {
               type="password"
               label="Şifre Onay"
               placeholder="Şifrenizi tekrar giriniz..."
-              required
+              isRequired
               autoComplete="new-password"
             />
           </div>

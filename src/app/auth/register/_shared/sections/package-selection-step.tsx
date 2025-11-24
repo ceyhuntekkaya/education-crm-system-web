@@ -67,7 +67,7 @@ export const PackageSelectionStep: React.FC = () => {
           variant="dots"
         />
       ) : (
-        <div className="row gy-4">
+        <div className="row row-gap-64">
           {transformedPlans.map((plan, index) => (
             <MembershipCard
               key={plan.id}

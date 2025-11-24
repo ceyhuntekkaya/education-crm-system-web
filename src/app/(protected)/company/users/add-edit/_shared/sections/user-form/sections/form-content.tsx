@@ -1,27 +1,27 @@
 "use client";
 
 import React from "react";
-import { Form, FormInput, FormCheckbox } from "@/components/forms";
+import { Form, FormInput, FormCheckbox, FormValues } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { FileInput } from "@/components/file-input";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useAuth } from "@/contexts/auth-context";
 import { useUserAddEdit } from "../../../context";
-import { useAddUser, useEditUser } from "../../../hooks";
 import { formDataToRegistrationDto, formDataToUpdateDto } from "../../../utils";
+import { Divider } from "@/components";
 
 /**
  * User form content component
  */
 export const UserFormContent: React.FC = () => {
-  const { hasErrors } = useFormHook();
+  const { hasErrors, errors } = useFormHook();
   const { reset } = useForm();
   const { user: authUser } = useAuth(); // Oturum açmış kullanıcı bilgileri
-  const { isEditing, userId, user } = useUserAddEdit();
+  const { isEditing, userId, user, postUser, isAdding, putUser, isUpdating } =
+    useUserAddEdit();
 
-  const { postUser, isLoading: isAdding } = useAddUser();
-  const { putUser, isLoading: isUpdating } = useEditUser(userId || 0);
+  console.log("errrors =>", errors);
 
   const isLoading = isAdding || isUpdating;
 
@@ -30,18 +30,28 @@ export const UserFormContent: React.FC = () => {
     let submitData = values;
 
     if (authUser) {
+      // Konum bilgilerini önce user'dan, yoksa kampüsten al
+      const provinceId = authUser.province?.id || authUser.campus?.province?.id;
+      const districtId = authUser.district?.id || authUser.campus?.district?.id;
+      const neighborhoodId =
+        authUser.neighborhood?.id || authUser.campus?.neighborhood?.id;
+
+      // Latitude ve longitude - null veya undefined olarak gönder
+      const latitude = authUser.latitude ?? null;
+      const longitude = authUser.longitude ?? null;
+
       submitData = {
         ...values,
-        // AuthUser'dan gelen bilgileri ekle (her iki modda da)
+        // AuthUser'dan veya kampüsten gelen bilgileri ekle
         countryId: authUser.country?.id,
-        provinceId: authUser.province?.id,
-        districtId: authUser.district?.id,
-        neighborhoodId: authUser.neighborhood?.id,
-        addressLine1: authUser.addressLine1,
-        addressLine2: authUser.addressLine2,
-        postalCode: authUser.postalCode,
-        latitude: authUser.latitude,
-        longitude: authUser.longitude,
+        provinceId,
+        districtId,
+        neighborhoodId,
+        addressLine1: authUser.addressLine1 || "",
+        addressLine2: authUser.addressLine2 || "",
+        postalCode: authUser.postalCode || "",
+        latitude,
+        longitude,
         preferredLanguage: "tr",
         timezone: "Europe/Istanbul",
       };
@@ -78,6 +88,7 @@ export const UserFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FormValues />
       <div className="row row-gap-24">
         {/* TEMEL BİLGİLER */}
         <div className="col-12">
@@ -90,7 +101,7 @@ export const UserFormContent: React.FC = () => {
             name="firstName"
             label="Ad"
             placeholder="Adınızı giriniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -100,7 +111,7 @@ export const UserFormContent: React.FC = () => {
             name="lastName"
             label="Soyad"
             placeholder="Soyadınızı giriniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -111,7 +122,7 @@ export const UserFormContent: React.FC = () => {
             label="E-posta"
             type="email"
             placeholder="E-posta adresinizi giriniz..."
-            required
+            isRequired
             disabled={isEditing}
           />
         </div>
@@ -123,14 +134,17 @@ export const UserFormContent: React.FC = () => {
             type="tel"
             label="Telefon"
             placeholder="Telefon numaranızı giriniz..."
+            isRequired
           />
         </div>
+
+        <Divider />
 
         {/* ŞİFRE - Sadece yeni kullanıcı eklerken */}
         {!isEditing && (
           <>
             <div className="col-12">
-              <h5 className="mb-16 mt-16">Şifre Bilgileri</h5>
+              <h5 className="mb-16">Şifre Bilgileri</h5>
             </div>
 
             <div className="col-6">
@@ -139,7 +153,7 @@ export const UserFormContent: React.FC = () => {
                 label="Şifre"
                 type="password"
                 placeholder="Şifrenizi giriniz..."
-                required
+                isRequired
               />
             </div>
 
@@ -149,105 +163,102 @@ export const UserFormContent: React.FC = () => {
                 label="Şifre Onayı"
                 type="password"
                 placeholder="Şifrenizi tekrar giriniz..."
-                required
+                isRequired
               />
             </div>
           </>
         )}
-
-        {/* PROFİL RESMİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Profil Resmi</h5>
-        </div>
-
-        <div className="col-6">
-          <FileInput
-            label="Profil Resmi"
-            type="img"
-            variant="outline"
-            placeholder="Profil resmi yüklemek için tıklayın veya sürükleyin"
-            maxSize={5}
-            uploadButtonText="Profil Resmi Yükle"
-            name="profileImageUrl"
-            isAutoUpload={true}
-          />
-        </div>
-
-        <div className="col-6">
-          <FormInput
-            name="profileImageUrl"
-            label="Profil Resmi URL (Manuel)"
-            placeholder="Profil resmi URL'sini giriniz..."
-          />
-        </div>
-
-        {/* BİLDİRİM TERCİHLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16 mt-16">Bildirim Tercihleri</h5>
-        </div>
-
-        <div className="col-12">
-          <FormCheckbox
-            name="emailNotifications"
-            label="E-posta bildirimleri almak istiyorum"
-            variant="outlined"
-          />
-        </div>
-
-        <div className="col-12">
-          <FormCheckbox
-            name="smsNotifications"
-            label="SMS bildirimleri almak istiyorum"
-            variant="outlined"
-          />
-        </div>
-
-        <div className="col-12">
-          <FormCheckbox
-            name="marketingEmails"
-            label="Pazarlama e-postaları almak istiyorum"
-            variant="outlined"
-          />
-        </div>
-
-        {/* KOŞULLAR - Sadece yeni kullanıcı eklerken */}
-        {!isEditing && (
+        <Divider />
+        {/* PROFİL RESMİ - Sadece düzenleme modunda */}
+        {isEditing && (
           <>
             <div className="col-12">
-              <h5 className="mb-16 mt-16">Kullanım Koşulları</h5>
+              <h5 className="mb-16 ">Profil Resmi</h5>
             </div>
 
             <div className="col-12">
+              <FileInput
+                label="Profil Resmi"
+                type="img"
+                variant="outline"
+                placeholder="Profil resmi yüklemek için tıklayın veya sürükleyin"
+                maxSize={5}
+                uploadButtonText="Profil Resmi Yükle"
+                name="profileImageUrl"
+                isAutoUpload={true}
+              />
+            </div>
+
+            {/* <div className="col-6">
+              <FormInput
+                name="profileImageUrl"
+                label="Profil Resmi URL (Manuel)"
+                placeholder="Profil resmi URL'sini giriniz..."
+              />
+            </div> */}
+          </>
+        )}
+
+        <Divider />
+
+        {/* BİLDİRİM TERCİHLERİ VE KULLANIM KOŞULLARI */}
+        {/* Bildirim Tercihleri - Sol Kolon */}
+        <div className="col-12 col-md-6">
+          <h5 className="mb-16">Bildirim Tercihleri</h5>
+
+          <div className="d-flex flex-column gap-16">
+            <FormCheckbox
+              name="emailNotifications"
+              label="E-posta bildirimleri almak istiyorum"
+              variant="outlined"
+            />
+
+            <FormCheckbox
+              name="smsNotifications"
+              label="SMS bildirimleri almak istiyorum"
+              variant="outlined"
+            />
+
+            <FormCheckbox
+              name="marketingEmails"
+              label="Pazarlama e-postaları almak istiyorum"
+              variant="outlined"
+            />
+          </div>
+        </div>
+
+        {/* Kullanım Koşulları - Sağ Kolon - Sadece yeni kullanıcı eklerken */}
+        {!isEditing && (
+          <div className="col-12 col-md-6">
+            <h5 className="mb-16">Kullanım Koşulları</h5>
+
+            <div className="d-flex flex-column gap-16">
               <FormCheckbox
                 name="acceptTerms"
                 label="Kullanım koşullarını okudum ve kabul ediyorum"
                 variant="outlined"
-                required
+                isRequired
               />
-            </div>
 
-            <div className="col-12">
               <FormCheckbox
                 name="acceptPrivacy"
                 label="Gizlilik politikasını okudum ve kabul ediyorum"
                 variant="outlined"
-                required
+                isRequired
               />
-            </div>
 
-            <div className="col-12">
               <FormCheckbox
                 name="acceptMarketing"
                 label="Pazarlama iletişimlerine izin veriyorum"
                 variant="outlined"
               />
             </div>
-          </>
+          </div>
         )}
 
         {/* FORM ACTIONS */}
         <div className="col-12">
-          <div className="d-flex gap-3 justify-content-end mt-4">
+          <div className="d-flex justify-content-end mt-4 gap-12">
             <Button
               type="button"
               variant="outline"

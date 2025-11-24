@@ -142,9 +142,9 @@ export function useLocationData(values?: any) {
         prevCountryIdRef.current !== undefined &&
         prevCountryIdRef.current !== null
       ) {
-        setValue("campusInfo.provinceId", "");
-        setValue("campusInfo.districtId", "");
-        setValue("campusInfo.neighborhoodId", "");
+        setValue("campusInfo.provinceId", null);
+        setValue("campusInfo.districtId", null);
+        setValue("campusInfo.neighborhoodId", null);
       }
       prevCountryIdRef.current = countryId;
     }
@@ -157,8 +157,8 @@ export function useLocationData(values?: any) {
         prevProvinceIdRef.current !== undefined &&
         prevProvinceIdRef.current !== null
       ) {
-        setValue("campusInfo.districtId", "");
-        setValue("campusInfo.neighborhoodId", "");
+        setValue("campusInfo.districtId", null);
+        setValue("campusInfo.neighborhoodId", null);
       }
       prevProvinceIdRef.current = provinceId;
     }
@@ -171,11 +171,31 @@ export function useLocationData(values?: any) {
         prevDistrictIdRef.current !== undefined &&
         prevDistrictIdRef.current !== null
       ) {
-        setValue("campusInfo.neighborhoodId", "");
+        setValue("campusInfo.neighborhoodId", null);
       }
       prevDistrictIdRef.current = districtId;
     }
   }, [districtId, setValue]);
+
+  // İl boşaltıldığında ilçe ve mahalleyi sıfırla
+  useEffect(() => {
+    if (!provinceId && (campusInfo?.districtId || campusInfo?.neighborhoodId)) {
+      setValue("campusInfo.districtId", null);
+      setValue("campusInfo.neighborhoodId", null);
+    }
+  }, [
+    provinceId,
+    campusInfo?.districtId,
+    campusInfo?.neighborhoodId,
+    setValue,
+  ]);
+
+  // İlçe boşaltıldığında mahalleyi sıfırla
+  useEffect(() => {
+    if (!districtId && campusInfo?.neighborhoodId) {
+      setValue("campusInfo.neighborhoodId", null);
+    }
+  }, [districtId, campusInfo?.neighborhoodId, setValue]);
 
   return {
     countries: {

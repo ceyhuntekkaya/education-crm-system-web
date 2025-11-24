@@ -46,10 +46,7 @@ const FormContent = () => {
 
       {/* Institution Types Section */}
       <div className="col-12">
-        <h6 className="fw-medium text-neutral-900 mb-16">Kurum Türü</h6>
-        <div className="p-12 bg-neutral-10">
-          <InstitutionTypesSection />
-        </div>
+        <InstitutionTypesSection />
       </div>
 
       <Divider />

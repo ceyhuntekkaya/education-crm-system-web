@@ -75,7 +75,7 @@ export const PostFormContent: React.FC = () => {
           <h5 className="mb-16">Temel Bilgiler</h5>
         </div>
 
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="schoolId"
             label="Okul"
@@ -83,7 +83,16 @@ export const PostFormContent: React.FC = () => {
             value={selectedSchool?.name || "Okul seçilmedi"}
             placeholder="Okul bilgisi..."
             disabled
-            required
+            isRequired
+          />
+        </div> */}
+
+        <div className="col-6">
+          <FormInput
+            name="title"
+            label="Başlık"
+            placeholder="Gönderi başlığını giriniz..."
+            isRequired
           />
         </div>
 
@@ -93,17 +102,8 @@ export const PostFormContent: React.FC = () => {
             label="Gönderi Tipi"
             options={postTypeOptions}
             placeholder="Gönderi tipini seçiniz..."
-            required
+            isRequired
             disabled={isEditing}
-          />
-        </div>
-
-        <div className="col-12">
-          <FormInput
-            name="title"
-            label="Başlık"
-            placeholder="Gönderi başlığını giriniz..."
-            required
           />
         </div>
 
@@ -113,7 +113,7 @@ export const PostFormContent: React.FC = () => {
             label="İçerik"
             placeholder="Gönderi içeriğini giriniz..."
             rows={6}
-            required
+            isRequired
           />
         </div>
 
@@ -127,7 +127,7 @@ export const PostFormContent: React.FC = () => {
             label="Durum"
             options={postStatusOptions}
             placeholder="Durum seçiniz..."
-            required
+            isRequired
           />
         </div>
 

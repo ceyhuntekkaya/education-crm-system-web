@@ -37,6 +37,11 @@ export interface SchoolDto {
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  youtubeUrl?: string;
   /** Format: int64 */
   viewCount?: number;
   /** Format: double */

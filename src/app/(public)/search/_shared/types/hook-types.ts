@@ -18,6 +18,16 @@ export interface LocationDataReturn {
 export interface InstitutionTypesReturn {
   institutionTypes: InstitutionTypeListDto[];
   institutionTypesOptions: {
+    data: {
+      value: string;
+      label: string;
+      groupId?: number;
+      groupName?: string;
+    }[];
+    loading: boolean;
+    error: any;
+  };
+  institutionGroupsOptions: {
     data: { value: string; label: string }[];
     loading: boolean;
     error: any;

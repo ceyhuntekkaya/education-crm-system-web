@@ -5,8 +5,8 @@ export interface PostFormData {
   schoolId: number;
   title: string;
   content: string;
-  postType: PostType;
-  status: PostStatus;
+  postType?: PostType | string;
+  status?: PostStatus | string;
 
   // Optional dates
   scheduledAt?: string;

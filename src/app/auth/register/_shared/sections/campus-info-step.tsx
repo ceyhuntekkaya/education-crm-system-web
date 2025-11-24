@@ -29,7 +29,7 @@ export const CampusInfoStep: React.FC = () => {
               label="Marka"
               options={brandData.brands.data}
               placeholder="Marka seçiniz..."
-              required
+              isRequired
               disabled={brandData.brands.loading}
               isLoading={brandData.brands.loading}
             />
@@ -40,7 +40,7 @@ export const CampusInfoStep: React.FC = () => {
               name="campusInfo.campusName"
               label="Kampüs Adı"
               placeholder="Kampüs adını giriniz..."
-              required
+              isRequired
             />
           </div>
         </div>
@@ -54,7 +54,7 @@ export const CampusInfoStep: React.FC = () => {
               label="Ülke"
               options={locationData.countries.data}
               placeholder="Ülke seçiniz..."
-              required
+              isRequired
               disabled={locationData.countries.loading}
               isLoading={locationData.countries.loading}
             />
@@ -68,7 +68,7 @@ export const CampusInfoStep: React.FC = () => {
               placeholder={
                 !campusInfo.countryId ? "Önce ülke seçiniz..." : "İl seçiniz..."
               }
-              required
+              isRequired
               disabled={
                 locationData.provinces.disabled ||
                 locationData.provinces.loading
@@ -79,6 +79,7 @@ export const CampusInfoStep: React.FC = () => {
 
           <div className="col-md-6">
             <FormAutocomplete
+              key={`district-${campusInfo.provinceId || "empty"}`}
               name="campusInfo.districtId"
               label="İlçe"
               options={locationData.districts.data}
@@ -87,7 +88,7 @@ export const CampusInfoStep: React.FC = () => {
                   ? "Önce il seçiniz..."
                   : "İlçe seçiniz..."
               }
-              required
+              isRequired
               disabled={
                 locationData.districts.disabled ||
                 locationData.districts.loading
@@ -98,6 +99,7 @@ export const CampusInfoStep: React.FC = () => {
 
           <div className="col-md-6">
             <FormAutocomplete
+              key={`neighborhood-${campusInfo.districtId || "empty"}`}
               name="campusInfo.neighborhoodId"
               label="Mahalle"
               options={locationData.neighborhoods.data}
@@ -106,7 +108,7 @@ export const CampusInfoStep: React.FC = () => {
                   ? "Önce ilçe seçiniz..."
                   : "Mahalle seçiniz..."
               }
-              required
+              isRequired
               disabled={
                 locationData.neighborhoods.disabled ||
                 locationData.neighborhoods.loading
@@ -120,7 +122,7 @@ export const CampusInfoStep: React.FC = () => {
               name="campusInfo.addressLine1"
               label="Adres Detayı (1. Satır)"
               placeholder="Cadde, sokak, bina no..."
-              required
+              isRequired
             />
           </div>
 
@@ -129,6 +131,7 @@ export const CampusInfoStep: React.FC = () => {
               name="campusInfo.addressLine2"
               label="Adres Detayı (2. Satır)"
               placeholder="Daire no, blok, kat..."
+              isRequired
             />
           </div>
 
@@ -137,6 +140,7 @@ export const CampusInfoStep: React.FC = () => {
               name="campusInfo.postalCode"
               label="Posta Kodu"
               placeholder="Posta kodunu giriniz..."
+              isRequired
             />
           </div>
         </div>

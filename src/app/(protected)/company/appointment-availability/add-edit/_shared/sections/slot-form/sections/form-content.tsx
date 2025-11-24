@@ -81,7 +81,7 @@ export const SlotFormContent: React.FC = () => {
             placeholder="Personel seçiniz.."
             loadingText="Personeller yükleniyor..."
             noOptionsText="Personel bulunamadı"
-            required
+            isRequired
           />
         </div>
 
@@ -92,7 +92,7 @@ export const SlotFormContent: React.FC = () => {
             label="Süre"
             options={durationOptions}
             noOptionsText="Süre bulunamadı"
-            required
+            isRequired
           />
         </div>
 
@@ -103,7 +103,7 @@ export const SlotFormContent: React.FC = () => {
             label="Randevu Tipi"
             options={appointmentTypeOptions}
             noOptionsText="Randevu tipi bulunamadı"
-            required
+            isRequired
           />
         </div>
 
@@ -114,7 +114,7 @@ export const SlotFormContent: React.FC = () => {
             label="Slot Tarihi"
             type="datetime-local"
             placeholder="Slot tarihini seçiniz..."
-            required
+            isRequired
             minToday
           />
         </div>

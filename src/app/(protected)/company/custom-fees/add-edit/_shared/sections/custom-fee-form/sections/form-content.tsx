@@ -75,7 +75,7 @@ export const CustomFeeFormContent: React.FC = () => {
             name="feeName"
             label="Ücret Adı"
             placeholder="Örn: Laboratuvar Kullanım Ücreti"
-            required
+            isRequired
           />
         </div>
 
@@ -86,7 +86,7 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Ücret Türü"
             options={feeTypeOptions}
             placeholder="Ücret türü seçiniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -97,7 +97,7 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Ücret Tutarı"
             type="number"
             placeholder="Ücret tutarını giriniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -108,7 +108,7 @@ export const CustomFeeFormContent: React.FC = () => {
             label="Ücret Sıklığı"
             options={feeFrequencyOptions}
             placeholder="Ücret sıklığını seçiniz..."
-            required
+            isRequired
           />
         </div>
 

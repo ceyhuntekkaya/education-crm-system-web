@@ -8,6 +8,9 @@ export const createFilterApiParams = (values: FormValues) => {
     searchTerm: values.searchTerm || undefined,
     provinceId: values.provinceId ? Number(values.provinceId) : undefined,
     districtId: values.districtId ? Number(values.districtId) : undefined,
+    institutionGroupId: values.institutionGroupId
+      ? Number(values.institutionGroupId)
+      : undefined,
     institutionTypeId: values.institutionTypeId
       ? Number(values.institutionTypeId)
       : undefined,

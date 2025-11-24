@@ -16,6 +16,8 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconRight?: string;
   fullWidth?: boolean;
   helperText?: string; // Yardımcı metin
+  isRequired?: boolean; // Helper text kırmızı renkte gösterilir
+  isRequiredText?: string; // isRequired aktifken gösterilecek özel metin
   minToday?: boolean; // Bugünün tarihini minimum değer olarak ayarlar (date ve datetime-local için)
   type?:
     | "text"
@@ -60,6 +62,8 @@ export const FormInput: React.FC<FormInputProps> = ({
   iconRight,
   fullWidth = false,
   helperText,
+  isRequired = false,
+  isRequiredText,
   numberFormat,
   numberFormatProps,
   minToday = false,
@@ -359,7 +363,17 @@ export const FormInput: React.FC<FormInputProps> = ({
             style={{ cursor: "pointer" }}
           ></span>
         </div>
-        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+        {error && (
+          <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+        )}
+        {!error && isRequired && !value && (
+          <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
+            {isRequiredText || "* Bu alan zorunludur."}
+          </small>
+        )}
+        {!error && !isRequired && helperText && (
+          <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+        )}
       </div>
     );
   }
@@ -417,7 +431,17 @@ export const FormInput: React.FC<FormInputProps> = ({
             </span>
           )}
         </div>
-        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+        {error && (
+          <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+        )}
+        {!error && isRequired && !value && (
+          <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
+            {isRequiredText || "* Bu alan zorunludur."}
+          </small>
+        )}
+        {!error && !isRequired && helperText && (
+          <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+        )}
       </div>
     );
   }
@@ -486,7 +510,17 @@ export const FormInput: React.FC<FormInputProps> = ({
             </span>
           )}
         </div>
-        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+        {error && (
+          <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+        )}
+        {!error && isRequired && !value && (
+          <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
+            {isRequiredText || "* Bu alan zorunludur."}
+          </small>
+        )}
+        {!error && !isRequired && helperText && (
+          <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
+        )}
       </div>
     );
   }
@@ -561,8 +595,15 @@ export const FormInput: React.FC<FormInputProps> = ({
           </span>
         )}
       </div>
-      {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
-      {helperText && !error && (
+      {error && (
+        <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+      )}
+      {!error && isRequired && !value && (
+        <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
+          {isRequiredText || "* Bu alan zorunludur."}
+        </small>
+      )}
+      {!error && !isRequired && helperText && (
         <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
       )}
     </div>

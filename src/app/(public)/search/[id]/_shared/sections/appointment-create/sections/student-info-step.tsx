@@ -14,9 +14,10 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
         <div className="col-12">
           <FormInput
             name="studentName"
-            label="Öğrenci Adı Soyadı *"
+            label="Öğrenci Adı Soyadı"
             placeholder="Öğrenci adını ve soyadını girin"
             variant="inline"
+            isRequired
           />
         </div>
 
@@ -24,11 +25,12 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
           <FormInput
             name="studentAge"
             type="number"
-            label="Öğrenci Yaşı *"
+            label="Öğrenci Yaşı"
             placeholder="Öğrencinin yaşı"
             min={5}
             max={25}
             variant="inline"
+            isRequired
           />
         </div>
 
@@ -39,6 +41,7 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             label="Öğrenci Doğum Tarihi"
             placeholder="YYYY-MM-DD"
             variant="inline"
+            isRequired
           />
         </div>
 
@@ -49,16 +52,18 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
             placeholder="Cinsiyet seçiniz"
             options={[...FORM_OPTIONS.GENDER]}
             variant="inline"
+            isRequired
           />
         </div>
 
         <div className="col-md-6">
           <FormAutocomplete
             name="gradeInterested"
-            label="İlgilenilen Sınıf *"
+            label="İlgilenilen Sınıf"
             placeholder="Sınıf seçiniz"
             options={[...FORM_OPTIONS.GRADE]}
             variant="inline"
+            isRequired
           />
         </div>
 

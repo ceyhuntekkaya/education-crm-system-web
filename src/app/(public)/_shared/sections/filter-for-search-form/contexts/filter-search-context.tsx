@@ -25,6 +25,16 @@ interface FilterSearchContextValue {
       };
     };
     institutionTypes: {
+      data: {
+        value: string;
+        label: string;
+        groupId?: number;
+        groupName?: string;
+      }[];
+      loading: boolean;
+      error: any;
+    };
+    institutionGroups: {
       data: { value: string; label: string }[];
       loading: boolean;
       error: any;
@@ -66,6 +76,7 @@ export function FilterSearchProvider({ children }: FilterSearchProviderProps) {
     options: {
       location: locationData,
       institutionTypes: institutionTypesData.institutionTypes,
+      institutionGroups: institutionTypesData.institutionGroups,
     },
     handleSubmit,
     // Ham veri de sağlıyoruz (ihtiyaç halinde)

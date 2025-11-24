@@ -72,7 +72,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   const setValue = useCallback(
     async (
       name: string,
-      value: string | number | boolean | null | undefined | any[] | any
+      value: string | number | boolean | null | undefined | any[] | any,
+      shouldValidate: boolean = false // Validation kontrolü için flag
     ) => {
       setValues((prev) => setNestedValue({ ...prev }, name, value));
 
@@ -86,6 +87,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         }
         return prev;
       });
+
+      // Sadece shouldValidate true ise validation yap
+      if (!shouldValidate) return;
 
       // Önce Yup schema ile kontrol et
       if (validationSchema) {

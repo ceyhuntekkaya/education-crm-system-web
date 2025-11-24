@@ -79,15 +79,16 @@ export const SchoolPricingFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FormValues />
       {/* <FormValues /> */}
       <div className="row row-gap-24">
         {/* TEMEL BİLGİLER */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Temel Bilgiler</h5>
-        </div>
+        </div> */}
 
         {/* Akademik Yıl */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormAutocomplete
             name="academicYear"
             label="Akademik Yıl"
@@ -95,7 +96,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             placeholder="Örn: 2024-2025, 2025-2026"
             required
           />
-        </div>
+        </div> */}
 
         {/* Sınıf Seviyesi */}
         {/* <div className="col-6">
@@ -118,7 +119,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div> */}
 
         {/* Para Birimi */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormAutocomplete
             name="currency"
             label="Para Birimi"
@@ -127,7 +128,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             required
             disabled
           />
-        </div>
+        </div> */}
 
         {/* TEMEL ÜCRETLER */}
         {/* <div className="col-12">
@@ -165,11 +166,11 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div> */}
 
-        <Divider />
+        {/* <Divider /> */}
 
         {/* ÖĞRENİM ÜCRETLERİ */}
         <div className="col-12">
-          <h6 className="mb-16">Öğrenim Ücretleri</h6>
+          <h5 className="mb-16">Öğrenim Ücretleri</h5>
         </div>
 
         {/* Yıllık Öğrenim Ücreti */}
@@ -438,9 +439,10 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div> */}
 
+        <Divider />
+
         {/* ÖDEME KOŞULLARI */}
         <div className="col-12">
-          <Divider />
           <h5 className="mb-16">Ödeme Koşulları</h5>
         </div>
 
@@ -465,13 +467,15 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
+        <Divider />
+
         {/* İNDİRİMLER */}
         <div className="col-12">
-          <h6 className="mb-16">İndirimler (%)</h6>
+          <h5 className="mb-16">İndirimler (%)</h5>
         </div>
 
         {/* Peşinat Yüzdesi */}
-        <div className="col-4">
+        <div className="col-6">
           <FormInput
             name="downPaymentPercentage"
             label="Peşinat Yüzdesi"
@@ -481,7 +485,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* Erken Ödeme İndirimi */}
-        <div className="col-4">
+        <div className="col-6">
           <FormInput
             name="earlyPaymentDiscountPercentage"
             label="Erken Ödeme İndirimi"
@@ -491,7 +495,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* Kardeş İndirimi */}
-        <div className="col-4">
+        <div className="col-6">
           <FormInput
             name="siblingDiscountPercentage"
             label="Kardeş İndirimi"
@@ -501,7 +505,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* Çoklu Yıl İndirimi */}
-        <div className="col-4">
+        <div className="col-6">
           <FormInput
             name="multiYearDiscountPercentage"
             label="Çoklu Yıl İndirimi"
@@ -511,22 +515,24 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* Sadakat İndirimi */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="loyaltyDiscountPercentage"
             label="Sadakat İndirimi"
             type="number"
             placeholder="0 %"
           />
-        </div>
+        </div> */}
+
+        <Divider />
 
         {/* DİĞER YÜZDELER VE CEZALAR */}
         <div className="col-12">
-          <h6 className="mb-16">Diğer Ceza ve İadeler (%)</h6>
+          <h5 className="mb-16">Diğer Ceza ve İadeler (%)</h5>
         </div>
 
         {/* Geç Ödeme Ceza Yüzdesi */}
-        <div className="col-4">
+        <div className="col-6">
           <FormInput
             name="latePaymentPenaltyPercentage"
             label="Geç Ödeme Ceza Yüzdesi"
@@ -536,18 +542,19 @@ export const SchoolPricingFormContent: React.FC = () => {
         </div>
 
         {/* Çekilme İade Yüzdesi */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="withdrawalRefundPercentage"
             label="Çekilme İade Yüzdesi"
             type="number"
             placeholder="0 %"
           />
-        </div>
+        </div> */}
+
+        <Divider />
 
         {/* GEÇERLİLİK TARİHLERİ */}
         <div className="col-12">
-          <Divider />
           <h5 className="mb-16">Geçerlilik Tarihleri</h5>
         </div>
 
@@ -558,6 +565,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Başlangıç Tarihi"
             type="date"
             placeholder="dd/mm/yyyy"
+            isRequired
           />
         </div>
 
@@ -568,6 +576,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Bitiş Tarihi"
             type="date"
             placeholder="dd/mm/yyyy"
+            isRequired
           />
         </div>
 
@@ -643,45 +652,46 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div> */}
 
+        {/* <Divider /> */}
+
         {/* AYARLAR */}
-        <div className="col-12">
-          <Divider />
+        {/* <div className="col-12">
           <h5 className="mb-16">Görüntüleme Ayarları</h5>
-        </div>
+        </div> */}
 
         {/* Burs Durumu */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormCheckbox
             name="needBasedAidAvailable"
             label="İhtiyaç Bazlı Burs Mevcut"
             variant="outlined"
           />
-        </div>
-        <div className="col-6">
+        </div> */}
+        {/* <div className="col-6">
           <FormCheckbox
             name="meritBasedAidAvailable"
             label="Başarı Bazlı Burs Mevcut"
             variant="outlined"
           />
-        </div>
+        </div> */}
 
         {/* Görüntüleme Seçenekleri */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormCheckbox
             name="showDetailedBreakdown"
             label="Detaylı Ücret Dökümü Göster"
             variant="outlined"
           />
-        </div>
-        <div className="col-6">
+        </div> */}
+        {/* <div className="col-6">
           <FormCheckbox
             name="highlightTotalCost"
             label="Toplam Maliyeti Vurgula"
             variant="outlined"
           />
-        </div>
+        </div> */}
 
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormCheckbox
             name="showPaymentOptions"
             label="Ödeme Seçeneklerini Göster"
@@ -694,7 +704,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Burs Bilgilerini Göster"
             variant="outlined"
           />
-        </div>
+        </div> */}
 
         {/* Hata Mesajı */}
         {pricingError && (
@@ -705,9 +715,10 @@ export const SchoolPricingFormContent: React.FC = () => {
           </div>
         )}
 
+        <Divider />
+
         {/* BUTONLAR */}
         <div className="col-12">
-          <Divider />
           <div className="d-flex gap-12 justify-content-end me-64">
             <Button
               type="button"

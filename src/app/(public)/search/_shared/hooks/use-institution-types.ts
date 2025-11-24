@@ -2,7 +2,10 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, InstitutionTypeListDto } from "@/types";
 import { InstitutionTypesReturn } from "../types";
-import { transformInstitutionTypeData } from "../utils";
+import {
+  transformInstitutionTypeData,
+  transformInstitutionGroups,
+} from "../utils";
 
 /**
  * 🏫 INSTITUTION TYPES HOOK
@@ -22,15 +25,24 @@ export function useInstitutionTypes(): InstitutionTypesReturn {
   const institutionTypesOptions = {
     data: transformInstitutionTypeData(
       institutionTypesResponse?.data,
-      "Kurum türü seçin"
+      "Kurum tipi seçin"
     ),
     loading: institutionTypesLoading,
     error: institutionTypesError,
   };
 
-  // console.log("institutionTypes", institutionTypes);
+  const institutionGroupsOptions = {
+    data: transformInstitutionGroups(
+      institutionTypesResponse?.data,
+      "Kurum kategorisi seçin"
+    ),
+    loading: institutionTypesLoading,
+    error: institutionTypesError,
+  };
 
-  // console.log("institutionTypesOptions", institutionTypesOptions);
-
-  return { institutionTypes, institutionTypesOptions };
+  return {
+    institutionTypes,
+    institutionTypesOptions,
+    institutionGroupsOptions,
+  };
 }

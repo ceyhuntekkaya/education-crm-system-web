@@ -12,4 +12,6 @@ export interface InstitutionTypeDto {
   properties?: InstitutionPropertyDto[];
   isActive?: boolean;
   createdAt?: string; // ISO date string (LocalDateTime in Java)
+  groupName?: string;
+  groupId?: number;
 }

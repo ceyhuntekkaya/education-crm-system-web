@@ -18,9 +18,9 @@ export const validationSchema = Yup.object({
     .oneOf(Object.values(GalleryVisibility), "Geçersiz görünürlük değeri"),
 
   // Optional fields
-  description: Yup.string()
-    .min(10, "Açıklama en az 10 karakter olmalıdır")
-    .optional(),
+  // description: Yup.string()
+  //   .min(10, "Açıklama en az 10 karakter olmalıdır")
+  //   .optional(),
   coverImageUrl: Yup.string().url("Geçerli bir URL giriniz").optional(),
   sortOrder: Yup.number().min(0, "Sıralama 0'dan küçük olamaz").optional(),
   isFeatured: Yup.boolean().optional(),

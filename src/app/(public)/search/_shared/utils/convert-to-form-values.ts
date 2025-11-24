@@ -35,6 +35,26 @@ export const convertToFormValues = (
     sortDirection: apiParams.sortDirection || "",
   };
 
+  // institutionTypeId varsa, groupId'yi de institutionTypes'dan bul ve ekle
+  if (
+    apiParams.institutionTypeIds?.[0] &&
+    institutionTypes &&
+    institutionTypes.length > 0
+  ) {
+    const institutionTypeId = apiParams.institutionTypeIds[0];
+
+    // Tüm institution type'ları tarayarak seçili olan'ın groupId'sini bul
+    for (const institutionType of institutionTypes) {
+      if (institutionType.institutionTypeDto?.id === institutionTypeId) {
+        const groupId = institutionType.institutionTypeDto?.groupId;
+        if (groupId) {
+          formValues.institutionGroupId = groupId.toString();
+        }
+        break;
+      }
+    }
+  }
+
   // PropertyFilters'ı form field'larına dönüştür
   if (
     apiParams.propertyFilters &&

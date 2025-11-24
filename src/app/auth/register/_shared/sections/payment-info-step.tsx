@@ -24,6 +24,7 @@ export const PaymentInfoStep: React.FC = () => {
               name="paymentInfo.cardHolderName"
               label="Kart Sahibinin Adı Soyadı"
               placeholder="AHMET YILMAZ"
+              isRequired
             />
           </div>
 
@@ -35,13 +36,14 @@ export const PaymentInfoStep: React.FC = () => {
               label="Kart Numarası"
               placeholder="1234 5678 9012 3456"
               autoComplete="cc-number"
+              isRequired
             />
           </div>
 
           <div className="col-md-6">
             {/* Son Kullanma Tarihi */}
             <label className="form-label fw-medium mb-8">
-              Son Kullanma Tarihi <span className="text-danger">*</span>
+              Son Kullanma Tarihi
             </label>
             <div className="d-flex gap-8">
               <FormInput
@@ -50,6 +52,7 @@ export const PaymentInfoStep: React.FC = () => {
                 placeholder="AA"
                 autoComplete="cc-exp-month"
                 className="text-center"
+                isRequired
               />
               <span className="d-flex align-items-center">/</span>
               <FormInput
@@ -58,6 +61,7 @@ export const PaymentInfoStep: React.FC = () => {
                 placeholder="YY"
                 autoComplete="cc-exp-year"
                 className="text-center"
+                isRequired
               />
             </div>
           </div>
@@ -69,7 +73,7 @@ export const PaymentInfoStep: React.FC = () => {
               type="cvv"
               label="CVV"
               placeholder="123"
-              required
+              isRequired
               autoComplete="cc-csc"
             />
           </div>
@@ -84,6 +88,8 @@ export const PaymentInfoStep: React.FC = () => {
             <FormCheckbox
               id="acceptTerms"
               name="paymentInfo.acceptTerms"
+              isRequired
+              variant="outlined"
               label={
                 <>
                   <a
@@ -97,7 +103,6 @@ export const PaymentInfoStep: React.FC = () => {
                   <span className="text-danger">*</span>
                 </>
               }
-              required
             />
           </div>
 
@@ -106,6 +111,8 @@ export const PaymentInfoStep: React.FC = () => {
             <FormCheckbox
               id="acceptPrivacy"
               name="paymentInfo.acceptPrivacy"
+              isRequired
+              variant="outlined"
               label={
                 <>
                   <a
@@ -119,7 +126,6 @@ export const PaymentInfoStep: React.FC = () => {
                   <span className="text-danger">*</span>
                 </>
               }
-              required
             />
           </div>
 
@@ -129,6 +135,7 @@ export const PaymentInfoStep: React.FC = () => {
               id="acceptMarketing"
               name="paymentInfo.acceptMarketing"
               label="Kampanya ve tanıtım içeriklerinden haberdar olmak istiyorum (Opsiyonel)"
+              variant="outlined"
             />
           </div>
         </div>

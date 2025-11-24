@@ -1,7 +1,8 @@
 // Filter label'ları için mapping
 export const FILTER_LABELS: Record<string, string> = {
   searchTerm: "Arama",
-  institutionTypeId: "Kurum Türü",
+  institutionGroupId: "Kurum Kategorisi",
+  institutionTypeId: "Kurum Tipi",
   countryId: "Ülke",
   provinceId: "İl",
   districtId: "İlçe",
