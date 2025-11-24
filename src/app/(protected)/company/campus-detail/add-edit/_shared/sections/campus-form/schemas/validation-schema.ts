@@ -11,16 +11,12 @@ export const validationSchema = Yup.object({
   coverImageUrl: Yup.string().nullable().optional(),
   websiteUrl: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .url("Geçerli bir URL giriniz")
     .optional(),
   email: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .email("Geçerli bir e-posta adresi giriniz")
     .optional(),
   phone: Yup.string().nullable().optional(),
@@ -52,37 +48,27 @@ export const validationSchema = Yup.object({
   // Social Media
   facebookUrl: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .url("Geçerli bir URL giriniz")
     .optional(),
   twitterUrl: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .url("Geçerli bir URL giriniz")
     .optional(),
   instagramUrl: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .url("Geçerli bir URL giriniz")
     .optional(),
   linkedinUrl: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .url("Geçerli bir URL giriniz")
     .optional(),
   youtubeUrl: Yup.string()
     .nullable()
-    .transform((value, originalValue) =>
-      originalValue === "" ? null : value
-    )
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
     .url("Geçerli bir URL giriniz")
     .optional(),
 
