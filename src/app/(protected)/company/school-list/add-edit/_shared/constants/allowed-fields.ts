@@ -22,4 +22,9 @@ export const ALLOWED_FIELDS_IN_EDIT_MODE = [
   "metaTitle",
   "metaDescription",
   "metaKeywords",
+  "facebookUrl",
+  "twitterUrl",
+  "instagramUrl",
+  "linkedinUrl",
+  "youtubeUrl",
 ] as const;

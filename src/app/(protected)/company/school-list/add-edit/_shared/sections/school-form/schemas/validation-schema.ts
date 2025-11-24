@@ -71,4 +71,11 @@ export const validationSchema = Yup.object({
     .nullable()
     .optional(),
   metaKeywords: Yup.string().nullable().optional(),
+
+  // Social Media URLs
+  facebookUrl: Yup.string().nullable().optional(),
+  twitterUrl: Yup.string().nullable().optional(),
+  instagramUrl: Yup.string().nullable().optional(),
+  linkedinUrl: Yup.string().nullable().optional(),
+  youtubeUrl: Yup.string().nullable().optional(),
 });

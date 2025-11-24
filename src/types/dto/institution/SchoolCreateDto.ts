@@ -23,4 +23,9 @@ export interface SchoolCreateDto {
   metaDescription?: string;
   metaKeywords?: string;
   propertyTypeIds?: number[]; // Seçili property type ID'leri
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  youtubeUrl?: string;
 }

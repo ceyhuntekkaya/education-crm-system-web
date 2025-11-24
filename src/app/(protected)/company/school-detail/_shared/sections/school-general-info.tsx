@@ -5,6 +5,17 @@ import { renderStars, getLanguageTypeLabel } from "@/utils";
 const tempIconUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
 
+/**
+ * URL'ye protokol ekler (eğer yoksa)
+ */
+const ensureProtocol = (url: string): string => {
+  if (!url) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+  return `https://${url}`;
+};
+
 export default function SchoolGeneralInfo() {
   const { currentSchool } = useSchoolDetailContext();
 
@@ -147,6 +158,94 @@ export default function SchoolGeneralInfo() {
       isShowing:
         (school.phone && school.phone.trim() !== "") ||
         (school.email && school.email.trim() !== ""),
+    },
+    {
+      label: "Sosyal Medya",
+      value: (
+        <div className="d-flex flex-wrap gap-12">
+          {school.facebookUrl && (
+            <a
+              href={ensureProtocol(school.facebookUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              title="Facebook"
+            >
+              <i
+                className="ph-fill ph-facebook-logo text-lg"
+                style={{ color: "#1877F2" }}
+              ></i>
+              <span className="text-sm text-neutral-700">Facebook</span>
+            </a>
+          )}
+          {school.twitterUrl && (
+            <a
+              href={ensureProtocol(school.twitterUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              title="Twitter"
+            >
+              <i
+                className="ph-fill ph-twitter-logo text-lg"
+                style={{ color: "#1DA1F2" }}
+              ></i>
+              <span className="text-sm text-neutral-700">Twitter</span>
+            </a>
+          )}
+          {school.instagramUrl && (
+            <a
+              href={ensureProtocol(school.instagramUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              title="Instagram"
+            >
+              <i
+                className="ph-fill ph-instagram-logo text-lg"
+                style={{ color: "#E4405F" }}
+              ></i>
+              <span className="text-sm text-neutral-700">Instagram</span>
+            </a>
+          )}
+          {school.linkedinUrl && (
+            <a
+              href={ensureProtocol(school.linkedinUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              title="LinkedIn"
+            >
+              <i
+                className="ph-fill ph-linkedin-logo text-lg"
+                style={{ color: "#0A66C2" }}
+              ></i>
+              <span className="text-sm text-neutral-700">LinkedIn</span>
+            </a>
+          )}
+          {school.youtubeUrl && (
+            <a
+              href={ensureProtocol(school.youtubeUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              title="Youtube"
+            >
+              <i
+                className="ph-fill ph-youtube-logo text-lg"
+                style={{ color: "#FF0000" }}
+              ></i>
+              <span className="text-sm text-neutral-700">Youtube</span>
+            </a>
+          )}
+        </div>
+      ),
+      isShowing:
+        school.facebookUrl ||
+        school.twitterUrl ||
+        school.instagramUrl ||
+        school.linkedinUrl ||
+        school.youtubeUrl,
     },
     {
       label: "Konum",

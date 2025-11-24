@@ -84,6 +84,12 @@ export const SchoolFormContent: React.FC = () => {
       classSizeAverage: cleanValues.classSizeAverage
         ? Number(cleanValues.classSizeAverage)
         : undefined,
+      // Sosyal medya alanları - boş string'leri undefined'a çevir
+      // facebookUrl: cleanValues.facebookUrl?.trim() || undefined,
+      // twitterUrl: cleanValues.twitterUrl?.trim() || undefined,
+      // instagramUrl: cleanValues.instagramUrl?.trim() || undefined,
+      // linkedinUrl: cleanValues.linkedinUrl?.trim() || undefined,
+      // youtubeUrl: cleanValues.youtubeUrl?.trim() || undefined,
       // propertyTypeIds ve propertyValues artık gönderilmeyecek
     };
 
@@ -131,7 +137,7 @@ export const SchoolFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      {/* <FormValues /> */}
+      <FormValues />
       <div className="row row-gap-24">
         {/* TEMEL BİLGİLER */}
         <div className="col-12">
@@ -224,6 +230,61 @@ export const SchoolFormContent: React.FC = () => {
             name="extension"
             label="Dahili"
             placeholder="Dahili numarasını giriniz..."
+          />
+        </div>
+
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
+        {/* SOSYAL MEDYA LİNKLERİ */}
+        <div className="col-12">
+          <h5 className="mb-16">Sosyal Medya Linkleri</h5>
+        </div>
+
+        {/* Facebook URL */}
+        <div className="col-6">
+          <FormInput
+            name="facebookUrl"
+            label="Facebook"
+            placeholder="Facebook URL'sini giriniz..."
+          />
+        </div>
+
+        {/* Twitter URL */}
+        <div className="col-6">
+          <FormInput
+            name="twitterUrl"
+            label="Twitter"
+            placeholder="Twitter URL'sini giriniz..."
+          />
+        </div>
+
+        {/* Instagram URL */}
+        <div className="col-6">
+          <FormInput
+            name="instagramUrl"
+            label="Instagram"
+            placeholder="Instagram URL'sini giriniz..."
+          />
+        </div>
+
+        {/* LinkedIn URL */}
+        <div className="col-6">
+          <FormInput
+            name="linkedinUrl"
+            label="LinkedIn"
+            placeholder="LinkedIn URL'sini giriniz..."
+          />
+        </div>
+
+        {/* Youtube URL */}
+        <div className="col-6">
+          <FormInput
+            name="youtubeUrl"
+            label="Youtube"
+            placeholder="Youtube URL'sini giriniz..."
           />
         </div>
 
@@ -344,27 +405,27 @@ export const SchoolFormContent: React.FC = () => {
         </div>
 
         {/* Logo URL - Opsiyonel olarak bırakıldı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="logoUrl"
             label="Logo URL (Manuel)"
             placeholder="Logo URL'sini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Kapak Resmi URL - Opsiyonel olarak bırakıldı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="coverImageUrl"
             label="Kapak Resmi URL (Manuel)"
             placeholder="Kapak resmi URL'sini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <Divider />
-        </div>
+        </div> */}
 
         {/* SEO BİLGİLERİ */}
         {/* <div className="col-12">
@@ -424,7 +485,7 @@ export const SchoolFormContent: React.FC = () => {
         )}
 
         {/* FORM BUTONLARI */}
-        <div className="col-12 d-flex justify-content-end gap-3 mt-24">
+        <div className="col-12 d-flex justify-content-end gap-12 mt-24">
           <Button
             type="button"
             variant="outline"

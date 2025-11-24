@@ -32,4 +32,11 @@ export const initialValues: SchoolFormData = {
   metaTitle: "",
   metaDescription: "",
   metaKeywords: "",
+
+  // Social Media URLs
+  facebookUrl: "",
+  twitterUrl: "",
+  instagramUrl: "",
+  linkedinUrl: "",
+  youtubeUrl: "",
 };

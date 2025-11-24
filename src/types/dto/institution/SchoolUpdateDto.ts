@@ -20,4 +20,9 @@ export interface SchoolUpdateDto {
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  youtubeUrl?: string;
 }
