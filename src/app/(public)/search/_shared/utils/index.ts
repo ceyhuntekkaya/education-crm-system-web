@@ -8,4 +8,7 @@ export { cleanApiParams } from "./clean-api-params";
 
 // Form conversion utilities
 export { convertToFormValues } from "./convert-to-form-values";
-export { transformInstitutionTypeData } from "./transform-institution-data";
+export {
+  transformInstitutionTypeData,
+  transformInstitutionGroups,
+} from "./transform-institution-data";

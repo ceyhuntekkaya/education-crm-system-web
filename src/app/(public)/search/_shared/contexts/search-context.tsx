@@ -41,7 +41,11 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
   useLocationDependencies(values, updateField);
 
   // 🏫 INSTITUTION TYPES
-  const { institutionTypes, institutionTypesOptions } = useInstitutionTypes();
+  const {
+    institutionTypes,
+    institutionTypesOptions,
+    institutionGroupsOptions,
+  } = useInstitutionTypes();
 
   // 🔍 SEARCH WITH RESULTS
   const {
@@ -84,6 +88,7 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
   // 🎛️ OPTIONS FOR COMPONENTS
   const options = {
     institution: institutionTypesOptions,
+    institutionGroups: institutionGroupsOptions,
     location: locationData,
   };
 

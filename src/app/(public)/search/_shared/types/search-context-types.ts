@@ -38,6 +38,16 @@ export interface SearchContextValue {
   // Gruplandırılmış seçenekler (component'lerde kolayca kullanım için)
   options: {
     institution: {
+      data: {
+        value: string;
+        label: string;
+        groupId?: number;
+        groupName?: string;
+      }[];
+      loading: boolean;
+      error: any;
+    };
+    institutionGroups: {
       data: { value: string; label: string }[];
       loading: boolean;
       error: any;
