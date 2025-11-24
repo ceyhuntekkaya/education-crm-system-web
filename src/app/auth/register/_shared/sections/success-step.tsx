@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import CustomCard from "@/components/ui/custom-card";
 import { Button } from "@/components/ui/button";
@@ -17,21 +17,29 @@ export const SuccessStep: React.FC = () => {
   const { values } = useForm();
   const { submitStep7, isSubmitting, userId } = useRegister();
   const [verificationCompleted, setVerificationCompleted] = useState(false);
+  const isVerificationInProgress = useRef(false);
+  const hasRunOnce = useRef(false);
 
-  // Sayfa yüklendiğinde otomatik olarak final verification API'sini çağır
+  // Sayfa yüklendiğinde otomatik olarak final verification API'sini çağır (sadece bir kez)
   useEffect(() => {
-    if (userId && !verificationCompleted && !isSubmitting) {
+    if (userId && !hasRunOnce.current && !isVerificationInProgress.current) {
+      hasRunOnce.current = true;
+      isVerificationInProgress.current = true;
+
       const performFinalVerification = async () => {
         try {
           await submitStep7();
           setVerificationCompleted(true);
         } catch (error) {
           console.error("Final verification failed:", error);
+        } finally {
+          isVerificationInProgress.current = false;
         }
       };
+
       performFinalVerification();
     }
-  }, [userId, submitStep7, verificationCompleted, isSubmitting]);
+  }, [userId, submitStep7]);
 
   // Login sayfasına yönlendir
   const handleGoToLogin = () => {
