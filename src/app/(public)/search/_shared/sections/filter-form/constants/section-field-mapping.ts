@@ -13,6 +13,7 @@ export const SECTION_FIELD_MAPPING = {
     "radiusKm",
   ],
   institutionTypes: [
+    "institutionGroupId",
     "institutionTypeId",
     "institutionTypeIds",
     "propertyFilters",

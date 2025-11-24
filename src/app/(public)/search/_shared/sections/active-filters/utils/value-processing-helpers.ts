@@ -9,6 +9,12 @@ export const getDisplayValueForField = (
   let displayValue = value;
 
   switch (field) {
+    case "institutionGroupId":
+      const institutionGroup = options.institutionGroups?.data.find(
+        (opt: any) => opt.value === value
+      );
+      displayValue = institutionGroup?.label || value;
+      break;
     case "institutionTypeId":
       const institutionType = options.institution.data.find(
         (opt: any) => opt.value === value
@@ -68,6 +74,7 @@ export const processSimpleFields = (
 }> => {
   const simpleFields = [
     "searchTerm",
+    "institutionGroupId",
     "institutionTypeId",
     "countryId",
     "provinceId",
