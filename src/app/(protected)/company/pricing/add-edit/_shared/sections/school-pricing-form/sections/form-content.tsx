@@ -438,9 +438,10 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div> */}
 
+        <Divider />
+
         {/* ÖDEME KOŞULLARI */}
         <div className="col-12">
-          <Divider />
           <h5 className="mb-16">Ödeme Koşulları</h5>
         </div>
 
@@ -465,9 +466,11 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
+        <Divider />
+
         {/* İNDİRİMLER */}
         <div className="col-12">
-          <h6 className="mb-16">İndirimler (%)</h6>
+          <h5 className="mb-16">İndirimler (%)</h5>
         </div>
 
         {/* Peşinat Yüzdesi */}
@@ -520,9 +523,11 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
+        <Divider />
+
         {/* DİĞER YÜZDELER VE CEZALAR */}
         <div className="col-12">
-          <h6 className="mb-16">Diğer Ceza ve İadeler (%)</h6>
+          <h5 className="mb-16">Diğer Ceza ve İadeler (%)</h5>
         </div>
 
         {/* Geç Ödeme Ceza Yüzdesi */}
@@ -545,9 +550,10 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div>
 
+        <Divider />
+
         {/* GEÇERLİLİK TARİHLERİ */}
         <div className="col-12">
-          <Divider />
           <h5 className="mb-16">Geçerlilik Tarihleri</h5>
         </div>
 
@@ -558,6 +564,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Başlangıç Tarihi"
             type="date"
             placeholder="dd/mm/yyyy"
+            isRequired
           />
         </div>
 
@@ -568,6 +575,7 @@ export const SchoolPricingFormContent: React.FC = () => {
             label="Bitiş Tarihi"
             type="date"
             placeholder="dd/mm/yyyy"
+            isRequired
           />
         </div>
 
@@ -643,9 +651,10 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div> */}
 
+        <Divider />
+
         {/* AYARLAR */}
         <div className="col-12">
-          <Divider />
           <h5 className="mb-16">Görüntüleme Ayarları</h5>
         </div>
 
@@ -705,9 +714,10 @@ export const SchoolPricingFormContent: React.FC = () => {
           </div>
         )}
 
+        <Divider />
+
         {/* BUTONLAR */}
         <div className="col-12">
-          <Divider />
           <div className="d-flex gap-12 justify-content-end me-64">
             <Button
               type="button"

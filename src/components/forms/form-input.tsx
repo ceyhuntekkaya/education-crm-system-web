@@ -363,7 +363,9 @@ export const FormInput: React.FC<FormInputProps> = ({
             style={{ cursor: "pointer" }}
           ></span>
         </div>
-        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+        {error && (
+          <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+        )}
         {!error && isRequired && !value && (
           <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
             {isRequiredText || "* Bu alan zorunludur."}
@@ -429,7 +431,9 @@ export const FormInput: React.FC<FormInputProps> = ({
             </span>
           )}
         </div>
-        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+        {error && (
+          <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+        )}
         {!error && isRequired && !value && (
           <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
             {isRequiredText || "* Bu alan zorunludur."}
@@ -506,7 +510,9 @@ export const FormInput: React.FC<FormInputProps> = ({
             </span>
           )}
         </div>
-        {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+        {error && (
+          <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+        )}
         {!error && isRequired && !value && (
           <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
             {isRequiredText || "* Bu alan zorunludur."}
@@ -589,7 +595,9 @@ export const FormInput: React.FC<FormInputProps> = ({
           </span>
         )}
       </div>
-      {error && <div className="text-danger-600 text-sm mt-8">{error}</div>}
+      {error && (
+        <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+      )}
       {!error && isRequired && !value && (
         <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
           {isRequiredText || "* Bu alan zorunludur."}

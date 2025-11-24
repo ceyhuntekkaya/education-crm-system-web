@@ -159,7 +159,7 @@ export const SchoolFormContent: React.FC = () => {
             name="name"
             label="Okul Adı"
             placeholder="Okul adını giriniz..."
-            required
+            isRequired
           />
         </div>
 
@@ -170,7 +170,7 @@ export const SchoolFormContent: React.FC = () => {
             label="Kurum Tipi"
             placeholder="Kurum tipi seçiniz veya arayın..."
             options={institutionTypeOptions}
-            required
+            isRequired
             disabled={institutionTypesLoading}
             isLoading={institutionTypesLoading}
             noOptionsText="Kurum tipi bulunamadı"
