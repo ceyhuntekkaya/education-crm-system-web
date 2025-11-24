@@ -31,13 +31,9 @@ const renderProfileImage = (params: any) => {
       <CustomImage
         src={user.profileImageUrl}
         alt={user.fullName || "User"}
-        className="rounded-circle"
         width={40}
         height={40}
-        style={{
-          objectFit: "cover",
-          border: "2px solid #e0e0e0",
-        }}
+        variant="circle"
       />
     </div>
   );

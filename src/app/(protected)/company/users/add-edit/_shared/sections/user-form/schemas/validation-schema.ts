@@ -10,9 +10,7 @@ export const validationSchema = Yup.object({
   email: Yup.string()
     .email("Geçerli bir e-posta adresi giriniz")
     .required("E-posta gereklidir"),
-  phone: Yup.string()
-    .matches(/^[\d\s\+\-\(\)]+$/, "Geçerli bir telefon numarası giriniz")
-    .optional(),
+  phone: Yup.string().required("Telefon numarası gereklidir"),
 
   // Password (sadece yeni kullanıcı için)
   password: Yup.string().when("$isEditing", {
@@ -40,11 +38,9 @@ export const validationSchema = Yup.object({
   provinceId: Yup.number().optional(),
   districtId: Yup.number().optional(),
   neighborhoodId: Yup.number().optional(),
-  addressLine1: Yup.string().optional(),
-  addressLine2: Yup.string().optional(),
-  postalCode: Yup.string().optional(),
-  latitude: Yup.number().optional(),
-  longitude: Yup.number().optional(),
+  // addressLine1: Yup.string().optional(),
+  // addressLine2: Yup.string().optional(),
+  // postalCode: Yup.string().optional(),
 
   // Preferences
   emailNotifications: Yup.boolean().optional(),
@@ -61,16 +57,15 @@ export const validationSchema = Yup.object({
   }),
 
   // Terms (sadece yeni kullanıcı için)
+  // Not: Bu alanlar submit sırasında kontrol edilir
   acceptTerms: Yup.boolean().when("$isEditing", {
     is: false,
-    then: (schema) =>
-      schema.oneOf([true], "Kullanım koşullarını kabul etmelisiniz"),
+    then: (schema) => schema.optional(),
     otherwise: (schema) => schema.optional(),
   }),
   acceptPrivacy: Yup.boolean().when("$isEditing", {
     is: false,
-    then: (schema) =>
-      schema.oneOf([true], "Gizlilik politikasını kabul etmelisiniz"),
+    then: (schema) => schema.optional(),
     otherwise: (schema) => schema.optional(),
   }),
   acceptMarketing: Yup.boolean().optional(),

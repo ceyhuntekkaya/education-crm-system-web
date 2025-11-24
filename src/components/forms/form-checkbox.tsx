@@ -19,6 +19,8 @@ interface FormCheckboxProps
   label: string | React.ReactNode;
   value?: string;
   helperText?: string; // Yardımcı metin
+  isRequired?: boolean; // Helper text kırmızı renkte gösterilir
+  isRequiredText?: string; // isRequired aktifken gösterilecek özel metin
   options?: { value: string; label: string }[];
   multi?: boolean;
   grouped?: boolean;
@@ -36,6 +38,8 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   label,
   value,
   helperText,
+  isRequired = false,
+  isRequiredText,
   options,
   multi = false,
   grouped = false,
@@ -49,7 +53,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   disabled = false,
   ...rest
 }) => {
-  const { value: formValue, onChange } = useFormField(name);
+  const { value: formValue, error, required, onChange } = useFormField(name);
 
   // Column class'ını oluştur
   const columnClass = `col-${col}`;
@@ -268,6 +272,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
           checked={isChecked}
           onChange={handleChange}
           disabled={disabled}
+          required={required}
           {...rest}
         />
         <label
@@ -277,7 +282,15 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
           {label}
         </label>
       </div>
-      {helperText && (
+      {error && (
+        <div className="text-danger-600 text-sm mt-8 ps-24">{error}</div>
+      )}
+      {!error && isRequired && !isChecked && (
+        <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
+          {isRequiredText || "* Bu alan zorunludur."}
+        </small>
+      )}
+      {!error && !isRequired && helperText && (
         <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
       )}
     </div>

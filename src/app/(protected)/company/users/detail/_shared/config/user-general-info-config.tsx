@@ -16,7 +16,7 @@ export const userGeneralInfoConfig: UserConfigItem[] = [
             alt={user.fullName || "Kullanıcı resmi"}
             width={120}
             height={120}
-            className="rounded-circle"
+            variant="circle"
           />
         ) : (
           <div
