@@ -6,8 +6,8 @@ export const initialValues: PostFormData = {
   schoolId: 0,
   title: "",
   content: "",
-  postType: PostType.TEXT,
-  status: PostStatus.DRAFT,
+  postType: "",
+  status: "",
 
   // Optional dates
   scheduledAt: "",

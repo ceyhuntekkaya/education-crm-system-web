@@ -93,7 +93,7 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
       {helperText && !error && (
         <small className="text-muted d-block mt-8 ms-28">{helperText}</small>
       )}
-      {isRequired && !error && (
+      {isRequired && !error && !value && (
         <small className="text-danger-600 fw-semibold d-block mt-8 ms-28">
           {isRequiredText || "* Bu alan zorunludur."}
         </small>

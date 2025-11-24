@@ -10,9 +10,7 @@ export const validationSchema = Yup.object({
     .required("Başlık gereklidir")
     .min(3, "Başlık en az 3 karakter olmalıdır")
     .max(200, "Başlık en fazla 200 karakter olabilir"),
-  content: Yup.string()
-    .required("İçerik gereklidir")
-    .min(10, "İçerik en az 10 karakter olmalıdır"),
+  content: Yup.string().required("İçerik gereklidir"),
   postType: Yup.string().required("Gönderi tipi gereklidir"),
   status: Yup.string().required("Durum gereklidir"),
 
