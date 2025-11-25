@@ -49,23 +49,36 @@ export const useRegisterSteps = (registrationType: RegistrationType) => {
     }
   }, [stepIdParam, totalSteps]);
 
+  // Scroll helper function
+  const scrollToStepper = useCallback(() => {
+    setTimeout(() => {
+      const stepperElement = document.getElementById("register-stepper");
+      if (stepperElement) {
+        const offsetTop = stepperElement.offsetTop - 80;
+        window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      }
+    }, 100);
+  }, []);
+
   const nextStep = useCallback(() => {
     if (currentStep < totalSteps) {
       setCurrentStep((prev) => prev + 1);
+      scrollToStepper();
     }
-  }, [currentStep, totalSteps]);
+  }, [currentStep, totalSteps, scrollToStepper]);
 
   const previousStep = useCallback(() => {
     if (currentStep > 1) {
       setCurrentStep((prev) => prev - 1);
+      scrollToStepper();
     }
-  }, [currentStep]);
+  }, [currentStep, scrollToStepper]);
 
   const goToStep = useCallback(
     (step: number) => {
       // Step 7'ye direkt geçiş yasak (sadece Step 6'dan sonra otomatik geçiş)
       if (step === 7) return;
-      
+
       if (step >= 1 && step <= totalSteps) {
         setCurrentStep(step);
       }
