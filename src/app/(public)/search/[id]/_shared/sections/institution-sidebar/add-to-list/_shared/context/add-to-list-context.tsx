@@ -35,14 +35,9 @@ export const AddToListProvider: React.FC<AddToListProviderProps> = ({
     refetch: fetchLists,
   } = useGetParentLists();
 
-  // Create list hook
+  // Create list hook - refetch handled automatically in useCreateList hook
   const { createList: createListMutation, loading: createLoading } =
-    useCreateList({
-      onSuccess: () => {
-        // Refetch lists after creating a new one
-        fetchLists();
-      },
-    });
+    useCreateList();
 
   // Add school to list hook
   const { addSchoolToList, loading: addLoading } = useAddSchoolToList();

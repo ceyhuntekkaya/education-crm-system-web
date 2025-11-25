@@ -1,8 +1,6 @@
 "use client";
 
-import { useGet } from "@/hooks";
-import { API_ENDPOINTS } from "@/lib";
-import { ApiResponseDto } from "@/types";
+import { useData } from "@/contexts";
 import { MessageConversationGroupDto } from "@/types/dto/content/MessageConversationDto";
 
 interface UseMessagesProps {
@@ -19,26 +17,24 @@ interface UseMessagesReturn {
 
 /**
  * Kullanıcıya ait mesaj konuşmalarını getiren hook
- * @param userId - Kullanıcı ID'si
- * @param enabled - Hook'un aktif olup olmadığı
+ * Global context'ten veri çeker
+ * @param userId - Kullanıcı ID'si (artık kullanılmıyor, global context'ten geliyor)
+ * @param enabled - Hook'un aktif olup olmadığı (artık kullanılmıyor)
  * @returns Mesaj konuşma grupları ve yönetim fonksiyonları
  */
 export const useMessages = ({
   userId,
   enabled = true,
-}: UseMessagesProps): UseMessagesReturn => {
+}: UseMessagesProps = {}): UseMessagesReturn => {
   const {
-    data: messagesResponse,
-    loading: messageLoading,
-    error: messageError,
-    refetch: refetchMessages,
-  } = useGet<ApiResponseDto<MessageConversationGroupDto[]>>(
-    userId ? API_ENDPOINTS.CONTENT.MESSAGES_BY_USER(userId) : null,
-    { enabled: enabled && !!userId }
-  );
+    conversationGroups,
+    messagesLoading: messageLoading,
+    messagesError: messageError,
+    refetchMessages,
+  } = useData();
 
   return {
-    conversationGroups: messagesResponse?.data || [],
+    conversationGroups,
     messageLoading,
     messageError,
     refetchMessages,

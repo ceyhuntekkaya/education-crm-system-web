@@ -2,6 +2,7 @@
 
 import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
+import { useData } from "@/contexts";
 import {
   AddSchoolToListRequest,
   ParentSchoolListItemResponse,
@@ -17,27 +18,33 @@ interface UseAddSchoolToListOptions {
  * Hook to add a school to a parent list
  */
 export const useAddSchoolToList = (options?: UseAddSchoolToListOptions) => {
+  const { refetchLists } = useData();
+
   const {
     mutate: addSchoolToList,
     loading,
     error,
-  } = usePost<ApiResponseDto<ParentSchoolListItemResponse>, AddSchoolToListRequest>(
-    API_ENDPOINTS.PARENT_SCHOOL_LISTS.ADD_SCHOOL,
-    {
-      onSuccess: (response) => {
-        console.log("✅ Okul listeye başarıyla eklendi:", response.data);
-        if (options?.onSuccess && response.data) {
-          options.onSuccess(response.data);
-        }
-      },
-      onError: (err) => {
-        console.error("❌ Okul listeye eklenirken hata:", err);
-        if (options?.onError) {
-          options.onError(err);
-        }
-      },
-    }
-  );
+  } = usePost<
+    ApiResponseDto<ParentSchoolListItemResponse>,
+    AddSchoolToListRequest
+  >(API_ENDPOINTS.PARENT_SCHOOL_LISTS.ADD_SCHOOL, {
+    onSuccess: (response) => {
+      console.log("✅ Okul listeye başarıyla eklendi:", response.data);
+
+      // Listeleri yeniden yükle
+      refetchLists();
+
+      if (options?.onSuccess && response.data) {
+        options.onSuccess(response.data);
+      }
+    },
+    onError: (err) => {
+      console.error("❌ Okul listeye eklenirken hata:", err);
+      if (options?.onError) {
+        options.onError(err);
+      }
+    },
+  });
 
   return {
     addSchoolToList,
@@ -45,4 +52,3 @@ export const useAddSchoolToList = (options?: UseAddSchoolToListOptions) => {
     error,
   };
 };
-

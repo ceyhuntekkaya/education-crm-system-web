@@ -10,7 +10,7 @@ import {
 import { menuItems as staticMenuItems } from "../config";
 import { MenuItem } from "../types";
 import { Loading } from "@/components/ui";
-import { useAuth } from "@/contexts";
+import { useAuth, useData } from "@/contexts";
 
 interface HeaderContextType {
   // Scroll hook'undan
@@ -39,6 +39,7 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
   // Hook'ları burada çağırıyoruz
 
   const { isLoading, user } = useAuth();
+  const { appointmentsCount, surveysCount, messagesCount } = useData();
 
   const scroll = useScroll();
   const { isMenuActive, toggleMenu, closeMenu } = useMobileMenu();
@@ -56,6 +57,30 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
 
     // Menü öğelerini dinamik olarak güncelle
     return staticMenuItems.map((item) => {
+      // "Randevularım" menü öğesini bul ve count ekle
+      if (item.label === "Randevularım") {
+        return {
+          ...item,
+          count: appointmentsCount,
+        };
+      }
+
+      // "Anketlerim" menü öğesini bul ve count ekle
+      if (item.label === "Anketlerim") {
+        return {
+          ...item,
+          count: surveysCount,
+        };
+      }
+
+      // "Mesajlarım" menü öğesini bul ve count ekle
+      if (item.label === "Mesajlarım") {
+        return {
+          ...item,
+          count: messagesCount,
+        };
+      }
+
       // "Listelerim" menü öğesini bul ve güncelle
       if (item.label === "Listelerim") {
         // Eğer listMenuLinks null ise (veri yok), boş bir link dizisi ile item döndür
@@ -78,7 +103,14 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
 
       return item;
     });
-  }, [user, listMenuLinks, favoriteSearchMenuLinks]);
+  }, [
+    user,
+    listMenuLinks,
+    favoriteSearchMenuLinks,
+    appointmentsCount,
+    surveysCount,
+    messagesCount,
+  ]);
 
   if (isLoading) return <Loading />;
 

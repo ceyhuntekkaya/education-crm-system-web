@@ -1,10 +1,7 @@
 "use client";
 
-import { useGet } from "@/hooks";
-import { API_ENDPOINTS } from "@/lib";
-import { ApiResponseDto, SurveyResponseDto } from "@/types";
-import { useAuth } from "@/contexts";
-import { MOCK_SURVEYS } from "./mock-surveys.data";
+import { useData } from "@/contexts";
+import { SurveyResponseDto } from "@/types";
 
 interface UseSurveysReturn {
   surveys: SurveyResponseDto[];
@@ -15,40 +12,21 @@ interface UseSurveysReturn {
 
 /**
  * Kullanıcıya atanan anketleri getiren hook
+ * Global context'ten veri çeker
  * @returns Anket verileri ve yönetim fonksiyonları
  */
 export const useSurveys = (): UseSurveysReturn => {
-  const { user, accessToken } = useAuth();
-
   const {
-    data: surveyResponse,
-    loading: surveyLoading,
-    error: surveyError,
-    refetch: refetchSurveys,
-  } = useGet<ApiResponseDto<SurveyResponseDto[]>>(
-    user?.id && accessToken
-      ? API_ENDPOINTS.SURVEYS.USER_ASSIGNMENT_BY_ID(user.id)
-      : null
-  );
-
-  // API response içinden data'yı al
-  // Eğer hata varsa mock data kullan
-  // let surveys: SurveyDto[];
-
-  // if (surveyError) {
-  //   console.warn(
-  //     "Backend'den hata geldi, mock data kullanılıyor:",
-  //     surveyError
-  //   );
-  //   surveys = MOCK_SURVEYS;
-  // } else {
-  //   surveys = surveyResponse?.data || [];
-  // }
+    surveys,
+    surveysLoading: loading,
+    surveysError: error,
+    refetchSurveys: refetch,
+  } = useData();
 
   return {
-    surveys: surveyResponse?.data || [],
-    loading: surveyLoading,
-    error: surveyError,
-    refetch: refetchSurveys,
+    surveys,
+    loading,
+    error,
+    refetch,
   };
 };
