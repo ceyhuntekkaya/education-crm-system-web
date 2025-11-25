@@ -208,7 +208,7 @@ const CompanyPage: React.FC = () => {
                   ))}
                 </div>
 
-                <div className="company-dashboard__help">
+                {/* <div className="company-dashboard__help">
                   <div className="company-dashboard__help-badge">
                     <i className="ph-bold ph-question"></i>
                     <span>
@@ -216,7 +216,7 @@ const CompanyPage: React.FC = () => {
                       <a href="/help">Teknik Destek</a>
                     </span>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
