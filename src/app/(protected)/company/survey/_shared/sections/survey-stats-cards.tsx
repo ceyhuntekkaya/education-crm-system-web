@@ -82,50 +82,43 @@ export const SurveyStatsCards: React.FC<SurveyStatsCardsProps> = ({
   ];
 
   return (
-    <div className="d-flex gap-16 mb-20">
-      {statCards.map((card, index) => (
-        <div key={index} className="flex-fill">
-          <div
-            className={`${card.bgColor} rounded-12 px-20 py-16 border ${card.borderColor} position-relative overflow-hidden`}
-            style={{ minHeight: "85px" }}
-          >
-            <div className="d-flex align-items-center gap-16">
-              <div
-                className={`${card.bgColor.replace(
-                  "-50",
-                  "-100"
-                )} rounded-circle d-flex align-items-center justify-content-center`}
-                style={{ width: "48px", height: "48px", flexShrink: 0 }}
-              >
-                <i className={`${card.icon} ${card.textColor} fs-22`}></i>
-              </div>
-              <div className="flex-grow-1">
-                <div className={`${card.textColor} fw-bold fs-24 mb-1`}>
-                  {card.value}
-                </div>
+    <div className="mb-16 p-16">
+      <div className="row g-2">
+        {statCards.map((card, index) => (
+          <div key={index} className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <div
+              className={`${card.bgColor} rounded-6 px-10 py-10 border ${card.borderColor}`}
+            >
+              <div className="d-flex align-items-center gap-6">
                 <div
-                  className={`${card.textColor.replace(
-                    "-600",
-                    "-500"
-                  )} fs-13 fw-medium`}
+                  className={`${card.bgColor.replace(
+                    "-50",
+                    "-100"
+                  )} rounded-circle d-flex align-items-center justify-content-center flex-shrink-0`}
+                  style={{ width: "32px", height: "32px" }}
                 >
-                  {card.label}
+                  <i className={`${card.icon} ${card.textColor}`}></i>
                 </div>
-                {card.subtitle && (
+                <div className="flex-grow-1 min-width-0">
+                  <div
+                    className={`${card.textColor} fw-semibold text-xs lh-1 mb-3`}
+                  >
+                    {card.value}
+                  </div>
                   <div
                     className={`${card.textColor.replace(
                       "-600",
-                      "-400"
-                    )} fs-12 mt-1`}
+                      "-500"
+                    )} fw-normal text-xs lh-1 text-truncate`}
                   >
-                    {card.subtitle}
+                    {card.label}
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
