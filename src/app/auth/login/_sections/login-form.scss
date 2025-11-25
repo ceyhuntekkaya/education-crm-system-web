@@ -226,3 +226,148 @@
     }
   }
 }
+
+// ================================
+// SOCIAL LOGIN STYLES
+// ================================
+
+.social-login-divider {
+  position: relative;
+  text-align: center;
+  margin: 24px 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--neutral-100);
+  }
+
+  span {
+    position: relative;
+    display: inline-block;
+    padding: 0 16px;
+    background: white;
+    color: var(--neutral-500);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1;
+  }
+}
+
+.social-login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 24px;
+  border: 1.5px solid var(--neutral-100);
+  border-radius: 8px;
+  background: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  svg {
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  span {
+    z-index: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 0;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Google Button
+  &.google {
+    color: var(--neutral-700);
+
+    &::before {
+      background: rgba(66, 133, 244, 0.05);
+    }
+
+    &:hover {
+      border-color: rgba(66, 133, 244, 0.3);
+      color: #4285f4;
+    }
+  }
+
+  // Apple Button
+  &.apple {
+    color: var(--neutral-700);
+
+    svg {
+      color: #000;
+    }
+
+    &::before {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.3);
+      color: #000;
+    }
+  }
+}
+
+// Responsive styles for social buttons
+@media (max-width: 768px) {
+  .social-login-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .social-login-divider {
+    margin: 20px 0;
+
+    span {
+      font-size: 13px;
+      padding: 0 12px;
+    }
+  }
+}
