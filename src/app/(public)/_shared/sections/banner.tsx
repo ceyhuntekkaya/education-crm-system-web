@@ -56,7 +56,7 @@ export default function Banner() {
                 <div className="flex-align gap-8 mb-16" data-aos="fade-down">
                   <span className="w-8 h-8 bg-main-600 rounded-circle" />
                   <h5 className="text-main-600 mb-0">
-                    <span className="text-main-two-600">Okulunu</span>{" "}
+                    <span className="text-main-two-600">Eğitim Kurumunu</span>{" "}
                     <span className="text-main-600">Hemen Bul</span>
                   </h5>
                 </div>
@@ -75,7 +75,7 @@ export default function Banner() {
                     className="btn btn-main rounded-pill flex-align gap-8"
                     data-aos="fade-right"
                   >
-                    Okul Ara
+                    Eğitim Ara
                     <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
                   </Link>
                   <Link
