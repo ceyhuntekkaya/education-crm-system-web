@@ -88,7 +88,7 @@ export const UserFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormValues />
+      {/* <FormValues /> */}
       <div className="row row-gap-24">
         {/* TEMEL BİLGİLER */}
         <div className="col-12">
