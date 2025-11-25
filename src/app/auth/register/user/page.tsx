@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,9 +8,9 @@ import { RegisterForm } from "./_shared";
 import { UserType } from "@/enums/UserType";
 
 /**
- * User (Veli) Register Page
+ * User (Veli) Register Page Content
  */
-const UserRegisterPage: React.FC = () => {
+const UserRegisterPageContent: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -55,6 +55,17 @@ const UserRegisterPage: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+/**
+ * User (Veli) Register Page
+ */
+const UserRegisterPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <UserRegisterPageContent />
+    </Suspense>
   );
 };
 
