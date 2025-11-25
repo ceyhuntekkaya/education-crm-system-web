@@ -122,18 +122,26 @@ const LoginFormContent: React.FC = () => {
                   label="Şifre"
                   placeholder="Şifrenizi giriniz"
                 />
-
-                <div className="text-end">
+                <div className="mt-n3 mb-3 text-end">
                   <a
                     href="javascript:void(0)"
-                    className="text-warning-600 hover-text-decoration-underline"
+                    className="text-warning-600 hover-text-decoration-underline text-sm"
                   >
                     Şifremi Unuttum
                   </a>
                 </div>
-                <div>
-                  <p className="text-neutral-500 d-flex gap-4">
-                    Hesabınız yok mu?
+
+                <Button
+                  type="submit"
+                  rightIcon="ph-arrow-up-right"
+                  className="w-100"
+                >
+                  Giriş Yap
+                </Button>
+
+                <div className="text-center">
+                  <p className="text-neutral-500 mb-0">
+                    Hesabınız yok mu?{" "}
                     <a
                       href="sign-up.html"
                       className="fw-semibold text-main-600 hover-text-decoration-underline"
@@ -143,10 +151,69 @@ const LoginFormContent: React.FC = () => {
                   </p>
                 </div>
 
-                <div>
-                  <Button type="submit" rightIcon="ph-arrow-up-right">
-                    Giriş Yap
-                  </Button>
+                {/* Sosyal Medya Girişleri */}
+                <div className="social-login-divider">
+                  <span>veya</span>
+                </div>
+
+                <div className="social-login-buttons">
+                  <button
+                    type="button"
+                    className="social-login-btn google"
+                    onClick={() => {
+                      // Google OAuth işlemi buraya eklenecek
+                      console.log("Google ile giriş yapılıyor...");
+                    }}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.1713 8.36791H17.5001V8.33333H10.0001V11.6667H14.7096C14.0225 13.6071 12.1763 15 10.0001 15C7.23882 15 5.00008 12.7613 5.00008 9.99999C5.00008 7.23874 7.23882 4.99999 10.0001 4.99999C11.2746 4.99999 12.4342 5.48124 13.3171 6.26624L15.6742 3.90916C14.1859 2.52207 12.1951 1.66666 10.0001 1.66666C5.39799 1.66666 1.66675 5.39791 1.66675 9.99999C1.66675 14.6021 5.39799 18.3333 10.0001 18.3333C14.6022 18.3333 18.3334 14.6021 18.3334 9.99999C18.3334 9.44124 18.2759 8.89582 18.1713 8.36791Z"
+                        fill="#FFC107"
+                      />
+                      <path
+                        d="M2.62744 6.12124L5.36536 8.12916C6.10619 6.29499 7.90036 4.99999 9.99994 4.99999C11.2744 4.99999 12.434 5.48124 13.3169 6.26624L15.674 3.90916C14.1857 2.52207 12.1949 1.66666 9.99994 1.66666C6.79911 1.66666 4.02328 3.47374 2.62744 6.12124Z"
+                        fill="#FF3D00"
+                      />
+                      <path
+                        d="M10.0001 18.3333C12.1526 18.3333 14.1092 17.5096 15.5871 16.17L13.0079 13.9875C12.1429 14.6479 11.0862 15.0009 10.0001 15C7.83257 15 5.99215 13.618 5.29882 11.6892L2.5834 13.7829C3.96007 16.4817 6.76132 18.3333 10.0001 18.3333Z"
+                        fill="#4CAF50"
+                      />
+                      <path
+                        d="M18.1713 8.36791H17.5001V8.33333H10.0001V11.6667H14.7096C14.3809 12.5902 13.7889 13.3972 13.0067 13.9879L13.0079 13.9871L15.5871 16.1696C15.4046 16.3354 18.3334 14.1667 18.3334 9.99999C18.3334 9.44124 18.2759 8.89582 18.1713 8.36791Z"
+                        fill="#1976D2"
+                      />
+                    </svg>
+                    <span>Google ile Giriş Yap</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="social-login-btn apple"
+                    onClick={() => {
+                      // Apple OAuth işlemi buraya eklenecek
+                      console.log("Apple ile giriş yapılıyor...");
+                    }}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15.8334 17.5C14.9167 18.3333 13.9167 18.3333 13 17.9167C12.0834 17.5 11.25 17.5 10.25 17.9167C8.91675 18.5 8.25008 18.4167 7.50008 17.5C3.75008 13.5833 4.25008 7.58333 8.50008 7.41667C9.50008 7.5 10.1667 8 10.9167 8.08333C12.0834 7.83333 13.1667 7.25 14.4167 7.33333C15.8334 7.5 16.9167 8.08333 17.5834 9.16667C14.6667 10.9167 15.3334 14.8333 18.0834 15.8333C17.5 17.1667 16.75 18.4167 15.8334 17.5ZM10.8334 7.33333C10.6667 5.41667 12.1667 3.83333 14.0001 3.66667C14.3334 5.91667 12.0834 7.58333 10.8334 7.33333Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span>Apple ile Giriş Yap</span>
+                  </button>
                 </div>
               </Form>
             </div>

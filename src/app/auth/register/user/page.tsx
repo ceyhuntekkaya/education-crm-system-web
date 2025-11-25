@@ -4,39 +4,35 @@ import React, { Suspense } from "react";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { RegisterForm } from "./_shared/register-form";
+import { RegisterForm } from "./_shared";
 import { UserType } from "@/enums/UserType";
 
-// Prevent static generation for this page
-export const dynamic = "force-dynamic";
-
 /**
- * Institution Register Page
- * Kurum kayıt sayfası - 6 adımlı kayıt süreci
+ * User (Veli) Register Page Content
  */
-const InstitutionRegisterPageContent: React.FC = () => {
+const UserRegisterPageContent: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div className="register-page">
+    <div className="register-page py-40">
       <div className="container">
         {/* Header */}
-        <div className="text-center mb-40">
+        <div className="text-center mb-40 mt-24">
           <div className="d-flex align-items-center justify-content-center gap-12 mb-16">
             <Icon
-              icon="ph-buildings"
-              className="text-main-600"
+              icon="ph-user-circle"
+              className="text-success-600"
               style={{ fontSize: "32px" }}
             />
-            <h2 className="mb-0">Kurum Kaydı</h2>
+            <h2 className="mb-0">Veli Kaydı</h2>
           </div>
           <p className="text-neutral-600 mb-0">
-            Tüm özelliklere erişmek için 6 adımlı kayıt sürecini tamamlayın
+            Hızlı kayıt ile doğrulama sonrası işlemlerinize başlayın
           </p>
         </div>
 
         {/* Register Form */}
-        <RegisterForm registrationType={UserType.INSTITUTION_USER} />
+        <RegisterForm registrationType={UserType.PARENT} />
 
         {/* Footer Links */}
         <div className="text-center mt-32 pt-24 border-top">
@@ -62,12 +58,15 @@ const InstitutionRegisterPageContent: React.FC = () => {
   );
 };
 
-const InstitutionRegisterPage: React.FC = () => {
+/**
+ * User (Veli) Register Page
+ */
+const UserRegisterPage: React.FC = () => {
   return (
-    <Suspense fallback={<div className="text-center p-32">Yükleniyor...</div>}>
-      <InstitutionRegisterPageContent />
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <UserRegisterPageContent />
     </Suspense>
   );
 };
 
-export default InstitutionRegisterPage;
+export default UserRegisterPage;

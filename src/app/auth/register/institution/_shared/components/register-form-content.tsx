@@ -54,7 +54,7 @@ export const RegisterFormContent: React.FC = () => {
   return (
     <div className="register-form-wrapper">
       {/* Stepper - Üst kısımda */}
-      <div className="mb-32">
+      <div id="register-stepper" className="mb-32">
         <RegisterStepper />
       </div>
 
