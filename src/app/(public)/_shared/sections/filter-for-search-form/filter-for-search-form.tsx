@@ -23,10 +23,10 @@ const FormContent = () => {
       {/* Header */}
       {/* <FormValues /> */}
       <div>
-        <h4 className="mb-8 text-main-600 fw-semibold">Okulları Filtrele</h4>
+        <h4 className="mb-8 text-main-600 fw-semibold">Doğru Eğitimi Bul</h4>
         <p className="text-neutral-500 text-sm mb-0 d-none d-md-block">
-          Şehir, ilçe, ücret aralığı ve kurum türü seçeneklerine göre
-          filtreleyin.
+          Şehir, ilçe, ücret aralığı, kurum kategorisi ve kurum türü
+          seçeneklerine göre filtreleyin.
         </p>
       </div>
 
@@ -73,7 +73,7 @@ const FormContent = () => {
           Sıfırla
         </Button>
         <Button type="submit" leftIcon="ph-magnifying-glass" size="sm">
-          Filtrele
+          Ara
         </Button>
       </div>
 
