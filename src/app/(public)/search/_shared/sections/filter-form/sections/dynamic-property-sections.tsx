@@ -103,6 +103,7 @@ export const DynamicPropertySections = () => {
                         label: formatTitle(property.displayName!),
                       }))}
                     multi={true}
+                    maxSelection={7}
                   />
                 ) : (
                   // Tekli seçim için radio (isMultiple: false)

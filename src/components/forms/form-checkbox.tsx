@@ -30,6 +30,7 @@ interface FormCheckboxProps
   direction?: "vertical" | "horizontal";
   col?: 1 | 2 | 3 | 4 | 6 | 12; // Bootstrap grid column sayısı
   variant?: FormCheckboxVariant; // Yeni variant özelliği
+  maxSelection?: number; // Maksimum seçim sayısı (sadece multi ve grouped modda)
 }
 
 export const FormCheckbox: React.FC<FormCheckboxProps> = ({
@@ -49,6 +50,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   direction = "vertical",
   col = 12,
   variant = "inline",
+  maxSelection,
   className,
   disabled = false,
   ...rest
@@ -95,6 +97,11 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
               const currentValues = Array.isArray(formValue) ? formValue : [];
 
               if (isChecked) {
+                // Maksimum seçim kontrolü
+                if (maxSelection && currentValues.length >= maxSelection) {
+                  return; // Maksimum seçim sayısına ulaşıldı, yeni seçime izin verme
+                }
+
                 // Eğer grup isMultiple=false ise (tek seçim), önce aynı gruptaki diğer seçenekleri kaldır
                 if (group.isMultiple === false) {
                   const otherGroupValues = group.properties
@@ -159,7 +166,15 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
                           className="form-check-input bg-main-25"
                           checked={isChecked}
                           onChange={(e) => handleChange(e, property.value)}
-                          disabled={disabled}
+                          disabled={
+                            disabled ||
+                            Boolean(
+                              maxSelection &&
+                                !isChecked &&
+                                Array.isArray(formValue) &&
+                                formValue.length >= maxSelection
+                            )
+                          }
                           {...rest}
                         />
                         <label
@@ -194,6 +209,10 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
               const currentValues = Array.isArray(formValue) ? formValue : [];
 
               if (isChecked) {
+                // Maksimum seçim kontrolü
+                if (maxSelection && currentValues.length >= maxSelection) {
+                  return; // Maksimum seçim sayısına ulaşıldı, yeni seçime izin verme
+                }
                 onChange([...currentValues, option.value] as any);
               } else {
                 onChange(
@@ -217,7 +236,15 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
                   className="form-check-input bg-main-25"
                   checked={isChecked}
                   onChange={handleChange}
-                  disabled={disabled}
+                  disabled={
+                    disabled ||
+                    Boolean(
+                      maxSelection &&
+                        !isChecked &&
+                        Array.isArray(formValue) &&
+                        formValue.length >= maxSelection
+                    )
+                  }
                   {...rest}
                 />
                 <label

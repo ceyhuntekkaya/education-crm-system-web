@@ -61,7 +61,7 @@ export const RegisterFormContent: React.FC = () => {
       {/* Form - Tek bir Form tag tüm step'leri kapsar */}
       <Form onSubmit={handleSubmit}>
         {/* Step Content - Her step kendi card yapısını yönetir */}
-        <FormValues />
+        {/* <FormValues /> */}
         <div className="register-step-container">{renderStep()}</div>
 
         {/* Navigation - Form içinde */}
