@@ -2,6 +2,7 @@
 
 import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
+import { useData } from "@/contexts";
 import {
   CreateParentSchoolListRequest,
   ParentSchoolListResponse,
@@ -17,6 +18,8 @@ interface UseCreateListOptions {
  * Hook to create a new parent school list
  */
 export const useCreateList = (options?: UseCreateListOptions) => {
+  const { refetchLists } = useData();
+
   const {
     mutate: createList,
     loading,
@@ -27,6 +30,10 @@ export const useCreateList = (options?: UseCreateListOptions) => {
   >(API_ENDPOINTS.PARENT_SCHOOL_LISTS.CREATE_LIST, {
     onSuccess: (response) => {
       console.log("✅ Liste başarıyla oluşturuldu:", response.data);
+
+      // Listeleri yeniden yükle
+      refetchLists();
+
       if (options?.onSuccess && response.data) {
         options.onSuccess(response.data);
       }
@@ -45,4 +52,3 @@ export const useCreateList = (options?: UseCreateListOptions) => {
     error,
   };
 };
-
