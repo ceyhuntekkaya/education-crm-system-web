@@ -1,0 +1,325 @@
+/* ============= UI Components Mobile Responsive ======================= */
+
+/* Button Responsive */
+@media only screen and (max-width: 991px) {
+  .btn {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+    
+    /* Icon + Text buttonlar için */
+    i, .icon {
+      font-size: 16px !important;
+    }
+  }
+
+  .btn-sm {
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    
+    i, .icon {
+      font-size: 14px !important;
+    }
+  }
+
+  .btn-lg {
+    font-size: 15px !important;
+    padding: 12px 24px !important;
+    
+    i, .icon {
+      font-size: 18px !important;
+    }
+  }
+
+  /* Rounded pill buttonlar için özel */
+  .btn.rounded-pill {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .btn-sm.rounded-pill {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* Full width buttonlar mobilde */
+  .btn-group-mobile-full {
+    .btn {
+      flex: 1 !important;
+      width: 100% !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .btn {
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    
+    i, .icon {
+      font-size: 14px !important;
+    }
+  }
+
+  .btn-sm {
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+    
+    i, .icon {
+      font-size: 12px !important;
+    }
+  }
+
+  .btn-lg {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+    
+    i, .icon {
+      font-size: 16px !important;
+    }
+  }
+
+  .btn.rounded-pill {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .btn-sm.rounded-pill {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+/* Badge Responsive */
+@media only screen and (max-width: 991px) {
+  .badge {
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+  }
+
+  .badge-sm {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }
+
+  .badge-lg {
+    font-size: 13px !important;
+    padding: 5px 12px !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .badge {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }
+
+  .badge-sm {
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+  }
+
+  .badge-lg {
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+  }
+}
+
+/* Icon Responsive */
+@media only screen and (max-width: 991px) {
+  .icon-xl {
+    font-size: 32px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .icon-lg {
+    font-size: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .icon-md {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .icon-sm {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .icon-xl {
+    font-size: 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .icon-lg {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .icon-md {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .icon-sm {
+    font-size: 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
+
+/* Divider Responsive */
+@media only screen and (max-width: 991px) {
+  .my-32 {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .my-24 {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .my-16 {
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .my-32 {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .my-24 {
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .my-16 {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+}
+
+/* Tab Navigation Responsive */
+@media only screen and (max-width: 991px) {
+  .nav-tabs {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    
+    .nav-link {
+      font-size: 14px !important;
+      padding: 10px 16px !important;
+      white-space: nowrap !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .nav-tabs {
+    .nav-link {
+      font-size: 13px !important;
+      padding: 8px 12px !important;
+    }
+  }
+}
+
+/* Accordion Responsive */
+@media only screen and (max-width: 991px) {
+  .accordion-button {
+    font-size: 14px !important;
+    padding: 12px 16px !important;
+  }
+
+  .accordion-body {
+    font-size: 13px !important;
+    padding: 12px 16px !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .accordion-button {
+    font-size: 13px !important;
+    padding: 10px 12px !important;
+  }
+
+  .accordion-body {
+    font-size: 12px !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* Popover & Modal Responsive */
+@media only screen and (max-width: 991px) {
+  .popover {
+    max-width: 90% !important;
+    font-size: 13px !important;
+  }
+
+  .modal-dialog {
+    margin: 10px !important;
+    max-width: calc(100% - 20px) !important;
+  }
+
+  .modal-header {
+    padding: 16px !important;
+    
+    .modal-title {
+      font-size: 16px !important;
+    }
+  }
+
+  .modal-body {
+    padding: 16px !important;
+    font-size: 14px !important;
+  }
+
+  .modal-footer {
+    padding: 12px 16px !important;
+    
+    .btn {
+      font-size: 13px !important;
+      padding: 8px 16px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .popover {
+    font-size: 12px !important;
+  }
+
+  .modal-header {
+    padding: 12px !important;
+    
+    .modal-title {
+      font-size: 15px !important;
+    }
+  }
+
+  .modal-body {
+    padding: 12px !important;
+    font-size: 13px !important;
+  }
+
+  .modal-footer {
+    padding: 10px 12px !important;
+    
+    .btn {
+      font-size: 12px !important;
+      padding: 6px 12px !important;
+    }
+  }
+}

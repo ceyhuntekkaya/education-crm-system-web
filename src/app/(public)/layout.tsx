@@ -8,7 +8,9 @@ export default function PublicLayout({
   return (
     <div className="public-layout d-flex flex-column min-vh-100">
       <Header />
-      <main className="main-content flex-fill">{children}</main>
+      <main className="main-content flex-fill px-2 px-md-3 px-lg-0">
+        {children}
+      </main>
       <Footer />
     </div>
   );

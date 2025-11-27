@@ -1,0 +1,146 @@
+/* ============= General Responsive Utilities ======================= */
+
+/* Genel Mobile İyileştirmeler */
+@media only screen and (max-width: 992px) {
+  .main-content {
+    padding-top: 0;
+  }
+  
+  .public-layout {
+    overflow-x: hidden;
+  }
+}
+
+/* Typography - Heading Responsive */
+@media only screen and (max-width: 768px) {
+  h1, .h1 {
+    font-size: 1.75rem !important;
+  }
+
+  h2, .h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3, .h3 {
+    font-size: 1.35rem !important;
+  }
+
+  h4, .h4 {
+    font-size: 1.25rem !important;
+  }
+
+  h5, .h5 {
+    font-size: 1.1rem !important;
+  }
+
+  h6, .h6 {
+    font-size: 1rem !important;
+  }
+
+  /* Form labels */
+  label {
+    font-size: 0.9rem !important;
+  }
+
+  /* Input fields */
+  input, select, textarea {
+    font-size: 14px !important;
+  }
+
+  /* Form spacing */
+  .form-group, .mb-16 {
+    margin-bottom: 12px !important;
+  }
+
+  .mb-20 {
+    margin-bottom: 14px !important;
+  }
+
+  .gap-12 {
+    gap: 10px !important;
+  }
+
+  .gap-16 {
+    gap: 12px !important;
+  }
+
+  .gap-24 {
+    gap: 16px !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1, .h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h2, .h2 {
+    font-size: 1.35rem !important;
+  }
+
+  h3, .h3 {
+    font-size: 1.25rem !important;
+  }
+
+  h4, .h4 {
+    font-size: 1.15rem !important;
+  }
+
+  h5, .h5 {
+    font-size: 1rem !important;
+  }
+
+  h6, .h6 {
+    font-size: 0.95rem !important;
+  }
+
+  /* Buttons */
+  .btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+  
+  .btn-sm {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+
+  .btn-lg {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
+
+  /* Form spacing - daha sıkı */
+  .form-group, .mb-16 {
+    margin-bottom: 10px !important;
+  }
+
+  .mb-20 {
+    margin-bottom: 12px !important;
+  }
+
+  .gap-8 {
+    gap: 6px !important;
+  }
+
+  .gap-12 {
+    gap: 8px !important;
+  }
+
+  .gap-16 {
+    gap: 10px !important;
+  }
+
+  .gap-24 {
+    gap: 12px !important;
+  }
+
+  /* Input padding */
+  input, select, textarea {
+    padding: 8px 12px !important;
+  }
+}

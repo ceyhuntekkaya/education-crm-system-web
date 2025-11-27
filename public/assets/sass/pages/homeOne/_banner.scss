@@ -296,4 +296,109 @@ body {
         transform: translate(0px) rotate(360deg); 
     }
 }
+
+/* ===================================== Banner Responsive =========================== */
+@media only screen and (max-width: 1200px) {
+  .banner {
+    padding-bottom: 60px;
+    padding-top: 30px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .banner {
+    padding-bottom: 50px;
+    padding-top: 20px;
+  }
+  .banner-content {
+    padding-right: 0 !important;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .banner-content h1 {
+    font-size: 2.5rem;
+  }
+  .buttons-wrapper {
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .banner {
+    padding-bottom: 40px;
+    padding-top: 20px;
+  }
+  .banner-content h1 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  .banner-content .display2 {
+    font-size: 2rem;
+  }
+  .banner .shape {
+    display: none;
+  }
+  .buttons-wrapper {
+    margin-top: 24px !important;
+    flex-direction: column;
+    width: 100%;
+  }
+  .buttons-wrapper .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .banner {
+    padding-bottom: 30px;
+    padding-top: 16px;
+  }
+  .banner-content h1 {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+  }
+  .banner-content .display2 {
+    font-size: 1.75rem;
+  }
+  .banner-content p {
+    font-size: 14px;
+  }
+  .banner-content .flex-align {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .banner-content h5 {
+    font-size: 14px;
+  }
+  .buttons-wrapper {
+    margin-top: 20px !important;
+    gap: 16px !important;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .banner-content h1 {
+    font-size: 1.5rem;
+  }
+  .banner-content .display2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Banner Grid Fix for col-lg-6 - Tablet ve mobilde alt alta, laptop+ yan yana */
+@media only screen and (max-width: 991px) {
+  .banner .row .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .banner .row .col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
 /* ===================================== Banner Css End =========================== */

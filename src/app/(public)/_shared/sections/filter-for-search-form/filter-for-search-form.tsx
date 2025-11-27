@@ -1,6 +1,7 @@
 "use client";
 import { FormProvider } from "@/contexts";
 import { Button, Divider, Form, FormValues } from "@/components";
+import CustomCard from "@/components/ui/custom-card";
 import { useFormHook } from "@/hooks";
 import { initialValues, validationSchema } from "./schemas";
 import { FilterSearchProvider, useFilterSearchContext } from "./contexts";
@@ -17,69 +18,67 @@ const FormContent = () => {
   return (
     <Form
       onSubmit={handleSubmit}
-      className="bg-white box-shadow-md rounded-16 p-24 d-flex flex-column"
+      className="d-flex flex-column"
       data-aos="fade-up"
     >
-      {/* Header */}
-      {/* <FormValues /> */}
-      <div>
-        <h4 className="mb-8 text-main-600 fw-semibold">Doğru Eğitimi Bul</h4>
-        <p className="text-neutral-500 text-sm mb-0 d-none d-md-block">
-          Şehir, ilçe, ücret aralığı, kurum kategorisi ve kurum türü
-          seçeneklerine göre filtreleyin.
-        </p>
-      </div>
-
-      {/* Divider */}
-      <Divider />
-
-      {/* Location Section */}
-      <div className="mb-16">
-        <h6 className="fw-medium text-neutral-900 mb-16">Konum Bilgileri</h6>
-        <div className="bg-neutral-10">
+      <CustomCard
+        size="md"
+        title="Doğru Eğitimi Bul"
+        subtitle={
+          "Şehir, ilçe, ücret aralığı, kurum kategorisi ve kurum türü seçeneklerine göre filtreleyin."
+        }
+        variant="outline"
+      >
+        {/* Location Section */}
+        <div className="pb-16">
+          <h6 className="fw-medium text-neutral-900 mb-16">Konum Bilgileri</h6>
           <LocationSection />
         </div>
-      </div>
 
-      {/* Divider */}
-      <Divider />
+        <Divider />
 
-      {/* Institution Types Section */}
-      <div className="col-12">
-        <InstitutionTypesSection />
-      </div>
+        {/* Institution Types Section */}
+        <div>
+          <InstitutionTypesSection />
+        </div>
 
-      <Divider />
+        <Divider />
 
-      {/* Fee Range Section */}
-      <div className="col-12">
-        <h6 className="fw-medium text-neutral-900 mb-16">Ücret Aralığı</h6>
-        <div className="bg-neutral-10">
+        {/* Fee Range Section */}
+        <div>
+          <h6 className="fw-medium text-neutral-900">Ücret Aralığı</h6>
           <FeeRangeSection />
         </div>
-      </div>
 
-      {/* Divider */}
-      <Divider />
+        <Divider />
 
-      {/* Actions */}
-      <div className="d-flex flex-wrap gap-12 justify-content-end">
-        <Button
-          onClick={resetForm}
-          variant="outline"
-          leftIcon="ph-arrow-clockwise"
-          size="sm"
-        >
-          Sıfırla
-        </Button>
-        <Button type="submit" leftIcon="ph-magnifying-glass" size="sm">
-          Ara
-        </Button>
-      </div>
+        {/* Actions */}
+        <div>
+          <div className="d-flex flex-wrap gap-12 justify-content-end action-buttons">
+            <Button
+              onClick={resetForm}
+              variant="outline"
+              leftIcon="ph-arrow-clockwise"
+              size="sm"
+              className="flex-fill flex-lg-grow-0"
+            >
+              Sıfırla
+            </Button>
+            <Button
+              type="submit"
+              leftIcon="ph-magnifying-glass"
+              size="sm"
+              className="flex-fill flex-lg-grow-0"
+            >
+              Ara
+            </Button>
+          </div>
 
-      <p className="text-neutral-400 text-xs mt-12 mb-0 d-block d-md-none text-center">
-        Yukarıdaki alanlara göre filtreleyebilirsiniz.
-      </p>
+          <p className="text-neutral-400 text-xs mt-12 mb-0 d-block d-lg-none text-center">
+            Yukarıdaki alanlara göre filtreleyebilirsiniz.
+          </p>
+        </div>
+      </CustomCard>
     </Form>
   );
 };

@@ -30,7 +30,7 @@ export const InstitutionTypesSection = () => {
     <div className="institution-types-section">
       <div className="row g-3">
         {/* Kurum Kategorisi - Sol taraf */}
-        <div className="col-md-6">
+        <div className="col-lg-6">
           <label className="form-label text-neutral-900 fw-medium mb-12">
             Kurum Kategorisi
           </label>
@@ -61,16 +61,16 @@ export const InstitutionTypesSection = () => {
         </div>
 
         {/* Kurum Türü - Sağ taraf */}
-        <div className="col-md-6">
+        <div className="col-lg-6">
           <label className="form-label text-neutral-900 fw-medium mb-12">
             Kurum Tipi
           </label>
 
           {!isGroupSelected ? (
             // Grup seçilmemişse bilgi mesajı göster
-            <div className="alert alert-info d-flex align-items-center gap-12 p-16 bg-info-50 border border-info-200 rounded-8">
-              <i className="ph-bold ph-info text-info-600 text-xl" />
-              <span className="text-sm text-neutral-700">
+            <div className="alert alert-info d-flex align-items-center gap-8 gap-lg-12 p-12 p-lg-16 bg-info-50 border border-info-200 rounded-8">
+              <i className="ph-bold ph-info text-info-600 text-lg text-lg-xl flex-shrink-0" />
+              <span className="text-xs text-sm-sm text-neutral-700">
                 Lütfen önce bir kurum kategorisi seçiniz.
               </span>
             </div>
