@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button, Loading, Popover } from "@/components/ui";
 import { HEADER_CONFIG } from "../config";
 import { useAuth } from "@/contexts";
@@ -30,14 +31,14 @@ const UserMenu = () => {
   if (!user) {
     return (
       <div className="auth-buttons-wrapper">
-        <a href="/auth/login" className="auth-link auth-login">
+        <Link href="/auth/login" className="auth-link auth-login">
           <i className="ph ph-sign-in"></i>
           <span>Giriş Yap</span>
-        </a>
-        <a href="/auth/register" className="auth-link auth-register">
+        </Link>
+        <Link href="/auth/register" className="auth-link auth-register">
           <i className="ph ph-user-plus"></i>
           <span>Kayıt Ol</span>
-        </a>
+        </Link>
       </div>
     );
   }
@@ -48,37 +49,101 @@ const UserMenu = () => {
         placement="bottom-end"
         trigger="hover"
         content={
-          <div className="user-menu-content">
-            <div className="user-avatar-section">
-              <Image
-                src={HEADER_CONFIG.LOGO_PATH}
-                alt={user.fullName || "User"}
-                className="user-avatar"
-                width={HEADER_CONFIG.USER_AVATAR_SIZE}
-                height={HEADER_CONFIG.USER_AVATAR_SIZE}
-              />
-              <div className="user-info">
-                <div className="user-name">{user.fullName}</div>
-                <div className="user-email">{user.email}</div>
+          <div
+            style={{
+              minWidth: "220px",
+              padding: "8px",
+            }}
+          >
+            {/* User Info */}
+            <div
+              style={{
+                padding: "10px",
+                marginBottom: "4px",
+              }}
+            >
+              <div
+                style={{
+                  fontWeight: 600,
+                  fontSize: "13px",
+                  color: "var(--neutral-900)",
+                  marginBottom: "2px",
+                }}
+              >
+                {user.fullName}
               </div>
-              <span className="user-role-badge">{String(currentRole)}</span>
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "var(--neutral-500)",
+                  marginBottom: "8px",
+                }}
+              >
+                {user.email}
+              </div>
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "2px 6px",
+                  fontSize: "10px",
+                  fontWeight: 600,
+                  backgroundColor: "var(--main-50)",
+                  color: "var(--main-700)",
+                  borderRadius: "3px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.3px",
+                }}
+              >
+                {String(currentRole)}
+              </span>
             </div>
-            <div className="user-menu-actions">
+
+            <div
+              style={{
+                height: "1px",
+                backgroundColor: "rgba(0,0,0,0.06)",
+                margin: "4px 0",
+              }}
+            />
+
+            {/* Actions */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "2px",
+              }}
+            >
               <Button
                 href={getDashboardUrl()}
                 variant="inline"
                 size="xs"
-                className="user-action-btn"
                 leftIcon="ph ph-house"
+                fullWidth
+                style={{
+                  justifyContent: "flex-start",
+                  padding: "8px 10px",
+                  fontSize: "13px",
+                  borderRadius: "4px",
+                  fontWeight: 500,
+                }}
               >
-                Dashboard
+                Kullanıcı Paneli
               </Button>
+
               <Button
                 onClick={logout}
                 variant="error"
                 size="xs"
-                className="user-action-btn"
-                rightIcon="ph ph-sign-out"
+                leftIcon="ph ph-sign-out"
+                fullWidth
+                style={{
+                  justifyContent: "flex-start",
+                  padding: "8px 10px",
+                  fontSize: "13px",
+                  borderRadius: "4px",
+                  fontWeight: 500,
+                }}
               >
                 Çıkış Yap
               </Button>
