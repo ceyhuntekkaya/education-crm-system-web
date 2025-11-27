@@ -20,6 +20,15 @@ const PricingDetailPage: React.FC = () => {
   const hasValidId = !!(pricingId && pricingId > 0);
   const showNoSchoolMessage = !hasValidId && !selectedSchool;
 
+  //   {
+  //     "schoolId": 21,
+  //     "staffUserId": 4,
+  //     "durationMinutes": 30,
+  //     "appointmentType": "INFORMATION_MEETING",
+  //     "onlineMeetingAvailable": false,
+  //     "slotDate": "2025-11-29T14:01"
+  // }
+
   return (
     <CustomCard
       title="Fiyat Bilgisi Detayı"
