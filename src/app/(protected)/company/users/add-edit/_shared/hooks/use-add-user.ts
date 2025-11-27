@@ -18,7 +18,7 @@ export const useAddUser = () => {
     loading: isLoading,
     error,
   } = usePost<UserProfileDto, UserRegistrationDto>(
-    API_ENDPOINTS.USERS.REGISTER,
+    API_ENDPOINTS.USERS.REGISTER_INSTITUTION,
     {
       onSuccess: (data) => {
         console.log("✅ Kullanıcı başarıyla eklendi:", data);

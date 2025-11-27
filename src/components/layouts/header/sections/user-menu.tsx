@@ -3,6 +3,7 @@ import { Button, Loading, Popover } from "@/components/ui";
 import { HEADER_CONFIG } from "../config";
 import { useAuth } from "@/contexts";
 import { Role } from "@/enums/Role";
+import "./user-menu.scss";
 
 const UserMenu = () => {
   const { user, currentRole, logout } = useAuth();
@@ -28,61 +29,72 @@ const UserMenu = () => {
 
   if (!user) {
     return (
-      <div className="d-flex gap-8">
-        <Button href="/auth/login">Giriş Yap</Button>
-        <Button href="/auth/register" variant="outline">
-          Kayıt Ol
-        </Button>
+      <div className="auth-buttons-wrapper">
+        <a href="/auth/login" className="auth-link auth-login">
+          <i className="ph ph-sign-in"></i>
+          <span>Giriş Yap</span>
+        </a>
+        <a href="/auth/register" className="auth-link auth-register">
+          <i className="ph ph-user-plus"></i>
+          <span>Kayıt Ol</span>
+        </a>
       </div>
     );
   }
 
   return (
-    <Popover
-      placement="bottom-end"
-      trigger="hover"
-      content={
-        <div className="p-16">
-          <div className="flex-center flex-column gap-16 mb-16">
-            <Image
-              src={HEADER_CONFIG.LOGO_PATH}
-              alt={user.fullName || "User"}
-              className="rounded-50 box-shadow-md"
-              width={HEADER_CONFIG.USER_AVATAR_SIZE}
-              height={HEADER_CONFIG.USER_AVATAR_SIZE}
-            />
-            <div className="text-center">
-              <div className="fw-bold text-lg">{user.fullName}</div>
-              <div className="text-sm text-neutral-500">{user.email}</div>
+    <div className="user-menu-popover">
+      <Popover
+        placement="bottom-end"
+        trigger="hover"
+        content={
+          <div className="user-menu-content">
+            <div className="user-avatar-section">
+              <Image
+                src={HEADER_CONFIG.LOGO_PATH}
+                alt={user.fullName || "User"}
+                className="user-avatar"
+                width={HEADER_CONFIG.USER_AVATAR_SIZE}
+                height={HEADER_CONFIG.USER_AVATAR_SIZE}
+              />
+              <div className="user-info">
+                <div className="user-name">{user.fullName}</div>
+                <div className="user-email">{user.email}</div>
+              </div>
+              <span className="user-role-badge">{String(currentRole)}</span>
             </div>
-            <span className="badge bg-main-600 text-white px-16 py-8 rounded-8 mt-8">
-              {String(currentRole)}
-            </span>
+            <div className="user-menu-actions">
+              <Button
+                href={getDashboardUrl()}
+                variant="inline"
+                size="xs"
+                className="user-action-btn"
+                leftIcon="ph ph-house"
+              >
+                Dashboard
+              </Button>
+              <Button
+                onClick={logout}
+                variant="error"
+                size="xs"
+                className="user-action-btn"
+                rightIcon="ph ph-sign-out"
+              >
+                Çıkış Yap
+              </Button>
+            </div>
           </div>
-          <div className="d-flex flex-column gap-8 mt-16">
-            <Button href={getDashboardUrl()} variant="inline" size="xxs">
-              Dashboard
-            </Button>
-            <Button
-              onClick={logout}
-              variant="error"
-              size="xxs"
-              rightIcon="ph-sign-out"
-            >
-              Çıkış Yap
-            </Button>
-          </div>
-        </div>
-      }
-    >
-      <button
-        type="button"
-        className="info-action w-52 h-52 bg-main-25 hover-bg-main-600 border border-neutral-30 rounded-circle flex-center text-2xl text-neutral-500 hover-text-white hover-border-main-600"
-        style={{ border: "none", background: "none" }}
+        }
       >
-        <i className="ph ph-user-circle" />
-      </button>
-    </Popover>
+        <button
+          type="button"
+          className="user-menu-trigger"
+          aria-label="User menu"
+        >
+          <i className="ph ph-user-circle" />
+        </button>
+      </Popover>
+    </div>
   );
 };
 
