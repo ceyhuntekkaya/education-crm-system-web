@@ -1,6 +1,7 @@
 "use client";
 import * as yup from "yup";
 import Image from "next/image";
+import Link from "next/link";
 import { Button, Form, FormInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Role } from "@/enums/Role";
@@ -142,12 +143,12 @@ const LoginFormContent: React.FC = () => {
                 <div className="text-center">
                   <p className="text-neutral-500 mb-0">
                     Hesabınız yok mu?{" "}
-                    <a
-                      href="sign-up.html"
+                    <Link
+                      href="/auth/register"
                       className="fw-semibold text-main-600 hover-text-decoration-underline"
                     >
                       Kayıt Ol
-                    </a>
+                    </Link>
                   </p>
                 </div>
 

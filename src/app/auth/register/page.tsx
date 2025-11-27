@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import CustomCard from "@/components/ui/custom-card";
+import Link from "next/link";
+import { Button, CustomCard } from "@/components/ui";
 import { HEADER_CONFIG } from "@/components/layouts/header/config";
 
 /**
@@ -27,163 +27,194 @@ const RegisterPage: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-12 col-xl-10">
             {/* Başlık Bölümü */}
-            <div className="text-center mb-48">
+            <div className="text-center mb-40">
               <div className="d-flex justify-content-center mb-24">
                 <Image
                   src={HEADER_CONFIG.LOGO_PATH}
                   alt="Eğitim İşte Logo"
-                  width={160}
-                  height={53}
+                  width={180}
+                  height={60}
                   priority
                 />
               </div>
-              <h1 className="h2 text-neutral-900 mb-12">Kayıt Ol</h1>
-              <p className="text-lg text-neutral-600">
-                Hesap türünüzü seçerek kayıt işlemine başlayın
+              <h1 className="h2 mb-16 text-neutral-900">
+                Eğitim Yönetim Sistemi'ne Hoş Geldiniz
+              </h1>
+              <p className="text-neutral-600">
+                Hesap türünüzü seçerek hızlıca kayıt olun ve sistemin tüm
+                özelliklerinden yararlanmaya başlayın
               </p>
             </div>
 
             {/* Seçim Kartları */}
-            <div className="row g-24 mb-40">
+            <div className="row row-gap-24 mb-40">
               {/* Kurum Kaydı */}
               <div className="col-12 col-md-6">
-                <CustomCard>
-                  <div className="p-32">
-                    <div className="text-center">
-                      <div className="mb-32">
-                        <div
-                          className="d-inline-flex align-items-center justify-content-center bg-main-600 text-white rounded-circle"
-                          style={{ width: "80px", height: "80px" }}
-                        >
-                          <i
-                            className="ph-fill ph-buildings"
-                            style={{ fontSize: "40px" }}
-                          ></i>
-                        </div>
+                <CustomCard className="h-100">
+                  <div className="d-flex flex-column h-100 p-24">
+                    <div className="text-center mb-24">
+                      <div
+                        className="d-inline-flex align-items-center justify-content-center bg-main-600 text-white rounded-circle mb-20"
+                        style={{ width: "80px", height: "80px" }}
+                      >
+                        <i
+                          className="ph-fill ph-buildings"
+                          style={{ fontSize: "40px" }}
+                        ></i>
                       </div>
-                      <h3 className="h4 text-neutral-900 mb-16">Kurum Kaydı</h3>
-                      <p className="text-neutral-600 mb-32">
-                        Eğitim kurumu olarak sisteme kayıt olun. Kampüs
-                        bilgilerinizi ekleyin ve paket seçimi yapın.
+                      <h3 className="h5 text-neutral-900 mb-12">
+                        Eğitim Kurumu Kaydı
+                      </h3>
+                      <p className="text-sm text-neutral-600">
+                        Okulunuzu sisteme kaydedin ve profesyonel araçlara
+                        erişim sağlayın
                       </p>
-                      <div className="d-flex flex-column gap-12 mb-32">
-                        <div className="d-flex align-items-center gap-8 text-start">
+                    </div>
+
+                    {/* Özellikler */}
+                    <div className="flex-grow-1 mb-24">
+                      <div className="d-flex flex-column gap-12 align-items-center">
+                        <div className="d-flex align-items-center gap-8">
                           <i
-                            className="ph-check-circle text-success-600"
-                            style={{ fontSize: "20px" }}
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
                             Kampüs yönetimi
                           </span>
                         </div>
-                        <div className="d-flex align-items-center gap-8 text-start">
+                        <div className="d-flex align-items-center gap-8">
                           <i
-                            className="ph-check-circle text-success-600"
-                            style={{ fontSize: "20px" }}
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
+                          ></i>
+                          <span className="text-sm text-neutral-700">
+                            Öğrenci takibi
+                          </span>
+                        </div>
+                        <div className="d-flex align-items-center gap-8">
+                          <i
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
                             Paket seçenekleri
                           </span>
                         </div>
-                        <div className="d-flex align-items-center gap-8 text-start">
+                        <div className="d-flex align-items-center gap-8">
                           <i
-                            className="ph-check-circle text-success-600"
-                            style={{ fontSize: "20px" }}
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
-                            Ödeme entegrasyonu
+                            Raporlama & Analiz
                           </span>
                         </div>
                       </div>
-                      <Button
-                        type="button"
-                        variant="inline"
-                        fullWidth
-                        rightIcon="ph-arrow-right"
-                        onClick={handleInstitutionRegister}
-                      >
-                        Kurum Kaydı Yap
-                      </Button>
                     </div>
+
+                    <Button
+                      type="button"
+                      variant="inline"
+                      fullWidth
+                      rightIcon="ph-arrow-right"
+                      onClick={handleInstitutionRegister}
+                    >
+                      Kurum Kaydına Başla
+                    </Button>
                   </div>
                 </CustomCard>
               </div>
 
               {/* Veli Kaydı */}
               <div className="col-12 col-md-6">
-                <CustomCard>
-                  <div className="p-32">
-                    <div className="text-center">
-                      <div className="mb-32">
-                        <div
-                          className="d-inline-flex align-items-center justify-content-center bg-success-600 text-white rounded-circle"
-                          style={{ width: "80px", height: "80px" }}
-                        >
-                          <i
-                            className="ph-fill ph-user-circle"
-                            style={{ fontSize: "40px" }}
-                          ></i>
-                        </div>
+                <CustomCard className="h-100">
+                  <div className="d-flex flex-column h-100 p-24">
+                    <div className="text-center mb-24">
+                      <div
+                        className="d-inline-flex align-items-center justify-content-center bg-success-600 text-white rounded-circle mb-20"
+                        style={{ width: "80px", height: "80px" }}
+                      >
+                        <i
+                          className="ph-fill ph-user-circle"
+                          style={{ fontSize: "40px" }}
+                        ></i>
                       </div>
-                      <h3 className="h4 text-neutral-900 mb-16">Veli Kaydı</h3>
-                      <p className="text-neutral-600 mb-32">
-                        Veli olarak sisteme kayıt olun. Hızlı kayıt ile
-                        doğrulama sonrası işlemlerinize başlayın.
+                      <h3 className="h5 text-neutral-900 mb-12">
+                        Veli Kaydı
+                      </h3>
+                      <p className="text-sm text-neutral-600">
+                        Çocuğunuzun eğitim sürecini takip edin ve öğretmenlerle
+                        iletişime geçin
                       </p>
-                      <div className="d-flex flex-column gap-12 mb-32">
-                        <div className="d-flex align-items-center gap-8 text-start">
+                    </div>
+
+                    {/* Özellikler */}
+                    <div className="flex-grow-1 mb-24">
+                      <div className="d-flex flex-column gap-12 align-items-center">
+                        <div className="d-flex align-items-center gap-8">
                           <i
-                            className="ph-check-circle text-success-600"
-                            style={{ fontSize: "20px" }}
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
                             Hızlı kayıt
                           </span>
                         </div>
-                        <div className="d-flex align-items-center gap-8 text-start">
+                        <div className="d-flex align-items-center gap-8">
                           <i
-                            className="ph-check-circle text-success-600"
-                            style={{ fontSize: "20px" }}
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
-                            E-posta doğrulama
+                            Öğrenci takibi
                           </span>
                         </div>
-                        <div className="d-flex align-items-center gap-8 text-start">
+                        <div className="d-flex align-items-center gap-8">
                           <i
-                            className="ph-check-circle text-success-600"
-                            style={{ fontSize: "20px" }}
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
-                            Anında başlayın
+                            Kolay iletişim
+                          </span>
+                        </div>
+                        <div className="d-flex align-items-center gap-8">
+                          <i
+                            className="ph-fill ph-check-circle text-success-600"
+                            style={{ fontSize: "18px" }}
+                          ></i>
+                          <span className="text-sm text-neutral-700">
+                            Anında bildirimler
                           </span>
                         </div>
                       </div>
-                      <Button
-                        type="button"
-                        variant="success"
-                        fullWidth
-                        rightIcon="ph-arrow-right"
-                        onClick={handleUserRegister}
-                      >
-                        Veli Kaydı Yap
-                      </Button>
                     </div>
+
+                    <Button
+                      type="button"
+                      variant="success"
+                      fullWidth
+                      rightIcon="ph-arrow-right"
+                      onClick={handleUserRegister}
+                    >
+                      Veli Kaydına Başla
+                    </Button>
                   </div>
                 </CustomCard>
               </div>
             </div>
 
             {/* Alt Bilgi */}
-            <div className="text-center mt-24">
-              <p className="text-neutral-500">
+            <div className="text-center">
+              <p className="text-neutral-500 mb-0">
                 Zaten hesabınız var mı?{" "}
-                <a
+                <Link
                   href="/auth/login"
                   className="text-main-600 fw-semibold hover-text-decoration-underline"
                 >
                   Giriş Yapın
-                </a>
+                </Link>
               </p>
             </div>
           </div>
