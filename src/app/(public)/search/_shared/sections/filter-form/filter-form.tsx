@@ -104,7 +104,7 @@ const FormContent = () => {
       className={`search-sidebar-filter sidebar rounded-12 bg-white p-32 box-shadow-md `}
       data-aos="fade-up"
     >
-      <FormDebug />
+      {/* <FormDebug /> */}
       <div>
         <div className="flex-between">
           <div className="flex-grow-1">
