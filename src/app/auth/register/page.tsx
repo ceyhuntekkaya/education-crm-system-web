@@ -140,9 +140,7 @@ const RegisterPage: React.FC = () => {
                           style={{ fontSize: "40px" }}
                         ></i>
                       </div>
-                      <h3 className="h5 text-neutral-900 mb-12">
-                        Veli Kaydı
-                      </h3>
+                      <h3 className="h5 text-neutral-900 mb-12">Veli Kaydı</h3>
                       <p className="text-sm text-neutral-600">
                         Çocuğunuzun eğitim sürecini takip edin ve öğretmenlerle
                         iletişime geçin
