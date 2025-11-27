@@ -44,11 +44,12 @@ const PricingDetailPage: React.FC = () => {
           : undefined
       }
       emptyIcon={showNoSchoolMessage ? "ph-buildings" : "ph-info"}
-      editButtonUrl={
-        pricing?.id
-          ? `/company/pricing/add-edit/${pricing.id}`
-          : `/company/pricing/add-edit/${selectedSchool?.id}`
-      }
+      // editButtonUrl={
+      //   pricing?.id
+      //     ? `/company/pricing/add-edit/${pricing.id}`
+      //     : `/company/pricing/add-edit/${selectedSchool?.id}`
+      // }
+      editButtonUrl={`/company/pricing/add-edit/${selectedSchool?.id}`}
       multiItems={allSections}
     />
   );
