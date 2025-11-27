@@ -11,7 +11,9 @@ interface AppointmentAddEditPageProps {}
 const AppointmentAddEditPage: React.FC<AppointmentAddEditPageProps> = () => {
   const { slot, slotLoading, isEditing } = useSlotAddEdit();
 
-  const pageTitle = isEditing ? "Slot Düzenle" : "Yeni Slot Ekle";
+  const pageTitle = isEditing
+    ? "Müsait Randevu Saati Düzenle"
+    : "Yeni Müsait Randevu Saati Ekle";
 
   // Edit modunda slot yüklendikten sonra form data'sını hazırla
   const formData = React.useMemo(() => {
@@ -35,8 +37,8 @@ const AppointmentAddEditPage: React.FC<AppointmentAddEditPageProps> = () => {
       title={pageTitle}
       subtitle={
         isEditing
-          ? "Mevcut slot bilgilerini düzenleyin"
-          : "Yeni bir randevu slotu oluşturun"
+          ? "Mevcut müsait randevu saati bilgilerini düzenleyin"
+          : "Yeni bir müsait randevu saati oluşturun"
       }
       isBack
       mb="mb-24"

@@ -92,6 +92,10 @@ interface CustomCardProps {
   headerBgColor?: string;
   /** Header container padding (default: p-32) */
   headerPadding?: string;
+  /** Mobile header padding (applies on mobile only) */
+  mobileHeaderPadding?: string;
+  /** Mobile padding (applies on mobile only) */
+  mobilePadding?: string;
   /** Show divider line after header (default: true) */
   showDivider?: boolean;
   /** Item layout direction (default: "row") */
@@ -153,6 +157,8 @@ export default function CustomCard({
   multiItems,
   headerBgColor = "bg-main-25",
   headerPadding = "p-32",
+  mobileHeaderPadding,
+  mobilePadding,
   showDivider = true,
   itemDirection = "row",
   // Margin props
@@ -188,16 +194,16 @@ export default function CustomCard({
   const getTitleClass = (size: string) => {
     switch (size) {
       case "xs":
-        return "h6 mb-4"; // Smallest title
+        return "custom-card-title-xs mb-4"; // Smallest title
       case "sm":
-        return "h5 mb-6"; // Small title
+        return "custom-card-title-sm mb-6"; // Small title
       case "md":
-        return "h4 mb-8"; // Medium title
+        return "custom-card-title-md mb-8"; // Medium title
       case "lg":
-        return "h3 mb-8"; // Large title
+        return "custom-card-title-lg mb-8"; // Large title
       case "xl":
       default:
-        return "h2 mb-8"; // Extra large title (default)
+        return "custom-card-title-xl mb-8"; // Extra large title (default)
     }
   };
 
@@ -353,16 +359,28 @@ export default function CustomCard({
     }
   };
 
+  // Responsive padding classes
+  const responsivePadding = mobilePadding
+    ? `${padding} mobile-custom-padding`
+    : padding;
+  const responsiveHeaderPadding = mobileHeaderPadding
+    ? `${headerPadding} mobile-custom-header-padding`
+    : headerPadding;
+
   return (
     <div
       className={
         variant === "outline"
           ? ``
-          : `${border} ${borderRadius} ${cardBgColor} ${padding} ${spacingClasses} ${className}`
+          : `${border} ${borderRadius} ${cardBgColor} ${responsivePadding} ${spacingClasses} ${className}`
       }
+      style={{
+        ["--mobile-padding" as any]: mobilePadding,
+        ["--mobile-header-padding" as any]: mobileHeaderPadding,
+      }}
     >
       <div
-        className={`${border} ${borderRadius} ${headerColor} ${headerPadding}`}
+        className={`${border} ${borderRadius} ${headerColor} ${responsiveHeaderPadding}`}
       >
         {hasHeader && (
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">

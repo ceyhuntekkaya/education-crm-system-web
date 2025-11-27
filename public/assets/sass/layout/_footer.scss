@@ -104,3 +104,40 @@
 }
 /* =============Bottom Footer End Here ======================= */
 
+/* Footer Mobile Responsive */
+@media only screen and (max-width: 768px) {
+    .bottom-footer {
+        padding: 12px 0 !important;
+        .bottom-footer__inner {
+            flex-direction: column;
+            gap: 16px !important;
+            text-align: center;
+        }
+        .right-section {
+            flex-direction: column;
+            gap: 16px !important;
+        }
+    }
+    .footer-item__logo a img {
+        max-width: 140px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .bottom-footer {
+        padding: 10px 0 !important;
+        .bottom-footer__inner {
+            gap: 12px !important;
+        }
+        .right-section {
+            gap: 12px !important;
+        }
+    }
+    .footer-item__logo a img {
+        max-width: 120px;
+    }
+    .social-list {
+        gap: 8px !important;
+    }
+}
+

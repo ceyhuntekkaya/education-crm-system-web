@@ -3,9 +3,10 @@
 import React from "react";
 import {
   Form,
-  FormInput,
-  FormCheckbox,
   FormAutocomplete,
+  FormDateCalendar,
+  FormTimeSlotPicker,
+  FormValues,
 } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { useFormHook } from "@/hooks";
@@ -13,6 +14,7 @@ import { useForm } from "@/contexts/form-context";
 import { useSlotAddEdit } from "../../../context";
 import { filterDataForEdit } from "../../../utils";
 import { AppointmentSlotCreateDto } from "@/types";
+import { Divider } from "@/components";
 
 /**
  * Appointment slot form content component
@@ -32,24 +34,16 @@ export const SlotFormContent: React.FC = () => {
     slotLoading,
     staffUserOptions,
     staffLoading,
-    durationOptions,
-    appointmentTypeOptions,
     selectedSchoolId,
-    selectedSchoolName,
   } = useSlotAddEdit();
 
   const handleSubmit = async (values: any) => {
-    const formData: AppointmentSlotCreateDto = {
+    const formData = {
       schoolId: selectedSchoolId || 0,
-      staffUserId: Number(values.staffUserId),
-      durationMinutes: Number(values.durationMinutes),
-      appointmentType: values.appointmentType,
-      onlineMeetingAvailable: values.onlineMeetingAvailable,
-      slotDate: values.slotDate,
+      ...values,
     };
 
     if (isEditing) {
-      // Edit modunda sadece güncellenen alanları gönder
       const filteredData = filterDataForEdit(
         formData
       ) as AppointmentSlotCreateDto;
@@ -65,67 +59,51 @@ export const SlotFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      {/* <FormValues />  */}
       <div className="row row-gap-24">
-        {/* TEMEL BİLGİLER */}
-        <div className="col-12">
-          <h5 className="mb-16">Slot Bilgileri</h5>
-        </div>
-
-        {/* Personel Seçimi */}
-        <div className="col-6">
-          <FormAutocomplete
-            name="staffUserId"
-            label="Personel"
-            options={staffUserOptions}
-            isLoading={staffLoading}
-            placeholder="Personel seçiniz.."
-            loadingText="Personeller yükleniyor..."
-            noOptionsText="Personel bulunamadı"
+        {/* SOL PANEL - TAKVİM */}
+        <div className="col-lg-6">
+          <FormDateCalendar
+            name="selectedDates"
+            label="Tarih Seçimi"
             isRequired
+            minDate={new Date()}
+            multi
           />
         </div>
 
-        {/* Süre */}
-        <div className="col-6">
-          <FormAutocomplete
-            name="durationMinutes"
-            label="Süre"
-            options={durationOptions}
-            noOptionsText="Süre bulunamadı"
-            isRequired
-          />
-        </div>
+        {/* SAĞ PANEL */}
+        <div className="col-lg-6">
+          <div className="row row-gap-24 mt-8">
+            {/* Personel Seçimi */}
+            <div className="col-12">
+              <FormAutocomplete
+                name="staffUserId"
+                label="Personel"
+                options={staffUserOptions}
+                isLoading={staffLoading}
+                placeholder="Personel seçiniz.."
+                loadingText="Personeller yükleniyor..."
+                noOptionsText="Personel bulunamadı"
+                isRequired
+              />
+            </div>
 
-        {/* Randevu Tipi */}
-        <div className="col-6">
-          <FormAutocomplete
-            name="appointmentType"
-            label="Randevu Tipi"
-            options={appointmentTypeOptions}
-            noOptionsText="Randevu tipi bulunamadı"
-            isRequired
-          />
-        </div>
+            <Divider size="sm" />
 
-        {/* Slot Tarihi */}
-        <div className="col-6">
-          <FormInput
-            name="slotDate"
-            label="Slot Tarihi"
-            type="datetime-local"
-            placeholder="Slot tarihini seçiniz..."
-            isRequired
-            minToday
-          />
-        </div>
-
-        {/* Online Meeting Available */}
-        <div className="col-12">
-          <FormCheckbox
-            name="onlineMeetingAvailable"
-            label="Online Toplantı Mevcut"
-            variant="outlined"
-          />
+            {/* Saat Dilimleri */}
+            <div className="col-12">
+              <FormTimeSlotPicker
+                name="selectedTimeSlots"
+                label="Saat Dilimleri"
+                isRequired
+                startHour={9}
+                endHour={18}
+                intervalMinutes={30}
+                multi
+              />
+            </div>
+          </div>
         </div>
 
         {/* Butonlar */}

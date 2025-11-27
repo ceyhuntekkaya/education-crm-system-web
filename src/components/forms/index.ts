@@ -8,4 +8,6 @@ export type { CheckboxGroup } from "./form-checkbox";
 export { FormRadio } from "./form-radio";
 export { FormRange } from "./form-range";
 export { FormStarIcon } from "./form-star-icon";
+export { FormDateCalendar } from "./form-multi-date-calendar";
+export { FormTimeSlotPicker } from "./form-time-slot-picker";
 export { default as FormValues } from "./form-values";

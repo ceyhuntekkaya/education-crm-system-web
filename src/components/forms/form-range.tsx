@@ -77,17 +77,20 @@ export const FormRange: React.FC<FormRangeProps> = ({
 
   return (
     <div className={className}>
-      {label && <h6 className="text-lg mb-20 fw-medium">{label}</h6>}
+      {label && <h6 className="text-lg mb-12 fw-medium">{label}</h6>}
       <div
         className={`custom--range ${
-          direction === "horizontal" ? "row align-items-end" : ""
+          direction === "horizontal"
+            ? "d-flex flex-column flex-lg-row align-items-lg-end gap-lg-3 custom--range--horizontal"
+            : ""
         }`}
       >
-        {/* Sayı gösterimi - Horizontal modda sol tarafta col-4 */}
+        {/* Sayı gösterimi - Horizontal modda sol tarafta col-4, mobilde full width */}
         <div
           className={`custom--range__content ${
-            direction === "horizontal" ? "col-4" : ""
+            direction === "horizontal" ? "w-100 w-lg-auto flex-lg-shrink-0" : ""
           }`}
+          style={direction === "horizontal" ? { flexBasis: "33.333333%" } : {}}
         >
           <input
             type="text"
@@ -117,14 +120,16 @@ export const FormRange: React.FC<FormRangeProps> = ({
           )}
         </div>
 
-        {/* Range inputları - Horizontal modda sağ tarafta col-8 */}
+        {/* Range inputları - Horizontal modda sağ tarafta col-8, mobilde full width */}
         <div
-          className={`d-flex gap-12 ${
-            direction === "horizontal" ? "col-8 mt-0" : "mt-16"
+          className={`d-flex gap-12 custom--range__sliders ${
+            direction === "horizontal"
+              ? "w-100 flex-lg-grow-1 mt-12 mt-lg-0"
+              : "mt-12"
           }`}
         >
           <div className="flex-grow-1 position-relative">
-            <label className="text-sm text-neutral-500 mb-8">Min</label>
+            <label className="text-sm text-neutral-500 mb-6">Min</label>
             <input
               type="range"
               min={min}
@@ -140,7 +145,7 @@ export const FormRange: React.FC<FormRangeProps> = ({
             />
           </div>
           <div className="flex-grow-1 position-relative">
-            <label className="text-sm text-neutral-500 mb-8">Max</label>
+            <label className="text-sm text-neutral-500 mb-6">Max</label>
             <input
               type="range"
               min={min}

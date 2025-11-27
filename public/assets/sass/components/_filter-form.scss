@@ -62,3 +62,85 @@
     border: 1px solid #f3f4f6;
   }
 }
+
+/* Filter Form Mobile Responsive */
+@media only screen and (max-width: 991px) {
+  /* Action buttons 50%-50% mobilde ve tablette */
+  .action-buttons {
+    width: 100%;
+    gap: 8px !important;
+    
+    .btn {
+      flex: 1 1 calc(50% - 4px);
+      min-width: 0;
+      justify-content: center;
+    }
+  }
+  
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .filter-form {
+    // Section spacing reductions for tablet and mobile
+    .pb-16 {
+      padding-bottom: 10px !important;
+    }
+    
+    .mb-16 {
+      margin-bottom: 10px !important;
+    }
+    
+    .mt-12 {
+      margin-top: 8px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .filter-form {
+    // Section spacing reductions for small mobile
+    .pb-16 {
+      padding-bottom: 8px !important;
+    }
+    
+    .mb-16 {
+      margin-bottom: 8px !important;
+    }
+    
+    .mt-12 {
+      margin-top: 6px !important;
+    }
+    
+    .gap-12 {
+      gap: 8px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .filter-form {
+    // Further reductions for very small mobile
+    .pb-16 {
+      padding-bottom: 6px !important;
+    }
+    
+    .mb-16 {
+      margin-bottom: 6px !important;
+    }
+    
+    .mt-12 {
+      margin-top: 4px !important;
+    }
+    
+    .gap-12 {
+      gap: 6px !important;
+    }
+  }
+}

@@ -36,6 +36,7 @@ export const API_ENDPOINTS = {
     CAMPUS_CREATE: "/institutions/campuses",
     CAMPUS_BY_ID: (id: string | number) => `/institutions/campuses/${id}`,
     INSTITUTION_TYPES: "/institutions/institution-types",
+    INSTITUTION_TYPES_ADMIN: "/institutions/institution-types/admin",
     INSTITUTION_TYPE_SUMMARIES: "/institutions/institution-types/summaries",
   },
 

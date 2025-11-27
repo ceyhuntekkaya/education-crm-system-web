@@ -11,7 +11,7 @@ export const LocationSection = () => {
     <div>
       {/* Şehir ve İlçe - Row Col Yapısı */}
       <div className="row g-3">
-        <div className="col-6">
+        <div className="col-12 col-lg-6">
           <FormAutocomplete
             key={`province-${values.provinceId || "empty"}`}
             name="provinceId"
@@ -22,7 +22,7 @@ export const LocationSection = () => {
             isLoading={options.location.provinces.loading}
           />
         </div>
-        <div className="col-6">
+        <div className="col-12 col-lg-6">
           <FormAutocomplete
             key={`district-${values.provinceId}-${
               values.districtId || "empty"

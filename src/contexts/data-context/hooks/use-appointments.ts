@@ -28,10 +28,10 @@ export const useAppointments = () => {
   } = useGet<ApiResponseDto<AppointmentSlotDto[]>>(endpoint, {
     enabled: !!user?.id, // Sadece user varsa çalışsın
     onSuccess: (data) => {
-      console.log(
-        "Appointment slots fetched successfully:",
-        data?.data?.length || 0
-      );
+      // console.log(
+      //   "Appointment slots fetched successfully:",
+      //   data?.data?.length || 0
+      // );
     },
     onError: (error) => {
       console.error("Appointment slots fetch error:", error);

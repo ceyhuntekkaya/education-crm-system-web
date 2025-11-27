@@ -3,7 +3,9 @@ import React from "react";
 interface DividerProps {
   /** Divider variant */
   variant?: "solid" | "dashed" | "dotted";
-  /** Margin top and bottom (default: my-24) */
+  /** Size: xxs (my-4), xs (my-8), sm (my-12), md (my-16), lg (my-24 - default) */
+  size?: "xxs" | "xs" | "sm" | "md" | "lg";
+  /** Custom spacing override (overrides size prop) */
   spacing?: string;
   /** Border color class (default: border-neutral-30) */
   borderColor?: string;
@@ -17,7 +19,8 @@ interface DividerProps {
  */
 export const Divider: React.FC<DividerProps> = ({
   variant = "dashed",
-  spacing = "my-24",
+  size = "lg",
+  spacing,
   borderColor = "border-neutral-30",
   className = "",
 }) => {
@@ -28,9 +31,22 @@ export const Divider: React.FC<DividerProps> = ({
       ? "border-dotted"
       : "";
 
+  // Spacing priority: custom spacing > size prop
+  const spacingClass =
+    spacing ||
+    (size === "xxs"
+      ? "my-4"
+      : size === "xs"
+      ? "my-8"
+      : size === "sm"
+      ? "my-12"
+      : size === "md"
+      ? "my-16"
+      : "my-24");
+
   return (
     <span
-      className={`d-block border ${borderColor} ${spacing} ${variantClass} ${className}`.trim()}
+      className={`d-block border ${borderColor} ${spacingClass} ${variantClass} ${className}`.trim()}
     />
   );
 };

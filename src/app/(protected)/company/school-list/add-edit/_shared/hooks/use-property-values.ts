@@ -93,7 +93,7 @@ export function usePropertyValues(): UsePropertyValuesReturn {
     error,
     refetch,
   } = useGet<ApiResponseDto<InstitutionTypeListDto[]>>(
-    API_ENDPOINTS.INSTITUTIONS.INSTITUTION_TYPES
+    API_ENDPOINTS.INSTITUTIONS.INSTITUTION_TYPES_ADMIN
   );
 
   // Tüm institution types'ların tüm property group types'larını birleştir
