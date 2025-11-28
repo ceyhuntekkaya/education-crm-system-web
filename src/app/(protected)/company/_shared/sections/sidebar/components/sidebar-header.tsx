@@ -102,7 +102,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = () => {
                         Devam etmek için önce bir okul eklemeniz gerekmektedir.
                       </p>
                       <Link
-                        href="/company/school-list"
+                        href="/company/school-list/add-edit/new"
                         onClick={() => setIsSchoolDropdownOpen(false)}
                       >
                         <Button
