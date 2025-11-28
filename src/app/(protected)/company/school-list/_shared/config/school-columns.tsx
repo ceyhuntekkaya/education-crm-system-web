@@ -48,7 +48,7 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
       <div className="d-flex align-items-center gap-2">
         {params?.row?.institutionType?.iconUrl && (
           <i
-            className="ph-school text-sm"
+            className="ph-bold ph-graduation-cap text-sm"
             style={{
               color: params?.row?.institutionType?.colorCode || "#6B7280",
             }}
