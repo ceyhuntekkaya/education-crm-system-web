@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Button, Loading, Popover } from "@/components/ui";
+import { Button, Loading, Popover, CustomImage } from "@/components/ui";
 import { HEADER_CONFIG } from "../config";
 import { useAuth } from "@/contexts";
 import { Role } from "@/enums/Role";
@@ -158,7 +157,16 @@ const UserMenu = () => {
             className="user-menu-trigger"
             aria-label="User menu"
           >
-            <i className="ph ph-user-circle" />
+            <CustomImage
+              src={user?.profileImageUrl}
+              tempImage={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+                user?.fullName || "User"
+              )}&background=random&color=fff&size=88`}
+              alt={user?.fullName || "Kullanıcı"}
+              width={44}
+              height={44}
+              variant="circle"
+            />
           </button>
         </Popover>
       </div>
