@@ -1,10 +1,26 @@
 /**
  * Türkçe karakterleri dikkate alarak title formatı düzenleyen fonksiyon
  * @param title - Formatlanacak metin
- * @returns Formatlanmış metin (ilk harfler büyük, "ve" kelimesi küçük)
+ * @returns Formatlanmış metin (ilk harfler büyük, bağlaçlar küçük)
  */
 export const formatTitle = (title: string): string => {
   if (!title) return "";
+
+  // Küçük harf kalması gereken bağlaçlar ve edatlar
+  const lowercaseWords = [
+    "ve",
+    "ile",
+    "veya",
+    "ya",
+    "da",
+    "de",
+    "ki",
+    "gibi",
+    "vs",
+    "vb",
+    "için",
+    "üzere",
+  ];
 
   // Türkçe karakterler için özel dönüşüm fonksiyonu
   const toTurkishLowerCase = (str: string): string => {
@@ -17,10 +33,10 @@ export const formatTitle = (title: string): string => {
 
   return toTurkishLowerCase(title)
     .split(" ")
-    .map((word) => {
-      // "ve" kelimesi tamamen küçük harf
-      if (toTurkishLowerCase(word) === "ve") {
-        return "ve";
+    .map((word, index) => {
+      // Bağlaçlar ve edatlar tamamen küçük harf (ilk kelime hariç)
+      if (index > 0 && lowercaseWords.includes(toTurkishLowerCase(word))) {
+        return toTurkishLowerCase(word);
       }
       // Diğer kelimeler ilk harf büyük, geri kalan küçük
       if (word.length === 0) return word;
