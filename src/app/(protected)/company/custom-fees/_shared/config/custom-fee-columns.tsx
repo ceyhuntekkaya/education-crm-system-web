@@ -1,6 +1,6 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { CustomFeeDto } from "@/types/dto/pricing/CustomFeeDto";
-import { formatDate, formatNumber } from "@/utils";
+import { formatDate } from "@/utils";
 import {
   getStatusBadgeVariant,
   getStatusDisplay,
@@ -12,28 +12,6 @@ import {
 import { Badge } from "@/components";
 
 // Column render helper functions
-const renderFeeInfo = (params: any) => {
-  if (!params || !params.row) return <div>-</div>;
-
-  return (
-    <div className="d-flex align-items-center">
-      <div className="overflow-hidden">
-        <div className="fw-medium text-truncate" title={params.row.feeName}>
-          {params.row.feeName || "-"}
-        </div>
-        {params.row.schoolName && (
-          <small
-            className="text-muted text-truncate d-block"
-            title={params.row.schoolName}
-          >
-            {params.row.schoolName}
-          </small>
-        )}
-      </div>
-    </div>
-  );
-};
-
 const renderFeeType = (params: any) => {
   if (!params || params.value === undefined) return <div>-</div>;
 
@@ -54,97 +32,6 @@ const renderFeeStatus = (params: any) => {
       <Badge variant={getStatusBadgeVariant(params.value)}>
         {getStatusDisplay(params.value)}
       </Badge>
-    </div>
-  );
-};
-
-const renderAmount = (params: any) => {
-  if (!params || !params.row) return <div>-</div>;
-
-  const { feeAmount } = params.row;
-
-  return (
-    <div className="fw-medium text-success">
-      {formatCurrency(feeAmount, "TRY")}
-    </div>
-  );
-};
-
-const renderBillingPeriod = (params: any) => {
-  if (!params || !params.row) return <div>-</div>;
-
-  const feeFrequency = params.row.feeFrequency;
-  return (
-    <div className="fw-medium">{getBillingPeriodDisplay(feeFrequency)}</div>
-  );
-};
-
-const renderDescription = (params: any) => {
-  if (!params || !params.row) return <div className="text-muted">-</div>;
-
-  const description = params.row.feeDescription;
-  if (!description) return <div className="text-muted">-</div>;
-
-  return (
-    <div
-      className="text-truncate"
-      title={description}
-      style={{ maxWidth: "200px" }}
-    >
-      {description}
-    </div>
-  );
-};
-
-const renderValidityPeriod = (params: any) => {
-  if (!params || !params.row) return <div className="text-muted">-</div>;
-
-  const { validFrom, validUntil } = params.row;
-
-  if (validFrom && validUntil) {
-    return (
-      <div>
-        <div className="fw-medium">{formatDate(validFrom)}</div>
-        <small className="text-muted">{formatDate(validUntil)}</small>
-      </div>
-    );
-  }
-
-  return <div className="text-muted">-</div>;
-};
-
-// Akademik yıl hesaplama fonksiyonu
-const getAcademicYear = (validFrom: string, validUntil: string) => {
-  if (!validFrom || !validUntil) return "-";
-
-  const fromDate = new Date(validFrom);
-  const toDate = new Date(validUntil);
-
-  const fromYear = fromDate.getFullYear();
-  const toYear = toDate.getFullYear();
-
-  // Eğer aynı yıldaysa sadece o yılı döndür
-  if (fromYear === toYear) {
-    return fromYear.toString();
-  }
-
-  // Farklı yıllardaysa aralık olarak göster
-  return `${fromYear}-${toYear}`;
-};
-
-const renderApplicableInfo = (params: any) => {
-  if (!params || !params.row) return <div>-</div>;
-
-  const { appliesToGrades, isMandatory } = params.row;
-
-  return (
-    <div>
-      {appliesToGrades && <small className="d-block">{appliesToGrades}</small>}
-      {isMandatory && (
-        <Badge variant="warning" className="mt-1">
-          Zorunlu
-        </Badge>
-      )}
     </div>
   );
 };
@@ -182,16 +69,26 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
     renderCell: renderCurrentStatus,
   },
 
-  // Fee Name - API'dan direkt field kullan
+  // Fee Name with School Name
   {
     field: "feeName",
     headerName: "Ücret Adı",
-    width: 200,
+    width: 180,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
-        <div className="fw-medium text-truncate" title={params.row.feeName}>
-          {params.row.feeName || "-"}
+        <div className="d-flex flex-column">
+          <div className="fw-medium text-truncate" title={params.row.feeName}>
+            {params.row.feeName || "-"}
+          </div>
+          {params.row.schoolName && (
+            <small
+              className="text-muted text-truncate"
+              title={params.row.schoolName}
+            >
+              {params.row.schoolName}
+            </small>
+          )}
         </div>
       );
     },
@@ -201,7 +98,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "feeType",
     headerName: "Tür",
-    width: 120,
+    width: 110,
     renderCell: renderFeeType,
   },
 
@@ -209,101 +106,57 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "formattedFeeAmount",
     headerName: "Tutar",
-    width: 140,
+    width: 120,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
         <div className="fw-medium text-success">
-          {params.row.formattedFeeAmount || "-"}
+          {params.row.formattedFeeAmount ||
+            formatCurrency(params.row.feeAmount, "TRY") ||
+            "-"}
         </div>
       );
     },
   },
 
-  // Description
+  // Frequency - Türkçe karşılık kullan
   {
-    field: "feeDescription",
-    headerName: "Açıklama",
-    width: 250,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      const description = params.row.feeDescription;
-      if (!description) return <div className="text-muted">-</div>;
-
-      return (
-        <div
-          className="text-truncate"
-          title={description}
-          style={{ maxWidth: "230px" }}
-        >
-          {description}
-        </div>
-      );
-    },
-  },
-
-  // Frequency - API'dan frequencyDisplayName kullan
-  {
-    field: "frequencyDisplayName",
+    field: "feeFrequency",
     headerName: "Dönem",
-    width: 110,
+    width: 100,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
         <div className="fw-medium">
-          {params.row.frequencyDisplayName || "-"}
+          {getBillingPeriodDisplay(params.row.feeFrequency) || "-"}
         </div>
       );
     },
   },
 
-  // Status
-  {
-    field: "status",
-    headerName: "Durum",
-    width: 150,
-    renderCell: renderFeeStatus,
-  },
-
-  // Applicable Grades
-  {
-    field: "appliesToGrades",
-    headerName: "Sınıflar",
-    width: 150,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      return (
-        <div className="text-truncate" title={params.row.appliesToGrades}>
-          {params.row.appliesToGrades || "-"}
-        </div>
-      );
-    },
-  },
-
-  // Age Range (Custom field combining minimumAge and maximumAge)
-  {
-    field: "ageRange",
-    headerName: "Yaş",
-    width: 130,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      const { minimumAge, maximumAge } = params.row;
-      if (minimumAge && maximumAge) {
-        return (
-          <div>
-            {minimumAge}-{maximumAge}
-          </div>
-        );
-      }
-      return <div>-</div>;
-    },
-  },
+  // Applicability - API'dan applicabilityDescription kullan
+  // {
+  //   field: "applicabilityDescription",
+  //   headerName: "Uygulanma",
+  //   width: 200,
+  //   renderCell: (params: any) => {
+  //     if (!params || !params.row) return <div>-</div>;
+  //     return (
+  //       <div
+  //         className="text-truncate"
+  //         title={params.row.applicabilityDescription}
+  //       >
+  //         {params.row.applicabilityDescription || "-"}
+  //       </div>
+  //     );
+  //   },
+  // },
 
   // Mandatory
   {
     field: "isMandatory",
     headerName: "Zorunlu",
-    width: 170,
+    width: 140,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
@@ -318,31 +171,101 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
     },
   },
 
-  // Valid From
+  // Refundable
   {
-    field: "validFrom",
-    headerName: "Başlangıç",
-    width: 170,
+    field: "isRefundable",
+    headerName: "İade",
+    width: 100,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
-        <div className="text-muted">
-          {params.row.validFrom ? formatDate(params.row.validFrom) : "-"}
+        <div className="d-flex justify-content-center">
+          {params.row.isRefundable ? (
+            <i
+              className="ph-bold ph-check text-success"
+              title="İade Edilebilir"
+            />
+          ) : (
+            <i className="ph-bold ph-x text-muted" title="İade Edilemez" />
+          )}
         </div>
       );
     },
   },
 
-  // Valid Until
+  // Installment Info
   {
-    field: "validUntil",
-    headerName: "Bitiş",
-    width: 170,
+    field: "installmentAllowed",
+    headerName: "Taksit",
+    width: 140,
+    renderCell: (params: any) => {
+      if (!params || !params.row) return <div>-</div>;
+      if (params.row.installmentAllowed) {
+        return (
+          <Badge variant="info">{params.row.maxInstallments || 0} Taksit</Badge>
+        );
+      }
+      return <span className="text-muted">-</span>;
+    },
+  },
+
+  // Late Fee Percentage
+  {
+    field: "lateFeePercentage",
+    headerName: "Gecikme",
+    width: 130,
+    renderCell: (params: any) => {
+      if (!params || !params.row) return <div>-</div>;
+      const lateFee = params.row.lateFeePercentage;
+      if (lateFee && lateFee > 0) {
+        return (
+          <div className="fw-medium text-warning">%{lateFee.toFixed(1)}</div>
+        );
+      }
+      return <span className="text-muted">-</span>;
+    },
+  },
+
+  // Status
+  {
+    field: "status",
+    headerName: "Durum",
+    width: 120,
+    renderCell: renderFeeStatus,
+  },
+
+  // Description
+  {
+    field: "feeDescription",
+    headerName: "Açıklama",
+    width: 180,
+    renderCell: (params: any) => {
+      if (!params || !params.row) return <div>-</div>;
+      const description = params.row.feeDescription;
+      if (!description) return <div className="text-muted">-</div>;
+
+      return (
+        <div
+          className="text-truncate"
+          title={description}
+          style={{ maxWidth: "160px" }}
+        >
+          {description}
+        </div>
+      );
+    },
+  },
+
+  // Created At
+  {
+    field: "createdAt",
+    headerName: "Oluşturma",
+    width: 160,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
         <div className="text-muted">
-          {params.row.validUntil ? formatDate(params.row.validUntil) : "-"}
+          {params.row.createdAt ? formatDate(params.row.createdAt) : "-"}
         </div>
       );
     },

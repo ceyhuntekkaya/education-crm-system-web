@@ -190,7 +190,7 @@ export const CampaignFormContent: React.FC = () => {
           <FormInput
             name="startDate"
             label="Başlangıç Tarihi"
-            type="datetime-local"
+            type="date"
             isRequired
           />
         </div>
@@ -303,19 +303,19 @@ export const CampaignFormContent: React.FC = () => {
         </div>
 
         {/* KULLANIM LİMİTLERİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Kullanım Limitleri</h5>
-        </div>
+        </div> */}
 
         {/* Kullanım Limiti */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormInput
             name="usageLimit"
             label="Kampanyayı Kullanabilecek Kişi Sayısı"
             type="number"
             placeholder="Kampanyayı kullanabilecek kişi sayısını giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* <div className="col-4">
           <FormInput
@@ -337,9 +337,9 @@ export const CampaignFormContent: React.FC = () => {
         </div> */}
 
         {/* Divider */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* HEDEF KİTLE */}
         {/* <div className="col-12">
@@ -408,27 +408,27 @@ export const CampaignFormContent: React.FC = () => {
         </div> */}
 
         {/* PROMOSYON İÇERİĞİ */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Promosyon İçeriği</h5>
-        </div>
+        </div> */}
 
         {/* Promosyon Kodu */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="promoCode"
             label="Promosyon Kodu"
             placeholder="Promosyon kodunu giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* CTA Metni */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="ctaText"
             label="Promosyon Metni"
             placeholder="Örn: Hemen Başvur"
           />
-        </div>
+        </div> */}
 
         {/* CTA URL */}
         {/* <div className="col-12">
@@ -449,9 +449,9 @@ export const CampaignFormContent: React.FC = () => {
         </div> */}
 
         {/* Divider */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* GÖRSEL BİLGİLER */}
         <div className="col-12">
@@ -518,49 +518,49 @@ export const CampaignFormContent: React.FC = () => {
         </div> */}
 
         {/* Divider */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* ŞARTLAR VE KOŞULLAR */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Şartlar ve Koşullar</h5>
-        </div>
+        </div> */}
 
         {/* Şartlar ve Koşullar */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="termsAndConditions"
             label="Şartlar ve Koşullar"
             placeholder="Şartlar ve koşulları giriniz..."
             rows={4}
           />
-        </div>
+        </div> */}
 
         {/* Uyarılar */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="finePrint"
             label="Uyarılar"
             placeholder="Uyarıları giriniz..."
             rows={3}
           />
-        </div>
+        </div> */}
 
         {/* İstisnalar */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="exclusions"
             label="İstisnalar"
             placeholder="İstisnaları giriniz..."
             rows={3}
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <span className="d-block border border-neutral-30 my-24 border-dashed" />
-        </div>
+        </div> */}
 
         {/* SEO BİLGİLERİ */}
         {/* <div className="col-12">
@@ -600,78 +600,78 @@ export const CampaignFormContent: React.FC = () => {
         </div> */}
 
         {/* EK ÖZELLİKLER */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <h5 className="mb-16">Ek Özellikler</h5>
-        </div>
+        </div> */}
 
         {/* Ücretsiz Deneme Günleri */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="freeTrialDays"
             label="Ücretsiz Deneme Günleri"
             type="number"
             placeholder="Ücretsiz deneme günleri..."
           />
-        </div>
+        </div> */}
 
         {/* Taksit Seçenekleri */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="installmentOptions"
             label="Taksit Seçenekleri"
             placeholder="Örn: 3,6,9,12"
           />
-        </div>
+        </div> */}
 
         {/* Ödeme Son Günü */}
-        <div className="col-4">
+        {/* <div className="col-4">
           <FormInput
             name="paymentDeadlineDays"
             label="Ödeme Son Günü"
             type="number"
             placeholder="Ödeme son günü..."
           />
-        </div>
+        </div> */}
 
         {/* İade Politikası */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="refundPolicy"
             label="İade Politikası"
             placeholder="İade politikasını giriniz..."
             rows={3}
           />
-        </div>
+        </div> */}
 
         {/* Ücretsiz Hizmetler */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="freeServices"
             label="Ücretsiz Hizmetler"
             placeholder="Ücretsiz hizmetleri giriniz..."
             rows={3}
           />
-        </div>
+        </div> */}
 
         {/* Bonus Özellikler */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="bonusFeatures"
             label="Bonus Özellikler"
             placeholder="Bonus özellikleri giriniz..."
             rows={3}
           />
-        </div>
+        </div> */}
 
         {/* Hediye Ürünler */}
-        <div className="col-12">
+        {/* <div className="col-12">
           <FormTextarea
             name="giftItems"
             label="Hediye Ürünler"
             placeholder="Hediye ürünleri giriniz..."
             rows={3}
           />
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">

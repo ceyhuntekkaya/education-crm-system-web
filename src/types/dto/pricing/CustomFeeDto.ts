@@ -2,6 +2,8 @@ export interface CustomFeeDto {
   /** Format: int64 */
   id?: number;
   /** Format: int64 */
+  schoolId?: number;
+  /** Format: int64 */
   schoolPricingId?: number;
   schoolName?: string;
   academicYear?: string;
