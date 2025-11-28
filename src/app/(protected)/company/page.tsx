@@ -3,8 +3,10 @@ import React from "react";
 import Link from "next/link";
 import { companyLayoutNavigation } from "./_shared/navigation/navigation";
 import FileInputExamples from "@/components/file-input/file-input.example";
+import { usePageTitle } from "@/hooks";
 
 const CompanyPage: React.FC = () => {
+  usePageTitle("Kurum Paneli");
   // Icon mapping - eğer navigation'dan gelen icon uygun değilse alternatif kullan
   const getModuleIcon = (label: string, originalIcon: string) => {
     const iconMap: { [key: string]: string } = {

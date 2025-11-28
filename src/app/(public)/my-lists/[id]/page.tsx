@@ -2,6 +2,7 @@
 
 import { Results } from "../../search/_shared";
 import { useMyList } from "./_shared";
+import { usePageTitle } from "@/hooks";
 
 /**
  * My List Page Component
@@ -10,6 +11,7 @@ import { useMyList } from "./_shared";
  * Directly passes school data from API to card component
  */
 export default function MyListPage() {
+  usePageTitle("Listelerim");
   // Get data from context (similar to useInstitutionDetail)
   const { listItems, listDetail, loading, error } = useMyList();
 

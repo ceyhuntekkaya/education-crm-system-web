@@ -5,10 +5,12 @@ import { LoadingSpinner, CustomCard } from "@/components";
 import { SlotForm } from "../_shared/sections";
 import { useSlotAddEdit } from "../_shared/context";
 import { AppointmentType } from "@/enums";
+import { usePageTitle } from "@/hooks";
 
 interface AppointmentAddEditPageProps {}
 
 const AppointmentAddEditPage: React.FC<AppointmentAddEditPageProps> = () => {
+  usePageTitle("Müsaitlik Düzenle");
   const { slot, slotLoading, isEditing } = useSlotAddEdit();
 
   const pageTitle = isEditing

@@ -8,11 +8,13 @@ import {
   GalleryCard,
   GalleryDetailContent,
 } from "@/app/(public)/search/[id]/_shared/sections/gallery/components";
+import { usePageTitle } from "@/hooks";
 
 /**
  * Gallery detay bilgilerini gösteren kart bileşeni
  */
 const GalleryDetailPage: React.FC = () => {
+  usePageTitle("Galeri Detayı");
   const { gallery, isLoading, error } = useGalleryDetail();
 
   // Ana section'ları oluştur - hook'u en üstte çağırıyoruz

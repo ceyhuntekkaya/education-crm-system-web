@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePageTitle } from "@/hooks";
 
 interface SubscriptionAddEditPageProps {
   params: {
@@ -11,6 +12,7 @@ interface SubscriptionAddEditPageProps {
 const SubscriptionAddEditPage: React.FC<SubscriptionAddEditPageProps> = ({
   params,
 }) => {
+  usePageTitle("Abonelik Düzenle");
   const { id } = params;
   const isNew = id === "new";
 

@@ -3,10 +3,12 @@
 import React from "react";
 import { LoadingSpinner, CustomCard } from "@/components";
 import { CampusForm, useCampusAddEdit } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface CampusAddEditPageProps {}
 
 const CampusAddEditPage: React.FC<CampusAddEditPageProps> = () => {
+  usePageTitle("Kampüs Düzenle");
   const { isEditing, campus, campusLoading } = useCampusAddEdit();
 
   const pageTitle = isEditing

@@ -32,12 +32,14 @@ import {
   CustomCard,
   LoadingSpinner,
 } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 export default function InstitutionDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
+  usePageTitle("Kurum Detayı");
   const schoolId = parseInt(params.id);
 
   const { school, loading } = useInstitutionDetail();

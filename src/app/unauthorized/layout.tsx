@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Veli Kaydı | Eğitim İste",
-  description: "Veli olarak sisteme kayıt olun",
+  title: "Yetkisiz Erişim",
+  description: "Bu sayfaya erişim izniniz bulunmamaktadır",
 };
 
-export default function UserRegisterLayout({
+export default function UnauthorizedLayout({
   children,
 }: {
   children: React.ReactNode;

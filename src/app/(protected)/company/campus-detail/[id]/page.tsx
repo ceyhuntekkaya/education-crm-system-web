@@ -10,8 +10,10 @@ import {
   CampusDetailNotFoundSection,
   CampusDetailEmptySection,
 } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 const CampusDetailWithIdPage: React.FC = () => {
+  usePageTitle("Kampüs Detayı");
   const { currentCampus, isLoading, error, allSections } = useCampusDetail();
 
   // Loading durumu

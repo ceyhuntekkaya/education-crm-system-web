@@ -4,8 +4,10 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ReportsTable } from "./_shared/sections/reports-table";
 import { Button } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const ReportsPage: React.FC = () => {
+  usePageTitle("Raporlar");
   const router = useRouter();
 
   const handleAddReport = () => {

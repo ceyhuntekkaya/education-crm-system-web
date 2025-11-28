@@ -8,8 +8,10 @@ import {
   InfoSection,
 } from "./_shared/sections";
 import { getAboutTabs } from "./_shared/utils";
+import { usePageTitle } from "@/hooks";
 
 const AboutPage = () => {
+  usePageTitle("Hakkımızda");
   const tabs = getAboutTabs();
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePageTitle } from "@/hooks";
 
 interface ReportsAddEditPageProps {
   params: {
@@ -9,6 +10,7 @@ interface ReportsAddEditPageProps {
 }
 
 const ReportsAddEditPage: React.FC<ReportsAddEditPageProps> = ({ params }) => {
+  usePageTitle("Rapor Düzenle");
   const { id } = params;
   const isNew = id === "new";
 

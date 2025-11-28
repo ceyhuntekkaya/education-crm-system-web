@@ -6,8 +6,10 @@ import { CustomCard } from "@/components";
 import { Icon } from "@/components/ui/icon";
 import { useAppointments } from "./hooks/use-appointments";
 import { createAppointmentColumns } from "./config";
+import { usePageTitle } from "@/hooks";
 
 const Appointments: React.FC = () => {
+  usePageTitle("Randevularım");
   // Hook kullanarak API'den verileri al
   const { appointments, loading, error } = useAppointments();
 

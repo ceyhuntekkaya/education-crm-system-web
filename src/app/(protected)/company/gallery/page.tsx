@@ -3,8 +3,10 @@
 import React from "react";
 import { GalleryTable } from "./_shared";
 import { CustomCard } from "@/components/ui";
+import { usePageTitle } from "@/hooks";
 
 const GalleryPage: React.FC = () => {
+  usePageTitle("Galeri");
   return (
     <CustomCard
       title="Galeri Yönetimi"

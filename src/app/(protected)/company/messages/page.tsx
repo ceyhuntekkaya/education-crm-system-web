@@ -4,8 +4,10 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { MessagesTable } from "./_shared/sections/messages-table";
 import { Button } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const MessagesPage: React.FC = () => {
+  usePageTitle("Mesajlar");
   const router = useRouter();
 
   const handleAddMessage = () => {

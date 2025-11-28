@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Veli Kaydı | Eğitim İste",
-  description: "Veli olarak sisteme kayıt olun",
+  title: "Kullanıcı Listesi",
+  description: "Kullanıcı listesi sayfası",
 };
 
-export default function UserRegisterLayout({
+export default function UserListLayout({
   children,
 }: {
   children: React.ReactNode;

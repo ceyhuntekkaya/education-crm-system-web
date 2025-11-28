@@ -7,6 +7,15 @@ import "./globals.scss";
 import { AuthProvider, DataProvider, SnackbarProvider } from "@/contexts";
 import { SnackbarContainer } from "@/components/ui";
 import SnackbarInitializer from "@/components/ui/snackbar/snackbar-initializer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Eğitim İste",
+    template: "%s | Eğitim İste",
+  },
+  description: "Eğitim kurumlarını keşfedin ve karşılaştırın",
+};
 
 export default function RootLayout({
   children,

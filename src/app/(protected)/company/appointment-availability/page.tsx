@@ -10,10 +10,12 @@ import {
 import TabNavigation from "@/components/ui/tab-navigation";
 import { TabItem } from "@/components/ui/types";
 import { CustomCard } from "@/components/ui";
+import { usePageTitle } from "@/hooks";
 
 type TabType = "single" | "range";
 
 const AppointmentAvailabilityPageContent: React.FC = () => {
+  usePageTitle("Randevu Müsaitliği");
   const [activeTab, setActiveTab] = useState<TabType>("single");
 
   // Tab yapısı için data

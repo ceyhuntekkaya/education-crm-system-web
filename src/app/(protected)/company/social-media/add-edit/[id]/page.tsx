@@ -3,10 +3,12 @@
 import React from "react";
 import { CustomCard } from "@/components";
 import { PostForm, usePostAddEdit } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface SocialMediaAddEditPageProps {}
 
 const SocialMediaAddEditPage: React.FC<SocialMediaAddEditPageProps> = () => {
+  usePageTitle("Sosyal Medya Düzenle");
   const { isEditing, post, postDetailLoading } = usePostAddEdit();
 
   const pageTitle = isEditing

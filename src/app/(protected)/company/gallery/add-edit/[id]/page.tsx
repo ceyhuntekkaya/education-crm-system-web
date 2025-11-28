@@ -3,10 +3,12 @@
 import React from "react";
 import { CustomCard } from "@/components";
 import { GalleryForm, GalleryItemForm, useGalleryAddEdit } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface GalleryAddEditPageProps {}
 
 const GalleryAddEditPage: React.FC<GalleryAddEditPageProps> = () => {
+  usePageTitle("Galeri Düzenle");
   const { isEditing, gallery, galleryDetailLoading } = useGalleryAddEdit();
 
   const pageTitle = isEditing

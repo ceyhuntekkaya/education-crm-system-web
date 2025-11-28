@@ -3,8 +3,10 @@
 import React from "react";
 import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useCustomFeeDetail } from "../_shared/context";
+import { usePageTitle } from "@/hooks";
 
 const CustomFeeDetailPage: React.FC = () => {
+  usePageTitle("Özel Ücret Detayı");
   const {
     currentCustomFee: customFee,
     isLoading: customFeeLoading,

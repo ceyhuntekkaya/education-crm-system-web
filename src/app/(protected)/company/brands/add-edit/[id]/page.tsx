@@ -3,10 +3,12 @@
 import React from "react";
 import { LoadingSpinner, CustomCard } from "@/components";
 import { BrandForm, useBrandAddEdit } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface BrandAddEditPageProps {}
 
 const BrandAddEditPage: React.FC<BrandAddEditPageProps> = () => {
+  usePageTitle("Marka Düzenle");
   const { isEditing, brand, brandLoading } = useBrandAddEdit();
 
   const pageTitle = isEditing ? "Marka Bilgisi Düzenle" : "Yeni Marka Oluştur";

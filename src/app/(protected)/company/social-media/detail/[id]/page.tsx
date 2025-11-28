@@ -10,11 +10,13 @@ import {
   NotFoundSection,
 } from "./_shared";
 import { PostDetail } from "@/app/(public)/search/[id]/_shared/sections/posts";
+import { usePageTitle } from "@/hooks";
 
 /**
  * Post detay bilgilerini gösteren kart bileşeni
  */
 const PostDetailPage: React.FC = () => {
+  usePageTitle("Sosyal Medya Detayı");
   const { post, isLoading, error } = usePostDetail();
 
   // Ana section'ları oluştur - hook'u en üstte çağırıyoruz

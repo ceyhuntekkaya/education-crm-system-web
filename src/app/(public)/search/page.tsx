@@ -8,9 +8,11 @@ import {
 } from "./_shared";
 import { Loading } from "@/components";
 import { Suspense } from "react";
+import { usePageTitle } from "@/hooks";
 
 const SearchPageContent = () => {
   const { institutions, hasSearched, searchLoading } = useSearchContext();
+  usePageTitle("Eğitim Ara");
 
   return (
     <div>
@@ -31,7 +33,10 @@ const SearchPageContent = () => {
               ) : (
                 <>
                   <ActiveFilters />
-                  <Results institutions={institutions} loading={searchLoading} />
+                  <Results
+                    institutions={institutions}
+                    loading={searchLoading}
+                  />
                 </>
               )}
             </div>

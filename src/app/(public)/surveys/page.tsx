@@ -2,8 +2,10 @@
 import React from "react";
 import { SurveyListTable } from "./_shared/sections";
 import { CustomCard } from "@/components/ui";
+import { usePageTitle } from "@/hooks";
 
 const SurveyListPage: React.FC = () => {
+  usePageTitle("Anketler");
   return (
     <div className="container py-40">
       <CustomCard

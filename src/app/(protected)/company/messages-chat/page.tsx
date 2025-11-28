@@ -4,8 +4,10 @@ import React from "react";
 import { useMessageContext } from "./context";
 import { ConversationList, MessagePane, MessageStatsCards } from "./sections";
 import CustomCard from "@/components/ui/custom-card";
+import { usePageTitle } from "@/hooks";
 
 const Messages: React.FC = () => {
+  usePageTitle("Mesaj Sohbeti");
   const { loading, error, customStats } = useMessageContext();
 
   return (

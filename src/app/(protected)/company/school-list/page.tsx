@@ -2,8 +2,10 @@
 import React from "react";
 import { SchoolTable } from "./_shared";
 import { CustomCard } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const SchoolListPage: React.FC = () => {
+  usePageTitle("Okul Listesi");
   return (
     <CustomCard
       title="Okul Listesi Yönetimi"

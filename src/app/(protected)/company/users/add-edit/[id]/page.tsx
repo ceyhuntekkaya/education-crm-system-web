@@ -8,6 +8,7 @@ import {
   ChangePasswordSection,
   userDtoToProfileDto,
 } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface UsersAddEditPageProps {
   params: {
@@ -16,6 +17,7 @@ interface UsersAddEditPageProps {
 }
 
 const UsersAddEditPage: React.FC<UsersAddEditPageProps> = ({ params }) => {
+  usePageTitle("Kullanıcı Düzenle");
   const { isEditing, user, userLoading, userId } = useUserAddEdit();
 
   // UserDto'yu UserProfileDto'ya dönüştür
