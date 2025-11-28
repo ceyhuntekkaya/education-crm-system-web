@@ -287,7 +287,15 @@
 }
 
 .header-right {
+    display: flex;
+    align-items: center;
     gap: 12px; // Sağ taraftaki elementler arası gap
+    
+    // Tüm child elementler ortalansın
+    > * {
+        display: flex;
+        align-items: center;
+    }
     
     @include md-screen {
         gap: 8px; // Mobile'da daha küçük gap

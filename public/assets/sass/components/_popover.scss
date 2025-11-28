@@ -731,6 +731,13 @@
 .popover-container {
     position: relative;
     
+    // d-inline-block class'ını override et
+    &.d-inline-block {
+        display: inline-flex !important;
+        align-items: center;
+        height: 100%;
+    }
+    
     &.has-popover {
         // Header has-submenu gibi hover davranışı
         &:hover {
