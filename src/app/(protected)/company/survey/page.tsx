@@ -8,8 +8,10 @@ import {
 } from "./_shared/sections";
 import { useSurveyList } from "./_shared/context";
 import { CustomCard } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const SurveyPage: React.FC = () => {
+  usePageTitle("Anketler");
   const { surveyStats, surveyLoading } = useSurveyList();
 
   return (

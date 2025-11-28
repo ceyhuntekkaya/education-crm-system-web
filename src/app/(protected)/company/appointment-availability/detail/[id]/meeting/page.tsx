@@ -7,11 +7,13 @@ import {
   AppointmentNoteForm,
   AppointmentSurveysSection,
 } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 /**
  * Randevu toplantı detaylarını gösteren sayfa
  */
 const MeetingPage: React.FC = () => {
+  usePageTitle("Toplantı Detayı");
   return (
     <div className="row g-4">
       <div className="col-6">

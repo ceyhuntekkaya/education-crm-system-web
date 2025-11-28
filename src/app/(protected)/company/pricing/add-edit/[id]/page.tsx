@@ -3,10 +3,12 @@
 import React from "react";
 import { CustomCard } from "@/components";
 import { SchoolPricingForm, usePricingAddEdit } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface PricingAddEditPageProps {}
 
 const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
+  usePageTitle("Fiyat Düzenle");
   const { isEditing, pricing, dataLoading } = usePricingAddEdit();
 
   const pageTitle = isEditing ? "Fiyat Bilgisi Düzenle" : "Yeni Fiyat Bilgisi";

@@ -3,8 +3,10 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { AppointmentTable } from "./_shared";
 import { Button } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const AppointmentPage: React.FC = () => {
+  usePageTitle("Randevular");
   const router = useRouter();
 
   const handleAddAppointment = () => {

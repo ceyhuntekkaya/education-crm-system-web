@@ -3,11 +3,13 @@
 import React from "react";
 import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useMessageDetail, useMessageSections } from "./_shared";
+import { usePageTitle } from "@/hooks";
 
 /**
  * Message detay bilgilerini gösteren sayfa bileşeni
  */
 const MessageDetailPage: React.FC = () => {
+  usePageTitle("Mesaj Detayı");
   const { message, isLoading, error } = useMessageDetail();
 
   // Ana section'ları oluştur - hook'u en üstte çağırıyoruz

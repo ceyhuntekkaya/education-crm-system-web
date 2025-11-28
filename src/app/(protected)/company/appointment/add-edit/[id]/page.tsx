@@ -3,10 +3,12 @@
 import React from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 interface AppointmentAddEditPageProps {}
 
 const AppointmentAddEditPage: React.FC<AppointmentAddEditPageProps> = () => {
+  usePageTitle("Randevu Düzenle");
   const params = useParams();
   const router = useRouter();
   const { id } = params;

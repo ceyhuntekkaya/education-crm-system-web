@@ -4,6 +4,8 @@ import React from "react";
 import { FormProvider } from "@/contexts";
 import { SearchProvider, initialValues, validationSchema } from "./_shared";
 
+// Metadata is defined in search-layout-wrapper.tsx
+
 export default function SearchLayout({
   children,
 }: {

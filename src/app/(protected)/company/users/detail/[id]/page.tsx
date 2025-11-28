@@ -8,8 +8,10 @@ import {
   UserDetailErrorSection,
   UserDetailNotFoundSection,
 } from "../_shared/sections";
+import { usePageTitle } from "@/hooks";
 
 const UserDetailPage: React.FC = () => {
+  usePageTitle("Kullanıcı Detayı");
   const { currentUser, isLoading, error } = useUserDetail();
 
   // Loading durumu

@@ -1,4 +1,10 @@
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Kayıt Ol",
+  description: "Yeni hesap oluşturun",
+};
 
 /**
  * Register Main Layout

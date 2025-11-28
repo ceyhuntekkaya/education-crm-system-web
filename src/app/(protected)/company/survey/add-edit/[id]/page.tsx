@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePageTitle } from "@/hooks";
 
 interface SurveyAddEditPageProps {
   params: {
@@ -9,6 +10,7 @@ interface SurveyAddEditPageProps {
 }
 
 const SurveyAddEditPage: React.FC<SurveyAddEditPageProps> = ({ params }) => {
+  usePageTitle("Anket Düzenle");
   const { id } = params;
   const isNew = id === "new";
 

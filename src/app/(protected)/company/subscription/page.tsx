@@ -4,8 +4,10 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { SubscriptionTable } from "./_shared/sections/subscription-table";
 import { Button } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const SubscriptionPage: React.FC = () => {
+  usePageTitle("Abonelik");
   const router = useRouter();
 
   const handleAddSubscription = () => {

@@ -2,8 +2,10 @@
 import React from "react";
 import { UsersTable } from "./_shared/sections";
 import { CustomCard } from "@/components/ui";
+import { usePageTitle } from "@/hooks";
 
 const UserListPage: React.FC = () => {
+  usePageTitle("Kullanıcılar");
   return (
     <CustomCard
       title="Kullanıcı Yönetimi"

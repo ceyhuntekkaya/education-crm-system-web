@@ -1,4 +1,10 @@
 import { Footer, Header } from "@/components";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ana Sayfa",
+  description: "Eğitim kurumlarını keşfedin ve karşılaştırın",
+};
 
 export default function PublicLayout({
   children,

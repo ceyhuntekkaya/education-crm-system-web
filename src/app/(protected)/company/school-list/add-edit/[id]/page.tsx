@@ -3,10 +3,12 @@
 import React from "react";
 import { LoadingSpinner, CustomCard } from "@/components";
 import { SchoolForm, useSchoolAddEdit } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 interface SchoolAddEditPageProps {}
 
 const SchoolAddEditPage: React.FC<SchoolAddEditPageProps> = () => {
+  usePageTitle("Okul Düzenle");
   const { isEditing, school, schoolLoading } = useSchoolAddEdit();
 
   const pageTitle = isEditing ? "Okul Bilgisi Düzenle" : "Yeni Okul Oluştur";

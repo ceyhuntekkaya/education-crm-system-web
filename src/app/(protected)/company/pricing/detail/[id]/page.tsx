@@ -5,11 +5,13 @@ import React from "react";
 import { CustomCard } from "@/components/ui";
 import { usePricingDetail, usePricingSections } from "./_shared";
 import { useCompany } from "@/app/(protected)/company/_shared";
+import { usePageTitle } from "@/hooks";
 
 /**
  * Pricing detay bilgilerini gösteren kart bileşeni
  */
 const PricingDetailPage: React.FC = () => {
+  usePageTitle("Fiyat Detayı");
   const { pricing, isLoading, error, pricingId } = usePricingDetail();
   const { selectedSchool } = useCompany();
 

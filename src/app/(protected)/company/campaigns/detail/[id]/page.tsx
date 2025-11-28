@@ -6,11 +6,13 @@ import { CustomCard, LoadingSpinner } from "@/components/ui";
 import { useCampaignDetail, useCampaignSections } from "./_shared";
 import { CampaignCard } from "@/app/(public)/search/[id]/_shared/sections/institution-campaigns";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
+import { usePageTitle } from "@/hooks";
 
 /**
  * Campaign detay bilgilerini gösteren kart bileşeni
  */
 const CampaignDetailPage: React.FC = () => {
+  usePageTitle("Kampanya Detayı");
   const { campaign, isLoading, error } = useCampaignDetail();
 
   // Ana section'ları oluştur - hook'u en üstte çağırıyoruz

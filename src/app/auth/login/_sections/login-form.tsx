@@ -227,7 +227,7 @@ const LoginFormContent: React.FC = () => {
                   <div className="logo-wrapper">
                     <Image
                       src={HEADER_CONFIG.LOGO_PATH}
-                      alt="Eğitim İşte Logo"
+                      alt="Eğitim İste Logo"
                       width={180}
                       height={60}
                       priority

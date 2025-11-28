@@ -11,8 +11,10 @@ import {
   BrandDetailNotFoundSection,
   BrandDetailEmptySection,
 } from "../_shared/sections";
+import { usePageTitle } from "@/hooks";
 
 const BrandDetailPage: React.FC = () => {
+  usePageTitle("Marka Detayı");
   const { currentBrand, isLoading, error, allSections } = useBrandDetail();
 
   // Loading durumu

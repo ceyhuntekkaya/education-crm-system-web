@@ -5,8 +5,10 @@ import { CampaignTable } from "./_shared";
 import { Button } from "@/components";
 import { SchoolSelector } from "../_shared";
 import { useCompany } from "../_shared";
+import { usePageTitle } from "@/hooks";
 
 const CampaignsPage: React.FC = () => {
+  usePageTitle("Kampanyalar");
   const router = useRouter();
 
   const handleAddCampaign = () => {

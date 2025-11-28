@@ -31,14 +31,14 @@ const RegisterPage: React.FC = () => {
               <div className="d-flex justify-content-center mb-24">
                 <Image
                   src={HEADER_CONFIG.LOGO_PATH}
-                  alt="Eğitim İşte Logo"
+                  alt="Eğitim İste Logo"
                   width={180}
                   height={60}
                   priority
                 />
               </div>
               <h1 className="h2 mb-16 text-neutral-900">
-                Eğitim Yönetim Sistemi'ne Hoş Geldiniz
+                Eğitim Yönetim Sistemi&apos;ne Hoş Geldiniz
               </h1>
               <p className="text-neutral-600">
                 Hesap türünüzü seçerek hızlıca kayıt olun ve sistemin tüm

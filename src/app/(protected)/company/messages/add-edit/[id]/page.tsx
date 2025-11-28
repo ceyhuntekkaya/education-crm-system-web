@@ -3,8 +3,10 @@
 import React from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components";
+import { usePageTitle } from "@/hooks";
 
 const MessageAddEditPage: React.FC = () => {
+  usePageTitle("Mesaj Oluştur");
   const params = useParams();
   const router = useRouter();
   const messageId = params.id as string;

@@ -3,8 +3,10 @@
 import React from "react";
 import { SocialMediaTable } from "./_shared/sections/social-media-table";
 import { CustomCard } from "@/components/ui";
+import { usePageTitle } from "@/hooks";
 
 const SocialMediaPage: React.FC = () => {
+  usePageTitle("Sosyal Medya");
   return (
     <CustomCard
       title="Sosyal Medya Yönetimi"

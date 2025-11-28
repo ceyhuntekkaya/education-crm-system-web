@@ -4,10 +4,12 @@ import React from "react";
 import { LoadingSpinner, CustomCard } from "@/components";
 import { CampaignForm, useCampaignAddEdit } from "../_shared";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
+import { usePageTitle } from "@/hooks";
 
 interface CampaignAddEditPageProps {}
 
 const CampaignAddEditPage: React.FC<CampaignAddEditPageProps> = () => {
+  usePageTitle("Kampanya Düzenle");
   const { isEditing, campaign, campaignLoading, campaignId } =
     useCampaignAddEdit();
 

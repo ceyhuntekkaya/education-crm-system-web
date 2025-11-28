@@ -2,8 +2,10 @@
 import React from "react";
 import { PricingTable } from "./_shared";
 import { CustomCard } from "@/components/ui";
+import { usePageTitle } from "@/hooks";
 
 const PricePage: React.FC = () => {
+  usePageTitle("Fiyatlandırma");
   return (
     <CustomCard
       title="Fiyat Bilgileri Yönetimi"
