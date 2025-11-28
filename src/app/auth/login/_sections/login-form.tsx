@@ -88,12 +88,36 @@ const LoginFormContent: React.FC = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const returnUrl = urlParams.get("returnUrl");
 
+      // Yönlendirilmemesi gereken sayfalar
+      const excludedPaths = ["/register", "/auth/register", "/company"];
+
       if (returnUrl && returnUrl !== "/auth/login") {
-        // ReturnUrl varsa ve login sayfası değilse oraya yönlendir
-        router.push(decodeURIComponent(returnUrl));
+        // ReturnUrl exclude listesinde mi kontrol et
+        const isExcluded = excludedPaths.some((path) =>
+          decodeURIComponent(returnUrl).startsWith(path)
+        );
+
+        if (isExcluded) {
+          // Exclude listesindeki sayfalara yönlendirme yapma, ana sayfaya git
+          router.push("/");
+        } else {
+          // ReturnUrl varsa ve login sayfası değilse oraya yönlendir
+          router.push(decodeURIComponent(returnUrl));
+        }
       } else {
-        // ReturnUrl yoksa browser history'den bir önceki sayfaya git
-        router.back();
+        // ReturnUrl yoksa, referrer'ı kontrol et
+        const referrer = document.referrer;
+        const isReferrerExcluded = excludedPaths.some((path) =>
+          referrer.includes(path)
+        );
+
+        if (isReferrerExcluded || !referrer) {
+          // Önceki sayfa exclude listesinde veya referrer yoksa ana sayfaya git
+          router.push("/");
+        } else {
+          // Güvenli bir önceki sayfa varsa oraya git
+          router.back();
+        }
       }
     }
   };
@@ -111,12 +135,12 @@ const LoginFormContent: React.FC = () => {
                 </p>
               </div>
               <Form onSubmit={onSubmit} className="d-flex flex-column gap-16">
+                şimdi şu şekilde bir işlem yapmanı
                 <FormInput
                   name="username"
                   label="Kullanıcı Adı"
                   placeholder="Kullanıcı adınızı giriniz"
                 />
-
                 <FormInput
                   type="password"
                   name="password"
@@ -131,7 +155,6 @@ const LoginFormContent: React.FC = () => {
                     Şifremi Unuttum
                   </a>
                 </div>
-
                 <Button
                   type="submit"
                   rightIcon="ph-arrow-up-right"
@@ -139,7 +162,6 @@ const LoginFormContent: React.FC = () => {
                 >
                   Giriş Yap
                 </Button>
-
                 <div className="text-center">
                   <p className="text-neutral-500 mb-0">
                     Hesabınız yok mu?{" "}
@@ -151,12 +173,10 @@ const LoginFormContent: React.FC = () => {
                     </Link>
                   </p>
                 </div>
-
                 {/* Sosyal Medya Girişleri */}
                 <div className="social-login-divider">
                   <span>veya</span>
                 </div>
-
                 <div className="social-login-buttons">
                   <button
                     type="button"
