@@ -29,6 +29,7 @@ export const campusDtoToFormData = (campus: any): Partial<CampusFormData> => {
     countryId: campus?.country?.id?.toString() || "",
     provinceId: campus?.province?.id?.toString() || "",
     districtId: campus?.district?.id?.toString() || "",
+    neighborhoodId: campus?.neighborhood?.id?.toString() || "",
 
     // Social Media
     facebookUrl: campus?.facebookUrl || "",

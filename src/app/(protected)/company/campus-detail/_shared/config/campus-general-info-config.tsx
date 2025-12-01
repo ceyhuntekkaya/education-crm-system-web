@@ -65,72 +65,6 @@ export const campusGeneralInfoConfig: CampusGeneralInfoConfig[] = [
     isShowing: (campus) => !!campus?.description,
   },
   {
-    label: "Website",
-    value: (campus) =>
-      campus?.websiteUrl ? (
-        <a
-          href={campus.websiteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-main-600 text-decoration-none d-flex align-items-center gap-2 hover-text-main-700 transition-colors"
-        >
-          <i className="ph ph-globe"></i>
-          <span className="text-truncate" style={{ maxWidth: "300px" }}>
-            {campus.websiteUrl.replace(/^https?:\/\/(www\.)?/, "")}
-          </span>
-          <i className="ph ph-arrow-square-out text-xs"></i>
-        </a>
-      ) : (
-        <span className="text-neutral-500">Website mevcut değil</span>
-      ),
-    isShowing: (campus) => !!campus?.websiteUrl,
-  },
-  {
-    label: "E-posta",
-    value: (campus) =>
-      campus?.email ? (
-        <a
-          href={`mailto:${campus.email}`}
-          className="text-main-600 text-decoration-none d-flex align-items-center gap-2"
-        >
-          <i className="ph ph-envelope"></i>
-          {campus.email}
-        </a>
-      ) : (
-        <span className="text-neutral-500">E-posta mevcut değil</span>
-      ),
-    isShowing: (campus) => !!campus?.email,
-  },
-  {
-    label: "Telefon",
-    value: (campus) =>
-      campus?.phone ? (
-        <a
-          href={`tel:${campus.phone}`}
-          className="text-main-600 text-decoration-none d-flex align-items-center gap-2"
-        >
-          <i className="ph ph-phone"></i>
-          {campus.phone}
-        </a>
-      ) : (
-        <span className="text-neutral-500">Telefon mevcut değil</span>
-      ),
-    isShowing: (campus) => !!campus?.phone,
-  },
-  {
-    label: "Fax",
-    value: (campus) =>
-      campus?.fax ? (
-        <span className="text-neutral-700 d-flex align-items-center gap-2">
-          <i className="ph ph-printer"></i>
-          {campus.fax}
-        </span>
-      ) : (
-        <span className="text-neutral-500">Fax mevcut değil</span>
-      ),
-    isShowing: (campus) => !!campus?.fax,
-  },
-  {
     label: "Kuruluş Yılı",
     value: (campus) => (
       <span className="text-neutral-700 d-flex align-items-center gap-2">
@@ -139,50 +73,6 @@ export const campusGeneralInfoConfig: CampusGeneralInfoConfig[] = [
       </span>
     ),
     isShowing: (campus) => !!campus?.establishedYear,
-  },
-  {
-    label: "Adres",
-    value: (campus) => (
-      <div className="text-neutral-700">
-        <p className="mb-0">
-          <i className="ph ph-map-pin me-2"></i>
-          {campus?.addressLine1 || ""}
-          {campus?.addressLine2 ? `, ${campus.addressLine2}` : ""}
-        </p>
-        {(campus?.district || campus?.province || campus?.country) && (
-          <p className="mb-0 mt-1 text-sm text-neutral-600">
-            {campus?.district?.name && `${campus.district.name}, `}
-            {campus?.province?.name && `${campus.province.name}, `}
-            {campus?.country?.name}
-            {campus?.postalCode && ` - ${campus.postalCode}`}
-          </p>
-        )}
-      </div>
-    ),
-    isShowing: (campus) => !!(campus?.addressLine1 || campus?.addressLine2),
-  },
-  {
-    label: "Konum",
-    value: (campus) => (
-      <div className="text-neutral-700">
-        {campus?.latitude && campus?.longitude ? (
-          <a
-            href={`https://www.google.com/maps?q=${campus.latitude},${campus.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-main-600 text-decoration-none d-flex align-items-center gap-2"
-          >
-            <i className="ph ph-map-trifold"></i>
-            Haritada Gör ({campus.latitude.toFixed(6)},{" "}
-            {campus.longitude.toFixed(6)})
-            <i className="ph ph-arrow-square-out text-xs"></i>
-          </a>
-        ) : (
-          <span className="text-neutral-500">Konum bilgisi mevcut değil</span>
-        )}
-      </div>
-    ),
-    isShowing: (campus) => !!(campus?.latitude && campus?.longitude),
   },
   {
     label: "Ortalama Puan",
@@ -219,10 +109,60 @@ export const campusGeneralInfoConfig: CampusGeneralInfoConfig[] = [
     label: "Bağlı Marka",
     value: (campus) =>
       campus?.brand ? (
-        <span className="text-main-600 fw-semibold d-flex align-items-center gap-2">
-          <i className="ph ph-buildings"></i>
-          {campus.brand.name}
-        </span>
+        <div className="d-flex flex-column gap-8">
+          <div className="d-flex align-items-center gap-12">
+            {campus.brand.logoUrl && campus.brand.logoUrl !== "default.jpg" ? (
+              <CustomImage
+                src={campus.brand.logoUrl}
+                alt={campus.brand.name || "Marka logosu"}
+                width={40}
+                height={40}
+                className="rounded-8"
+              />
+            ) : (
+              <div
+                className="d-flex align-items-center justify-content-center bg-main-50 rounded-8"
+                style={{ width: "40px", height: "40px" }}
+              >
+                <i
+                  className="ph ph-buildings text-main-600"
+                  style={{ fontSize: "18px" }}
+                />
+              </div>
+            )}
+            <div className="d-flex flex-column">
+              <span className="text-main-600 fw-semibold">
+                {campus.brand.name}
+              </span>
+              {campus.brand.slug && (
+                <code className="text-xs text-neutral-500">
+                  {campus.brand.slug}
+                </code>
+              )}
+            </div>
+          </div>
+          <div className="d-flex flex-wrap gap-12 mt-4">
+            {typeof campus.brand.campusCount === "number" && (
+              <span className="d-flex align-items-center gap-4 text-sm text-neutral-600">
+                <i className="ph ph-buildings"></i>
+                {campus.brand.campusCount} Kampüs
+              </span>
+            )}
+            {typeof campus.brand.schoolCount === "number" && (
+              <span className="d-flex align-items-center gap-4 text-sm text-neutral-600">
+                <i className="ph ph-graduation-cap"></i>
+                {campus.brand.schoolCount} Okul
+              </span>
+            )}
+            {typeof campus.brand.ratingAverage === "number" &&
+              campus.brand.ratingAverage > 0 && (
+                <span className="d-flex align-items-center gap-4 text-sm text-warning-600">
+                  <i className="ph-fill ph-star"></i>
+                  {campus.brand.ratingAverage.toFixed(1)}
+                </span>
+              )}
+          </div>
+        </div>
       ) : (
         <span className="text-neutral-500">Marka bilgisi mevcut değil</span>
       ),
