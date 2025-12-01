@@ -178,7 +178,9 @@ export const useFormHook = () => {
     useEffect(() => {
       if (prevValueRef.current !== watchValue) {
         prevValueRef.current = watchValue;
-        const fields = Array.isArray(fieldsToReset) ? fieldsToReset : [fieldsToReset];
+        const fields = Array.isArray(fieldsToReset)
+          ? fieldsToReset
+          : [fieldsToReset];
         fields.forEach((field) => setValue(field, ""));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

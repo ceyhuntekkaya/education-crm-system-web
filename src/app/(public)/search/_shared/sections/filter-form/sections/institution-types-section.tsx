@@ -9,7 +9,7 @@ export const InstitutionTypesSection = () => {
 
   // Seçili grup kontrolü
   const selectedGroupId = values.institutionGroupId;
-  
+
   // Kurum kategorisi değiştiğinde kurum tipini sıfırla
   useResetFieldOnChange("institutionGroupId", "institutionTypeId");
 
