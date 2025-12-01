@@ -16,9 +16,12 @@ export const createApiParams = (
   const propertyFilters = createPropertyFilters(values, institutionTypes);
 
   // institutionTypeIds'yi string'den number'a çevir - her zaman array olarak
-  const institutionTypeIds = Array.isArray(values.institutionTypeIds) && values.institutionTypeIds.length
-    ? values.institutionTypeIds.map((id) => Number(id)).filter((id) => !isNaN(id))
-    : values.institutionTypeId 
+  const institutionTypeIds =
+    Array.isArray(values.institutionTypeIds) && values.institutionTypeIds.length
+      ? values.institutionTypeIds
+          .map((id) => Number(id))
+          .filter((id) => !isNaN(id))
+      : values.institutionTypeId
       ? [Number(values.institutionTypeId)].filter((id) => !isNaN(id))
       : [];
 
@@ -43,7 +46,8 @@ export const createApiParams = (
 
   const apiParams: SchoolSearchDto = {
     searchTerm: values.searchTerm || "",
-    institutionTypeIds: institutionTypeIds.length > 0 ? institutionTypeIds : undefined,
+    institutionTypeIds:
+      institutionTypeIds.length > 0 ? institutionTypeIds : undefined,
     minAge: Array.isArray(values.ageRange) ? values.ageRange[0] : 1,
     maxAge: Array.isArray(values.ageRange) ? values.ageRange[1] : 80,
     minFee: Array.isArray(values.feeRange) ? values.feeRange[0] : 1,
@@ -64,7 +68,7 @@ export const createApiParams = (
     sortBy: values.sortBy || "name",
     sortDirection: values.sortDirection || "asc",
     page: 0,
-    size: 10
+    size: 100,
   };
 
   return apiParams;
