@@ -457,10 +457,10 @@
   .position-relative {
     .position-absolute {
       &.start-0 {
-        left: 10px !important;
+        left: 0px !important;
       }
       &.end-0 {
-        right: 10px !important;
+        right: 0px !important;
       }
     }
   }
