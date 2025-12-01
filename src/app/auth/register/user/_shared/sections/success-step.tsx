@@ -87,30 +87,31 @@ export const SuccessStep: React.FC = () => {
 
   // Next steps items
   const nextStepsItems = [
-    {
-      label: "E-postanızı Kontrol Edin",
-      value: (
-        <span className="text-neutral-600">
-          <strong className="text-neutral-900">{loginInfo.email}</strong>{" "}
-          adresinize gönderilen aktivasyon bağlantısına tıklayın.
-        </span>
-      ),
-      isShowing: true,
-    },
-    {
-      label: "Hesabınızı Aktifleştirin",
-      value: (
-        <span className="text-neutral-600">
-          E-postadaki bağlantıya tıklayarak hesabınızı aktifleştirin.
-        </span>
-      ),
-      isShowing: true,
-    },
+    // {
+    //   label: "E-postanızı Kontrol Edin",
+    //   value: (
+    //     <span className="text-neutral-600">
+    //       <strong className="text-neutral-900">{loginInfo.email}</strong>{" "}
+    //       adresinize gönderilen aktivasyon bağlantısına tıklayın.
+    //     </span>
+    //   ),
+    //   isShowing: true,
+    // },
+    // {
+    //   label: "Hesabınızı Aktifleştirin",
+    //   value: (
+    //     <span className="text-neutral-600">
+    //       E-postadaki bağlantıya tıklayarak hesabınızı aktifleştirin.
+    //     </span>
+    //   ),
+    //   isShowing: true,
+    // },
     {
       label: "Giriş Yapın",
       value: (
         <span className="text-neutral-600">
-          Aktivasyon sonrası sisteme giriş yaparak devam edebilirsiniz.
+          Hesabınız başarıyla oluşturuldu. Kayıt olurken belirlediğiniz e-posta
+          ve şifrenizle hemen giriş yapabilirsiniz.
         </span>
       ),
       isShowing: true,
@@ -143,14 +144,14 @@ export const SuccessStep: React.FC = () => {
           </p>
 
           {/* E-posta Bilgilendirme */}
-          <div className="d-inline-flex align-items-center gap-12 bg-success-50 text-success-700 px-20 py-12 rounded-8">
+          {/* <div className="d-inline-flex align-items-center gap-12 bg-success-50 text-success-700 px-20 py-12 rounded-8">
             <i className="ph-bold ph-envelope"></i>
             <span className="text-sm fw-medium">
               Onay e-postası{" "}
               <strong className="fw-semibold">{loginInfo.email}</strong>{" "}
               adresinize gönderildi.
             </span>
-          </div>
+          </div> */}
         </div>
       </CustomCard>
 

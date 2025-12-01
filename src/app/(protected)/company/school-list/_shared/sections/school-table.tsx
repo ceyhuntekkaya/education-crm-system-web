@@ -28,7 +28,7 @@ export const SchoolTable: React.FC<SchoolTableProps> = () => {
         pageSizeOptions={[5, 10, 25, 50]}
         disableRowSelectionOnClick
         emptyState={{
-          icon: "ph-school",
+          icon: "ph-graduation-cap",
           title: "Henüz Okul Yok",
           description:
             "İlk okul bilginizi eklemek için 'Yeni Okul Ekle' butonuna tıklayın.",

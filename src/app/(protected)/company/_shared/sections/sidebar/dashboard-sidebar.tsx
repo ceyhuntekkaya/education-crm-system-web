@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { useGuardHook } from "@/hooks";
 import { useCompany } from "../../context/company-context";
@@ -18,6 +18,8 @@ import {
 const DashboardSidebar: React.FC<SidebarProps> = ({
   menuItems,
   className = "",
+  onClose,
+  isMobileMenuOpen = false,
 }) => {
   const { filterMenuItems } = useGuardHook();
   const { selectedSchool } = useCompany();
@@ -43,23 +45,30 @@ const DashboardSidebar: React.FC<SidebarProps> = ({
     });
   };
 
+  // Mobile'da menü öğesine tıklandığında sidebar'ı kapat
+  const handleMenuItemClick = useCallback(() => {
+    if (isMobileMenuOpen && onClose) {
+      onClose();
+    }
+  }, [isMobileMenuOpen, onClose]);
+
   return (
     <>
       {/* Ana Sidebar */}
       <aside
-        className={getSidebarClasses(false, className)}
+        className={getSidebarClasses(isMobileMenuOpen, className)}
         style={{
-          width: "280px",
-          transition: "all 0.3s ease",
+          transform: isMobileMenuOpen ? "translateX(0)" : undefined,
+          zIndex: 1050,
         }}
       >
-        <SidebarHeader />
+        <SidebarHeader onClose={onClose} />
 
         <SidebarDashboardHeader />
 
         {/* Ana Navigasyon - Tab Style */}
-        <nav className="sidebar-nav flex-grow-1 px-8 py-0 overflow-y-auto scroll-sm">
-          <div className="border border-neutral-30 rounded-12 bg-white px-4 py-6 mb-8">
+        <nav className="sidebar-nav">
+          <div className="sidebar-menu-container">
             <ul className="sidebar-tab-menu list-unstyled mb-0">
               {filteredMenuItems.map((item) => (
                 <SidebarMenuItem
@@ -69,6 +78,7 @@ const DashboardSidebar: React.FC<SidebarProps> = ({
                   expandedItems={expandedItems}
                   onToggleExpanded={toggleExpanded}
                   isDisabled={!selectedSchool}
+                  onItemClick={handleMenuItemClick}
                 />
               ))}
             </ul>

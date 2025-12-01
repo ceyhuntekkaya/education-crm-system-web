@@ -3,6 +3,7 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { InstitutionTypeSummaryDto, ApiResponseDto } from "@/types";
+import { formatTitle } from "@/utils";
 import { useMemo } from "react";
 
 interface UseInstitutionTypesReturn {
@@ -38,7 +39,7 @@ export const useInstitutionTypes = (): UseInstitutionTypesReturn => {
       { value: "", label: "Kurum tipi seçiniz..." }, // Boş ilk seçenek
       ...institutionTypes.map((type) => ({
         value: type.id?.toString() || "",
-        label: type.displayName || type.name || "",
+        label: formatTitle(type.displayName || type.name || ""),
       })),
     ],
     [institutionTypes]

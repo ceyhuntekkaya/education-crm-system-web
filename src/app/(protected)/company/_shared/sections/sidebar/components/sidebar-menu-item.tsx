@@ -18,6 +18,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   expandedItems,
   onToggleExpanded,
   isDisabled,
+  onItemClick,
 }) => {
   const hasChildren = Boolean(item.children?.length);
   const isExpanded = expandedItems.has(item.href);
@@ -31,6 +32,18 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
     item.href !== "/company" &&
     item.href !== "/company/school-list" &&
     item.href !== "/company/campus-detail";
+
+  // Handle link click - close sidebar on mobile
+  const handleLinkClick = (e: React.MouseEvent) => {
+    if (shouldBeDisabled) {
+      e.preventDefault();
+      return;
+    }
+    // Call onItemClick to close mobile sidebar
+    if (onItemClick) {
+      onItemClick();
+    }
+  };
 
   // Full tab render
   const renderFullTab = () => {
@@ -98,7 +111,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
             ? { opacity: 0.4, pointerEvents: "none", cursor: "not-allowed" }
             : {}
         }
-        onClick={shouldBeDisabled ? (e) => e.preventDefault() : undefined}
+        onClick={handleLinkClick}
       >
         {commonContent}
       </Link>
@@ -121,6 +134,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
               expandedItems={expandedItems}
               onToggleExpanded={onToggleExpanded}
               isDisabled={isDisabled}
+              onItemClick={onItemClick}
             />
           ))}
         </ul>

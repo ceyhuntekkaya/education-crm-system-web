@@ -2,6 +2,30 @@
 //          Sidebar Styles
 // =======================================
 
+// CSS Variables for consistent spacing
+:root {
+  // Sidebar width values
+  --sidebar-width-desktop: 280px;
+  --sidebar-width-tablet: 260px;
+  --sidebar-width-mobile: 280px;
+  
+  // Consistent padding values (aligned with content-padding)
+  --sidebar-padding-xl: 24px;
+  --sidebar-padding-lg: 20px;
+  --sidebar-padding-md: 16px;
+  --sidebar-padding-sm: 10px;
+  --sidebar-padding-xs: 8px;
+  --sidebar-padding-mobile: 6px;
+  
+  // Gap values
+  --sidebar-gap-lg: 12px;
+  --sidebar-gap-md: 8px;
+  --sidebar-gap-sm: 4px;
+}
+
+// =======================================
+//          Sidebar Overlay (Mobile)
+// =======================================
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -11,8 +35,9 @@
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 2;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1040;
+  backdrop-filter: blur(2px);
 
   &.show {
     opacity: 1;
@@ -20,180 +45,311 @@
   }
 }
 
+// =======================================
+//          Main Sidebar Container
+// =======================================
 .sidebar {
+  position: fixed;
   top: 0;
   left: 0;
-  transform: translateX(-100%);
-  transition: all 0.3s ease;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-
-  @media (min-width: 992px) {
-    transform: translateX(0);
-  }
-
-  &--mobile-open {
-    transform: translateX(0);
-  }
-
-  // Collapsed sidebar specific styles
-  &--collapsed {
-    .sidebar-nav {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-
-    .sidebar-header {
-      padding-left: 24px;
-      padding-right: 24px;
-    }
-
-    .sidebar-footer {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-
-    .sidebar-menu {
-      li {
-        margin-bottom: 0;
-      }
-    }
-
-    .sidebar-admin-section {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid map-get($colors, "neutral", "30");
-    }
-
-    // Show collapsed text in collapsed mode
-    .sidebar-menu__text--collapsed {
-      display: block;
-    }
-
-    // Hide normal text in collapsed mode  
-    .sidebar-menu__text {
-      display: none;
-    }
-  }
-}
-
-.sidebar-mobile-toggle {
-  @media (min-width: 992px) {
-    display: none !important;
-  }
-}
-
-.sidebar-menu__link {
-  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  width: var(--sidebar-width-desktop);
+  background-color: white;
+  border-right: 1px solid map-get($colors, "neutral", "50");
   display: flex;
+  flex-direction: column;
+  z-index: 1050;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden !important; // Sidebar never scrolls, only menu-container scrolls
+
+  // Default: Hidden on mobile/tablet
+  transform: translateX(-100%);
+
+  // Desktop - Always visible
+  @media (min-width: 992px) {
+    transform: translateX(0);
+    width: var(--sidebar-width-desktop);
+  }
+
+  // Tablet width
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    width: var(--sidebar-width-tablet);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  // Mobile width
+  @media (max-width: 767.98px) {
+    width: var(--sidebar-width-mobile);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+  }
+
+  // Small Mobile
+  @media (max-width: 374px) {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  // Mobile Open State - This needs to be outside media queries!
+  &.sidebar--mobile-open {
+    transform: translateX(0) !important;
+  }
+}
+
+// =======================================
+//          Mobile Toggle Button
+// =======================================
+.sidebar-mobile-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: map-get($colors, "main", "600");
+  color: white;
+  border: none;
+  display: none;
   align-items: center;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  border-radius: 8px;
-  font-weight: 500;
-  color: map-get($colors, "neutral", "600");
+  justify-content: center;
+  z-index: 1060;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 
   &:hover {
-    background-color: map-get($colors, "main", "25");
-    color: map-get($colors, "neutral", "700");
-    text-decoration: none;
+    background: map-get($colors, "main", "700");
+    transform: scale(1.05);
   }
 
-  // Aktif durum - sistem main rengi kullanımı
-  &.bg-main-600 {
-    background-color: map-get($colors, "main", "600");
-    color: white;
-    font-weight: 600;
+  &:active {
+    transform: scale(0.95);
+  }
 
-    &:hover {
-      background-color: map-get($colors, "main", "700");
-      color: white;
+  i {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  // Show on tablet and mobile
+  @media (max-width: 991.98px) {
+    display: flex;
+  }
+
+  // Mobile positioning
+  @media (max-width: 575.98px) {
+    bottom: 16px;
+    left: 16px;
+    width: 52px;
+    height: 52px;
+
+    i {
+      font-size: 22px;
     }
   }
 
-  // Alt menü stilleri
-  &--sub {
-    font-size: 14px;
-    color: map-get($colors, "neutral", "500");
-    padding-left: 44px;
-
-    &:hover {
-      background-color: map-get($colors, "neutral", "20");
-      color: map-get($colors, "neutral", "600");
-    }
-  }
-
-  // Collapsed mode specific class
-  &--collapsed {
-    // Keep normal styling, show text
-    justify-content: space-between;
+  // When sidebar is open
+  &--active {
+    background: map-get($colors, "neutral", "700");
     
-    // Hide normal text, show collapsed text
-    .sidebar-menu__text {
-      display: none;
-    }
-    
-    .sidebar-menu__text--collapsed {
-      display: block;
+    i {
+      transform: rotate(180deg);
     }
   }
 }
 
-.sidebar-welcome {
-  border-bottom: 1px solid map-get($colors, "neutral", "30");
-}
+// =======================================
+//          Sidebar Header
+// =======================================
+.sidebar-header {
+  padding: var(--sidebar-padding-xl);
+  padding-bottom: 0; // Remove bottom padding, nav handles spacing
+  flex-shrink: 0;
+  overflow: visible; // Allow dropdown to overflow
+  position: relative;
+  z-index: 10;
 
-.sidebar-menu {
-  margin: 0;
-  padding: 0;
+  @media (max-width: 1399.98px) {
+    padding: var(--sidebar-padding-lg);
+    padding-bottom: 0;
+  }
 
-  li {
-    list-style: none;
+  @media (max-width: 1199.98px) {
+    padding: var(--sidebar-padding-md);
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 991.98px) {
+    padding: var(--sidebar-padding-sm);
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 575.98px) {
+    padding: var(--sidebar-padding-xs);
+    padding-bottom: 0;
   }
 }
 
-.sidebar-submenu {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+// Sidebar Header Inner Containers
+.sidebar-header-outer {
+  border: 1px solid map-get($colors, "neutral", "30");
+  border-radius: 12px;
+  background: white;
+  padding: 6px;
+  overflow: visible; // Allow dropdown to overflow
 
-  &--collapsed {
-    // Submenu styling for collapsed mode
-    padding-left: 16px;
-    background-color: map-get($colors, "neutral", "10");
+  @media (max-width: 767.98px) {
+    padding: 4px;
     border-radius: 8px;
-    margin-top: 8px;
   }
 }
 
-// Collapsed text is hidden by default
-.sidebar-menu__text--collapsed {
-  display: none;
-}
+.sidebar-header-inner {
+  border: 1px solid map-get($colors, "neutral", "30");
+  border-radius: 12px;
+  background: map-get($colors, "main", "25");
+  padding: 12px 10px;
+  overflow: visible; // Allow dropdown to overflow
 
-// Company logo container
-.sidebar-logo-container {
-  .company-logo {
-    background-color: map-get($colors, "main", "600");
-    transition: all 0.2s ease;
+  @media (max-width: 767.98px) {
+    padding: 8px 6px;
+    border-radius: 8px;
+  }
 
-    &:hover {
-      background-color: map-get($colors, "main", "700");
+  // Reduce margins on mobile
+  .mb-8 {
+    @media (max-width: 767.98px) {
+      margin-bottom: 4px !important;
     }
   }
 }
 
-// Admin section
-.sidebar-admin-section {
-  border-top: 1px solid map-get($colors, "neutral", "30");
+// School Selection Section
+.school-selection-section {
+  position: relative;
+  z-index: 100; // Higher than other elements
+}
+
+// School Dropdown Menu with max-height and scroll
+.sidebar-school-dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000 !important; // Very high z-index to appear above everything
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
   
-  .admin-label {
-    color: map-get($colors, "neutral", "500");
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: map-get($colors, "neutral", "200");
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: map-get($colors, "neutral", "300");
+  }
+
+  @media (max-width: 575.98px) {
+    max-height: 200px;
   }
 }
 
-// Footer styles - Balanced Design
+// =======================================
+//          Sidebar Navigation
+// =======================================
+.sidebar-nav {
+  flex: 1 1 0; // Take remaining space with base 0
+  min-height: 0; // Critical for flex scroll to work
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // Nav container doesn't scroll
+  padding: 0 var(--sidebar-padding-xl);
+
+  @media (max-width: 1399.98px) {
+    padding: 0 var(--sidebar-padding-lg);
+  }
+
+  @media (max-width: 1199.98px) {
+    padding: 0 var(--sidebar-padding-md);
+  }
+
+  @media (max-width: 991.98px) {
+    padding: 0 var(--sidebar-padding-sm);
+  }
+
+  @media (max-width: 767.98px) {
+    padding: 0 var(--sidebar-padding-mobile);
+  }
+}
+
+// Menu container that scrolls
+.sidebar-menu-container {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid map-get($colors, "neutral", "30");
+  border-radius: 12px;
+  background: white;
+  padding: 6px 4px;
+  margin-bottom: 8px;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: map-get($colors, "neutral", "200");
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: map-get($colors, "neutral", "300");
+  }
+}
+
+// =======================================
+//          Sidebar Footer
+// =======================================
 .sidebar-footer {
-  // Ortak link stilleri
+  flex-shrink: 0;
+  padding: var(--sidebar-padding-xl);
+  padding-top: 0;
+
+  @media (max-width: 1399.98px) {
+    padding: var(--sidebar-padding-lg);
+    padding-top: 0;
+  }
+
+  @media (max-width: 1199.98px) {
+    padding: var(--sidebar-padding-md);
+    padding-top: 0;
+  }
+
+  @media (max-width: 991.98px) {
+    padding: var(--sidebar-padding-sm);
+    padding-top: 0;
+  }
+
+  @media (max-width: 767.98px) {
+    padding: var(--sidebar-padding-mobile);
+    padding-top: 0;
+  }
+
+  // Footer link styles
   .sidebar-footer-link {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -246,9 +402,20 @@
       transform: translateY(0) scale(0.98);
       transition: all 0.1s ease;
     }
+
+    // Mobile touch optimization
+    @media (max-width: 991.98px) {
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      &:active {
+        background-color: map-get($colors, "neutral", "50") !important;
+      }
+    }
   }
 
-  // Icon wrapper stilleri
   .sidebar-footer-icon-wrapper {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
@@ -257,7 +424,6 @@
     }
   }
 
-  // Text ve arrow geçiş efektleri
   span {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -266,14 +432,12 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  // Footer item stilleri
   .sidebar-footer-item {
     &:first-child {
       margin-bottom: 2px;
     }
   }
 
-  // Ayırıcı çizgi stilleri
   .sidebar-footer-separator {
     margin: 4px 0;
     opacity: 0.6;
@@ -281,6 +445,158 @@
     .border-top {
       border-color: map-get($colors, "neutral", "100") !important;
     }
+  }
+}
+
+// =======================================
+//          Sidebar Menu
+// =======================================
+.sidebar-menu {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+}
+
+.sidebar-menu__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-weight: 500;
+  color: map-get($colors, "neutral", "600");
+  padding: 10px 12px;
+
+  @media (max-width: 575.98px) {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+
+  &:hover {
+    background-color: map-get($colors, "main", "25");
+    color: map-get($colors, "neutral", "700");
+    text-decoration: none;
+  }
+
+  &.bg-main-600 {
+    background-color: map-get($colors, "main", "600");
+    color: white;
+    font-weight: 600;
+
+    &:hover {
+      background-color: map-get($colors, "main", "700");
+      color: white;
+    }
+  }
+
+  &--sub {
+    font-size: 14px;
+    color: map-get($colors, "neutral", "500");
+    padding-left: 44px;
+
+    @media (max-width: 575.98px) {
+      padding-left: 36px;
+      font-size: 13px;
+    }
+
+    &:hover {
+      background-color: map-get($colors, "neutral", "20");
+      color: map-get($colors, "neutral", "600");
+    }
+  }
+}
+
+.sidebar-welcome {
+  border-bottom: 1px solid map-get($colors, "neutral", "30");
+}
+
+.sidebar-submenu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &--collapsed {
+    padding-left: 16px;
+    background-color: map-get($colors, "neutral", "10");
+    border-radius: 8px;
+    margin-top: 8px;
+
+    @media (max-width: 575.98px) {
+      padding-left: 12px;
+    }
+  }
+}
+
+.sidebar-menu__text--collapsed {
+  display: none;
+}
+
+// =======================================
+//          Sidebar Logo Container
+// =======================================
+.sidebar-logo-container {
+  .company-logo {
+    background-color: map-get($colors, "main", "600");
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: map-get($colors, "main", "700");
+    }
+  }
+}
+
+// =======================================
+//          Admin Section
+// =======================================
+.sidebar-admin-section {
+  border-top: 1px solid map-get($colors, "neutral", "30");
+  
+  .admin-label {
+    color: map-get($colors, "neutral", "500");
+  }
+}
+
+// =======================================
+//          Collapsed Sidebar Styles
+// =======================================
+.sidebar--collapsed {
+  .sidebar-nav {
+    padding-left: var(--sidebar-padding-xl);
+    padding-right: var(--sidebar-padding-xl);
+  }
+
+  .sidebar-header {
+    padding-left: var(--sidebar-padding-xl);
+    padding-right: var(--sidebar-padding-xl);
+  }
+
+  .sidebar-footer {
+    padding-left: var(--sidebar-padding-xl);
+    padding-right: var(--sidebar-padding-xl);
+  }
+
+  .sidebar-menu {
+    li {
+      margin-bottom: 0;
+    }
+  }
+
+  .sidebar-admin-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid map-get($colors, "neutral", "30");
+  }
+
+  .sidebar-menu__text--collapsed {
+    display: block;
+  }
+
+  .sidebar-menu__text {
+    display: none;
   }
 }
 
@@ -529,8 +845,37 @@
 
 // Dashboard Header Component Styles - Lightweight
 .sidebar-dashboard-header {
-  padding: 12px 24px;
-  // margin-bottom: 8px;
+  padding: var(--sidebar-padding-xl);
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 12px 0;
+  flex-shrink: 0; // Prevent shrinking
+  
+  @media (max-width: 1399.98px) {
+    padding: var(--sidebar-padding-lg);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 1199.98px) {
+    padding: var(--sidebar-padding-md);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 991.98px) {
+    padding: var(--sidebar-padding-sm);
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 8px 0;
+  }
+
+  @media (max-width: 767.98px) {
+    padding: var(--sidebar-padding-mobile);
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 6px 0;
+  }
   
   .dashboard-content {
     display: flex;
@@ -543,6 +888,16 @@
     border: 1px solid hsla(var(--main) / 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+
+    @media (max-width: 991.98px) {
+      padding: 6px 10px;
+      gap: 6px;
+    }
+
+    @media (max-width: 575.98px) {
+      padding: 4px 8px;
+      gap: 4px;
+    }
     
     &::before {
       content: '';
@@ -576,6 +931,10 @@
       .dashboard-title {
         color: map-get($colors, "main", "700");
       }
+
+      @media (max-width: 991.98px) {
+        transform: none;
+      }
     }
   }
   
@@ -584,6 +943,10 @@
     color: map-get($colors, "main", "500");
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
+
+    @media (max-width: 575.98px) {
+      font-size: 12px;
+    }
   }
   
   .dashboard-title {
@@ -594,30 +957,16 @@
     letter-spacing: 0.3px;
     transition: all 0.3s ease;
     white-space: nowrap;
-  }
-}
 
-// Mobile responsive
-@media (max-width: 991.98px) {
-  .sidebar-dashboard-header {
-    padding: 8px 16px;
-    margin-bottom: 6px;
-    
-    .dashboard-content {
-      padding: 6px 12px;
-      gap: 6px;
-    }
-    
-    .dashboard-icon {
-      font-size: 12px;
-    }
-    
-    .dashboard-title {
+    @media (max-width: 575.98px) {
       font-size: 12px;
     }
   }
 }
 
+// =======================================
+//          Sidebar Home Link
+// =======================================
 .sidebar-home-link {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid map-get($colors, "main", "200") !important;
@@ -637,6 +986,11 @@
     i {
       transform: scale(1.1);
     }
+
+    @media (max-width: 991.98px) {
+      transform: none;
+      box-shadow: none !important;
+    }
   }
   
   &:active {
@@ -653,7 +1007,9 @@
   }
 }
 
-// Profile dropdown styles
+// =======================================
+//          Profile Dropdown Styles
+// =======================================
 .sidebar-profile-dropdown {
   background: white !important;
   border: 1px solid map-get($colors, "neutral", "100") !important;
@@ -665,6 +1021,11 @@
     border-color: map-get($colors, "main", "200") !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px hsla(var(--main) / 0.15) !important;
+
+    @media (max-width: 991.98px) {
+      transform: none;
+      box-shadow: none !important;
+    }
   }
 }
 
@@ -684,11 +1045,17 @@
         color: map-get($colors, "main", "600") !important;
         transform: scale(1.1);
       }
+
+      @media (max-width: 991.98px) {
+        transform: none;
+      }
     }
   }
 }
 
-// Mobile responsive animations
+// =======================================
+//     Mobile Responsive Animations
+// =======================================
 @media (max-width: 991.98px) {
   .sidebar-link-animate {
     &:hover:not(.sidebar-tab-link--active) {
@@ -705,11 +1072,49 @@
   .sidebar-tab-menu .sidebar-tab-item {
     animation-duration: 0.3s;
   }
-  
-  .sidebar-profile-dropdown {
-    &:hover {
-      transform: none;
-      box-shadow: none !important;
-    }
+}
+
+// =======================================
+//     Main Content Area Responsive
+// =======================================
+.main-content-wrapper {
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+
+  // Desktop
+  @media (min-width: 992px) {
+    margin-left: var(--sidebar-width-desktop);
+  }
+
+  // Tablet and Mobile - No margin since sidebar is overlay
+  @media (max-width: 991.98px) {
+    margin-left: 0;
+  }
+}
+
+// =======================================
+//     Content Padding Responsive
+// =======================================
+.content-padding {
+  padding: 24px;
+
+  @media (max-width: 1399.98px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 1199.98px) {
+    padding: 18px;
+  }
+
+  @media (max-width: 991.98px) {
+    padding: 16px;
+  }
+
+  @media (max-width: 575.98px) {
+    padding: 12px;
+  }
+
+  @media (max-width: 374.98px) {
+    padding: 10px;
   }
 }

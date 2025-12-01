@@ -65,6 +65,7 @@ export const useSubmitStep4 = (
       postalCode: values.campusInfo.postalCode || "",
       countryId: values.campusInfo.countryId || "",
       provinceId: values.campusInfo.provinceId || "",
+      neighborhoodId: values.campusInfo.neighborhoodId || "",
     };
 
     const response = await submitCampus(payload);

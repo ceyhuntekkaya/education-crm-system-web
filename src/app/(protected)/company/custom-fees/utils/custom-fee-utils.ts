@@ -177,10 +177,12 @@ export const getBillingPeriodDisplay = (
     QUARTERLY: "Üç Aylık",
     SEMESTER: "Dönemlik",
     ANNUAL: "Yıllık",
+    BIANNUAL: "Altı Aylık",
     WEEKLY: "Haftalık",
     BIWEEKLY: "İki Haftada Bir",
     BIMONTHLY: "İki Ayda Bir",
     DAILY: "Günlük",
+    CUSTOM: "Özel",
   };
 
   return periodMap[billingPeriod || ""] || billingPeriod || "-";
