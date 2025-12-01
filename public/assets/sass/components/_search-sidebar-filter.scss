@@ -1,4 +1,53 @@
+// =======================================
+//   Search/Filter Sidebar Styles
+//   (Public pages - search, my-lists)
+// =======================================
+
 .search-sidebar-filter {
+  // Reset dashboard sidebar styles - keep this as a regular static sidebar
+  &.sidebar {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    z-index: auto !important;
+    border-right: none !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    overflow: visible !important;
+    display: block !important;
+    flex-direction: unset !important;
+  }
+
+  // Responsive styles for filter sidebar
+  @include xl-screen {
+    padding: 24px !important;
+  }
+  
+  @include lg-screen {
+    padding: 16px !important;
+  }
+  
+  @include md-screen {
+    position: fixed !important;
+    inset-inline-start: 0;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+    max-width: 348px;
+    border-radius: 0 !important;
+    border: 0 !important;
+    border-inline-end: 1px solid var(--neutral-30) !important;
+    transform: translateX(-100%);
+    transition: 0.2s linear;
+    overflow-y: auto;
+    height: 100vh;
+    
+    &.active {
+      transform: translateX(0%);
+    }
+  }
+
   &__sticky-footer {
     position: sticky;
     bottom: 0;
@@ -22,6 +71,19 @@
       background-color: rgba(99, 102, 241, 0.05);
       transform: translateY(-1px);
       transition: all 0.2s ease;
+    }
+    
+    // Responsive padding adjustments
+    @include xl-screen {
+      margin-left: -24px;
+      margin-right: -24px;
+      margin-bottom: -24px;
+    }
+    
+    @include lg-screen {
+      margin-left: -16px;
+      margin-right: -16px;
+      margin-bottom: -16px;
     }
   }
 }

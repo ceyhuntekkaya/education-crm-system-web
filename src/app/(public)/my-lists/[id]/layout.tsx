@@ -23,14 +23,16 @@ export default function MyListLayout({
 
   return (
     <MyListProvider key={listId} listId={listId}>
-      <div className="container py-40">
-        <div className="row">
-          <div className="col-lg-3">
-            <ListSidebarContent listId={id} />
+      <section className="course-list-view py-40 background-img bg-img">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-3">
+              <ListSidebarContent listId={id} />
+            </div>
+            <div className="col-lg-9">{children}</div>
           </div>
-          <div className="col-lg-9">{children}</div>
         </div>
-      </div>
+      </section>
     </MyListProvider>
   );
 }
