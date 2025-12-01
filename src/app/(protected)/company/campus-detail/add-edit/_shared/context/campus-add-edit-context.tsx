@@ -10,6 +10,7 @@ import {
   useBrandSummaries,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
+import { useCampusDetail } from "../../../_shared/context/campus-detail-context";
 
 const CampusAddEditContext = createContext<
   CampusAddEditContextType | undefined
@@ -29,6 +30,9 @@ export const CampusAddEditProvider: React.FC<CampusAddEditProviderProps> = ({
   const isEditing = isValidEditId(id);
   const campusId = parseEditId(id);
 
+  // Campus detail context'ten refetch fonksiyonunu al (detay sayfası için)
+  const { refreshCampus: refreshCampusDetail } = useCampusDetail();
+
   // Campus data hook
   const {
     campus,
@@ -40,14 +44,20 @@ export const CampusAddEditProvider: React.FC<CampusAddEditProviderProps> = ({
   // Add campus hook
   const { postCampus, isLoading: addLoading, error: addError } = useAddCampus();
 
-  // Edit campus hook - refetch'i props olarak geçir
+  // Birleşik refetch fonksiyonu - hem add-edit'teki veriyi hem de detay sayfasındaki veriyi yeniler
+  const combinedRefetch = () => {
+    refetch();
+    refreshCampusDetail();
+  };
+
+  // Edit campus hook - combinedRefetch'i props olarak geçir
   const {
     putCampus,
     isLoading: editLoading,
     error: editError,
   } = useEditCampus({
     campusId: campusId || 0,
-    refetch: isEditing ? refetch : undefined,
+    refetch: isEditing ? combinedRefetch : undefined,
   });
 
   // Brand summaries hook
@@ -56,8 +66,11 @@ export const CampusAddEditProvider: React.FC<CampusAddEditProviderProps> = ({
   const contextValue: CampusAddEditContextType = {
     // Current campus data
     campus,
-    campusLoading: campusLoading || addLoading || editLoading,
+    dataLoading: campusLoading, // Sadece data fetch loading'i
     campusError: campusError || addError || editError,
+
+    // Form operations
+    formLoading: addLoading || editLoading, // Sadece form submit loading'i
 
     // Edit mode state
     isEditing,

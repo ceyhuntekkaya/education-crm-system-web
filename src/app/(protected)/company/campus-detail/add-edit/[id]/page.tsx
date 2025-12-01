@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { LoadingSpinner, CustomCard } from "@/components";
+import { CustomCard } from "@/components";
 import { CampusForm, useCampusAddEdit } from "../_shared";
 import { usePageTitle } from "@/hooks";
 
@@ -9,7 +9,7 @@ interface CampusAddEditPageProps {}
 
 const CampusAddEditPage: React.FC<CampusAddEditPageProps> = () => {
   usePageTitle("Kampüs Düzenle");
-  const { isEditing, campus, campusLoading } = useCampusAddEdit();
+  const { isEditing, campus, dataLoading } = useCampusAddEdit();
 
   const pageTitle = isEditing
     ? "Kampüs Bilgisi Düzenle"
@@ -25,18 +25,9 @@ const CampusAddEditPage: React.FC<CampusAddEditPageProps> = () => {
       }
       isBack
       mb="mb-24"
+      isLoading={dataLoading && isEditing}
     >
-      {/* Form Content */}
-      {campusLoading && isEditing ? (
-        <LoadingSpinner
-          message="Kampüs bilgileri yükleniyor..."
-          size="md"
-          variant="dots"
-          className="py-5"
-        />
-      ) : (
-        <CampusForm isEditing={isEditing} initialData={campus} />
-      )}
+      <CampusForm isEditing={isEditing} initialData={campus} />
     </CustomCard>
   );
 };

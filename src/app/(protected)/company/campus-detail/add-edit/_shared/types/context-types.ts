@@ -3,8 +3,11 @@ import { CampusDto, CampusCreateDto } from "@/types";
 export interface CampusAddEditContextType {
   // Current campus data
   campus: any | null;
-  campusLoading: boolean;
+  dataLoading: boolean; // Sadece data fetch için
   campusError: string | null;
+
+  // Form operations
+  formLoading: boolean; // Sadece form submit için
 
   // Edit mode state
   isEditing: boolean;

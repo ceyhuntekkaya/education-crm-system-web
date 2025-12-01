@@ -33,7 +33,7 @@ export const CampusFormContent: React.FC = () => {
   const { user } = useAuth();
 
   // Context'ten campus işlemlerini ve brand summaries'i al
-  const { isEditing, postCampus, putCampus, campusLoading, brands } =
+  const { isEditing, postCampus, putCampus, formLoading, dataLoading, brands } =
     useCampusAddEdit();
 
   // Location data hook - values'dan countryId ve provinceId otomatik alınıyor
@@ -202,7 +202,7 @@ export const CampusFormContent: React.FC = () => {
             placeholder="Ülke ara..."
             options={countries.data}
             isLoading={countries.loading}
-            disabled={campusLoading}
+            disabled={dataLoading}
             isRequired
           />
         </div>
@@ -215,7 +215,7 @@ export const CampusFormContent: React.FC = () => {
             placeholder={values?.countryId ? "İl ara..." : "Önce ülke seçiniz"}
             options={provinces.data}
             isLoading={provinces.loading}
-            disabled={provinces.disabled || campusLoading}
+            disabled={provinces.disabled || dataLoading}
             isRequired
           />
         </div>
@@ -228,7 +228,7 @@ export const CampusFormContent: React.FC = () => {
             placeholder={values?.provinceId ? "İlçe ara..." : "Önce il seçiniz"}
             options={districts.data}
             isLoading={districts.loading}
-            disabled={districts.disabled || campusLoading}
+            disabled={districts.disabled || dataLoading}
             isRequired
           />
         </div>
@@ -243,7 +243,7 @@ export const CampusFormContent: React.FC = () => {
             }
             options={neighborhoods.data}
             isLoading={neighborhoods.loading}
-            disabled={neighborhoods.disabled || campusLoading}
+            disabled={neighborhoods.disabled || dataLoading}
             isRequired
           />
         </div>
@@ -436,14 +436,14 @@ export const CampusFormContent: React.FC = () => {
               type="button"
               variant="outline"
               onClick={handleCancel}
-              disabled={campusLoading}
+              disabled={formLoading}
             >
               İptal
             </Button>
             <Button
               type="submit"
-              disabled={hasErrors || campusLoading}
-              loading={campusLoading}
+              disabled={hasErrors || formLoading}
+              loading={formLoading}
             >
               {isEditing ? "Güncelle" : "Kaydet"}
             </Button>
