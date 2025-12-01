@@ -14,6 +14,7 @@ import {
   FormContextType,
   FormProviderProps,
 } from "@/types/form";
+import { json } from "stream/consumers";
 
 // Form context
 const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -42,7 +43,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   validationRules = {},
   validationSchema,
 }) => {
-  const [values, setValues] = useState<FormValues>(initialValues);
+  const [values, setValues] = useState<FormValues>(
+    JSON.parse(JSON.stringify(initialValues))
+  );
   const [errors, setErrors] = useState<FormErrors>({});
 
   // Yup schema ile field validation
