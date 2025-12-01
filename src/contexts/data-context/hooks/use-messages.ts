@@ -9,8 +9,9 @@ import { useAuth } from "@/contexts";
 /**
  * Hook to fetch user messages
  * Internal hook used by DataProvider
+ * @param enabled - Veri çekme işleminin yapılıp yapılmayacağını belirler
  */
-export const useMessages = () => {
+export const useMessages = (enabled: boolean = true) => {
   const { user } = useAuth();
 
   const {
@@ -19,8 +20,10 @@ export const useMessages = () => {
     error,
     refetch,
   } = useGet<ApiResponseDto<MessageConversationGroupDto[]>>(
-    user?.id ? API_ENDPOINTS.CONTENT.MESSAGES_BY_USER(user.id) : null,
-    { enabled: !!user?.id }
+    user?.id && enabled
+      ? API_ENDPOINTS.CONTENT.MESSAGES_BY_USER(user.id)
+      : null,
+    { enabled: !!user?.id && enabled }
   );
 
   return {

@@ -21,8 +21,9 @@ interface ParentSearchList {
 /**
  * Hook to fetch and transform favorite search lists
  * Internal hook used by DataProvider
+ * @param enabled - Veri çekme işleminin yapılıp yapılmayacağını belirler
  */
-export const useFavoriteSearches = () => {
+export const useFavoriteSearches = (enabled: boolean = true) => {
   const { user } = useAuth();
 
   // Search lists API'sini kullan - userId ile
@@ -32,11 +33,11 @@ export const useFavoriteSearches = () => {
     error,
     refetch,
   } = useGet<ApiResponseDto<ParentSearchList[]>>(
-    user?.id
+    user?.id && enabled
       ? API_ENDPOINTS.PARENT_SEARCH_LISTS.GET_LISTS_BY_PARENT(user.id)
       : null,
     {
-      enabled: !!user,
+      enabled: !!user && enabled,
     }
   );
 

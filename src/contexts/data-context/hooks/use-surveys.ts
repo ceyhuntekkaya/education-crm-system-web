@@ -8,8 +8,9 @@ import { useAuth } from "@/contexts";
 /**
  * Hook to fetch user surveys
  * Internal hook used by DataProvider
+ * @param enabled - Veri çekme işleminin yapılıp yapılmayacağını belirler
  */
-export const useSurveys = () => {
+export const useSurveys = (enabled: boolean = true) => {
   const { user, accessToken } = useAuth();
 
   const {
@@ -18,11 +19,11 @@ export const useSurveys = () => {
     error,
     refetch,
   } = useGet<ApiResponseDto<SurveyResponseDto[]>>(
-    user?.id && accessToken
+    user?.id && accessToken && enabled
       ? API_ENDPOINTS.SURVEYS.USER_ASSIGNMENT_BY_ID(user.id)
       : null,
     {
-      enabled: !!user?.id && !!accessToken, // Sadece user ve token varsa çalışsın
+      enabled: !!user?.id && !!accessToken && enabled, // Sadece user, token varsa ve enabled ise çalışsın
     }
   );
 

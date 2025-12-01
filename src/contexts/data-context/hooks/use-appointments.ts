@@ -10,14 +10,16 @@ import { ApiResponseDto } from "@/types";
 /**
  * Hook to fetch user appointments
  * Internal hook used by DataProvider
+ * @param enabled - Veri çekme işleminin yapılıp yapılmayacağını belirler
  */
-export const useAppointments = () => {
+export const useAppointments = (enabled: boolean = true) => {
   const { user } = useAuth();
 
-  // API endpoint - user varsa
-  const endpoint = user?.id
-    ? API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_USER(user.id)
-    : null;
+  // API endpoint - user varsa ve enabled ise
+  const endpoint =
+    user?.id && enabled
+      ? API_ENDPOINTS.APPOINTMENTS.SLOTS_SEARCH_USER(user.id)
+      : null;
 
   // API isteği - Backend'den AppointmentSlotDto[] dönüyor
   const {
@@ -26,7 +28,7 @@ export const useAppointments = () => {
     error,
     refetch,
   } = useGet<ApiResponseDto<AppointmentSlotDto[]>>(endpoint, {
-    enabled: !!user?.id, // Sadece user varsa çalışsın
+    enabled: !!user?.id && enabled, // Sadece user varsa ve enabled ise çalışsın
     onSuccess: (data) => {
       // console.log(
       //   "Appointment slots fetched successfully:",
