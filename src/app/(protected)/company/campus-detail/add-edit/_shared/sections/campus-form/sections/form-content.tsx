@@ -120,6 +120,7 @@ export const CampusFormContent: React.FC = () => {
             label="Kampüs Adı"
             placeholder="Kampüs adını giriniz..."
             required
+            isRequired
           />
         </div>
 
@@ -129,6 +130,7 @@ export const CampusFormContent: React.FC = () => {
             name="establishedYear"
             label="Kuruluş Yılı"
             placeholder="Kuruluş yılını giriniz..."
+            isRequired
           />
         </div>
 
@@ -154,6 +156,7 @@ export const CampusFormContent: React.FC = () => {
             label="E-posta"
             type="email"
             placeholder="E-posta adresini giriniz..."
+            isRequired
           />
         </div>
 
@@ -164,6 +167,7 @@ export const CampusFormContent: React.FC = () => {
             type="tel"
             label="Telefon"
             placeholder="Telefon numarasını giriniz..."
+            isRequired
           />
         </div>
 
@@ -199,6 +203,7 @@ export const CampusFormContent: React.FC = () => {
             options={countries.data}
             isLoading={countries.loading}
             disabled={campusLoading}
+            isRequired
           />
         </div>
 
@@ -211,6 +216,7 @@ export const CampusFormContent: React.FC = () => {
             options={provinces.data}
             isLoading={provinces.loading}
             disabled={provinces.disabled || campusLoading}
+            isRequired
           />
         </div>
 
@@ -223,6 +229,7 @@ export const CampusFormContent: React.FC = () => {
             options={districts.data}
             isLoading={districts.loading}
             disabled={districts.disabled || campusLoading}
+            isRequired
           />
         </div>
 
@@ -237,6 +244,7 @@ export const CampusFormContent: React.FC = () => {
             options={neighborhoods.data}
             isLoading={neighborhoods.loading}
             disabled={neighborhoods.disabled || campusLoading}
+            isRequired
           />
         </div>
 
@@ -268,7 +276,7 @@ export const CampusFormContent: React.FC = () => {
         </div>
 
         {/* Enlem */}
-        <div className="col-6">
+        {/* <div className="col-4">
           <FormInput
             name="latitude"
             label="Enlem (Latitude)"
@@ -276,10 +284,10 @@ export const CampusFormContent: React.FC = () => {
             step="0.000001"
             placeholder="Enlem değerini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Boylam */}
-        <div className="col-6">
+        {/* <div className="col-4">
           <FormInput
             name="longitude"
             label="Boylam (Longitude)"
@@ -287,7 +295,7 @@ export const CampusFormContent: React.FC = () => {
             step="0.000001"
             placeholder="Boylam değerini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* GÖRSEL BİLGİLER */}
         <div className="col-12">
@@ -321,22 +329,22 @@ export const CampusFormContent: React.FC = () => {
         </div>
 
         {/* Logo URL - Opsiyonel olarak bırakıldı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="logoUrl"
             label="Logo URL (Manuel)"
             placeholder="Logo URL'sini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* Kapak Resmi URL - Opsiyonel olarak bırakıldı */}
-        <div className="col-6">
+        {/* <div className="col-6">
           <FormInput
             name="coverImageUrl"
             label="Kapak Resmi URL (Manuel)"
             placeholder="Kapak resmi URL'sini giriniz..."
           />
-        </div>
+        </div> */}
 
         {/* SOSYAL MEDYA */}
         <div className="col-12">

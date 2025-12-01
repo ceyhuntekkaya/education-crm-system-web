@@ -9,11 +9,7 @@ export const validationSchema = Yup.object({
   description: Yup.string().nullable().optional(),
   logoUrl: Yup.string().nullable().optional(),
   coverImageUrl: Yup.string().nullable().optional(),
-  websiteUrl: Yup.string()
-    .nullable()
-    .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .url("Geçerli bir URL giriniz")
-    .optional(),
+  websiteUrl: Yup.string().nullable().optional(),
   email: Yup.string()
     .nullable()
     .transform((value, originalValue) => (originalValue === "" ? null : value))
@@ -23,10 +19,10 @@ export const validationSchema = Yup.object({
   fax: Yup.string().nullable().optional(),
 
   // Address
-  countryId: Yup.string().nullable().optional(),
-  provinceId: Yup.string().nullable().optional(),
-  districtId: Yup.string().nullable().optional(),
-  neighborhoodId: Yup.string().nullable().optional(),
+  countryId: Yup.string().required("Ülke seçimi gereklidir"),
+  provinceId: Yup.string().required("İl seçimi gereklidir"),
+  districtId: Yup.string().required("İlçe seçimi gereklidir"),
+  neighborhoodId: Yup.string().required("Mahalle seçimi gereklidir"),
   addressLine1: Yup.string().nullable().optional(),
   addressLine2: Yup.string().nullable().optional(),
   postalCode: Yup.string().nullable().optional(),
@@ -46,31 +42,11 @@ export const validationSchema = Yup.object({
     .optional(),
 
   // Social Media
-  facebookUrl: Yup.string()
-    .nullable()
-    .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .url("Geçerli bir URL giriniz")
-    .optional(),
-  twitterUrl: Yup.string()
-    .nullable()
-    .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .url("Geçerli bir URL giriniz")
-    .optional(),
-  instagramUrl: Yup.string()
-    .nullable()
-    .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .url("Geçerli bir URL giriniz")
-    .optional(),
-  linkedinUrl: Yup.string()
-    .nullable()
-    .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .url("Geçerli bir URL giriniz")
-    .optional(),
-  youtubeUrl: Yup.string()
-    .nullable()
-    .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .url("Geçerli bir URL giriniz")
-    .optional(),
+  facebookUrl: Yup.string().nullable().optional(),
+  twitterUrl: Yup.string().nullable().optional(),
+  instagramUrl: Yup.string().nullable().optional(),
+  linkedinUrl: Yup.string().nullable().optional(),
+  youtubeUrl: Yup.string().nullable().optional(),
 
   // SEO
   metaTitle: Yup.string()
