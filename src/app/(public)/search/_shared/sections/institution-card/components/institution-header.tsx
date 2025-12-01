@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CustomImage } from "@/components";
 import { useInstitutionCardContext } from "../context";
 
 interface InstitutionHeaderProps {
@@ -22,22 +22,14 @@ export const InstitutionHeader = ({
           isLarge ? "rounded-16" : "rounded-12"
         } overflow-hidden flex-shrink-0 bg-neutral-50 border`}
       >
-        {institution.logoUrl ? (
-          <Image
-            src={institution.logoUrl}
-            alt={`${institution.name ?? "Institution"} Logo`}
-            width={logoSize}
-            height={logoSize}
-            className="object-cover"
-          />
-        ) : (
-          <div className="w-100 h-100 bg-main-50 d-flex align-items-center justify-content-center">
-            <i
-              className="ph ph-buildings text-main-400"
-              style={{ fontSize: isLarge ? "28px" : "16px" }}
-            ></i>
-          </div>
-        )}
+        <CustomImage
+          src={institution.logoUrl}
+          tempImage="https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg"
+          alt={`${institution.name ?? "Institution"} Logo`}
+          width={logoSize}
+          height={logoSize}
+          className="object-cover"
+        />
       </div>
       <div className="flex-grow-1">
         <h3

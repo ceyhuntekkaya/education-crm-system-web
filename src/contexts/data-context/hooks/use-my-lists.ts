@@ -10,20 +10,21 @@ import { useAuth } from "@/contexts";
 /**
  * Hook to fetch and transform parent school lists
  * Internal hook used by DataProvider
+ * @param enabled - Veri çekme işleminin yapılıp yapılmayacağını belirler
  */
-export const useMyLists = () => {
+export const useMyLists = (enabled: boolean = true) => {
   const { user } = useAuth();
 
-  // API isteği sadece user varsa yapılsın
+  // API isteği sadece user varsa ve enabled ise yapılsın
   const {
     data: response,
     loading,
     error,
     refetch,
   } = useGet<ApiResponseDto<ParentSchoolListResponse[]>>(
-    user ? API_ENDPOINTS.PARENT_SCHOOL_LISTS.GET_LISTS : null,
+    user && enabled ? API_ENDPOINTS.PARENT_SCHOOL_LISTS.GET_LISTS : null,
     {
-      enabled: !!user, // User yoksa API isteği atılmasın
+      enabled: !!user && enabled, // User yoksa veya enabled false ise API isteği atılmasın
     }
   );
 

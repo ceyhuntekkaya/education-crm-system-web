@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { Icon } from "@/components";
+import { CustomImage, Icon } from "@/components";
 import { useInstitutionCardContext } from "../context";
 
 interface HeroImageProps {
@@ -37,31 +36,13 @@ export const HeroImage = ({
       )}
 
       <div className="w-100 h-100 d-block">
-        {institution.coverImageUrl ? (
-          <Image
-            src={institution.coverImageUrl}
-            alt={institution.name ?? "Institution Cover"}
-            fill
-            className="scale-hover-item__img object-cover transition-3"
-          />
-        ) : (
-          <div className="w-100 h-100 bg-main-600 d-flex align-items-center justify-content-center position-relative scale-hover-item__img transition-3">
-            <div className="text-center text-white z-2">
-              <i
-                className="ph ph-graduation-cap mb-8"
-                style={{ fontSize: height === "280px" ? "64px" : "32px" }}
-              ></i>
-              <p
-                className={`fw-medium mb-0 ${
-                  height === "280px" ? "" : "text-sm"
-                }`}
-              >
-                Kurum Görseli
-              </p>
-            </div>
-            <div className="position-absolute inset-0 bg-gradient-to-br from-main-600 to-main-800 opacity-90"></div>
-          </div>
-        )}
+        <CustomImage
+          src={institution.coverImageUrl}
+          tempImage="https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg"
+          alt={institution.name ?? "Institution Cover"}
+          fill
+          className="scale-hover-item__img object-cover transition-3"
+        />
       </div>
 
       {/* Action Buttons */}

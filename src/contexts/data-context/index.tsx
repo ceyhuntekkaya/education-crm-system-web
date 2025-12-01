@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { DataContextType } from "./types";
 import {
   useAppointments,
@@ -12,9 +13,34 @@ import {
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
+// Public path'leri kontrol eden yardımcı fonksiyon
+const isPublicPath = (pathname: string): boolean => {
+  // Public path'ler: ana sayfa, arama, hakkımızda, randevular, anketler, listeler, mesajlar, vs.
+  const publicPaths = [
+    "/",
+    "/search",
+    "/about",
+    "/appointments",
+    "/surveys",
+    "/my-lists",
+    "/messages",
+    "/memberships",
+  ];
+
+  // Eğer pathname bu path'lerden biriyle başlıyorsa public'tir
+  return publicPaths.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`)
+  );
+};
+
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const pathname = usePathname();
+
+  // Sadece public path'lerde veri çek
+  const shouldFetchData = isPublicPath(pathname);
+
   // Lists data
   const {
     listMenuLinks,
@@ -22,7 +48,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     loading: listsLoading,
     error: listsError,
     refetch: refetchLists,
-  } = useMyLists();
+  } = useMyLists(shouldFetchData);
 
   // Favorite searches data
   const {
@@ -30,7 +56,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     loading: favoriteSearchesLoading,
     error: favoriteSearchesError,
     refetch: refetchFavoriteSearches,
-  } = useFavoriteSearches();
+  } = useFavoriteSearches(shouldFetchData);
 
   // Appointments data
   const {
@@ -38,7 +64,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     loading: appointmentsLoading,
     error: appointmentsError,
     refetch: refetchAppointments,
-  } = useAppointments();
+  } = useAppointments(shouldFetchData);
 
   // Surveys data
   const {
@@ -46,7 +72,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     loading: surveysLoading,
     error: surveysError,
     refetch: refetchSurveys,
-  } = useSurveys();
+  } = useSurveys(shouldFetchData);
 
   // Messages data
   const {
@@ -54,7 +80,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     loading: messagesLoading,
     error: messagesError,
     refetch: refetchMessages,
-  } = useMessages();
+  } = useMessages(shouldFetchData);
 
   // Calculate counts for badges
   const appointmentsCount = useMemo(() => {
