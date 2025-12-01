@@ -1,6 +1,49 @@
 /* ======================== Course List View Css Start ============================= */
-// Note: Main sidebar styles are in _sidebar.scss
-// This file should only contain course-list-view specific overrides if needed
 
+// Search/List pages sidebar styles
+// This overrides the dashboard sidebar styles for public pages
+.course-list-view {
+  .sidebar {
+    // Reset dashboard sidebar styles
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    z-index: auto !important;
+    border-right: none !important;
+    overflow: visible !important;
+    display: block !important;
+    flex-direction: unset !important;
+    
+    @include xl-screen {
+      padding: 24px !important;
+    }
+    
+    @include lg-screen {
+      padding: 16px !important;
+    }
+    
+    @include md-screen {
+      position: fixed !important;
+      inset-inline-start: 0;
+      top: 0;
+      z-index: 99;
+      width: 100%;
+      max-width: 348px;
+      border-radius: 0 !important;
+      border: 0 !important;
+      border-inline-end: 1px solid var(--neutral-30) !important;
+      transform: translateX(-100%);
+      transition: 0.2s linear;
+      overflow-y: auto;
+      height: 100vh;
+      
+      &.active {
+        transform: translateX(0%);
+      }
+    }
+  }
+}
 
 /* ======================== Course List View Css End ============================= */
