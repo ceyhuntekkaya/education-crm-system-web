@@ -385,16 +385,16 @@ export default function SchoolGeneralInfo() {
         <CustomCard
           title="Okul Bilgileri"
           items={institutionInfoItems}
-          editButtonUrl={
-            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          }
+          // editButtonUrl={
+          //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          // }
         />
       ) : (
         <CustomCard
           title="Okul Bilgileri"
-          editButtonUrl={
-            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          }
+          // editButtonUrl={
+          //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          // }
         >
           <p className="text-neutral-500">Okul bilgileri henüz mevcut değil.</p>
         </CustomCard>
