@@ -39,26 +39,24 @@ export const otherInfoConfig: OtherInfoItemConfig[] = [
   {
     label: "Yaş Aralığı",
     value: (pricing) => (
-      <span className="text-primary-600 fw-semibold">
-        {pricing?.ageRange || "Belirtilmemiş"}
-      </span>
+      <span className="text-primary-600 fw-semibold">{pricing?.ageRange}</span>
     ),
-    isShowing: (pricing) => !!pricing?.ageRange,
+    isShowing: (pricing) => {
+      // "1-80 yaş" gibi genel/varsayılan değerleri gösterme
+      const ageRange = pricing?.ageRange;
+      if (!ageRange) return false;
+      if (ageRange === "1-80 yaş" || ageRange === "0-100 yaş") return false;
+      return true;
+    },
   },
   {
     label: "Güncel Sürüm",
     value: (pricing) => (
-      <span
-        className={`badge ${
-          pricing?.isCurrent
-            ? "bg-success-subtle text-success"
-            : "bg-secondary-subtle text-secondary"
-        } fw-semibold`}
-      >
-        {pricing?.isCurrent ? "Evet" : "Hayır"}
+      <span className="badge bg-success-subtle text-success fw-semibold">
+        Evet
       </span>
     ),
-    isShowing: (pricing) => pricing?.isCurrent !== undefined,
+    isShowing: (pricing) => pricing?.isCurrent === true,
   },
   {
     label: "Sürüm",
@@ -67,6 +65,51 @@ export const otherInfoConfig: OtherInfoItemConfig[] = [
         v{pricing?.version || "1"}
       </span>
     ),
-    isShowing: (pricing) => !!pricing?.version,
+    isShowing: (pricing) => pricing?.version && pricing.version > 1,
+  },
+  {
+    label: "Oluşturan",
+    value: (pricing) => (
+      <span className="text-primary-600 fw-semibold d-flex align-items-center gap-4">
+        <i className="ph ph-user text-sm"></i>
+        {pricing?.createdByUserName}
+      </span>
+    ),
+    isShowing: (pricing) => !!pricing?.createdByUserName,
+  },
+  {
+    label: "Oluşturulma Tarihi",
+    value: (pricing) => (
+      <span className="text-secondary-600 fw-semibold">
+        {pricing?.createdAt
+          ? new Date(pricing?.createdAt).toLocaleDateString("tr-TR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : "Belirtilmemiş"}
+      </span>
+    ),
+    isShowing: (pricing) => !!pricing?.createdAt,
+  },
+  {
+    label: "Son Güncelleme",
+    value: (pricing) => (
+      <span className="text-secondary-600 fw-semibold">
+        {pricing?.updatedAt
+          ? new Date(pricing?.updatedAt).toLocaleDateString("tr-TR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : "Belirtilmemiş"}
+      </span>
+    ),
+    isShowing: (pricing) =>
+      !!pricing?.updatedAt && pricing?.updatedAt !== pricing?.createdAt,
   },
 ];

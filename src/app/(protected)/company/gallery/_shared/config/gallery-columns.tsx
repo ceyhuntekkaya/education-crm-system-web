@@ -6,8 +6,6 @@ import {
   getStatusBadgeVariant,
   getGalleryTypeDisplay,
   getVisibilityDisplay,
-  formatFileSize,
-  formatNumber,
 } from "../utils";
 import { Badge, Popover } from "@/components";
 
@@ -69,18 +67,31 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "title",
     headerName: "Başlık",
-    width: 280,
+    width: 220,
     renderCell: (params: any) => (
       <div className="fw-semibold text-truncate" title={params.row.title}>
         {params.row.title || "-"}
       </div>
     ),
   },
-
+  {
+    field: "description",
+    headerName: "Açıklama",
+    width: 200,
+    renderCell: (params: any) => {
+      const description = params.row.description;
+      if (!description) return <span className="text-muted">-</span>;
+      return (
+        <div className="text-truncate text-muted" title={description}>
+          {description}
+        </div>
+      );
+    },
+  },
   {
     field: "galleryType",
     headerName: "Tür",
-    width: 180,
+    width: 140,
     renderCell: (params: any) => (
       <div
         className="text-truncate fw-medium"
@@ -93,7 +104,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "visibility",
     headerName: "Görünürlük",
-    width: 220,
+    width: 140,
     renderCell: (params: any) => (
       <div
         className="text-truncate"
@@ -106,7 +117,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "isActive",
     headerName: "Durum",
-    width: 120,
+    width: 100,
     align: "center",
     renderCell: (params: any) => (
       <div className="d-flex justify-content-center align-items-center h-100">
@@ -116,69 +127,30 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
       </div>
     ),
   },
-
-  // Statistics Columns
+  // Item Count Column
   {
     field: "itemCount",
     headerName: "Öğe Sayısı",
-    width: 160,
-    align: "center",
-    renderCell: (params: any) => (
-      <div className="text-center">
-        <span className="fw-semibold text-primary">
-          {formatNumber(params.row.itemCount || 0)}
-        </span>
-      </div>
-    ),
-  },
-  {
-    field: "viewCount",
-    headerName: "Görüntülenme",
-    width: 190,
-    align: "center",
-    renderCell: (params: any) => (
-      <div className="text-center">
-        <span className="fw-semibold text-info">
-          {formatNumber(params.row.viewCount || 0)}
-        </span>
-      </div>
-    ),
-  },
-  {
-    field: "downloadCount",
-    headerName: "İndirme",
     width: 120,
     align: "center",
-    renderCell: (params: any) => (
-      <div className="text-center">
-        <span className="fw-semibold text-success">
-          {formatNumber(params.row.downloadCount || 0)}
-        </span>
-      </div>
-    ),
+    renderCell: (params: any) => {
+      const itemCount = params.row.itemCount || params.row.items?.length || 0;
+      return (
+        <div className="text-center">
+          <span className="fw-semibold text-primary">{itemCount}</span>
+        </div>
+      );
+    },
   },
+  // Featured Column
   {
-    field: "totalSizeBytes",
-    headerName: "Boyut",
-    width: 120,
+    field: "isFeatured",
+    headerName: "Öne Çıkan",
+    width: 100,
     align: "center",
     renderCell: (params: any) => (
-      <div className="text-center">
-        <span className="fw-semibold text-warning">
-          {formatFileSize(params.row.totalSizeBytes || 0)}
-        </span>
-      </div>
-    ),
-  },
-
-  // Additional Info Columns
-  {
-    field: "flags",
-    headerName: "Özellikler",
-    width: 150,
-    renderCell: (params: any) => (
-      <div className="d-flex justify-content-center gap-4">
-        {params.row.isFeatured && (
+      <div className="d-flex justify-content-center align-items-center h-100">
+        {params.row.isFeatured ? (
           <Popover
             content="Bu galeri öne çıkarılmıştır"
             placement="top"
@@ -188,56 +160,26 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
             <div className="cursor-pointer">
               <i
                 className="ph-fill ph-star text-warning"
-                style={{ fontSize: "14px" }}
+                style={{ fontSize: "18px" }}
               />
             </div>
           </Popover>
+        ) : (
+          <span className="text-muted">-</span>
         )}
-        {params.row.allowComments && (
-          <Popover
-            content="Yorum yapılabilir"
-            placement="top"
-            trigger="hover"
-            size="sm"
-          >
-            <div className="cursor-pointer">
-              <i
-                className="ph ph-chat-circle text-info"
-                style={{ fontSize: "14px" }}
-              />
-            </div>
-          </Popover>
-        )}
-        {params.row.allowDownloads && (
-          <Popover
-            content="İndirilebilir"
-            placement="top"
-            trigger="hover"
-            size="sm"
-          >
-            <div className="cursor-pointer">
-              <i
-                className="ph ph-download text-success"
-                style={{ fontSize: "14px" }}
-              />
-            </div>
-          </Popover>
-        )}
-        {!params.row.isFeatured &&
-          !params.row.allowComments &&
-          !params.row.allowDownloads && <span className="text-muted">-</span>}
       </div>
     ),
   },
+  // Created At Column
   {
     field: "createdAt",
     headerName: "Oluşturulma",
-    width: 180,
+    width: 160,
     align: "center",
     renderCell: (params: any) => (
       <div className="text-center">
-        <div className="fw-semibold" style={{ fontSize: "0.85rem" }}>
-          {formatDateTime(params.row.createdAt)}
+        <div className="fw-medium" style={{ fontSize: "0.85rem" }}>
+          {formatDate(params.row.createdAt)}
         </div>
       </div>
     ),

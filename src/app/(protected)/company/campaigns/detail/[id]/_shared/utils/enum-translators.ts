@@ -40,6 +40,11 @@ export const translateCampaignType = (campaignType?: string): string => {
     BACK_TO_SCHOOL: "Okula Dönüş",
     EARLY_BIRD: "Erken Kayıt",
     GROUP: "Grup İndirimi",
+    FREE_SERVICE: "Ücretsiz Hizmet",
+    FREE_TRIAL: "Ücretsiz Deneme",
+    BUNDLE: "Paket Kampanya",
+    SCHOLARSHIP: "Burs",
+    SIBLING: "Kardeş İndirimi",
   };
 
   return translations[campaignType] || campaignType;

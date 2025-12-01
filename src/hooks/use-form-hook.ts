@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useEffect, useRef } from "react";
 import { useForm } from "@/contexts";
 import { FormValues } from "@/types";
 
@@ -167,6 +167,26 @@ export const useFormHook = () => {
     [values, clearFields]
   );
 
+  // Bir field değiştiğinde başka field'ları sıfırla
+  const useResetFieldOnChange = (
+    watchField: string,
+    fieldsToReset: string | string[]
+  ) => {
+    const watchValue = values[watchField];
+    const prevValueRef = useRef(watchValue);
+
+    useEffect(() => {
+      if (prevValueRef.current !== watchValue) {
+        prevValueRef.current = watchValue;
+        const fields = Array.isArray(fieldsToReset)
+          ? fieldsToReset
+          : [fieldsToReset];
+        fields.forEach((field) => setValue(field, ""));
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watchValue]);
+  };
+
   return {
     // Form state
     values,
@@ -199,5 +219,8 @@ export const useFormHook = () => {
     hasErrors,
     isDirty,
     areFieldsDirty,
+
+    // Field dependency
+    useResetFieldOnChange,
   };
 };

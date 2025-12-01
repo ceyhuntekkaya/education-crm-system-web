@@ -5,10 +5,14 @@ import { useFormHook } from "@/hooks";
 
 export const InstitutionTypesSection = () => {
   const { options } = useSearchContext();
-  const { values } = useFormHook();
+  const { values, useResetFieldOnChange } = useFormHook();
 
   // Seçili grup kontrolü
   const selectedGroupId = values.institutionGroupId;
+
+  // Kurum kategorisi değiştiğinde kurum tipini sıfırla
+  useResetFieldOnChange("institutionGroupId", "institutionTypeId");
+
   const isGroupSelected = selectedGroupId && selectedGroupId !== "";
 
   // Seçili gruba göre kurum türlerini filtrele

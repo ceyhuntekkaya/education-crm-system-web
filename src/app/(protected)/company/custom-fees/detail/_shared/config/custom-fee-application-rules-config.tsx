@@ -47,27 +47,4 @@ export const customFeeApplicationRulesConfig: CustomFeeConfigItem[] = [
     isShowing: (customFee) =>
       customFee?.appliesToExistingStudents !== undefined,
   },
-  {
-    label: "Uygulanacak Sınıflar",
-    value: (customFee) => (
-      <span className="text-neutral-700">
-        {customFee?.appliesToGrades || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (customFee) => !!customFee?.appliesToGrades,
-  },
-  {
-    label: "Yaş Aralığı",
-    value: (customFee) => (
-      <span className="text-neutral-700">
-        <i className="ph ph-user me-2"></i>
-        {customFee?.minimumAge && customFee?.maximumAge
-          ? `${customFee.minimumAge} - ${customFee.maximumAge} yaş`
-          : "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (customFee) =>
-      customFee?.minimumAge !== undefined &&
-      customFee?.maximumAge !== undefined,
-  },
 ];

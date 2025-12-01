@@ -1,7 +1,6 @@
 import React from "react";
 import { CampaignDto } from "@/types";
 import { formatDate } from "@/utils/format-date";
-import { CustomImage } from "@/components/ui";
 
 // Kampanya türü çeviri fonksiyonu
 const getCampaignTypeDisplay = (type?: string): string => {
@@ -11,12 +10,44 @@ const getCampaignTypeDisplay = (type?: string): string => {
       return "İndirim Kampanyası";
     case "FREE_TRIAL":
       return "Ücretsiz Deneme";
+    case "FREE_SERVICE":
+      return "Ücretsiz Hizmet";
     case "BONUS":
       return "Bonus Kampanyası";
+    case "BONUS_FEATURE":
+      return "Bonus Özellik";
     case "EARLY_BIRD":
       return "Erken Kayıt";
     case "REFERRAL":
       return "Referans Kampanyası";
+    case "REFERRAL_BONUS":
+      return "Tavsiye Bonusu";
+    case "SCHOLARSHIP":
+      return "Burs";
+    case "SIBLING_DISCOUNT":
+      return "Kardeş İndirimi";
+    case "LOYALTY_REWARD":
+      return "Sadakat Ödülü";
+    case "NEW_STUDENT":
+      return "Yeni Öğrenci";
+    case "SEASONAL":
+      return "Mevsimlik";
+    case "FLASH_SALE":
+      return "Flaş İndirim";
+    case "BUNDLE_DEAL":
+      return "Paket Anlaşma";
+    case "LIMITED_TIME":
+      return "Sınırlı Süre";
+    case "SPECIAL_EVENT":
+      return "Özel Etkinlik";
+    case "SUMMER_SCHOOL":
+      return "Yaz Okulu";
+    case "WINTER_CAMP":
+      return "Kış Kampı";
+    case "INSTALLMENT":
+      return "Taksit";
+    case "OTHER":
+      return "Diğer";
     default:
       return type;
   }

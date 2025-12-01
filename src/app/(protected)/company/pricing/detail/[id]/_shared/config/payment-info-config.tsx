@@ -68,4 +68,14 @@ export const paymentInfoConfig: PaymentInfoItemConfig[] = [
     ),
     isShowing: (pricing) => (pricing?.downPaymentAmount || 0) > 0,
   },
+  {
+    label: "Geç Ödeme Ceza Oranı",
+    value: (pricing) => (
+      <span className="text-danger-600 fw-semibold d-flex align-items-center gap-4">
+        <i className="ph ph-warning text-sm"></i>%
+        {pricing?.latePaymentPenaltyPercentage || 0}
+      </span>
+    ),
+    isShowing: (pricing) => (pricing?.latePaymentPenaltyPercentage || 0) > 0,
+  },
 ];

@@ -46,19 +46,19 @@ export const discountConfig: DiscountItemConfig[] = [
     value: (pricing) => (
       <span className="text-info-600 fw-semibold d-flex align-items-center gap-4">
         <i className="ph ph-hand-heart text-sm"></i>
-        {pricing?.needBasedAidAvailable ? "Mevcut" : "Mevcut Değil"}
+        Mevcut
       </span>
     ),
-    isShowing: (pricing) => pricing?.needBasedAidAvailable !== undefined,
+    isShowing: (pricing) => pricing?.needBasedAidAvailable === true,
   },
   {
     label: "Başarı Temelli Yardım",
     value: (pricing) => (
       <span className="text-info-600 fw-semibold d-flex align-items-center gap-4">
         <i className="ph ph-trophy text-sm"></i>
-        {pricing?.meritBasedAidAvailable ? "Mevcut" : "Mevcut Değil"}
+        Mevcut
       </span>
     ),
-    isShowing: (pricing) => pricing?.meritBasedAidAvailable !== undefined,
+    isShowing: (pricing) => pricing?.meritBasedAidAvailable === true,
   },
 ];

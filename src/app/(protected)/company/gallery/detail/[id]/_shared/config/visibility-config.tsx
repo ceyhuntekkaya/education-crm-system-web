@@ -1,6 +1,6 @@
 import React from "react";
 import type { VisibilityItemConfig } from "../types";
-import { translateVisibility, formatBoolean } from "../utils";
+import { translateVisibility } from "../utils";
 
 /**
  * Görünürlük ve erişim konfigürasyonu
@@ -36,46 +36,6 @@ export const visibilityConfig: VisibilityItemConfig[] = [
       );
     },
     isShowing: (gallery) => !!gallery?.visibility,
-  },
-  {
-    label: "Yorum İzni",
-    value: (gallery) => (
-      <span
-        className={`badge fw-semibold ${
-          gallery?.allowComments
-            ? "bg-success-subtle text-success"
-            : "bg-danger-subtle text-danger"
-        }`}
-      >
-        <i
-          className={`ph ${
-            gallery?.allowComments ? "ph-chat-circle" : "ph-chat-circle-slash"
-          } me-1`}
-        ></i>
-        {formatBoolean(gallery?.allowComments)}
-      </span>
-    ),
-    isShowing: (gallery) => gallery?.allowComments !== undefined,
-  },
-  {
-    label: "İndirme İzni",
-    value: (gallery) => (
-      <span
-        className={`badge fw-semibold ${
-          gallery?.allowDownloads
-            ? "bg-success-subtle text-success"
-            : "bg-danger-subtle text-danger"
-        }`}
-      >
-        <i
-          className={`ph ${
-            gallery?.allowDownloads ? "ph-download" : "ph-download-slash"
-          } me-1`}
-        ></i>
-        {formatBoolean(gallery?.allowDownloads)}
-      </span>
-    ),
-    isShowing: (gallery) => gallery?.allowDownloads !== undefined,
   },
   {
     label: "Galeri Durumu",

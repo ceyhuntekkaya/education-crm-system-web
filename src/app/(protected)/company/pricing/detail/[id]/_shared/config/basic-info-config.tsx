@@ -17,20 +17,20 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "Akademik Yıl",
     value: (pricing) => (
-      <span className="text-info-600 fw-semibold">
-        {pricing?.academicYear || "Belirtilmemiş"}
-      </span>
+      <span className="text-info-600 fw-semibold">{pricing?.academicYear}</span>
     ),
-    isShowing: () => true,
+    isShowing: (pricing) =>
+      !!pricing?.academicYear && pricing?.academicYear !== "-",
   },
   {
     label: "Sınıf Seviyesi",
     value: (pricing) => (
       <span className="text-warning-600 fw-semibold">
-        {pricing?.gradeLevel || "Belirtilmemiş"}
+        {pricing?.gradeLevel}
       </span>
     ),
-    isShowing: () => true,
+    isShowing: (pricing) =>
+      !!pricing?.gradeLevel && pricing?.gradeLevel.trim() !== "",
   },
   {
     label: "Sınıf Düzeyi",

@@ -1,6 +1,5 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { CustomFeeDto } from "@/types/dto/pricing/CustomFeeDto";
-import { formatDate } from "@/utils";
 import {
   getStatusBadgeVariant,
   getStatusDisplay,
@@ -9,7 +8,7 @@ import {
   getFeeTypeBadgeVariant,
   getBillingPeriodDisplay,
 } from "../../utils";
-import { Badge } from "@/components";
+import { Badge, Popover } from "@/components";
 
 // Column render helper functions
 const renderFeeType = (params: any) => {
@@ -43,17 +42,33 @@ const renderCurrentStatus = (params: any) => {
   return (
     <div className="d-flex justify-content-center">
       {isActive ? (
-        <i
-          className="ph-bold ph-check-circle text-success"
-          style={{ fontSize: "18px" }}
-          title="Aktif"
-        ></i>
+        <Popover
+          content="Aktif ücret"
+          placement="top"
+          trigger="hover"
+          size="sm"
+        >
+          <div className="cursor-pointer">
+            <i
+              className="ph-bold ph-check-circle text-success"
+              style={{ fontSize: "18px" }}
+            />
+          </div>
+        </Popover>
       ) : (
-        <i
-          className="ph ph-x-circle text-muted"
-          style={{ fontSize: "18px" }}
-          title="Pasif"
-        ></i>
+        <Popover
+          content="Pasif ücret"
+          placement="top"
+          trigger="hover"
+          size="sm"
+        >
+          <div className="cursor-pointer">
+            <i
+              className="ph ph-x-circle text-muted"
+              style={{ fontSize: "18px" }}
+            />
+          </div>
+        </Popover>
       )}
     </div>
   );
@@ -73,7 +88,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "feeName",
     headerName: "Ücret Adı",
-    width: 180,
+    width: 200,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
@@ -98,7 +113,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "feeType",
     headerName: "Tür",
-    width: 110,
+    width: 130,
     renderCell: renderFeeType,
   },
 
@@ -122,7 +137,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   // Frequency - Türkçe karşılık kullan
   {
     field: "feeFrequency",
-    headerName: "Dönem",
+    headerName: "Sıklık",
     width: 100,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
@@ -134,59 +149,44 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
     },
   },
 
-  // Applicability - API'dan applicabilityDescription kullan
-  // {
-  //   field: "applicabilityDescription",
-  //   headerName: "Uygulanma",
-  //   width: 200,
-  //   renderCell: (params: any) => {
-  //     if (!params || !params.row) return <div>-</div>;
-  //     return (
-  //       <div
-  //         className="text-truncate"
-  //         title={params.row.applicabilityDescription}
-  //       >
-  //         {params.row.applicabilityDescription || "-"}
-  //       </div>
-  //     );
-  //   },
-  // },
-
   // Mandatory
   {
     field: "isMandatory",
     headerName: "Zorunlu",
-    width: 140,
+    width: 130,
+    align: "center",
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
         <div className="d-flex justify-content-center">
           {params.row.isMandatory ? (
-            <i className="ph-bold ph-check text-success" title="Zorunlu" />
+            <Popover
+              content="Zorunlu ücret"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <div className="cursor-pointer">
+                <i
+                  className="ph-bold ph-check text-success"
+                  style={{ fontSize: "14px" }}
+                />
+              </div>
+            </Popover>
           ) : (
-            <i className="ph-bold ph-x text-muted" title="İsteğe Bağlı" />
-          )}
-        </div>
-      );
-    },
-  },
-
-  // Refundable
-  {
-    field: "isRefundable",
-    headerName: "İade",
-    width: 100,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      return (
-        <div className="d-flex justify-content-center">
-          {params.row.isRefundable ? (
-            <i
-              className="ph-bold ph-check text-success"
-              title="İade Edilebilir"
-            />
-          ) : (
-            <i className="ph-bold ph-x text-muted" title="İade Edilemez" />
+            <Popover
+              content="İsteğe bağlı ücret"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <div className="cursor-pointer">
+                <i
+                  className="ph-bold ph-x text-muted"
+                  style={{ fontSize: "14px" }}
+                />
+              </div>
+            </Popover>
           )}
         </div>
       );
@@ -197,7 +197,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "installmentAllowed",
     headerName: "Taksit",
-    width: 140,
+    width: 120,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       if (params.row.installmentAllowed) {
@@ -209,20 +209,55 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
     },
   },
 
-  // Late Fee Percentage
+  // Discount & Scholarship - Combined column
   {
-    field: "lateFeePercentage",
-    headerName: "Gecikme",
-    width: 130,
+    field: "discountEligible",
+    headerName: "İndirim/Burs",
+    width: 170,
+    align: "center",
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
-      const lateFee = params.row.lateFeePercentage;
-      if (lateFee && lateFee > 0) {
-        return (
-          <div className="fw-medium text-warning">%{lateFee.toFixed(1)}</div>
-        );
+      const hasDiscount = params.row.discountEligible;
+      const hasScholarship = params.row.scholarshipApplicable;
+
+      if (!hasDiscount && !hasScholarship) {
+        return <span className="text-muted">-</span>;
       }
-      return <span className="text-muted">-</span>;
+
+      return (
+        <div className="d-flex gap-3 justify-content-center">
+          {hasDiscount && (
+            <Popover
+              content="İndirim uygulanabilir"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <div className="cursor-pointer">
+                <i
+                  className="ph-bold ph-percent text-info"
+                  style={{ fontSize: "14px" }}
+                />
+              </div>
+            </Popover>
+          )}
+          {hasScholarship && (
+            <Popover
+              content="Burs uygulanabilir"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <div className="cursor-pointer">
+                <i
+                  className="ph-bold ph-graduation-cap text-primary"
+                  style={{ fontSize: "14px" }}
+                />
+              </div>
+            </Popover>
+          )}
+        </div>
+      );
     },
   },
 
@@ -232,42 +267,5 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
     headerName: "Durum",
     width: 120,
     renderCell: renderFeeStatus,
-  },
-
-  // Description
-  {
-    field: "feeDescription",
-    headerName: "Açıklama",
-    width: 180,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      const description = params.row.feeDescription;
-      if (!description) return <div className="text-muted">-</div>;
-
-      return (
-        <div
-          className="text-truncate"
-          title={description}
-          style={{ maxWidth: "160px" }}
-        >
-          {description}
-        </div>
-      );
-    },
-  },
-
-  // Created At
-  {
-    field: "createdAt",
-    headerName: "Oluşturma",
-    width: 160,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      return (
-        <div className="text-muted">
-          {params.row.createdAt ? formatDate(params.row.createdAt) : "-"}
-        </div>
-      );
-    },
   },
 ];

@@ -1,6 +1,7 @@
 import React from "react";
 import CustomImage from "@/components/ui/custom-image";
 import type { BasicInfoItemConfig } from "../types";
+import { formatPhoneNumber } from "@/utils";
 
 /**
  * Oluşturan kullanıcı konfigürasyonu
@@ -48,10 +49,13 @@ export const creatorInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "Telefon Numarası",
     value: (gallery) => (
-      <span className="badge bg-secondary-subtle text-secondary fw-semibold">
+      <a
+        href={`tel:${gallery?.createdByUser?.phone}`}
+        className="badge bg-secondary-subtle text-secondary fw-semibold text-decoration-none"
+      >
         <i className="ph ph-phone me-1"></i>
-        {gallery?.createdByUser?.phone || "Belirtilmemiş"}
-      </span>
+        {formatPhoneNumber(gallery?.createdByUser?.phone) || "Belirtilmemiş"}
+      </a>
     ),
     isShowing: (gallery) => !!gallery?.createdByUser?.phone,
   },

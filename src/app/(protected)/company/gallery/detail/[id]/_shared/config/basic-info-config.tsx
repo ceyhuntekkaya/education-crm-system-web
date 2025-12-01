@@ -5,7 +5,6 @@ import {
   translateVisibility,
   formatBoolean,
 } from "../utils";
-import { formatNumber } from "@/utils/format-number";
 
 /**
  * Temel bilgiler konfigürasyonu
@@ -54,16 +53,6 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     isShowing: (gallery) => !!gallery?.visibility,
   },
   {
-    label: "Galeri Slug",
-    value: (gallery) => (
-      <span className="badge bg-primary-subtle text-primary fw-semibold font-monospace">
-        <i className="ph ph-link-simple me-1"></i>
-        {gallery?.slug || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (gallery) => !!gallery?.slug,
-  },
-  {
     label: "Açıklama",
     value: (gallery) => (
       <p className="mb-0 text-neutral-700">
@@ -91,55 +80,5 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
       </span>
     ),
     isShowing: (gallery) => gallery?.isFeatured !== undefined,
-  },
-  {
-    label: "Yorumlara İzin Ver",
-    value: (gallery) => (
-      <span
-        className={`badge ${
-          gallery?.allowComments
-            ? "bg-success-subtle text-success"
-            : "bg-danger-subtle text-danger"
-        } fw-semibold`}
-      >
-        <i
-          className={`ph ${
-            gallery?.allowComments ? "ph-chat-circle" : "ph-chat-circle-slash"
-          } me-1`}
-        ></i>
-        {formatBoolean(gallery?.allowComments)}
-      </span>
-    ),
-    isShowing: (gallery) => gallery?.allowComments !== undefined,
-  },
-  {
-    label: "İndirmeye İzin Ver",
-    value: (gallery) => (
-      <span
-        className={`badge ${
-          gallery?.allowDownloads
-            ? "bg-success-subtle text-success"
-            : "bg-danger-subtle text-danger"
-        } fw-semibold`}
-      >
-        <i
-          className={`ph ${
-            gallery?.allowDownloads ? "ph-download" : "ph-download-slash"
-          } me-1`}
-        ></i>
-        {formatBoolean(gallery?.allowDownloads)}
-      </span>
-    ),
-    isShowing: (gallery) => gallery?.allowDownloads !== undefined,
-  },
-  {
-    label: "Sıralama",
-    value: (gallery) => (
-      <span className="badge bg-info-subtle text-info fw-semibold">
-        <i className="ph ph-sort-ascending me-1"></i>
-        {gallery?.sortOrder || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (gallery) => gallery?.sortOrder !== undefined,
   },
 ];

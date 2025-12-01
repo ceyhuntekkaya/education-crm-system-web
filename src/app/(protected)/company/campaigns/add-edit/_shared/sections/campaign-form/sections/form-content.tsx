@@ -130,6 +130,12 @@ export const CampaignFormContent: React.FC = () => {
         {/* İNDİRİM BİLGİLERİ */}
         <div className="col-12">
           <h5 className="mb-16">İndirim Bilgileri</h5>
+          <p className="text-neutral-60 text-sm mb-16">
+            <i className="ph ph-info me-8"></i>
+            İndirim miktarı (TL) veya indirim yüzdesi (%) alanlarından birini ya
+            da her ikisini birden doldurabilirsiniz. Sabit tutar indirimi için
+            miktar alanını, yüzdelik indirim için yüzde alanını kullanınız.
+          </p>
         </div>
 
         {/* İndirim Miktarı */}
