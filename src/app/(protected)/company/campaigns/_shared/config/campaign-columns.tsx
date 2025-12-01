@@ -121,29 +121,42 @@ export const createCampaignColumns = (): GridColDef<
 
   // Campaign Details Columns
   {
-    field: "displayDiscount",
-    headerName: "İndirim",
-    width: 130,
+    field: "discountAmount",
+    headerName: "İndirim Miktarı",
+    width: 200,
     align: "center",
     renderCell: (params: any) => {
-      const { displayDiscount, formattedDiscountAmount } = params.row;
-      const discountInfo = getCampaignDiscountInfo(params.row);
-
-      // displayDiscount veya formattedDiscountAmount varsa göster
-      const displayText =
-        discountInfo.showDiscount && discountInfo.text !== "-"
-          ? discountInfo.text
-          : displayDiscount || formattedDiscountAmount;
-
-      if (!displayText || displayText === "-") {
+      const amount = params.row.discountAmount;
+      if (!amount || amount === 0) {
         return <span className="text-muted">-</span>;
       }
-
       return (
         <div className="text-center">
-          <span className={`fw-semibold ${discountInfo.colorClass}`}>
-            {displayText}
+          <span className="fw-semibold text-success">
+            {new Intl.NumberFormat("tr-TR", {
+              style: "currency",
+              currency: "TRY",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            }).format(amount)}
           </span>
+        </div>
+      );
+    },
+  },
+  {
+    field: "discountPercentage",
+    headerName: "İndirim Yüzdesi",
+    width: 200,
+    align: "center",
+    renderCell: (params: any) => {
+      const percentage = params.row.discountPercentage;
+      if (!percentage || percentage === 0) {
+        return <span className="text-muted">-</span>;
+      }
+      return (
+        <div className="text-center">
+          <span className="fw-semibold text-primary">%{percentage}</span>
         </div>
       );
     },
