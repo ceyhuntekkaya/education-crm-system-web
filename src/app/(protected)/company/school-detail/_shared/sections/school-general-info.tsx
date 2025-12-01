@@ -250,10 +250,19 @@ export default function SchoolGeneralInfo() {
     {
       label: "Konum",
       value: (
-        <div className="d-flex flex-column gap-4">
-          <span className="text-sm text-neutral-500">
-            {campus?.district?.name} / {campus?.province?.name}
-          </span>
+        <div className="d-flex flex-wrap align-items-center gap-8">
+          {campus?.district?.name && (
+            <span className="badge bg-neutral-50 text-neutral-600 px-8 py-4">
+              <i className="ph ph-buildings me-4"></i>
+              {campus.district.name}
+            </span>
+          )}
+          {campus?.province?.name && (
+            <span className="badge bg-neutral-50 text-neutral-600 px-8 py-4">
+              <i className="ph ph-map-pin me-4"></i>
+              {campus.province.name}
+            </span>
+          )}
         </div>
       ),
       isShowing: campus?.district?.name || campus?.province?.name,
