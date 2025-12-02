@@ -1,7 +1,7 @@
 // Compact Gallery Detail Modal Styles
 .gallery-detail-modal {
   position: relative;
-  max-height: 85vh;
+  max-height: 90vh;
   max-width: 1300px;
   margin: 0 auto;
   overflow: hidden;
@@ -50,25 +50,30 @@
     .gallery-viewer-column {
       display: flex;
       flex-direction: column;
-      // gap: 8px;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 0 4px 36px 0;
-      max-height: 85vh;
+      padding: 0 8px 24px 0;
+      max-height: 75vh;
       scrollbar-width: thin;
       scrollbar-color: var(--primary-300) transparent;
+      scroll-behavior: smooth;
       
       &::-webkit-scrollbar {
-        width: 4px;
+        width: 6px;
       }
 
       &::-webkit-scrollbar-track {
-        background: transparent;
+        background: var(--neutral-100);
+        border-radius: 3px;
       }
 
       &::-webkit-scrollbar-thumb {
         background: var(--primary-300);
-        border-radius: 2px;
+        border-radius: 3px;
+        
+        &:hover {
+          background: var(--primary-400);
+        }
       }
 
       .gallery-main-viewer {
@@ -77,11 +82,12 @@
         background: var(--neutral-50);
         border-radius: 12px;
         overflow: hidden;
+        min-height: 400px;
 
         .main-image-container {
           position: relative;
           width: 100%;
-          height: 100%;
+          min-height: 400px;
 
           .main-image {
             border-radius: 12px;
@@ -146,57 +152,70 @@
         flex: 0 0 auto;
         height: auto;
         overflow: visible;
-        margin-top: 8px;
-        margin-bottom: 24px;
-        padding: 12px 0;
+        margin-top: 12px;
+        margin-bottom: 16px;
+        padding: 8px 0;
+        position: sticky;
+        bottom: 0;
+        background: white;
+        z-index: 10;
 
         .thumbnail-container {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
           height: auto;
           max-height: none;
           overflow-x: auto;
           overflow-y: hidden;
-          padding: 8px 8px;
+          padding: 8px 4px;
           scrollbar-width: thin;
           scrollbar-color: var(--primary-300) transparent;
+          scroll-behavior: smooth;
 
           &::-webkit-scrollbar {
-            height: 4px;
+            height: 6px;
           }
 
           &::-webkit-scrollbar-track {
-            background: transparent;
+            background: var(--neutral-100);
+            border-radius: 3px;
           }
 
           &::-webkit-scrollbar-thumb {
             background: var(--primary-300);
-            border-radius: 2px;
+            border-radius: 3px;
+            
+            &:hover {
+              background: var(--primary-400);
+            }
           }
 
           .thumbnail-item {
             position: relative;
-            width: 100px;
-            height: 85px;
+            width: 90px;
+            height: 70px;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             flex-shrink: 0;
-            border: 2px solid transparent;
+            border: 3px solid transparent;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--neutral-100);
 
             &:hover {
               border-color: var(--primary-300);
-              transform: scale(1.05);
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             }
 
             &.active {
               border-color: var(--primary-500);
-              transform: scale(1.1);
-              box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+              transform: translateY(-4px) scale(1.02);
+              box-shadow: 
+                0 6px 20px rgba(var(--primary-500-rgb), 0.3),
+                0 0 0 3px rgba(var(--primary-500-rgb), 0.1);
 
               .thumbnail-video {
                 .video-placeholder {
@@ -484,17 +503,18 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
-    padding: 40px;
+    height: 450px;
+    padding: 24px;
     background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+    border-radius: 12px;
 
     .document-preview-card {
       background: white;
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 500px;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 380px;
       width: 100%;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -505,50 +525,50 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
+        height: 3px;
         background: linear-gradient(90deg, var(--primary-500), var(--primary-600), var(--primary-700));
       }
 
       .document-header {
-        margin-bottom: 24px;
+        margin-bottom: 16px;
 
         .file-type-badge {
           display: inline-block;
           background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
           color: white;
-          padding: 8px 20px;
-          border-radius: 20px;
-          font-size: 13px;
+          padding: 6px 16px;
+          border-radius: 16px;
+          font-size: 12px;
           font-weight: 700;
           letter-spacing: 1px;
-          box-shadow: 0 4px 12px rgba(var(--primary-500-rgb), 0.3);
+          box-shadow: 0 3px 10px rgba(var(--primary-500-rgb), 0.3);
         }
       }
 
       .document-icon-wrapper {
-        margin-bottom: 24px;
+        margin-bottom: 16px;
 
         .document-icon-circle {
-          width: 120px;
-          height: 120px;
+          width: 80px;
+          height: 80px;
           margin: 0 auto;
           background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 8px 24px rgba(var(--primary-500-rgb), 0.15);
+          box-shadow: 0 6px 20px rgba(var(--primary-500-rgb), 0.15);
           transition: all 0.3s ease;
 
           i {
-            font-size: 56px;
+            font-size: 36px;
             color: var(--primary-600);
             transition: all 0.3s ease;
           }
 
           &:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 32px rgba(var(--primary-500-rgb), 0.25);
+            box-shadow: 0 8px 24px rgba(var(--primary-500-rgb), 0.25);
 
             i {
               transform: scale(1.1);
@@ -559,34 +579,37 @@
 
       .document-details {
         .document-title {
-          font-size: 18px;
+          font-size: 15px;
           font-weight: 600;
           color: var(--neutral-800);
-          margin-bottom: 16px;
+          margin-bottom: 12px;
           word-break: break-word;
           line-height: 1.4;
+          max-height: 40px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .document-meta {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 20px;
-          margin-bottom: 24px;
+          gap: 12px;
+          margin-bottom: 16px;
           flex-wrap: wrap;
 
           .meta-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             color: var(--neutral-600);
-            font-size: 13px;
+            font-size: 12px;
             background: var(--neutral-50);
-            padding: 6px 14px;
-            border-radius: 12px;
+            padding: 4px 10px;
+            border-radius: 10px;
 
             i {
-              font-size: 16px;
+              font-size: 14px;
               color: var(--primary-500);
             }
 
@@ -599,18 +622,18 @@
         .document-button-wrapper {
           display: flex;
           justify-content: center;
-          margin-top: 20px;
+          margin-top: 12px;
 
           .document-download-btn {
-            max-width: 280px;
-            padding: 12px 24px;
+            max-width: 220px;
+            padding: 10px 20px;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(var(--primary-500-rgb), 0.2);
+            box-shadow: 0 3px 10px rgba(var(--primary-500-rgb), 0.2);
             transition: all 0.3s ease;
 
             &:hover {
               transform: translateY(-2px);
-              box-shadow: 0 6px 20px rgba(var(--primary-500-rgb), 0.3);
+              box-shadow: 0 5px 16px rgba(var(--primary-500-rgb), 0.3);
             }
 
             &:active {
@@ -618,11 +641,11 @@
             }
 
             i {
-              font-size: 18px;
+              font-size: 16px;
             }
 
             span {
-              font-size: 15px;
+              font-size: 14px;
             }
           }
         }
@@ -636,15 +659,17 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 450px;
     position: relative;
     background: var(--neutral-50);
     border-radius: 12px;
     overflow: hidden;
-    min-height: 500px;
 
     .main-image {
       border-radius: 12px;
+      object-fit: contain !important;
+      max-width: 100%;
+      max-height: 100%;
     }
   }
 
@@ -654,7 +679,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 450px;
     background: var(--neutral-900);
     border-radius: 12px;
     overflow: hidden;
@@ -813,8 +838,12 @@
   .gallery-detail-modal {
     .gallery-modal-grid {
       grid-template-columns: 1fr 1fr;
-      height: 75vh;
+      max-height: 80vh;
       gap: 20px;
+      
+      .gallery-viewer-column {
+        max-height: 75vh;
+      }
     }
   }
 }
@@ -825,16 +854,22 @@
 
     .gallery-modal-grid {
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr auto;
-      height: 90vh;
+      grid-template-rows: auto auto;
+      max-height: 90vh;
       gap: 16px;
+      overflow-y: auto;
 
       .gallery-viewer-column {
-        padding: 16px;
-        overflow-y: auto;
+        padding: 12px;
+        overflow-y: visible;
+        max-height: none;
         
         .gallery-main-viewer {
+          min-height: 280px;
+          
           .main-image-container {
+            min-height: 280px;
+            
             .nav-button {
               width: 36px;
               height: 36px;
@@ -860,8 +895,15 @@
             }
           }
         }
+        
+        .image-container {
+          min-height: 280px;
+          max-height: 400px;
+        }
 
         .video-container {
+          min-height: 250px;
+          
           .video-player {
             width: 100%;
             height: auto;
@@ -870,6 +912,7 @@
 
         .document-viewer {
           padding: 20px;
+          min-height: 300px;
 
           .document-preview-card {
             padding: 24px 20px;
@@ -919,15 +962,18 @@
         }
 
         .thumbnail-strip {
-          height: 80px;
-          margin-top: 8px;
+          position: relative;
+          height: auto;
+          margin-top: 12px;
+          padding: 8px 0;
+          background: white;
 
           .thumbnail-container {
-            padding: 6px 0;
+            padding: 4px 0;
             
             .thumbnail-item {
-              width: 70px;
-              height: 55px;
+              width: 65px;
+              height: 50px;
             }
           }
         }
@@ -935,7 +981,8 @@
 
       .gallery-info-column {
         padding: 16px;
-        max-height: 300px;
+        max-height: none;
+        overflow-y: visible;
 
         .gallery-header {
           margin-bottom: 16px;
@@ -951,7 +998,7 @@
         }
 
         .gallery-stats-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 1fr;
           gap: 8px;
           margin-bottom: 16px;
 

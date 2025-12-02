@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { CustomImage } from "@/components/ui";
 import { getFileServeUrl } from "@/lib/api/constants";
 
@@ -40,11 +40,56 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
   onIndexChange,
 }) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(initialIndex);
+  const mainViewerRef = useRef<HTMLDivElement>(null);
+  const thumbnailContainerRef = useRef<HTMLDivElement>(null);
+  const thumbnailRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const handleIndexChange = (index: number) => {
-    setCurrentItemIndex(index);
-    onIndexChange?.(index);
-  };
+  // Thumbnail'ı görünür alana scroll et
+  const scrollThumbnailIntoView = useCallback((index: number) => {
+    const thumbnailElement = thumbnailRefs.current[index];
+    const container = thumbnailContainerRef.current;
+
+    if (thumbnailElement && container) {
+      const containerRect = container.getBoundingClientRect();
+      const thumbnailRect = thumbnailElement.getBoundingClientRect();
+
+      // Thumbnail container'ın sol ve sağ kenarlarına göre kontrol
+      const isOutOfViewLeft = thumbnailRect.left < containerRect.left;
+      const isOutOfViewRight = thumbnailRect.right > containerRect.right;
+
+      if (isOutOfViewLeft || isOutOfViewRight) {
+        thumbnailElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
+      }
+    }
+  }, []);
+
+  // Ana viewer'ı başa scroll et
+  const scrollMainViewerToTop = useCallback(() => {
+    if (mainViewerRef.current) {
+      mainViewerRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  const handleIndexChange = useCallback(
+    (index: number) => {
+      setCurrentItemIndex(index);
+      onIndexChange?.(index);
+
+      // Scroll işlemleri
+      setTimeout(() => {
+        scrollMainViewerToTop();
+        scrollThumbnailIntoView(index);
+      }, 50);
+    },
+    [onIndexChange, scrollMainViewerToTop, scrollThumbnailIntoView]
+  );
 
   // URL helper - eğer tam URL değilse serve prefix ekle
   const getFullUrl = (url: string | undefined): string => {
@@ -84,10 +129,11 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
           <div
             className="image-container"
             style={{
-              height,
+              height: "450px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              position: "relative",
             }}
           >
             <CustomImage
@@ -110,7 +156,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
           <div
             className="video-container"
             style={{
-              height,
+              height: "450px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -131,7 +177,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
           <div
             className="document-viewer"
             style={{
-              height,
+              height: "450px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -193,7 +239,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
           <div
             className="text-center py-40"
             style={{
-              height,
+              minHeight: "300px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -232,9 +278,9 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
   }
 
   return (
-    <div className={`gallery-viewer-column ${className}`}>
+    <div className={`gallery-viewer-column ${className}`} ref={mainViewerRef}>
       {/* Main Media Display */}
-      <div className="gallery-main-viewer" style={{ minHeight: "500px" }}>
+      <div className="gallery-main-viewer">
         {currentItem && (
           <div className="main-image-container">
             {renderMediaItem(currentItem)}
@@ -276,10 +322,13 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
       {/* Thumbnail Strip */}
       {showThumbnails && items.length > 1 && (
         <div className="thumbnail-strip">
-          <div className="thumbnail-container">
+          <div className="thumbnail-container" ref={thumbnailContainerRef}>
             {items.map((item, index) => (
               <div
                 key={`thumb-${item.id || index}`}
+                ref={(el) => {
+                  thumbnailRefs.current[index] = el;
+                }}
                 onClick={() => goToImage(index)}
                 className={`thumbnail-item ${
                   index === currentItemIndex ? "active" : ""
