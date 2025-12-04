@@ -54,31 +54,31 @@ export function useLocationData(values?: any): LocationDataReturn {
     error: countriesError,
   } = useGet<ApiResponseDto<CountryDto[]>>(API_ENDPOINTS.LOCATION.COUNTRIES);
 
-  // İlleri getir - ülke seçilmişse
+  // İlleri getir - ülke seçilmişse (Veli arama için search endpoint kullanılıyor)
   const {
     data: provincesResponse,
     loading: provincesLoading,
     error: provincesError,
   } = useGet<ApiResponseDto<ProvinceDto[]>>(
-    countryId ? API_ENDPOINTS.LOCATION.PROVINCES(countryId) : null
+    countryId ? API_ENDPOINTS.LOCATION.PROVINCES_SEARCH(countryId) : null
   );
 
-  // İlçeleri getir - il seçilmişse
+  // İlçeleri getir - il seçilmişse (Veli arama için search endpoint kullanılıyor)
   const {
     data: districtsResponse,
     loading: districtsLoading,
     error: districtsError,
   } = useGet<ApiResponseDto<DistrictDto[]>>(
-    provinceId ? API_ENDPOINTS.LOCATION.DISTRICTS(provinceId) : null
+    provinceId ? API_ENDPOINTS.LOCATION.DISTRICTS_SEARCH(provinceId) : null
   );
 
-  // Mahalleleri getir - ilçe seçilmişse
+  // Mahalleleri getir - ilçe seçilmişse (Veli arama için search endpoint kullanılıyor)
   const {
     data: neighborhoodsResponse,
     loading: neighborhoodsLoading,
     error: neighborhoodsError,
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
-    districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(districtId) : null
+    districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS_SEARCH(districtId) : null
   );
 
   // Ülke değiştiğinde il, ilçe ve mahalleyi sıfırla
