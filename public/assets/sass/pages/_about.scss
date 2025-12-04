@@ -430,10 +430,13 @@
     }
     
     &__logo-wrapper {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 24px;
+      background-color: var(--neutral-10);
+      border-radius: 12px;
+      padding: 16px 24px;
     }
     
     &__logo {
