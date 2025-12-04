@@ -7,3 +7,4 @@ export * from "./institution-modules-section";
 export * from "./mission-vision-section";
 export * from "./brand-section";
 export * from "./info-section";
+export * from "./parent-app-section";

@@ -14,6 +14,13 @@ export const API_ENDPOINTS = {
       `/locations/provinces/${provinceId}/districts`,
     NEIGHBORHOODS: (districtId: string | number) =>
       `/locations/districts/${districtId}/neighborhoods`,
+    // Veli arama ekranı için search endpoint'leri
+    PROVINCES_SEARCH: (countryId: string | number) =>
+      `/locations/countries/${countryId}/provinces/search`,
+    DISTRICTS_SEARCH: (provinceId: string | number) =>
+      `/locations/provinces/${provinceId}/districts/search`,
+    NEIGHBORHOODS_SEARCH: (districtId: string | number) =>
+      `/locations/districts/${districtId}/neighborhoods/search`,
   },
 
   INSTITUTIONS: {

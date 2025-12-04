@@ -1,26 +1,26 @@
-import { SocialLink } from '../types';
+import { SocialLink } from "../types";
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: "https://www.facebook.com",
+    href: "https://www.egitimiste.com",
     icon: "ph-bold ph-facebook-logo",
-    label: "Facebook"
+    label: "Facebook",
   },
   {
-    href: "https://www.twitter.com",
+    href: "https://www.egitimiste.com",
     icon: "ph-bold ph-twitter-logo",
-    label: "Twitter"
+    label: "Twitter",
   },
   {
-    href: "https://www.instagram.com",
+    href: "https://www.egitimiste.com",
     icon: "ph-bold ph-instagram-logo",
-    label: "Instagram"
+    label: "Instagram",
   },
   {
-    href: "https://www.linkedin.com",
+    href: "https://www.egitimiste.com",
     icon: "ph-bold ph-linkedin-logo",
-    label: "LinkedIn"
-  }
+    label: "LinkedIn",
+  },
 ];
 
 export const FOOTER_CONFIG = {
@@ -28,5 +28,5 @@ export const FOOTER_CONFIG = {
   logoSrc: "/assets/images/logo/logo.png",
   logoWidth: 100,
   logoHeight: 32,
-  copyrightYear: new Date().getFullYear()
+  copyrightYear: new Date().getFullYear(),
 } as const;
