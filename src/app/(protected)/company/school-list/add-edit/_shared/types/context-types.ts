@@ -1,7 +1,11 @@
 import { SchoolDto, SchoolCreateDto } from "@/types";
 import { ApiResponse } from "@/lib";
 import { MutationOptions } from "@/hooks";
-import { PropertyGroupCheckboxOption } from "../hooks";
+import {
+  PropertyGroupCheckboxOption,
+  InstitutionTypeOption,
+  InstitutionGroupOption,
+} from "../hooks";
 import { SchoolPropertyDto } from "../hooks/use-school-properties";
 
 export interface SchoolAddEditContextType {
@@ -33,8 +37,15 @@ export interface SchoolAddEditContextType {
 
   // Dropdown options
   campusOptions: { value: string; label: string }[];
-  institutionTypeOptions: { value: string; label: string }[];
+  institutionTypeOptions: InstitutionTypeOption[];
+  institutionGroupOptions: InstitutionGroupOption[];
   languageOptions: { value: string; label: string }[];
+
+  // Institution type helpers
+  getFilteredTypesByGroupId: (
+    groupId: string | undefined
+  ) => InstitutionTypeOption[];
+  getGroupIdByTypeId: (typeId: string | undefined) => string | undefined;
 
   // Property values (for displaying options)
   propertyCheckboxGroups: PropertyGroupCheckboxOption[];

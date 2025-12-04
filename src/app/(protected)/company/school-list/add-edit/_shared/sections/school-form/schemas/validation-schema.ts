@@ -5,7 +5,17 @@ import * as Yup from "yup";
  */
 export const validationSchema = Yup.object({
   // campusId: Yup.number().required("Kampüs seçimi gereklidir"),
-  institutionTypeId: Yup.number().required("Kurum tipi seçimi gereklidir"),
+  institutionGroupId: Yup.string()
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    )
+    .required("Kurum kategorisi seçimi gereklidir"),
+  institutionTypeId: Yup.number()
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    )
+    .typeError("Kurum tipi seçimi gereklidir")
+    .required("Kurum tipi seçimi gereklidir"),
   name: Yup.string().required("Kurum adı gereklidir"),
   description: Yup.string().nullable().optional(),
   logoUrl: Yup.string().url("Geçerli bir URL giriniz").nullable().optional(),

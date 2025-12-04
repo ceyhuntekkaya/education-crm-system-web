@@ -6,5 +6,6 @@ import { SchoolCreateDto } from "@/types";
  * submit'te propertyTypeIds number array'e çevrilir
  */
 export interface SchoolFormData extends SchoolCreateDto {
+  institutionGroupId?: string; // Kurum kategorisi seçimi için
   propertyValues?: string[]; // Form'da checkbox değerleri string array olarak
 }

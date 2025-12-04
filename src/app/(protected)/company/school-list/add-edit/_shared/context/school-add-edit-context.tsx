@@ -62,8 +62,11 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
   // Institution types ve options'ları getir
   const {
     institutionTypeOptions,
+    institutionGroupOptions,
     isLoading: institutionTypesLoading,
     error: institutionTypesError,
+    getFilteredTypesByGroupId,
+    getGroupIdByTypeId,
   } = useInstitutionTypes();
 
   // Campuses ve options'ları getir
@@ -129,7 +132,12 @@ export const SchoolAddEditProvider: React.FC<SchoolAddEditProviderProps> = ({
     // Dropdown options
     campusOptions,
     institutionTypeOptions,
+    institutionGroupOptions,
     languageOptions,
+
+    // Institution type helpers
+    getFilteredTypesByGroupId,
+    getGroupIdByTypeId,
 
     // Property values
     propertyCheckboxGroups,

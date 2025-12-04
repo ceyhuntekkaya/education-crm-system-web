@@ -18,8 +18,12 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
   initialData,
 }) => {
   // Context'ten school properties'i al (edit mode için)
-  const { schoolPropertyTypeIds, isEditing, schoolPropertiesLoading } =
-    useSchoolAddEdit();
+  const {
+    schoolPropertyTypeIds,
+    isEditing,
+    schoolPropertiesLoading,
+    getGroupIdByTypeId,
+  } = useSchoolAddEdit();
 
   // Property values'u memoize et - sadece değiştiğinde güncelle
   const propertyValues = useMemo(() => {
@@ -31,34 +35,37 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
   }, [isEditing, schoolPropertiesLoading, schoolPropertyTypeIds]);
 
   // Düzenleme modunda mevcut data varsa onu kullan, yoksa default değerleri kullan
-  const formInitialValues = useMemo(
-    () =>
-      initialData
-        ? {
-            ...schoolInitialValues,
-            ...initialData,
-            // API'den gelen campus objesini campusId'ye çevir
-            campusId: initialData.campus?.id?.toString() || "",
-            // API'den gelen institutionType objesini institutionTypeId'ye çevir
-            institutionTypeId:
-              initialData.institutionType?.id?.toString() || "",
-            // API'den gelen foreignLanguages string'ini array'e çevir (virgülle ayrılmış)
-            foreignLanguages:
-              initialData.foreignLanguages &&
-              typeof initialData.foreignLanguages === "string"
-                ? initialData.foreignLanguages
-                    .split(",")
-                    .map((lang) => lang.trim())
-                    .filter((lang) => lang !== "")
-                : initialData.foreignLanguages || [],
-            // Edit modunda: /institutions/schools/{id}/property API'den gelen
-            // propertyTypeId'leri kullan - bunlar Institution Type'daki property
-            // seçenekleriyle eşleştirilecek
-            propertyValues,
-          }
-        : schoolInitialValues,
-    [initialData, propertyValues]
-  );
+  const formInitialValues = useMemo(() => {
+    if (!initialData) return schoolInitialValues;
+
+    // Edit modunda institutionTypeId'den groupId'yi bul
+    const institutionTypeId = initialData.institutionType?.id?.toString() || "";
+    const institutionGroupId = getGroupIdByTypeId(institutionTypeId) || "";
+
+    return {
+      ...schoolInitialValues,
+      ...initialData,
+      // API'den gelen campus objesini campusId'ye çevir
+      campusId: initialData.campus?.id?.toString() || "",
+      // Kurum kategorisi - institutionTypeId'den hesapla
+      institutionGroupId,
+      // API'den gelen institutionType objesini institutionTypeId'ye çevir
+      institutionTypeId,
+      // API'den gelen foreignLanguages string'ini array'e çevir (virgülle ayrılmış)
+      foreignLanguages:
+        initialData.foreignLanguages &&
+        typeof initialData.foreignLanguages === "string"
+          ? initialData.foreignLanguages
+              .split(",")
+              .map((lang) => lang.trim())
+              .filter((lang) => lang !== "")
+          : initialData.foreignLanguages || [],
+      // Edit modunda: /institutions/schools/{id}/property API'den gelen
+      // propertyTypeId'leri kullan - bunlar Institution Type'daki property
+      // seçenekleriyle eşleştirilecek
+      propertyValues,
+    };
+  }, [initialData, propertyValues, getGroupIdByTypeId]);
 
   return (
     <div className={className}>
