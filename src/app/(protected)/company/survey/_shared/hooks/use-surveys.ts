@@ -12,7 +12,7 @@ interface UseSurveysReturn {
 }
 
 /**
- * Seçili okula ait anket response'larını getiren hook
+ * Seçili Kuruma ait anket response'larını getiren hook
  * @returns Anket response verileri ve yönetim fonksiyonları
  */
 export const useSurveys = (): UseSurveysReturn => {

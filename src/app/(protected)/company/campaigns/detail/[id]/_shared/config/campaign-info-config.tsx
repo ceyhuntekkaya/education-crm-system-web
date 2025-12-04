@@ -41,7 +41,7 @@ const getCampaignTypeDisplay = (type?: string): string => {
     case "SPECIAL_EVENT":
       return "Özel Etkinlik";
     case "SUMMER_SCHOOL":
-      return "Yaz Okulu";
+      return "Yaz Kurumu";
     case "WINTER_CAMP":
       return "Kış Kampı";
     case "INSTALLMENT":

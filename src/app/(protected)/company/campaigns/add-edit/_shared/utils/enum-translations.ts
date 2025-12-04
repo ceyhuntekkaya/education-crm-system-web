@@ -8,7 +8,7 @@ export const CAMPAIGN_TYPE_LABELS: Record<CampaignType, string> = {
   [CampaignType.FREE_SERVICE]: "Ücretsiz Hizmet",
   [CampaignType.BONUS_FEATURE]: "Bonus Özellik",
   [CampaignType.EARLY_BIRD]: "Erken Kayıt",
-  [CampaignType.SUMMER_SCHOOL]: "Yaz Okulu",
+  [CampaignType.SUMMER_SCHOOL]: "Yaz Kurumu",
   [CampaignType.WINTER_CAMP]: "Kış Kampı",
   [CampaignType.FREE_TRIAL]: "Ücretsiz Deneme",
   [CampaignType.SIBLING_DISCOUNT]: "Kardeş İndirimi",

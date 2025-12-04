@@ -16,8 +16,8 @@ interface UseInstitutionPostsReturn {
 }
 
 /**
- * Seçili okul için post verilerini yöneten hook
- * @param schoolId - Okul ID'si
+ * Seçili Kurum için post verilerini yöneten hook
+ * @param schoolId - Kurum ID'si
  * @returns Post verileri ve yönetim fonksiyonları
  */
 export const useInstitutionPosts = ({

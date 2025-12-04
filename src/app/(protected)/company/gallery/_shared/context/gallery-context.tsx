@@ -14,7 +14,7 @@ interface GalleryProviderProps {
 export const GalleryProvider: React.FC<GalleryProviderProps> = ({
   children,
 }) => {
-  // Company context'ten seçili okul ID'sini al
+  // Company context'ten seçili Kurum ID'sini al
   const { selectedSchool } = useCompany();
 
   // Galleries hook'unu kullan

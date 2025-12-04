@@ -163,7 +163,7 @@ export default function InstitutionCampusInfo() {
 
   const brandInfoItems = [
     {
-      label: "Okul Grubu Adı",
+      label: "Kurum Grubu Adı",
       value: <span className="text-main-600 fw-semibold">{brand.name}</span>,
       isShowing: brand.name && brand.name.trim() !== "",
     },
@@ -242,7 +242,7 @@ export default function InstitutionCampusInfo() {
               onClick={() => setActiveTab("brand")}
             >
               <i className="ph ph-bank me-8"></i>
-              Okul Grubu
+              Kurum Grubu
             </button>
           </div>
 
@@ -275,7 +275,7 @@ export default function InstitutionCampusInfo() {
           {/* Brand Tab Content */}
           {activeTab === "brand" && (
             <>
-              <h4 className="mb-16">Okul Grubu Bilgileri</h4>
+              <h4 className="mb-16">Kurum Grubu Bilgileri</h4>
               <span className="d-block border border-neutral-30 my-24 border-dashed" />
 
               <ul className="tution-info-list bg-white rounded-8">

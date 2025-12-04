@@ -1,5 +1,5 @@
 export enum CancelledByType {
   PARENT = "PARENT", // Veli tarafından
-  SCHOOL = "SCHOOL", // Okul tarafından
+  SCHOOL = "SCHOOL", // Kurum tarafından
   SYSTEM = "SYSTEM", // Sistem tarafından (otomatik)
 }

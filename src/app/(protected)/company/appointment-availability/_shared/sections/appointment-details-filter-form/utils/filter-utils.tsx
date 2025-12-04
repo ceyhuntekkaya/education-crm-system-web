@@ -4,7 +4,7 @@
 export const getAppointmentTypeLabel = (type: string): string => {
   const typeMap: Record<string, string> = {
     INFORMATION_MEETING: "Bilgi Toplantısı",
-    SCHOOL_TOUR: "Okul Gezisi",
+    SCHOOL_TOUR: "Kurum Gezisi",
     ENROLLMENT_INTERVIEW: "Kayıt Görüşmesi",
     PARENT_MEETING: "Veli Görüşmesi",
     CONSULTATION: "Danışmanlık",
@@ -76,7 +76,7 @@ export const getEnumLabel = (fieldKey: string, value: string): string => {
  */
 export const getFieldLabel = (fieldKey: string): string => {
   const labelMap: Record<string, string> = {
-    schoolName: "Okul",
+    schoolName: "Kurum",
     staffUserName: "Personel",
     dayOfWeekName: "Gün",
     slotDate: "Slot Tarihi",

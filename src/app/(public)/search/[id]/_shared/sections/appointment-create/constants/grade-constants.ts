@@ -8,7 +8,7 @@
 // =============================================================================
 
 export const GRADE_LEVEL_OPTIONS = {
-  ANAOKULU: "ANAOKULU",
+  ANAKurumU: "ANAKurumU",
   SINIF_1: "1_SINIF",
   SINIF_2: "2_SINIF",
   SINIF_3: "3_SINIF",
@@ -24,7 +24,7 @@ export const GRADE_LEVEL_OPTIONS = {
 } as const;
 
 export const GRADE_LEVEL_LABELS = {
-  ANAOKULU: "Anaokulu",
+  ANAKurumU: "AnaKurumu",
   SINIF_1: "1. Sınıf",
   SINIF_2: "2. Sınıf",
   SINIF_3: "3. Sınıf",

@@ -9,8 +9,8 @@ export interface CanceledByTypeOption {
 export const canceledByTypeOptions: CanceledByTypeOption[] = [
   {
     value: CancelledByType.SCHOOL,
-    label: "Okul",
-    description: "Randevu okul tarafından iptal edildi",
+    label: "Kurum",
+    description: "Randevu Kurum tarafından iptal edildi",
   },
   {
     value: CancelledByType.PARENT,

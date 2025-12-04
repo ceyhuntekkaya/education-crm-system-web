@@ -25,7 +25,7 @@ export const customFeeBasicInfoConfig: CustomFeeConfigItem[] = [
     isShowing: (customFee) => !!customFee?.feeName,
   },
   {
-    label: "Okul",
+    label: "Kurum",
     value: (customFee) => (
       <span className="text-neutral-700">
         <i className="ph ph-graduation-cap me-2"></i>

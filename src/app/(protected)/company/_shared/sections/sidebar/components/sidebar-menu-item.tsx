@@ -25,8 +25,8 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   const itemIsActive = isActive(item.href, pathname);
   const hasActiveChildItem = hasActiveChild(item.children, pathname);
 
-  // Okul seçili değilse ve menü disabled olması gerekiyorsa kontrol et
-  // Giriş, Okul Listesi ve Kampüs Bilgileri hariç tüm menüler disabled
+  // Kurum seçili değilse ve menü disabled olması gerekiyorsa kontrol et
+  // Giriş, Kurum Listesi ve Kampüs Bilgileri hariç tüm menüler disabled
   const shouldBeDisabled =
     isDisabled &&
     item.href !== "/company" &&

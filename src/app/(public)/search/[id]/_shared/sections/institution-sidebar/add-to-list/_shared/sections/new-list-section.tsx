@@ -38,7 +38,7 @@ export const NewListSection: React.FC = () => {
             Yeni Liste Oluştur
           </h6>
           <p className="text-neutral-500 text-sm mb-0">
-            Özel bir liste oluşturup okulu oraya kaydedin
+            Özel bir liste oluşturup Kurumu oraya kaydedin
           </p>
         </div>
       </div>

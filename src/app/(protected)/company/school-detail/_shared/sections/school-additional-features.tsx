@@ -12,8 +12,8 @@ export default function SchoolAdditionalFeatures() {
   // Determine empty states
   const isEmpty = !selectedSchool || !schoolProperties.length;
   const emptyMessage = !selectedSchool
-    ? "Ek özellikleri görmek için bir okul seçiniz"
-    : "Bu okul için henüz ek özellik tanımlanmamış";
+    ? "Ek özellikleri görmek için bir Kurum seçiniz"
+    : "Bu Kurum için henüz ek özellik tanımlanmamış";
   const emptyIcon = !selectedSchool ? "ph-graduation-cap" : "ph-list-bullets";
 
   return (
@@ -36,7 +36,7 @@ export default function SchoolAdditionalFeatures() {
           <div className="mb-24">
             <h5 className="mb-16">Özellikler</h5>
             <p className="text-neutral-500 text-sm mb-16">
-              Bu okula tanımlanmış olan ek özellikler aşağıda listelenmektedir.
+              Bu Kuruma tanımlanmış olan ek özellikler aşağıda listelenmektedir.
             </p>
           </div>
 

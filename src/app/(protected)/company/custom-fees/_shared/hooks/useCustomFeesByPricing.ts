@@ -12,8 +12,8 @@ interface UseCustomFeesBySchoolReturn {
 }
 
 /**
- * Seçili okul için custom fee verilerini yöneten hook
- * @param schoolId - Okul ID'si
+ * Seçili Kurum için custom fee verilerini yöneten hook
+ * @param schoolId - Kurum ID'si
  * @returns Custom fee verileri ve yönetim fonksiyonları
  */
 export const useCustomFeesByPricing = (

@@ -22,7 +22,7 @@ export const SearchResultsHeader: React.FC<SearchResultsHeaderProps> = ({
         <div className="d-flex flex-column">
           <h5 className="mb-8 text-neutral-700">Arama Sonuçları</h5>
           <div className="d-flex align-items-center gap-16 text-sm text-neutral-500">
-            <span>{totalResults} okul bulundu</span>
+            <span>{totalResults} Kurum bulundu</span>
             <span className="w-4 h-4 bg-neutral-300 rounded-circle"></span>
             <span>
               Sayfa {currentPage}/{totalPages}

@@ -19,7 +19,7 @@ const PricingAddEditPage: React.FC<PricingAddEditPageProps> = () => {
       subtitle={
         isEditing
           ? "Mevcut fiyat bilgilerini düzenleyin"
-          : "Yeni okul fiyat bilgilerini oluşturun"
+          : "Yeni Kurum fiyat bilgilerini oluşturun"
       }
       isBack
       mb="mb-24"

@@ -38,7 +38,7 @@ export const translateGalleryType = (type?: string): string => {
     case "VIDEOS":
       return "Videolar";
     case "SCHOOL_TOUR":
-      return "Okul Turu";
+      return "Kurum Turu";
     case "EVENTS":
       return "Etkinlikler";
     case "FACILITIES":

@@ -10,7 +10,7 @@ Bu sayfa, Eğitim CRM Sistemi'nin genel tanıtımını yapan, tüm public modül
 - **Gradient arka plan** ile göz alıcı tasarım
 - Platform tanıtımı ve misyon açıklaması
 - **İki ana CTA butonu**:
-  - "Okul Aramaya Başla" - `/search` sayfasına yönlendirir
+  - "Kurum Aramaya Başla" - `/search` sayfasına yönlendirir
   - "Üyelik Paketleri" - `/memberships` sayfasına yönlendirir
 
 ### 2. Platform Özellikleri
@@ -22,7 +22,7 @@ Bu sayfa, Eğitim CRM Sistemi'nin genel tanıtımını yapan, tüm public modül
 
 ### 3. İstatistikler
 Platformun başarısını gösteren 4 istatistik:
-- 500+ Kayıtlı Okul
+- 500+ Kayıtlı Kurum
 - 10,000+ Aktif Kullanıcı
 - 25,000+ Tamamlanan Randevu
 - 4.8/5 Kullanıcı Memnuniyeti
@@ -30,11 +30,11 @@ Platformun başarısını gösteren 4 istatistik:
 ### 4. Platform Modülleri
 Public klasöründeki tüm sayfalar detaylı olarak tanıtılır:
 
-#### a) Okul Arama (`/search`)
+#### a) Kurum Arama (`/search`)
 - Gelişmiş arama filtreleri
 - Konum bazlı arama
 - Eğitim seviyesine göre filtreleme
-- Detaylı okul profilleri
+- Detaylı Kurum profilleri
 
 #### b) Randevu Yönetimi (`/appointments`)
 - Online randevu alma
@@ -55,13 +55,13 @@ Public klasöründeki tüm sayfalar detaylı olarak tanıtılır:
 - İndirimli yıllık paketler
 
 #### e) Anketler (`/surveys`)
-- Okul değerlendirme anketleri
+- Kurum değerlendirme anketleri
 - Memnuniyet anketleri
 - Geri bildirim sistemi
 - Anonim değerlendirme
 
 #### f) Listelerim (`/my-lists`)
-- Favori okul listeleri
+- Favori Kurum listeleri
 - Karşılaştırma özelliği
 - Özel listeler oluşturma
 - Kolay erişim ve yönetim

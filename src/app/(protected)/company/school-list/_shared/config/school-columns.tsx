@@ -13,7 +13,7 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
     renderCell: (params) => (
       <CustomImage
         src={params.row.logoUrl}
-        alt={params?.row?.name || "Okul Logosu"}
+        alt={params?.row?.name || "Kurum Logosu"}
         width={40}
         height={40}
         variant="card"
@@ -24,7 +24,7 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   // Temel Bilgiler
   {
     field: "name",
-    headerName: "Okul Adı",
+    headerName: "Kurum Adı",
     width: 260,
     renderCell: (params) => (
       <div className="fw-semibold text-truncate" title={params?.row?.name}>

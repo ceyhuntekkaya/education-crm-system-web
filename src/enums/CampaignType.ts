@@ -3,7 +3,7 @@ export enum CampaignType {
   FREE_SERVICE = "FREE_SERVICE", // Ücretsiz hizmet
   BONUS_FEATURE = "BONUS_FEATURE", // Bonus özellik
   EARLY_BIRD = "EARLY_BIRD", // Erken kayıt
-  SUMMER_SCHOOL = "SUMMER_SCHOOL", // Yaz okulu
+  SUMMER_SCHOOL = "SUMMER_SCHOOL", // Yaz Kurumu
   WINTER_CAMP = "WINTER_CAMP", // Kış kampı
   FREE_TRIAL = "FREE_TRIAL", // Ücretsiz deneme
   SIBLING_DISCOUNT = "SIBLING_DISCOUNT", // Kardeş indirimi

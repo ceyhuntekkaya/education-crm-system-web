@@ -51,12 +51,12 @@ export const campusLocationConfig: CampusConfigItem[] = [
       typeof campus?.province?.isMetropolitan === "boolean",
   },
   {
-    label: "İldeki Toplam Okul",
+    label: "İldeki Toplam Kurum",
     value: (campus) => (
       <div className="d-flex align-items-center gap-8">
         <i className="ph-bold ph-buildings text-primary-600"></i>
         <span className="text-primary-600 fw-semibold">
-          {campus?.province?.schoolCount?.toLocaleString()} okul
+          {campus?.province?.schoolCount?.toLocaleString()} Kurum
         </span>
       </div>
     ),
@@ -111,12 +111,12 @@ export const campusLocationConfig: CampusConfigItem[] = [
     isShowing: (campus) => typeof campus?.district?.isCentral === "boolean",
   },
   {
-    label: "İlçedeki Okul Sayısı",
+    label: "İlçedeki Kurum Sayısı",
     value: (campus) => (
       <div className="d-flex align-items-center gap-8">
         <i className="ph-bold ph-graduation-cap text-success-600"></i>
         <span className="text-success-600 fw-semibold">
-          {campus?.district?.schoolCount?.toLocaleString()} okul
+          {campus?.district?.schoolCount?.toLocaleString()} Kurum
         </span>
       </div>
     ),

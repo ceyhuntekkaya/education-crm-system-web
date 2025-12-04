@@ -7,7 +7,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 ## AccessType
 - BRAND // Marka erişimi
 - CAMPUS // Kampüs erişimi
-- SCHOOL // Okul erişimi
+- SCHOOL // Kurum erişimi
 
 ## AppointmentOutcome
 - ENROLLED // Kayıt oldu
@@ -33,7 +33,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## AppointmentType
 - INFORMATION_MEETING // Bilgi toplantısı
-- SCHOOL_TOUR // Okul gezisi
+- SCHOOL_TOUR // Kurum gezisi
 - ENROLLMENT_INTERVIEW // Kayıt görüşmesi
 - PARENT_MEETING // Veli görüşmesi
 - CONSULTATION // Danışmanlık
@@ -118,7 +118,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 - FREE_SERVICE // Ücretsiz hizmet
 - BONUS_FEATURE // Bonus özellik
 - EARLY_BIRD // Erken kayıt
-- SUMMER_SCHOOL // Yaz okulu
+- SUMMER_SCHOOL // Yaz Kurumu
 - WINTER_CAMP // Kış kampı
 - FREE_TRIAL // Ücretsiz deneme
 - SIBLING_DISCOUNT // Kardeş indirimi
@@ -157,7 +157,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## CancelledByType
 - PARENT // Veli tarafından
-- SCHOOL // Okul tarafından
+- SCHOOL // Kurum tarafından
 - SYSTEM // Sistem tarafından (otomatik)
 
 ## CommentStatus
@@ -248,7 +248,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## SurveyType
 - APPOINTMENT_FEEDBACK // Randevu sonrası geri bildirim
-- SCHOOL_RATING // Okul değerlendirme
+- SCHOOL_RATING // Kurum değerlendirme
 - SERVICE_QUALITY // Hizmet kalitesi
 - ENROLLMENT_FEEDBACK // Kayıt süreci geri bildirimi
 - GENERAL_FEEDBACK // Genel geri bildirim
@@ -281,7 +281,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## SearchType
 - GENERAL // Genel arama
-- SCHOOL_NAME // Okul ismi
+- SCHOOL_NAME // Kurum ismi
 - LOCATION // Konum
 - INSTITUTION_TYPE // Kurum türü
 - PRICE_RANGE // Fiyat aralığı
@@ -293,7 +293,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## SearchIntent
 - INFORMATIONAL // Bilgi arama
-- NAVIGATIONAL // Belirli bir okulu arama
+- NAVIGATIONAL // Belirli bir Kurumu arama
 - TRANSACTIONAL // Randevu alma niyeti
 - COMMERCIAL // Karşılaştırma yapma
 - LOCAL // Yerel arama
@@ -306,7 +306,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 ## RoleLevel
 - BRAND // Marka düzeyinde rol (Marka Yöneticisi)
 - CAMPUS // Kampüs düzeyinde rol (Kampüs Yöneticisi, Muhasebe vs)
-- SCHOOL // Okul düzeyinde rol (Öğrenci İşleri, Öğretmen vs)
+- SCHOOL // Kurum düzeyinde rol (Öğrenci İşleri, Öğretmen vs)
 - SYSTEM // Sistem düzeyinde rol (Super Admin vs)
 
 ## ReactionType
@@ -349,7 +349,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## PermissionCategory
 - USER_MANAGEMENT // kullanici_olustur, kullanici_duzenle vs
-- INSTITUTION_MANAGEMENT // kampus_duzenle, okul_olustur vs
+- INSTITUTION_MANAGEMENT // kampus_duzenle, Kurum_olustur vs
 - APPOINTMENT_MANAGEMENT // randevu_olustur, randevu_iptal_et vs
 - CONTENT_MANAGEMENT // galeri_duzenle, post_olustur vs
 - SURVEY_MANAGEMENT // anket_goruntule, anket_duzenle vs
@@ -594,7 +594,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 ## ParticipantType
 - PARENT // Veli
 - STUDENT // Öğrenci
-- SCHOOL_STAFF // Okul personeli
+- SCHOOL_STAFF // Kurum personeli
 - CONSULTANT // Danışman
 - OBSERVER // Gözlemci
 - TRANSLATOR // Tercüman
@@ -634,7 +634,7 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 - MIXED // Karışık (resim ve video)
 - PHOTOS // Sadece fotoğraflar
 - VIDEOS // Sadece videolar
-- SCHOOL_TOUR // Okul turu
+- SCHOOL_TOUR // Kurum turu
 - EVENTS // Etkinlikler
 - FACILITIES // Tesisler
 - CLASSROOMS // Sınıflar
@@ -655,6 +655,6 @@ Aşağıda Java enum dosyalarındaki tüm değerler ve açıklamaları listelenm
 
 ## GalleryVisibility
 - PUBLIC // Herkese açık
-- PRIVATE // Sadece okul personeli
+- PRIVATE // Sadece Kurum personeli
 - REGISTERED_ONLY // Sadece üye veliler
 - PASSWORD_PROTECTED // Şifre korumalı

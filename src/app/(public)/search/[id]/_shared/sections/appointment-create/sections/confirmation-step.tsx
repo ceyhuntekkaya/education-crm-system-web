@@ -121,7 +121,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
 
             <li className="d-flex align-items-start px-32 py-16">
               <span className="w-50-percent fw-semibold text-neutral-700">
-                Okul
+                Kurum
               </span>
               <span className="w-50-percent fw-normal text-neutral-500 text-md">
                 <span className="text-neutral-900">
@@ -308,7 +308,7 @@ export const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
             {getFieldValue("currentSchool") && (
               <li className="d-flex align-items-start px-32 py-16">
                 <span className="w-50-percent fw-semibold text-neutral-700">
-                  Mevcut Okul
+                  Mevcut Kurum
                 </span>
                 <span className="w-50-percent fw-normal text-neutral-500 text-md">
                   <span className="text-neutral-900 fw-medium">

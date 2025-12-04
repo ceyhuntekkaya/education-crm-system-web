@@ -21,8 +21,8 @@ export default function SchoolGeneralInfo() {
 
   if (!currentSchool) {
     return (
-      <CustomCard title="Okul Bilgileri">
-        <p className="text-neutral-500">Okul bilgileri henüz mevcut değil.</p>
+      <CustomCard title="Kurum Bilgileri">
+        <p className="text-neutral-500">Kurum bilgileri henüz mevcut değil.</p>
       </CustomCard>
     );
   }
@@ -32,12 +32,12 @@ export default function SchoolGeneralInfo() {
 
   const institutionInfoItems = [
     {
-      label: "Okul Adı",
+      label: "Kurum Adı",
       value: <span className="text-main-600 fw-semibold">{school.name}</span>,
       isShowing: school.name && school.name.trim() !== "",
     },
     {
-      label: "Okul Türü",
+      label: "Kurum Türü",
       value: (
         <span className="fw-semibold text-warning-600 text-md">
           <div className="d-flex align-items-center gap-8">
@@ -367,10 +367,10 @@ export default function SchoolGeneralInfo() {
 
   return (
     <div className="d-flex flex-column gap-24">
-      {/* Okul Açıklaması */}
+      {/* Kurum Açıklaması */}
       {school.description && (
         <CustomCard
-          title="Okul Hakkında"
+          title="Kurum Hakkında"
           editButtonUrl={
             school.id ? `/company/school-list/add-edit/${school.id}` : undefined
           }
@@ -383,7 +383,7 @@ export default function SchoolGeneralInfo() {
 
       {visibleItems.length > 0 ? (
         <CustomCard
-          title="Okul Bilgileri"
+          title="Kurum Bilgileri"
           items={institutionInfoItems}
           // editButtonUrl={
           //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
@@ -391,12 +391,12 @@ export default function SchoolGeneralInfo() {
         />
       ) : (
         <CustomCard
-          title="Okul Bilgileri"
+          title="Kurum Bilgileri"
           // editButtonUrl={
           //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
           // }
         >
-          <p className="text-neutral-500">Okul bilgileri henüz mevcut değil.</p>
+          <p className="text-neutral-500">Kurum bilgileri henüz mevcut değil.</p>
         </CustomCard>
       )}
     </div>

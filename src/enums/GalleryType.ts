@@ -2,7 +2,7 @@ export enum GalleryType {
   MIXED = "MIXED", // Karışık (resim ve video)
   PHOTOS = "PHOTOS", // Sadece fotoğraflar
   VIDEOS = "VIDEOS", // Sadece videolar
-  SCHOOL_TOUR = "SCHOOL_TOUR", // Okul turu
+  SCHOOL_TOUR = "SCHOOL_TOUR", // Kurum turu
   EVENTS = "EVENTS", // Etkinlikler
   FACILITIES = "FACILITIES", // Tesisler
   CLASSROOMS = "CLASSROOMS", // Sınıflar

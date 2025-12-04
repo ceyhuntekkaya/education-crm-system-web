@@ -98,7 +98,7 @@ const renderVisibility = (params: any) => (
 const renderLimits = (params: any) => (
   <div className="small">
     <div className="d-flex justify-content-between">
-      <span>Okul:</span>
+      <span>Kurum:</span>
       <span className="fw-medium">
         {params.row.maxSchools === 999
           ? "Sınırsız"

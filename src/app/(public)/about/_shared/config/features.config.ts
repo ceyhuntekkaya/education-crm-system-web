@@ -8,7 +8,7 @@ export interface Feature {
 export const parentFeatures: Feature[] = [
   {
     icon: "ph-magnifying-glass",
-    title: "Okul Arama",
+    title: "Kurum Arama",
     description:
       "Gelişmiş filtreleme sistemi ile size en uygun eğitim kurumlarını kolayca bulun.",
     iconClass: "feature-card__icon--main",
@@ -17,21 +17,21 @@ export const parentFeatures: Feature[] = [
     icon: "ph-calendar",
     title: "Randevu Yönetimi",
     description:
-      "Online randevu alın, takip edin ve okul ziyaretlerinizi planlayın.",
+      "Online randevu alın, takip edin ve Kurum ziyaretlerinizi planlayın.",
     iconClass: "feature-card__icon--primary",
   },
   {
     icon: "ph-chat-circle-dots",
     title: "Mesajlaşma",
     description:
-      "WhatsApp entegrasyonu ile okullarla doğrudan ve hızlı iletişim kurun.",
+      "WhatsApp entegrasyonu ile Kurumlarla doğrudan ve hızlı iletişim kurun.",
     iconClass: "feature-card__icon--success",
   },
   {
     icon: "ph-star",
     title: "Favori Listeler",
     description:
-      "Beğendiğiniz okulları kaydedin, karşılaştırın ve değerlendirin.",
+      "Beğendiğiniz Kurumları kaydedin, karşılaştırın ve değerlendirin.",
     iconClass: "feature-card__icon--warning",
   },
   {
@@ -52,7 +52,7 @@ export const parentFeatures: Feature[] = [
 export const institutionFeatures: Feature[] = [
   {
     icon: "ph-buildings",
-    title: "Okul Yönetimi",
+    title: "Kurum Yönetimi",
     description: "Tüm kampüslerinizi ve şubelerinizi tek platformdan yönetin.",
     iconClass: "feature-card__icon--main",
   },

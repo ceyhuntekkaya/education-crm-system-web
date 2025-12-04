@@ -18,32 +18,32 @@ export interface SaveModalData {
 export const SAVE_OPTIONS = [
   {
     value: "favorites" as const,
-    label: "Favori Okullarım",
+    label: "Favori Kurumlarım",
     icon: "ph-heart",
   },
   {
     value: "shortlist" as const,
-    label: "Aday Okullarım",
+    label: "Aday Kurumlarım",
     icon: "ph-list-bullets",
   },
   {
     value: "watchlist" as const,
-    label: "Takip Ettiğim Okullar",
+    label: "Takip Ettiğim Kurumlar",
     icon: "ph-eye",
   },
   {
     value: "applied" as const,
-    label: "Başvurduğum Okullar",
+    label: "Başvurduğum Kurumlar",
     icon: "ph-paper-plane-tilt",
   },
   {
     value: "visited" as const,
-    label: "Gezdiğim Okullar",
+    label: "Gezdiğim Kurumlar",
     icon: "ph-map-pin",
   },
   {
     value: "recommended" as const,
-    label: "Önerilen Okullar",
+    label: "Önerilen Kurumlar",
     icon: "ph-thumbs-up",
   },
   {

@@ -5,7 +5,7 @@ import React from "react";
 const appFeatures = [
   {
     icon: "ph-magnifying-glass",
-    text: "Okul Arama",
+    text: "Kurum Arama",
   },
   {
     icon: "ph-scales",

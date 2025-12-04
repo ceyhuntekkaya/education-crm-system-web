@@ -12,7 +12,7 @@ interface UsePricingByIdReturn {
 }
 
 /**
- * ID'ye göre tek bir okul fiyatlandırma verisi getiren hook
+ * ID'ye göre tek bir Kurum fiyatlandırma verisi getiren hook
  * @param id - Pricing ID'si
  * @returns Pricing verileri ve yönetim fonksiyonları
  */

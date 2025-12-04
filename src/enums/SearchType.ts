@@ -1,6 +1,6 @@
 export enum SearchType {
   GENERAL = "GENERAL", // Genel arama
-  SCHOOL_NAME = "SCHOOL_NAME", // Okul ismi
+  SCHOOL_NAME = "SCHOOL_NAME", // Kurum ismi
   LOCATION = "LOCATION", // Konum
   INSTITUTION_TYPE = "INSTITUTION_TYPE", // Kurum türü
   PRICE_RANGE = "PRICE_RANGE", // Fiyat aralığı

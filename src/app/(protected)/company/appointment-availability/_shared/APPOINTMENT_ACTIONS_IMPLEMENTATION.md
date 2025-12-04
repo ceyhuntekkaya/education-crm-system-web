@@ -48,13 +48,13 @@ Randevu onaylama için modal component:
 Randevu iptal için modal component:
 - ✅ Randevu detaylarını gösterir
 - ✅ İptal nedeni girişi (min. 10 karakter validasyonu)
-- ✅ İptal eden seçimi (Okul / Veli / Sistem)
+- ✅ İptal eden seçimi (Kurum / Veli / Sistem)
 - ✅ Form validasyonu
 - ✅ Loading state yönetimi
 - ✅ Uyarı mesajı
 
 **Form Alanları:**
-- İptal Eden (Radio Buttons): Okul, Veli, Sistem
+- İptal Eden (Radio Buttons): Kurum, Veli, Sistem
 - İptal Nedeni (Textarea): Min. 10 karakter
 
 ---
@@ -128,7 +128,7 @@ Ana tablo component'ine eklenen özellikler:
 1. Kullanıcı tabloda SCHEDULED durumundaki bir randevu görür
 2. "İptal Et" butonuna tıklar
 3. İptal modalı açılır (randevu detayları gösterilir)
-4. İptal eden seçer (Okul/Veli/Sistem)
+4. İptal eden seçer (Kurum/Veli/Sistem)
 5. İptal nedenini yazar (min. 10 karakter)
 6. "İptal Et" butonuna tıklar
 7. API çağrısı yapılır

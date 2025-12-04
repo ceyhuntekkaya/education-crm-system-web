@@ -20,7 +20,7 @@ interface UseAppointmentAvailabilityReturn {
 }
 
 /**
- * Okul randevu müsaitlik verilerini yöneten hook (Tekil Tarih)
+ * Kurum randevu müsaitlik verilerini yöneten hook (Tekil Tarih)
  * Yeni API yapısı: POST /api/appointments/slots/search/date
  * Tekil tarih için startDate ve endDate aynı günü gönderir
  * @returns Randevu müsaitlik verileri ve yönetim fonksiyonları

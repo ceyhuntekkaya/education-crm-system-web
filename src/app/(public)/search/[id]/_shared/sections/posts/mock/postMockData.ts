@@ -61,7 +61,7 @@ export const postMockData: PostDto[] = [
     },
     author: {
       id: 1,
-      fullName: "Okul Yönetimi",
+      fullName: "Kurum Yönetimi",
       email: "yonetim@bahcesehir.edu.tr",
       userType: "INSTITUTION_USER",
     },
@@ -73,7 +73,7 @@ export const postMockData: PostDto[] = [
     title: "Öğrenci Başarı Hikayesi: Uluslararası Olimpiyat",
     content: `
       <p>Öğrencimiz Ahmet Yılmaz, Uluslararası Matematik Olimpiyatı'nda altın madalya kazandı!</p>
-      <p>Bu başarı, hem öğrencimiz hem de okulumutz için büyük bir gurur kaynağıdır.</p>
+      <p>Bu başarı, hem öğrencimiz hem de Kurumumutz için büyük bir gurur kaynağıdır.</p>
       <blockquote>
         "Bu başarı sadece benim değil, bana destek olan öğretmenlerimin ve ailemin de başarısıdır." - Ahmet Yılmaz
       </blockquote>

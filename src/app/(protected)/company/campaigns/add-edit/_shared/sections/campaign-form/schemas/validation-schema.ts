@@ -74,8 +74,8 @@ export const validationSchema = Yup.object({
   //   .min(0, "Kullanıcı başına limit 0'dan küçük olamaz"),
   // perSchoolLimit: Yup.number()
   //   .nullable()
-  //   .min(0, "Okul başına limit 0'dan küçük olamaz")
-  //   .typeError("Okul başına limit sayı olmalıdır"),
+  //   .min(0, "Kurum başına limit 0'dan küçük olamaz")
+  //   .typeError("Kurum başına limit sayı olmalıdır"),
   // targetAgeMin: Yup.number()
   //   .nullable()
   //   .min(0, "Minimum yaş 0'dan küçük olamaz"),

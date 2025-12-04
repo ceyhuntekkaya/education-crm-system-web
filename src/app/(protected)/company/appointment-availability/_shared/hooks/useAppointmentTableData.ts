@@ -47,7 +47,7 @@ export const useAppointmentTableData = ({
         icon: "ph-calendar-blank",
         title: "Müsaitlik Bilgisi Bulunamadı",
         description:
-          "Seçilen kriterlere göre müsaitlik bilgisi bulunamadı. Farklı tarih veya okul seçmeyi deneyin.",
+          "Seçilen kriterlere göre müsaitlik bilgisi bulunamadı. Farklı tarih veya Kurum seçmeyi deneyin.",
         showActions: false,
       };
     }

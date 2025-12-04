@@ -53,7 +53,7 @@ export const mockAppointmentAvailabilities: AppointmentAvailabilityDto[] = [
   },
   {
     schoolId: 3,
-    schoolName: "Işık Okulları Acıbadem Kampüsü",
+    schoolName: "Işık Kurumları Acıbadem Kampüsü",
     date: "2024-12-22",
     availableSlots: generateAvailableSlots(3, 10),
     totalSlots: 7,
@@ -63,7 +63,7 @@ export const mockAppointmentAvailabilities: AppointmentAvailabilityDto[] = [
   },
   {
     schoolId: 4,
-    schoolName: "MEF Okulları",
+    schoolName: "MEF Kurumları",
     date: "2024-12-23",
     availableSlots: generateAvailableSlots(6, 9),
     totalSlots: 10,
@@ -83,7 +83,7 @@ export const mockAppointmentAvailabilities: AppointmentAvailabilityDto[] = [
   },
   {
     schoolId: 6,
-    schoolName: "Hisar Okulları",
+    schoolName: "Hisar Kurumları",
     date: "2024-12-25",
     availableSlots: generateAvailableSlots(4, 13),
     totalSlots: 6,
@@ -103,7 +103,7 @@ export const mockAppointmentAvailabilities: AppointmentAvailabilityDto[] = [
   },
   {
     schoolId: 8,
-    schoolName: "Özel Atatürk İlköğretim Okulu",
+    schoolName: "Özel Atatürk İlköğretim Kurumu",
     date: "2024-12-27",
     availableSlots: generateAvailableSlots(3, 11),
     totalSlots: 8,

@@ -30,6 +30,6 @@ export const appointmentAvailabilityRangeValidationSchema = yup.object({
     .string()
     .nullable()
     .optional()
-    .min(2, "Okul adı en az 2 karakter olmalıdır")
-    .max(100, "Okul adı en fazla 100 karakter olabilir"),
+    .min(2, "Kurum adı en az 2 karakter olmalıdır")
+    .max(100, "Kurum adı en fazla 100 karakter olabilir"),
 });

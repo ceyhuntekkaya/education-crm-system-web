@@ -34,7 +34,7 @@ export const postFilterValidationSchema = yup.object().shape({
       "EXPIRED",
     ]),
   authorName: yup.string().max(50, "Yazar adı en fazla 50 karakter olabilir"),
-  schoolName: yup.string().max(100, "Okul adı en fazla 100 karakter olabilir"),
+  schoolName: yup.string().max(100, "Kurum adı en fazla 100 karakter olabilir"),
   isFeatured: yup.boolean(),
   isPinned: yup.boolean(),
   publishedAfter: yup.date(),

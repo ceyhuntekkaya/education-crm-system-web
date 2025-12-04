@@ -38,7 +38,7 @@ export const studentConfig: BasicInfoItemConfig[] = [
     isShowing: (appointment) => !!appointment?.studentGender,
   },
   {
-    label: "Mevcut Okul",
+    label: "Mevcut Kurum",
     value: (appointment) => (
       <span className="text-secondary">
         <i className="ph ph-buildings me-2"></i>

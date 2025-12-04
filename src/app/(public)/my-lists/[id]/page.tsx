@@ -38,7 +38,7 @@ export default function MyListPage() {
             {listDetail?.listName || "Bu listede"} henüz kurum yok
           </h2>
           <p className="text-gray-600">
-            Arama sayfasından okul ekleyerek listeyi oluşturabilirsiniz.
+            Arama sayfasından Kurum ekleyerek listeyi oluşturabilirsiniz.
           </p>
         </div>
       </div>

@@ -90,7 +90,7 @@ export const validationSchema = Yup.object({
     .optional(),
   tutoringFee: Yup.number().min(0, "Etüt ücreti negatif olamaz").optional(),
   summerSchoolFee: Yup.number()
-    .min(0, "Yaz okulu ücreti negatif olamaz")
+    .min(0, "Yaz Kurumu ücreti negatif olamaz")
     .optional(),
   winterCampFee: Yup.number()
     .min(0, "Kış kampı ücreti negatif olamaz")

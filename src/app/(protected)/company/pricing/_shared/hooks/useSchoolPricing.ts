@@ -12,8 +12,8 @@ interface UseSchoolPricingReturn {
 }
 
 /**
- * Seçili okul için pricing verilerini yöneten hook
- * @param schoolId - Okul ID'si
+ * Seçili Kurum için pricing verilerini yöneten hook
+ * @param schoolId - Kurum ID'si
  * @returns Pricing verileri ve yönetim fonksiyonları
  */
 export const useSchoolPricing = (schoolId: number | null): UseSchoolPricingReturn => {

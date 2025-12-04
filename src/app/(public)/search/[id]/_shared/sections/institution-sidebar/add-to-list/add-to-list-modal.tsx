@@ -29,8 +29,8 @@ const AddToListModalContent: React.FC<{ onClose: () => void }> = ({
 
   return (
     <div>
-      {/* Okul Hero Kartı */}
-      <SchoolCard schoolName={schoolName || "Okul"} />
+      {/* Kurum Hero Kartı */}
+      <SchoolCard schoolName={schoolName || "Kurum"} />
 
       <Form onSubmit={handleFormSubmit}>
         {/* <FormValuesComponent /> */}

@@ -16,8 +16,8 @@ interface UseInstitutionGalleriesReturn {
 }
 
 /**
- * Seçili okul için gallery verilerini yöneten hook
- * @param schoolId - Okul ID'si
+ * Seçili Kurum için gallery verilerini yöneten hook
+ * @param schoolId - Kurum ID'si
  * @returns Gallery verileri ve yönetim fonksiyonları
  */
 export const useInstitutionGalleries = ({

@@ -20,7 +20,7 @@ export const useAppointmentDetailsFilter = (slots: AppointmentSlotDto[]) => {
     }
 
     return slots.filter((slot) => {
-      // Okul bilgileri
+      // Kurum bilgileri
       if (appointmentFilters.schoolName) {
         const searchTerm = appointmentFilters.schoolName.toLowerCase();
         const schoolName = (slot.schoolName || "").toLowerCase();

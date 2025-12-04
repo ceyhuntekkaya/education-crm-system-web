@@ -34,7 +34,7 @@ const PricingDetailPage: React.FC = () => {
   return (
     <CustomCard
       title="Fiyat Bilgisi Detayı"
-      subtitle="Okul fiyat bilgilerini detaylı olarak görüntüleyin"
+      subtitle="Kurum fiyat bilgilerini detaylı olarak görüntüleyin"
       isLoading={isLoading && hasValidId}
       loadingMessage="Fiyat bilgisi yükleniyor..."
       isError={!!error && hasValidId}
@@ -46,12 +46,12 @@ const PricingDetailPage: React.FC = () => {
       }
       emptyMessage={
         showNoSchoolMessage
-          ? "Lütfen önce bir okul seçin"
+          ? "Lütfen önce bir Kurum seçin"
           : "Fiyat bilgisi bulunamadı"
       }
       emptyDescription={
         showNoSchoolMessage
-          ? "Fiyat bilgilerini görüntülemek için yan menüden bir okul seçmeniz gerekmektedir."
+          ? "Fiyat bilgilerini görüntülemek için yan menüden bir Kurum seçmeniz gerekmektedir."
           : undefined
       }
       emptyIcon={showNoSchoolMessage ? "ph-buildings" : "ph-info"}

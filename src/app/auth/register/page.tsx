@@ -66,7 +66,7 @@ const RegisterPage: React.FC = () => {
                         Eğitim Kurumu Kaydı
                       </h3>
                       <p className="text-sm text-neutral-600">
-                        Okulunuzu sisteme kaydedin ve profesyonel araçlara
+                        Kurumunuzu sisteme kaydedin ve profesyonel araçlara
                         erişim sağlayın
                       </p>
                     </div>

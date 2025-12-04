@@ -6,7 +6,7 @@ import type { BasicInfoItemConfig } from "../types";
  */
 export const basicInfoConfig: BasicInfoItemConfig[] = [
   {
-    label: "Okul Adı",
+    label: "Kurum Adı",
     value: (pricing) => (
       <span className="fw-semibold text-primary-600">
         {pricing?.schoolName || "Belirtilmemiş"}

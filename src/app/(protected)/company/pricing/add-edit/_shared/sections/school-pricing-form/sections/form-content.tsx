@@ -39,7 +39,7 @@ export const SchoolPricingFormContent: React.FC = () => {
   // Auth context'ten user bilgisini al
   const { user } = useAuth();
 
-  // Company context'ten seçili okul bilgisini al
+  // Company context'ten seçili Kurum bilgisini al
   const { selectedSchool } = useCompany();
 
   // Context'ten pricing işlemlerini al
@@ -389,11 +389,11 @@ export const SchoolPricingFormContent: React.FC = () => {
           />
         </div> */}
 
-        {/* Yaz Okulu Ücreti */}
+        {/* Yaz Kurumu Ücreti */}
         {/* <div className="col-3">
           <FormInput
             name="summerSchoolFee"
-            label="Yaz Okulu Ücreti"
+            label="Yaz Kurumu Ücreti"
             type="number"
             placeholder="₺ 0,00"
           />
@@ -780,7 +780,7 @@ const exampleSchoolPricingCreateDto: SchoolPricingCreateDto = {
   graduationFee: 2000, // Mezuniyet ücreti
   extendedDayFee: 2500, // Uzatılmış gün ücreti
   tutoringFee: 3500, // Özel ders ücreti
-  summerSchoolFee: 8000, // Yaz okulu ücreti
+  summerSchoolFee: 8000, // Yaz Kurumu ücreti
   winterCampFee: 5000, // Kış kampı ücreti
   languageCourseFee: 2500, // Dil kursu ücreti
   privateLessonFee: 500, // Özel ders (saatlik) ücreti

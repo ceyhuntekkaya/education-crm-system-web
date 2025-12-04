@@ -20,9 +20,9 @@ export const SurveyTable = () => {
     if (!selectedSchool) {
       return {
         icon: "ph-building" as const,
-        title: "Okul Seçiniz",
+        title: "Kurum Seçiniz",
         description:
-          "Anketleri görüntülemek için önce bir okul seçmeniz gerekiyor.",
+          "Anketleri görüntülemek için önce bir Kurum seçmeniz gerekiyor.",
         showActions: false,
       };
     }
@@ -30,7 +30,7 @@ export const SurveyTable = () => {
     return {
       icon: "ph-clipboard-text" as const,
       title: "Henüz Anket Response Yok",
-      description: "Bu okul için henüz tamamlanmış anket bulunmamaktadır.",
+      description: "Bu Kurum için henüz tamamlanmış anket bulunmamaktadır.",
       showActions: false,
     };
   };

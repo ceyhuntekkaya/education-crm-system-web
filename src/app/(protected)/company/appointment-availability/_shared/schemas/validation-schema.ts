@@ -3,9 +3,9 @@ import * as yup from "yup";
 export const appointmentAvailabilityValidationSchema = yup.object({
   schoolId: yup
     .number()
-    .required("Okul ID'si gereklidir")
-    .positive("Okul ID'si pozitif bir sayı olmalıdır")
-    .integer("Okul ID'si tam sayı olmalıdır"),
+    .required("Kurum ID'si gereklidir")
+    .positive("Kurum ID'si pozitif bir sayı olmalıdır")
+    .integer("Kurum ID'si tam sayı olmalıdır"),
 
   date: yup
     .string()
@@ -19,6 +19,6 @@ export const appointmentAvailabilityValidationSchema = yup.object({
     .string()
     .nullable()
     .optional()
-    .min(2, "Okul adı en az 2 karakter olmalıdır")
-    .max(100, "Okul adı en fazla 100 karakter olabilir"),
+    .min(2, "Kurum adı en az 2 karakter olmalıdır")
+    .max(100, "Kurum adı en fazla 100 karakter olabilir"),
 });

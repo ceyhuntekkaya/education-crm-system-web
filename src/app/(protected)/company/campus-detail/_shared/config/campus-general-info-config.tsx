@@ -151,7 +151,7 @@ export const campusGeneralInfoConfig: CampusGeneralInfoConfig[] = [
             {typeof campus.brand.schoolCount === "number" && (
               <span className="d-flex align-items-center gap-4 text-sm text-neutral-600">
                 <i className="ph ph-graduation-cap"></i>
-                {campus.brand.schoolCount} Okul
+                {campus.brand.schoolCount} Kurum
               </span>
             )}
             {typeof campus.brand.ratingAverage === "number" &&

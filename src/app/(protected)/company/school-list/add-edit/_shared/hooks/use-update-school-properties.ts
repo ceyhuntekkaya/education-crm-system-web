@@ -7,7 +7,7 @@ import { MutationOptions } from "@/hooks";
 
 /**
  * School property güncelleme hook'u
- * @param defaultSchoolId - Varsayılan okul ID'si (edit mode için)
+ * @param defaultSchoolId - Varsayılan Kurum ID'si (edit mode için)
  * @param refetchProperties - Property'leri yeniden yüklemek için callback
  */
 export const useUpdateSchoolProperties = (

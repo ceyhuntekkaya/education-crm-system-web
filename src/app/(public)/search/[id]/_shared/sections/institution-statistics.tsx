@@ -175,12 +175,12 @@ export default function InstitutionStatistics() {
       isShowing: campus && (campus.ratingAverage || 0) > 0,
     },
     {
-      label: "Kampüsteki Okul Sayısı",
+      label: "Kampüsteki Kurum Sayısı",
       value: (
         <div className="d-flex align-items-center gap-8">
           <i className="ph-bold ph-graduation-cap text-success-600"></i>
           <span className="text-success-600 fw-semibold">
-            {school.campus.schoolCount || 0} okul
+            {school.campus.schoolCount || 0} Kurum
           </span>
         </div>
       ),

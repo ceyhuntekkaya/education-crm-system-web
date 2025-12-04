@@ -4,9 +4,9 @@ export const mockPricings: SchoolPricingDto[] = [
   {
       "id": 1,
       "schoolId": 1,
-      "schoolName": "Eğitim Dünyası Maslak Anaokulu",
+      "schoolName": "Eğitim Dünyası Maslak AnaKurumu",
       "academicYear": "2025-2026",
-      "gradeLevel": "Anaokulu",
+      "gradeLevel": "AnaKurumu",
       "classLevel": "Küçük Yaş",
       "currency": "TRY",
       "registrationFee": 2500.00,
@@ -79,7 +79,7 @@ export const mockPricings: SchoolPricingDto[] = [
           {
               "id": 1,
               "schoolPricingId": 1,
-              "schoolName": "Eğitim Dünyası Maslak Anaokulu",
+              "schoolName": "Eğitim Dünyası Maslak AnaKurumu",
               "academicYear": "2025-2026",
               "feeName": "Doğum Günü Kutlama Ücreti",
               "feeDescription": "Sınıf içinde doğum günü kutlaması için dekorasyon, pasta ve oyun aktivitesi dahil özel ücret.",

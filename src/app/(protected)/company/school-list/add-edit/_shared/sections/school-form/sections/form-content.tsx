@@ -161,12 +161,12 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div> */}
 
-        {/* Okul Adı */}
+        {/* Kurum Adı */}
         <div className="col-6">
           <FormInput
             name="name"
-            label="Okul Adı"
-            placeholder="Okul adını giriniz..."
+            label="Kurum Adı"
+            placeholder="Kurum adını giriniz..."
             isRequired
           />
         </div>
@@ -191,7 +191,7 @@ export const SchoolFormContent: React.FC = () => {
           <FormTextarea
             name="description"
             label="Açıklama"
-            placeholder="Okul açıklamasını giriniz..."
+            placeholder="Kurum açıklamasını giriniz..."
             rows={4}
           />
         </div>

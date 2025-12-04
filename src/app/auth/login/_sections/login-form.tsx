@@ -263,7 +263,7 @@ const LoginFormContent: React.FC = () => {
                   <div className="feature-icon">
                     <i className="ph-fill ph-buildings"></i>
                   </div>
-                  <h3>Okul Yönetimi</h3>
+                  <h3>Kurum Yönetimi</h3>
                   <p>
                     Eğitim kurumlarınızın detaylı yönetim işlemlerini
                     gerçekleştirin

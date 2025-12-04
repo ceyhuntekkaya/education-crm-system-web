@@ -32,7 +32,7 @@ export const CampaignFormContent: React.FC = () => {
   const { isEditing, postCampaign, putCampaign, campaignLoading, formOptions } =
     useCampaignAddEdit();
 
-  // Company context'ten seçili okul bilgisini al
+  // Company context'ten seçili Kurum bilgisini al
   const { selectedSchool } = useCompany();
 
   // Form options - context'ten gelen
@@ -48,7 +48,7 @@ export const CampaignFormContent: React.FC = () => {
       // Add modunda CampaignCreateDto kullan
       const createData: CampaignCreateDto = {
         ...values,
-        // Seçili okul ID'sini ekle
+        // Seçili Kurum ID'sini ekle
         // schoolId: selectedSchool?.id,
         // schoolIds'yi kaldır (eğer varsa)
         schoolIds: [selectedSchool?.id || 0],
@@ -336,9 +336,9 @@ export const CampaignFormContent: React.FC = () => {
         <div className="col-4">
           <FormInput
             name="perSchoolLimit"
-            label="Okul Başına Limit"
+            label="Kurum Başına Limit"
             type="number"
-            placeholder="Okul başına limit..."
+            placeholder="Kurum başına limit..."
           />
         </div> */}
 

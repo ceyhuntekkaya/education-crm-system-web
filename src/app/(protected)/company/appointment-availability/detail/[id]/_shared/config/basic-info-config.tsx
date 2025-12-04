@@ -66,7 +66,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     isShowing: (appointment) => !!appointment?.description,
   },
   {
-    label: "Okul",
+    label: "Kurum",
     value: (appointment) => (
       <span className="text-primary fw-medium">
         <i className="ph ph-buildings me-2"></i>

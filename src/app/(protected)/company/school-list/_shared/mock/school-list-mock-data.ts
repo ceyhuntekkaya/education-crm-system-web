@@ -10,8 +10,8 @@ export const mockSchools: SchoolSearchResultDto[] = [
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=center",
     coverImageUrl:
       "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=400&h=200&fit=crop&crop=center",
-    description: "Kaliteli eğitim ile geleceğe hazırlayan okul",
-    institutionTypeName: "Özel Okul",
+    description: "Kaliteli eğitim ile geleceğe hazırlayan Kurum",
+    institutionTypeName: "Özel Kurum",
     institutionTypeIcon: "ph-graduation-cap",
     institutionTypeColor: "#3B82F6",
     minAge: 6,
@@ -87,14 +87,14 @@ export const mockSchools: SchoolSearchResultDto[] = [
   },
   {
     id: 2,
-    name: "Gelişim Anaokulu",
-    slug: "gelisim-anaokulu",
+    name: "Gelişim AnaKurumu",
+    slug: "gelisim-anaKurumu",
     logoUrl:
       "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=100&h=100&fit=crop&crop=center",
     coverImageUrl:
       "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=200&fit=crop&crop=center",
     description: "3-6 yaş arası çocuklar için özel gelişim programları",
-    institutionTypeName: "Anaokulu",
+    institutionTypeName: "AnaKurumu",
     institutionTypeIcon: "ph-baby",
     institutionTypeColor: "#10B981",
     minAge: 3,
@@ -104,7 +104,7 @@ export const mockSchools: SchoolSearchResultDto[] = [
     formattedPrice: "₺1.800",
     ratingAverage: 4.5,
     ratingCount: 89,
-    campusName: "Anaokulu Binası",
+    campusName: "AnaKurumu Binası",
     address: "Çiçek Mahallesi, Oyun Sokak No:8",
     district: "Üsküdar",
     city: "İstanbul",
@@ -225,14 +225,14 @@ export const mockSchools: SchoolSearchResultDto[] = [
   },
   {
     id: 4,
-    name: "Modern İlkokul",
-    slug: "modern-ilkokul",
+    name: "Modern İlkKurum",
+    slug: "modern-ilkKurum",
     logoUrl:
       "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=100&h=100&fit=crop&crop=center",
     coverImageUrl:
       "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=200&fit=crop&crop=center",
-    description: "İlkokul çağındaki çocuklar için modern eğitim yaklaşımı",
-    institutionTypeName: "İlkokul",
+    description: "İlkKurum çağındaki çocuklar için modern eğitim yaklaşımı",
+    institutionTypeName: "İlkKurum",
     institutionTypeIcon: "ph-book-open",
     institutionTypeColor: "#8B5CF6",
     minAge: 6,
@@ -347,7 +347,7 @@ export const mockSchools: SchoolSearchResultDto[] = [
       "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&h=200&fit=crop&crop=center",
     description:
       "Yaratıcılığını geliştirmek isteyen öğrenciler için sanat eğitimi",
-    institutionTypeName: "Sanat Okulu",
+    institutionTypeName: "Sanat Kurumu",
     institutionTypeIcon: "ph-paint-brush",
     institutionTypeColor: "#F59E0B",
     minAge: 8,

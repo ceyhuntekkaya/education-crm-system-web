@@ -26,7 +26,7 @@ export const ModalActions: React.FC<ModalActionsProps> = ({ onClose }) => {
         disabled={listsLoading}
         leftIcon="ph-bold ph-bookmark-simple"
       >
-        {listsLoading ? "Kaydediliyor..." : "Okulu Listeye Ekle"}
+        {listsLoading ? "Kaydediliyor..." : "Kurumu Listeye Ekle"}
       </Button>
     </div>
   );

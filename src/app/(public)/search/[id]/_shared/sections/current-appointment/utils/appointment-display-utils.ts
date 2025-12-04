@@ -63,7 +63,7 @@ export const getAppointmentTypeInfo = (type: string): TypeInfo => {
     case "INFORMATION_MEETING":
       return { icon: "ph-info", text: "Bilgi Toplantısı", color: "info" };
     case "SCHOOL_TOUR":
-      return { icon: "ph-buildings", text: "Okul Turu", color: "main" };
+      return { icon: "ph-buildings", text: "Kurum Turu", color: "main" };
     case "ENROLLMENT_INTERVIEW":
       return {
         icon: "ph-user-plus",

@@ -101,7 +101,7 @@ const SaveFavoriteSearchModalContent: React.FC<{
 
               <FormInput
                 name="favoriteSearchName"
-                placeholder="Örn: Lise Araması, İstanbul Okulları, Bütçe Dostu Okullar..."
+                placeholder="Örn: Lise Araması, İstanbul Kurumları, Bütçe Dostu Kurumlar..."
                 required
               />
 

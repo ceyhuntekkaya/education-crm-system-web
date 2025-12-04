@@ -32,7 +32,10 @@ export const FORM_OPTIONS = {
   ],
   GRADE: [
     { value: "", label: "Sınıf seçiniz" },
-    { value: GRADE_LEVEL_OPTIONS.ANAOKULU, label: GRADE_LEVEL_LABELS.ANAOKULU },
+    {
+      value: GRADE_LEVEL_OPTIONS.ANAKurumU,
+      label: GRADE_LEVEL_LABELS.ANAKurumU,
+    },
     { value: GRADE_LEVEL_OPTIONS.SINIF_1, label: GRADE_LEVEL_LABELS.SINIF_1 },
     { value: GRADE_LEVEL_OPTIONS.SINIF_2, label: GRADE_LEVEL_LABELS.SINIF_2 },
     { value: GRADE_LEVEL_OPTIONS.SINIF_3, label: GRADE_LEVEL_LABELS.SINIF_3 },

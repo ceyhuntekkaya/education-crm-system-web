@@ -45,7 +45,7 @@ export const getCampaignTypeDisplay = (type?: string): string => {
     case CampaignType.EARLY_BIRD:
       return "Erken Kayıt";
     case CampaignType.SUMMER_SCHOOL:
-      return "Yaz Okulu";
+      return "Yaz Kurumu";
     case CampaignType.WINTER_CAMP:
       return "Kış Kampı";
     case CampaignType.FREE_TRIAL:

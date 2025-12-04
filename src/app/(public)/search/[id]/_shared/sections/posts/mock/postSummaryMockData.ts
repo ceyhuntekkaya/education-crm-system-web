@@ -16,7 +16,7 @@ export const postSummaryMockData: PostSummaryDto[] = [
     isFeatured: true,
     isPinned: true,
     schoolName: "Bahçeşehir Koleji Beşiktaş",
-    authorName: "Okul Yönetimi",
+    authorName: "Kurum Yönetimi",
   },
   {
     id: 2,

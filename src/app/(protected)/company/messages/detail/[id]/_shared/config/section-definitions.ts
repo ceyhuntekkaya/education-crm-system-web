@@ -49,9 +49,9 @@ export const MESSAGE_SECTIONS: SectionConfig[] = [
     config: studentInfoConfig,
   },
 
-  // 5. ATAMA VE OKUL BİLGİLERİ - Hangi okul, kim sorumlu
+  // 5. ATAMA VE Kurum BİLGİLERİ - Hangi Kurum, kim sorumlu
   {
-    title: "Atama ve Okul Bilgileri",
+    title: "Atama ve Kurum Bilgileri",
     titleColor: "text-orange-600",
     titleIcon: "ph-bold ph-buildings",
     config: assignmentInfoConfig,

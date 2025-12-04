@@ -14,7 +14,7 @@ export const galleryMockData: GalleryDto[] = [
     id: 1,
     title: "2024 Bahar Festivali",
     description:
-      "Okulumuzun geleneksel bahar festivali etkinlikleri. Öğrencilerimizin sanat, müzik ve dans performanslarını içeren renkli bir festival.",
+      "Kurumumuzun geleneksel bahar festivali etkinlikleri. Öğrencilerimizin sanat, müzik ve dans performanslarını içeren renkli bir festival.",
     slug: "2024-bahar-festivali",
     galleryType: GalleryType.EVENTS,
     visibility: GalleryVisibility.PUBLIC,
@@ -311,9 +311,9 @@ export const galleryMockData: GalleryDto[] = [
     isFeatured: true,
     allowComments: true,
     allowDownloads: true,
-    metaTitle: "Öğrenci Projeleri Sergisi - MEF Okulları",
+    metaTitle: "Öğrenci Projeleri Sergisi - MEF Kurumları",
     metaDescription:
-      "MEF Okulları öğrencilerinin yaratıcı proje çalışmaları sergisi.",
+      "MEF Kurumları öğrencilerinin yaratıcı proje çalışmaları sergisi.",
     tags: "proje,sergi,öğrenci,yaratıcı,bilim,teknoloji,sanat",
     itemCount: 4,
     viewCount: 3456,
@@ -401,7 +401,7 @@ export const getGalleryByCampusId = (campusId: number): GalleryDto[] => {
   return galleryMockData.filter((gallery) => gallery.campus?.id === campusId);
 };
 
-// Okul ID'sine göre galeri getirme
+// Kurum ID'sine göre galeri getirme
 export const getGalleryBySchoolId = (schoolId: number): GalleryDto[] => {
   return galleryMockData.filter((gallery) => gallery.school?.id === schoolId);
 };

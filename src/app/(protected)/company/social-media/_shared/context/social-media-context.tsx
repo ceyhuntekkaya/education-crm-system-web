@@ -16,7 +16,7 @@ interface SocialMediaProviderProps {
 export const SocialMediaProvider: React.FC<SocialMediaProviderProps> = ({
   children,
 }) => {
-  // Company context'ten seçili okul ID'sini al
+  // Company context'ten seçili Kurum ID'sini al
   const { selectedSchool } = useCompany();
 
   // Posts hook'unu kullan

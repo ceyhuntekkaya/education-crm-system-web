@@ -10,7 +10,7 @@ export interface SurveyResponseDto {
   respondentUserId?: number;
   respondentUserName?: string;
   /** Format: int64 */
-  schoolId?: number; // okul idi göndeirleicek
+  schoolId?: number; // Kurum idi göndeirleicek
   schoolName?: string;
   /** Format: int64 */
   appointmentId?: number; // ****** randevu id

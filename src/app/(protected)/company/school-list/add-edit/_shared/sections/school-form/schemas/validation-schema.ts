@@ -6,7 +6,7 @@ import * as Yup from "yup";
 export const validationSchema = Yup.object({
   // campusId: Yup.number().required("Kampüs seçimi gereklidir"),
   institutionTypeId: Yup.number().required("Kurum tipi seçimi gereklidir"),
-  name: Yup.string().required("Okul adı gereklidir"),
+  name: Yup.string().required("Kurum adı gereklidir"),
   description: Yup.string().nullable().optional(),
   logoUrl: Yup.string().url("Geçerli bir URL giriniz").nullable().optional(),
   coverImageUrl: Yup.string()

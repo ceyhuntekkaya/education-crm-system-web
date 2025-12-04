@@ -14,7 +14,7 @@ export const hasValidSearchCriteria = (
   // Filter yoksa veya boşsa false döndür
   if (!filters || Object.keys(filters).length === 0) return false;
 
-  // Okul ID'si kontrol et
+  // Kurum ID'si kontrol et
   const hasSchoolId = "schoolId" in filters && !!filters.schoolId;
 
   // Tekli tarih kontrol et
@@ -25,7 +25,7 @@ export const hasValidSearchCriteria = (
     ("startDate" in filters && !!filters.startDate) ||
     ("endDate" in filters && !!filters.endDate);
 
-  // Okul ID'si ve en az bir tarih bilgisi gerekli
+  // Kurum ID'si ve en az bir tarih bilgisi gerekli
   return hasSchoolId && (hasDate || hasDateRange);
 };
 

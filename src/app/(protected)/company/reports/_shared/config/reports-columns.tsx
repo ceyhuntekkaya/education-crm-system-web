@@ -331,7 +331,7 @@ export const createReportsColumns = (): GridColDef<AnalyticsDto>[] => [
   },
   {
     field: "brandSchool",
-    headerName: "Kurum/Okul",
+    headerName: "Kurum/Kurum",
     width: 180,
     renderCell: renderBrandSchool,
   },

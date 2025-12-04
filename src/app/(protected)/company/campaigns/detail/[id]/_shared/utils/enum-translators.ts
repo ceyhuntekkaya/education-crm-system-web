@@ -37,7 +37,7 @@ export const translateCampaignType = (campaignType?: string): string => {
     NEW_CUSTOMER: "Yeni Müşteri",
     BIRTHDAY: "Doğum Günü",
     HOLIDAY: "Tatil",
-    BACK_TO_SCHOOL: "Okula Dönüş",
+    BACK_TO_SCHOOL: "Kuruma Dönüş",
     EARLY_BIRD: "Erken Kayıt",
     GROUP: "Grup İndirimi",
     FREE_SERVICE: "Ücretsiz Hizmet",
@@ -93,8 +93,8 @@ export const translateEducationLevel = (educationLevel?: string): string => {
   if (!educationLevel) return "Belirtilmemiş";
 
   const translations: Record<string, string> = {
-    PRIMARY_SCHOOL: "İlkokul",
-    MIDDLE_SCHOOL: "Ortaokul",
+    PRIMARY_SCHOOL: "İlkKurum",
+    MIDDLE_SCHOOL: "OrtaKurum",
     HIGH_SCHOOL: "Lise",
     UNIVERSITY: "Üniversite",
     GRADUATE: "Lisansüstü",
@@ -130,7 +130,7 @@ export const translateFreeService = (service?: string): string => {
 
   const translations: Record<string, string> = {
     orientation_program: "Oryantasyon Programı",
-    school_supplies_package: "Okul Malzemeleri Paketi",
+    school_supplies_package: "Kurum Malzemeleri Paketi",
     uniform_fitting: "Üniforma Ölçümü",
     transportation_service: "Ulaşım Hizmeti",
     meal_service: "Yemek Hizmeti",
@@ -139,7 +139,7 @@ export const translateFreeService = (service?: string): string => {
     library_access: "Kütüphane Erişimi",
     free_orientation: "Ücretsiz Oryantasyon",
     consultation: "Danışmanlık Hizmeti",
-    school_tour: "Okul Turu",
+    school_tour: "Kurum Turu",
     parent_meeting: "Veli Toplantısı",
     assessment_test: "Değerlendirme Testi",
     language_assessment: "Dil Değerlendirmesi",
@@ -196,30 +196,30 @@ export const translateGiftItem = (gift?: string): string => {
 
   const translations: Record<string, string> = {
     welcome_bag: "Hoş Geldin Çantası",
-    school_calendar: "Okul Takvimi",
+    school_calendar: "Kurum Takvimi",
     parent_handbook: "Veli El Kitabı",
     student_planner: "Öğrenci Ajandası",
     branded_notebook: "Markalı Defter",
     water_bottle: "Su Matarası",
     pencil_case: "Kalem Kutusu",
     badge_set: "Rozet Seti",
-    school_supplies: "Okul Malzemeleri",
+    school_supplies: "Kurum Malzemeleri",
     uniform_set: "Üniforma Seti",
-    backpack: "Okul Çantası",
+    backpack: "Kurum Çantası",
     lunch_box: "Beslenme Çantası",
     notebooks: "Defterler",
     art_supplies: "Sanat Malzemeleri",
     gym_clothes: "Beden Eğitimi Kıyafetleri",
-    school_shoes: "Okul Ayakkabıları",
+    school_shoes: "Kurum Ayakkabıları",
     name_tags: "İsim Etiketleri",
     id_card: "Öğrenci Kartı",
     library_card: "Kütüphane Kartı",
-    school_t_shirt: "Okul Tişörtü",
-    school_hoodie: "Okul Kapüşonlusu",
+    school_t_shirt: "Kurum Tişörtü",
+    school_hoodie: "Kurum Kapüşonlusu",
     graduation_cap: "Mezuniyet Kasketi",
     certificate_holder: "Sertifika Tutucu",
     photo_frame: "Resim Çerçevesi",
-    school_mug: "Okul Kupası",
+    school_mug: "Kurum Kupası",
     keychain: "Anahtarlık",
     stickers: "Çıkartmalar",
   };
@@ -330,7 +330,7 @@ export const translateApprovalStatus = (
 };
 
 /**
- * Okul kampanya durumlarını çevirir
+ * Kurum kampanya durumlarını çevirir
  */
 export const translateSchoolCampaignStatus = (
   status?: string
@@ -365,7 +365,7 @@ export const translateUsageContext = (usageContext?: string): string => {
 
   const translations: Record<string, string> = {
     WEBSITE_HOMEPAGE: "Web Sitesi Ana Sayfası",
-    SCHOOL_PAGE: "Okul Sayfası",
+    SCHOOL_PAGE: "Kurum Sayfası",
     CAMPAIGN_PAGE: "Kampanya Sayfası",
     PRICING_PAGE: "Fiyatlandırma Sayfası",
     EMAIL_CAMPAIGN: "E-posta Kampanyası",

@@ -14,7 +14,7 @@ interface PricingProviderProps {
 export const PricingProvider: React.FC<PricingProviderProps> = ({
   children,
 }) => {
-  // Company context'ten seçili okul ID'sini al
+  // Company context'ten seçili Kurum ID'sini al
   const { selectedSchool } = useCompany();
 
   // Pricing hook'unu kullan

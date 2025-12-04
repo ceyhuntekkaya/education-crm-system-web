@@ -16,7 +16,8 @@ const ActiveFilters: React.FC = () => {
     values,
     isDirty,
   } = useActiveFilters();
-  const { search, searchLoading, institutionTypes, hasSearched, resetSearch } = useSearchContext();
+  const { search, searchLoading, institutionTypes, hasSearched, resetSearch } =
+    useSearchContext();
 
   // Değişiklikleri kaydet ve API'ye gönder
   const handleSaveChanges = () => {
@@ -59,8 +60,8 @@ const ActiveFilters: React.FC = () => {
             </h6>
             <div className="d-flex align-items-center gap-8">
               <span className="text-neutral-600 text-sm">
-                <strong className="text-primary-600">{resultCount}</strong> okul
-                bulundu
+                <strong className="text-primary-600">{resultCount}</strong>{" "}
+                Kurum bulundu
               </span>
               <span className="text-neutral-300">•</span>
               <span className="result-badge bg-info-50 text-info-600 px-8 py-2 rounded-6 text-xs font-weight-500">
