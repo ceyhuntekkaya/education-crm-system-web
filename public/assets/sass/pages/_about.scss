@@ -490,6 +490,493 @@
     }
   }
   
+  // Parent App Section - Veli uygulaması indirme bölümü
+  .parent-app-section {
+    background: linear-gradient(135deg, var(--main-50) 0%, var(--primary-50) 100%);
+    border-radius: 20px;
+    padding: 48px;
+    border: 1px solid var(--main-100);
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    
+    @include lg-screen {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    @include sm-screen {
+      padding: 32px 20px;
+      gap: 32px;
+    }
+    
+    &__content {
+      flex: 1;
+    }
+    
+    &__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--main-100);
+      color: var(--main-700);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      
+      i {
+        font-size: 16px;
+      }
+    }
+    
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 16px;
+      line-height: 1.3;
+      
+      @include sm-screen {
+        font-size: 1.5rem;
+      }
+    }
+    
+    &__description {
+      color: var(--neutral-600);
+      max-width: 420px;
+      line-height: 1.7;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      
+      @include lg-screen {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    
+    &__features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+      
+      @include lg-screen {
+        justify-content: center;
+      }
+    }
+    
+    &__stores {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      
+      @include lg-screen {
+        justify-content: center;
+      }
+    }
+    
+    &__note {
+      color: var(--neutral-500);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      
+      @include lg-screen {
+        justify-content: center;
+      }
+      
+      i {
+        color: var(--warning-500);
+        font-size: 14px;
+      }
+    }
+    
+    &__qr-section {
+      display: flex;
+      gap: 20px;
+      
+      @include sm-screen {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  
+  // App Feature Badge
+  .app-feature {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fff;
+    border: 1px solid var(--neutral-100);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-700);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: var(--main-200);
+      background-color: var(--main-50);
+    }
+    
+    i {
+      font-size: 18px;
+      color: var(--main-600);
+    }
+  }
+  
+  // QR Card
+  .qr-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--neutral-100);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    min-width: 140px;
+    
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--neutral-800);
+      
+      i {
+        font-size: 20px;
+      }
+    }
+    
+    &__code {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+      border: 2px dashed var(--neutral-200);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      
+      i {
+        font-size: 48px;
+        color: var(--neutral-300);
+      }
+    }
+    
+    &__label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--main-600);
+      background-color: var(--main-50);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+  }
+  
+  // Store Item - App Store / Play Store kartı
+  .store-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    
+    &__link {
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+    
+    &__badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: #000;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      min-width: 180px;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: #333;
+      }
+      
+      &--google {
+        background: linear-gradient(135deg, #4285F4, #34A853, #FBBC05, #EA4335);
+        background-size: 300% 300%;
+        animation: gradientShift 5s ease infinite;
+        
+        &:hover {
+          filter: brightness(1.1);
+        }
+      }
+    }
+    
+    &__badge-icon {
+      font-size: 32px;
+    }
+    
+    &__badge-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    &__badge-small {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+    }
+    
+    &__badge-large {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    
+    &__qr {
+      .qr-placeholder {
+        width: 120px;
+        height: 120px;
+        background-color: #fff;
+        border: 2px dashed var(--neutral-300);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--neutral-400);
+        
+        i {
+          font-size: 48px;
+        }
+        
+        span {
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  // Store Badge - App Store / Play Store linkler
+  .store-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #000;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    min-width: 200px;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    &--apple {
+      background-color: #000;
+      
+      &:hover {
+        background-color: #1a1a1a;
+      }
+    }
+    
+    &--google {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      
+      &:hover {
+        background: linear-gradient(135deg, #252542 0%, #1f2b4d 100%);
+      }
+    }
+    
+    &__icon {
+      font-size: 36px;
+    }
+    
+    &__text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    &__small {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+    }
+    
+    &__large {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+  }
+  
+  // Institution Info Section - Kurumlar için zengin bilgi bölümü
+  .institution-info-section {
+    background: linear-gradient(135deg, var(--main-50) 0%, var(--primary-50) 100%);
+    border-radius: 20px;
+    padding: 48px;
+    border: 1px solid var(--main-100);
+    margin-bottom: 48px;
+    
+    @include sm-screen {
+      padding: 32px 20px;
+    }
+    
+    &__header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    &__icon-wrapper {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--main-500) 0%, var(--main-600) 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      
+      i {
+        font-size: 40px;
+        color: #fff;
+      }
+    }
+    
+    &__title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 12px;
+      
+      @include sm-screen {
+        font-size: 1.5rem;
+      }
+    }
+    
+    &__description {
+      color: var(--neutral-600);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+    
+    &__services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+      
+      @include lg-screen {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include sm-screen {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    &__cta {
+      text-align: center;
+    }
+    
+    &__cta-note {
+      color: var(--neutral-500);
+      font-size: 13px;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      i {
+        color: var(--main-500);
+      }
+    }
+  }
+  
+  // Service Card - Hizmet kartı
+  .service-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--neutral-100);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    &__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      
+      i {
+        font-size: 24px;
+      }
+    }
+    
+    &__content {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    &__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-900);
+      margin: 0 0 4px 0;
+    }
+    
+    &__description {
+      color: var(--neutral-500);
+      font-size: 12px;
+      margin: 0;
+      display: block;
+    }
+  }
+  
   // Spacing utilities
   .mb-48 {
     margin-bottom: 48px;

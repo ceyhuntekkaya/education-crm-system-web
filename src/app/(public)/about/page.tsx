@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { TabNavigation, TabContent } from "@/components";
 import {
   AboutHeroSection,
@@ -13,6 +14,13 @@ import { usePageTitle } from "@/hooks";
 const AboutPage = () => {
   usePageTitle("Hakkımızda");
   const tabs = getAboutTabs();
+  const [activeTab, setActiveTab] = useState<"parent-tab" | "institution-tab">(
+    "parent-tab"
+  );
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId as "parent-tab" | "institution-tab");
+  };
 
   return (
     <div className="about-page">
@@ -29,6 +37,7 @@ const AboutPage = () => {
               size="md"
               allowMultiline={false}
               center={true}
+              onTabChange={handleTabChange}
             />
           </div>
         </div>
@@ -42,8 +51,8 @@ const AboutPage = () => {
         {/* Eğitim İste Logo Section */}
         <BrandSection />
 
-        {/* İletişim Bilgisi */}
-        <InfoSection />
+        {/* İletişim Bilgisi - Tab'a göre değişen içerik */}
+        <InfoSection activeTab={activeTab} />
       </div>
     </div>
   );
