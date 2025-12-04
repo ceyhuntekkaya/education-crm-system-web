@@ -5,4 +5,6 @@ export interface InstitutionTypeSummaryDto {
   iconUrl?: string;
   colorCode?: string;
   schoolCount?: number;
+  groupId?: number;
+  groupName?: string;
 }

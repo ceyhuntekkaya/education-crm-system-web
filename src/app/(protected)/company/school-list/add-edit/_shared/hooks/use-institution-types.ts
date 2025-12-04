@@ -94,7 +94,7 @@ export const useInstitutionTypes = (): UseInstitutionTypesReturn => {
   }, [response?.data]);
 
   // Institution type dropdown için options hazırla (groupId ve groupName ile birlikte)
-  const institutionTypeOptions = useMemo(
+  const institutionTypeOptions: InstitutionTypeOption[] = useMemo(
     () => [
       { value: "", label: "Kurum tipi seçiniz..." },
       ...institutionTypes.map((type) => ({
