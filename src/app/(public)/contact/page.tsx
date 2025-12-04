@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { ContactInfoSection, ContactFormSection } from "./_shared";
 
-const ContactPage = () => {
+const ContactPageContent = () => {
   const searchParams = useSearchParams();
   const scrollToForm = searchParams.get("scrollToForm");
 
@@ -31,6 +31,14 @@ const ContactPage = () => {
       <ContactInfoSection />
       <ContactFormSection />
     </>
+  );
+};
+
+const ContactPage = () => {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageContent />
+    </Suspense>
   );
 };
 
