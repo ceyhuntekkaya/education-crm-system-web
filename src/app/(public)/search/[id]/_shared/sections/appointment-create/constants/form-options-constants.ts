@@ -29,11 +29,6 @@ export const FORM_OPTIONS = {
       value: STUDENT_GENDER_OPTIONS.FEMALE,
       label: STUDENT_GENDER_LABELS.FEMALE,
     },
-    { value: STUDENT_GENDER_OPTIONS.OTHER, label: STUDENT_GENDER_LABELS.OTHER },
-    {
-      value: STUDENT_GENDER_OPTIONS.PREFER_NOT_TO_SAY,
-      label: STUDENT_GENDER_LABELS.PREFER_NOT_TO_SAY,
-    },
   ],
   GRADE: [
     { value: "", label: "Sınıf seçiniz" },
