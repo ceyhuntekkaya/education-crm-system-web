@@ -54,10 +54,10 @@ const MembershipCard = ({
           <span className="text-main-600 fw-bold text-lg bg-white d-block text-center p-6">
             {plan.displayName}
           </span>
-          <div className="mt-16 w-84 h-84 bg-white p-16 box-shadow-md rounded-circle mx-auto d-inline-flex align-items-center justify-content-center position-relative text-main-600 text-44 border border-neutral-30">
+          {/* <div className="mt-16 w-84 h-84 bg-white p-16 box-shadow-md rounded-circle mx-auto d-inline-flex align-items-center justify-content-center position-relative text-main-600 text-44 border border-neutral-30">
             <i className={plan.icon} />
-          </div>
-          <h1 className="display-4 fw-bold mb-0 mt-32 text-neutral-700 transition-2">
+          </div> */}
+          <h1 className="display-4 fw-bold mb-0 mt-32 text-neutral-700 transition-2 text-center">
             {formatCurrency(displayPrice)}
             <span className="text-sm fw-normal">{priceLabel}</span>
           </h1>
