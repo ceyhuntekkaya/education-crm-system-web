@@ -2,6 +2,7 @@ import { SchoolFormData } from "../../../types/school-form-data";
 
 export const initialValues: SchoolFormData = {
   campusId: undefined,
+  institutionGroupId: undefined,
   institutionTypeId: undefined,
   name: "",
   description: "",

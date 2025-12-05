@@ -72,12 +72,12 @@ export default function SchoolCampusDetail() {
       isShowing: campus.ratingAverage && campus.ratingAverage > 0,
     },
     {
-      label: "Kampüsteki Okul Sayısı",
+      label: "Kampüsteki Kurum Sayısı",
       value: (
         <div className="d-flex align-items-center gap-8">
           <i className="ph-bold ph-buildings text-main-600"></i>
           <span className="fw-semibold text-main-600">
-            {campus.schoolCount} okul
+            {campus.schoolCount} Kurum
           </span>
         </div>
       ),

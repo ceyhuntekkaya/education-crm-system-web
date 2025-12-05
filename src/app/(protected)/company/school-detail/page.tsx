@@ -17,7 +17,7 @@ import {
 import { usePageTitle } from "@/hooks";
 
 const SchoolDetailPage: React.FC = () => {
-  usePageTitle("Okul Detayı");
+  usePageTitle("Kurum Detayı");
   const { currentSchool, isLoading } = useSchoolDetailContext();
 
   if (isLoading) {

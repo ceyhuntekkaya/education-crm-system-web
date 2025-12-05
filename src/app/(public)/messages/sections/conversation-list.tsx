@@ -88,7 +88,7 @@ export const ConversationList: React.FC = () => {
                         isUnread ? "unread" : ""
                       }`}
                     >
-                      {latestMessage.school?.name || "Okul Belirtilmemiş"}
+                      {latestMessage.school?.name || "Kurum Belirtilmemiş"}
                     </h6>
                     <span className="messages-conversation-time">
                       {formatConversationDate(group.lastMessageDate)}

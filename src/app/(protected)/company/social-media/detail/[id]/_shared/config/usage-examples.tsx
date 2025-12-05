@@ -167,7 +167,7 @@ const PostDetailPage = ({ post }: { post: PostDto | null }) => {
  *
  * 1. ✅ Yazar & Kurum bilgileri ayrı config'lere bölündü
  *    - authorDetailsConfig: Yazar profil ve iletişim bilgileri
- *    - institutionDetailsConfig: Okul bilgileri (genel, ücret, değerlendirme)
+ *    - institutionDetailsConfig: Kurum bilgileri (genel, ücret, değerlendirme)
  *
  * 2. ✅ Statistics config campaign tarzında yeniden tasarlandı
  *    - Performans Özeti kartları

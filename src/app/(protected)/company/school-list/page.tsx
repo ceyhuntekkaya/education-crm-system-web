@@ -5,11 +5,11 @@ import { CustomCard } from "@/components";
 import { usePageTitle } from "@/hooks";
 
 const SchoolListPage: React.FC = () => {
-  usePageTitle("Okul Listesi");
+  usePageTitle("Kurum Listesi");
   return (
     <CustomCard
-      title="Okul Listesi Yönetimi"
-      subtitle="Okul bilgilerinizi görüntüleyin, düzenleyin ve yönetin"
+      title="Kurum Listesi Yönetimi"
+      subtitle="Kurum bilgilerinizi görüntüleyin, düzenleyin ve yönetin"
       addButtonUrl="/company/school-list/add-edit/new"
     >
       <SchoolTable />

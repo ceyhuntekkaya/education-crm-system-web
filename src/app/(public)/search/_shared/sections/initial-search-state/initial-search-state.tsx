@@ -54,7 +54,7 @@ const InitialSearchState: React.FC = () => {
                 className="text-neutral-600 text-sm mb-0"
                 style={{ lineHeight: "1.6" }}
               >
-                Anaokulu, ilkokul, lise gibi kurum türlerinden seçim yapın
+                AnaKurumu, ilkKurum, lise gibi kurum türlerinden seçim yapın
               </p>
             </div>
           </div>
@@ -242,4 +242,3 @@ const InitialSearchState: React.FC = () => {
 };
 
 export default InitialSearchState;
-

@@ -20,7 +20,7 @@ import { useAppointment } from "../../../context/appointment-context";
 
 /**
  * Appointment details filter form content component
- * Okul/kampüs bilgileri ve tarih aralığı filtreleri kaldırılmış optimize form
+ * Kurum/kampüs bilgileri ve tarih aralığı filtreleri kaldırılmış optimize form
  */
 export const AppointmentDetailsFormContent: React.FC<
   AppointmentDetailsFormContentProps
@@ -86,13 +86,13 @@ export const AppointmentDetailsFormContent: React.FC<
       <Form onSubmit={handleSubmit}>
         {/* Form Layout - Yeni AppointmentSlotDto yapısına göre güncellenmiş */}
         <div className="row row-gap-16">
-          {/* 1. Okul Adı */}
+          {/* 1. Kurum Adı */}
           <div className="col-md-3">
             <FormInput
               name="schoolName"
-              label="Okul Adı"
+              label="Kurum Adı"
               variant="inline"
-              placeholder="Okul adını giriniz"
+              placeholder="Kurum adını giriniz"
             />
           </div>
 

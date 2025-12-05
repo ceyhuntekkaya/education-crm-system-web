@@ -1,6 +1,6 @@
 export enum AppointmentType {
   INFORMATION_MEETING = "INFORMATION_MEETING", // Bilgi toplantısı
-  SCHOOL_TOUR = "SCHOOL_TOUR", // Okul gezisi
+  SCHOOL_TOUR = "SCHOOL_TOUR", // Kurum gezisi
   ENROLLMENT_INTERVIEW = "ENROLLMENT_INTERVIEW", // Kayıt görüşmesi
   PARENT_MEETING = "PARENT_MEETING", // Veli görüşmesi
   CONSULTATION = "CONSULTATION", // Danışmanlık

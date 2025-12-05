@@ -45,7 +45,7 @@ const AppointmentAvailabilityPageContent: React.FC = () => {
   return (
     <CustomCard
       title="Randevu Müsaitlik Sorgulama"
-      subtitle="Okul randevu müsaitlik durumlarını sorgulayın ve görüntüleyin"
+      subtitle="Kurum randevu müsaitlik durumlarını sorgulayın ve görüntüleyin"
       addButtonUrl="/company/appointment-availability/add-edit/new"
       mb="mb-24"
     >

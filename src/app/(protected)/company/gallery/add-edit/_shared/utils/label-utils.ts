@@ -8,7 +8,7 @@ export function getGalleryTypeLabel(type: GalleryType): string {
     [GalleryType.MIXED]: "Karışık",
     [GalleryType.PHOTOS]: "Fotoğraflar",
     [GalleryType.VIDEOS]: "Videolar",
-    [GalleryType.SCHOOL_TOUR]: "Okul Turu",
+    [GalleryType.SCHOOL_TOUR]: "Kurum Turu",
     [GalleryType.EVENTS]: "Etkinlikler",
     [GalleryType.FACILITIES]: "Tesisler",
     [GalleryType.CLASSROOMS]: "Sınıflar",
@@ -38,7 +38,7 @@ export function getGalleryVisibilityLabel(
 ): string {
   const labels: Record<GalleryVisibility, string> = {
     [GalleryVisibility.PUBLIC]: "Herkese Açık",
-    [GalleryVisibility.PRIVATE]: "Sadece Okul Personeli",
+    [GalleryVisibility.PRIVATE]: "Sadece Kurum Personeli",
     [GalleryVisibility.REGISTERED_ONLY]: "Sadece Üye Veliler",
     [GalleryVisibility.PASSWORD_PROTECTED]: "Şifre Korumalı",
   };

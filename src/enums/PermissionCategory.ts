@@ -1,6 +1,6 @@
 export enum PermissionCategory {
   USER_MANAGEMENT = "USER_MANAGEMENT", // kullanici_olustur, kullanici_duzenle vs
-  INSTITUTION_MANAGEMENT = "INSTITUTION_MANAGEMENT", // kampus_duzenle, okul_olustur vs
+  INSTITUTION_MANAGEMENT = "INSTITUTION_MANAGEMENT", // kampus_duzenle, Kurum_olustur vs
   APPOINTMENT_MANAGEMENT = "APPOINTMENT_MANAGEMENT", // randevu_olustur, randevu_iptal_et vs
   CONTENT_MANAGEMENT = "CONTENT_MANAGEMENT", // galeri_duzenle, post_olustur vs
   SURVEY_MANAGEMENT = "SURVEY_MANAGEMENT", // anket_goruntule, anket_duzenle vs

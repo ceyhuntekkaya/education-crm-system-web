@@ -16,7 +16,7 @@ interface MessagesProviderProps {
 export const MessagesProvider: React.FC<MessagesProviderProps> = ({
   children,
 }) => {
-  // Company context'ten seçili okul ID'sini al
+  // Company context'ten seçili Kurum ID'sini al
   const { selectedSchool } = useCompany();
 
   // Messages hook'unu kullan - selectedSchool'un ID'sini kullan

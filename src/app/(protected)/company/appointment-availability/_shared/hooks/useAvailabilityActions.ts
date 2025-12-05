@@ -32,7 +32,7 @@ export const useAvailabilityActions = (
     const filtersWithSchool = addSchoolToFilters(newFilters);
 
     if (!filtersWithSchool) {
-      return; // Okul seçili değil
+      return; // Kurum seçili değil
     }
 
     setFilters(filtersWithSchool);

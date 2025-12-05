@@ -4,7 +4,7 @@ export const CAMPAIGN_TYPE_CONFIG = {
   FREE_SERVICE: "Ücretsiz Hizmet",
   BONUS_FEATURE: "Bonus Özellik",
   EARLY_BIRD: "Erken Kayıt",
-  SUMMER_SCHOOL: "Yaz Okulu",
+  SUMMER_SCHOOL: "Yaz Kurumu",
   WINTER_CAMP: "Kış Kampı",
   FREE_TRIAL: "Ücretsiz Deneme",
   SIBLING_DISCOUNT: "Kardeş İndirimi",

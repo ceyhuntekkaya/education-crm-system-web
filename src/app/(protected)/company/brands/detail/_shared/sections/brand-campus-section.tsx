@@ -189,13 +189,13 @@ const BrandCampusSection: React.FC = () => {
                       </div>
                       <div className="flex-grow-1">
                         <div className="text-sm fw-bold text-primary-800">
-                          {campus.schoolCount} Okul
+                          {campus.schoolCount} Kurum
                         </div>
                         <span
                           className="text-primary-700"
                           style={{ fontSize: "10px" }}
                         >
-                          Toplam Okul Sayısı
+                          Toplam Kurum Sayısı
                         </span>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ const BrandCampusSection: React.FC = () => {
                       </div>
                       <div className="flex-grow-1">
                         <span className="text-sm text-neutral-600">
-                          Okul bilgisi mevcut değil
+                          Kurum bilgisi mevcut değil
                         </span>
                       </div>
                     </div>

@@ -16,9 +16,9 @@ interface UseSchoolDetailReturn {
 }
 
 /**
- * Seçili okul için detay verilerini yöneten hook
- * @param schoolId - Okul ID'si
- * @returns Okul detay verileri ve yönetim fonksiyonları
+ * Seçili Kurum için detay verilerini yöneten hook
+ * @param schoolId - Kurum ID'si
+ * @returns Kurum detay verileri ve yönetim fonksiyonları
  */
 export const useSchoolDetail = ({
   schoolId,

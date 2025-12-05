@@ -1,5 +1,5 @@
 export enum GradeLevel {
-  ANAOKULU = "ANAOKULU", // Anaokulu
+  ANAKurumU = "ANAKurumU", // AnaKurumu
   SINIF_1 = "1_SINIF", // 1. Sınıf
   SINIF_2 = "2_SINIF", // 2. Sınıf
   SINIF_3 = "3_SINIF", // 3. Sınıf

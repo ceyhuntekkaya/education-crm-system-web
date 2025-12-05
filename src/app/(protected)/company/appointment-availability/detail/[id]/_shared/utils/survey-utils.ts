@@ -50,7 +50,7 @@ export const getSurveyTypeLabel = (type: string): string => {
     case "APPOINTMENT_FEEDBACK":
       return "Randevu Geri Bildirim";
     case "SCHOOL_RATING":
-      return "Okul Değerlendirme";
+      return "Kurum Değerlendirme";
     case "SERVICE_QUALITY":
       return "Hizmet Kalitesi";
     case "ENROLLMENT_FEEDBACK":

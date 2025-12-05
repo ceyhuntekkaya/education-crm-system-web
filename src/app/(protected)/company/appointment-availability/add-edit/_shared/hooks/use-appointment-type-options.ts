@@ -26,7 +26,7 @@ export const useAppointmentTypeOptions = (): AppointmentTypeOption[] => {
 function getAppointmentTypeLabel(type: AppointmentType): string {
   const labels: Record<AppointmentType, string> = {
     [AppointmentType.INFORMATION_MEETING]: "Bilgi Toplantısı",
-    [AppointmentType.SCHOOL_TOUR]: "Okul Gezisi",
+    [AppointmentType.SCHOOL_TOUR]: "Kurum Gezisi",
     [AppointmentType.ENROLLMENT_INTERVIEW]: "Kayıt Görüşmesi",
     [AppointmentType.PARENT_MEETING]: "Veli Görüşmesi",
     [AppointmentType.CONSULTATION]: "Danışmanlık",

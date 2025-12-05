@@ -7,15 +7,15 @@ import { CampaignStatus } from "@/enums/CampaignStatus";
 export const schoolDetailMockData: SchoolDetailDto = {
   school: {
     id: 1,
-    name: "Özel Bilge Koleji Maslak Anaokulu",
-    slug: "ozel-bilge-koleji-maslak-anaokulu",
+    name: "Özel Bilge Koleji Maslak AnaKurumu",
+    slug: "ozel-bilge-koleji-maslak-anaKurumu",
     description:
-      "Modern eğitim anlayışı ile çocukların yaratıcılığını ve sosyal gelişimini destekleyen, 25 yıllık deneyime sahip anaokulu programı. Montessori yaklaşımı ile bireysel gelişimi ön planda tutan eğitim modeli.",
+      "Modern eğitim anlayışı ile çocukların yaratıcılığını ve sosyal gelişimini destekleyen, 25 yıllık deneyime sahip anaKurumu programı. Montessori yaklaşımı ile bireysel gelişimi ön planda tutan eğitim modeli.",
     logoUrl:
       "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=200&h=200&fit=crop&crop=center",
     coverImageUrl:
       "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=400&fit=crop&crop=center",
-    email: "anaokulu.maslak@bilgekoleji.edu.tr",
+    email: "anaKurumu.maslak@bilgekoleji.edu.tr",
     phone: "+90 (212) 456 78 90",
     extension: "102",
     minAge: 2,
@@ -30,11 +30,11 @@ export const schoolDetailMockData: SchoolDetailDto = {
     monthlyFee: 5800,
     annualFee: 58000,
     metaTitle:
-      "Özel Bilge Koleji Maslak Anaokulu - Kaliteli Okul Öncesi Eğitim",
+      "Özel Bilge Koleji Maslak AnaKurumu - Kaliteli Kurum Öncesi Eğitim",
     metaDescription:
-      "İstanbul Maslak'ta bulunan Özel Bilge Koleji Anaokulu, 25 yıllık deneyimi ile çocukların gelişimini destekler.",
+      "İstanbul Maslak'ta bulunan Özel Bilge Koleji AnaKurumu, 25 yıllık deneyimi ile çocukların gelişimini destekler.",
     metaKeywords:
-      "anaokulu, maslak, montessori, cambridge, okul öncesi, bilge koleji",
+      "anaKurumu, maslak, montessori, cambridge, Kurum öncesi, bilge koleji",
     viewCount: 8947,
     ratingAverage: 4.9,
     ratingCount: 387,
@@ -70,8 +70,8 @@ export const schoolDetailMockData: SchoolDetailDto = {
     institutionType: {
       id: 1,
       name: "PRESCHOOL",
-      displayName: "Anaokulu",
-      description: "Okul öncesi eğitim veren kurumlar (2-6 yaş)",
+      displayName: "AnaKurumu",
+      description: "Kurum öncesi eğitim veren kurumlar (2-6 yaş)",
       iconUrl: "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
       colorCode: "#FF9800",
       sortOrder: 1,
@@ -157,7 +157,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
     id: 1,
     name: "Bilge Koleji Eğitim Kurumları",
     description:
-      "1998 yılından bu yana Türkiye'nin önde gelen özel eğitim kurumları arasında yer alan Bilge Koleji, anaokulu, ilkokul, ortaokul ve lise kademelerinde kaliteli eğitim hizmeti sunmaktadır. 25 yıllık deneyimi ile binlerce öğrencisini hayata hazırlamıştır.",
+      "1998 yılından bu yana Türkiye'nin önde gelen özel eğitim kurumları arasında yer alan Bilge Koleji, anaKurumu, ilkKurum, ortaKurum ve lise kademelerinde kaliteli eğitim hizmeti sunmaktadır. 25 yıllık deneyimi ile binlerce öğrencisini hayata hazırlamıştır.",
     foundedYear: 1998,
     email: "info@bilgekoleji.edu.tr",
     phone: "+90 (212) 456 78 90",
@@ -259,7 +259,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
     {
       id: 1,
       schoolId: 1,
-      schoolName: "Özel Bilge Koleji Maslak Anaokulu",
+      schoolName: "Özel Bilge Koleji Maslak AnaKurumu",
       academicYear: "2024-2025",
       gradeLevel: "NURSERY",
       classLevel: "2-3 Yaş",
@@ -309,7 +309,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
         {
           id: 1,
           schoolPricingId: 1,
-          schoolName: "Özel Bilge Koleji Maslak Anaokulu",
+          schoolName: "Özel Bilge Koleji Maslak AnaKurumu",
           academicYear: "2024-2025",
           feeName: "Sanat Malzemeleri",
           feeDescription: "Resim, müzik ve el işi malzemeleri",
@@ -319,10 +319,10 @@ export const schoolDetailMockData: SchoolDetailDto = {
         {
           id: 2,
           schoolPricingId: 1,
-          schoolName: "Özel Bilge Koleji Maslak Anaokulu",
+          schoolName: "Özel Bilge Koleji Maslak AnaKurumu",
           academicYear: "2024-2025",
           feeName: "Özel Etkinlikler",
-          feeDescription: "Okul dışı geziler ve özel etkinlikler",
+          feeDescription: "Kurum dışı geziler ve özel etkinlikler",
           feeAmount: 1200,
           feeType: "FIELD_TRIP",
         },
@@ -331,7 +331,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
     {
       id: 2,
       schoolId: 1,
-      schoolName: "Özel Bilge Koleji Maslak Anaokulu",
+      schoolName: "Özel Bilge Koleji Maslak AnaKurumu",
       academicYear: "2024-2025",
       gradeLevel: "PRESCHOOL",
       classLevel: "4-5 Yaş",
@@ -362,7 +362,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
       publicDescription:
         "2024-2025 eğitim öğretim yılı için 4-5 yaş grubu ücret tarifesi. Cambridge programı ve tüm aktiviteler dahildir.",
       feeBreakdownNotes:
-        "Okul öncesi hazırlık programı için ek laboratuvar ücreti dahildir.",
+        "Kurum öncesi hazırlık programı için ek laboratuvar ücreti dahildir.",
       marketPosition: "PREMIUM",
       showDetailedBreakdown: true,
       highlightTotalCost: true,
@@ -381,7 +381,7 @@ export const schoolDetailMockData: SchoolDetailDto = {
         {
           id: 3,
           schoolPricingId: 2,
-          schoolName: "Özel Bilge Koleji Maslak Anaokulu",
+          schoolName: "Özel Bilge Koleji Maslak AnaKurumu",
           academicYear: "2024-2025",
           feeName: "Cambridge Sınav Ücreti",
           feeDescription: "Cambridge erken çocukluk sertifikası",

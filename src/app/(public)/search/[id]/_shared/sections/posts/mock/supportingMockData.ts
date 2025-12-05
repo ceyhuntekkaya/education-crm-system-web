@@ -43,7 +43,7 @@ export const popularHashtags = [
 ];
 
 export const sampleAuthors = [
-  "Okul Yönetimi",
+  "Kurum Yönetimi",
   "Medya Ekibi",
   "Halkla İlişkiler",
   "Etkinlik Koordinatörü",

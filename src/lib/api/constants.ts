@@ -21,7 +21,7 @@ export const UPLOAD_SERVE_URL = `${API_BASE_URL}/upload/serve/`;
 
 /**
  * Upload endpoint'i oluşturur
- * @param schoolId - Okul ID'si
+ * @param schoolId - Kurum ID'si
  * @param uploadType - Upload tipi (logoUrl, coverImageUrl, vb.)
  * @returns Upload endpoint URL'i
  */

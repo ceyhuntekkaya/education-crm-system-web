@@ -44,7 +44,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
                   className="text-neutral-600 mb-0 mx-auto"
                   style={{ maxWidth: "480px", lineHeight: "1.6" }}
                 >
-                  Bu okulla ilgili aktif bir randevunuz bulunmuyor. Yeni bir
+                  Bu Kurumla ilgili aktif bir randevunuz bulunmuyor. Yeni bir
                   randevu oluşturmak için aşağıdaki seçenekleri
                   kullanabilirsiniz.
                 </p>
@@ -64,7 +64,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
                     onClick={onCallSchool}
                   >
                     <i className="ph ph-phone me-8"></i>
-                    Okulu Ara
+                    Kurumu Ara
                   </button>
                 </div>
               </div>
@@ -92,7 +92,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
                       ></i>
                       <h6 className="text-success-700 mb-8">Anlık İletişim</h6>
                       <p className="text-success-600 mb-0 text-sm">
-                        Okulla direkt konuşun
+                        Kurumla direkt konuşun
                       </p>
                     </div>
                   </div>

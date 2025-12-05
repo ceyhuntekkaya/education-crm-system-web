@@ -14,7 +14,7 @@ export default function SchoolCoverImage() {
     <CoverImage
       coverImageUrl={currentSchool?.coverImageUrl}
       logoUrl={currentSchool?.logoUrl}
-      title={currentSchool?.name || "Okul Adı"}
+      title={currentSchool?.name || "Kurum Adı"}
       subtitle={currentSchool?.institutionType?.displayName}
       fallbackCoverImage={tempCoverUrl}
       fallbackLogoImage={tempLogoUrl}
@@ -22,7 +22,7 @@ export default function SchoolCoverImage() {
       logoSize={80}
       useCard={true}
       borderRadius="rounded-12"
-      emptyStateMessage="Okul görseli henüz mevcut değil"
+      emptyStateMessage="Kurum görseli henüz mevcut değil"
       emptyStateIcon="ph ph-image"
       logoPosition="top-right"
       contentPosition="bottom-left"

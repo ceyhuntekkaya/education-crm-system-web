@@ -24,7 +24,7 @@ export const AddToListButton: React.FC = () => {
           size="md"
           onClick={addToListModal.open}
           hoverText="Listeye Ekle"
-          aria-label="Okulu Listeye Ekle"
+          aria-label="Kurumu Listeye Ekle"
         />
       </div>
 

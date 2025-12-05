@@ -23,9 +23,8 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
         </div>
       </div>
       <p className="text-neutral-600 text-sm mt-16 mb-0">
-        Bu okulu hangi listeye kaydetmek istiyorsunuz?
+        Bu Kurumu hangi listeye kaydetmek istiyorsunuz?
       </p>
     </div>
   );
 };
-

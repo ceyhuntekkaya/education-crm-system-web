@@ -74,7 +74,7 @@ export const InstitutionInfoSection: React.FC = () => {
       </div>
       <h2 className="mb-24">Eğitim Kurumunuzu Dijitale Taşıyın</h2>
       <p className="text-neutral-500 mb-32">
-        Eğitim İste, okullar, kurslar ve eğitim kurumları için tasarlanmış
+        Eğitim İste, Kurumlar, kurslar ve eğitim kurumları için tasarlanmış
         kapsamlı bir yönetim platformudur. Kurumunuzu binlerce veliye ulaştırın,
         randevularınızı yönetin ve online başvuru alın. Ekibimiz size özel bir
         demo sunarak tüm özellikleri tanıtacaktır.

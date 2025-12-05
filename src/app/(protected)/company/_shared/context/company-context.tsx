@@ -18,16 +18,16 @@ export const CompanyProvider: React.FC<CompanyProviderProps> = ({
     return user?.userRoles?.[0]?.schools || [];
   }, [user?.userRoles]);
 
-  // Custom hook ile seçili okul yönetimi
+  // Custom hook ile seçili Kurum yönetimi
   const { selectedSchool, setSelectedSchool, isInitialized } =
     useSelectedSchool(schools);
 
-  // User değiştiğinde (okul güncelleme sonrası), selectedSchool'u da güncelle
+  // User değiştiğinde (Kurum güncelleme sonrası), selectedSchool'u da güncelle
   useEffect(() => {
     if (selectedSchool && schools.length > 0) {
       const updatedSchool = schools.find((s) => s.id === selectedSchool.id);
       if (updatedSchool && updatedSchool.name !== selectedSchool.name) {
-        // Okul ismi değişmişse güncelle
+        // Kurum ismi değişmişse güncelle
         setSelectedSchool(updatedSchool);
       }
     }

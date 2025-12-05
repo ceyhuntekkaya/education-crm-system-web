@@ -10,7 +10,7 @@ export const getStatusBadgeVariant = (isActive: boolean): BadgeVariant => {
 export const getSurveyTypeDisplay = (surveyType: string): string => {
   const typeMap: Record<string, string> = {
     APPOINTMENT_FEEDBACK: "Randevu Geri Bildirimi",
-    SCHOOL_RATING: "Okul Değerlendirmesi",
+    SCHOOL_RATING: "Kurum Değerlendirmesi",
     SERVICE_QUALITY: "Hizmet Kalitesi",
     ENROLLMENT_FEEDBACK: "Kayıt Geri Bildirimi",
     GENERAL_FEEDBACK: "Genel Geri Bildirim",

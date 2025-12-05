@@ -16,7 +16,7 @@ export const InstitutionModulesSection: React.FC = () => {
                 <i className="ph-bold ph-buildings"></i>
               </div>
               <div className="module-card__content">
-                <h3 className="module-card__title">Okul & Kampüs Yönetimi</h3>
+                <h3 className="module-card__title">Kurum & Kampüs Yönetimi</h3>
                 <p className="module-card__description">
                   Tüm şubelerinizi, kampüslerinizi ve yaş gruplarınızı organize
                   edin.
@@ -30,7 +30,7 @@ export const InstitutionModulesSection: React.FC = () => {
               </li>
               <li className="module-card__feature-item">
                 <i className="ph-bold ph-check-circle"></i>
-                <span>Detaylı okul profilleri</span>
+                <span>Detaylı Kurum profilleri</span>
               </li>
               <li className="module-card__feature-item">
                 <i className="ph-bold ph-check-circle"></i>

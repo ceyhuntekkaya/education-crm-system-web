@@ -29,13 +29,13 @@ export const SchoolTable: React.FC<SchoolTableProps> = () => {
         disableRowSelectionOnClick
         emptyState={{
           icon: "ph-graduation-cap",
-          title: "Henüz Okul Yok",
+          title: "Henüz Kurum Yok",
           description:
-            "İlk okul bilginizi eklemek için 'Yeni Okul Ekle' butonuna tıklayın.",
+            "İlk Kurum bilginizi eklemek için 'Yeni Kurum Ekle' butonuna tıklayın.",
           showActions: true,
-          addButtonText: "Yeni Okul Ekle",
+          addButtonText: "Yeni Kurum Ekle",
           onAddNew: () => {
-            console.log("Yeni Okul ekleme formu açılacak");
+            console.log("Yeni Kurum ekleme formu açılacak");
           },
         }}
       />

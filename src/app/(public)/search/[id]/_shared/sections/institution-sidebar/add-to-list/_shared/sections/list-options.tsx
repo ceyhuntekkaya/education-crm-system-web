@@ -47,7 +47,7 @@ export const ListOptions: React.FC = () => {
                   </h6>
                   {option.schoolCount !== undefined && (
                     <span className="text-neutral-500 text-sm">
-                      {option.schoolCount} okul
+                      {option.schoolCount} Kurum
                     </span>
                   )}
                 </div>

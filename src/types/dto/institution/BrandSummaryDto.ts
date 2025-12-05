@@ -4,6 +4,10 @@ export interface BrandSummaryDto {
   name?: string;
   slug?: string;
   logoUrl?: string;
+  description?: string;
+  phone?: string;
+  email?: string;
+  websiteUrl?: string;
   /** Format: double */
   ratingAverage?: number;
   /** Format: int32 */

@@ -170,7 +170,7 @@ export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   },
   {
     field: "schoolName",
-    headerName: "Okul",
+    headerName: "Kurum",
     width: 200,
     renderCell: renderSchoolInfo,
   },

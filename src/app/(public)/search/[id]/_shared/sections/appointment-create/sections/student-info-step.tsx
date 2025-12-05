@@ -70,8 +70,8 @@ export const StudentInfoStep: React.FC<StudentInfoStepProps> = ({
         <div className="col-12">
           <FormInput
             name="currentSchool"
-            label="Mevcut Okul"
-            placeholder="Mevcut okul adını girin"
+            label="Mevcut Kurum"
+            placeholder="Mevcut Kurum adını girin"
             variant="inline"
           />
         </div>

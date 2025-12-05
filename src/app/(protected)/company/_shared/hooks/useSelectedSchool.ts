@@ -3,15 +3,15 @@ import { SchoolDto } from "@/types";
 import { getStoredSelectedSchool, setStoredSelectedSchool } from "../utils";
 
 /**
- * Seçili okul için localStorage işlemlerini yöneten custom hook
- * @param defaultSchools - Varsayılan okul listesi
- * @returns Seçili okul state'i ve setter fonksiyonu
+ * Seçili Kurum için localStorage işlemlerini yöneten custom hook
+ * @param defaultSchools - Varsayılan Kurum listesi
+ * @returns Seçili Kurum state'i ve setter fonksiyonu
  */
 export const useSelectedSchool = (defaultSchools: SchoolDto[]) => {
   const [selectedSchool, setSelectedSchool] = useState<SchoolDto | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Component mount olduğunda localStorage'dan seçili okulu çek
+  // Component mount olduğunda localStorage'dan seçili Kurumu çek
   useEffect(() => {
     const storedSchool = getStoredSelectedSchool();
 
@@ -29,7 +29,7 @@ export const useSelectedSchool = (defaultSchools: SchoolDto[]) => {
         setStoredSelectedSchool(defaultSchools[0]);
       }
     } else {
-      // localStorage'da seçili okul yoksa default'u seç
+      // localStorage'da seçili Kurum yoksa default'u seç
       setSelectedSchool(defaultSchools[0]);
       setStoredSelectedSchool(defaultSchools[0]);
     }
@@ -37,7 +37,7 @@ export const useSelectedSchool = (defaultSchools: SchoolDto[]) => {
     setIsInitialized(true);
   }, [defaultSchools]);
 
-  // Seçili okul değiştiğinde localStorage'a kaydet
+  // Seçili Kurum değiştiğinde localStorage'a kaydet
   const handleSetSelectedSchool = (school: SchoolDto) => {
     setSelectedSchool(school);
     setStoredSelectedSchool(school);

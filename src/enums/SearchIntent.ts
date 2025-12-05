@@ -1,6 +1,6 @@
 export enum SearchIntent {
   INFORMATIONAL = "INFORMATIONAL", // Bilgi arama
-  NAVIGATIONAL = "NAVIGATIONAL", // Belirli bir okulu arama
+  NAVIGATIONAL = "NAVIGATIONAL", // Belirli bir Kurumu arama
   TRANSACTIONAL = "TRANSACTIONAL", // Randevu alma niyeti
   COMMERCIAL = "COMMERCIAL", // Karşılaştırma yapma
   LOCAL = "LOCAL", // Yerel arama

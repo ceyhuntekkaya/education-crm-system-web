@@ -114,7 +114,7 @@ export const createSurveyColumns = (): GridColDef[] => [
   },
   {
     field: "schoolName",
-    headerName: "Okul",
+    headerName: "Kurum",
     width: 250,
     minWidth: 200,
     renderCell: renderSchoolName,

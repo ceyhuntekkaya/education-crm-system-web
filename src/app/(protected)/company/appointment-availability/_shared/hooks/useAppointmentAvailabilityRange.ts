@@ -21,7 +21,7 @@ interface UseAppointmentAvailabilityRangeReturn {
 }
 
 /**
- * Okul randevu müsaitlik aralığı verilerini yöneten hook
+ * Kurum randevu müsaitlik aralığı verilerini yöneten hook
  * Yeni API yapısı: POST /api/appointments/slots/search/date
  * @returns Randevu müsaitlik aralığı verileri ve yönetim fonksiyonları
  */

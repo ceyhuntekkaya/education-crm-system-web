@@ -3,11 +3,11 @@ import { MessageDto } from "@/types/dto/content/MessageDto";
 import type { ConfigItem } from "../types";
 
 /**
- * Atama ve okul bilgileri konfigürasyonu
+ * Atama ve Kurum bilgileri konfigürasyonu
  */
 export const assignmentInfoConfig: ConfigItem[] = [
   {
-    label: "Okul",
+    label: "Kurum",
     value: (message: MessageDto) => (
       <span className="fw-medium">
         <i className="ph ph-buildings me-2 text-primary-600"></i>

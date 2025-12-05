@@ -130,7 +130,7 @@ const renderSchoolCount = (params: any) => {
         style={{ fontSize: "16px" }}
       ></i>
       <span className="fw-medium">{formatNumber(count)}</span>
-      <span className="text-muted">Okul</span>
+      <span className="text-muted">Kurum</span>
     </div>
   );
 };
@@ -181,7 +181,7 @@ export const createBrandColumns = (): GridColDef<BrandSummaryDto>[] => [
   },
   {
     field: "schoolCount",
-    headerName: "Okul Sayısı",
+    headerName: "Kurum Sayısı",
     width: 180,
     minWidth: 150,
     align: "left",

@@ -7,7 +7,7 @@ export const getAccessTypeLabel = (accessType: AccessType | string): string => {
   const labels: Record<string, string> = {
     [AccessType.BRAND]: "Marka",
     [AccessType.CAMPUS]: "Kampüs",
-    [AccessType.SCHOOL]: "Okul",
+    [AccessType.SCHOOL]: "Kurum",
   };
 
   return labels[accessType] || accessType;

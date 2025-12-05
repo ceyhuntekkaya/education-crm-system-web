@@ -3,15 +3,15 @@ import { SchoolDetailDto } from "@/types";
 export const institutionMockData: SchoolDetailDto = {
   school: {
     id: 1,
-    name: "Eğitim Dünyası Maslak Anaokulu",
-    slug: "egitim-dunyasi-maslak-anaokulu",
+    name: "Eğitim Dünyası Maslak AnaKurumu",
+    slug: "egitim-dunyasi-maslak-anaKurumu",
     description:
-      "Modern eğitim anlayışı ile çocukların yaratıcılığını geliştiren anaokulu programı.",
+      "Modern eğitim anlayışı ile çocukların yaratıcılığını geliştiren anaKurumu programı.",
     logoUrl:
-      "https://egitimara.com/images/schools/egitim-dunyasi-anaokulu-logo.jpg",
+      "https://egitimara.com/images/schools/egitim-dunyasi-anaKurumu-logo.jpg",
     coverImageUrl:
-      "https://egitimara.com/images/schools/egitim-dunyasi-maslak-anaokulu.jpg",
-    email: "anaokulu.maslak@egitimdunyasi.edu.tr",
+      "https://egitimara.com/images/schools/egitim-dunyasi-maslak-anaKurumu.jpg",
+    email: "anaKurumu.maslak@egitimdunyasi.edu.tr",
     phone: "+90 (212) 123 45 67",
     extension: "101",
     minAge: 2,
@@ -25,9 +25,9 @@ export const institutionMockData: SchoolDetailDto = {
     registrationFee: 2500,
     monthlyFee: 4500,
     annualFee: 45000,
-    metaTitle: "Eğitim Dünyası Maslak Anaokulu",
-    metaDescription: "Eğitim Dünyası Maslak Anaokulu - Çocukların ilk adımı",
-    metaKeywords: "anaokulu, montessori, maslak",
+    metaTitle: "Eğitim Dünyası Maslak AnaKurumu",
+    metaDescription: "Eğitim Dünyası Maslak AnaKurumu - Çocukların ilk adımı",
+    metaKeywords: "anaKurumu, montessori, maslak",
     viewCount: 5642,
     ratingAverage: 4.8,
     ratingCount: 234,
@@ -63,8 +63,8 @@ export const institutionMockData: SchoolDetailDto = {
     institutionType: {
       id: 1,
       name: "PRESCHOOL",
-      displayName: "Anaokulu",
-      description: "Okul öncesi eğitim veren kurumlar",
+      displayName: "AnaKurumu",
+      description: "Kurum öncesi eğitim veren kurumlar",
       iconUrl: "https://egitimara.com/icons/preschool.svg",
       colorCode: "#FFB6C1",
       sortOrder: 1,

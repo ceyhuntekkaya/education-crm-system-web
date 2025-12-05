@@ -16,7 +16,7 @@ interface CampaignsProviderProps {
 export const CampaignsProvider: React.FC<CampaignsProviderProps> = ({
   children,
 }) => {
-  // Company context'ten seçili okul bilgisini al
+  // Company context'ten seçili Kurum bilgisini al
   const { selectedSchool } = useCompany();
 
   // School campaigns hook'unu kullan

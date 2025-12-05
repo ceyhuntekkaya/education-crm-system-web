@@ -8,7 +8,7 @@ import { useAuth } from "@/contexts";
 import { useEffect, useState, useMemo } from "react";
 
 /**
- * İki tarih arası okul slotları request DTO
+ * İki tarih arası Kurum slotları request DTO
  */
 interface AppointmentSlotSearchRequest {
   startDate: string; // Format: "YYYY-MM-DD"
@@ -43,8 +43,8 @@ interface UseAppointmentDataReturn {
  * Ortak appointment data hook'u
  * Hem slots hem de mevcut randevu verilerini yönetir
  * Tekrarlanan API çağrılarını önler
- * 
- * @param schoolId - Okul ID
+ *
+ * @param schoolId - Kurum ID
  * @param enabled - Hook'un çalışıp çalışmayacağı (default: true)
  * @returns Slot verileri, mevcut randevu ve yönetim fonksiyonları
  */
@@ -148,20 +148,20 @@ export const useAppointmentData = ({
     }
 
     const now = new Date();
-    
+
     // Gelecekteki randevuları filtrele
     const futureAppointments = appointmentResponse.data.filter((slot) => {
       // Appointment yoksa pas geç
       if (!slot.appointment || !slot.appointment.appointmentDate) {
         return false;
       }
-      
+
       // appointmentDate + startTime ile tam datetime oluştur
       const { appointmentDate, startTime } = slot.appointment;
-      const appointmentDateTime = startTime 
+      const appointmentDateTime = startTime
         ? new Date(`${appointmentDate}T${startTime}`)
         : new Date(appointmentDate);
-      
+
       // Gelecek tarihli mi kontrol et
       return appointmentDateTime > now;
     });
@@ -174,13 +174,17 @@ export const useAppointmentData = ({
     // En yakın gelecek randevuyu bul (tarihe göre sırala)
     futureAppointments.sort((a, b) => {
       const dateA = a.appointment?.startTime
-        ? new Date(`${a.appointment.appointmentDate}T${a.appointment.startTime}`)
+        ? new Date(
+            `${a.appointment.appointmentDate}T${a.appointment.startTime}`
+          )
         : new Date(a.appointment?.appointmentDate || "");
-      
+
       const dateB = b.appointment?.startTime
-        ? new Date(`${b.appointment.appointmentDate}T${b.appointment.startTime}`)
+        ? new Date(
+            `${b.appointment.appointmentDate}T${b.appointment.startTime}`
+          )
         : new Date(b.appointment?.appointmentDate || "");
-      
+
       return dateA.getTime() - dateB.getTime();
     });
 
@@ -211,4 +215,3 @@ export const useAppointmentData = ({
     hasFutureAppointment,
   };
 };
-

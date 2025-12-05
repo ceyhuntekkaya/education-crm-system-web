@@ -8,17 +8,17 @@ export default function SchoolNotFoundSection() {
 
   return (
     <CustomCard
-      title="Okul Detayı"
-      subtitle="Okul bilgilerini detaylı olarak görüntüleyin"
+      title="Kurum Detayı"
+      subtitle="Kurum bilgilerini detaylı olarak görüntüleyin"
       isEmpty={true}
       emptyMessage={
         showNoSchoolMessage
-          ? "Lütfen önce bir okul seçin"
-          : "Okul bilgisi bulunamadı"
+          ? "Lütfen önce bir Kurum seçin"
+          : "Kurum bilgisi bulunamadı"
       }
       emptyDescription={
         showNoSchoolMessage
-          ? "Okul bilgilerini görüntülemek için yan menüden bir okul seçmeniz gerekmektedir."
+          ? "Kurum bilgilerini görüntülemek için yan menüden bir Kurum seçmeniz gerekmektedir."
           : undefined
       }
       emptyIcon={showNoSchoolMessage ? "ph-buildings" : "ph-info"}

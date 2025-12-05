@@ -10,7 +10,7 @@ export const parentAdvantages: Advantage[] = [
     icon: "ph-clock",
     title: "Zaman Tasarrufu",
     description:
-      "Tek platformdan tüm okul araştırmanızı yapın, randevu alın ve karşılaştırın.",
+      "Tek platformdan tüm Kurum araştırmanızı yapın, randevu alın ve karşılaştırın.",
     iconClass: "advantage-card__icon--warning",
   },
   {

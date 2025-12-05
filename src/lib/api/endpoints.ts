@@ -104,7 +104,7 @@ export const API_ENDPOINTS = {
     SLOTS_SEARCH_USER: (userId: string | number) =>
       `/appointments/slots/search/user/${userId}`,
 
-    // Yeni API - İki tarih arası okul slotları listesi (POST)
+    // Yeni API - İki tarih arası Kurum slotları listesi (POST)
     SLOTS_SEARCH_DATE: "/appointments/slots/search/date",
 
     // Slot CRUD operations

@@ -7,11 +7,11 @@ import { TargetAudience } from "@/enums/TargetAudience";
 export const campaignMockData: CampaignDto[] = [
   {
     id: 1,
-    title: "Yaz Okulu İndirim Kampanyası",
-    slug: "yaz-okulu-indirim-kampanyasi",
+    title: "Yaz Kurumu İndirim Kampanyası",
+    slug: "yaz-Kurumu-indirim-kampanyasi",
     description:
-      "Bu yaz eğitimde yeni fırsatları yakala! %25 indirimle yaz okulu programlarımıza katıl. Profesyonel eğitmenler eşliğinde yoğun eğitim programları.",
-    shortDescription: "Yaz okulu programlarında %25 indirim fırsatı",
+      "Bu yaz eğitimde yeni fırsatları yakala! %25 indirimle yaz Kurumu programlarımıza katıl. Profesyonel eğitmenler eşliğinde yoğun eğitim programları.",
+    shortDescription: "Yaz Kurumu programlarında %25 indirim fırsatı",
     campaignType: CampaignType.SUMMER_SCHOOL,
     discountType: DiscountType.PERCENTAGE,
     discountAmount: "0",
@@ -36,10 +36,10 @@ export const campaignMockData: CampaignDto[] = [
     endDate: "2025-08-31",
     academicYear: "2025-2026",
     termsAndConditions: "Kampanya sadece yeni kayıtlar için geçerlidir.",
-    metaTitle: "Yaz Okulu İndirim Kampanyası",
+    metaTitle: "Yaz Kurumu İndirim Kampanyası",
     metaDescription:
-      "Bu yaz eğitimde yeni fırsatları yakala! %25 indirimle yaz okulu programlarına katıl.",
-    metaKeywords: "yaz okulu, indirim, eğitim, kampanya",
+      "Bu yaz eğitimde yeni fırsatları yakala! %25 indirimle yaz Kurumu programlarına katıl.",
+    metaKeywords: "yaz Kurumu, indirim, eğitim, kampanya",
     viewCount: 15420,
     clickCount: 3280,
     applicationCount: 156,
@@ -182,7 +182,7 @@ export const campaignMockData: CampaignDto[] = [
     promoCode: "YENI2025",
     freeServices: "Ücretsiz eğitim materyali paketi",
     bonusFeatures: "Özel mentorluk desteği",
-    giftItems: "Okul çantası ve kırtasiye seti",
+    giftItems: "Kurum çantası ve kırtasiye seti",
     badgeText: "Yeni Öğrenci",
     badgeColor: "#2196F3",
     thumbnailImageUrl:

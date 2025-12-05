@@ -53,7 +53,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Okul Seçimi Dropdown */}
+          {/* Kurum Seçimi Dropdown */}
           <div
             className="school-selection-section mb-8 position-relative"
             ref={schoolDropdownRef}
@@ -66,13 +66,13 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ onClose }) => {
             >
               <div className="text-start">
                 <p className="text-xs fw-semibold text-neutral-800 mb-0">
-                  Okul Seçimi
+                  Kurum Seçimi
                 </p>
                 <p
                   className="text-neutral-600 mb-0 fw-medium"
                   style={{ fontSize: "11px" }}
                 >
-                  {selectedSchool?.name || "Okul Seçiniz"}
+                  {selectedSchool?.name || "Kurum Seçiniz"}
                 </p>
               </div>
               <div className="sidebar-dropdown-icon">
@@ -95,10 +95,10 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ onClose }) => {
                         style={{ fontSize: "24px" }}
                       />
                       <p className="text-sm fw-medium text-neutral-800 mb-4">
-                        Henüz Okul Bulunmuyor
+                        Henüz Kurum Bulunmuyor
                       </p>
                       <p className="text-xs text-neutral-600 mb-12">
-                        Devam etmek için önce bir okul eklemeniz gerekmektedir.
+                        Devam etmek için önce bir Kurum eklemeniz gerekmektedir.
                       </p>
                       <Link
                         href="/company/school-list/add-edit/new"
@@ -112,7 +112,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ onClose }) => {
                           size="sm"
                           leftIcon="ph-bold ph-plus"
                         >
-                          Okul Ekle
+                          Kurum Ekle
                         </Button>
                       </Link>
                     </div>

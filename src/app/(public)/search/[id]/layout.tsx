@@ -15,7 +15,7 @@ export default function SearchDetailLayout({
   return (
     <InstitutionDetailProvider id={id}>
       {/* <div>
-        <Breadcrumb title={"Okul Detayı"} />
+        <Breadcrumb title={"Kurum Detayı"} />
         {children}
       </div> */}
 

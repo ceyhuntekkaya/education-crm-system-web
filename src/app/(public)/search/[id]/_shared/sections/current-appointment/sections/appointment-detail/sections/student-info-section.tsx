@@ -30,7 +30,7 @@ const StudentInfoSection: React.FC<StudentInfoSectionProps> = ({
       type: "badge" as const,
     },
     {
-      label: "Mevcut Okul",
+      label: "Mevcut Kurum",
       value: appointment.currentSchool,
       type: "text" as const,
     },
@@ -65,7 +65,7 @@ const StudentInfoSection: React.FC<StudentInfoSectionProps> = ({
             ) : (
               <span
                 className={`fw-bold text-neutral-800 ${
-                  item.label === "Mevcut Okul" ? "text-break" : ""
+                  item.label === "Mevcut Kurum" ? "text-break" : ""
                 }`}
               >
                 {item.value}

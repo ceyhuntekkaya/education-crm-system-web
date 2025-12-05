@@ -25,7 +25,7 @@ export const createPricingTitle = (
 ): string => {
   if (!pricing) return "Fiyat Bilgisi Detayı";
 
-  return `${pricing.schoolName || "Okul"} - Fiyat Bilgisi Detayı`;
+  return `${pricing.schoolName || "Kurum"} - Fiyat Bilgisi Detayı`;
 };
 
 /**

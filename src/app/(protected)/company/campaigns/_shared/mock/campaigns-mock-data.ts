@@ -115,7 +115,7 @@ export const mockCampaigns: CampaignDto[] = [
     title: "Ücretsiz Deneme Haftası",
     slug: "ucretsiz-deneme-haftasi",
     description:
-      "Okulumuzun eğitim kalitesini yakından tanımanız için 1 hafta ücretsiz deneme fırsatı. Bu süre boyunca tüm derslere katılabilirsiniz.",
+      "Kurumumuzun eğitim kalitesini yakından tanımanız için 1 hafta ücretsiz deneme fırsatı. Bu süre boyunca tüm derslere katılabilirsiniz.",
     shortDescription: "1 hafta ücretsiz deneme fırsatı",
     campaignType: CampaignType.FREE_TRIAL,
     discountType: DiscountType.NO_DISCOUNT,
@@ -165,11 +165,11 @@ export const mockCampaigns: CampaignDto[] = [
   },
   {
     id: 4,
-    title: "Yaz Okulu Özel Fiyatı",
-    slug: "yaz-okulu-ozel-fiyati",
+    title: "Yaz Kurumu Özel Fiyatı",
+    slug: "yaz-Kurumu-ozel-fiyati",
     description:
-      "2024 yaz okulu programımız için özel fiyat avantajı. Eğlenceli aktiviteler ve kaliteli eğitim bir arada.",
-    shortDescription: "Yaz okulu için özel fiyat",
+      "2024 yaz Kurumu programımız için özel fiyat avantajı. Eğlenceli aktiviteler ve kaliteli eğitim bir arada.",
+    shortDescription: "Yaz Kurumu için özel fiyat",
     campaignType: CampaignType.SUMMER_SCHOOL,
     discountType: DiscountType.FIXED_AMOUNT,
     discountAmount: "500",
@@ -191,7 +191,7 @@ export const mockCampaigns: CampaignDto[] = [
     targetAgeMin: 6,
     targetAgeMax: 14,
     promoCode: "YAZ2024",
-    thumbnailImageUrl: "/assets/images/campaigns/yaz-okulu-thumb.jpg",
+    thumbnailImageUrl: "/assets/images/campaigns/yaz-Kurumu-thumb.jpg",
     ctaText: "Kayıt Ol",
     badgeText: "500₺ İndirim",
     badgeColor: "#fd7e14",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Form,
@@ -26,7 +26,7 @@ export const SchoolFormContent: React.FC = () => {
   const router = useRouter();
 
   // Form hook - validation ve error kontrolü için
-  const { hasErrors } = useFormHook();
+  const { hasErrors, useResetFieldOnChange } = useFormHook();
 
   // Form reset hook'u
   const { reset, values } = useForm();
@@ -40,14 +40,30 @@ export const SchoolFormContent: React.FC = () => {
     isSubmitting,
     campusOptions,
     institutionTypeOptions,
+    institutionGroupOptions,
     languageOptions,
     campusesLoading,
     institutionTypesLoading,
     getGroupsByInstitutionTypeId,
+    getFilteredTypesByGroupId,
     propertyValuesLoading,
   } = useSchoolAddEdit();
 
   const { user } = useAuth();
+
+  // Kurum kategorisi değiştiğinde kurum tipini sıfırla
+  useResetFieldOnChange("institutionGroupId", "institutionTypeId");
+
+  // Seçili gruba göre filtrelenmiş kurum tipleri
+  const filteredInstitutionTypes = useMemo(() => {
+    const groupId = values?.institutionGroupId;
+    return getFilteredTypesByGroupId(groupId);
+  }, [values?.institutionGroupId, getFilteredTypesByGroupId]);
+
+  // Kategori seçili mi kontrolü
+  const isGroupSelected = useMemo(() => {
+    return values?.institutionGroupId && values.institutionGroupId !== "";
+  }, [values?.institutionGroupId]);
 
   // Seçili institutionTypeId'ye göre property gruplarını al
   const currentPropertyGroups = useMemo(() => {
@@ -67,8 +83,13 @@ export const SchoolFormContent: React.FC = () => {
         ? values.propertyValues.map((id: string) => Number(id))
         : [];
 
-    // values nesnesinden propertyValues ve propertyTypeIds'i çıkar
-    const { propertyValues, propertyTypeIds: _, ...cleanValues } = values;
+    // values nesnesinden propertyValues, propertyTypeIds ve institutionGroupId'yi çıkar
+    const {
+      propertyValues,
+      propertyTypeIds: _,
+      institutionGroupId,
+      ...cleanValues
+    } = values;
 
     const formData: SchoolCreateDto = {
       ...cleanValues,
@@ -161,13 +182,28 @@ export const SchoolFormContent: React.FC = () => {
           />
         </div> */}
 
-        {/* Okul Adı */}
-        <div className="col-6">
+        {/* Kurum Adı */}
+        <div className="col-12">
           <FormInput
             name="name"
-            label="Okul Adı"
-            placeholder="Okul adını giriniz..."
+            label="Kurum Adı"
+            placeholder="Kurum adını giriniz..."
             isRequired
+          />
+        </div>
+
+        {/* Kurum Kategorisi Seçimi */}
+        <div className="col-6">
+          <FormAutocomplete
+            name="institutionGroupId"
+            label="Kurum Kategorisi"
+            placeholder="Kurum kategorisi seçiniz..."
+            options={institutionGroupOptions}
+            isRequired
+            disabled={institutionTypesLoading}
+            isLoading={institutionTypesLoading}
+            noOptionsText="Kurum kategorisi bulunamadı"
+            loadingText="Kategoriler yükleniyor..."
           />
         </div>
 
@@ -176,12 +212,20 @@ export const SchoolFormContent: React.FC = () => {
           <FormAutocomplete
             name="institutionTypeId"
             label="Kurum Tipi"
-            placeholder="Kurum tipi seçiniz veya arayın..."
-            options={institutionTypeOptions}
+            placeholder={
+              isGroupSelected
+                ? "Kurum tipi seçiniz..."
+                : "Önce kategori seçiniz..."
+            }
+            options={filteredInstitutionTypes}
             isRequired
-            disabled={institutionTypesLoading}
+            disabled={institutionTypesLoading || !isGroupSelected}
             isLoading={institutionTypesLoading}
-            noOptionsText="Kurum tipi bulunamadı"
+            noOptionsText={
+              isGroupSelected
+                ? "Bu kategoride kurum tipi bulunamadı"
+                : "Önce kategori seçiniz"
+            }
             loadingText="Kurum tipleri yükleniyor..."
           />
         </div>
@@ -191,7 +235,7 @@ export const SchoolFormContent: React.FC = () => {
           <FormTextarea
             name="description"
             label="Açıklama"
-            placeholder="Okul açıklamasını giriniz..."
+            placeholder="Kurum açıklamasını giriniz..."
             rows={4}
           />
         </div>
@@ -383,7 +427,7 @@ export const SchoolFormContent: React.FC = () => {
         {/* Logo */}
         <div className="col-6">
           <FileInput
-            label="Logo"
+            label="Kurum Logosu"
             type="img"
             variant="outline"
             placeholder="Logo yüklemek için tıklayın veya sürükleyin"

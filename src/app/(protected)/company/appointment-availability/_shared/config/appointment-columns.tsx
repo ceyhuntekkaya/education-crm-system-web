@@ -35,7 +35,7 @@ const getDayOfWeekLabel = (day?: string) => {
 const getAppointmentTypeLabel = (type?: string) => {
   const typeMap: Record<string, string> = {
     INFORMATION_MEETING: "Bilgilendirme",
-    SCHOOL_TOUR: "Okul Turu",
+    SCHOOL_TOUR: "Kurum Turu",
     ENROLLMENT_INTERVIEW: "Kayıt Görüşmesi",
     PARENT_MEETING: "Veli Görüşmesi",
     CONSULTATION: "Danışmanlık",

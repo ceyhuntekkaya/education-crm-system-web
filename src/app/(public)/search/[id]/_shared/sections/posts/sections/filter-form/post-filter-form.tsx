@@ -45,8 +45,8 @@ const PostFilterFormContent: React.FC<
                 <FormInput
                   name="schoolName"
                   type="text"
-                  label="Okul Adı"
-                  placeholder="Okul adına göre filtrele..."
+                  label="Kurum Adı"
+                  placeholder="Kurum adına göre filtrele..."
                   variant="inline"
                   iconLeft="ph-graduation-cap"
                 />

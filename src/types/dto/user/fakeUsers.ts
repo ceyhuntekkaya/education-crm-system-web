@@ -48,7 +48,7 @@ export const fakeUsers: UserDto[] = [
   //       userFullName: "Ali Yılmaz",
   //       accessType: AccessType.BRAND,
   //       entityId: 100,
-  //       entityName: "Genixo Okulları",
+  //       entityName: "Genixo Kurumları",
   //       grantedAt: "2025-01-10T08:00:00Z",
   //       expiresAt: "2026-01-01T00:00:00Z",
   //       isActive: true,

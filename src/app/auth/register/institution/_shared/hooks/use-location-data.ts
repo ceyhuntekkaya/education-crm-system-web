@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "@/contexts/form-context";
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
+
+// Türkiye'nin default country ID'si
+const TURKEY_COUNTRY_ID = 1;
 import {
   ApiResponseDto,
   CountryDto,
@@ -101,6 +104,9 @@ export function useLocationData(values?: any) {
   const prevProvinceIdRef = useRef(provinceId);
   const prevDistrictIdRef = useRef(districtId);
 
+  // Türkiye default seçimi yapıldı mı?
+  const hasSetDefaultCountry = useRef(false);
+
   // Tüm ülkeleri getir
   const {
     data: countriesResponse,
@@ -134,6 +140,26 @@ export function useLocationData(values?: any) {
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
     districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(districtId) : null
   );
+
+  // Ülkeler yüklendiğinde Türkiye'yi default olarak seç
+  useEffect(() => {
+    if (
+      !hasSetDefaultCountry.current &&
+      !countriesLoading &&
+      countriesResponse?.data &&
+      countriesResponse.data.length > 0 &&
+      !countryId
+    ) {
+      // Türkiye'yi bul
+      const turkey = countriesResponse.data.find(
+        (c) => c.id === TURKEY_COUNTRY_ID
+      );
+      if (turkey) {
+        setValue("campusInfo.countryId", TURKEY_COUNTRY_ID);
+        hasSetDefaultCountry.current = true;
+      }
+    }
+  }, [countriesResponse, countriesLoading, countryId, setValue]);
 
   // Ülke değiştiğinde il, ilçe ve mahalleyi sıfırla
   useEffect(() => {

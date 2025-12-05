@@ -230,7 +230,7 @@ export const createCampaignColumns = (): GridColDef<
   },
   {
     field: "campaignSchools",
-    headerName: "Okullar",
+    headerName: "Kurumlar",
     width: 140,
     align: "center",
     renderCell: (params: any) => {
@@ -263,7 +263,7 @@ export const createCampaignColumns = (): GridColDef<
         >
           <div className="cursor-pointer">
             <Badge variant="info" size="sm">
-              {schoolCount} okul
+              {schoolCount} Kurum
             </Badge>
           </div>
         </Popover>

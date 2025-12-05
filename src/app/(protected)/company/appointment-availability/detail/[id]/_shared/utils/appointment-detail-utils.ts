@@ -38,7 +38,7 @@ export const translateAppointmentType = (type?: string): string => {
     case "INFORMATION_MEETING":
       return "Bilgi Toplantısı";
     case "SCHOOL_TOUR":
-      return "Okul Turu";
+      return "Kurum Turu";
     case "ENROLLMENT_INTERVIEW":
       return "Kayıt Görüşmesi";
     case "PARENT_MEETING":
@@ -98,7 +98,7 @@ export const translateCancelledByType = (type?: string): string => {
     case "PARENT":
       return "Veli Tarafından";
     case "SCHOOL":
-      return "Okul Tarafından";
+      return "Kurum Tarafından";
     case "SYSTEM":
       return "Sistem Tarafından";
     default:

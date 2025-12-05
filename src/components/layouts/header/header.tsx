@@ -26,7 +26,7 @@ const HeaderContent = () => {
 
               {/* Logo End  */}
 
-              {/* Ana Navigasyon (Anasayfa, Okul Arama) */}
+              {/* Ana Navigasyon (Anasayfa, Kurum Arama) */}
               <MainNavigation />
               {/* Ana Navigasyon End  */}
             </div>

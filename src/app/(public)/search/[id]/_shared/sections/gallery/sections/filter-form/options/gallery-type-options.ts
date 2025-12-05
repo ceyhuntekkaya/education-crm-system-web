@@ -3,7 +3,7 @@ export const galleryTypeOptions = [
   { value: "MIXED", label: "Karışık" },
   { value: "PHOTOS", label: "Fotoğraflar" },
   { value: "VIDEOS", label: "Videolar" },
-  { value: "SCHOOL_TOUR", label: "Okul Turu" },
+  { value: "SCHOOL_TOUR", label: "Kurum Turu" },
   { value: "EVENTS", label: "Etkinlikler" },
   { value: "FACILITIES", label: "Tesisler" },
   { value: "CLASSROOMS", label: "Sınıflar" },

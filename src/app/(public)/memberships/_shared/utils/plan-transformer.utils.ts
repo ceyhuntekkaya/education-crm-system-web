@@ -384,11 +384,12 @@ const generateDefaultFeatures = (
     });
   }
 
-  // Okul sayısı
+  // Kurum sayısı
   if (plan.maxSchools) {
     features.push({
       id: "schools",
-      text: plan.maxSchools === 1 ? "1 okul" : `${plan.maxSchools} okula kadar`,
+      text:
+        plan.maxSchools === 1 ? "1 Kurum" : `${plan.maxSchools} Kuruma kadar`,
       included: true,
     });
   }

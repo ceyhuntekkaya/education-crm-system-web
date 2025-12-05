@@ -37,9 +37,9 @@ interface UseSchoolPropertiesReturn {
 }
 
 /**
- * Okul ek özelliklerini yöneten hook (Add/Edit için)
- * @param schoolId - Okul ID'si (edit modunda)
- * @returns Okul ek özellik verileri ve property type ID'leri
+ * Kurum ek özelliklerini yöneten hook (Add/Edit için)
+ * @param schoolId - Kurum ID'si (edit modunda)
+ * @returns Kurum ek özellik verileri ve property type ID'leri
  */
 export const useSchoolProperties = ({
   schoolId,

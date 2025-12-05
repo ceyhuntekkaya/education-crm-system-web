@@ -15,7 +15,7 @@ export const useFilterManagement = () => {
     AppointmentAvailabilityFilters | AppointmentAvailabilityRangeFilters
   >({});
 
-  // Company context'ten seçili okulu al
+  // Company context'ten seçili Kurumu al
   const { selectedSchool } = useCompany();
 
   // Filter tipini belirleme helper
@@ -38,14 +38,14 @@ export const useFilterManagement = () => {
     setFilters({});
   };
 
-  // Okul bilgisi ekleme helper
+  // Kurum bilgisi ekleme helper
   const addSchoolToFilters = (
     inputFilters:
       | AppointmentAvailabilityFilters
       | AppointmentAvailabilityRangeFilters
   ) => {
     if (!selectedSchool?.id) {
-      console.warn("Okul seçili değil, arama yapılamıyor");
+      console.warn("Kurum seçili değil, arama yapılamıyor");
       return null;
     }
 

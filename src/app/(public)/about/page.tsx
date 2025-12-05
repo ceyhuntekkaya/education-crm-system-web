@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { TabNavigation, TabContent } from "@/components";
 import {
   AboutHeroSection,
@@ -13,10 +13,18 @@ import { usePageTitle } from "@/hooks";
 
 const AboutPage = () => {
   usePageTitle("Hakkımızda");
-  const tabs = getAboutTabs();
+  const baseTabs = getAboutTabs();
   const [activeTab, setActiveTab] = useState<"parent-tab" | "institution-tab">(
     "parent-tab"
   );
+
+  // Aktif tab'a göre tabs dizisini güncelle
+  const tabs = useMemo(() => {
+    return baseTabs.map((tab) => ({
+      ...tab,
+      isActive: tab.id === activeTab,
+    }));
+  }, [baseTabs, activeTab]);
 
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId as "parent-tab" | "institution-tab");

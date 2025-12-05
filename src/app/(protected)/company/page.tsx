@@ -10,8 +10,8 @@ const CompanyPage: React.FC = () => {
   // Icon mapping - eğer navigation'dan gelen icon uygun değilse alternatif kullan
   const getModuleIcon = (label: string, originalIcon: string) => {
     const iconMap: { [key: string]: string } = {
-      "Okul Listesi": "ph-buildings",
-      "Okul Bilgileri": "ph-graduation-cap",
+      "Kurum Listesi": "ph-buildings",
+      "Kurum Bilgileri": "ph-graduation-cap",
       "Fiyat Bilgileri": "ph-coins",
       Kampanyalar: "ph-megaphone",
       "Randevu Bilgileri": "ph-calendar",
@@ -29,9 +29,9 @@ const CompanyPage: React.FC = () => {
   // Kurum yönetim paneli için genel ve dinamik açıklamalar
   const getModuleDescription = (label: string, href: string) => {
     const descriptions: { [key: string]: string } = {
-      "Okul Listesi":
+      "Kurum Listesi":
         "Eğitim kurumlarınızın kapsamlı listesini görüntüleyin, filtreleyin ve detaylı yönetim işlemlerini gerçekleştirin",
-      "Okul Bilgileri":
+      "Kurum Bilgileri":
         "Kampüs bilgileri, yaş aralıkları, ücret yapısı ve kurumsal özelliklerin detaylı yönetimini yapın",
       "Fiyat Bilgileri":
         "Kayıt ücretleri, öğrenim giderleri ve ek hizmet maliyetlerini içeren kapsamlı fiyat yapınızı oluşturun",
@@ -78,7 +78,7 @@ const CompanyPage: React.FC = () => {
       "Analitik Raporları": "info",
       Kullanıcılar: "success",
       "Üyelik Planları": "warning",
-      "Okul Listesi": "purple",
+      "Kurum Listesi": "purple",
       "Fiyat Bilgileri": "orange",
     };
 

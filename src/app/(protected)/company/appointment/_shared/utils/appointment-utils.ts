@@ -34,7 +34,7 @@ export const getAppointmentTypeDisplay = (appointmentType?: string): string => {
     case "INFORMATION_MEETING":
       return "Bilgilendirme";
     case "SCHOOL_TOUR":
-      return "Okul Gezisi";
+      return "Kurum Gezisi";
     case "ENROLLMENT_INTERVIEW":
       return "Kayıt Görüşmesi";
     case "PARENT_MEETING":

@@ -1,7 +1,7 @@
 // Sınıf seviyeleri için seçenekler
 export const gradeLevelOptions = [
   { value: "NURSERY", label: "Kreş" },
-  { value: "KINDERGARTEN", label: "Anaokulu" },
+  { value: "KINDERGARTEN", label: "AnaKurumu" },
   { value: "PRESCHOOL", label: "Anasınıfı" },
   { value: "GRADE_1", label: "1. Sınıf" },
   { value: "GRADE_2", label: "2. Sınıf" },

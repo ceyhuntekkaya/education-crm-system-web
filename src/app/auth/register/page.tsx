@@ -66,7 +66,7 @@ const RegisterPage: React.FC = () => {
                         Eğitim Kurumu Kaydı
                       </h3>
                       <p className="text-sm text-neutral-600">
-                        Okulunuzu sisteme kaydedin ve profesyonel araçlara
+                        Kurumunuzu sisteme kaydedin ve profesyonel araçlara
                         erişim sağlayın
                       </p>
                     </div>
@@ -126,8 +126,98 @@ const RegisterPage: React.FC = () => {
                 </CustomCard>
               </div>
 
-              {/* Veli Kaydı */}
+              {/* Veli Kaydı - Yakında Açılacak */}
               <div className="col-12 col-md-6">
+                <CustomCard className="h-100 position-relative overflow-hidden">
+                  <div className="d-flex flex-column h-100 p-24">
+                    {/* Yakında Açılacak Badge */}
+                    <div
+                      className="position-absolute bg-warning-600 text-white px-16 py-6 text-xs fw-semibold"
+                      style={{
+                        top: "20px",
+                        right: "-35px",
+                        transform: "rotate(45deg)",
+                        width: "150px",
+                        textAlign: "center",
+                      }}
+                    >
+                      Yakında
+                    </div>
+
+                    <div className="text-center mb-24">
+                      <div
+                        className="d-inline-flex align-items-center justify-content-center bg-neutral-300 text-neutral-500 rounded-circle mb-20"
+                        style={{ width: "80px", height: "80px" }}
+                      >
+                        <i
+                          className="ph-fill ph-user-circle"
+                          style={{ fontSize: "40px" }}
+                        ></i>
+                      </div>
+                      <h3 className="h5 text-neutral-500 mb-12">Veli Kaydı</h3>
+                      <p className="text-sm text-neutral-400">
+                        Çocuğunuzun eğitim sürecini takip edin ve öğretmenlerle
+                        iletişime geçin
+                      </p>
+                    </div>
+
+                    {/* Özellikler */}
+                    <div className="flex-grow-1 mb-24">
+                      <div className="d-flex flex-column gap-12 align-items-center">
+                        <div className="d-flex align-items-center gap-8">
+                          <i
+                            className="ph-fill ph-check-circle text-neutral-400"
+                            style={{ fontSize: "18px" }}
+                          ></i>
+                          <span className="text-sm text-neutral-400">
+                            Hızlı kayıt
+                          </span>
+                        </div>
+                        <div className="d-flex align-items-center gap-8">
+                          <i
+                            className="ph-fill ph-check-circle text-neutral-400"
+                            style={{ fontSize: "18px" }}
+                          ></i>
+                          <span className="text-sm text-neutral-400">
+                            Öğrenci takibi
+                          </span>
+                        </div>
+                        <div className="d-flex align-items-center gap-8">
+                          <i
+                            className="ph-fill ph-check-circle text-neutral-400"
+                            style={{ fontSize: "18px" }}
+                          ></i>
+                          <span className="text-sm text-neutral-400">
+                            Kolay iletişim
+                          </span>
+                        </div>
+                        <div className="d-flex align-items-center gap-8">
+                          <i
+                            className="ph-fill ph-check-circle text-neutral-400"
+                            style={{ fontSize: "18px" }}
+                          ></i>
+                          <span className="text-sm text-neutral-400">
+                            Anında bildirimler
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      fullWidth
+                      rightIcon="ph-clock"
+                      disabled
+                    >
+                      Yakında Açılacak
+                    </Button>
+                  </div>
+                </CustomCard>
+              </div>
+
+              {/* TODO: Veli Kaydı aktif versiyonu - ileride açılacak */}
+              {/* <div className="col-12 col-md-6">
                 <CustomCard className="h-100">
                   <div className="d-flex flex-column h-100 p-24">
                     <div className="text-center mb-24">
@@ -147,7 +237,6 @@ const RegisterPage: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* Özellikler */}
                     <div className="flex-grow-1 mb-24">
                       <div className="d-flex flex-column gap-12 align-items-center">
                         <div className="d-flex align-items-center gap-8">
@@ -200,7 +289,7 @@ const RegisterPage: React.FC = () => {
                     </Button>
                   </div>
                 </CustomCard>
-              </div>
+              </div> */}
             </div>
 
             {/* Alt Bilgi */}

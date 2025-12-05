@@ -29,15 +29,13 @@ export const FORM_OPTIONS = {
       value: STUDENT_GENDER_OPTIONS.FEMALE,
       label: STUDENT_GENDER_LABELS.FEMALE,
     },
-    { value: STUDENT_GENDER_OPTIONS.OTHER, label: STUDENT_GENDER_LABELS.OTHER },
-    {
-      value: STUDENT_GENDER_OPTIONS.PREFER_NOT_TO_SAY,
-      label: STUDENT_GENDER_LABELS.PREFER_NOT_TO_SAY,
-    },
   ],
   GRADE: [
     { value: "", label: "Sınıf seçiniz" },
-    { value: GRADE_LEVEL_OPTIONS.ANAOKULU, label: GRADE_LEVEL_LABELS.ANAOKULU },
+    {
+      value: GRADE_LEVEL_OPTIONS.ANAKurumU,
+      label: GRADE_LEVEL_LABELS.ANAKurumU,
+    },
     { value: GRADE_LEVEL_OPTIONS.SINIF_1, label: GRADE_LEVEL_LABELS.SINIF_1 },
     { value: GRADE_LEVEL_OPTIONS.SINIF_2, label: GRADE_LEVEL_LABELS.SINIF_2 },
     { value: GRADE_LEVEL_OPTIONS.SINIF_3, label: GRADE_LEVEL_LABELS.SINIF_3 },

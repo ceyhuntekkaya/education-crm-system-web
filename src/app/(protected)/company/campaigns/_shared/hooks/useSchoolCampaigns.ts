@@ -12,8 +12,8 @@ interface UseSchoolCampaignsReturn {
 }
 
 /**
- * Seçili okul için kampanya verilerini yöneten hook
- * @param schoolId - Okul ID'si
+ * Seçili Kurum için kampanya verilerini yöneten hook
+ * @param schoolId - Kurum ID'si
  * @returns Kampanya verileri ve yönetim fonksiyonları
  */
 export const useSchoolCampaigns = (

@@ -51,7 +51,7 @@ const mockSurveyQuestions: SurveyQuestionDto[] = [
   {
     id: 3,
     surveyId: 2,
-    questionText: "Okulumuzun genel temizliğini nasıl değerlendiriyorsunuz?",
+    questionText: "Kurumumuzun genel temizliğini nasıl değerlendiriyorsunuz?",
     questionType: "RATING_SCALE",
     ratingCategory: "CLEANLINESS",
     isRequired: true,
@@ -116,9 +116,9 @@ export const mockSurveys: SurveyDto[] = [
   },
   {
     id: 2,
-    title: "Okul Değerlendirme Anketi",
+    title: "Kurum Değerlendirme Anketi",
     description:
-      "Okulumuzun genel hizmet kalitesi, temizlik, personel davranışları ve tesisler hakkında değerlendirme anketi.",
+      "Kurumumuzun genel hizmet kalitesi, temizlik, personel davranışları ve tesisler hakkında değerlendirme anketi.",
     surveyType: "SCHOOL_RATING",
     triggerEvent: "PERIODIC",
     isActive: true,
@@ -132,11 +132,11 @@ export const mockSurveys: SurveyDto[] = [
     primaryColor: "#28a745",
     logoUrl: "https://picsum.photos/200/80?random=2",
     headerImageUrl: "https://picsum.photos/800/200?random=2",
-    welcomeMessage: "Okulumuz hakkındaki görüşleriniz bizim için çok önemli!",
+    welcomeMessage: "Kurumumuz hakkındaki görüşleriniz bizim için çok önemli!",
     thankYouMessage: "Değerli görüşleriniz için teşekkür ederiz!",
-    emailSubject: "Okul Değerlendirme Anketi",
+    emailSubject: "Kurum Değerlendirme Anketi",
     emailBody:
-      "Okulumuzun hizmet kalitesini artırmak için görüşlerinize ihtiyacımız var...",
+      "Kurumumuzun hizmet kalitesini artırmak için görüşlerinize ihtiyacımız var...",
     totalSent: 156,
     totalStarted: 134,
     totalCompleted: 91,
@@ -478,7 +478,7 @@ export const mockSurveyResponses: SurveyResponseDto[] = [
   {
     id: 3,
     surveyId: 2,
-    surveyTitle: "Okul Kalite Değerlendirmesi",
+    surveyTitle: "Kurum Kalite Değerlendirmesi",
     respondentUserId: 103,
     respondentUserName: "Mehmet Kaya",
     schoolId: 2,

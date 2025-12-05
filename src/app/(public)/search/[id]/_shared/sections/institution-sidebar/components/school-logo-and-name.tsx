@@ -12,7 +12,7 @@ export const SchoolLogoAndName: React.FC = () => {
         <div className="position-relative">
           <CustomImage
             src={school.logoUrl}
-            alt={school.name || "Okul Logosu"}
+            alt={school.name || "Kurum Logosu"}
             width={150}
             height={150}
             className="rounded-circle bg-dark-yellow aspect-ratio-1 cover-img"

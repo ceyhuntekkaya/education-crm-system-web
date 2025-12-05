@@ -22,7 +22,7 @@ export const mockAvailableSlots: AvailableSlotDto[] = [
     endTime: "11:30",
     durationMinutes: 60,
     appointmentType: "SCHOOL_TOUR",
-    location: "Okul Girişi",
+    location: "Kurum Girişi",
     isOnline: false,
     staffUserName: "Ayşe Kaya",
     availableCapacity: 5,

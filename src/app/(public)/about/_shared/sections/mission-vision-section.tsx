@@ -15,7 +15,7 @@ export const MissionVisionSection: React.FC = () => {
             <ul className="mission-vision-card__list">
               <li className="mission-vision-card__list-item">
                 <i className="ph-bold ph-check-circle"></i>
-                <span>Velilere en uygun okulu bulmada yardımcı olmak</span>
+                <span>Velilere en uygun Kurumu bulmada yardımcı olmak</span>
               </li>
               <li className="mission-vision-card__list-item">
                 <i className="ph-bold ph-check-circle"></i>

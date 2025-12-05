@@ -9,7 +9,7 @@ const PricePage: React.FC = () => {
   return (
     <CustomCard
       title="Fiyat Bilgileri Yönetimi"
-      subtitle="Okul fiyat bilgilerinizi oluşturun, düzenleyin ve yönetin"
+      subtitle="Kurum fiyat bilgilerinizi oluşturun, düzenleyin ve yönetin"
       addButtonUrl="/company/pricing/add-edit/new"
     >
       <PricingTable />

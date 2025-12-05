@@ -123,8 +123,8 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
   },
   {
     id: 11,
-    title: "Okul Turu",
-    slug: "okul-turu",
+    title: "Kurum Turu",
+    slug: "Kurum-turu",
     galleryType: "SCHOOL_TOUR",
     coverImageUrl: "https://picsum.photos/400/300?random=11",
     itemCount: 96,
@@ -202,7 +202,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     itemCount: 34,
     viewCount: 1876,
     isFeatured: false,
-    institutionName: "FMV Işık Okulları",
+    institutionName: "FMV Işık Kurumları",
     createdAt: "2024-03-20T10:30:00Z",
   },
   {
@@ -226,7 +226,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     itemCount: 42,
     viewCount: 2134,
     isFeatured: false,
-    institutionName: "Koç Okulları",
+    institutionName: "Koç Kurumları",
     createdAt: "2024-04-25T11:20:00Z",
   },
   {
@@ -238,7 +238,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     itemCount: 56,
     viewCount: 3421,
     isFeatured: true,
-    institutionName: "MEF Okulları",
+    institutionName: "MEF Kurumları",
     createdAt: "2024-06-08T13:15:00Z",
   },
   {
@@ -262,7 +262,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     itemCount: 52,
     viewCount: 2890,
     isFeatured: true,
-    institutionName: "FMV Işık Okulları",
+    institutionName: "FMV Işık Kurumları",
     createdAt: "2024-12-15T18:30:00Z",
   },
   {
@@ -274,7 +274,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     itemCount: 74,
     viewCount: 3456,
     isFeatured: true,
-    institutionName: "Hisar Okulları",
+    institutionName: "Hisar Kurumları",
     createdAt: "2024-05-25T16:45:00Z",
   },
   {
@@ -286,7 +286,7 @@ export const gallerySummaryMockData: GallerySummaryDto[] = [
     itemCount: 96,
     viewCount: 5234,
     isFeatured: true,
-    institutionName: "Koç Okulları",
+    institutionName: "Koç Kurumları",
     createdAt: "2024-04-10T11:20:00Z",
   },
   {

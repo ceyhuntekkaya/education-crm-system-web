@@ -1,6 +1,7 @@
 import { DistrictSummaryDto } from "../location/DistrictSummaryDto";
 import { NeighborhoodSummaryDto } from "../location/NeighborhoodSummaryDto";
 import { ProvinceSummaryDto } from "../location/ProvinceSummaryDto";
+import { BrandSummaryDto } from "./BrandSummaryDto";
 
 export interface CampusSummaryDto {
   /** Format: int64 */
@@ -11,6 +12,7 @@ export interface CampusSummaryDto {
   province?: ProvinceSummaryDto;
   district?: DistrictSummaryDto;
   neighborhood?: NeighborhoodSummaryDto;
+  brand?: BrandSummaryDto;
   /** Format: double */
   ratingAverage?: number;
   /** Format: int64 */

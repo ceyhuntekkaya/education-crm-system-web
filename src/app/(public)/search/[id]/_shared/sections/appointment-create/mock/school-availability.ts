@@ -1,7 +1,7 @@
 import { AppointmentAvailabilityDto } from "@/types/dto/appointment/AppointmentAvailabilityDto";
 import { mockAvailableSlots } from "./available-slots";
 
-// Okul müsaitlik bilgisi mock data
+// Kurum müsaitlik bilgisi mock data
 export const mockSchoolAvailability: AppointmentAvailabilityDto[] = [
   {
     schoolId: 1,

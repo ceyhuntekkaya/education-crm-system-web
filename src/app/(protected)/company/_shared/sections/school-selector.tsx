@@ -13,8 +13,8 @@ interface SchoolSelectorProps {
 }
 
 export const SchoolSelector: React.FC<SchoolSelectorProps> = ({
-  label = "Okul Seçimi",
-  placeholder = "Lütfen bir okul seçiniz",
+  label = "Kurum Seçimi",
+  placeholder = "Lütfen bir Kurum seçiniz",
   showLabel = true,
   className = "",
   variant = "inline",
@@ -31,7 +31,7 @@ export const SchoolSelector: React.FC<SchoolSelectorProps> = ({
           </label>
         )}
         <select className="form-control" disabled>
-          <option>Okullar yükleniyor...</option>
+          <option>Kurumlar yükleniyor...</option>
         </select>
       </div>
     );

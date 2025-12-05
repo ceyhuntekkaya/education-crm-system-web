@@ -18,14 +18,14 @@ const parentProcessSteps = [
     number: 1,
     title: "Arayın",
     description:
-      "Şehir, bölge, eğitim seviyesi gibi kriterlerle size uygun okulları bulun.",
+      "Şehir, bölge, eğitim seviyesi gibi kriterlerle size uygun Kurumları bulun.",
     colorVariant: "main" as const,
   },
   {
     number: 2,
     title: "Karşılaştırın",
     description:
-      "Okulları listelerinize ekleyin, ücretleri ve özellikleri karşılaştırın.",
+      "Kurumları listelerinize ekleyin, ücretleri ve özellikleri karşılaştırın.",
     colorVariant: "primary" as const,
   },
   {
@@ -47,7 +47,7 @@ const institutionProcessSteps = [
     number: 2,
     title: "Profilinizi Oluşturun",
     description:
-      "Okul bilgilerinizi, fiyatlarınızı, galeri ve kampanyalarınızı ekleyin.",
+      "Kurum bilgilerinizi, fiyatlarınızı, galeri ve kampanyalarınızı ekleyin.",
     colorVariant: "primary" as const,
   },
   {

@@ -18,7 +18,7 @@ interface UseMessagesReturn {
 }
 
 /**
- * Okula ait mesaj konuşmalarını getiren hook
+ * Kuruma ait mesaj konuşmalarını getiren hook
  * @param enabled - Hook'un aktif olup olmadığı
  * @returns Mesaj konuşma grupları ve yönetim fonksiyonları
  */

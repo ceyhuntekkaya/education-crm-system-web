@@ -19,7 +19,7 @@ export const getGalleryTypeDisplay = (galleryType: string): string => {
     CAFETERIA: "Kafeterya",
     STUDENT_WORK: "Öğrenci Çalışmaları",
     STAFF: "Personel",
-    SCHOOL_TOUR: "Okul Turu",
+    SCHOOL_TOUR: "Kurum Turu",
     ACHIEVEMENTS: "Başarılar",
     OUTDOOR_AREAS: "Açık Alanlar",
     DAILY_ACTIVITIES: "Günlük Aktiviteler",

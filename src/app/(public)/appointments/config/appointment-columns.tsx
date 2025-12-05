@@ -15,7 +15,7 @@ import {
 export const createAppointmentColumns = (): GridColDef<AppointmentDto>[] => [
   {
     field: "schoolName",
-    headerName: "Okul",
+    headerName: "Kurum",
     width: 300,
     renderCell: (params) => (
       <div className="overflow-hidden">

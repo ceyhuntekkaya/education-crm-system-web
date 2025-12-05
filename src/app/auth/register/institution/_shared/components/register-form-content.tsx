@@ -37,9 +37,9 @@ export const RegisterFormContent: React.FC = () => {
         return <CampusInfoStep />;
       case 5:
         return <PackageSelectionStep />;
+      // case 6:
+      //   return <PaymentInfoStep />;
       case 6:
-        return <PaymentInfoStep />;
-      case 7:
         return <SuccessStep />;
       default:
         return <LoginCredentialsStep />;

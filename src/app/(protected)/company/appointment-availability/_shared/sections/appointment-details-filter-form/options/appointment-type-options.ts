@@ -4,7 +4,7 @@ import { AppointmentTypeOption } from "../types";
 // Appointment type options with Turkish labels
 export const appointmentTypeOptions: AppointmentTypeOption[] = [
   { value: AppointmentType.INFORMATION_MEETING, label: "Bilgi Toplantısı" },
-  { value: AppointmentType.SCHOOL_TOUR, label: "Okul Gezisi" },
+  { value: AppointmentType.SCHOOL_TOUR, label: "Kurum Gezisi" },
   { value: AppointmentType.ENROLLMENT_INTERVIEW, label: "Kayıt Görüşmesi" },
   { value: AppointmentType.PARENT_MEETING, label: "Veli Görüşmesi" },
   { value: AppointmentType.CONSULTATION, label: "Danışmanlık" },
@@ -20,7 +20,7 @@ export const appointmentTypeOptions: AppointmentTypeOption[] = [
 export const getTypeLabel = (type: AppointmentType): string => {
   const typeLabels: Record<AppointmentType, string> = {
     [AppointmentType.INFORMATION_MEETING]: "Bilgi Toplantısı",
-    [AppointmentType.SCHOOL_TOUR]: "Okul Gezisi",
+    [AppointmentType.SCHOOL_TOUR]: "Kurum Gezisi",
     [AppointmentType.ENROLLMENT_INTERVIEW]: "Kayıt Görüşmesi",
     [AppointmentType.PARENT_MEETING]: "Veli Görüşmesi",
     [AppointmentType.CONSULTATION]: "Danışmanlık",

@@ -303,5 +303,5 @@ const tempBrandFormData = {
   metaDescription:
     "Örnek Eğitim Kurumu markası ile öğrenci odaklı, kaliteli ve modern eğitim hizmetleri. Yenilikçi eğitim çözümleri için bizi keşfedin.",
   metaKeywords:
-    "eğitim kurumu, kaliteli eğitim, özel okul, online eğitim, yenilikçi eğitim",
+    "eğitim kurumu, kaliteli eğitim, özel Kurum, online eğitim, yenilikçi eğitim",
 };

@@ -3,13 +3,13 @@ export const appointmentTypeOptions = [
   {
     value: "INFORMATION_MEETING",
     label: "Bilgilendirme Toplantısı",
-    description: "Okul hakkında genel bilgi almak için detaylı sunum",
+    description: "Kurum hakkında genel bilgi almak için detaylı sunum",
     icon: "ph-presentation-chart",
     duration: 60,
   },
   {
     value: "SCHOOL_TOUR",
-    label: "Okul Turu",
+    label: "Kurum Turu",
     description: "Kampüs ve eğitim alanlarını keşfetme gezisi",
     icon: "ph-buildings",
     duration: 90,

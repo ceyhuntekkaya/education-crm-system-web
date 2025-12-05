@@ -199,7 +199,7 @@ export const createPricingColumns = (): GridColDef<SchoolPricingDto>[] => [
   },
   {
     field: "schoolName",
-    headerName: "Okul Bilgileri",
+    headerName: "Kurum Bilgileri",
     width: 280,
     renderCell: renderSchoolInfo,
   },

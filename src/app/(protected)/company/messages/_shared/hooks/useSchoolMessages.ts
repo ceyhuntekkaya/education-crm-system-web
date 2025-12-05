@@ -13,14 +13,14 @@ interface UseSchoolMessagesReturn {
 }
 
 /**
- * Seçili okul için mesaj verilerini yöneten hook
- * @param schoolId - Okul ID'si (opsiyonel)
+ * Seçili Kurum için mesaj verilerini yöneten hook
+ * @param schoolId - Kurum ID'si (opsiyonel)
  * @returns Mesaj verileri ve yönetim fonksiyonları
  */
 export const useSchoolMessages = (
   schoolId?: number | null
 ): UseSchoolMessagesReturn => {
-  // Eğer schoolId varsa, o okula ait mesajları getir, yoksa null endpoint
+  // Eğer schoolId varsa, o Kuruma ait mesajları getir, yoksa null endpoint
   const endpoint = schoolId
     ? API_ENDPOINTS.CONTENT.MESSAGES_BY_SCHOOL(schoolId)
     : null; // schoolId yoksa API isteği atma

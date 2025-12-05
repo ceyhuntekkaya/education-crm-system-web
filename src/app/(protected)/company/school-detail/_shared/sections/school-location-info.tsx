@@ -86,12 +86,12 @@ export default function SchoolLocationInfo() {
       isShowing: typeof campus.province?.isMetropolitan === "boolean",
     },
     {
-      label: "İldeki Toplam Okul",
+      label: "İldeki Toplam Kurum",
       value: (
         <div className="d-flex align-items-center gap-8">
           <i className="ph-bold ph-buildings text-primary-600"></i>
           <span className="text-primary-600 fw-semibold">
-            {campus.province?.schoolCount?.toLocaleString()} okul
+            {campus.province?.schoolCount?.toLocaleString()} Kurum
           </span>
         </div>
       ),
@@ -160,12 +160,12 @@ export default function SchoolLocationInfo() {
       isShowing: typeof campus.district?.isCentral === "boolean",
     },
     {
-      label: "İlçedeki Okul Sayısı",
+      label: "İlçedeki Kurum Sayısı",
       value: (
         <div className="d-flex align-items-center gap-8">
           <i className="ph-bold ph-graduation-cap text-success-600"></i>
           <span className="text-success-600 fw-semibold">
-            {campus.district?.schoolCount?.toLocaleString()} okul
+            {campus.district?.schoolCount?.toLocaleString()} Kurum
           </span>
         </div>
       ),
@@ -229,7 +229,7 @@ export default function SchoolLocationInfo() {
               <span className="text-primary-600 fw-semibold">
                 {campus.province?.schoolCount?.toLocaleString()}
               </span>{" "}
-              okul
+              Kurum
             </span>
           </div>
           <div className="d-flex align-items-center gap-8">
@@ -239,7 +239,7 @@ export default function SchoolLocationInfo() {
               <span className="text-success-600 fw-semibold">
                 {campus.district?.schoolCount?.toLocaleString()}
               </span>{" "}
-              okul
+              Kurum
             </span>
           </div>
         </div>

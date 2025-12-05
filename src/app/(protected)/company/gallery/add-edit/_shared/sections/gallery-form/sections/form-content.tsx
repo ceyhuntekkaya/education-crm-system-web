@@ -59,10 +59,10 @@ export const GalleryFormContent: React.FC = () => {
             <h5>Temel Bilgiler</h5>
             {/* <FormInput
               name="schoolId"
-              label="Okul"
+              label="Kurum"
               type="text"
-              value={selectedSchool?.name || "Okul seçilmedi"}
-              placeholder="Okul bilgisi..."
+              value={selectedSchool?.name || "Kurum seçilmedi"}
+              placeholder="Kurum bilgisi..."
               disabled
               isRequired
             /> */}

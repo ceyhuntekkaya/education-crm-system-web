@@ -16,7 +16,7 @@ const SearchResultsInfo: React.FC = () => {
               Arama Sonuçları
             </h6>
             <p className="mb-0 text-neutral-600 text-sm">
-              <strong className="text-primary-600">{resultCount}</strong> okul
+              <strong className="text-primary-600">{resultCount}</strong> Kurum
               bulundu
             </p>
           </div>

@@ -7,7 +7,7 @@ export interface School {
 }
 
 // School ile ilgili diğer type'lar buraya eklenebilir
-export type SchoolType = "İlkokul" | "Ortaokul" | "Lise" | "Üniversite";
+export type SchoolType = "İlkKurum" | "OrtaKurum" | "Lise" | "Üniversite";
 
 export interface SchoolCreateRequest {
   name: string;
