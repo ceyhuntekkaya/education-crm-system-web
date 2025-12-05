@@ -48,7 +48,7 @@ export const CampusInfoStep: React.FC = () => {
 
       <CustomCard title="Lokasyon Bilgileri" mt="mt-24">
         <div className="row row-gap-24">
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <FormAutocomplete
               name="campusInfo.countryId"
               label="Ülke"
@@ -58,7 +58,7 @@ export const CampusInfoStep: React.FC = () => {
               disabled={locationData.countries.loading}
               isLoading={locationData.countries.loading}
             />
-          </div>
+          </div> */}
 
           <div className="col-md-6">
             <FormAutocomplete

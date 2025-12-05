@@ -25,7 +25,7 @@ export const initialValues: RegisterFormData = {
   campusInfo: {
     brandId: null,
     campusName: "",
-    countryId: null,
+    countryId: 1, // Türkiye default
     provinceId: null,
     districtId: null,
     neighborhoodId: null,
