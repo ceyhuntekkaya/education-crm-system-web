@@ -157,11 +157,16 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     if (disabled || isLoading) return;
 
     const newValue = e.target.value;
+    isUserTyping.current = true;
     setSearchTerm(newValue);
     setIsOpen(true);
 
     // Multiple modda input değeri form value'yu etkilemez
     if (multiple) {
+      // Kısa bir gecikme sonra flag'i sıfırla
+      setTimeout(() => {
+        isUserTyping.current = false;
+      }, 100);
       return;
     }
 
@@ -175,6 +180,11 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     } else {
       onChange("");
     }
+
+    // Kısa bir gecikme sonra flag'i sıfırla
+    setTimeout(() => {
+      isUserTyping.current = false;
+    }, 100);
   };
 
   // Handle dropdown close - validate input
@@ -411,22 +421,36 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   };
 
   // Update search term when value changes externally
+  // Bu effect sadece dışarıdan value değiştiğinde çalışmalı, kullanıcı yazarken değil
+  const isUserTyping = useRef(false);
+  const prevValueRef = useRef(value);
+
   useEffect(() => {
     // Multiple modda bu effect çalışmamalı
     if (multiple) return;
 
+    // Kullanıcı yazıyorsa müdahale etme
+    if (isUserTyping.current) return;
+
+    // Value dışarıdan değiştiyse kontrol et
+    const valueChanged = prevValueRef.current !== value;
+    prevValueRef.current = value;
+
+    if (!valueChanged) return;
+
     if (typeof value === "string" && value !== "") {
       const selectedOption = options.find((opt) => opt.value === value);
-      if (selectedOption && selectedOption.label !== searchTerm) {
+      if (selectedOption) {
         setSearchTerm(selectedOption.label);
       }
     } else if (value === "" || value === undefined || value === null) {
-      // Value boşaltıldığında searchTerm'i de temizle
-      if (searchTerm !== "") {
+      // Value dışarıdan boşaltıldığında searchTerm'i de temizle
+      // Ama sadece dropdown kapalıyken
+      if (!isOpen) {
         setSearchTerm("");
       }
     }
-  }, [value, options, multiple]);
+  }, [value, options, multiple, isOpen]);
 
   return (
     <div className={className} ref={containerRef}>

@@ -19,4 +19,5 @@ export interface FormContextType {
   reset: () => void;
   validate: () => Promise<boolean>;
   isValid: boolean;
+  deleteFields: (fieldNames: string[]) => void;
 }

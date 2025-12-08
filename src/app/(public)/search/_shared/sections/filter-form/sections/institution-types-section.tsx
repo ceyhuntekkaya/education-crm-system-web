@@ -1,17 +1,66 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useRef } from "react";
 import { FormRadio } from "@/components";
 import { useSearchContext } from "../../../contexts";
 import { useFormHook } from "@/hooks";
+import type { PropertyGroupTypeDto } from "@/types";
 
 export const InstitutionTypesSection = () => {
-  const { options } = useSearchContext();
-  const { values, useResetFieldOnChange } = useFormHook();
+  const { options, institutionTypes } = useSearchContext();
+  const { values, useResetFieldOnChange, deleteFields } = useFormHook();
 
   // Seçili grup kontrolü
   const selectedGroupId = values.institutionGroupId;
+  const selectedInstitutionTypeId = values.institutionTypeId;
+
+  // Önceki kurum tipi ID'sini takip et
+  const prevInstitutionTypeIdRef = useRef<string | undefined>(undefined);
+
+  // Seçili kurum tipine ait dinamik property alanlarının isimlerini çıkar
+  const currentDynamicPropertyFieldNames = useMemo(() => {
+    if (!selectedInstitutionTypeId || !institutionTypes?.length) return [];
+
+    const selectedInstitutionData = institutionTypes.find(
+      (item) =>
+        item.institutionTypeDto?.id?.toString() === selectedInstitutionTypeId
+    );
+
+    if (!selectedInstitutionData?.propertyGroupTypeDtos) return [];
+
+    return selectedInstitutionData.propertyGroupTypeDtos.map(
+      (group: PropertyGroupTypeDto) =>
+        group.name || `property_group_${group.id}`
+    );
+  }, [selectedInstitutionTypeId, institutionTypes]);
 
   // Kurum kategorisi değiştiğinde kurum tipini sıfırla
+  // (Dinamik alanlar zaten institutionTypeId değişimi ile sıfırlanacak)
   useResetFieldOnChange("institutionGroupId", "institutionTypeId");
+
+  // Kurum tipi değiştiğinde, ÖNCEKİ kurum tipine ait dinamik alanları form'dan tamamen sil
+  useEffect(() => {
+    const prevTypeId = prevInstitutionTypeIdRef.current;
+
+    // İlk render'da veya değişiklik yoksa bir şey yapma
+    if (prevTypeId === selectedInstitutionTypeId) return;
+
+    // Önceki tip varsa, o tipe ait alanları form'dan tamamen sil
+    if (prevTypeId && institutionTypes?.length) {
+      const prevInstitutionData = institutionTypes.find(
+        (item) => item.institutionTypeDto?.id?.toString() === prevTypeId
+      );
+
+      if (prevInstitutionData?.propertyGroupTypeDtos) {
+        const fieldsToDelete = prevInstitutionData.propertyGroupTypeDtos.map(
+          (group: PropertyGroupTypeDto) =>
+            group.name || `property_group_${group.id}`
+        );
+        deleteFields(fieldsToDelete);
+      }
+    }
+
+    // Ref'i güncelle
+    prevInstitutionTypeIdRef.current = selectedInstitutionTypeId;
+  }, [selectedInstitutionTypeId, institutionTypes, deleteFields]);
 
   const isGroupSelected = selectedGroupId && selectedGroupId !== "";
 
