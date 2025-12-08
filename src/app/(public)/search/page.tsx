@@ -11,7 +11,8 @@ import { Suspense } from "react";
 import { usePageTitle } from "@/hooks";
 
 const SearchPageContent = () => {
-  const { institutions, hasSearched, searchLoading } = useSearchContext();
+  const { institutions, hasSearched, searchLoading, pagination } =
+    useSearchContext();
   usePageTitle("Eğitim Ara");
 
   return (
@@ -36,6 +37,7 @@ const SearchPageContent = () => {
                   <Results
                     institutions={institutions}
                     loading={searchLoading}
+                    pagination={pagination}
                   />
                 </>
               )}

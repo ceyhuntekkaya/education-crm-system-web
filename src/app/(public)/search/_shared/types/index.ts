@@ -6,3 +6,4 @@ export * from "./hook-types";
 export * from "./hook-props";
 export * from "./fav-filter-types";
 export * from "./parent-search-list";
+export * from "./pagination-types";

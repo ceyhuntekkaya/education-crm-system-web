@@ -8,5 +8,8 @@ export { useUrlToFormSync } from "./use-url-to-form-sync";
 export { useUrlAutoSearch } from "./use-url-auto-search";
 export { useFavoriteSearchLoad } from "./use-favorite-search-load";
 
+// 📄 PAGINATION HOOK
+export { usePagination } from "./use-pagination";
+
 // 🛠️ UTILITY HOOKS
 export { useSaveFavoriteSearch } from "./use-save-favorite-search";

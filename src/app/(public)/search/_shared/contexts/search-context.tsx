@@ -47,15 +47,17 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
     institutionGroupsOptions,
   } = useInstitutionTypes();
 
-  // 🔍 SEARCH WITH RESULTS
+  // 🔍 SEARCH WITH RESULTS & PAGINATION
   const {
     search,
+    searchWithPagination,
     searchLoading,
     searchError,
     institutions,
     totalElements,
     hasSearched,
     resetSearchResults,
+    pagination,
   } = useSearch();
 
   // ⭐ FAVORITE SEARCH LOADING (öncelikli - diğer URL işlemlerinden önce)
@@ -127,9 +129,13 @@ const SearchProviderContent = ({ children }: SearchProviderProps) => {
 
     // Actions
     search,
+    searchWithPagination,
     searchLoading,
     searchError,
     resetSearch,
+
+    // Pagination
+    pagination,
   };
 
   return (

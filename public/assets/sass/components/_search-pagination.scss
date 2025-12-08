@@ -1,0 +1,194 @@
+/* ============= Search Pagination Component ======================= */
+
+.search-pagination {
+  background-color: #fff;
+  
+  // Navigation buttons (arrows)
+  &__nav-btn {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 16px;
+    
+    &:hover:not(:disabled) {
+      background-color: #e5e7eb;
+      border-color: #d1d5db;
+    }
+    
+    &:active:not(:disabled) {
+      background-color: #d1d5db;
+    }
+    
+    &:disabled {
+      background-color: #f3f4f6;
+      color: #d1d5db;
+      cursor: not-allowed;
+      border-color: #f3f4f6;
+    }
+    
+    &.disabled {
+      background-color: #f3f4f6;
+      color: #d1d5db;
+      cursor: not-allowed;
+      border-color: #f3f4f6;
+    }
+    
+    i {
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+  
+  // Page buttons container
+  &__pages {
+    margin: 0 4px;
+  }
+  
+  // Page number buttons
+  &__page-btn {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    
+    &:hover:not(:disabled):not(.active) {
+      background-color: #e5e7eb;
+      border-color: #d1d5db;
+    }
+    
+    &.active {
+      background-color: hsl(var(--main));
+      color: #fff;
+      border-color: hsl(var(--main));
+      font-weight: 600;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Ellipsis (...)
+  &__ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 36px;
+    color: #9ca3af;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  // Info text
+  &__info {
+    white-space: nowrap;
+  }
+}
+
+/* Mobile Responsive */
+@media only screen and (max-width: 991px) {
+  .search-pagination {
+    padding: 16px !important;
+    
+    > div {
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+    
+    &__size-control {
+      order: 2;
+      width: 100%;
+      justify-content: center !important;
+    }
+    
+    &__nav {
+      order: 1;
+      width: 100%;
+      justify-content: center !important;
+    }
+    
+    &__info {
+      order: 3;
+      width: 100%;
+      text-align: center;
+    }
+    
+    &__nav-btn,
+    &__page-btn {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      padding: 0 8px;
+      font-size: 13px;
+      
+      i {
+        font-size: 14px;
+      }
+    }
+    
+    &__ellipsis {
+      width: 24px;
+      height: 32px;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .search-pagination {
+    padding: 12px !important;
+    
+    > div {
+      gap: 10px !important;
+    }
+    
+    &__nav-btn,
+    &__page-btn {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      padding: 0 6px;
+      font-size: 12px;
+      border-radius: 6px;
+      
+      i {
+        font-size: 12px;
+      }
+    }
+    
+    &__ellipsis {
+      width: 20px;
+      height: 28px;
+      font-size: 12px;
+    }
+    
+    &__select {
+      padding: 6px 28px 6px 10px !important;
+      font-size: 13px !important;
+    }
+    
+    &__info {
+      font-size: 12px !important;
+    }
+  }
+}
