@@ -18,6 +18,7 @@ export const useFormHook = () => {
     validate,
     isValid,
     initialValues,
+    deleteFields,
   } = useForm();
 
   // Form reset işlemi
@@ -207,6 +208,7 @@ export const useFormHook = () => {
     mergeFormValues,
     clearFields,
     clearAllFieldsExcept,
+    deleteFields,
 
     // Form operations
     resetForm,

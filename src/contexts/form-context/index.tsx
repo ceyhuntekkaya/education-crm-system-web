@@ -175,6 +175,24 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     setErrors({});
   }, [initialValues]);
 
+  // Form'dan field'ları tamamen silme
+  const deleteFields = useCallback((fieldNames: string[]) => {
+    setValues((prev) => {
+      const newValues = { ...prev };
+      fieldNames.forEach((fieldName) => {
+        delete newValues[fieldName];
+      });
+      return newValues;
+    });
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      fieldNames.forEach((fieldName) => {
+        delete newErrors[fieldName];
+      });
+      return newErrors;
+    });
+  }, []);
+
   // Validation
   const validate = useCallback(async () => {
     const newErrors: FormErrors = {};
@@ -227,6 +245,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     reset,
     validate,
     isValid,
+    deleteFields,
   };
 
   return (

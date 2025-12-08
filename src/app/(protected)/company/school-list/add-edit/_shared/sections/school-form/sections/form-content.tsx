@@ -51,8 +51,14 @@ export const SchoolFormContent: React.FC = () => {
 
   const { user } = useAuth();
 
-  // Kurum kategorisi değiştiğinde kurum tipini sıfırla
-  useResetFieldOnChange("institutionGroupId", "institutionTypeId");
+  // Kurum kategorisi değiştiğinde kurum tipini ve propertyValues'i sıfırla
+  useResetFieldOnChange("institutionGroupId", [
+    "institutionTypeId",
+    "propertyValues",
+  ]);
+
+  // Kurum tipi değiştiğinde propertyValues'i sıfırla
+  useResetFieldOnChange("institutionTypeId", "propertyValues");
 
   // Seçili gruba göre filtrelenmiş kurum tipleri
   const filteredInstitutionTypes = useMemo(() => {
@@ -525,6 +531,8 @@ export const SchoolFormContent: React.FC = () => {
                 direction="horizontal"
                 col={4}
                 variant="outlined"
+                isCollapsible
+                defaultCollapsed
               />
             </div>
           </>
