@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 import * as yup from "yup";
 import {
   FormValues,
@@ -193,10 +187,61 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     });
   }, []);
 
+  // İlk hatalı alana scroll yapma fonksiyonu
+  const scrollToFirstError = useCallback((errorFields: string[]) => {
+    if (errorFields.length === 0) return;
+
+    // DOM'daki görsel sıraya göre ilk hatalı field'ı bul
+    const errorElements: Array<{
+      fieldName: string;
+      element: HTMLElement;
+      top: number;
+    }> = [];
+
+    // Her hatalı field için DOM elementini bul ve pozisyonunu kaydet
+    errorFields.forEach((fieldName) => {
+      const element =
+        document.querySelector(`[name="${fieldName}"]`) ||
+        document.querySelector(`[data-field-name="${fieldName}"]`) ||
+        document.getElementById(fieldName);
+
+      if (element && element instanceof HTMLElement) {
+        // Element'in sayfadaki konumunu al
+        const rect = element.getBoundingClientRect();
+        const absoluteTop = rect.top + window.pageYOffset;
+
+        errorElements.push({
+          fieldName,
+          element,
+          top: absoluteTop,
+        });
+      }
+    });
+
+    // En yukarıdaki (sayfada ilk görünen) hatalı elementi bul
+    if (errorElements.length > 0) {
+      errorElements.sort((a, b) => a.top - b.top);
+      const firstError = errorElements[0];
+
+      // İlk hatalı elemente scroll yap
+      firstError.element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+
+      // Input'a focus yap
+      setTimeout(() => {
+        firstError.element.focus();
+      }, 300); // Scroll animasyonu için bekle
+    }
+  }, []);
+
   // Validation
   const validate = useCallback(async () => {
     const newErrors: FormErrors = {};
     let isValid = true;
+    const errorFields: string[] = [];
 
     // Yup schema validation
     if (validationSchema) {
@@ -207,6 +252,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
           error.inner.forEach((err) => {
             if (err.path) {
               newErrors[err.path] = err.message;
+              errorFields.push(err.path);
               isValid = false;
             }
           });
@@ -221,14 +267,21 @@ export const FormProvider: React.FC<FormProviderProps> = ({
 
         if (error) {
           newErrors[fieldName] = error;
+          errorFields.push(fieldName);
           isValid = false;
         }
       });
     }
 
     setErrors(newErrors);
+
+    // Eğer hata varsa, ilk hatalı alana scroll yap
+    if (!isValid && errorFields.length > 0) {
+      scrollToFirstError(errorFields);
+    }
+
     return isValid;
-  }, [values, validationRules, validationSchema]);
+  }, [values, validationRules, validationSchema, scrollToFirstError]);
 
   // Form geçerliliği
   const isValid = Object.values(errors).every((error) => !error);

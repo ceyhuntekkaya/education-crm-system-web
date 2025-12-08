@@ -385,16 +385,16 @@ export default function SchoolGeneralInfo() {
         <CustomCard
           title="Kurum Bilgileri"
           items={institutionInfoItems}
-          editButtonUrl={
-            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          }
+          // editButtonUrl={
+          //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          // }
         />
       ) : (
         <CustomCard
           title="Kurum Bilgileri"
-          editButtonUrl={
-            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          }
+          // editButtonUrl={
+          //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+          // }
         >
           <p className="text-neutral-500">
             Kurum bilgileri henüz mevcut değil.

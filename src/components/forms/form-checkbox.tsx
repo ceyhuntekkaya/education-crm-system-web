@@ -246,6 +246,7 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
                   <input
                     id={`${name}-${group.groupId}-${property.value}`}
                     name={`${name}-${group.groupId}`}
+                    data-field-name={name}
                     type="checkbox"
                     className="form-check-input bg-main-25"
                     checked={isChecked}
@@ -393,6 +394,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
                 <input
                   id={`${name}-${option.value}`}
                   name={name}
+                  data-field-name={name}
                   type="checkbox"
                   className="form-check-input bg-main-25"
                   checked={isChecked}
@@ -455,6 +457,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
         <input
           id={id || `${name}-${value || label}`}
           name={name}
+          data-field-name={name}
           type="checkbox"
           className="form-check-input bg-main-25"
           checked={isChecked}

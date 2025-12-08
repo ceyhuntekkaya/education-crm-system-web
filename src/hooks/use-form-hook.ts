@@ -26,7 +26,7 @@ export const useFormHook = () => {
     reset();
   }, [reset]);
 
-  // Form validation işlemi
+  // Form validation işlemi (otomatik scroll ile)
   const validateForm = useCallback(async () => {
     return await validate();
   }, [validate]);

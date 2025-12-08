@@ -491,6 +491,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
             ref={inputRef}
             id={id || name}
             name={name}
+            data-field-name={name}
             type="text"
             className={getVariantClasses()}
             placeholder={

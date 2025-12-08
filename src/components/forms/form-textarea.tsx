@@ -78,6 +78,7 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
       <textarea
         id={id || name}
         name={name}
+        data-field-name={name}
         className={getVariantClasses()}
         placeholder={placeholder}
         disabled={disabled}

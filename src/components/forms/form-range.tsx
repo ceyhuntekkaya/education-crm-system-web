@@ -132,6 +132,8 @@ export const FormRange: React.FC<FormRangeProps> = ({
             <label className="text-sm text-neutral-500 mb-6">Min</label>
             <input
               type="range"
+              name={name}
+              data-field-name={name}
               min={min}
               max={max}
               step={step}
