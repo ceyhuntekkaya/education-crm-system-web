@@ -17,20 +17,14 @@ export const InstitutionHeader = ({
         isLarge ? "mb-20" : "mb-16"
       }`}
     >
-      <div
-        className={`w-${logoSize} h-${logoSize} ${
-          isLarge ? "rounded-16" : "rounded-12"
-        } overflow-hidden flex-shrink-0 bg-neutral-50 border`}
-      >
-        <CustomImage
-          src={institution.logoUrl}
-          tempImage="https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg"
-          alt={`${institution.name ?? "Institution"} Logo`}
-          width={logoSize}
-          height={logoSize}
-          className="object-cover"
-        />
-      </div>
+      <CustomImage
+        src={institution.logoUrl}
+        tempImage="https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg"
+        alt={`${institution.name ?? "Institution"} Logo`}
+        width={logoSize}
+        height={logoSize}
+        variant="card"
+      />
       <div className="flex-grow-1">
         <h3
           className={`${
