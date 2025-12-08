@@ -412,13 +412,21 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
 
   // Update search term when value changes externally
   useEffect(() => {
+    // Multiple modda bu effect çalışmamalı
+    if (multiple) return;
+
     if (typeof value === "string" && value !== "") {
       const selectedOption = options.find((opt) => opt.value === value);
       if (selectedOption && selectedOption.label !== searchTerm) {
         setSearchTerm(selectedOption.label);
       }
+    } else if (value === "" || value === undefined || value === null) {
+      // Value boşaltıldığında searchTerm'i de temizle
+      if (searchTerm !== "") {
+        setSearchTerm("");
+      }
     }
-  }, [value, options, searchTerm]);
+  }, [value, options, multiple]);
 
   return (
     <div className={className} ref={containerRef}>
