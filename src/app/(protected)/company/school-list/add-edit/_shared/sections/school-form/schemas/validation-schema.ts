@@ -68,8 +68,8 @@ export const validationSchema = Yup.object({
   // annualFee: Yup.number().min(0, "Yıllık ücret 0'dan küçük olamaz").optional(),
 
   // Property Values - Ek Özellikler
-  propertyValues: Yup.array().of(Yup.string()).nullable().optional(),
-  propertyTypeIds: Yup.array().of(Yup.number()).nullable().optional(),
+  // propertyValues: Yup.array().of(Yup.string()).nullable().optional(),
+  // propertyTypeIds: Yup.array().of(Yup.number()).nullable().optional(),
 
   // SEO
   metaTitle: Yup.string()
