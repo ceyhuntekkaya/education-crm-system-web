@@ -1,5 +1,27 @@
 import { SchoolSearchDto, SchoolSearchResultDto } from "@/types";
 
+/**
+ * Pagination state tipi (context için)
+ */
+export interface SearchPaginationState {
+  page: number;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+  isFirstPage: boolean;
+  isLastPage: boolean;
+  pageNumbers: number[];
+  startItem: number;
+  endItem: number;
+  goToPage: (page: number) => void;
+  goToNextPage: () => void;
+  goToPreviousPage: () => void;
+  goToFirstPage: () => void;
+  goToLastPage: () => void;
+  changePageSize: (size: number) => void;
+  resetPagination: () => void;
+}
+
 // Context'te tutulacak değerlerin tipi
 export interface SearchContextValue {
   // Form values (search form'unun mevcut değerleri)
@@ -81,9 +103,13 @@ export interface SearchContextValue {
 
   // Arama fonksiyonalitesi
   search: (data: SchoolSearchDto) => Promise<any>; // Arama fonksiyonu
+  searchWithPagination: (page: number, size: number) => Promise<any>; // Sayfa ile arama
   searchLoading: boolean; // Arama yükleniyor durumu
   searchError: any; // Arama hata durumu
   resetSearch: () => void; // Arama'yı sıfırla ve initial state'e dön
+
+  // Pagination
+  pagination: SearchPaginationState;
 }
 
 // Context Provider component'i için props tipi

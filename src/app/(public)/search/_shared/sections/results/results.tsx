@@ -5,6 +5,8 @@ import { InstitutionCard } from "../institution-card/institution-card";
 import { SchoolSearchResultDto } from "@/types/dto/institution/InstitutionSearch.types";
 import { LoadingState } from "@/components/ui/loadings";
 import NoResults from "./no-results";
+import { Pagination } from "../pagination";
+import { SearchPaginationState } from "../../types";
 
 const CARDS_PER_ROW = 3;
 const ANIMATION_DELAY_INCREMENT = 100;
@@ -12,9 +14,16 @@ const ANIMATION_DELAY_INCREMENT = 100;
 interface ResultsProps {
   institutions: SchoolSearchResultDto[];
   loading?: boolean;
+  pagination?: SearchPaginationState;
+  showPagination?: boolean;
 }
 
-const Results = ({ institutions, loading = false }: ResultsProps) => {
+const Results = ({
+  institutions,
+  loading = false,
+  pagination,
+  showPagination = true,
+}: ResultsProps) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
@@ -109,6 +118,21 @@ const Results = ({ institutions, loading = false }: ResultsProps) => {
           renderRow(row, rowIdx)
         )}
       </div>
+
+      {/* Pagination */}
+      {showPagination && pagination && pagination.totalElements > 0 && (
+        <Pagination
+          currentPage={pagination.page}
+          totalPages={pagination.totalPages}
+          totalElements={pagination.totalElements}
+          pageSize={pagination.size}
+          onPageChange={pagination.goToPage}
+          onPageSizeChange={pagination.changePageSize}
+          loading={loading}
+          showPageSizeSelector={true}
+          showPageInfo={true}
+        />
+      )}
     </div>
   );
 };

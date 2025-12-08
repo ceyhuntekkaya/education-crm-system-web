@@ -9,3 +9,4 @@ export { InstitutionCard as InstitutionCardComponent } from "./institution-card/
 export { SaveFavoriteSearchModal } from "./save-favorite-search-modal";
 export { SaveFavoriteSearchButton } from "./save-favorite-search-button";
 export { SearchResultsHeader } from "./search-results-header";
+export { Pagination } from "./pagination";
