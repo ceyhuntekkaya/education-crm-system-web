@@ -77,10 +77,10 @@ export const transformInstitutionTypeData = (
  */
 export const transformInstitutionGroups = (
   data: InstitutionTypeListDto[] | undefined,
-  placeholder: string
+  placeholder?: string
 ) => {
   if (!data || data.length === 0) {
-    return [{ value: "", label: placeholder }];
+    return placeholder ? [{ value: "", label: placeholder }] : [];
   }
 
   // Unique grupları topla
@@ -99,8 +99,13 @@ export const transformInstitutionGroups = (
     a.groupName.localeCompare(b.groupName, "tr")
   );
 
+  // Placeholder varsa başa ekle, yoksa sadece grupları döndür
+  const placeholderOption = placeholder
+    ? [{ value: "", label: placeholder }]
+    : [];
+
   return [
-    { value: "", label: placeholder },
+    ...placeholderOption,
     ...groups.map((group) => ({
       value: group.groupId.toString(),
       label: toTitleCase(group.groupName),

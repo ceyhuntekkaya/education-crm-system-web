@@ -32,10 +32,7 @@ export function useInstitutionTypes(): InstitutionTypesReturn {
   };
 
   const institutionGroupsOptions = {
-    data: transformInstitutionGroups(
-      institutionTypesResponse?.data,
-      "Kurum kategorisi seçin"
-    ),
+    data: transformInstitutionGroups(institutionTypesResponse?.data, ""),
     loading: institutionTypesLoading,
     error: institutionTypesError,
   };
