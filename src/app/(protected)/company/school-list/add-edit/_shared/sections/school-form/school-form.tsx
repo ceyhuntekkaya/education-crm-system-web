@@ -23,6 +23,7 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
     isEditing,
     schoolPropertiesLoading,
     getGroupIdByTypeId,
+    institutionTypesLoading,
   } = useSchoolAddEdit();
 
   // Property values'u memoize et - sadece değiştiğinde güncelle
@@ -39,8 +40,13 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
     if (!initialData) return schoolInitialValues;
 
     // Edit modunda institutionTypeId'den groupId'yi bul
+    // institutionTypesLoading true ise henüz veriler yüklenmemiş demektir
     const institutionTypeId = initialData.institutionType?.id?.toString() || "";
-    const institutionGroupId = getGroupIdByTypeId(institutionTypeId) || "";
+
+    // Institution types yüklenmeden groupId'yi bulamayız
+    const institutionGroupId = institutionTypesLoading
+      ? ""
+      : getGroupIdByTypeId(institutionTypeId) || "";
 
     return {
       ...schoolInitialValues,
@@ -65,14 +71,19 @@ export const SchoolForm: React.FC<SchoolFormProps> = ({
       // seçenekleriyle eşleştirilecek
       propertyValues,
     };
-  }, [initialData, propertyValues, getGroupIdByTypeId]);
+  }, [
+    initialData,
+    propertyValues,
+    getGroupIdByTypeId,
+    institutionTypesLoading,
+  ]);
 
   return (
     <div className={className}>
       <FormProvider
         key={`school-form-${isEditing ? initialData?.id : "add"}-${
           propertyValues.length
-        }`}
+        }-${institutionTypesLoading ? "loading" : "ready"}`}
         initialValues={formInitialValues}
         validationSchema={schoolValidationSchema}
       >
