@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useFormField } from "@/contexts";
+import Icon from "../ui/icon";
 
 export interface CheckboxGroup {
   groupId: number | string;
@@ -31,7 +32,202 @@ interface FormCheckboxProps
   col?: 1 | 2 | 3 | 4 | 6 | 12; // Bootstrap grid column sayısı
   variant?: FormCheckboxVariant; // Yeni variant özelliği
   maxSelection?: number; // Maksimum seçim sayısı (sadece multi ve grouped modda)
+  isCollapsible?: boolean; // Collapse/Accordion özelliği (her grup için)
+  defaultCollapsed?: boolean; // Varsayılan olarak kapalı mı (default: true)
 }
+
+// Collapsible Group Item Component - Her grup için ayrı collapse state'i
+interface CollapsibleGroupItemProps {
+  group: CheckboxGroup;
+  formValue: any;
+  onChange: (value: any) => void;
+  maxSelection?: number;
+  disabled: boolean;
+  direction: "vertical" | "horizontal";
+  columnClass: string;
+  containerClasses: string;
+  isCollapsible: boolean;
+  defaultCollapsed: boolean;
+  name: string;
+  rest: any;
+}
+
+const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
+  group,
+  formValue,
+  onChange,
+  maxSelection,
+  disabled,
+  direction,
+  columnClass,
+  containerClasses,
+  isCollapsible,
+  defaultCollapsed,
+  name,
+  rest,
+}) => {
+  const [isOpen, setIsOpen] = useState(!defaultCollapsed);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Calculate content height for smooth animation
+  useEffect(() => {
+    if (contentRef.current) {
+      if (isCollapsible) {
+        setContentHeight(isOpen ? contentRef.current.scrollHeight : 0);
+      } else {
+        setContentHeight(contentRef.current.scrollHeight);
+      }
+    }
+  }, [isOpen, isCollapsible, group.properties]);
+
+  // Toggle collapse
+  const toggleCollapse = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isCollapsible) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    propertyValue: string
+  ) => {
+    const isChecked = e.target.checked;
+    const currentValues = Array.isArray(formValue) ? formValue : [];
+
+    if (isChecked) {
+      // Maksimum seçim kontrolü
+      if (maxSelection && currentValues.length >= maxSelection) {
+        return; // Maksimum seçim sayısına ulaşıldı, yeni seçime izin verme
+      }
+
+      // Eğer grup isMultiple=false ise (tek seçim), önce aynı gruptaki diğer seçenekleri kaldır
+      if (group.isMultiple === false) {
+        const otherGroupValues = group.properties
+          .map((p) => p.value)
+          .filter((v) => v !== propertyValue);
+        const filteredValues = currentValues.filter(
+          (item: any) => !otherGroupValues.includes(item)
+        );
+        onChange([...filteredValues, propertyValue] as any);
+      } else {
+        // Çoklu seçim - direkt ekle
+        onChange([...currentValues, propertyValue] as any);
+      }
+    } else {
+      // Checkbox kaldırıldı - değeri çıkar
+      onChange(
+        currentValues.filter((item: any) => item !== propertyValue) as any
+      );
+    }
+  };
+
+  return (
+    <div
+      key={group.groupId}
+      className={`property-group mb-20 ${containerClasses}`}
+    >
+      {/* Group Header with Collapse Toggle */}
+      <div
+        className={`d-flex align-items-center justify-content-between ${
+          isCollapsible ? "cursor-pointer" : ""
+        }`}
+        onClick={isCollapsible ? toggleCollapse : undefined}
+      >
+        <h6 className="mb-12 text-neutral-600 fw-semibold">
+          {group.groupDisplayName}
+          {group.isMultiple === false && (
+            <span className="text-neutral-400 ms-2 fw-normal text-sm">
+              (Tek seçim)
+            </span>
+          )}
+        </h6>
+        {isCollapsible && (
+          <Icon
+            icon={isOpen ? "ph-caret-up" : "ph-caret-down"}
+            variant="inline"
+            size="md"
+            onClick={toggleCollapse}
+            className="accordion-toggle-icon"
+            animate={false}
+          />
+        )}
+      </div>
+
+      {/* Collapsible Content */}
+      <div
+        ref={contentRef}
+        className={
+          isCollapsible
+            ? `overflow-hidden transition-all duration-500 ease-in-out ${
+                isOpen ? "card-expand-transition opacity-100" : "opacity-0"
+              }`
+            : ""
+        }
+        style={{
+          maxHeight: isCollapsible ? `${contentHeight}px` : "none",
+          transition: isCollapsible
+            ? "max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out"
+            : "none",
+        }}
+      >
+        {/* Inner wrapper with padding to prevent clipping */}
+        <div className={isCollapsible ? "pb-16 ps-4" : ""}>
+          <div
+            className={
+              direction === "horizontal"
+                ? "row row-gap-12"
+                : "d-flex flex-column gap-12"
+            }
+          >
+            {group.properties.map((property) => {
+              const isChecked = Array.isArray(formValue)
+                ? formValue.includes(property.value)
+                : false;
+
+              return (
+                <div
+                  key={property.value}
+                  className={
+                    direction === "horizontal"
+                      ? `${columnClass} form-check common-check mb-0 mt-20 ps-32`
+                      : "form-check common-check mb-0"
+                  }
+                >
+                  <input
+                    id={`${name}-${group.groupId}-${property.value}`}
+                    name={`${name}-${group.groupId}`}
+                    type="checkbox"
+                    className="form-check-input bg-main-25"
+                    checked={isChecked}
+                    onChange={(e) => handleChange(e, property.value)}
+                    disabled={
+                      disabled ||
+                      Boolean(
+                        maxSelection &&
+                          !isChecked &&
+                          Array.isArray(formValue) &&
+                          formValue.length >= maxSelection
+                      )
+                    }
+                    {...rest}
+                  />
+                  <label
+                    className="form-check-label fw-normal flex-grow-1"
+                    htmlFor={`${name}-${group.groupId}-${property.value}`}
+                  >
+                    {property.label}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   id,
@@ -51,6 +247,8 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
   col = 12,
   variant = "inline",
   maxSelection,
+  isCollapsible = false,
+  defaultCollapsed = true,
   className,
   disabled = false,
   ...rest
@@ -79,117 +277,32 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
           <div className="mb-24">
             {groupedTitle && <h5 className="mb-16">{groupedTitle}</h5>}
             {groupedDescription && (
-              <p className="text-neutral-500 text-sm mb-16">
+              <p className="text-neutral-500 text-sm mb-0">
                 {groupedDescription}
               </p>
             )}
           </div>
         )}
 
-        {/* Checkbox Grupları */}
+        {/* Checkbox Grupları - Her biri kendi collapse state'ine sahip */}
         <div className="d-flex flex-column gap-20">
-          {groups.map((group) => {
-            const handleChange = (
-              e: React.ChangeEvent<HTMLInputElement>,
-              propertyValue: string
-            ) => {
-              const isChecked = e.target.checked;
-              const currentValues = Array.isArray(formValue) ? formValue : [];
-
-              if (isChecked) {
-                // Maksimum seçim kontrolü
-                if (maxSelection && currentValues.length >= maxSelection) {
-                  return; // Maksimum seçim sayısına ulaşıldı, yeni seçime izin verme
-                }
-
-                // Eğer grup isMultiple=false ise (tek seçim), önce aynı gruptaki diğer seçenekleri kaldır
-                if (group.isMultiple === false) {
-                  const otherGroupValues = group.properties
-                    .map((p) => p.value)
-                    .filter((v) => v !== propertyValue);
-                  const filteredValues = currentValues.filter(
-                    (item: any) => !otherGroupValues.includes(item)
-                  );
-                  onChange([...filteredValues, propertyValue] as any);
-                } else {
-                  // Çoklu seçim - direkt ekle
-                  onChange([...currentValues, propertyValue] as any);
-                }
-              } else {
-                // Checkbox kaldırıldı - değeri çıkar
-                onChange(
-                  currentValues.filter(
-                    (item: any) => item !== propertyValue
-                  ) as any
-                );
-              }
-            };
-
-            return (
-              <div
-                key={group.groupId}
-                className={`property-group mb-20 ${getContainerClasses()}`}
-              >
-                <h6 className="mb-12 text-neutral-600 fw-semibold">
-                  {group.groupDisplayName}
-                  {group.isMultiple === false && (
-                    <span className="text-neutral-400 ms-2 fw-normal text-sm">
-                      (Tek seçim)
-                    </span>
-                  )}
-                </h6>
-                <div
-                  className={
-                    direction === "horizontal"
-                      ? "row row-gap-12"
-                      : "d-flex flex-column gap-12"
-                  }
-                >
-                  {group.properties.map((property) => {
-                    const isChecked = Array.isArray(formValue)
-                      ? formValue.includes(property.value)
-                      : false;
-
-                    return (
-                      <div
-                        key={property.value}
-                        className={
-                          direction === "horizontal"
-                            ? `${columnClass} form-check common-check mb-0 mt-20 ps-32`
-                            : "form-check common-check mb-0"
-                        }
-                      >
-                        <input
-                          id={`${name}-${group.groupId}-${property.value}`}
-                          name={`${name}-${group.groupId}`}
-                          type="checkbox"
-                          className="form-check-input bg-main-25"
-                          checked={isChecked}
-                          onChange={(e) => handleChange(e, property.value)}
-                          disabled={
-                            disabled ||
-                            Boolean(
-                              maxSelection &&
-                                !isChecked &&
-                                Array.isArray(formValue) &&
-                                formValue.length >= maxSelection
-                            )
-                          }
-                          {...rest}
-                        />
-                        <label
-                          className="form-check-label fw-normal flex-grow-1"
-                          htmlFor={`${name}-${group.groupId}-${property.value}`}
-                        >
-                          {property.label}
-                        </label>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
+          {groups.map((group) => (
+            <CollapsibleGroupItem
+              key={group.groupId}
+              group={group}
+              formValue={formValue}
+              onChange={onChange}
+              maxSelection={maxSelection}
+              disabled={disabled}
+              direction={direction}
+              columnClass={columnClass}
+              containerClasses={getContainerClasses()}
+              isCollapsible={isCollapsible}
+              defaultCollapsed={defaultCollapsed}
+              name={name}
+              rest={rest}
+            />
+          ))}
         </div>
       </div>
     );

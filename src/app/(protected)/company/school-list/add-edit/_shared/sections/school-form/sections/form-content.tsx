@@ -531,6 +531,8 @@ export const SchoolFormContent: React.FC = () => {
                 direction="horizontal"
                 col={4}
                 variant="outlined"
+                isCollapsible
+                defaultCollapsed
               />
             </div>
           </>
