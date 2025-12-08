@@ -69,6 +69,7 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
   const [isOpen, setIsOpen] = useState(!defaultCollapsed);
   const [contentHeight, setContentHeight] = useState<number>(0);
   const contentRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
 
   // Calculate content height for smooth animation
   useEffect(() => {
@@ -80,6 +81,26 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
       }
     }
   }, [isOpen, isCollapsible, group.properties]);
+
+  // Scroll to group when opened
+  useEffect(() => {
+    if (isOpen && isCollapsible && groupRef.current) {
+      // Biraz gecikme ile scroll yap (animasyon başladıktan sonra)
+      const scrollTimeout = setTimeout(() => {
+        if (groupRef.current) {
+          const elementRect = groupRef.current.getBoundingClientRect();
+          const absoluteElementTop = elementRect.top + window.pageYOffset;
+          const offset = 20; // Üstten biraz boşluk bırak
+
+          window.scrollTo({
+            top: absoluteElementTop - offset,
+            behavior: "smooth",
+          });
+        }
+      }, 150);
+      return () => clearTimeout(scrollTimeout);
+    }
+  }, [isOpen, isCollapsible]);
 
   // Toggle collapse
   const toggleCollapse = (e: React.MouseEvent) => {
@@ -131,8 +152,10 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
 
   return (
     <div
+      ref={groupRef}
       key={group.groupId}
       className={`property-group mb-20 ${containerClasses}`}
+      style={{ scrollMarginTop: "20px" }}
     >
       {/* Group Header with Collapse Toggle */}
       <div
