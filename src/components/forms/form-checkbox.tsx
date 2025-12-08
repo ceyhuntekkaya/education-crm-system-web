@@ -123,6 +123,12 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
     }
   };
 
+  // Grup içinden seçili öğe sayısını hesapla
+  const selectedCount = Array.isArray(formValue)
+    ? group.properties.filter((p) => formValue.includes(p.value)).length
+    : 0;
+  const hasSelection = selectedCount > 0;
+
   return (
     <div
       key={group.groupId}
@@ -135,24 +141,43 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
         }`}
         onClick={isCollapsible ? toggleCollapse : undefined}
       >
-        <h6 className="mb-12 text-neutral-600 fw-semibold">
-          {group.groupDisplayName}
-          {group.isMultiple === false && (
-            <span className="text-neutral-400 ms-2 fw-normal text-sm">
-              (Tek seçim)
+        <div className="d-flex align-items-center gap-8">
+          {/* Seçili ise tik ikonu göster */}
+          {hasSelection && (
+            <span
+              className="d-flex align-items-center justify-content-center bg-success-100 text-success-600 rounded-circle"
+              style={{ width: "24px", height: "24px" }}
+            >
+              <i className="ph ph-check text-sm fw-bold"></i>
             </span>
           )}
-        </h6>
-        {isCollapsible && (
-          <Icon
-            icon={isOpen ? "ph-caret-up" : "ph-caret-down"}
-            variant="inline"
-            size="md"
-            onClick={toggleCollapse}
-            className="accordion-toggle-icon"
-            animate={false}
-          />
-        )}
+          <h6 className="mb-0 text-neutral-600 fw-semibold">
+            {group.groupDisplayName}
+            {group.isMultiple === false && (
+              <span className="text-neutral-400 ms-2 fw-normal text-sm">
+                (Tek seçim)
+              </span>
+            )}
+          </h6>
+        </div>
+        <div className="d-flex align-items-center gap-12">
+          {/* Seçili öğe sayısını göster */}
+          {hasSelection && (
+            <span className="badge bg-main-100 text-main-600 fw-medium px-12 py-4 rounded-pill text-sm">
+              {selectedCount} seçenek seçildi
+            </span>
+          )}
+          {isCollapsible && (
+            <Icon
+              icon={isOpen ? "ph-caret-up" : "ph-caret-down"}
+              variant="inline"
+              size="md"
+              onClick={toggleCollapse}
+              className="accordion-toggle-icon"
+              animate={false}
+            />
+          )}
+        </div>
       </div>
 
       {/* Collapsible Content */}
