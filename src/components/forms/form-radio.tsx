@@ -88,6 +88,7 @@ export const FormRadio: React.FC<FormRadioProps> = ({
                 <input
                   id={`${name}-${option.value}`}
                   name={name}
+                  data-field-name={name}
                   type="radio"
                   className="form-check-input"
                   value={option.value}
@@ -174,6 +175,7 @@ export const FormRadio: React.FC<FormRadioProps> = ({
                     <input
                       id={`${name}-${option.value}`}
                       name={name}
+                      data-field-name={name}
                       type="radio"
                       className="form-check-input"
                       value={option.value}
@@ -274,6 +276,7 @@ export const FormRadio: React.FC<FormRadioProps> = ({
       <input
         id={id || `${name}-${value}`}
         name={name}
+        data-field-name={name}
         type="radio"
         className="form-check-input"
         value={value}

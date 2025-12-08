@@ -342,8 +342,9 @@ export const FormInput: React.FC<FormInputProps> = ({
           <input
             id={id || name}
             name={name}
-            type={passwordVisible ? "text" : "password"}
-            className={getVariantClasses() + " pe-44"}
+            data-field-name={name}
+            type="password"
+            className={getVariantClasses()}
             placeholder={placeholder}
             disabled={disabled}
             value={
@@ -394,6 +395,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           <NumericFormat
             id={id || name}
             name={name}
+            data-field-name={name}
             className={getVariantClasses()}
             placeholder={placeholder}
             disabled={disabled}

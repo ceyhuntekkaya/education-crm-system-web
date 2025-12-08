@@ -63,6 +63,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         <select
           id={id || name}
           name={name}
+          data-field-name={name}
           className={getVariantClasses()}
           value={typeof value === "string" ? value : ""}
           onChange={(e) => onChange(e.target.value)}
