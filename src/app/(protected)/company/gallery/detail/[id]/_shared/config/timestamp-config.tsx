@@ -8,8 +8,8 @@ export const timestampConfig: TimestampItemConfig[] = [
   {
     label: "Oluşturma Tarihi",
     value: (gallery) => (
-      <span className="badge bg-primary-subtle text-primary fw-semibold">
-        <i className="ph ph-calendar-plus me-1"></i>
+      <span className="text-dark">
+        <i className="ph ph-calendar-plus me-4"></i>
         {gallery?.createdAt
           ? new Date(gallery.createdAt).toLocaleDateString("tr-TR", {
               day: "2-digit",
@@ -24,8 +24,8 @@ export const timestampConfig: TimestampItemConfig[] = [
   {
     label: "Oluşturma Saati",
     value: (gallery) => (
-      <span className="badge bg-primary-subtle text-primary fw-semibold">
-        <i className="ph ph-clock me-1"></i>
+      <span className="text-dark">
+        <i className="ph ph-clock me-4"></i>
         {gallery?.createdAt
           ? new Date(gallery.createdAt).toLocaleTimeString("tr-TR", {
               hour: "2-digit",
@@ -39,8 +39,8 @@ export const timestampConfig: TimestampItemConfig[] = [
   {
     label: "Göreli Zaman",
     value: (gallery) => (
-      <span className="badge bg-info-subtle text-info fw-semibold">
-        <i className="ph ph-calendar me-1"></i>
+      <span className="text-dark">
+        <i className="ph ph-calendar me-4"></i>
         {gallery?.createdAt
           ? new Intl.RelativeTimeFormat("tr", { numeric: "auto" }).format(
               Math.ceil(

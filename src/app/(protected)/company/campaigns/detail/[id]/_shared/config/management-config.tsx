@@ -8,105 +8,64 @@ import { formatNumber } from "@/utils/format-number";
  */
 export const managementConfig: ManagementItemConfig[] = [
   {
-    label: "Oluşturan Kullanıcı",
-    value: (campaign) => (
-      <span className="text-primary-600 fw-semibold">
-        {campaign?.createdByUserName}
-      </span>
-    ),
-    isShowing: (campaign) => !!campaign?.createdByUserName,
-  },
-  {
-    label: "Onaylayan Kullanıcı",
-    value: (campaign) => (
-      <span className="text-success-600 fw-semibold">
-        {campaign?.approvedByUserName}
-      </span>
-    ),
-    isShowing: (campaign) => !!campaign?.approvedByUserName,
-  },
-  {
-    label: "Oluşturma Tarihi",
-    value: (campaign) => {
-      if (!campaign?.createdAt) return null;
-      return (
-        <span className="text-secondary-600">
-          <i className="ph ph-calendar-plus me-2"></i>
-          {formatDateTime(campaign.createdAt)}
-        </span>
-      );
-    },
-    isShowing: (campaign) => !!campaign?.createdAt,
-  },
-  {
-    label: "Onay Tarihi",
-    value: (campaign) => {
-      if (!campaign?.approvedAt) return null;
-      return (
-        <span className="text-success-600">
-          <i className="ph ph-check-circle me-2"></i>
-          {formatDateTime(campaign.approvedAt)}
-        </span>
-      );
-    },
-    isShowing: (campaign) => !!campaign?.approvedAt,
-  },
-  {
-    label: "Son Güncelleme",
-    value: (campaign) => {
-      if (!campaign?.updatedAt) return null;
-      const date = new Date(campaign.updatedAt);
-      return (
-        <span className="text-warning-600">
-          <i className="ph ph-clock-clockwise me-2"></i>
-          {formatDateTime(campaign.updatedAt)}
-        </span>
-      );
-    },
-    isShowing: (campaign) => !!campaign?.updatedAt,
-  },
-  {
-    label: "Kalan Gün Sayısı",
+    label: "Kalan Süre",
     value: (campaign) => {
       const remaining = campaign?.daysRemaining || 0;
-      const colorClass =
-        remaining <= 0
-          ? "text-danger"
+      const isExpired = campaign?.isExpired;
+
+      if (isExpired || remaining <= 0) {
+        return (
+          <span className="badge bg-danger-subtle text-danger fw-semibold fs-6">
+            <i className="ph ph-x-circle me-1"></i>
+            Süresi Doldu
+          </span>
+        );
+      }
+
+      const badgeClass =
+        remaining <= 3
+          ? "bg-danger-subtle text-danger"
           : remaining <= 7
-          ? "text-warning"
-          : "text-success";
+          ? "bg-warning-subtle text-warning"
+          : "bg-success-subtle text-success";
+
+      const icon =
+        remaining <= 3
+          ? "ph-fire"
+          : remaining <= 7
+          ? "ph-clock"
+          : "ph-check-circle";
 
       return (
-        <span className={`fw-semibold ${colorClass}`}>
-          <i className="ph ph-timer me-2"></i>
-          {remaining > 0
-            ? `${formatNumber(remaining)} gün kaldı`
-            : "Süresi doldu"}
+        <span className={`badge fw-semibold fs-6 ${badgeClass}`}>
+          <i className={`ph ${icon} me-1`}></i>
+          {formatNumber(remaining)} gün kaldı
         </span>
       );
     },
     isShowing: (campaign) => campaign?.daysRemaining !== undefined,
   },
   {
-    label: "Kampanya Durumu",
+    label: "Oluşturan",
     value: (campaign) => (
-      <div className="d-flex gap-2 flex-wrap">
-        {campaign?.isActive && (
-          <span className="badge bg-success-subtle text-success">Aktif</span>
-        )}
-        {campaign?.isExpired && (
-          <span className="badge bg-danger-subtle text-danger">
-            Süresi Doldu
-          </span>
-        )}
-        {!campaign?.isActive && !campaign?.isExpired && (
-          <span className="badge bg-secondary-subtle text-secondary">
-            Pasif
-          </span>
-        )}
-      </div>
+      <span className="text-secondary-700 fw-medium">
+        <i className="ph ph-user me-2 text-primary"></i>
+        {campaign?.createdByUserName}
+      </span>
     ),
-    isShowing: (campaign) =>
-      campaign?.isActive !== undefined || campaign?.isExpired !== undefined,
+    isShowing: (campaign) => !!campaign?.createdByUserName,
+  },
+  {
+    label: "Oluşturulma Tarihi",
+    value: (campaign) => {
+      if (!campaign?.createdAt) return null;
+      return (
+        <span className="text-secondary-600 fw-medium">
+          <i className="ph ph-calendar-plus me-2"></i>
+          {formatDateTime(campaign.createdAt)}
+        </span>
+      );
+    },
+    isShowing: (campaign) => !!campaign?.createdAt,
   },
 ];

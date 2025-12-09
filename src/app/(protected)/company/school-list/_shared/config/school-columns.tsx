@@ -1,7 +1,7 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { SchoolDto } from "@/types";
 import { Badge, CustomImage } from "@/components";
-import { getLanguageTypeLabel } from "@/utils";
+import { getLanguageTypeLabel, formatTitle } from "@/utils";
 
 export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   // Logo
@@ -42,10 +42,10 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   {
     field: "institutionType",
     headerName: "Kurum Türü",
-    width: 170,
+    width: 300,
     valueGetter: (params) => params?.row?.institutionType?.displayName || "",
     renderCell: (params) => (
-      <div className="d-flex align-items-center gap-2">
+      <div className="d-flex align-items-center gap-4">
         {params?.row?.institutionType?.iconUrl && (
           <i
             className="ph-bold ph-graduation-cap text-sm"
@@ -55,7 +55,9 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
           />
         )}
         <span className="text-truncate">
-          {params?.row?.institutionType?.displayName || "-"}
+          {params?.row?.institutionType?.displayName
+            ? formatTitle(params.row.institutionType.displayName)
+            : "-"}
         </span>
       </div>
     ),

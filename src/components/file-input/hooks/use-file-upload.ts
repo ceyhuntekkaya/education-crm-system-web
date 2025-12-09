@@ -8,6 +8,25 @@ import { UseFileUploadOptions } from "../types/hook.types";
 import { MediaType } from "@/enums";
 
 /**
+ * Backend'den gelen documentType'ı MediaType'a çevir
+ */
+const convertDocumentTypeToMediaType = (
+  documentType?: string
+): MediaType | undefined => {
+  if (!documentType) return undefined;
+
+  const upperType = documentType.toUpperCase();
+  // Backend'den gelen documentType değerlerini MediaType enum'una map et
+  if (upperType === "IMAGE") return MediaType.IMAGE;
+  if (upperType === "VIDEO") return MediaType.VIDEO;
+  if (upperType === "AUDIO") return MediaType.AUDIO;
+  if (upperType === "DOCUMENT") return MediaType.DOCUMENT;
+  if (upperType === "ARCHIVE") return MediaType.ARCHIVE;
+
+  return MediaType.OTHER;
+};
+
+/**
  * Dosya MIME type'ına göre MediaType belirle
  */
 const getMediaTypeFromMimeType = (
@@ -157,6 +176,10 @@ export const useFileUpload = ({
                     if (fileUrl.startsWith(servePrefix)) {
                       fileUrl = fileUrl.substring(servePrefix.length);
                     }
+                    // Backend response'ından gelen path field'ını da kontrol et
+                    if (file.path) {
+                      fileUrl = file.path;
+                    }
 
                     // Dosya tipini MIME type ve dosya adına göre belirle
                     const itemType = getMediaTypeFromMimeType(
@@ -174,14 +197,27 @@ export const useFileUpload = ({
                   });
 
                   // Yeni yüklenen dosyaları items formatına çevir
-                  const newItems = response.map((file: any, index: number) => ({
-                    id: null, // Yeni dosyalar için ID her zaman null
-                    itemType:
-                      file.itemType || file.mediaType || MediaType.IMAGE,
-                    fileUrl: file.fileUrl, // Backend'den gelen path
-                    fileName: file.fileName || file.originalFileName,
-                    sortOrder: file.sortOrder || oldItems.length + index + 1,
-                  }));
+                  const newItems = response.map((file: any, index: number) => {
+                    const filePath = file.path || file.fileUrl; // Backend'den gelen path field'ı
+
+                    // itemType'ı belirle - documentType'ı MediaType'a çevir
+                    const itemType =
+                      file.itemType ||
+                      file.mediaType ||
+                      convertDocumentTypeToMediaType(file.documentType) ||
+                      MediaType.IMAGE;
+
+                    return {
+                      id: null, // Yeni dosyalar için ID her zaman null
+                      itemType: itemType,
+                      fileUrl: filePath, // path değerini fileUrl olarak kullan
+                      fileName:
+                        file.fileName ||
+                        file.originalFileName ||
+                        file.fileOriginalName,
+                      sortOrder: file.sortOrder || oldItems.length + index + 1,
+                    };
+                  });
 
                   // Eski ve yeni dosyaları birleştir
                   const allItems = [...oldItems, ...newItems];
@@ -222,9 +258,12 @@ export const useFileUpload = ({
                         else mimeType = "application/pdf";
                       }
 
+                      // Backend'den gelen path field'ını kullan (item.fileUrl zaten path değerini içeriyor)
+                      // Bu path'i tam URL'ye çevirmeye gerek yok, markFilesAsUploaded içinde yapılacak
                       return {
                         id: item.id, // ID bilgisini placeholder'a ekle
-                        fileUrl: item.fileUrl,
+                        path: item.fileUrl, // allItems'dan gelen fileUrl aslında path değeri
+                        fileUrl: item.fileUrl, // Geriye dönük uyumluluk için
                         originalFileName: item.fileName,
                         fileName: item.fileName,
                         mediaType: item.itemType,
@@ -237,8 +276,10 @@ export const useFileUpload = ({
                 } else {
                   // Tek dosya için mevcut mantık
                   const firstFile = response[0];
-                  if (firstFile.fileUrl) {
-                    const fullUrl = getFileServeUrl(firstFile.fileUrl);
+                  // Backend'den gelen path field'ını kullan
+                  const filePath = firstFile.path || firstFile.fileUrl;
+                  if (filePath) {
+                    const fullUrl = getFileServeUrl(filePath);
                     setValue(name, fullUrl);
                   }
 

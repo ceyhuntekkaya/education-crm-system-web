@@ -2,133 +2,145 @@ import React from "react";
 import { CustomImage } from "@/components";
 import type { AuthorInfoItemConfig } from "../types";
 import { PostDto } from "@/types";
+import { formatPhoneNumber } from "@/utils/format-text";
 
 /**
- * Post kurum detayları konfigürasyonu
+ * Post kurum ve yazar detayları konfigürasyonu (Birleştirilmiş)
  */
 export const institutionDetailsConfig: AuthorInfoItemConfig[] = [
+  // KURUM BİLGİLERİ
   {
     label: "Kurum Adı",
     value: (post: PostDto | null) => (
-      <span className="fw-semibold text-teal-600 fs-5">
-        <i className="ph ph-graduation-cap me-2"></i>
-        {post?.school?.name || "Kurum bilgisi yok"}
-      </span>
-    ),
-    isShowing: (post: PostDto | null) => !!post?.school?.name,
-  },
-  {
-    label: "Kurum Logosu",
-    value: (post: PostDto | null) => {
-      const school = post?.school;
-      if (!school?.logoUrl) {
-        return (
-          <div className="d-flex align-items-center gap-2">
-            <div
-              className="bg-neutral-100 rounded-8 d-flex align-items-center justify-content-center"
-              style={{ width: "40px", height: "40px" }}
-            >
-              <i className="ph ph-graduation-cap text-neutral-500"></i>
-            </div>
-            <span className="text-neutral-500">Logo bulunmuyor</span>
-          </div>
-        );
-      }
-
-      return (
-        <div className="d-flex align-items-center gap-3">
+      <div className="d-flex align-items-center gap-4">
+        {post?.school?.logoUrl ? (
           <div
             className="rounded-8 overflow-hidden border border-neutral-100"
-            style={{ width: "48px", height: "48px" }}
+            style={{ width: "40px", height: "40px" }}
           >
             <CustomImage
-              src={school.logoUrl}
-              alt={school.name || "Kurum Logosu"}
-              width={48}
-              height={48}
+              src={post.school.logoUrl}
+              alt={post.school.name || "Kurum Logosu"}
+              width={40}
+              height={40}
               className="w-100 h-100"
               style={{ objectFit: "cover" }}
             />
           </div>
-          <span className="text-neutral-600">Kurum logosu mevcut</span>
-        </div>
-      );
-    },
-    isShowing: () => true,
+        ) : (
+          <div
+            className="bg-neutral-100 rounded-8 d-flex align-items-center justify-content-center"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <i className="ph ph-graduation-cap text-neutral-500 fs-3"></i>
+          </div>
+        )}
+        <span className="fw-semibold text-teal-600 fs-5">
+          {post?.school?.name || "Kurum bilgisi yok"}
+        </span>
+      </div>
+    ),
+    isShowing: (post: PostDto | null) => !!post?.school?.name,
   },
   {
     label: "Kurum Türü",
     value: (post: PostDto | null) => (
-      <span className="badge bg-info-subtle text-info fw-semibold px-3 py-2">
-        <i className="ph ph-buildings me-1"></i>
+      <span className="badge bg-info-subtle text-info fw-semibold">
+        <i className="ph ph-buildings me-4"></i>
         {post?.school?.institutionTypeName || "Belirtilmemiş"}
       </span>
     ),
     isShowing: (post: PostDto | null) => !!post?.school?.institutionTypeName,
   },
+
+  // YAZAR BİLGİLERİ
   {
-    label: "Yaş Aralığı",
+    label: "Yazar",
     value: (post: PostDto | null) => (
-      <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-calendar text-teal-600"></i>
-        <span className="text-neutral-700">
-          {post?.school?.minAge || 0} - {post?.school?.maxAge || 0} yaş
+      <div className="d-flex align-items-center gap-4">
+        {post?.author?.profileImageUrl ? (
+          <div
+            className="rounded-circle overflow-hidden border border-neutral-100"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <CustomImage
+              src={post.author.profileImageUrl}
+              alt={post.author.fullName || "Profil"}
+              width={40}
+              height={40}
+              className="w-100 h-100"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        ) : (
+          <div
+            className="bg-neutral-100 rounded-circle d-flex align-items-center justify-content-center"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <i className="ph ph-user text-neutral-500 fs-3"></i>
+          </div>
+        )}
+        <span className="fw-semibold text-blue-600 fs-5">
+          {post?.author?.fullName || "Adsız Yazar"}
         </span>
       </div>
     ),
-    isShowing: (post: PostDto | null) =>
-      !!(post?.school?.minAge || post?.school?.maxAge),
+    isShowing: (post: PostDto | null) => !!post?.author?.fullName,
   },
   {
-    label: "Aylık Ücret",
+    label: "E-posta",
     value: (post: PostDto | null) => (
-      <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-currency-circle-dollar text-teal-600"></i>
-        <span className="fw-semibold text-warning-600">
-          {post?.school?.monthlyFee?.toLocaleString("tr-TR") || "0"} ₺
+      <div className="d-flex align-items-center gap-3">
+        <i className="ph ph-envelope text-blue-600 fs-4 me-4"></i>
+        <span className="text-neutral-700 fs-6">{post?.author?.email}</span>
+      </div>
+    ),
+    isShowing: (post: PostDto | null) => !!post?.author?.email,
+  },
+  {
+    label: "Telefon",
+    value: (post: PostDto | null) => (
+      <div className="d-flex align-items-center gap-4">
+        <i className="ph ph-phone text-blue-600 me-4"></i>
+        <span className="text-neutral-700 font-monospace">
+          {formatPhoneNumber(post?.author?.phone)}
         </span>
       </div>
     ),
-    isShowing: (post: PostDto | null) => !!post?.school?.monthlyFee,
+    isShowing: (post: PostDto | null) => !!post?.author?.phone,
   },
   {
-    label: "Değerlendirme Puanı",
+    label: "Kullanıcı Türü",
     value: (post: PostDto | null) => (
-      <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-star text-warning"></i>
-        <span className="fw-semibold text-warning">
-          {post?.school?.ratingAverage || "0.0"}
-        </span>
-        <span className="text-neutral-500 fs-14">
-          ({post?.school?.ratingCount || 0} değerlendirme)
-        </span>
-      </div>
+      <span className="badge bg-secondary-subtle text-secondary fw-semibold">
+        <i className="ph ph-briefcase me-4"></i>
+        {post?.author?.userType === "INSTITUTION_USER"
+          ? "Kurum Kullanıcısı"
+          : post?.author?.userType === "PARENT"
+          ? "Veli"
+          : "Belirtilmemiş"}
+      </span>
     ),
-    isShowing: (post: PostDto | null) => !!post?.school?.ratingAverage,
+    isShowing: (post: PostDto | null) => !!post?.author?.userType,
   },
   {
-    label: "Kampanya Durumu",
+    label: "Aktif Durum",
     value: (post: PostDto | null) => (
       <span
         className={`badge ${
-          post?.school?.hasActiveCampaigns
-            ? "bg-orange-subtle text-orange"
+          post?.author?.isActive
+            ? "bg-success-subtle text-success"
             : "bg-secondary-subtle text-secondary"
-        } fw-semibold px-3 py-2`}
+        } fw-semibold`}
       >
         <i
           className={`ph ${
-            post?.school?.hasActiveCampaigns
-              ? "ph-megaphone"
-              : "ph-megaphone-slash"
-          } me-1`}
+            post?.author?.isActive ? "ph-check-circle" : "ph-x-circle"
+          } me-4`}
         ></i>
-        {post?.school?.hasActiveCampaigns
-          ? "Aktif Kampanya Var"
-          : "Aktif Kampanya Yok"}
+        {post?.author?.isActive ? "Aktif" : "Pasif"}
       </span>
     ),
-    isShowing: (post: PostDto | null) =>
-      post?.school?.hasActiveCampaigns !== undefined,
+    isShowing: (post: PostDto | null) => post?.author?.isActive !== undefined,
   },
 ];

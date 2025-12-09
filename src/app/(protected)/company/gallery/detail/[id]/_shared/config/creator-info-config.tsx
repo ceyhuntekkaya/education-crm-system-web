@@ -28,7 +28,7 @@ export const creatorInfoConfig: BasicInfoItemConfig[] = [
         )}
         <div>
           <span className="fw-semibold text-warning-600">
-            <i className="ph ph-user me-2"></i>
+            <i className="ph ph-user me-4"></i>
             {gallery?.createdByUser?.fullName || "Belirtilmemiş"}
           </span>
         </div>
@@ -39,8 +39,8 @@ export const creatorInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "E-posta Adresi",
     value: (gallery) => (
-      <span className="badge bg-info-subtle text-info fw-semibold">
-        <i className="ph ph-envelope me-1"></i>
+      <span className="text-dark">
+        <i className="ph ph-envelope me-4"></i>
         {gallery?.createdByUser?.email || "Belirtilmemiş"}
       </span>
     ),
@@ -51,9 +51,9 @@ export const creatorInfoConfig: BasicInfoItemConfig[] = [
     value: (gallery) => (
       <a
         href={`tel:${gallery?.createdByUser?.phone}`}
-        className="badge bg-secondary-subtle text-secondary fw-semibold text-decoration-none"
+        className="text-dark text-decoration-none"
       >
-        <i className="ph ph-phone me-1"></i>
+        <i className="ph ph-phone me-4"></i>
         {formatPhoneNumber(gallery?.createdByUser?.phone) || "Belirtilmemiş"}
       </a>
     ),
@@ -63,7 +63,7 @@ export const creatorInfoConfig: BasicInfoItemConfig[] = [
     label: "Kullanıcı Türü",
     value: (gallery) => (
       <span className="badge bg-warning-subtle text-warning fw-semibold">
-        <i className="ph ph-identification-card me-1"></i>
+        <i className="ph ph-identification-card me-4"></i>
         {gallery?.createdByUser?.userType === "INSTITUTION_USER"
           ? "Kurum Kullanıcısı"
           : gallery?.createdByUser?.userType === "PARENT_USER"
@@ -86,7 +86,7 @@ export const creatorInfoConfig: BasicInfoItemConfig[] = [
         <i
           className={`ph ${
             gallery?.createdByUser?.isActive ? "ph-check-circle" : "ph-x-circle"
-          } me-1`}
+          } me-4`}
         ></i>
         {gallery?.createdByUser?.isActive
           ? "Aktif Kullanıcı"

@@ -92,8 +92,8 @@ export const createCampaignColumns = (): GridColDef<
   },
   {
     field: "shortDescription",
-    headerName: "Açıklama",
-    width: 180,
+    headerName: "Kısa Açıklama",
+    width: 200,
     renderCell: (params: any) => {
       const description = params.row.shortDescription;
       if (!description) return <span className="text-muted">-</span>;
@@ -105,60 +105,59 @@ export const createCampaignColumns = (): GridColDef<
     },
   },
 
-  {
-    field: "status",
-    headerName: "Durum",
-    width: 130,
-    align: "center",
-    renderCell: (params: any) => (
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <Badge variant={getStatusBadgeVariant(params.value)}>
-          {getStatusDisplay(params.value)}
-        </Badge>
-      </div>
-    ),
-  },
-
   // Campaign Details Columns
   {
-    field: "discountAmount",
-    headerName: "İndirim Miktarı",
+    field: "discountInfo",
+    headerName: "İndirim",
     width: 200,
     align: "center",
     renderCell: (params: any) => {
       const amount = params.row.discountAmount;
-      if (!amount || amount === 0) {
-        return <span className="text-muted">-</span>;
-      }
-      return (
-        <div className="text-center">
-          <span className="fw-semibold text-success">
-            {new Intl.NumberFormat("tr-TR", {
-              style: "currency",
-              currency: "TRY",
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 2,
-            }).format(amount)}
-          </span>
-        </div>
-      );
-    },
-  },
-  {
-    field: "discountPercentage",
-    headerName: "İndirim Yüzdesi",
-    width: 200,
-    align: "center",
-    renderCell: (params: any) => {
       const percentage = params.row.discountPercentage;
-      if (!percentage || percentage === 0) {
-        return <span className="text-muted">-</span>;
+
+      // Hem miktar hem yüzde varsa
+      if (amount > 0 && percentage > 0) {
+        return (
+          <div className="text-center">
+            <div className="fw-semibold text-success">
+              {new Intl.NumberFormat("tr-TR", {
+                style: "currency",
+                currency: "TRY",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }).format(amount)}
+            </div>
+            <small className="text-primary">veya %{percentage}</small>
+          </div>
+        );
       }
-      return (
-        <div className="text-center">
-          <span className="fw-semibold text-primary">%{percentage}</span>
-        </div>
-      );
+
+      // Sadece miktar varsa
+      if (amount > 0) {
+        return (
+          <div className="text-center">
+            <span className="fw-semibold text-success">
+              {new Intl.NumberFormat("tr-TR", {
+                style: "currency",
+                currency: "TRY",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }).format(amount)}
+            </span>
+          </div>
+        );
+      }
+
+      // Sadece yüzde varsa
+      if (percentage > 0) {
+        return (
+          <div className="text-center">
+            <span className="fw-semibold text-primary">%{percentage}</span>
+          </div>
+        );
+      }
+
+      return <span className="text-muted">-</span>;
     },
   },
   {
@@ -192,17 +191,18 @@ export const createCampaignColumns = (): GridColDef<
   },
   {
     field: "daysRemaining",
-    headerName: "Kalan Gün",
-    width: 160,
+    headerName: "Kalan Süre",
+    width: 170,
     align: "center",
     renderCell: (params: any) => {
-      const { daysRemaining, isExpired } = params.row;
+      const { daysRemaining, isExpired, endDate } = params.row;
 
       // Süresi dolmuşsa
       if (isExpired) {
         return (
           <Badge variant="danger" size="sm">
-            Süresi Doldu
+            <i className="ph ph-x-circle me-1"></i>
+            Sona Erdi
           </Badge>
         );
       }
@@ -212,141 +212,78 @@ export const createCampaignColumns = (): GridColDef<
         return <span className="text-muted">-</span>;
       }
 
-      // Kalan güne göre renklendirme
-      const getColorClass = () => {
-        if (daysRemaining <= 3) return "text-danger";
-        if (daysRemaining <= 7) return "text-warning";
-        return "text-success";
+      // Kalan güne göre badge rengi ve icon
+      const getBadgeVariant = () => {
+        if (daysRemaining <= 3) return "danger";
+        if (daysRemaining <= 7) return "warning";
+        return "success";
+      };
+
+      const getIcon = () => {
+        if (daysRemaining <= 3) return "ph-fire";
+        if (daysRemaining <= 7) return "ph-clock";
+        return "ph-check-circle";
       };
 
       return (
-        <div className="text-center">
-          <span className={`fw-semibold ${getColorClass()}`}>
-            {daysRemaining} gün
-          </span>
-        </div>
+        <Badge variant={getBadgeVariant()} size="sm">
+          <i className={`ph ${getIcon()} me-1`}></i>
+          {daysRemaining} gün
+        </Badge>
       );
     },
   },
-  {
-    field: "campaignSchools",
-    headerName: "Kurumlar",
-    width: 140,
-    align: "center",
-    renderCell: (params: any) => {
-      const schools = params.row.campaignSchools;
-      const schoolCount = Array.isArray(schools) ? schools.length : 0;
-
-      if (schoolCount === 0) {
-        return <span className="text-muted">-</span>;
-      }
-
-      return (
-        <Popover
-          content={
-            <div style={{ maxWidth: "200px" }}>
-              {schools.slice(0, 5).map((school: any, index: number) => (
-                <div key={school.id || index} className="py-1">
-                  <small>{school.schoolName || school.campusName}</small>
-                </div>
-              ))}
-              {schoolCount > 5 && (
-                <div className="py-1 text-muted">
-                  <small>+{schoolCount - 5} daha...</small>
-                </div>
-              )}
-            </div>
-          }
-          placement="top"
-          trigger="hover"
-          size="sm"
-        >
-          <div className="cursor-pointer">
-            <Badge variant="info" size="sm">
-              {schoolCount} Kurum
-            </Badge>
-          </div>
-        </Popover>
-      );
-    },
-  },
-
-  // Flags & Labels Column
+  // Flags & Status Column
   {
     field: "flags",
     headerName: "Özellikler",
-    width: 160,
+    width: 170,
     align: "center",
     renderCell: (params: any) => {
-      const { isFeatured, isPublic, isActive, requiresApproval } = params.row;
-      const hasFlags = isFeatured || isPublic || isActive;
+      const { isFeatured, isPublic, requiresApproval } = params.row;
+      const flags = [];
 
-      if (!hasFlags) {
+      if (isFeatured)
+        flags.push({
+          icon: "ph-star-fill",
+          color: "text-warning",
+          tooltip: "Öne Çıkan",
+        });
+      if (isPublic)
+        flags.push({
+          icon: "ph-globe",
+          color: "text-primary",
+          tooltip: "Herkese Açık",
+        });
+      if (requiresApproval)
+        flags.push({
+          icon: "ph-seal-check",
+          color: "text-info",
+          tooltip: "Onay Gerekli",
+        });
+
+      if (flags.length === 0) {
         return <span className="text-muted">-</span>;
       }
 
       return (
-        <div className="d-flex justify-content-center gap-3">
-          {isFeatured && (
+        <div className="d-flex justify-content-center gap-2">
+          {flags.map((flag, index) => (
             <Popover
-              content="Öne çıkarılmış kampanya"
+              key={index}
+              content={flag.tooltip}
               placement="top"
               trigger="hover"
               size="sm"
             >
               <div className="cursor-pointer">
                 <i
-                  className="ph-fill ph-star text-warning"
-                  style={{ fontSize: "14px" }}
+                  className={`ph ${flag.icon} ${flag.color}`}
+                  style={{ fontSize: "16px" }}
                 />
               </div>
             </Popover>
-          )}
-          {isPublic && (
-            <Popover
-              content="Herkese açık kampanya"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph ph-globe text-primary"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          )}
-          {isActive && (
-            <Popover
-              content="Aktif kampanya"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph-fill ph-check-circle text-success"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          )}
-          {requiresApproval && (
-            <Popover
-              content="Onay gerektiren kampanya"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph ph-seal-check text-info"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          )}
+          ))}
         </div>
       );
     },

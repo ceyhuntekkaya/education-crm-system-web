@@ -16,12 +16,12 @@ export const interactionConfig: BasicInfoItemConfig[] = [
             post?.allowComments
               ? "bg-success-subtle text-success"
               : "bg-danger-subtle text-danger"
-          } fw-semibold px-3 py-2`}
+          } fw-semibold`}
         >
           <i
             className={`ph ${
               post?.allowComments ? "ph-chat-circle" : "ph-chat-circle-slash"
-            } me-1`}
+            } me-4`}
           ></i>
           {formatBoolean(post?.allowComments)}
         </div>
@@ -46,12 +46,12 @@ export const interactionConfig: BasicInfoItemConfig[] = [
             post?.allowLikes
               ? "bg-success-subtle text-success"
               : "bg-danger-subtle text-danger"
-          } fw-semibold px-3 py-2`}
+          } fw-semibold`}
         >
           <i
             className={`ph ${
               post?.allowLikes ? "ph-heart" : "ph-heart-slash"
-            } me-1`}
+            } me-4`}
           ></i>
           {formatBoolean(post?.allowLikes)}
         </div>

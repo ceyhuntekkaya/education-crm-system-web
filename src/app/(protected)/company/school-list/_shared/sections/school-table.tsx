@@ -25,6 +25,7 @@ export const SchoolTable: React.FC<SchoolTableProps> = () => {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
+        height={750}
         pageSizeOptions={[5, 10, 25, 50]}
         disableRowSelectionOnClick
         emptyState={{

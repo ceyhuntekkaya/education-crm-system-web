@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import type { BasicInfoItemConfig } from "../types";
 import {
   translateGalleryType,
@@ -14,7 +15,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     label: "Galeri Başlığı",
     value: (gallery) => (
       <span className="fw-semibold text-primary-600">
-        <i className="ph ph-images me-2"></i>
+        <i className="ph ph-images me-4"></i>
         {gallery?.title || "Belirtilmemiş"}
       </span>
     ),
@@ -24,7 +25,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     label: "Galeri Türü",
     value: (gallery) => (
       <span className="badge bg-info-subtle text-info fw-semibold">
-        <i className="ph ph-tag me-1"></i>
+        <i className="ph ph-tag me-4"></i>
         {translateGalleryType(gallery?.galleryType)}
       </span>
     ),
@@ -45,7 +46,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
 
       return (
         <span className={`badge fw-semibold ${badgeClass}`}>
-          <i className="ph ph-eye me-1"></i>
+          <i className="ph ph-eye me-4"></i>
           {translateVisibility(gallery?.visibility)}
         </span>
       );
@@ -62,6 +63,45 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     isShowing: (gallery) => !!gallery?.description,
   },
   {
+    label: "Kapak Görseli",
+    value: (gallery) => (
+      <div className="d-flex align-items-center gap-3">
+        {gallery?.coverImageUrl ? (
+          <div className="position-relative">
+            <Image
+              src={gallery.coverImageUrl}
+              alt={gallery?.title || "Galeri Kapak Görseli"}
+              width={120}
+              height={80}
+              className="rounded"
+              style={{ objectFit: "cover", border: "1px solid #e5e7eb" }}
+              onError={(e) => {
+                const img = e.target as HTMLImageElement;
+                img.style.display = "none";
+              }}
+            />
+          </div>
+        ) : (
+          <div
+            className="rounded d-flex align-items-center justify-content-center"
+            style={{
+              width: "120px",
+              height: "80px",
+              backgroundColor: "#f3f4f6",
+              border: "1px solid #e5e7eb",
+            }}
+          >
+            <i
+              className="ph ph-image text-neutral-400"
+              style={{ fontSize: "32px" }}
+            />
+          </div>
+        )}
+      </div>
+    ),
+    isShowing: (gallery) => !!gallery?.coverImageUrl,
+  },
+  {
     label: "Öne Çıkarılan",
     value: (gallery) => (
       <span
@@ -74,7 +114,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
         <i
           className={`ph ${
             gallery?.isFeatured ? "ph-star-fill" : "ph-star"
-          } me-1`}
+          } me-4`}
         ></i>
         {formatBoolean(gallery?.isFeatured)}
       </span>

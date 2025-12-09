@@ -18,23 +18,23 @@ export const usePricingSections = (pricing: any) => {
       formatPrice
     );
 
-    // Açıklama section'ını işle
-    const descriptionsItems = processConfig(
-      DESCRIPTION_SECTION.config,
-      pricing
-    );
+    // Açıklama section'ı kaldırıldı - kullanıcı istemiyor
+    // const descriptionsItems = processConfig(
+    //   DESCRIPTION_SECTION.config,
+    //   pricing
+    // );
 
-    // Eğer açıklama ve koşullar varsa, ana sections'a ekle
     const allSections = [...pricingSections];
 
-    if (descriptionsItems.some((item) => item.isShowing)) {
-      allSections.push({
-        title: DESCRIPTION_SECTION.title,
-        titleColor: DESCRIPTION_SECTION.titleColor,
-        titleIcon: DESCRIPTION_SECTION.titleIcon,
-        items: descriptionsItems,
-      });
-    }
+    // Açıklama section'ı eklenmedi
+    // if (descriptionsItems.some((item) => item.isShowing)) {
+    //   allSections.push({
+    //     title: DESCRIPTION_SECTION.title,
+    //     titleColor: DESCRIPTION_SECTION.titleColor,
+    //     titleIcon: DESCRIPTION_SECTION.titleIcon,
+    //     items: descriptionsItems,
+    //   });
+    // }
 
     return allSections;
   }, [pricing]);

@@ -9,8 +9,8 @@ export const discountConfig: DiscountItemConfig[] = [
   {
     label: "İndirim Türü",
     value: (campaign) => (
-      <span className="badge bg-warning-subtle text-warning fw-semibold">
-        <i className="ph ph-percent me-1"></i>
+      <span className="fw-medium text-secondary-700">
+        <i className="ph ph-percent me-2 text-warning"></i>
         {translateDiscountType(campaign?.discountType)}
       </span>
     ),
@@ -23,8 +23,8 @@ export const discountConfig: DiscountItemConfig[] = [
       const amount = campaign?.discountAmount;
       if (!amount || amount === 0) return "-";
       return (
-        <span className="badge bg-success-subtle text-success fw-semibold">
-          <i className="ph ph-currency-circle-dollar me-1"></i>
+        <span className="fw-semibold text-success-700 fs-5">
+          <i className="ph ph-currency-circle-dollar me-2"></i>
           {new Intl.NumberFormat("tr-TR", {
             style: "currency",
             currency: "TRY",
@@ -43,8 +43,8 @@ export const discountConfig: DiscountItemConfig[] = [
       const percentage = campaign?.discountPercentage;
       if (!percentage || percentage === 0) return "-";
       return (
-        <span className="badge bg-primary-subtle text-primary fw-semibold">
-          <i className="ph ph-percent me-1"></i>%{percentage}
+        <span className="fw-semibold text-primary-700 fs-5">
+          <i className="ph ph-percent me-2"></i>%{percentage}
         </span>
       );
     },

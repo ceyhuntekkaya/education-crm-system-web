@@ -78,4 +78,25 @@ export const paymentInfoConfig: PaymentInfoItemConfig[] = [
     ),
     isShowing: (pricing) => (pricing?.latePaymentPenaltyPercentage || 0) > 0,
   },
+  {
+    label: "İptal Ücreti",
+    value: (pricing, formatPrice) => (
+      <span className="text-danger-600 fw-bold d-flex align-items-center gap-4">
+        <i className="ph ph-x-circle text-sm"></i>
+        {formatPrice
+          ? formatPrice(pricing?.cancellationFee, pricing?.currency)
+          : "Belirtilmemiş"}
+      </span>
+    ),
+    isShowing: (pricing) => (pricing?.cancellationFee || 0) > 0,
+  },
+  {
+    label: "Çekilme İade Oranı",
+    value: (pricing) => (
+      <span className="text-info-600 fw-semibold">
+        %{pricing?.withdrawalRefundPercentage || 0}
+      </span>
+    ),
+    isShowing: (pricing) => (pricing?.withdrawalRefundPercentage || 0) > 0,
+  },
 ];

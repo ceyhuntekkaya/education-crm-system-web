@@ -30,7 +30,7 @@ export const visibilityConfig: VisibilityItemConfig[] = [
 
       return (
         <span className={`badge fw-semibold ${badgeClass}`}>
-          <i className={`ph ${icon} me-1`}></i>
+          <i className={`ph ${icon} me-4`}></i>
           {translateVisibility(gallery?.visibility)}
         </span>
       );
@@ -50,7 +50,7 @@ export const visibilityConfig: VisibilityItemConfig[] = [
         <i
           className={`ph ${
             gallery?.isActive ? "ph-check-circle" : "ph-x-circle"
-          } me-1`}
+          } me-4`}
         ></i>
         {gallery?.isActive ? "Aktif" : "Pasif"}
       </span>
