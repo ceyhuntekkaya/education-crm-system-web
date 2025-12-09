@@ -55,7 +55,8 @@ export const useFileManagement = (props: {
       // Array ise (çoklu dosya)
       if (Array.isArray(initialValue)) {
         const placeholderFiles: FileWithPreview[] = initialValue.map((item) => {
-          const fileUrl = item.fileUrl || "";
+          // Backend'den gelen path field'ını kullan (fileUrl yerine)
+          const fileUrl = item.path || item.fileUrl || "";
           const fileName = item.fileName || fileUrl.split("/").pop() || "file";
           const fileExtension = fileName.split(".").pop()?.toLowerCase() || "";
 
@@ -76,7 +77,8 @@ export const useFileManagement = (props: {
             }
           }
 
-          // Preview URL'sini oluştur - eğer tam URL değilse serve prefix ekle
+          // Preview URL'sini oluştur - backend'den gelen path'e serve prefix ekle
+          // fileUrl zaten backend'den gelen path (örn: "uploads/1/postImages/...")
           const previewUrl =
             fileUrl.startsWith("http://") || fileUrl.startsWith("https://")
               ? fileUrl
@@ -121,7 +123,7 @@ export const useFileManagement = (props: {
           mimeType = `video/${fileExtension}`;
         }
 
-        // Preview URL'sini oluştur - eğer tam URL değilse serve prefix ekle
+        // Preview URL'sini oluştur - backend'den gelen path'e serve prefix ekle
         const previewUrl =
           initialValue.startsWith("http://") ||
           initialValue.startsWith("https://")
@@ -279,9 +281,11 @@ export const useFileManagement = (props: {
           (fileData) => {
             const fileName =
               fileData.originalFileName || fileData.fileName || "uploaded-file";
-            const rawFileUrl = fileData.fileUrl || "";
+            // Backend'den gelen path field'ını kullan (fileUrl yerine)
+            const rawFileUrl = fileData.path || fileData.fileUrl || "";
 
-            // Preview URL'sini oluştur - eğer tam URL değilse serve prefix ekle
+            // Preview URL'sini oluştur - backend'den gelen path'e serve prefix ekle
+            // rawFileUrl backend'den gelen dosya path'i (örn: "uploads/1/postImages/...")
             const fileUrl =
               rawFileUrl.startsWith("http://") ||
               rawFileUrl.startsWith("https://")

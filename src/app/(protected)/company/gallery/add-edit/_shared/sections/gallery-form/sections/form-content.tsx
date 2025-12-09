@@ -103,11 +103,11 @@ export const GalleryFormContent: React.FC = () => {
               name="coverImageUrl"
               isAutoUpload
             />
-            <FormInput
+            {/* <FormInput
               name="coverImageUrl"
               label="Veya Manuel Görsel URL"
               placeholder="Görsel URL'sini giriniz..."
-            />
+            /> */}
           </div>
         </div>
 
