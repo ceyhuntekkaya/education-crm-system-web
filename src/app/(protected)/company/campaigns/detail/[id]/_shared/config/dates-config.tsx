@@ -23,13 +23,13 @@ export const datesConfig: DatesItemConfig[] = [
     label: "Başlangıç Tarihi",
     value: (campaign) => (
       <span
-        className={`badge fw-semibold ${
+        className={`fw-medium ${
           isDatePast(campaign?.startDate)
-            ? "bg-secondary-subtle text-secondary"
-            : "bg-success-subtle text-success"
+            ? "text-neutral-600"
+            : "text-success-700"
         }`}
       >
-        <i className="ph ph-calendar-blank me-1"></i>
+        <i className="ph ph-calendar-blank me-2"></i>
         {formatDate(campaign?.startDate)}
       </span>
     ),
@@ -39,13 +39,11 @@ export const datesConfig: DatesItemConfig[] = [
     label: "Bitiş Tarihi",
     value: (campaign) => (
       <span
-        className={`badge fw-semibold ${
-          isDatePast(campaign?.endDate)
-            ? "bg-danger-subtle text-danger"
-            : "bg-warning-subtle text-warning"
+        className={`fw-medium ${
+          isDatePast(campaign?.endDate) ? "text-danger-600" : "text-warning-700"
         }`}
       >
-        <i className="ph ph-calendar-x me-1"></i>
+        <i className="ph ph-calendar-x me-2"></i>
         {formatDate(campaign?.endDate)}
       </span>
     ),

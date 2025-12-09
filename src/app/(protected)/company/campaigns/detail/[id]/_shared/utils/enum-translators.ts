@@ -45,6 +45,18 @@ export const translateCampaignType = (campaignType?: string): string => {
     BUNDLE: "Paket Kampanya",
     SCHOLARSHIP: "Burs",
     SIBLING: "Kardeş İndirimi",
+    SUMMER_SCHOOL: "Yaz Kurumu",
+    WINTER_CAMP: "Kış Kampı",
+    BONUS: "Bonus Kampanya",
+    BONUS_FEATURE: "Bonus Özellik",
+    REFERRAL_BONUS: "Tavsiye Bonusu",
+    SIBLING_DISCOUNT: "Kardeş İndirimi",
+    LOYALTY_REWARD: "Sadakat Ödülü",
+    NEW_STUDENT: "Yeni Öğrenci",
+    LIMITED_TIME: "Sınırlı Süre",
+    SPECIAL_EVENT: "Özel Etkinlik",
+    INSTALLMENT: "Taksit",
+    OTHER: "Diğer",
   };
 
   return translations[campaignType] || campaignType;

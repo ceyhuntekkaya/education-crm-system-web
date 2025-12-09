@@ -1,5 +1,4 @@
 import { SectionConfig } from "../types";
-import { campaignInfoConfig } from "./campaign-info-config";
 import { basicInfoConfig } from "./basic-info-config";
 import { discountConfig } from "./discount-config";
 import { datesConfig } from "./dates-config";
@@ -8,17 +7,10 @@ import { managementConfig } from "./management-config";
 
 /**
  * Tüm section konfigürasyonlarını tanımlar
+ * Önem sırasına göre düzenlenmiştir
  */
 export const CAMPAIGN_SECTIONS: SectionConfig[] = [
-  // 1. HIZLI BİLGİLER - Kalan süre ve tür
-  {
-    title: "Hızlı Bilgiler",
-    titleColor: "text-primary-600",
-    titleIcon: "ph-bold ph-lightning",
-    config: campaignInfoConfig,
-  },
-
-  // 2. TEMEL BİLGİLER - Kampanya başlığı, türü, durum, ayarlar
+  // 1. TEMEL BİLGİLER - Kampanya başlığı, türü ve ayarlar (En önemli)
   {
     title: "Temel Bilgiler",
     titleColor: "text-primary-600",
@@ -26,12 +18,20 @@ export const CAMPAIGN_SECTIONS: SectionConfig[] = [
     config: basicInfoConfig,
   },
 
-  // 3. TARİHLER - Kampanya başlangıç ve bitiş tarihleri
+  // 2. TARİHLER VE SÜRE - Kampanya tarihleri ve kalan süre
   {
-    title: "Tarih Bilgileri",
-    titleColor: "text-secondary-600",
+    title: "Kampanya Dönemi",
+    titleColor: "text-warning-600",
     titleIcon: "ph-bold ph-calendar",
     config: datesConfig,
+  },
+
+  // 3. İNDİRİM BİLGİLERİ - İndirim türü ve miktarı
+  {
+    title: "İndirim Bilgileri",
+    titleColor: "text-success-600",
+    titleIcon: "ph-bold ph-percent",
+    config: discountConfig,
   },
 
   // 4. AÇIKLAMALAR - Kampanya açıklamaları
@@ -42,19 +42,11 @@ export const CAMPAIGN_SECTIONS: SectionConfig[] = [
     config: descriptionConfig,
   },
 
-  // 5. İNDİRİM BİLGİLERİ - İndirim türü ve miktarı
-  {
-    title: "İndirim Bilgileri",
-    titleColor: "text-success-600",
-    titleIcon: "ph-bold ph-percent",
-    config: discountConfig,
-  },
-
-  // 6. YÖNETİM BİLGİLERİ - Oluşturulma bilgileri
+  // 5. YÖNETİM BİLGİLERİ - Oluşturulma bilgileri
   {
     title: "Yönetim Bilgileri",
-    titleColor: "text-primary-600",
-    titleIcon: "ph-bold ph-gear",
+    titleColor: "text-neutral-600",
+    titleIcon: "ph-bold ph-user-gear",
     config: managementConfig,
   },
 ];

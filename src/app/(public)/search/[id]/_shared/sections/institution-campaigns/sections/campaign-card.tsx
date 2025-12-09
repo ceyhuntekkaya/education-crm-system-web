@@ -51,7 +51,8 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
                   alt={campaign.title || "Campaign"}
                   width={160}
                   height={100}
-                  className="w-100 h-100 object-contain"
+                  className="w-100 h-100"
+                  variant="card"
                 />
               ) : (
                 <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-main-25">

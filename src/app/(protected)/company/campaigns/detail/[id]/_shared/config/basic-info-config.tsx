@@ -14,8 +14,7 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "Kampanya Başlığı",
     value: (campaign) => (
-      <span className="fw-semibold text-primary-600">
-        <i className="ph ph-info me-2"></i>
+      <span className="fw-bold text-primary-600 fs-5">
         {campaign?.title || "Belirtilmemiş"}
       </span>
     ),
@@ -32,52 +31,30 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     isShowing: (campaign) => !!campaign?.campaignType,
   },
   {
-    label: "Durum",
-    value: (campaign) => {
-      const status = translateCampaignStatus(campaign?.status);
-      const badgeClass = status.className?.includes("success")
-        ? "bg-success-subtle text-success"
-        : status.className?.includes("warning")
-        ? "bg-warning-subtle text-warning"
-        : status.className?.includes("danger")
-        ? "bg-danger-subtle text-danger"
-        : "bg-info-subtle text-info";
-
-      return (
-        <span className={`badge fw-semibold ${badgeClass}`}>
-          <i className="ph ph-circle me-1"></i>
-          {status.text}
-        </span>
-      );
-    },
-    isShowing: (campaign) => !!campaign?.status,
-  },
-  {
     label: "Kampanya Dönemi",
     value: (campaign) => (
-      <span className="badge bg-secondary-subtle text-secondary fw-semibold">
-        <i className="ph ph-calendar-range me-1"></i>
+      <span className="fw-medium text-secondary-700">
+        <i className="ph ph-calendar-range me-4 text-secondary"></i>
         {formatCampaignPeriod(campaign?.startDate, campaign?.endDate)}
       </span>
     ),
     isShowing: (campaign) => !!(campaign?.startDate || campaign?.endDate),
   },
   {
-    label: "Öne Çıkarılan",
+    label: "Öne Çıkan",
     value: (campaign) => (
-      <span
-        className={`badge ${
-          campaign?.isFeatured
-            ? "bg-success-subtle text-success"
-            : "bg-secondary-subtle text-secondary"
-        } fw-semibold`}
-      >
-        <i
-          className={`ph ${
-            campaign?.isFeatured ? "ph-star-fill" : "ph-star"
-          } me-1`}
-        ></i>
-        {formatBoolean(campaign?.isFeatured)}
+      <span className="fw-medium">
+        {campaign?.isFeatured ? (
+          <>
+            <i className="ph-fill ph-star me-4 text-warning fs-5"></i>
+            <span className="text-warning-700">Evet, öne çıkarılmış</span>
+          </>
+        ) : (
+          <>
+            <i className="ph ph-star me-4 text-neutral-400"></i>
+            <span className="text-neutral-600">Hayır</span>
+          </>
+        )}
       </span>
     ),
     isShowing: (campaign) => campaign?.isFeatured !== undefined,
@@ -85,17 +62,18 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "Herkese Açık",
     value: (campaign) => (
-      <span
-        className={`badge ${
-          campaign?.isPublic
-            ? "bg-success-subtle text-success"
-            : "bg-warning-subtle text-warning"
-        } fw-semibold`}
-      >
-        <i
-          className={`ph ${campaign?.isPublic ? "ph-globe" : "ph-lock"} me-1`}
-        ></i>
-        {formatBoolean(campaign?.isPublic)}
+      <span className="fw-medium">
+        {campaign?.isPublic ? (
+          <>
+            <i className="ph ph-globe me-4 text-success"></i>
+            <span className="text-success-700">Evet, herkes görebilir</span>
+          </>
+        ) : (
+          <>
+            <i className="ph ph-lock me-4 text-neutral-500"></i>
+            <span className="text-neutral-600">Hayır, gizli</span>
+          </>
+        )}
       </span>
     ),
     isShowing: (campaign) => campaign?.isPublic !== undefined,
@@ -103,19 +81,18 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
   {
     label: "Onay Gereksinimi",
     value: (campaign) => (
-      <span
-        className={`badge ${
-          campaign?.requiresApproval
-            ? "bg-warning-subtle text-warning"
-            : "bg-success-subtle text-success"
-        } fw-semibold`}
-      >
-        <i
-          className={`ph ${
-            campaign?.requiresApproval ? "ph-check-circle" : "ph-x-circle"
-          } me-1`}
-        ></i>
-        {formatBoolean(campaign?.requiresApproval)}
+      <span className="fw-medium">
+        {campaign?.requiresApproval ? (
+          <>
+            <i className="ph ph-seal-check me-4 text-warning"></i>
+            <span className="text-warning-700">Evet, onay gerekli</span>
+          </>
+        ) : (
+          <>
+            <i className="ph ph-check-circle me-4 text-success"></i>
+            <span className="text-success-700">Hayır, doğrudan aktif</span>
+          </>
+        )}
       </span>
     ),
     isShowing: (campaign) => campaign?.requiresApproval !== undefined,
