@@ -60,13 +60,13 @@ export const PRICING_SECTIONS: SectionConfig[] = [
     config: paymentInfoConfig,
   },
   {
-    title: "İndirimler ve Yardımlar",
+    title: "İndirimler ve Burslar",
     titleColor: "text-success-600",
     titleIcon: "ph-bold ph-percent",
     config: discountConfig,
   },
   {
-    title: "Diğer Bilgiler",
+    title: "Geçerlilik ve Sürüm Bilgileri",
     titleColor: "text-neutral-600",
     titleIcon: "ph-bold ph-note",
     config: otherInfoConfig,
@@ -74,7 +74,7 @@ export const PRICING_SECTIONS: SectionConfig[] = [
 ];
 
 /**
- * Açıklamalar section'ı tanımlar
+ * Açıklamalar section'ı tanımlar - KULLANILMIYOR
  */
 export const DESCRIPTION_SECTION: SectionConfig = {
   title: "Açıklamalar ve Koşullar",

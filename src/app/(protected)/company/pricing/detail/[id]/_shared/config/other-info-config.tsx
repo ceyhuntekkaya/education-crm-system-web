@@ -28,46 +28,6 @@ export const otherInfoConfig: OtherInfoItemConfig[] = [
     isShowing: (pricing) => !!pricing?.validUntil,
   },
   {
-    label: "Pazar Konumu",
-    value: (pricing) => (
-      <span className="badge bg-info-subtle text-info fw-semibold">
-        {pricing?.marketPosition || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (pricing) => !!pricing?.marketPosition,
-  },
-  {
-    label: "Yaş Aralığı",
-    value: (pricing) => (
-      <span className="text-primary-600 fw-semibold">{pricing?.ageRange}</span>
-    ),
-    isShowing: (pricing) => {
-      // "1-80 yaş" gibi genel/varsayılan değerleri gösterme
-      const ageRange = pricing?.ageRange;
-      if (!ageRange) return false;
-      if (ageRange === "1-80 yaş" || ageRange === "0-100 yaş") return false;
-      return true;
-    },
-  },
-  {
-    label: "Güncel Sürüm",
-    value: (pricing) => (
-      <span className="badge bg-success-subtle text-success fw-semibold">
-        Evet
-      </span>
-    ),
-    isShowing: (pricing) => pricing?.isCurrent === true,
-  },
-  {
-    label: "Sürüm",
-    value: (pricing) => (
-      <span className="text-secondary-600 fw-semibold">
-        v{pricing?.version || "1"}
-      </span>
-    ),
-    isShowing: (pricing) => pricing?.version && pricing.version > 1,
-  },
-  {
     label: "Oluşturan",
     value: (pricing) => (
       <span className="text-primary-600 fw-semibold d-flex align-items-center gap-4">

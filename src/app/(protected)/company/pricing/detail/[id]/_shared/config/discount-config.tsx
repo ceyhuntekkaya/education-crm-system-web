@@ -6,10 +6,21 @@ import type { DiscountItemConfig } from "../types";
  */
 export const discountConfig: DiscountItemConfig[] = [
   {
+    label: "Peşinat Oranı",
+    value: (pricing) => (
+      <span className="badge bg-primary-subtle text-primary-600 fw-semibold px-12 py-6">
+        <i className="ph ph-coins me-4"></i>%
+        {pricing?.downPaymentPercentage || 0}
+      </span>
+    ),
+    isShowing: (pricing) => (pricing?.downPaymentPercentage || 0) > 0,
+  },
+  {
     label: "Erken Ödeme İndirimi",
     value: (pricing) => (
-      <span className="text-success-600 fw-semibold">
-        %{pricing?.earlyPaymentDiscountPercentage || 0}
+      <span className="badge bg-success-subtle text-success-600 fw-semibold px-12 py-6">
+        <i className="ph ph-timer me-4"></i>%
+        {pricing?.earlyPaymentDiscountPercentage || 0}
       </span>
     ),
     isShowing: (pricing) => (pricing?.earlyPaymentDiscountPercentage || 0) > 0,
@@ -17,8 +28,9 @@ export const discountConfig: DiscountItemConfig[] = [
   {
     label: "Kardeş İndirimi",
     value: (pricing) => (
-      <span className="text-success-600 fw-semibold">
-        %{pricing?.siblingDiscountPercentage || 0}
+      <span className="badge bg-success-subtle text-success-600 fw-semibold px-12 py-6">
+        <i className="ph ph-users me-4"></i>%
+        {pricing?.siblingDiscountPercentage || 0}
       </span>
     ),
     isShowing: (pricing) => (pricing?.siblingDiscountPercentage || 0) > 0,
@@ -26,8 +38,9 @@ export const discountConfig: DiscountItemConfig[] = [
   {
     label: "Çok Yıllık İndirim",
     value: (pricing) => (
-      <span className="text-success-600 fw-semibold">
-        %{pricing?.multiYearDiscountPercentage || 0}
+      <span className="badge bg-success-subtle text-success-600 fw-semibold px-12 py-6">
+        <i className="ph ph-calendar-star me-4"></i>%
+        {pricing?.multiYearDiscountPercentage || 0}
       </span>
     ),
     isShowing: (pricing) => (pricing?.multiYearDiscountPercentage || 0) > 0,
@@ -35,8 +48,9 @@ export const discountConfig: DiscountItemConfig[] = [
   {
     label: "Sadakat İndirimi",
     value: (pricing) => (
-      <span className="text-success-600 fw-semibold">
-        %{pricing?.loyaltyDiscountPercentage || 0}
+      <span className="badge bg-success-subtle text-success-600 fw-semibold px-12 py-6">
+        <i className="ph ph-medal me-4"></i>%
+        {pricing?.loyaltyDiscountPercentage || 0}
       </span>
     ),
     isShowing: (pricing) => (pricing?.loyaltyDiscountPercentage || 0) > 0,
@@ -44,8 +58,8 @@ export const discountConfig: DiscountItemConfig[] = [
   {
     label: "İhtiyaç Temelli Yardım",
     value: (pricing) => (
-      <span className="text-info-600 fw-semibold d-flex align-items-center gap-4">
-        <i className="ph ph-hand-heart text-sm"></i>
+      <span className="badge bg-info-subtle text-info-600 fw-semibold px-12 py-6">
+        <i className="ph ph-hand-heart me-4"></i>
         Mevcut
       </span>
     ),
@@ -54,8 +68,8 @@ export const discountConfig: DiscountItemConfig[] = [
   {
     label: "Başarı Temelli Yardım",
     value: (pricing) => (
-      <span className="text-info-600 fw-semibold d-flex align-items-center gap-4">
-        <i className="ph ph-trophy text-sm"></i>
+      <span className="badge bg-info-subtle text-info-600 fw-semibold px-12 py-6">
+        <i className="ph ph-trophy me-4"></i>
         Mevcut
       </span>
     ),
