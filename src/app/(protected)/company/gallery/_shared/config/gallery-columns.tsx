@@ -104,7 +104,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "visibility",
     headerName: "Görünürlük",
-    width: 140,
+    width: 170,
     renderCell: (params: any) => (
       <div
         className="text-truncate"
@@ -117,7 +117,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "isActive",
     headerName: "Durum",
-    width: 100,
+    width: 130,
     align: "center",
     renderCell: (params: any) => (
       <div className="d-flex justify-content-center align-items-center h-100">
@@ -131,7 +131,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "itemCount",
     headerName: "Öğe Sayısı",
-    width: 120,
+    width: 160,
     align: "center",
     renderCell: (params: any) => {
       const itemCount = params.row.itemCount || params.row.items?.length || 0;
@@ -146,7 +146,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "isFeatured",
     headerName: "Öne Çıkan",
-    width: 100,
+    width: 150,
     align: "center",
     renderCell: (params: any) => (
       <div className="d-flex justify-content-center align-items-center h-100">
@@ -174,7 +174,7 @@ export const createGalleryColumns = (): GridColDef<GalleryDto>[] => [
   {
     field: "createdAt",
     headerName: "Oluşturulma",
-    width: 160,
+    width: 200,
     align: "center",
     renderCell: (params: any) => (
       <div className="text-center">

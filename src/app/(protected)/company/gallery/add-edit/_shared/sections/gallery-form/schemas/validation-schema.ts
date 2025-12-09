@@ -18,23 +18,9 @@ export const validationSchema = Yup.object({
     .oneOf(Object.values(GalleryVisibility), "Geçersiz görünürlük değeri"),
 
   // Optional fields
-  // description: Yup.string()
-  //   .min(10, "Açıklama en az 10 karakter olmalıdır")
-  //   .optional(),
+  description: Yup.string().optional(),
   coverImageUrl: Yup.string().url("Geçerli bir URL giriniz").optional(),
-  sortOrder: Yup.number().min(0, "Sıralama 0'dan küçük olamaz").optional(),
   isFeatured: Yup.boolean().optional(),
-  allowComments: Yup.boolean().optional(),
-  allowDownloads: Yup.boolean().optional(),
-
-  // SEO
-  metaTitle: Yup.string()
-    .max(60, "Meta başlık en fazla 60 karakter olabilir")
-    .optional(),
-  metaDescription: Yup.string()
-    .max(160, "Meta açıklama en fazla 160 karakter olabilir")
-    .optional(),
-  tags: Yup.string().optional(),
 
   // Items (multi file upload)
   items: Yup.array()

@@ -8,8 +8,8 @@ export const galleryItemsConfig: GalleryItemsItemConfig[] = [
   {
     label: "Toplam Öğe Sayısı",
     value: (gallery) => (
-      <span className="badge bg-info-subtle text-info fw-semibold">
-        <i className="ph ph-images me-1"></i>
+      <span className="text-dark">
+        <i className="ph ph-images me-4"></i>
         {gallery?.items?.length || 0} öğe
       </span>
     ),
@@ -22,8 +22,8 @@ export const galleryItemsConfig: GalleryItemsItemConfig[] = [
         gallery?.items?.filter((item: any) => item.itemType === "IMAGE")
           .length || 0;
       return (
-        <span className="badge bg-success-subtle text-success fw-semibold">
-          <i className="ph ph-image me-1"></i>
+        <span className="text-dark">
+          <i className="ph ph-image me-4"></i>
           {count} görsel
         </span>
       );
@@ -42,8 +42,8 @@ export const galleryItemsConfig: GalleryItemsItemConfig[] = [
         gallery?.items?.filter((item: any) => item.itemType === "VIDEO")
           .length || 0;
       return (
-        <span className="badge bg-warning-subtle text-warning fw-semibold">
-          <i className="ph ph-video me-1"></i>
+        <span className="text-dark">
+          <i className="ph ph-video me-4"></i>
           {count} video
         </span>
       );
@@ -62,8 +62,8 @@ export const galleryItemsConfig: GalleryItemsItemConfig[] = [
         gallery?.items?.filter((item: any) => item.itemType === "DOCUMENT")
           .length || 0;
       return (
-        <span className="badge bg-primary-subtle text-primary fw-semibold">
-          <i className="ph ph-file me-1"></i>
+        <span className="text-dark">
+          <i className="ph ph-file me-4"></i>
           {count} dosya
         </span>
       );

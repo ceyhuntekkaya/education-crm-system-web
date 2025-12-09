@@ -11,15 +11,7 @@ export const initialValues: GalleryFormData = {
   // Optional fields
   description: "",
   coverImageUrl: "",
-  sortOrder: undefined, // No default value - placeholder will be shown
   isFeatured: false,
-  allowComments: true,
-  allowDownloads: false,
-
-  // SEO
-  metaTitle: "",
-  metaDescription: "",
-  tags: "",
 
   // IDs
   brandId: undefined,

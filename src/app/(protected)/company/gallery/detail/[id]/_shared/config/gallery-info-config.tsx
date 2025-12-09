@@ -21,7 +21,7 @@ export const galleryInfoConfig: BasicInfoItemConfig[] = [
           <i
             className={`ph ${
               isActive ? "ph-check-circle" : "ph-x-circle"
-            } me-1`}
+            } me-4`}
           ></i>
           {isActive ? "Aktif" : "Pasif"}
         </span>
@@ -33,7 +33,7 @@ export const galleryInfoConfig: BasicInfoItemConfig[] = [
     label: "Galeri Türü",
     value: (gallery) => (
       <span className="badge bg-info-subtle text-info fw-semibold">
-        <i className="ph ph-tag me-1"></i>
+        <i className="ph ph-tag me-4"></i>
         {translateGalleryType(gallery?.galleryType)}
       </span>
     ),
@@ -51,7 +51,7 @@ export const galleryInfoConfig: BasicInfoItemConfig[] = [
             : "bg-warning-subtle text-warning"
         }`}
       >
-        <i className="ph ph-eye me-1"></i>
+        <i className="ph ph-eye me-4"></i>
         {translateVisibility(gallery?.visibility)}
       </span>
     ),
@@ -62,8 +62,8 @@ export const galleryInfoConfig: BasicInfoItemConfig[] = [
     value: (gallery) => {
       const itemCount = gallery?.itemCount || gallery?.items?.length || 0;
       return (
-        <span className="badge bg-primary-subtle text-primary fw-semibold">
-          <i className="ph ph-images me-1"></i>
+        <span className="text-dark">
+          <i className="ph ph-images me-4"></i>
           {itemCount} öğe
         </span>
       );
@@ -75,12 +75,12 @@ export const galleryInfoConfig: BasicInfoItemConfig[] = [
     value: (gallery) =>
       gallery?.isFeatured ? (
         <span className="badge bg-warning-subtle text-warning fw-semibold">
-          <i className="ph ph-star-fill me-1"></i>
+          <i className="ph ph-star-fill me-4"></i>
           Evet
         </span>
       ) : (
         <span className="badge bg-secondary-subtle text-secondary fw-semibold">
-          <i className="ph ph-star me-1"></i>
+          <i className="ph ph-star me-4"></i>
           Hayır
         </span>
       ),
