@@ -88,7 +88,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "feeName",
     headerName: "Ücret Adı",
-    width: 200,
+    width: 220,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
@@ -109,6 +109,22 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
     },
   },
 
+  // Description
+  {
+    field: "feeDescription",
+    headerName: "Açıklama",
+    width: 200,
+    renderCell: (params: any) => {
+      if (!params || !params.row || !params.row.feeDescription)
+        return <div className="text-muted">-</div>;
+      return (
+        <div className="text-truncate" title={params.row.feeDescription}>
+          {params.row.feeDescription}
+        </div>
+      );
+    },
+  },
+
   // Fee Type
   {
     field: "feeType",
@@ -121,7 +137,7 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "formattedFeeAmount",
     headerName: "Tutar",
-    width: 120,
+    width: 130,
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
@@ -138,125 +154,11 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "feeFrequency",
     headerName: "Sıklık",
-    width: 100,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      return (
-        <div className="fw-medium">
-          {getBillingPeriodDisplay(params.row.feeFrequency) || "-"}
-        </div>
-      );
-    },
-  },
-
-  // Mandatory
-  {
-    field: "isMandatory",
-    headerName: "Zorunlu",
     width: 130,
-    align: "center",
     renderCell: (params: any) => {
       if (!params || !params.row) return <div>-</div>;
       return (
-        <div className="d-flex justify-content-center">
-          {params.row.isMandatory ? (
-            <Popover
-              content="Zorunlu ücret"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph-bold ph-check text-success"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          ) : (
-            <Popover
-              content="İsteğe bağlı ücret"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph-bold ph-x text-muted"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          )}
-        </div>
-      );
-    },
-  },
-
-  // Installment Info
-  {
-    field: "installmentAllowed",
-    headerName: "Taksit",
-    width: 120,
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      if (params.row.installmentAllowed) {
-        return (
-          <Badge variant="info">{params.row.maxInstallments || 0} Taksit</Badge>
-        );
-      }
-      return <span className="text-muted">-</span>;
-    },
-  },
-
-  // Discount & Scholarship - Combined column
-  {
-    field: "discountEligible",
-    headerName: "İndirim/Burs",
-    width: 170,
-    align: "center",
-    renderCell: (params: any) => {
-      if (!params || !params.row) return <div>-</div>;
-      const hasDiscount = params.row.discountEligible;
-      const hasScholarship = params.row.scholarshipApplicable;
-
-      if (!hasDiscount && !hasScholarship) {
-        return <span className="text-muted">-</span>;
-      }
-
-      return (
-        <div className="d-flex gap-3 justify-content-center">
-          {hasDiscount && (
-            <Popover
-              content="İndirim uygulanabilir"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph-bold ph-percent text-info"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          )}
-          {hasScholarship && (
-            <Popover
-              content="Burs uygulanabilir"
-              placement="top"
-              trigger="hover"
-              size="sm"
-            >
-              <div className="cursor-pointer">
-                <i
-                  className="ph-bold ph-graduation-cap text-primary"
-                  style={{ fontSize: "14px" }}
-                />
-              </div>
-            </Popover>
-          )}
-        </div>
+        <div>{getBillingPeriodDisplay(params.row.feeFrequency) || "-"}</div>
       );
     },
   },
@@ -265,7 +167,150 @@ export const createCustomFeeColumns = (): GridColDef<CustomFeeDto>[] => [
   {
     field: "status",
     headerName: "Durum",
-    width: 120,
+    width: 110,
     renderCell: renderFeeStatus,
+  },
+
+  // Mandatory & Refundable - Combined
+  {
+    field: "isMandatory",
+    headerName: "Özellikler",
+    width: 200,
+    align: "center",
+    renderCell: (params: any) => {
+      if (!params || !params.row) return <div>-</div>;
+      const {
+        isMandatory,
+        isRefundable,
+        appliesToNewStudents,
+        appliesToExistingStudents,
+      } = params.row;
+
+      return (
+        <div className="d-flex gap-4 justify-content-center align-items-center">
+          {isMandatory && (
+            <Popover
+              content="Zorunlu ücret"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="warning" className="cursor-pointer">
+                <i
+                  className="ph-bold ph-warning"
+                  style={{ fontSize: "12px" }}
+                />
+              </Badge>
+            </Popover>
+          )}
+          {isRefundable && (
+            <Popover
+              content="İade edilebilir"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="info" className="cursor-pointer">
+                <i
+                  className="ph-bold ph-arrow-u-up-left"
+                  style={{ fontSize: "12px" }}
+                />
+              </Badge>
+            </Popover>
+          )}
+          {appliesToNewStudents && (
+            <Popover
+              content="Yeni öğrenciler"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="success" className="cursor-pointer">
+                <i
+                  className="ph-bold ph-user-plus"
+                  style={{ fontSize: "12px" }}
+                />
+              </Badge>
+            </Popover>
+          )}
+          {appliesToExistingStudents && (
+            <Popover
+              content="Mevcut öğrenciler"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="primary" className="cursor-pointer">
+                <i className="ph-bold ph-users" style={{ fontSize: "12px" }} />
+              </Badge>
+            </Popover>
+          )}
+        </div>
+      );
+    },
+  },
+
+  // Payment Settings - Combined
+  {
+    field: "installmentAllowed",
+    headerName: "Ödeme",
+    width: 200,
+    align: "center",
+    renderCell: (params: any) => {
+      if (!params || !params.row) return <div>-</div>;
+      const {
+        installmentAllowed,
+        maxInstallments,
+        discountEligible,
+        scholarshipApplicable,
+      } = params.row;
+
+      return (
+        <div className="d-flex gap-4 justify-content-center align-items-center flex-wrap">
+          {installmentAllowed && maxInstallments && (
+            <Popover
+              content={`${maxInstallments} taksit`}
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="info" className="cursor-pointer">
+                {maxInstallments}x
+              </Badge>
+            </Popover>
+          )}
+          {discountEligible && (
+            <Popover
+              content="İndirim uygulanabilir"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="success" className="cursor-pointer">
+                <i
+                  className="ph-bold ph-percent"
+                  style={{ fontSize: "12px" }}
+                />
+              </Badge>
+            </Popover>
+          )}
+          {scholarshipApplicable && (
+            <Popover
+              content="Burs uygulanabilir"
+              placement="top"
+              trigger="hover"
+              size="sm"
+            >
+              <Badge variant="primary" className="cursor-pointer">
+                <i
+                  className="ph-bold ph-graduation-cap"
+                  style={{ fontSize: "12px" }}
+                />
+              </Badge>
+            </Popover>
+          )}
+        </div>
+      );
+    },
   },
 ];
