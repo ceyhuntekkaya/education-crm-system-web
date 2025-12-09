@@ -11,7 +11,7 @@ export const authorDetailsConfig: AuthorInfoItemConfig[] = [
     label: "Yazar Adı",
     value: (post: PostDto | null) => (
       <span className="fw-semibold text-blue-600 fs-5">
-        <i className="ph ph-user me-2"></i>
+        <i className="ph ph-user me-4"></i>
         {post?.author?.fullName || "Adsız Yazar"}
       </span>
     ),
@@ -60,7 +60,7 @@ export const authorDetailsConfig: AuthorInfoItemConfig[] = [
     label: "Kullanıcı Türü",
     value: (post: PostDto | null) => (
       <span className="badge bg-info-subtle text-info fw-semibold px-3 py-2">
-        <i className="ph ph-briefcase me-1"></i>
+        <i className="ph ph-briefcase me-4"></i>
         {post?.author?.userType === "INSTITUTION_USER"
           ? "Kurum Kullanıcısı"
           : "Veli"}
@@ -81,7 +81,7 @@ export const authorDetailsConfig: AuthorInfoItemConfig[] = [
         <i
           className={`ph ${
             post?.author?.isActive ? "ph-check-circle" : "ph-x-circle"
-          } me-1`}
+          } me-4`}
         ></i>
         {post?.author?.isActive ? "Aktif" : "Pasif"}
       </span>
@@ -92,7 +92,7 @@ export const authorDetailsConfig: AuthorInfoItemConfig[] = [
     label: "E-posta Adresi",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-envelope text-blue-600"></i>
+        <i className="ph ph-envelope text-blue-600 me-4"></i>
         <span className="text-neutral-700">
           {post?.author?.email || "Belirtilmemiş"}
         </span>
@@ -104,7 +104,7 @@ export const authorDetailsConfig: AuthorInfoItemConfig[] = [
     label: "Telefon Numarası",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-phone text-blue-600"></i>
+        <i className="ph ph-phone text-blue-600 me-4"></i>
         <span className="text-neutral-700">
           {post?.author?.phone || "Belirtilmemiş"}
         </span>

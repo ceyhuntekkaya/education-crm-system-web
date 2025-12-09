@@ -4,32 +4,34 @@ import type { MediaItemConfig } from "../types";
 import { PostDto } from "@/types";
 
 /**
- * Post medya konfigürasyonu
+ * Post medya konfigürasyonu - API'den gelen items dizisine göre optimize edilmiş
  */
 export const mediaConfig: MediaItemConfig[] = [
   {
-    label: "Öne Çıkan Görsel",
+    label: "Kapak Görseli",
     value: (post: PostDto | null) => (
       <div className="position-relative">
         {post?.featuredImageUrl ? (
-          <div className="overflow-hidden rounded-12 border border-neutral-100 shadow-sm">
+          <div className="overflow-hidden rounded-12 border border-neutral-200 shadow-sm">
             <CustomImage
               src={post.featuredImageUrl}
-              alt={post.title || "Öne çıkan görsel"}
-              width={140}
-              height={120}
+              alt={post.title || "Kapak görseli"}
+              width={600}
+              height={400}
+              className="w-100"
+              style={{ objectFit: "cover", maxHeight: "400px" }}
             />
             <div className="position-absolute top-0 end-0 m-3">
-              <span className="badge bg-dark bg-opacity-75 text-white px-2 py-1">
-                <i className="ph ph-image me-1"></i>
-                Ana Görsel
+              <span className="badge bg-dark bg-opacity-75 text-white px-3 py-2">
+                <i className="ph-fill ph-image me-2"></i>
+                Kapak Görseli
               </span>
             </div>
           </div>
         ) : (
           <div
-            className="d-flex align-items-center justify-content-center bg-neutral-25 rounded-12 border border-neutral-100 p-5"
-            style={{ minHeight: "280px" }}
+            className="d-flex align-items-center justify-content-center bg-neutral-50 rounded-12 border border-neutral-200 border-dashed"
+            style={{ minHeight: "300px" }}
           >
             <div className="text-center">
               <i
@@ -37,7 +39,7 @@ export const mediaConfig: MediaItemConfig[] = [
                 style={{ fontSize: "4rem" }}
               ></i>
               <p className="text-neutral-500 mb-0 mt-3">
-                Öne çıkan görsel eklenmemiş
+                Kapak görseli eklenmemiş
               </p>
             </div>
           </div>
@@ -51,19 +53,19 @@ export const mediaConfig: MediaItemConfig[] = [
     value: (post: PostDto | null) => (
       <div>
         {post?.videoUrl ? (
-          <div className="p-4 bg-primary-25 rounded-12 border border-primary-100">
+          <div className="p-4 bg-primary-50 rounded-12 border border-primary-200">
             <div className="d-flex align-items-start gap-3">
               {post?.videoThumbnailUrl ? (
                 <div className="flex-shrink-0 position-relative">
                   <div
-                    className="overflow-hidden rounded-8"
-                    style={{ width: "120px", height: "80px" }}
+                    className="overflow-hidden rounded-8 border border-neutral-200"
+                    style={{ width: "160px", height: "90px" }}
                   >
                     <CustomImage
                       src={post.videoThumbnailUrl}
-                      alt="Video thumbnail"
-                      width={120}
-                      height={80}
+                      alt="Video önizleme"
+                      width={160}
+                      height={90}
                       className="w-100 h-100"
                       style={{ objectFit: "cover" }}
                     />
@@ -71,9 +73,9 @@ export const mediaConfig: MediaItemConfig[] = [
                   <div className="position-absolute top-50 start-50 translate-middle">
                     <div
                       className="bg-dark bg-opacity-75 text-white rounded-circle d-flex align-items-center justify-content-center"
-                      style={{ width: "32px", height: "32px" }}
+                      style={{ width: "40px", height: "40px" }}
                     >
-                      <i className="ph ph-play-fill fs-14"></i>
+                      <i className="ph-fill ph-play fs-20"></i>
                     </div>
                   </div>
                 </div>
@@ -81,19 +83,19 @@ export const mediaConfig: MediaItemConfig[] = [
                 <div className="flex-shrink-0">
                   <div
                     className="bg-primary-100 rounded-circle d-flex align-items-center justify-content-center"
-                    style={{ width: "48px", height: "48px" }}
+                    style={{ width: "60px", height: "60px" }}
                   >
-                    <i className="ph ph-video text-primary fs-4"></i>
+                    <i className="ph-fill ph-video text-primary-600 fs-3"></i>
                   </div>
                 </div>
               )}
               <div className="flex-grow-1">
-                <div className="fw-semibold text-primary mb-1">
+                <div className="fw-semibold text-primary-700 fs-18 mb-2">
                   Video İçeriği Mevcut
                 </div>
                 {post?.videoDurationSeconds && (
-                  <div className="text-primary fs-14 mb-2">
-                    <i className="ph ph-clock me-1"></i>
+                  <div className="text-primary-600 fs-14 mb-3">
+                    <i className="ph ph-clock me-2"></i>
                     Süre: {Math.floor(post.videoDurationSeconds / 60)}:
                     {(post.videoDurationSeconds % 60)
                       .toString()
@@ -106,20 +108,163 @@ export const mediaConfig: MediaItemConfig[] = [
                   rel="noopener noreferrer"
                   className="btn btn-primary btn-sm"
                 >
-                  <i className="ph ph-play me-1"></i>
-                  Video&apos;yu İzle
+                  <i className="ph ph-play me-2"></i>
+                  Videoyu İzle
                 </a>
               </div>
             </div>
           </div>
         ) : (
-          <div className="text-center p-4 bg-neutral-25 rounded-12 border border-neutral-100">
-            <i className="ph ph-video text-neutral-400 fs-2 mb-2"></i>
+          <div className="text-center p-5 bg-neutral-50 rounded-12 border border-neutral-200 border-dashed">
+            <i className="ph ph-video text-neutral-400 fs-1 mb-3"></i>
             <p className="text-neutral-500 mb-0">Video içerik eklenmemiş</p>
           </div>
         )}
       </div>
     ),
+    isShowing: () => true,
+  },
+  {
+    label: "Medya Ekleri",
+    value: (post: PostDto | null) => {
+      const items = post?.items || [];
+
+      if (!items || items.length === 0) {
+        return (
+          <div className="text-center p-5 bg-neutral-50 rounded-12 border border-neutral-200 border-dashed">
+            <i className="ph ph-files text-neutral-400 fs-1 mb-3"></i>
+            <p className="text-neutral-500 mb-0">Medya eki bulunmamaktadır</p>
+          </div>
+        );
+      }
+
+      // Medya türlerine göre grupla
+      const images = items.filter((item: any) => item.itemType === "IMAGE");
+      const videos = items.filter((item: any) => item.itemType === "VIDEO");
+      const documents = items.filter(
+        (item: any) => item.itemType === "DOCUMENT"
+      );
+
+      return (
+        <div className="d-flex flex-column gap-3">
+          {/* Görseller */}
+          {images.length > 0 && (
+            <div>
+              <div className="d-flex align-items-center gap-2 mb-3">
+                <i className="ph-fill ph-image text-purple-600 fs-4"></i>
+                <span className="fw-semibold text-purple-700">
+                  Görseller ({images.length})
+                </span>
+              </div>
+              <div className="row g-2">
+                {images.map((item: any, index: number) => (
+                  <div
+                    key={item.id || index}
+                    className="col-6 col-md-4 col-lg-3"
+                  >
+                    <div className="position-relative overflow-hidden rounded-8 border border-neutral-200">
+                      <CustomImage
+                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/upload/serve/${item.fileUrl}`}
+                        alt={item.fileName || `Görsel ${index + 1}`}
+                        width={200}
+                        height={150}
+                        className="w-100 h-100"
+                        style={{ objectFit: "cover", height: "150px" }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Videolar */}
+          {videos.length > 0 && (
+            <div>
+              <div className="d-flex align-items-center gap-2 mb-3">
+                <i className="ph-fill ph-video text-info-600 fs-4"></i>
+                <span className="fw-semibold text-info-700">
+                  Videolar ({videos.length})
+                </span>
+              </div>
+              <div className="row g-2">
+                {videos.map((item: any, index: number) => (
+                  <div key={item.id || index} className="col-12 col-md-6">
+                    <div className="p-3 bg-info-50 rounded-8 border border-info-200">
+                      <div className="d-flex align-items-center gap-3">
+                        <div
+                          className="bg-info-100 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: "48px", height: "48px" }}
+                        >
+                          <i className="ph-fill ph-play text-info-600 fs-4"></i>
+                        </div>
+                        <div className="flex-grow-1">
+                          <div className="fw-medium text-info-700 mb-1">
+                            {item.fileName}
+                          </div>
+                          <a
+                            href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/upload/serve/${item.fileUrl}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-sm btn-info"
+                          >
+                            <i className="ph ph-play me-1"></i>
+                            Videoyu İzle
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Dökümanlar */}
+          {documents.length > 0 && (
+            <div>
+              <div className="d-flex align-items-center gap-2 mb-3">
+                <i className="ph-fill ph-file-text text-success-600 fs-4"></i>
+                <span className="fw-semibold text-success-700">
+                  Dökümanlar ({documents.length})
+                </span>
+              </div>
+              <div className="row g-2">
+                {documents.map((item: any, index: number) => (
+                  <div key={item.id || index} className="col-12 col-md-6">
+                    <div className="p-3 bg-success-50 rounded-8 border border-success-200">
+                      <div className="d-flex align-items-center gap-3">
+                        <div
+                          className="bg-success-100 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: "48px", height: "48px" }}
+                        >
+                          <i className="ph-fill ph-file-text text-success-600 fs-4"></i>
+                        </div>
+                        <div className="flex-grow-1">
+                          <div className="fw-medium text-success-700 mb-1 text-truncate">
+                            {item.fileName}
+                          </div>
+                          <a
+                            href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/upload/serve/${item.fileUrl}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-sm btn-success"
+                            download
+                          >
+                            <i className="ph ph-download me-1"></i>
+                            İndir
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    },
     isShowing: () => true,
   },
   // {

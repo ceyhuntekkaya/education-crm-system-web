@@ -31,7 +31,7 @@ export const timestampConfig: TimestampItemConfig[] = [
     label: "Oluşturma Tarihi",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-calendar-plus text-success"></i>
+        <i className="ph ph-calendar-plus text-success me-4"></i>
         <span className="text-neutral-700">{formatDate(post?.createdAt)}</span>
       </div>
     ),
@@ -41,7 +41,7 @@ export const timestampConfig: TimestampItemConfig[] = [
     label: "Yayın Tarihi",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-calendar-check text-primary"></i>
+        <i className="ph ph-calendar-check text-primary me-4"></i>
         <span className="text-neutral-700">
           {formatDate(post?.publishedAt)}
         </span>
@@ -53,7 +53,7 @@ export const timestampConfig: TimestampItemConfig[] = [
     label: "Zamanlanmış Tarih",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-calendar-clock text-warning"></i>
+        <i className="ph ph-calendar-clock text-warning me-4"></i>
         <span className="text-neutral-700">
           {formatDate(post?.scheduledAt)}
         </span>
@@ -65,7 +65,7 @@ export const timestampConfig: TimestampItemConfig[] = [
     label: "Son Geçerlilik",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-calendar-x text-danger"></i>
+        <i className="ph ph-calendar-x text-danger me-4"></i>
         <span className="text-neutral-700">{formatDate(post?.expiresAt)}</span>
       </div>
     ),
@@ -75,7 +75,7 @@ export const timestampConfig: TimestampItemConfig[] = [
     label: "Sabitleme Sonu",
     value: (post: PostDto | null) => (
       <div className="d-flex align-items-center gap-2">
-        <i className="ph ph-push-pin-slash text-orange"></i>
+        <i className="ph ph-push-pin-slash text-orange me-4"></i>
         <span className="text-neutral-700">
           {formatDate(post?.pinExpiresAt)}
         </span>

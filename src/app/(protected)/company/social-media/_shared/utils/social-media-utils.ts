@@ -28,6 +28,7 @@ export const getPostTypeDisplay = (postType: string): string => {
     POLL: "Anket",
     LIVE: "Canlı Yayın",
     STORY: "Hikaye",
+    LINK: "Bağlantı",
   };
   return typeMap[postType] || postType;
 };
