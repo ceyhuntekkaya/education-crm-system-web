@@ -40,6 +40,18 @@ export default function BannerContent() {
           <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
         </Link>
       </div>
+
+      {/* Video Link - Subtle */}
+      <div className="mt-24 mt-lg-32" data-aos="fade-up" data-aos-delay="200">
+        <Link
+          href="/video"
+          className="video-quick-link flex-align gap-8 justify-content-center justify-content-lg-start"
+        >
+          <i className="ph-fill ph-play-circle text-main-600"></i>
+          <span className="text-main-600">Platformu Tanıtan Videoyu İzle</span>
+          <i className="ph ph-arrow-right text-main-600"></i>
+        </Link>
+      </div>
     </section>
   );
 }
