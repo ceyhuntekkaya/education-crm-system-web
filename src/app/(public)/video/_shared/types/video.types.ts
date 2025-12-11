@@ -26,7 +26,6 @@ export interface VideoPlayerState {
 export interface VideoInfo {
   duration: string;
   publishDate: string;
-  viewCount: string;
   status: string;
 }
 

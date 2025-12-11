@@ -33,7 +33,6 @@ const VideoPage = () => {
   const videoInfo = {
     duration: videoDuration,
     publishDate: VIDEO_CONFIG.publishDate,
-    viewCount: VIDEO_CONFIG.viewCount,
     status: "Hazır",
   };
 

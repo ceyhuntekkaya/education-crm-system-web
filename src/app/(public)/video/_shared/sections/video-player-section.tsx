@@ -96,8 +96,8 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
 
       {/* Video Info Bar */}
       <div className="video-info-bar">
-        <div className="row g-3">
-          <div className="col-6 col-md-3">
+        <div className="row g-3 justify-content-center">
+          <div className="col-6 col-md-4">
             <div className="video-info-item">
               <i className="ph ph-play-circle"></i>
               <div>
@@ -106,7 +106,7 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
               </div>
             </div>
           </div>
-          <div className="col-6 col-md-3">
+          <div className="col-6 col-md-4">
             <div className="video-info-item">
               <i
                 className={`ph ${
@@ -121,21 +121,12 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
               </div>
             </div>
           </div>
-          <div className="col-6 col-md-3">
+          <div className="col-6 col-md-4">
             <div className="video-info-item">
               <i className="ph ph-calendar"></i>
               <div>
-                <span className="label">Tarih</span>
+                <span className="label">Yayın Tarihi</span>
                 <span className="value">{videoInfo.publishDate}</span>
-              </div>
-            </div>
-          </div>
-          <div className="col-6 col-md-3">
-            <div className="video-info-item">
-              <i className="ph ph-eye"></i>
-              <div>
-                <span className="label">Görüntülenme</span>
-                <span className="value">{videoInfo.viewCount}</span>
               </div>
             </div>
           </div>

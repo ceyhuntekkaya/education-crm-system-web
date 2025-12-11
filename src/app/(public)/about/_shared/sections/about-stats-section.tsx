@@ -1,11 +1,11 @@
 import React from "react";
-import type { VideoStat } from "../types";
+import type { AboutStat } from "../config/about-stats.config";
 
-interface VideoStatsSectionProps {
-  stats: readonly VideoStat[];
+interface AboutStatsSectionProps {
+  stats: AboutStat[];
 }
 
-export const VideoStatsSection: React.FC<VideoStatsSectionProps> = ({
+export const AboutStatsSection: React.FC<AboutStatsSectionProps> = ({
   stats,
 }) => {
   return (
@@ -19,9 +19,7 @@ export const VideoStatsSection: React.FC<VideoStatsSectionProps> = ({
         >
           <div className="about-stat-card">
             <div className={`about-stat-card__icon bg-${stat.color}-100`}>
-              <i
-                className={`ph-bold ${stat.icon} text-${stat.color}-600`}
-              ></i>
+              <i className={`ph-bold ${stat.icon} text-${stat.color}-600`}></i>
             </div>
             <h3 className="about-stat-card__value">{stat.value}</h3>
             <p className="about-stat-card__label">{stat.label}</p>

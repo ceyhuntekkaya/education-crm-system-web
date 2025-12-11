@@ -12,33 +12,32 @@ export const VIDEO_CONFIG = {
   
   // Video bilgileri
   publishDate: "11 Ara 2025",
-  viewCount: "1,250+",
 } as const;
 
 // Video istatistikleri
 export const VIDEO_STATS = [
   {
-    icon: "ph-users-three",
-    value: "10,000+",
-    label: "Aktif Kullanıcı",
+    icon: "ph-map-pin",
+    value: "Türkiye Geneli",
+    label: "Hizmet Ağı",
     color: "main",
   },
   {
-    icon: "ph-buildings",
-    value: "500+",
-    label: "Eğitim Kurumu",
+    icon: "ph-shield-check",
+    value: "Güvenli",
+    label: "Platform",
     color: "main-two",
-  },
-  {
-    icon: "ph-chart-line-up",
-    value: "%100",
-    label: "Memnuniyet",
-    color: "success",
   },
   {
     icon: "ph-clock",
     value: "7/24",
     label: "Destek",
+    color: "success",
+  },
+  {
+    icon: "ph-devices",
+    value: "Her Yerden",
+    label: "Erişim",
     color: "info",
   },
 ] as const;

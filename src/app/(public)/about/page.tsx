@@ -1,66 +1,91 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { TabNavigation, TabContent } from "@/components";
+import { useState } from "react";
+import { usePageTitle } from "@/hooks";
 import {
   AboutHeroSection,
+  AboutStatsSection,
+  AboutValuesSection,
+  AboutFeaturesSection,
+  AboutTabSection,
   MissionVisionSection,
-  BrandSection,
+  ParentAppSection,
+  InstitutionModulesSection,
   InfoSection,
 } from "./_shared/sections";
-import { getAboutTabs } from "./_shared/utils";
-import { usePageTitle } from "@/hooks";
+import {
+  ABOUT_STATS,
+  PLATFORM_VALUES,
+  parentFeatures,
+  institutionFeatures,
+} from "./_shared/config";
 
 const AboutPage = () => {
   usePageTitle("Hakkımızda");
-  const baseTabs = getAboutTabs();
-  const [activeTab, setActiveTab] = useState<"parent-tab" | "institution-tab">(
-    "parent-tab"
-  );
-
-  // Aktif tab'a göre tabs dizisini güncelle
-  const tabs = useMemo(() => {
-    return baseTabs.map((tab) => ({
-      ...tab,
-      isActive: tab.id === activeTab,
-    }));
-  }, [baseTabs, activeTab]);
-
-  const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId as "parent-tab" | "institution-tab");
-  };
+  const [activeTab, setActiveTab] = useState<"parent" | "institution">("parent");
 
   return (
     <div className="about-page">
       <div className="container">
-        {/* Hero Section */}
+        {/* Hero Section - Modern Tasarım */}
         <AboutHeroSection />
 
-        {/* Tab Navigation */}
-        <div className=" mb-40">
-          <div className="col-12">
-            <TabNavigation
-              tabs={tabs}
-              navigationId="about-tabs"
-              size="md"
-              allowMultiline={false}
-              center={true}
-              onTabChange={handleTabChange}
-            />
-          </div>
-        </div>
+        {/* İstatistikler */}
+        <AboutStatsSection stats={ABOUT_STATS} />
 
-        {/* Tab Content */}
-        <TabContent tabs={tabs} contentId="about-tabs-content" />
-
-        {/* Ortak Misyon & Vizyon */}
+        {/* Misyon & Vizyon */}
         <MissionVisionSection />
 
-        {/* Eğitim İste Logo Section */}
-        <BrandSection />
+        {/* Değerlerimiz */}
+        <AboutValuesSection values={PLATFORM_VALUES} />
 
-        {/* İletişim Bilgisi - Tab'a göre değişen içerik */}
-        <InfoSection activeTab={activeTab} />
+        {/* Tab Navigation - Veliler ve Kurumlar İçin */}
+        <AboutTabSection activeTab={activeTab} onTabChange={setActiveTab} />
+
+        {/* Veliler İçin İçerik */}
+        {activeTab === "parent" && (
+          <div className="about-tab-content" data-aos="fade-up">
+            {/* Veliler İçin Özellikler */}
+            <AboutFeaturesSection
+              title="Veliler İçin Özellikler"
+              subtitle="Çocuğunuz için en doğru eğitim kurumunu bulmanın kolay yolu"
+              features={parentFeatures}
+              targetAudience="parent"
+            />
+
+            {/* Eğitim İste'yi Cebinize İndirin - Eski Tasarım Korundu */}
+            <div className="row mb-40">
+              <div className="col-12">
+                <ParentAppSection />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Kurumlar İçin İçerik */}
+        {activeTab === "institution" && (
+          <div className="about-tab-content" data-aos="fade-up">
+            {/* Kurumlar İçin Özellikler */}
+            <AboutFeaturesSection
+              title="Eğitim Kurumları İçin Özellikler"
+              subtitle="Kurumunuzu dijital dünyada öne çıkarın"
+              features={institutionFeatures}
+              targetAudience="institution"
+            />
+
+            {/* Kurumunuzu Dijitale Taşıyın - Eski Tasarım Korundu */}
+            <div className="row mb-40">
+              <div className="col-12">
+                <InstitutionModulesSection />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* İletişim Bilgisi - Tab'a Göre Değişen İçerik */}
+        <InfoSection
+          activeTab={activeTab === "parent" ? "parent-tab" : "institution-tab"}
+        />
       </div>
     </div>
   );
