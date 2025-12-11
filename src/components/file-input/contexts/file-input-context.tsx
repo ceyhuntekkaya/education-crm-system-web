@@ -35,10 +35,15 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   onUpload,
   onUploadSuccess,
   onUploadError,
+  isCropPreview = false,
+  cropWidth,
+  cropHeight,
+  cropAspectRatio,
+  onCropComplete,
   children,
 }) => {
   // Form context'ten value al (eğer name varsa)
-  const { getValue } = useForm();
+  const { getValue, setValue } = useForm();
   const formInitialValue = name ? getValue(name) : undefined;
 
   // initialValue prop'u varsa onu kullan, yoksa form'dan gelen değeri kullan
@@ -91,7 +96,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
   // Combined loading state
   const isLoading = loading || externalLoading || internalLoading;
 
-  // Upload hook - handleUpload fonksiyonunu sağlar
+  // Upload hook - handleUpload fonksiyonunu sağlar (crop'tan önce tanımla)
   const { handleUpload } = useFileUpload({
     files,
     name,
@@ -102,6 +107,79 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     setInternalLoading, // Loading state setter'ını geç
     markFilesAsUploaded, // Yükleme başarılı olunca dosyaları işaretle
   });
+
+  // Crop modal state
+  const [isCropModalOpen, setIsCropModalOpen] = React.useState(false);
+  const [cropFile, setCropFile] = React.useState<any | null>(null);
+
+  const openCropModal = React.useCallback((file: any) => {
+    setCropFile(file);
+    setIsCropModalOpen(true);
+  }, []);
+
+  const closeCropModal = React.useCallback(() => {
+    setIsCropModalOpen(false);
+    setCropFile(null);
+  }, []);
+
+  const handleCropSave = React.useCallback(
+    async (croppedFile: File) => {
+      try {
+        setInternalLoading(true);
+
+        // Callback varsa çağır
+        if (onCropComplete) {
+          onCropComplete(croppedFile);
+        }
+
+        // Kırpılmış resme preview URL'i ekle - ÖNCE bunu yap ki processFiles içinde korunsun
+        const previewUrl = URL.createObjectURL(croppedFile);
+        Object.defineProperty(croppedFile, "preview", {
+          value: previewUrl,
+          writable: true,
+          enumerable: true,
+          configurable: true,
+        });
+
+        console.log("🎨 Crop save - Preview URL eklendi:", previewUrl);
+
+        console.log(
+          "📤 Crop save - handleUpload çağrılıyor (kırpılmış dosya ile)..."
+        );
+
+        // CROP SONRASI OTOMATIK UPLOAD - kırpılmış dosyayı direkt gönder
+        // State güncellemesini beklemeye gerek yok, dosyayı parametre olarak gönder
+        await handleUpload([croppedFile]);
+
+        console.log("✅ Crop save - handleUpload tamamlandı!");
+
+        // Upload başarılı olduktan SONRA files state'ine ekle (preview için)
+        const fileList = new DataTransfer();
+        fileList.items.add(croppedFile);
+        await processFiles(fileList.files);
+
+        closeCropModal();
+      } catch (error: any) {
+        const errorMessage = error?.message || "Crop islemi basarisiz oldu";
+        handleInternalError(errorMessage);
+
+        if (onUploadError) {
+          onUploadError(errorMessage);
+        }
+      } finally {
+        setInternalLoading(false);
+      }
+    },
+    [
+      onCropComplete,
+      closeCropModal,
+      setInternalLoading,
+      handleInternalError,
+      processFiles,
+      handleUpload,
+      onUploadError,
+    ]
+  );
 
   // Context handlers hook - Event handler'lar
   const { handleFileSelect, onDrop, handleUploadAreaClick } =
@@ -151,6 +229,13 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     openPreview,
     closePreview,
 
+    // Crop Modal
+    isCropModalOpen,
+    cropFile,
+    openCropModal,
+    closeCropModal,
+    handleCropSave,
+
     // File Input Ref
     fileInputRef,
     openFileDialog,
@@ -172,6 +257,13 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     name,
     onUploadSuccess,
     onUploadError,
+
+    // Crop Configuration
+    isCropPreview,
+    cropWidth,
+    cropHeight,
+    cropAspectRatio,
+    onCropComplete,
   };
 
   return (

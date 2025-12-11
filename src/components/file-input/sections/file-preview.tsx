@@ -14,8 +14,16 @@ interface FilePreviewProps {
 
 export const FilePreview: React.FC<FilePreviewProps> = () => {
   // Context'ten tüm gerekli verileri al
-  const { files, type, multiple, disabled, openPreview, removeFile } =
-    useFileInputContext();
+  const {
+    files,
+    type,
+    multiple,
+    disabled,
+    openPreview,
+    removeFile,
+    isCropPreview,
+    openCropModal,
+  } = useFileInputContext();
   if (files.length === 0) return null;
 
   // Dosyaları türlerine göre gruplandır (type="all" olduğunda)
@@ -55,13 +63,33 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
     }
   };
 
+  const handleImageClick = (file: FileWithPreview) => {
+    // Eğer crop preview aktifse crop modal'ı aç, değilse normal preview
+    if (isCropPreview && file.type?.startsWith("image/")) {
+      openCropModal(file);
+    } else {
+      openPreview(file);
+    }
+  };
+
   const renderFileContent = (file: FileWithPreview) => {
+    console.log("🖼️ renderFileContent:", {
+      name: file.name,
+      type: file.type,
+      preview: file.preview?.substring(0, 50) + "...",
+      isImage: file.type?.startsWith("image/"),
+    });
+
     if (file.type?.startsWith("image/") && file.preview) {
       return (
         <div
           className="position-relative cursor-pointer overflow-hidden rounded-12 file-preview-content"
-          onClick={() => openPreview(file)}
-          title="Büyük görünüm için tıklayın"
+          onClick={() => handleImageClick(file)}
+          title={
+            isCropPreview
+              ? "Kırpmak için tıklayın"
+              : "Büyük görünüm için tıklayın"
+          }
         >
           <CustomImage
             key={file.preview}
@@ -77,7 +105,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
           <div className="preview-overlay">
             <div className="bg-white bg-opacity-90 rounded-circle p-8 d-flex align-items-center justify-content-center">
               <Icon
-                icon="ph-magnifying-glass-plus"
+                icon={isCropPreview ? "ph-crop" : "ph-magnifying-glass-plus"}
                 size="lg"
                 className="text-main-600"
               />
@@ -92,7 +120,7 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
         return (
           <div
             className="position-relative cursor-pointer overflow-hidden rounded-12 file-preview-content"
-            onClick={() => openPreview(file)}
+            onClick={() => handleImageClick(file)}
             title="Oynatmak için tıklayın"
           >
             <video
@@ -219,6 +247,13 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
     // Placeholder file mı kontrol et (size = 0 veya isUploaded flag)
     const isPlaceholder = file.size === 0 || (file as any).isUploaded;
 
+    console.log("🎴 renderFileCard:", {
+      index,
+      fileName: file.name,
+      preview: file.preview?.substring(0, 50),
+      isPlaceholder,
+    });
+
     return (
       <div key={index}>
         <div className="bg-white rounded-16 p-16 position-relative overflow-hidden d-flex flex-column box-shadow-md hover-box-shadow-lg transition-all h-100">
@@ -227,7 +262,15 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
             <Icon
               icon="ph-x"
               size="md"
-              onClick={() => removeFile(index)}
+              onClick={() => {
+                console.log("❌ Kaldır butonuna tıklandı:", {
+                  index,
+                  fileName: file.name,
+                  preview: file.preview?.substring(0, 50),
+                });
+                // File object'i gönder (index yerine)
+                removeFile(file);
+              }}
               variant="outline-danger"
               className="file-remove-icon"
             />

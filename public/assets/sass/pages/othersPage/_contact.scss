@@ -23,6 +23,12 @@
     .contact-item__icon {
         transition: 0s !important;
     }
+    
+    // Mobile responsive padding
+    @media (max-width: 768px) {
+        padding: 20px 16px !important;
+        gap: 16px !important;
+    }
 }
 
 /* Contact Card Styles */
@@ -82,6 +88,17 @@
     overflow: hidden;
     background-color: var(--main-25, #e8f4fc);
     
+    // Mobile responsive padding
+    @media (max-width: 768px) {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+    
+    @media (max-width: 576px) {
+        padding-top: 32px !important;
+        padding-bottom: 32px !important;
+    }
+    
     &__wave-bg {
         position: absolute;
         top: 0;
@@ -112,5 +129,63 @@
         position: relative;
         z-index: 1;
     }
+    
+    // Form card padding
+    .p-24 {
+        @media (max-width: 768px) {
+            padding: 16px !important;
+        }
+        
+        @media (max-width: 576px) {
+            padding: 12px !important;
+        }
+    }
+    
+    // Inner form padding
+    .bg-main-25.p-24 {
+        @media (max-width: 768px) {
+            padding: 16px !important;
+        }
+        
+        @media (max-width: 576px) {
+            padding: 12px !important;
+        }
+    }
 }
+
+/* Contact Section Mobile Responsive */
+.contact {
+    @media (max-width: 768px) {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
+    
+    @media (max-width: 576px) {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }
+}
+
+/* Section Heading Mobile */
+.section-heading {
+    @media (max-width: 768px) {
+        margin-bottom: 20px;
+        
+        h2 {
+            font-size: 1.75rem !important;
+            margin-bottom: 16px !important;
+        }
+        
+        p {
+            font-size: 0.938rem !important;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        h2 {
+            font-size: 1.5rem !important;
+        }
+    }
+}
+
 /* ========================= Contact Page Css End =========================== */

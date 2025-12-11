@@ -8,3 +8,7 @@ export * from "./mission-vision-section";
 export * from "./brand-section";
 export * from "./info-section";
 export * from "./parent-app-section";
+export * from "./about-stats-section";
+export * from "./about-values-section";
+export * from "./about-features-section";
+export * from "./about-tab-section";

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Button } from "@/components/ui";
-import { ParentAppSection } from "./parent-app-section";
 
 interface InfoSectionProps {
   activeTab?: "parent-tab" | "institution-tab";
@@ -38,15 +37,9 @@ const institutionServices = [
 export const InfoSection: React.FC<InfoSectionProps> = ({
   activeTab = "institution-tab",
 }) => {
-  // Veliler sekmesi için App Store/Play Store bölümü göster
+  // Sadece Kurumlar sekmesi için göster
   if (activeTab === "parent-tab") {
-    return (
-      <div className="row">
-        <div className="col-12">
-          <ParentAppSection />
-        </div>
-      </div>
-    );
+    return null;
   }
 
   // Kurumlar sekmesi için zengin tasarım
