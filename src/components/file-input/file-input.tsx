@@ -7,6 +7,7 @@ import {
   FileUploadArea,
   FilePreview,
   FilePreviewModal,
+  ImageCropModal,
   UploadButton,
 } from "./sections";
 
@@ -42,6 +43,14 @@ const FileInputContent: React.FC<
     // Configuration values from context
     multiple,
     disabled,
+    // Crop modal values
+    isCropModalOpen,
+    cropFile,
+    closeCropModal,
+    handleCropSave,
+    cropWidth,
+    cropHeight,
+    cropAspectRatio,
   } = useFileInputContext();
 
   return (
@@ -93,6 +102,21 @@ const FileInputContent: React.FC<
 
       {/* Preview Modal */}
       <FilePreviewModal />
+
+      {/* Crop Modal */}
+      {cropFile && (
+        <ImageCropModal
+          isOpen={isCropModalOpen}
+          imageSrc={cropFile.preview || URL.createObjectURL(cropFile)}
+          fileName={cropFile.name}
+          cropWidth={cropWidth}
+          cropHeight={cropHeight}
+          aspectRatio={cropAspectRatio}
+          isUploading={isLoading}
+          onClose={closeCropModal}
+          onSave={handleCropSave}
+        />
+      )}
     </div>
   );
 };
@@ -110,6 +134,13 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
 
   // Initial value
   initialValue,
+
+  // Crop props
+  isCropPreview = false,
+  cropWidth,
+  cropHeight,
+  cropAspectRatio,
+  onCropComplete,
 
   // Upload API props
   name,
@@ -130,6 +161,11 @@ export const FileInput: React.FC<SimpleFileInputProps> = ({
       loading={loading}
       isAutoUpload={isAutoUpload}
       initialValue={initialValue}
+      isCropPreview={isCropPreview}
+      cropWidth={cropWidth}
+      cropHeight={cropHeight}
+      cropAspectRatio={cropAspectRatio}
+      onCropComplete={onCropComplete}
       name={name}
       onUpload={onUpload}
       onUploadSuccess={onUploadSuccess}

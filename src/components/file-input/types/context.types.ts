@@ -21,6 +21,13 @@ export interface FileInputContextProps {
   // Initial Value
   initialValue?: string | any[]; // Form'dan gelen URL değeri veya array
 
+  // Crop props
+  isCropPreview?: boolean;
+  cropWidth?: number;
+  cropHeight?: number;
+  cropAspectRatio?: number;
+  onCropComplete?: (croppedFile: File) => void;
+
   // Upload API props
   name?: string;
   onUpload?: (files: File[]) => Promise<void>;
@@ -38,7 +45,7 @@ export interface FileInputContextValue {
   // File Management
   files: FileWithPreview[];
   processFiles: (fileList: FileList) => Promise<void>;
-  removeFile: (index: number) => void;
+  removeFile: (fileToRemove: FileWithPreview | number) => void;
   markFilesAsUploaded: (uploadedFilesData?: any[]) => void; // Yüklenen dosya metadata'sını alır
   hasNewFiles: boolean; // Yeni dosya var mı (placeholder olmayan)
 
@@ -68,6 +75,13 @@ export interface FileInputContextValue {
   openPreview: (file: FileWithPreview) => void;
   closePreview: () => void;
 
+  // Crop Modal
+  isCropModalOpen: boolean;
+  cropFile: FileWithPreview | null;
+  openCropModal: (file: FileWithPreview) => void;
+  closeCropModal: () => void;
+  handleCropSave: (croppedFile: File) => Promise<void>;
+
   // File Input Ref
   fileInputRef: React.RefObject<HTMLInputElement>;
   openFileDialog: () => void;
@@ -89,4 +103,11 @@ export interface FileInputContextValue {
   name?: string;
   onUploadSuccess?: (data: any) => void;
   onUploadError?: (error: string) => void;
+
+  // Crop Configuration
+  isCropPreview: boolean;
+  cropWidth?: number;
+  cropHeight?: number;
+  cropAspectRatio?: number;
+  onCropComplete?: (croppedFile: File) => void;
 }

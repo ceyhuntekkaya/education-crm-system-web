@@ -14,7 +14,10 @@ export interface UseFileUploadOptions {
   onUploadError?: (error: string) => void;
   onInternalError?: (error: string) => void;
   setInternalLoading?: (loading: boolean) => void; // Loading state setter
-  markFilesAsUploaded?: (uploadedFilesData?: any[]) => void; // Yüklenen dosya metadata'sını alır
+  markFilesAsUploaded?: (
+    uploadedFilesData?: any[],
+    replaceAll?: boolean
+  ) => void; // Yüklenen dosya metadata'sını alır, replaceAll=true ise tüm dosyaları değiştirir
 }
 
 // ============================================

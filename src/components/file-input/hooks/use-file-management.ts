@@ -203,6 +203,15 @@ export const useFileManagement = (props: {
           fileArray.map(async (file) => {
             const fileWithPreview = file as FileWithPreview;
 
+            // Eğer dosyada zaten preview varsa (crop'tan geliyorsa), onu koru
+            if (fileWithPreview.preview) {
+              console.log(
+                "✅ Preview zaten var, yeniden oluşturulmayacak:",
+                fileWithPreview.preview
+              );
+              return fileWithPreview;
+            }
+
             // Resim dosyaları için data URL oluştur
             if (
               file.type?.startsWith("image/") &&
@@ -259,9 +268,47 @@ export const useFileManagement = (props: {
 
   // Dosya silme
   const removeFile = useCallback(
-    (index: number) => {
-      const updatedFiles = files.filter((_, i) => i !== index);
+    (fileToRemove: FileWithPreview | number) => {
+      // Index veya file object kabul et
+      let indexToRemove: number;
+
+      if (typeof fileToRemove === "number") {
+        // Index verilmiş
+        indexToRemove = fileToRemove;
+      } else {
+        // File object verilmiş - preview URL'e göre bul
+        indexToRemove = files.findIndex((f) => {
+          // Preview URL ile eşleştir (en güvenilir)
+          if (f.preview && fileToRemove.preview) {
+            return f.preview === fileToRemove.preview;
+          }
+          // Fallback: name + lastModified ile eşleştir
+          return (
+            f.name === fileToRemove.name &&
+            f.lastModified === fileToRemove.lastModified
+          );
+        });
+
+        if (indexToRemove === -1) {
+          console.error("❌ removeFile - Dosya bulunamadı:", fileToRemove.name);
+          return;
+        }
+      }
+
+      console.log("🗑️ removeFile çağrıldı:", {
+        index: indexToRemove,
+        fileName: files[indexToRemove]?.name,
+        totalFiles: files.length,
+        method: typeof fileToRemove === "number" ? "index" : "file-object",
+      });
+
+      const updatedFiles = files.filter((_, i) => i !== indexToRemove);
       setFiles(updatedFiles);
+
+      console.log("✅ removeFile sonrası:", {
+        kalan: updatedFiles.length,
+        kaldırılan: files[indexToRemove]?.name,
+      });
 
       // Dosya silindiğinde hataları temizle
       onError?.("");
@@ -274,7 +321,7 @@ export const useFileManagement = (props: {
 
   // Dosyaları "yüklenmiş" olarak işaretle
   const markFilesAsUploaded = useCallback(
-    (uploadedFilesData?: any[]) => {
+    (uploadedFilesData?: any[], replaceAll?: boolean) => {
       // Eğer server response'u varsa, ondan placeholder dosyalar oluştur
       if (uploadedFilesData && Array.isArray(uploadedFilesData)) {
         const placeholderFiles: FileWithPreview[] = uploadedFilesData.map(
@@ -292,7 +339,40 @@ export const useFileManagement = (props: {
                 ? rawFileUrl
                 : getFileServeUrl(rawFileUrl);
 
-            const mimeType = fileData.mimeType || "application/octet-stream";
+            // MIME type'ı belirle - documentType veya dosya uzantısından
+            let mimeType = fileData.mimeType;
+
+            if (!mimeType) {
+              // documentType'tan MIME type çıkar
+              const docType = fileData.documentType;
+              if (docType === "IMAGE") {
+                // Dosya uzantısına göre tam MIME type belirle
+                const ext = fileName.split(".").pop()?.toLowerCase();
+                if (ext === "png") mimeType = "image/png";
+                else if (ext === "jpg" || ext === "jpeg")
+                  mimeType = "image/jpeg";
+                else if (ext === "webp") mimeType = "image/webp";
+                else if (ext === "gif") mimeType = "image/gif";
+                else if (ext === "svg") mimeType = "image/svg+xml";
+                else mimeType = "image/jpeg"; // Default image type
+              } else if (docType === "VIDEO") {
+                mimeType = "video/mp4";
+              } else if (docType === "AUDIO") {
+                mimeType = "audio/mpeg";
+              } else if (docType === "DOCUMENT") {
+                mimeType = "application/pdf";
+              } else {
+                mimeType = "application/octet-stream";
+              }
+            }
+
+            console.log("🔍 markFilesAsUploaded DEBUG:", {
+              rawFileUrl,
+              fileUrl,
+              fileName,
+              documentType: fileData.documentType,
+              mimeType,
+            });
 
             // Placeholder file oluştur
             const placeholderFile = {
@@ -316,7 +396,34 @@ export const useFileManagement = (props: {
           }
         );
 
-        setFiles(placeholderFiles);
+        // replaceAll true ise: Tüm dosyaları değiştir (çoklu upload için - allItems zaten birleştirilmiş)
+        // replaceAll false ise: Eski dosyaları koru, yeni dosyaları ekle (normal upload için)
+        let allFiles: FileWithPreview[];
+
+        if (replaceAll === true) {
+          // Tüm listeyi değiştir (use-file-upload.ts'den allItems geliyorsa)
+          allFiles = placeholderFiles;
+          console.log(
+            "📁 markFilesAsUploaded - Tüm dosyalar değiştirildi (replaceAll=true):",
+            {
+              totalCount: allFiles.length,
+            }
+          );
+        } else {
+          // Eski dosyaları koru, yeni dosyaları ekle
+          const oldUploadedFiles = files.filter((f) => (f as any).isUploaded);
+          allFiles = [...oldUploadedFiles, ...placeholderFiles];
+          console.log(
+            "📁 markFilesAsUploaded - Dosyalar eklendi (replaceAll=false):",
+            {
+              oldCount: oldUploadedFiles.length,
+              newCount: placeholderFiles.length,
+              totalCount: allFiles.length,
+            }
+          );
+        }
+
+        setFiles(allFiles);
       } else {
         // Response yoksa, mevcut dosyaları işaretle (eski davranış)
         const uploadedFiles = files.map((file) => {

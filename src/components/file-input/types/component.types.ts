@@ -65,6 +65,13 @@ export interface SimpleFileInputProps {
   // Initial Value
   initialValue?: string | any[]; // Form'dan gelen URL değeri veya array
 
+  // Crop props - Resim kırpma özellikleri
+  isCropPreview?: boolean; // true ise resim önizlemede crop yapılabilir
+  cropWidth?: number; // Kırpma alanı genişliği (px)
+  cropHeight?: number; // Kırpma alanı yüksekliği (px)
+  cropAspectRatio?: number; // Aspect ratio (örn: 16/9, 4/3) - cropWidth/cropHeight'tan otomatik hesaplanabilir
+  onCropComplete?: (croppedFile: File) => void; // Crop işlemi tamamlandığında çağrılır
+
   // Upload API props - HEPSİ OPSİYONEL
   name?: string; // Form field name - FormInput gibi çalışır, uploadType ile aynı işlevi görür
   onUpload?: (files: File[]) => Promise<void>; // Custom upload handler
