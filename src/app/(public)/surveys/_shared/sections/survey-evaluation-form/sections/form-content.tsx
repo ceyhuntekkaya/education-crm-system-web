@@ -56,22 +56,21 @@ export const SurveyEvaluationFormContent: React.FC = () => {
 
   if (!survey.questionResponses?.length) {
     return (
-      <div
-        className="text-center py-32"
-        data-aos="fade-in"
-        data-aos-duration="400"
-      >
-        <div className="mb-16">
+      <div className="text-center py-8">
+        <div className="mb-4">
           <Icon
             icon="ph-question"
-            className="text-neutral-300 text-4xl"
-            size="lg"
+            className="text-neutral-400"
+            style={{ fontSize: "4rem" }}
           />
         </div>
-        <h6 className="text-neutral-600 mb-8">
+        <h5 className="text-neutral-700 fw-semibold mb-2">
           Henüz Soru Response&apos;u Yok
-        </h6>
-        <p className="text-neutral-500 text-sm">
+        </h5>
+        <p
+          className="text-neutral-500 mb-0"
+          style={{ maxWidth: "400px", margin: "0 auto" }}
+        >
           Bu ankette henüz soru response&apos;u bulunmamaktadır.
         </p>
       </div>
@@ -80,23 +79,23 @@ export const SurveyEvaluationFormContent: React.FC = () => {
 
   if (!ratingStarQuestions.length) {
     return (
-      <div
-        className="text-center py-32"
-        data-aos="fade-in"
-        data-aos-duration="400"
-      >
-        <div className="mb-16">
+      <div className="text-center py-8">
+        <div className="mb-4">
           <Icon
             icon="ph-star"
-            className="text-warning-300 text-4xl"
-            size="lg"
+            className="text-neutral-400"
+            style={{ fontSize: "4rem" }}
           />
         </div>
-        <h6 className="text-neutral-600 mb-8">Değerlendirilebilir Soru Yok</h6>
-        <p className="text-neutral-500 text-sm">
-          Bu ankette değerlendirilebilir soru bulunmamaktadır.
-          <br />
-          Sadece yıldız değerlendirme tipindeki sorular desteklenmektedir.
+        <h5 className="text-neutral-700 fw-semibold mb-2">
+          Değerlendirilebilir Soru Yok
+        </h5>
+        <p
+          className="text-neutral-500 mb-0"
+          style={{ maxWidth: "400px", margin: "0 auto" }}
+        >
+          Bu ankette değerlendirilebilir soru bulunmamaktadır. Sadece yıldız
+          değerlendirme tipindeki sorular desteklenmektedir.
         </p>
       </div>
     );
@@ -105,25 +104,14 @@ export const SurveyEvaluationFormContent: React.FC = () => {
   return (
     <div className="survey-evaluation-content">
       {/* SURVEY HEADER */}
-      <div className="mb-32" data-aos="fade-down" data-aos-duration="400">
-        <div className="text-center mb-24">
-          <h4 className="text-neutral-800 mb-8">
-            {survey.surveyTitle || "Anket Değerlendirmesi"}
-          </h4>
-          <p className="text-neutral-600 mb-0">
-            Lütfen aşağıdaki soruları değerlendirerek görüşlerinizi paylaşın.
-          </p>
-        </div>
-
-        <div className="bg-primary-50 border border-neutral-30 rounded-12 p-16">
-          <div className="d-flex align-items-center gap-12">
-            <Icon
-              icon="ph-info"
-              className="text-primary-600 mt-2 flex-shrink-0"
-            />
-            <p className="text-primary-800 mb-0 text-sm">
-              Bu anketteki her soru için 1-5 yıldız arasında değerlendirme
-              yapabilirsiniz.
+      <div className="bg-main-25 border border-neutral-30 rounded-12 p-md-24 p-16 mb-md-20 mb-16">
+        <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div>
+            <h2 className="text-neutral-800 fw-bold fs-md-20 fs-16 mb-md-8 mb-6">
+              {survey.surveyTitle || "Anket Değerlendirmesi"}
+            </h2>
+            <p className="text-neutral-600 mb-0 fs-md-14 fs-12">
+              Lütfen aşağıdaki soruları değerlendirerek görüşlerinizi paylaşın
             </p>
           </div>
         </div>
@@ -143,47 +131,58 @@ export const SurveyEvaluationFormContent: React.FC = () => {
               const fieldName = `question_${question.questionId}`;
 
               return (
-                <div key={question.questionId} className="question-item mb-24">
-                  <div className="bg-white border border-neutral-30 rounded-12 p-24">
-                    <div className="row align-items-center">
-                      {/* Sol taraf - Soru */}
-                      <div className="col-8">
-                        <div className="d-flex align-items-start gap-16">
-                          <div className="question-number w-32 h-32 bg-main-600 text-white rounded-circle d-flex align-items-center justify-content-center text-sm fw-bold flex-shrink-0">
-                            {index + 1}
-                          </div>
-                          <div className="w-100">
-                            <h6 className="text-neutral-800 mb-8 fw-medium text-lg">
-                              {question.questionText}
-                            </h6>
-                            <p className="text-neutral-500 text-sm mb-0">
-                              {question.ratingCategory ===
-                                "OVERALL_SATISFACTION" &&
-                                "Genel memnuniyet düzeyinizi değerlendirin"}
-                              {question.ratingCategory ===
-                                "STAFF_FRIENDLINESS" &&
-                                "Personel hizmet kalitesini değerlendirin"}
-                              {question.ratingCategory === "CLEANLINESS" &&
-                                "Temizlik düzeyini değerlendirin"}
-                              {question.ratingCategory === "FACILITIES" &&
-                                "Tesis kalitesini değerlendirin"}
-                              {question.ratingCategory === "COMMUNICATION" &&
-                                "İletişim kalitesini değerlendirin"}
-                            </p>
-                          </div>
-                        </div>
+                <div
+                  key={question.questionId}
+                  className="question-item mb-md-16 mb-12"
+                  data-aos="fade-up"
+                  data-aos-duration="400"
+                >
+                  <div className="bg-white border border-neutral-30 rounded-12 p-md-24 p-16">
+                    {/* Question Header */}
+                    <div className="d-flex align-items-start gap-md-12 gap-10 mb-md-16 mb-12">
+                      <div
+                        className="question-number d-flex align-items-center justify-content-center bg-main-600 text-white rounded-circle flex-shrink-0"
+                        style={{
+                          width: "28px",
+                          height: "28px",
+                          fontSize: "13px",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {index + 1}
                       </div>
+                      <div className="flex-grow-1">
+                        <h5 className="text-neutral-700 mb-md-4 mb-2 fw-semibold fs-md-14 fs-13 lh-sm">
+                          {question.questionText}
+                        </h5>
+                        {question.ratingCategory && (
+                          <p className="text-neutral-500 fs-md-12 fs-11 mb-0 lh-base">
+                            {question.ratingCategory ===
+                              "OVERALL_SATISFACTION" && "Genel memnuniyet"}
+                            {question.ratingCategory === "STAFF_FRIENDLINESS" &&
+                              "Personel hizmeti"}
+                            {question.ratingCategory === "CLEANLINESS" &&
+                              "Temizlik"}
+                            {question.ratingCategory === "FACILITIES" &&
+                              "Tesis kalitesi"}
+                            {question.ratingCategory === "COMMUNICATION" &&
+                              "İletişim"}
+                          </p>
+                        )}
+                      </div>
+                    </div>
 
-                      {/* Sağ taraf - Rating */}
-                      <div className="col-4">
-                        <div className="rating-section d-flex justify-content-end">
-                          <FormStarIcon
-                            name={fieldName}
-                            max={5}
-                            size="lg"
-                            required={true}
-                          />
-                        </div>
+                    <span className="d-block border border-neutral-30 mb-md-16 mb-12 border-dashed" />
+
+                    {/* Rating Section */}
+                    <div className="rating-section py-md-4 py-2">
+                      <div className="d-flex justify-content-center">
+                        <FormStarIcon
+                          name={fieldName}
+                          max={5}
+                          size="lg"
+                          required={true}
+                        />
                       </div>
                     </div>
                   </div>
@@ -193,48 +192,73 @@ export const SurveyEvaluationFormContent: React.FC = () => {
         </div>
 
         {/* FORM ACTIONS */}
-        <div
-          className="mt-40 pt-24 border-t border-neutral-30"
-          data-aos="fade-up"
-          data-aos-duration="400"
-          data-aos-delay="200"
-        >
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center gap-8">
-              <Icon icon="ph-star-four" className="text-warning-500" />
-              <span className="text-sm text-neutral-600">
-                {ratingStarQuestions.length} soru değerlendirilecek
-              </span>
-            </div>
+        <div className="mt-md-20 mt-16">
+          <span className="d-block border border-neutral-30 mb-md-16 mb-12 border-dashed" />
 
-            <div className="d-flex gap-12">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleCancel}
-                disabled={submissionLoading}
-              >
-                İptal
-              </Button>
-              <Button
-                type="submit"
-                disabled={hasErrors || submissionLoading}
-                loading={submissionLoading}
-                leftIcon="ph-paper-plane-tilt"
-              >
-                Değerlendirmeyi Gönder
-              </Button>
+          <div className="bg-white border border-neutral-30 rounded-12 p-md-20 p-16 mb-md-16 mb-12">
+            <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between gap-md-12 gap-16">
+              <div className="d-flex align-items-center gap-md-10 gap-8">
+                <div
+                  className="d-flex align-items-center justify-content-center bg-main-50 rounded-circle flex-shrink-0"
+                  style={{ width: "36px", height: "36px" }}
+                >
+                  <i className="ph ph-clipboard-text text-main-600 fs-18" />
+                </div>
+                <div>
+                  <p className="text-neutral-700 fw-semibold mb-0 fs-md-13 fs-12">
+                    {ratingStarQuestions.length} soru değerlendirilecek
+                  </p>
+                  <p className="text-neutral-500 mb-0 fs-md-11 fs-10">
+                    Tüm soruları yanıtladığınızdan emin olun
+                  </p>
+                </div>
+              </div>
+
+              <div className="d-flex gap-md-8 gap-10 w-100 w-md-auto">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCancel}
+                  disabled={submissionLoading}
+                  className="flex-grow-1 flex-md-grow-0 py-md-2 py-10"
+                >
+                  İptal
+                </Button>
+                <Button
+                  type="submit"
+                  variant="inline"
+                  size="sm"
+                  disabled={hasErrors || submissionLoading}
+                  loading={submissionLoading}
+                  leftIcon="ph-paper-plane-tilt"
+                  className="flex-grow-1 flex-md-grow-0 py-md-2 py-10"
+                >
+                  Gönder
+                </Button>
+              </div>
             </div>
           </div>
 
           {/* THANK YOU MESSAGE */}
-          <div className="text-center mt-24 pt-20 border-t border-neutral-30">
-            <p className="text-neutral-700 text-lg fw-medium mb-0">
-              Anketimize katıldığınız için teşekkür ederiz!
-            </p>
-            <p className="text-neutral-500 text-sm mt-8">
-              Değerlendirmeniz bizim için çok değerli
-            </p>
+          <div className="bg-main-25 border border-neutral-30 rounded-12 p-md-20 p-14">
+            <div className="d-flex align-items-center gap-md-10 gap-8">
+              <div
+                className="d-flex align-items-center justify-content-center bg-main-50 rounded-circle flex-shrink-0"
+                style={{ width: "36px", height: "36px" }}
+              >
+                <i className="ph-fill ph-heart text-main-600 fs-18" />
+              </div>
+              <div>
+                <p className="text-neutral-700 fw-semibold mb-0 fs-md-13 fs-12">
+                  Teşekkür Ederiz!
+                </p>
+                <p className="text-neutral-500 mb-0 fs-md-11 fs-10">
+                  Görüşleriniz bizim için çok değerli ve hizmet kalitemizi
+                  geliştirmemize yardımcı oluyor
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </Form>

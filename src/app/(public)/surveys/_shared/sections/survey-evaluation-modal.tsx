@@ -20,13 +20,14 @@ export const SurveyEvaluationModal: React.FC = () => {
       isOpen={evaluationModalOpen}
       onClose={closeEvaluationModal}
       size="lg"
-      className="max-w-3xl"
+      className="max-w-3xl mx-md-16 mx-12"
     >
       <ModalHeader
         title="Anket Değerlendirmesi"
         onClose={closeEvaluationModal}
+        className="py-md-16 py-12 px-md-20 px-16"
       />
-      <ModalBody className="max-h-[70vh] overflow-y-auto">
+      <ModalBody className="max-h-[75vh] overflow-y-auto p-md-20 p-12">
         <SurveyEvaluationForm />
       </ModalBody>
     </Modal>
