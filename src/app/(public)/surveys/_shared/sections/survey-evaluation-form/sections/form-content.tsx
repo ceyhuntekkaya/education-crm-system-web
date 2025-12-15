@@ -192,47 +192,47 @@ export const SurveyEvaluationFormContent: React.FC = () => {
         </div>
 
         {/* FORM ACTIONS */}
-        <div className="mt-md-20 mt-16">
-          <span className="d-block border border-neutral-30 mb-md-16 mb-12 border-dashed" />
-
+        <div className="mt-md-24 mt-20">
           <div className="bg-white border border-neutral-30 rounded-12 p-md-20 p-16 mb-md-16 mb-12">
-            <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between gap-md-12 gap-16">
-              <div className="d-flex align-items-center gap-md-10 gap-8">
+            <div className="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-md-16 gap-20">
+              {/* Info Section - Sol taraf */}
+              <div className="d-flex align-items-center gap-md-12 gap-10 flex-shrink-0">
                 <div
                   className="d-flex align-items-center justify-content-center bg-main-50 rounded-circle flex-shrink-0"
-                  style={{ width: "36px", height: "36px" }}
+                  style={{ width: "40px", height: "40px" }}
                 >
-                  <i className="ph ph-clipboard-text text-main-600 fs-18" />
+                  <i className="ph ph-clipboard-text text-main-600 fs-20" />
                 </div>
-                <div>
-                  <p className="text-neutral-700 fw-semibold mb-0 fs-md-13 fs-12">
+                <div style={{ whiteSpace: "nowrap" }}>
+                  <p className="text-neutral-700 fw-semibold mb-4 fs-md-14 fs-13 lh-sm">
                     {ratingStarQuestions.length} soru değerlendirilecek
                   </p>
-                  <p className="text-neutral-500 mb-0 fs-md-11 fs-10">
+                  <p className="text-neutral-500 mb-0 fs-md-12 fs-11 lh-sm">
                     Tüm soruları yanıtladığınızdan emin olun
                   </p>
                 </div>
               </div>
 
-              <div className="d-flex gap-md-8 gap-10 w-100 w-md-auto">
+              {/* Buttons Section - Sağ taraf (Desktop) / Full width (Mobile) */}
+              <div className="d-flex flex-row gap-md-10 gap-10 w-100 w-md-auto justify-content-md-end">
                 <Button
                   type="button"
                   variant="outline"
-                  size="sm"
+                  size="md"
                   onClick={handleCancel}
                   disabled={submissionLoading}
-                  className="flex-grow-1 flex-md-grow-0 py-md-2 py-10"
+                  className="flex-grow-1 flex-md-grow-0"
                 >
                   İptal
                 </Button>
                 <Button
                   type="submit"
                   variant="inline"
-                  size="sm"
+                  size="md"
                   disabled={hasErrors || submissionLoading}
                   loading={submissionLoading}
                   leftIcon="ph-paper-plane-tilt"
-                  className="flex-grow-1 flex-md-grow-0 py-md-2 py-10"
+                  className="flex-grow-1 flex-md-grow-0"
                 >
                   Gönder
                 </Button>
