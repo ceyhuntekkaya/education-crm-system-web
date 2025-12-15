@@ -6,3 +6,4 @@ export {
   AppointmentTableError,
   type AppointmentTableErrorProps,
 } from "./appointment-table-error";
+export { AppointmentStatistics } from "./appointment-statistics";
