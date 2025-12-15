@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useMemo } from "react";
 import { CustomImage } from "@/components/ui";
 import { getFileServeUrl } from "@/lib/api/constants";
-import "./media-gallery.scss";
 
 export interface MediaGalleryItem {
   id?: number;
@@ -38,6 +37,21 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
   initialIndex = 0,
   onIndexChange,
 }) => {
+  // Medya öğelerini sırala: önce resimler, sonra videolar, ardından dökümanlar
+  const sortedItems = useMemo(() => {
+    const itemTypeOrder: Record<string, number> = {
+      IMAGE: 1,
+      VIDEO: 2,
+      DOCUMENT: 3,
+    };
+
+    return [...items].sort((a, b) => {
+      const orderA = itemTypeOrder[a.itemType || ""] || 999;
+      const orderB = itemTypeOrder[b.itemType || ""] || 999;
+      return orderA - orderB;
+    });
+  }, [items]);
+
   const [currentItemIndex, setCurrentItemIndex] = useState(initialIndex);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -87,11 +101,11 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
     return getFileServeUrl(url);
   };
 
-  const hasItems = items && items.length > 0;
-  const currentItem = hasItems ? items[currentItemIndex] : null;
+  const hasItems = sortedItems && sortedItems.length > 0;
+  const currentItem = hasItems ? sortedItems[currentItemIndex] : null;
 
   const nextImage = () => {
-    if (hasItems && currentItemIndex < items.length - 1) {
+    if (hasItems && currentItemIndex < sortedItems.length - 1) {
       handleIndexChange(currentItemIndex + 1);
     }
   };
@@ -221,7 +235,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             {renderMediaItem(currentItem)}
 
             {/* Navigation Controls */}
-            {showNavigation && items.length > 1 && (
+            {showNavigation && sortedItems.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
@@ -233,7 +247,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                 </button>
                 <button
                   onClick={nextImage}
-                  disabled={currentItemIndex === items.length - 1}
+                  disabled={currentItemIndex === sortedItems.length - 1}
                   className="nav-button nav-next"
                   aria-label="Sonraki medya"
                 >
@@ -246,7 +260,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             {showCounter && (
               <div className="image-counter">
                 <span>
-                  {currentItemIndex + 1} / {items.length}
+                  {currentItemIndex + 1} / {sortedItems.length}
                 </span>
               </div>
             )}
@@ -255,10 +269,10 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
       </div>
 
       {/* Thumbnail Strip */}
-      {showThumbnails && items.length > 1 && (
+      {showThumbnails && sortedItems.length > 1 && (
         <div className="thumbnail-strip">
           <div className="thumbnail-container" ref={thumbnailContainerRef}>
-            {items.map((item, index) => (
+            {sortedItems.map((item, index) => (
               <div
                 key={`thumb-${item.id || index}`}
                 ref={(el) => {
@@ -287,12 +301,20 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   />
                 ) : item.itemType === "VIDEO" ? (
                   <div className="thumbnail-video">
-                    <div className="video-placeholder">
-                      <i className="ph-fill ph-film-slate"></i>
-                      <span className="video-text">VIDEO</span>
-                    </div>
-                    <div className="play-icon-overlay">
-                      <i className="ph-fill ph-play-circle"></i>
+                    <video
+                      src={getFullUrl(item.fileUrl)}
+                      className="video-thumbnail-preview"
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                    <div className="video-overlay">
+                      <div className="play-icon-overlay">
+                        <i className="ph-fill ph-play-circle"></i>
+                      </div>
+                      <div className="video-badge">
+                        <i className="ph-fill ph-film-slate"></i>
+                      </div>
                     </div>
                   </div>
                 ) : (
