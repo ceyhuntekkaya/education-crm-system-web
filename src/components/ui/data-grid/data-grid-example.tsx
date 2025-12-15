@@ -346,6 +346,7 @@ export function DataGridExample() {
       headerName: "Course Details",
       width: 280,
       editable: true,
+      priority: 1, // Show first on mobile
       renderCell: (params) => (
         <div>
           <div className="fw-semibold text-dark mb-1">{params.value}</div>
@@ -380,6 +381,7 @@ export function DataGridExample() {
       headerName: "Reviews & Rating",
       width: 200,
       sortable: true,
+      hideOnMobile: true, // Hide on mobile devices
       renderCell: (params) => (
         <div>
           <StarRating
@@ -399,6 +401,7 @@ export function DataGridExample() {
       headerName: "Price & Duration",
       width: 160,
       sortable: false,
+      priority: 2, // Show second on mobile
       // Example of valueGetter - combines multiple fields into one display value
       valueGetter: (value, row) => {
         return `${row.currency} ${row.price} • ${row.duration}h`;
@@ -419,6 +422,7 @@ export function DataGridExample() {
       field: "category",
       headerName: "Category",
       width: 130,
+      hideOnMobile: true, // Hide on mobile devices
       renderCell: (params) => (
         <span className="custom-badge age-badge">{params.value}</span>
       ),
@@ -427,6 +431,7 @@ export function DataGridExample() {
       field: "difficulty",
       headerName: "Level",
       width: 110,
+      hideOnMobile: true, // Hide on mobile devices
       // Another valueGetter example - transforms data for display and sorting
       valueGetter: (value, row) => {
         const levels: Record<string, number> = {
@@ -455,6 +460,7 @@ export function DataGridExample() {
       field: "status",
       headerName: "Status",
       width: 120,
+      priority: 3, // Show on mobile if space allows
       renderCell: (params) => {
         const statusConfig: Record<string, { color: string; icon: string }> = {
           active: { color: "success", icon: "ph-check-circle-fill" },
@@ -476,6 +482,7 @@ export function DataGridExample() {
       field: "lastUpdated",
       headerName: "Last Updated",
       width: 140,
+      hideOnMobile: true, // Hide on mobile devices
       // ValueGetter example for date formatting and sorting
       valueGetter: (value, row) => {
         const date = new Date(row.lastUpdated);
@@ -506,6 +513,7 @@ export function DataGridExample() {
       width: 140,
       sortable: false,
       align: "right",
+      priority: 4, // Lower priority on mobile, but still visible if needed
       renderCell: (params) => {
         return (
           <div className="data-grid-actions">
