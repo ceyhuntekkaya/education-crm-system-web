@@ -13,28 +13,27 @@
 
   // Tablet and mobile devices
   @media (max-width: 768px) {
-    top: 10px;
-    right: 10px;
-    left: auto;
-    max-width: calc(100% - 20px);
-    gap: 10px;
+    top: max(16px, env(safe-area-inset-top));
+    right: max(20px, env(safe-area-inset-right));
+    max-width: calc(75vw - 20px);
+    gap: 12px;
   }
 
   // Small mobile devices
   @media (max-width: 480px) {
-    top: 8px;
-    right: 8px;
-    left: auto;
-    max-width: calc(100% - 16px);
-    gap: 8px;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(16px, env(safe-area-inset-right));
+    max-width: calc(75vw - 16px);
+    gap: 10px;
   }
 
   // Landscape mode on mobile
   @media (max-height: 500px) and (orientation: landscape) {
     top: 8px;
-    right: 8px;
-    left: auto;
-    max-width: 350px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: 450px;
     gap: 8px;
   }
 
@@ -64,29 +63,31 @@
 
   // Tablet and mobile devices
   @media (max-width: 768px) {
-    min-width: 280px;
-    max-width: calc(100% - 20px);
+    min-width: 200px;
+    width: auto;
+    max-width: 100%;
     padding: 14px 16px;
-    gap: 10px;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    gap: 12px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
   }
 
   // Small mobile devices
   @media (max-width: 480px) {
-    min-width: 260px;
-    max-width: calc(100% - 16px);
+    min-width: 180px;
+    width: auto;
+    max-width: 100%;
     padding: 12px 14px;
-    gap: 8px;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+    gap: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 
   // Landscape mode on mobile - compact design
   @media (max-height: 500px) and (orientation: landscape) {
-    padding: 10px 14px;
-    gap: 8px;
-    border-radius: 8px;
+    padding: 12px 14px;
+    gap: 10px;
+    border-radius: 10px;
   }
 
   // Very large screens - more spacious design
@@ -101,11 +102,6 @@
     opacity: 1;
     transform: translateX(0);
     animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
-    // Mobile devices - faster animation
-    @media (max-width: 768px) {
-      animation-duration: 0.25s;
-    }
   }
 
   // Exiting animation
@@ -113,11 +109,6 @@
     opacity: 0;
     transform: translateX(120%);
     animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
-    // Mobile devices - faster animation
-    @media (max-width: 768px) {
-      animation-duration: 0.25s;
-    }
   }
 
   // Success variant
@@ -196,6 +187,37 @@
     flex-direction: column;
     gap: 4px;
     min-width: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+    }
+    
+    // Mobile devices
+    @media (max-width: 768px) {
+      max-height: 120px;
+    }
+    
+    // Small mobile devices
+    @media (max-width: 480px) {
+      max-height: 100px;
+    }
   }
 
   &__message {
@@ -205,11 +227,17 @@
     line-height: 1.5;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    
+    // Tablet and mobile devices
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
     // Small mobile devices
     @media (max-width: 480px) {
       font-size: 13px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
   }
 
@@ -228,6 +256,7 @@
     color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
     transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
       background: rgba(255, 255, 255, 0.25);
@@ -236,6 +265,7 @@
 
     &:active {
       transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.3);
     }
 
     svg {
@@ -245,24 +275,29 @@
 
     // Mobile devices - larger touch target
     @media (max-width: 768px) {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       
       svg {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
+      }
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
       }
     }
 
     // Small mobile devices
     @media (max-width: 480px) {
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
       
       svg {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
       }
     }
   }
@@ -289,6 +324,28 @@
   100% {
     opacity: 0;
     transform: translateX(120%);
+  }
+}
+
+@keyframes slideInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutTop {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
   }
 }
 
