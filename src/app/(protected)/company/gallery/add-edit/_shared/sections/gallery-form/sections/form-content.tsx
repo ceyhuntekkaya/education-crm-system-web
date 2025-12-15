@@ -102,9 +102,9 @@ export const GalleryFormContent: React.FC = () => {
               uploadButtonText="Görsel Yükle"
               name="coverImageUrl"
               isAutoUpload
-              // isCropPreview={true}
-              // cropWidth={1584}
-              // cropHeight={396}
+              isCropPreview={true}
+              cropWidth={180}
+              cropHeight={180}
             />
             {/* <FormInput
               name="coverImageUrl"
