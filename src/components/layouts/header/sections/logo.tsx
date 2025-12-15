@@ -3,12 +3,12 @@ import Image from "next/image";
 import { LogoProps } from "../types";
 import { HEADER_CONFIG } from "../config";
 
-const Logo = ({ className = "", isMobile = false }: LogoProps) => {
+const Logo = ({ className = "", isMobile = false, onClick }: LogoProps) => {
   const logoClass = isMobile ? "mobile-menu__logo" : "logo";
   
   return (
     <div className={`${logoClass} ${className}`}>
-      <Link href="/" className={isMobile ? "" : "link"}>
+      <Link href="/" className={isMobile ? "" : "link"} onClick={onClick}>
         <Image
           src={HEADER_CONFIG.LOGO_PATH}
           alt="Logo"
