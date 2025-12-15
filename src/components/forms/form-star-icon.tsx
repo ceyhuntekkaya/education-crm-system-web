@@ -65,25 +65,29 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
   };
 
   const getSizeStyle = () => {
+    // Mobil için daha küçük boyutlar
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    
     switch (size) {
       case "sm":
-        return { width: "18px", height: "18px" };
+        return { width: isMobile ? "16px" : "18px", height: isMobile ? "16px" : "18px" };
       case "lg":
-        return { width: "36px", height: "36px" };
+        return { width: isMobile ? "28px" : "36px", height: isMobile ? "28px" : "36px" };
       default:
-        return { width: "28px", height: "28px" };
+        return { width: isMobile ? "24px" : "28px", height: isMobile ? "24px" : "28px" };
     }
   };
 
   const getStarScale = (starValue: number) => {
     const displayValue = hoveredValue || currentValue;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     if (isAnimating && starValue <= currentValue) {
-      return "1.3"; // Seçim anında büyüt
+      return isMobile ? "1.15" : "1.3"; // Seçim anında büyüt (mobilde daha az)
     }
 
     if (hoveredValue > 0 && starValue <= hoveredValue) {
-      return "1.15"; // Hover'da hafif büyüt
+      return isMobile ? "1.05" : "1.15"; // Hover'da hafif büyüt (mobilde daha az)
     }
 
     return "1";
@@ -102,11 +106,11 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
       )}
 
       <div
-        className="d-flex flex-column align-items-end"
-        style={{ minHeight: "60px" }}
+        className="d-flex flex-column align-items-center justify-content-center w-100"
+        style={{ minHeight: typeof window !== 'undefined' && window.innerWidth < 768 ? "40px" : "60px" }}
       >
         {/* Yıldızlar */}
-        <div className="d-flex align-items-center gap-2 mb-2">
+        <div className="d-flex align-items-center justify-content-center gap-md-2 gap-0 mb-md-2 mb-1" style={{ gap: typeof window !== 'undefined' && window.innerWidth < 768 ? "4px" : undefined }}>
           {Array.from({ length: max }, (_, index) => {
             const starValue = index + 1;
             const displayValue = hoveredValue || currentValue;
@@ -217,32 +221,33 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
         {/* Rating Info - Yıldızların Altında - Sabit Yükseklik */}
         {!readOnly && (
           <div
-            className="text-end"
+            className="text-center"
             style={{
-              minHeight: "24px",
+              minHeight: typeof window !== 'undefined' && window.innerWidth < 768 ? "18px" : "24px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: "center",
             }}
           >
             {hoveredValue > 0 ? (
               <div
-                className="d-flex align-items-center justify-content-end gap-2 text-warning"
+                className="d-flex align-items-center justify-content-center gap-md-2 gap-0 text-warning"
                 style={{
                   animation: "fadeIn 0.2s ease",
                   textShadow: "0 1px 2px rgba(255,193,7,0.3)",
-                  height: "24px",
+                  height: typeof window !== 'undefined' && window.innerWidth < 768 ? "18px" : "24px",
+                  gap: typeof window !== 'undefined' && window.innerWidth < 768 ? "4px" : undefined,
                 }}
               >
                 <span
-                  className="fw-bold"
-                  style={{ fontSize: "0.85rem", lineHeight: "1" }}
+                  className="fw-bold fs-md-13 fs-11"
+                  style={{ lineHeight: "1" }}
                 >
                   {hoveredValue}/{max}
                 </span>
                 <span
+                  className="fs-md-16 fs-13"
                   style={{
-                    fontSize: "1.1rem",
                     lineHeight: "1",
                     animation: "starPulse 0.8s ease-in-out infinite",
                   }}
@@ -258,9 +263,8 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
                     : "👎"}
                 </span>
                 <span
-                  className="text-warning-600"
+                  className="text-warning-600 fs-md-12 fs-10 d-md-inline d-none"
                   style={{
-                    fontSize: "0.75rem",
                     fontStyle: "italic",
                     fontWeight: "500",
                     lineHeight: "1",
@@ -279,18 +283,21 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
               </div>
             ) : currentValue > 0 ? (
               <div
-                className="d-flex align-items-center justify-content-end gap-2 text-success"
-                style={{ height: "24px" }}
+                className="d-flex align-items-center justify-content-center gap-md-2 gap-0 text-success"
+                style={{ 
+                  height: typeof window !== 'undefined' && window.innerWidth < 768 ? "18px" : "24px",
+                  gap: typeof window !== 'undefined' && window.innerWidth < 768 ? "4px" : undefined,
+                }}
               >
                 <span
-                  className="fw-bold"
-                  style={{ fontSize: "0.85rem", lineHeight: "1" }}
+                  className="fw-bold fs-md-13 fs-11"
+                  style={{ lineHeight: "1" }}
                 >
                   {currentValue}/{max}
                 </span>
                 <span
+                  className="fs-md-16 fs-13"
                   style={{
-                    fontSize: "1.1rem",
                     lineHeight: "1",
                     animation: isAnimating
                       ? "ratingSuccess 0.5s ease-out"
@@ -308,9 +315,8 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
                     : "👎"}
                 </span>
                 <span
-                  className="text-success-600"
+                  className="text-success-600 fs-md-12 fs-10 d-md-inline d-none"
                   style={{
-                    fontSize: "0.75rem",
                     fontStyle: "italic",
                     fontWeight: "500",
                     lineHeight: "1",
@@ -328,11 +334,10 @@ export const FormStarIcon: React.FC<FormStarIconProps> = ({
                 </span>
               </div>
             ) : (
-              <div style={{ height: "24px" }}>
+              <div style={{ height: typeof window !== 'undefined' && window.innerWidth < 768 ? "18px" : "24px" }}>
                 <small
-                  className="text-muted text-end"
+                  className="text-muted text-center fs-md-11 fs-10"
                   style={{
-                    fontSize: "0.7rem",
                     opacity: "0.7",
                     fontStyle: "italic",
                     lineHeight: "1",

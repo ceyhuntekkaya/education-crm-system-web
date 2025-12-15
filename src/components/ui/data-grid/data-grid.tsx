@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Button } from "../button";
 
 // Column definition types
@@ -21,6 +21,8 @@ export interface GridColDef<T = any> {
   }) => React.ReactNode;
   align?: "left" | "center" | "right";
   headerAlign?: "left" | "center" | "right";
+  hideOnMobile?: boolean; // Hide this column on mobile devices
+  priority?: number; // Column priority for responsive hiding (1 = highest priority, shown first on mobile)
 }
 
 // Loading state types
@@ -113,6 +115,21 @@ export function DataGrid<T extends Record<string, any>>({
   });
 
   const [selectedRows, setSelectedRows] = useState<Set<any>>(new Set());
+  
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Loading state helpers
   const isLoading = useMemo(() => {
@@ -169,6 +186,22 @@ export function DataGrid<T extends Record<string, any>>({
       totalPages: Math.ceil(rows.length / pagination.pageSize),
     };
   }, [rows, sortState, pagination]);
+
+  // Filter columns for responsive views
+  const visibleColumns = useMemo(() => {
+    if (!isMobile) return columns;
+    
+    // On mobile, show only columns without hideOnMobile flag
+    // Or show columns based on priority
+    return columns
+      .filter((col) => !col.hideOnMobile)
+      .sort((a, b) => {
+        const priorityA = a.priority || 999;
+        const priorityB = b.priority || 999;
+        return priorityA - priorityB;
+      })
+      .slice(0, isMobile ? 2 : columns.length); // Show max 2 columns on mobile
+  }, [columns, isMobile]);
 
   // Calculate total table width
   const totalWidth = useMemo(() => {
@@ -272,6 +305,179 @@ export function DataGrid<T extends Record<string, any>>({
   const getSortIcon = (field: string) => {
     if (sortState.field !== field || !sortState.direction) return null;
     return sortState.direction === "asc" ? "↑" : "↓";
+  };
+
+  // Mobile Card View Renderer
+  const renderMobileCard = (row: T, index: number) => {
+    const customRowClass = rowClassName ? rowClassName(row, index) : "";
+    const isSelected = selectedRows.has(row.id);
+
+    // Get first column as main title
+    const mainColumn = columns[0];
+    const mainValue = getCellValue(row, mainColumn);
+    const otherColumns = columns.slice(1);
+
+    return (
+      <div
+        key={row.id || index}
+        className={`data-grid-mobile-card ${isSelected ? "selected" : ""} ${customRowClass}`}
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: `2px solid ${isSelected ? "#487FFF" : "#E5E7EB"}`,
+          borderRadius: "20px",
+          padding: "0",
+          marginBottom: "12px",
+          boxShadow: isSelected
+            ? "0 8px 20px rgba(72, 127, 255, 0.15), 0 2px 8px rgba(72, 127, 255, 0.1)"
+            : "0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 4px rgba(15, 23, 42, 0.04)",
+          cursor: onRowClick || checkboxSelection ? "pointer" : "default",
+          transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+          overflow: "hidden",
+        }}
+        onClick={(event) => {
+          if (!disableRowSelectionOnClick && checkboxSelection) {
+            handleRowSelection(row.id, !isSelected);
+          }
+          if (onRowClick) {
+            onRowClick({ row, field: "", event });
+          }
+        }}
+      >
+        {/* Header Section with gradient background */}
+        <div
+          style={{
+            padding: "18px",
+            background: isSelected 
+              ? "linear-gradient(135deg, #487FFF 0%, #6B9FFF 100%)"
+              : "linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)",
+            borderBottom: isSelected ? "none" : "2px solid #E5E7EB",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            gap: "12px",
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            {mainColumn.renderCell ? (
+              <div style={{ 
+                fontSize: "17px", 
+                fontWeight: 700, 
+                color: isSelected ? "#FFFFFF" : "#0F172A",
+                lineHeight: "1.4",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+                whiteSpace: "normal",
+              }}>
+                {renderCellContent(row, mainColumn)}
+              </div>
+            ) : (
+              <div
+                style={{
+                  fontSize: "17px",
+                  fontWeight: 700,
+                  color: isSelected ? "#FFFFFF" : "#0F172A",
+                  lineHeight: "1.4",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
+                }}
+              >
+                {mainValue?.toString() || "-"}
+              </div>
+            )}
+            <div
+              style={{
+                fontSize: "11px",
+                color: isSelected ? "rgba(255, 255, 255, 0.85)" : "#64748B",
+                marginTop: "6px",
+                textTransform: "uppercase",
+                letterSpacing: "0.8px",
+                fontWeight: 600,
+                lineHeight: "1.2",
+              }}
+            >
+              {mainColumn.headerName}
+            </div>
+          </div>
+
+          {checkboxSelection && (
+            <div className="form-check" style={{ margin: 0, flexShrink: 0 }}>
+              <input
+                type="checkbox"
+                className="form-check-input"
+                checked={isSelected}
+                onChange={(e) => handleRowSelection(row.id, e.target.checked)}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  width: "22px",
+                  height: "22px",
+                  marginTop: "2px",
+                  border: isSelected ? "2px solid #FFFFFF" : "2px solid #CBD5E1",
+                  backgroundColor: isSelected ? "#FFFFFF" : "transparent",
+                  flexShrink: 0,
+                }}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Content Section with distinct styling */}
+        <div
+          style={{
+            padding: "20px 18px",
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: "18px",
+            backgroundColor: "#FAFBFC",
+          }}
+        >
+          {otherColumns.map((column, colIndex) => {
+            const value = getCellValue(row, column);
+
+            return (
+              <div
+                key={column.field as string}
+                className="data-grid-mobile-field"
+                style={{
+                  padding: "14px",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "12px",
+                  border: "1px solid #E5E7EB",
+                  boxShadow: "0 1px 3px rgba(15, 23, 42, 0.04)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    color: "#64748B",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.8px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  {column.headerName}
+                </div>
+                <div
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 600,
+                    color: "#1E293B",
+                    lineHeight: "1.5",
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                  }}
+                >
+                  {column.renderCell
+                    ? renderCellContent(row, column)
+                    : value?.toString() || "-"}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
   };
 
   if (showSkeletonLoading) {
@@ -436,9 +642,9 @@ export function DataGrid<T extends Record<string, any>>({
 
     return (
       <div
-        className="data-grid card"
+        className={`data-grid card ${isMobile ? "mobile-view" : ""}`}
         style={{
-          height,
+          height: isMobile ? "auto" : height,
           minHeight: typeof height === "number" ? `${height}px` : "400px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           border: "1px solid #e9ecef",
@@ -448,46 +654,48 @@ export function DataGrid<T extends Record<string, any>>({
           flexDirection: "column",
         }}
       >
-        {/* Table header for consistency */}
-        <div
-          className="table-responsive"
-          style={{ borderRadius: "12px 12px 0 0" }}
-        >
-          <table className="table mb-0">
-            <thead className="table-light">
-              <tr style={{ height: "56px" }}>
-                {checkboxSelection && (
-                  <th
-                    className="data-grid-checkbox-cell"
-                    style={{
-                      width: "50px",
-                      backgroundColor: "#f8f9fa",
-                      borderBottom: "1px solid #e9ecef",
-                    }}
-                  ></th>
-                )}
-                {columns.map((column, index) => (
-                  <th
-                    key={String(column.field)}
-                    style={{
-                      width: column.width || column.minWidth || 120,
-                      backgroundColor: "#f8f9fa",
-                      borderBottom: "1px solid #e9ecef",
-                      padding: "16px 12px",
-                      fontWeight: 600,
-                      fontSize: "13px",
-                      color: "#798090",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                    }}
-                  >
-                    {column.headerName}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-          </table>
-        </div>
+        {/* Table header for consistency - hide on mobile */}
+        {!isMobile && (
+          <div
+            className="table-responsive"
+            style={{ borderRadius: "12px 12px 0 0" }}
+          >
+            <table className="table mb-0">
+              <thead className="table-light">
+                <tr style={{ height: "56px" }}>
+                  {checkboxSelection && (
+                    <th
+                      className="data-grid-checkbox-cell"
+                      style={{
+                        width: "50px",
+                        backgroundColor: "#f8f9fa",
+                        borderBottom: "1px solid #e9ecef",
+                      }}
+                    ></th>
+                  )}
+                  {columns.map((column, index) => (
+                    <th
+                      key={String(column.field)}
+                      style={{
+                        width: column.width || column.minWidth || 120,
+                        backgroundColor: "#f8f9fa",
+                        borderBottom: "1px solid #e9ecef",
+                        padding: "16px 12px",
+                        fontWeight: 600,
+                        fontSize: "13px",
+                        color: "#798090",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      {column.headerName}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            </table>
+          </div>
+        )}
 
         {/* Empty state content */}
         <div
@@ -497,58 +705,58 @@ export function DataGrid<T extends Record<string, any>>({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            minHeight: "400px",
+            minHeight: isMobile ? "300px" : "400px",
             backgroundColor: "#ffffff",
           }}
         >
-          <div className="text-center" style={{ padding: "60px 40px" }}>
+          <div className="text-center" style={{ padding: isMobile ? "40px 20px" : "60px 40px" }}>
             <div className="mb-4">
-              <div
+            <div
+              style={{
+                width: isMobile ? "64px" : "80px",
+                height: isMobile ? "64px" : "80px",
+                borderRadius: "50%",
+                backgroundColor: "#f8f9fa",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 24px",
+                border: "1px solid #e9ecef",
+              }}
+            >
+              <i
+                className={`ph-bold ${emptyConfig.icon}`}
                 style={{
-                  width: "80px",
-                  height: "80px",
-                  borderRadius: "50%",
-                  backgroundColor: "#f8f9fa",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 24px",
-                  border: "1px solid #e9ecef",
+                  fontSize: isMobile ? "28px" : "32px",
+                  color: "#9ca3af",
                 }}
-              >
-                <i
-                  className={`ph-bold ${emptyConfig.icon}`}
-                  style={{
-                    fontSize: "32px",
-                    color: "#9ca3af",
-                  }}
-                ></i>
-              </div>
+              ></i>
             </div>
-            <h5
-              style={{
-                color: "#343e56",
-                marginBottom: "12px",
-                fontWeight: 600,
-                fontSize: "18px",
-              }}
-            >
-              {emptyConfig.title}
-            </h5>
-            <p
-              style={{
-                color: "#798090",
-                marginBottom: "32px",
-                fontSize: "14px",
-                lineHeight: "1.5",
-                maxWidth: "400px",
-                margin: "0 auto 32px",
-              }}
-            >
-              {emptyConfig.description}
-            </p>
-            {emptyConfig.showActions && (
-              <div className="d-flex justify-content-center gap-3">
+          </div>
+          <h5
+            style={{
+              color: "#343e56",
+              marginBottom: "12px",
+              fontWeight: 600,
+              fontSize: isMobile ? "16px" : "18px",
+            }}
+          >
+            {emptyConfig.title}
+          </h5>
+          <p
+            style={{
+              color: "#798090",
+              marginBottom: "32px",
+              fontSize: isMobile ? "13px" : "14px",
+              lineHeight: "1.5",
+              maxWidth: "400px",
+              margin: "0 auto 32px",
+            }}
+          >
+            {emptyConfig.description}
+          </p>
+          {emptyConfig.showActions && (
+            <div className={`d-flex ${isMobile ? "flex-column" : ""} justify-content-center gap-3`}>
                 {emptyConfig.onAddNew && (
                   <Button
                     leftIcon="ph-plus"
@@ -587,67 +795,119 @@ export function DataGrid<T extends Record<string, any>>({
 
   return (
     <div
-      className={`data-grid card ${className} ${isLoading ? "loading" : ""}`}
+      className={`data-grid card ${className} ${isLoading ? "loading" : ""} ${isMobile ? "mobile-view" : ""}`}
       style={{
-        height,
-        minHeight: typeof height === "number" ? `${height}px` : "400px",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        border: "1px solid #e9ecef",
+        height: isMobile ? "auto" : height,
+        minHeight: isMobile ? "auto" : (typeof height === "number" ? `${height}px` : "400px"),
+        boxShadow: isMobile ? "none" : "0 2px 8px rgba(0,0,0,0.1)",
+        border: isMobile ? "none" : "1px solid #e9ecef",
+        borderRadius: isMobile ? "0" : "12px",
         position: "relative",
         display: "flex",
         flexDirection: "column",
+        backgroundColor: isMobile ? "transparent" : "#FFFFFF",
+        overflow: isMobile ? "visible" : "hidden",
       }}
     >
-      {/* Table Container */}
-      <div
-        className="table-responsive"
-        style={{
-          borderRadius: "8px",
-          overflow: "auto",
-          flex: 1,
-          maxHeight:
-            typeof height === "number"
-              ? `${height - 80}px`
-              : "calc(100% - 80px)",
-        }}
-      >
-        <table
-          className="table table-hover mb-0"
+      {/* Mobile Card View */}
+      {isMobile ? (
+        <div
+          className="data-grid-mobile-container"
           style={{
-            tableLayout: "fixed",
-            width: `${totalWidth}px`,
-            minWidth: "100%",
-            borderCollapse: "separate",
-            borderSpacing: "0",
+            flex: 1,
+            overflow: "auto",
+            padding: "12px",
+            backgroundColor: "#F8FAFC",
+            marginTop: 0,
           }}
         >
-          <thead className="table-light">
-            <tr style={{ height: "56px" }}>
-              {checkboxSelection && (
-                <th
-                  className="data-grid-checkbox-cell"
-                  style={{
-                    width: "50px",
-                    minWidth: "50px",
-                    maxWidth: "50px",
-                    padding: "16px 20px",
-                    backgroundColor: "#f8f9fa",
-                    borderBottom: "2px solid #e9ecef",
-                  }}
-                >
-                  <div className="form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      checked={
-                        selectedRows.size === rows.length && rows.length > 0
-                      }
-                      onChange={(e) => handleSelectAll(e.target.checked)}
-                    />
-                  </div>
-                </th>
-              )}
-              {columns.map((column) => {
+          {checkboxSelection && processedData.data.length > 0 && (
+            <div
+              className="form-check"
+              style={{
+                padding: "16px",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "16px",
+                border: "2px solid #E5E7EB",
+                boxShadow: "0 2px 6px rgba(15, 23, 42, 0.06)",
+                marginBottom: "12px",
+              }}
+            >
+              <input
+                type="checkbox"
+                className="form-check-input"
+                checked={selectedRows.size === rows.length && rows.length > 0}
+                onChange={(e) => handleSelectAll(e.target.checked)}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  border: "2px solid #CBD5E1",
+                }}
+              />
+              <label className="form-check-label ms-2" style={{ 
+                fontSize: "14px", 
+                fontWeight: 700,
+                color: "#1E293B",
+                wordBreak: "break-word",
+                lineHeight: "1.4",
+              }}>
+                Tümünü Seç <span style={{ color: "#64748B", fontWeight: 600 }}>({selectedRows.size}/{rows.length})</span>
+              </label>
+            </div>
+          )}
+          {processedData.data.map((row, index) => renderMobileCard(row, index))}
+        </div>
+      ) : (
+        /* Desktop Table View */
+        <div
+          className="table-responsive"
+          style={{
+            borderRadius: "8px",
+            overflow: "auto",
+            flex: 1,
+            maxHeight:
+              typeof height === "number"
+                ? `${height - 80}px`
+                : "calc(100% - 80px)",
+          }}
+        >
+          <table
+            className="table table-hover mb-0"
+            style={{
+              tableLayout: "fixed",
+              width: `${totalWidth}px`,
+              minWidth: "100%",
+              borderCollapse: "separate",
+              borderSpacing: "0",
+            }}
+          >
+            <thead className="table-light">
+              <tr style={{ height: "56px" }}>
+                {checkboxSelection && (
+                  <th
+                    className="data-grid-checkbox-cell"
+                    style={{
+                      width: "50px",
+                      minWidth: "50px",
+                      maxWidth: "50px",
+                      padding: "16px 20px",
+                      backgroundColor: "#f8f9fa",
+                      borderBottom: "2px solid #e9ecef",
+                    }}
+                  >
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={
+                          selectedRows.size === rows.length && rows.length > 0
+                        }
+                        onChange={(e) => handleSelectAll(e.target.checked)}
+                      />
+                    </div>
+                  </th>
+                )}
+                {columns.map((column) => {
                 const columnWidth = column.width || column.minWidth || 120;
                 const columnMinWidth =
                   column.minWidth ||
@@ -821,34 +1081,48 @@ export function DataGrid<T extends Record<string, any>>({
             })}
           </tbody>
         </table>
-      </div>
+        </div>
+      )}
 
       {/* Custom Pagination Footer - Clean Modern Design */}
       <div
         className="data-grid-pagination"
         style={{
           flexShrink: 0,
-          padding: "16px 24px",
-          borderTop: "1px solid #f3f4f6",
-          backgroundColor: "#fafbfc",
+          padding: isMobile ? "16px" : "16px 24px",
+          borderTop: isMobile ? "2px solid #E5E7EB" : "1px solid #f3f4f6",
+          backgroundColor: isMobile ? "#FFFFFF" : "#fafbfc",
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "stretch" : "center",
           justifyContent: "space-between",
-          gap: "20px",
+          gap: isMobile ? "12px" : "20px",
+          boxShadow: isMobile ? "0 -4px 12px rgba(15, 23, 42, 0.06)" : "none",
         }}
       >
         {/* Left side - Rows per page */}
         <div
           className="page-size-control"
-          style={{ display: "flex", alignItems: "center", gap: "12px" }}
+          style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: "12px",
+            justifyContent: isMobile ? "space-between" : "flex-start",
+            padding: isMobile ? "14px 16px" : "0",
+            backgroundColor: isMobile ? "#F8FAFC" : "transparent",
+            borderRadius: isMobile ? "16px" : "0",
+            border: isMobile ? "2px solid #E5E7EB" : "none",
+          }}
         >
           <span
             className="pagination-label"
             style={{
-              fontSize: "14px",
-              color: "#6b7280",
-              fontWeight: 500,
+              fontSize: isMobile ? "13px" : "14px",
+              color: isMobile ? "#64748B" : "#6b7280",
+              fontWeight: 700,
               whiteSpace: "nowrap",
+              textTransform: isMobile ? "uppercase" : "none",
+              letterSpacing: isMobile ? "0.5px" : "normal",
             }}
           >
             Göster:
@@ -859,18 +1133,19 @@ export function DataGrid<T extends Record<string, any>>({
               value={pagination.pageSize}
               onChange={(e) => handlePageSizeChange(Number(e.target.value))}
               style={{
-                padding: "6px 32px 6px 12px",
-                border: "none",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: 500,
-                backgroundColor: "#fff",
-                color: "#374151",
+                padding: isMobile ? "11px 50px 11px 18px" : "6px 32px 6px 12px",
+                border: isMobile ? "2px solid #CBD5E1" : "none",
+                borderRadius: isMobile ? "14px" : "8px",
+                fontSize: isMobile ? "15px" : "14px",
+                fontWeight: 700,
+                backgroundColor: "#FFFFFF",
+                color: isMobile ? "#1E293B" : "#374151",
                 cursor: "pointer",
-                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)",
+                boxShadow: isMobile ? "0 2px 6px rgba(15, 23, 42, 0.08)" : "0 1px 3px rgba(0, 0, 0, 0.08)",
                 appearance: "none",
                 outline: "none",
                 transition: "all 0.2s ease",
+                minWidth: isMobile ? "70px" : "auto",
               }}
             >
               {pageSizeOptions.map((size) => (
@@ -883,11 +1158,11 @@ export function DataGrid<T extends Record<string, any>>({
               className="ph ph-caret-down"
               style={{
                 position: "absolute",
-                right: "10px",
+                right: isMobile ? "16px" : "10px",
                 top: "50%",
                 transform: "translateY(-50%)",
-                fontSize: "14px",
-                color: "#9ca3af",
+                fontSize: isMobile ? "18px" : "14px",
+                color: isMobile ? "#64748B" : "#9ca3af",
                 pointerEvents: "none",
               }}
             ></i>
@@ -906,28 +1181,40 @@ export function DataGrid<T extends Record<string, any>>({
         {/* Right side - Navigation and info */}
         <div
           className="pagination-controls"
-          style={{ display: "flex", alignItems: "center", gap: "24px" }}
+          style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: isMobile ? "12px" : "24px",
+            justifyContent: isMobile ? "space-between" : "flex-end",
+            padding: isMobile ? "14px 16px" : "0",
+            backgroundColor: isMobile ? "#F8FAFC" : "transparent",
+            borderRadius: isMobile ? "16px" : "0",
+            border: isMobile ? "2px solid #E5E7EB" : "none",
+          }}
         >
           <div
             className="pagination-info"
             style={{
-              fontSize: "14px",
-              color: "#6b7280",
-              fontWeight: 500,
+              fontSize: isMobile ? "15px" : "14px",
+              color: isMobile ? "#1E293B" : "#374151",
+              fontWeight: 700,
               whiteSpace: "nowrap",
             }}
           >
-            {pagination.page * pagination.pageSize + 1}–
-            {Math.min(
-              (pagination.page + 1) * pagination.pageSize,
-              processedData.total
-            )}{" "}
-            / {processedData.total}
+            <span style={{ color: isMobile ? "#1E293B" : "#374151" }}>
+              {pagination.page * pagination.pageSize + 1}–
+              {Math.min(
+                (pagination.page + 1) * pagination.pageSize,
+                processedData.total
+              )}
+            </span>
+            {" "}
+            <span style={{ color: "#64748B", fontWeight: 600 }}>/ {processedData.total}</span>
           </div>
 
           <div
             className="pagination-buttons"
-            style={{ display: "flex", alignItems: "center", gap: "8px" }}
+            style={{ display: "flex", alignItems: "center", gap: isMobile ? "10px" : "8px" }}
           >
             <button
               className="pagination-nav-btn"
@@ -935,12 +1222,20 @@ export function DataGrid<T extends Record<string, any>>({
               onClick={() => handlePageChange(pagination.page - 1)}
               title="Önceki sayfa"
               style={{
-                width: "36px",
-                height: "36px",
-                border: "none",
-                borderRadius: "8px",
-                backgroundColor: pagination.page === 0 ? "#f3f4f6" : "#fff",
-                color: pagination.page === 0 ? "#d1d5db" : "#374151",
+                width: isMobile ? "46px" : "36px",
+                height: isMobile ? "46px" : "36px",
+                border: isMobile 
+                  ? pagination.page === 0 
+                    ? "2px solid #E5E7EB" 
+                    : "2px solid #CBD5E1"
+                  : "none",
+                borderRadius: isMobile ? "16px" : "8px",
+                backgroundColor: pagination.page === 0 
+                  ? (isMobile ? "#F1F5F9" : "#f3f4f6")
+                  : (isMobile ? "#FFFFFF" : "#fff"),
+                color: pagination.page === 0 
+                  ? (isMobile ? "#CBD5E1" : "#d1d5db")
+                  : (isMobile ? "#1E293B" : "#374151"),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -948,6 +1243,8 @@ export function DataGrid<T extends Record<string, any>>({
                 boxShadow:
                   pagination.page === 0
                     ? "none"
+                    : isMobile 
+                    ? "0 2px 6px rgba(15, 23, 42, 0.08)"
                     : "0 1px 3px rgba(0, 0, 0, 0.08)",
                 transition: "all 0.2s ease",
               }}
@@ -970,7 +1267,7 @@ export function DataGrid<T extends Record<string, any>>({
             >
               <i
                 className="ph-bold ph-caret-left"
-                style={{ fontSize: "18px" }}
+                style={{ fontSize: isMobile ? "20px" : "18px" }}
               ></i>
             </button>
 
@@ -980,18 +1277,22 @@ export function DataGrid<T extends Record<string, any>>({
               onClick={() => handlePageChange(pagination.page + 1)}
               title="Sonraki sayfa"
               style={{
-                width: "36px",
-                height: "36px",
-                border: "none",
-                borderRadius: "8px",
+                width: isMobile ? "46px" : "36px",
+                height: isMobile ? "46px" : "36px",
+                border: isMobile 
+                  ? pagination.page >= processedData.totalPages - 1
+                    ? "2px solid #E5E7EB" 
+                    : "2px solid #CBD5E1"
+                  : "none",
+                borderRadius: isMobile ? "16px" : "8px",
                 backgroundColor:
                   pagination.page >= processedData.totalPages - 1
-                    ? "#f3f4f6"
-                    : "#fff",
+                    ? (isMobile ? "#F1F5F9" : "#f3f4f6")
+                    : (isMobile ? "#FFFFFF" : "#fff"),
                 color:
                   pagination.page >= processedData.totalPages - 1
-                    ? "#d1d5db"
-                    : "#374151",
+                    ? (isMobile ? "#CBD5E1" : "#d1d5db")
+                    : (isMobile ? "#1E293B" : "#374151"),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1002,6 +1303,8 @@ export function DataGrid<T extends Record<string, any>>({
                 boxShadow:
                   pagination.page >= processedData.totalPages - 1
                     ? "none"
+                    : isMobile 
+                    ? "0 2px 6px rgba(15, 23, 42, 0.08)"
                     : "0 1px 3px rgba(0, 0, 0, 0.08)",
                 transition: "all 0.2s ease",
               }}
@@ -1024,7 +1327,7 @@ export function DataGrid<T extends Record<string, any>>({
             >
               <i
                 className="ph-bold ph-caret-right"
-                style={{ fontSize: "18px" }}
+                style={{ fontSize: isMobile ? "20px" : "18px" }}
               ></i>
             </button>
           </div>

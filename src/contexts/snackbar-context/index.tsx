@@ -41,6 +41,7 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
   children,
 }) => {
   const [snackbars, setSnackbars] = useState<SnackbarMessage[]>([]);
+  const MAX_SNACKBARS = 3; // Maksimum aynı anda gösterilecek snackbar sayısı
 
   const hideSnackbar = useCallback((id: string) => {
     setSnackbars((prev) => prev.filter((snackbar) => snackbar.id !== id));
@@ -56,7 +57,12 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
         duration,
       };
 
-      setSnackbars((prev) => [...prev, newSnackbar]);
+      setSnackbars((prev) => {
+        // Eğer maksimum snackbar sayısına ulaşıldıysa, en eskiyi kaldır
+        const updatedSnackbars =
+          prev.length >= MAX_SNACKBARS ? prev.slice(1) : prev;
+        return [...updatedSnackbars, newSnackbar];
+      });
 
       // Auto hide after duration
       if (duration > 0) {
