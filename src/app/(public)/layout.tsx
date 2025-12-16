@@ -1,4 +1,4 @@
-import { Footer, Header } from "@/components";
+import { DrawerExamples, Footer, Header } from "@/components";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export default function PublicLayout({
   return (
     <div className="public-layout d-flex flex-column min-vh-100">
       <Header />
+      <DrawerExamples />
       <main className="main-content flex-fill px-2 px-md-3 px-lg-0">
         {children}
       </main>

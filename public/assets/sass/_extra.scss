@@ -203,12 +203,7 @@
     margin-top: 20px;
   }
 }
-.mobile-menu {
-  top: 0;
-}
-.nav-menu--mobile .nav-submenu__link {
-  padding-left: 10px;
-}
+// Mobile menu artık drawer component kullanıyor - stiller _mobile-nav-menu.scss'de
 .scroll-hide-sm {
   overflow-y: scroll;
 }

@@ -18,6 +18,9 @@ export { MediaGallery } from "./media-gallery";
 // Modal Components - Using the new modal structure
 export * from "./modal";
 
+// Drawer Components
+export * from "./drawer";
+
 // DataGrid Components
 export { DataGrid, DataGridExample } from "./data-grid";
 

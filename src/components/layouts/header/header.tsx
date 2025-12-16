@@ -15,7 +15,6 @@ const HeaderContent = () => {
 
   return (
     <>
-      <div className={classNames("side-overlay", isMenuActive && "show")}></div>
       <header className={classNames("header", scroll && "fixed-header")}>
         <div className="container container--xl">
           <nav className="header-inner flex-between gap-4">
