@@ -63,15 +63,15 @@ const ActiveFilters: React.FC = () => {
                 <strong className="text-primary-600">{resultCount}</strong>{" "}
                 Kurum bulundu
               </span>
-              <span className="text-neutral-300">•</span>
-              <span className="result-badge bg-info-50 text-info-600 px-8 py-2 rounded-6 text-xs font-weight-500">
+              <span className="text-neutral-300 d-none d-md-inline">•</span>
+              <span className="result-badge bg-info-50 text-info-600 px-8 py-2 rounded-6 text-xs font-weight-500 d-none d-md-inline-flex">
                 <i className="ph ph-check-circle me-4"></i>
                 Filtrelenmiş
               </span>
             </div>
           </div>
         </div>
-        <div className="d-flex gap-8">
+        <div className="d-flex gap-8 active-filters-actions">
           {isDirty && (
             <Button
               type="button"
@@ -81,9 +81,9 @@ const ActiveFilters: React.FC = () => {
               onClick={handleSaveChanges}
               loading={searchLoading}
               disabled={searchLoading}
-              className="text-white"
+              className="text-white btn-save-changes"
             >
-              Değişiklikleri Kaydet
+              <span className="btn-text">Değişiklikleri Kaydet</span>
             </Button>
           )}
           <Button
@@ -92,9 +92,9 @@ const ActiveFilters: React.FC = () => {
             size="xxs"
             leftIcon="ph-trash"
             onClick={handleReset}
-            className="text-neutral-500 hover-text-danger-600"
+            className="text-neutral-500 hover-text-danger-600 btn-reset"
           >
-            Temizle
+            <span className="btn-text">Temizle</span>
           </Button>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import React from "react";
 import { FilterChipProps } from "../types";
+import { formatTitle } from "@/utils/format-text";
 
 const FilterChip: React.FC<FilterChipProps> = ({ label, value, onRemove }) => {
   return (
     <div className="filter-chip">
-      <span className="filter-chip__value">{value}</span>
+      <span className="filter-chip__value">{formatTitle(value)}</span>
       <button
         type="button"
         onClick={onRemove}

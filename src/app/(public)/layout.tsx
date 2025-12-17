@@ -1,4 +1,4 @@
-import { Footer, Header } from "@/components";
+import { DrawerExamples, Footer, Header } from "@/components";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

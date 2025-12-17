@@ -18,13 +18,13 @@ export const Actions = () => {
       </Link>
 
       {/* Alt Çubuk - Collapse */}
-      <div className="mt-24 pt-24 border-top">
+      <div className="mt-12 mt-md-24 pt-12 pt-md-24 border-top">
         <Button
           variant="outline"
           onClick={onCardClick}
           size="sm"
           rightIcon="ph-caret-up"
-          className="px-20 d-flex align-items-center gap-8 mx-auto"
+          className="px-20 d-flex align-items-center gap-8 mx-auto mx-md-auto w-100 w-md-auto"
         >
           Daha Az Göster
         </Button>

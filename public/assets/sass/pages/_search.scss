@@ -1,0 +1,461 @@
+// =============================================
+// Search Page - Initial Search State
+// =============================================
+
+.initial-search-state {
+  .empty-state-card {
+    animation: fadeInUp 0.8s ease-out;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // =============================================
+  // Decorative Background Circles
+  // =============================================
+  .decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+
+    &-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #487fee 0%, #6366f1 100%);
+      top: -200px;
+      right: -100px;
+    }
+
+    &-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      bottom: -150px;
+      left: -100px;
+    }
+
+    &-3 {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      top: 50%;
+      left: -50px;
+      transform: translateY(-50%);
+    }
+  }
+
+  // =============================================
+  // Icon Section
+  // =============================================
+  .empty-state-icon-wrapper {
+    z-index: 1;
+
+    .icon-container {
+      background: linear-gradient(135deg, #487fee 0%, #6366f1 100%);
+      box-shadow: 0 8px 24px rgba(72, 127, 238, 0.3);
+    }
+
+    .icon-pulse {
+      background: rgba(255, 255, 255, 0.3);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.15;
+      }
+    }
+  }
+
+  // =============================================
+  // Content Section
+  // =============================================
+  .empty-state-content {
+    z-index: 1;
+  }
+
+  // =============================================
+  // Feature Cards
+  // =============================================
+  .feature-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    z-index: 1;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+      .feature-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+  }
+
+  // Gradient Backgrounds
+  .bg-gradient-primary-subtle {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  }
+
+  .bg-gradient-success-subtle {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  }
+
+  .bg-gradient-warning-subtle {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  }
+
+  .bg-gradient-info-subtle {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  }
+
+  // =============================================
+  // Quick Tips Section
+  // =============================================
+  .quick-tips {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    z-index: 1;
+  }
+
+  // =============================================
+  // Responsive Styles
+  // =============================================
+
+  // Tablet (992px ve altı)
+  @media (max-width: 991.98px) {
+    .empty-state-card {
+      padding: 32px 24px;
+    }
+
+    .empty-state-icon-wrapper {
+      margin-bottom: 28px;
+
+      .icon-container {
+        padding: 24px;
+
+        i {
+          font-size: 56px;
+        }
+      }
+    }
+
+    .empty-state-content {
+      margin-bottom: 28px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+      }
+    }
+
+    .feature-card {
+      padding: 20px;
+
+      .feature-icon {
+        padding: 12px;
+        margin-bottom: 14px;
+
+        i {
+          font-size: 24px;
+        }
+      }
+    }
+
+    .quick-tips {
+      padding: 20px;
+    }
+
+    .decoration-circle {
+      &-1 {
+        width: 250px;
+        height: 250px;
+        top: -125px;
+        right: -80px;
+      }
+
+      &-2 {
+        width: 200px;
+        height: 200px;
+        bottom: -100px;
+        left: -80px;
+      }
+
+      &-3 {
+        width: 120px;
+        height: 120px;
+        left: -40px;
+      }
+    }
+  }
+
+  // Mobile (768px ve altı)
+  @media (max-width: 767.98px) {
+    .empty-state-card {
+      padding: 24px 20px;
+      border-radius: 16px;
+    }
+
+    .empty-state-icon-wrapper {
+      margin-bottom: 24px;
+
+      .icon-container {
+        padding: 20px;
+
+        i {
+          font-size: 48px;
+        }
+      }
+    }
+
+    .empty-state-content {
+      margin-bottom: 24px;
+
+      h2 {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        margin-bottom: 16px;
+      }
+
+      p {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        max-width: 100%;
+        padding: 0 8px;
+      }
+    }
+
+    // Feature Cards - Stack vertically on mobile
+    .features-grid {
+      margin-bottom: 24px;
+
+      .row {
+        margin-bottom: 0;
+      }
+
+      // Make columns full width on mobile
+      [class*="col-md-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 12px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .feature-card {
+      padding: 16px;
+      border-radius: 12px;
+
+      h6 {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      .feature-icon {
+        padding: 10px;
+        margin-bottom: 12px;
+
+        i {
+          font-size: 22px;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+      }
+    }
+
+    .quick-tips {
+      padding: 16px;
+      border-radius: 12px;
+
+      .d-flex {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+
+      .tip-icon {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        > div {
+          padding: 10px;
+        }
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      h6 {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+    }
+
+    .decoration-circle {
+      &-1 {
+        width: 150px;
+        height: 150px;
+        top: -75px;
+        right: -50px;
+        opacity: 0.03;
+      }
+
+      &-2 {
+        width: 120px;
+        height: 120px;
+        bottom: -60px;
+        left: -50px;
+        opacity: 0.03;
+      }
+
+      &-3 {
+        display: none;
+      }
+    }
+  }
+
+  // Small Mobile (576px ve altı)
+  @media (max-width: 575.98px) {
+    .empty-state-card {
+      padding: 20px 16px;
+      border-radius: 12px;
+    }
+
+    .empty-state-icon-wrapper {
+      margin-bottom: 20px;
+
+      .icon-container {
+        padding: 16px;
+
+        i {
+          font-size: 40px;
+        }
+      }
+
+      .icon-pulse {
+        animation: none; // Disable animation on small devices for performance
+      }
+    }
+
+    .empty-state-content {
+      margin-bottom: 20px;
+
+      h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+    }
+
+    .feature-card {
+      padding: 14px;
+
+      h6 {
+        font-size: 0.85rem;
+      }
+
+      p {
+        font-size: 0.75rem;
+      }
+
+      .feature-icon {
+        padding: 8px;
+        margin-bottom: 10px;
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      &:hover {
+        transform: none; // Disable hover on touch devices
+      }
+    }
+
+    .quick-tips {
+      padding: 14px;
+
+      h6 {
+        font-size: 0.85rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+
+      .tip-icon {
+        > div {
+          padding: 8px;
+        }
+
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .decoration-circle {
+      &-1,
+      &-2 {
+        opacity: 0.02;
+      }
+    }
+  }
+}

@@ -193,6 +193,57 @@
   &:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
+  
+  @media (max-width: 768px) {
+    margin: 0 -16px 24px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding: 12px 16px;
+    
+    .d-flex.align-items-center.justify-content-between {
+      flex-wrap: nowrap;
+      gap: 8px;
+      
+      > .d-flex.align-items-center:first-child {
+        flex: 1;
+        min-width: 0;
+        gap: 8px !important;
+        
+        .search-icon-wrapper {
+          width: 28px !important;
+          height: 28px !important;
+          padding: 6px !important;
+          
+          i {
+            font-size: 14px !important;
+          }
+        }
+        
+        > div {
+          h6 {
+            font-size: 0.75rem !important;
+            margin-bottom: 2px !important;
+          }
+          
+          p {
+            font-size: 0.7rem !important;
+            
+            strong {
+              font-size: 0.7rem !important;
+            }
+          }
+        }
+      }
+      
+      // Sağ taraf - badge'ler mobilde gizli
+      > .d-flex.align-items-center:last-child {
+        display: none !important;
+      }
+    }
+    
+
+  }
 }
 
 // Mobile responsive
@@ -214,26 +265,33 @@
           gap: 3px;
           
           h6 {
-            font-size: 0.7rem;
+            font-size: 0.65rem !important;
+            font-weight: 600 !important;
           }
           
           i {
-            font-size: 10px;
+            font-size: 9px;
           }
           
           span {
             font-size: 0.65rem;
+            font-weight: 600;
           }
         }
       }
     }
     
     .filter-chip {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       padding: 2px 6px;
       
+      .filter-chip__value {
+        font-size: 0.65rem !important;
+        font-weight: 500 !important;
+      }
+      
       .text-xs {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
       }
       
       &__remove {
@@ -247,14 +305,76 @@
     }
 
     .d-flex.flex-between {
-      flex-direction: column;
-      align-items: stretch !important;
+      // Header'ı yan yana tut, flex-wrap ile wrap etme
+      flex-wrap: nowrap;
+      align-items: center !important;
       gap: 8px;
       
-      .d-flex.align-items-center {
-        flex-direction: column;
-        align-items: flex-start !important;
+      // Sol taraf - icon ve bilgiler
+      > .d-flex.align-items-center:first-child {
+        flex: 1;
+        min-width: 0; // Text overflow için
+        gap: 8px !important;
+        
+        // Filter icon wrapper
+        .filter-icon-wrapper {
+          width: 28px !important;
+          height: 28px !important;
+          padding: 6px !important;
+          
+          i {
+            font-size: 14px !important;
+          }
+        }
+        
+        // Aktif Filtreler başlığı ve kurum bulundu metni
+        > div {
+          h6 {
+            font-size: 0.75rem !important;
+            margin-bottom: 2px !important;
+          }
+          
+          .d-flex.align-items-center {
+            gap: 6px !important;
+            
+            .text-sm {
+              font-size: 0.7rem !important;
+              
+              strong {
+                font-size: 0.7rem !important;
+              }
+            }
+          }
+        }
+      }
+      
+      // Sağ taraf - butonlar
+      .active-filters-actions {
+        flex-shrink: 0;
         gap: 4px;
+        
+        // Butonları icon-only yap
+        .btn-save-changes,
+        .btn-reset {
+          width: 32px !important;
+          height: 32px !important;
+          padding: 0 !important;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          min-width: 32px;
+          
+          // Text'i gizle
+          .btn-text {
+            display: none !important;
+          }
+          
+          // Icon'u merkezle ve boyutlandır
+          i {
+            margin: 0 !important;
+            font-size: 16px !important;
+          }
+        }
       }
     }
   }

@@ -46,7 +46,7 @@ const SearchResultsInfo: React.FC = () => {
                 Tüm sonuçlar
               </span>
             </div>
-            <div className="text-xs text-neutral-400">
+            <div className="text-xs text-neutral-400 d-none d-md-block">
               {resultCount > 1 ? "Birden fazla seçenek mevcut" : "Tek sonuç"}
             </div>
           </div>

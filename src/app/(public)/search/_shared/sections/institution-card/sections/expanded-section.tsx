@@ -16,18 +16,22 @@ export const ExpandedSection = () => {
   const { onCardClick } = useInstitutionCardContext();
 
   return (
-    <div className="content-fade-in position-relative p-16">
+    <div className="content-fade-in position-relative p-8 p-md-16">
       {/* Close Button - Top Right */}
-      <div className="position-absolute top-0 end-0 p-16 z-3">
-        <Icon icon="ph-x" variant="inline" size="md" onClick={onCardClick} />
-      </div>
+      <button
+        className="position-absolute top-0 end-0 z-3 p-8 p-md-12 bg-transparent border-0 cursor-pointer d-flex align-items-center justify-content-center"
+        onClick={onCardClick}
+        type="button"
+      >
+        <Icon icon="ph-x" variant="inline" size="md" />
+      </button>
 
-      <div className="row g-0">
+      <div className="d-flex flex-column flex-md-row gap-24">
         {/* Sol Kolon - Görsel ve Ana Bilgiler */}
-        <div className="col-5">
-          <div className="pe-24">
+        <div className="w-100 w-md-40">
+          <div>
             {/* Hero Görsel */}
-            <div className="mb-24">
+            <div className="mb-12">
               <HeroImage height="280px" showButtons={true} />
             </div>
 
@@ -37,10 +41,10 @@ export const ExpandedSection = () => {
         </div>
 
         {/* Sağ Kolon - Detay Bilgiler */}
-        <div className="col-7">
-          <div className="ps-24 d-flex flex-column h-100">
+        <div className="w-100 flex-md-grow-1">
+          <div className="d-flex flex-column h-100">
             {/* Kurum Tipleri ve Kampanyalar */}
-            <div className="mb-24">
+            <div className="mb-12">
               <Badges variant="expanded" />
             </div>
 

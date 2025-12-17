@@ -17,8 +17,8 @@ export const Properties = () => {
   const hasMore = properties.length > maxVisible;
 
   return (
-    <div className="mb-32">
-      <div className="d-flex align-items-center justify-content-between mb-16">
+    <div className="mb-24">
+      <div className="d-flex align-items-center justify-content-between mb-8">
         <div className="d-flex align-items-center gap-12">
           <div className="w-8 h-8 rounded-circle bg-warning-600"></div>
           <h4 className="h6 mb-0 text-heading fw-bold">Teknik Detaylar</h4>

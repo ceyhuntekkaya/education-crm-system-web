@@ -12,8 +12,8 @@ export const StatusIndicators = () => {
   if (!hasAnyStatus) return null;
 
   return (
-    <div className="mb-32">
-      <div className="d-flex align-items-center gap-12 mb-16">
+    <div className="mb-24">
+      <div className="d-flex align-items-center gap-12 mb-8">
         <div className="w-8 h-8 rounded-circle bg-info-600"></div>
         <h4 className="h6 mb-0 text-heading fw-bold">Durum Bilgileri</h4>
       </div>

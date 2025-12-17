@@ -6,6 +6,7 @@ import {
   parseListIdFromUrl,
   MyListProvider,
   ListSidebarContent,
+  MobileListHeader,
 } from "./_shared";
 
 /**
@@ -25,8 +26,12 @@ export default function MyListLayout({
     <MyListProvider key={listId} listId={listId}>
       <section className="course-list-view py-40 background-img bg-img">
         <div className="container">
+          {/* Mobile Header - Only visible on mobile */}
+          <MobileListHeader />
+
           <div className="row">
-            <div className="col-lg-3">
+            {/* Sidebar - Hidden on mobile, visible on lg and up */}
+            <div className="col-lg-3 d-none d-lg-block">
               <ListSidebarContent listId={id} />
             </div>
             <div className="col-lg-9">{children}</div>
