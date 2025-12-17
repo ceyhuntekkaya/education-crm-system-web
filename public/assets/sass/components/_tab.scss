@@ -39,6 +39,7 @@
     border-radius: 24px;
     min-height: fit-content;
     overflow: hidden;
+    -webkit-overflow-scrolling: touch;
     
     @include msm-screen {
         display: flex;
@@ -49,9 +50,60 @@
         border-radius: 16px;
     }
     
+    // Mobile scroll indicator
+    &.mobile-scroll {
+        @include msm-screen {
+            // Hide scrollbar
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            
+            // Scroll snap for better UX
+            scroll-snap-type: x proximity;
+            scroll-padding: 8px;
+            
+            .nav-item {
+                scroll-snap-align: start;
+                flex-shrink: 0;
+                
+                // Icon-only (inactive) tablar square shape - animasyonlu
+                &:has(.tab-icon-only) {
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    
+                    .nav-link {
+                        width: 44px;
+                        max-width: 44px;
+                        padding: 10px !important;
+                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                        
+                        svg, i {
+                            margin: 0 !important;
+                        }
+                    }
+                }
+                
+                // Active tablar genişleyebilir - animasyonlu
+                &:has(.tab-full) {
+                    flex-shrink: 1;
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    
+                    .nav-link {
+                        min-width: fit-content;
+                        width: auto;
+                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+                }
+            }
+        }
+    }
+    
     .nav-item {
         flex-shrink: 0;
         margin-bottom: 0;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         
         .nav-link {
             padding: 12px 16px !important;
@@ -64,7 +116,15 @@
             border: 1px solid transparent !important;
             outline: none !important;
             box-shadow: none !important;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            
+            // Mobile için minimum tıklama alanı (44x44px Apple HIG)
+            @include msm-screen {
+                min-width: 44px;
+                min-height: 44px;
+            }
             
             // Beyaz çizgi problemini tamamen gider
             &::before,
@@ -75,11 +135,33 @@
             
             // Focus ve active state'lerde de beyaz çizgi olmasin
             &:focus,
-            &:active,
             &:focus-visible {
                 outline: none !important;
                 box-shadow: none !important;
                 border-color: transparent !important;
+            }
+            
+            // Active tab styling - sadece bir tab active olabilir
+            &.active {
+                background-color: var(--bs-main-600) !important;
+                color: white !important;
+                border-color: var(--bs-main-600) !important;
+                
+                // Icon ve text renkleri
+                svg, i, span {
+                    color: white !important;
+                    fill: white !important;
+                }
+            }
+            
+            // Non-active tabs
+            &:not(.active) {
+                background-color: transparent !important;
+                color: var(--bs-neutral-500) !important;
+                
+                &:hover {
+                    background-color: var(--bs-neutral-20) !important;
+                }
             }
             
             @include xl-screen {
@@ -235,6 +317,8 @@
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     position: relative;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
     
     // Icon animasyonu
     .tab-icon {
@@ -250,33 +334,63 @@
         overflow: hidden;
     }
     
-    // Icon-only state (inactive)
+    // Icon-only state (inactive) - animasyonlu collapse
     &.tab-icon-only {
         .tab-text-animate {
             opacity: 0;
             max-width: 0;
             margin-left: 0;
             transform: translateX(-8px) scaleX(0.8);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        // Mobile'da icon-only tam square
+        @include msm-screen {
+            width: 44px !important;
+            max-width: 44px !important;
+            min-width: 44px !important;
+            padding: 10px !important;
+            flex-shrink: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
     }
     
-    // Full state (active)
+    // Full state (active) - animasyonlu expand
     &.tab-full {
         .tab-text-animate {
             opacity: 1;
             max-width: 200px;
             margin-left: 8px;
             transform: translateX(0) scaleX(1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        // Mobile'da da aynı animasyon ama biraz daha küçük
+        @include msm-screen {
+            .tab-text-animate {
+                opacity: 1 !important;
+                max-width: 150px !important;
+                margin-left: 6px !important;
+                font-size: 0.875rem !important; // 14px
+                transform: translateX(0) scaleX(1) !important;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            }
+            
+            padding: 8px 12px !important;
+            min-width: fit-content !important;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
     }
     
-    // Hover effect for icon-only tabs
+    // Hover effect for icon-only tabs (desktop only)
     &.tab-icon-only:hover:not(.active) {
-        .tab-text-animate {
-            opacity: 0.7;
-            max-width: 150px;
-            margin-left: 6px;
-            transform: translateX(0) scaleX(0.95);
+        @media (hover: hover) and (pointer: fine) {
+            .tab-text-animate {
+                opacity: 0.7;
+                max-width: 150px;
+                margin-left: 6px;
+                transform: translateX(0) scaleX(0.95);
+            }
         }
     }
 }
@@ -332,13 +446,37 @@
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     
     &:hover {
-        transform: translateY(-1px) scale(1.02);
-        box-shadow: 0 4px 12px hsla(var(--main) / 0.15) !important;
+        @media (hover: hover) and (pointer: fine) {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 12px hsla(var(--main) / 0.15) !important;
+        }
     }
     
     &:active {
         transform: translateY(0) scale(0.98);
         transition: all 0.1s ease;
+    }
+}
+
+// Touch-friendly target for mobile
+.touch-target {
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    
+    // Minimum touch target boyutu (WCAG 2.5.5)
+    @include msm-screen {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    
+    // Active state feedback
+    &:active {
+        @include msm-screen {
+            opacity: 0.7;
+            transform: scale(0.98);
+        }
     }
 }
 

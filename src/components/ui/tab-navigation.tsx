@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { TabItem } from "./types";
 import { Icon } from "./icon";
 import { Button } from "./button";
+import { useResponsive } from "@/hooks";
 
 // TabNavigation component props
 interface TabNavigationProps {
@@ -44,8 +45,13 @@ export default function TabNavigation({
   });
 
   const [isScrollable, setIsScrollable] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const tabsRef = useRef<HTMLUListElement>(null);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const hasDraggedRef = useRef(false);
+
+  // Responsive hook kullanımı
+  const { isMobile } = useResponsive();
 
   // Tabs prop'u değiştiğinde activeTabId'yi güncelle
   useEffect(() => {
@@ -90,62 +96,97 @@ export default function TabNavigation({
     }
   }, [iconOnly, isScrollable]);
 
-  // Drag to scroll - sadece icon-only modunda
+  // Drag to scroll - mouse ve touch desteği
   useEffect(() => {
     let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
+    const DRAG_THRESHOLD = 5; // 5px hareket etmeden tıklama sayılır
 
-    const handleMouseDown = (e: MouseEvent) => {
+    const handleStart = (clientX: number) => {
       if (!iconOnly || !isScrollable) return;
 
       isDown = true;
-      setIsDragging(true);
-      startX = e.pageX - (tabsRef.current?.offsetLeft || 0);
-      scrollLeft = tabsRef.current?.scrollLeft || 0;
+      hasDraggedRef.current = false; // Reset drag flag
+      startXRef.current = clientX - (tabsRef.current?.offsetLeft || 0);
+      scrollLeftRef.current = tabsRef.current?.scrollLeft || 0;
 
-      if (tabsRef.current) {
+      if (tabsRef.current && !isMobile) {
         tabsRef.current.style.cursor = "grabbing";
         tabsRef.current.style.userSelect = "none";
       }
     };
 
-    const handleMouseLeave = () => {
+    const handleEnd = () => {
       isDown = false;
-      setIsDragging(false);
-      if (tabsRef.current) {
+      // Kısa bir süre sonra drag flag'i resetle
+      setTimeout(() => {
+        hasDraggedRef.current = false;
+      }, 100);
+      if (tabsRef.current && !isMobile) {
         tabsRef.current.style.cursor = "grab";
         tabsRef.current.style.userSelect = "auto";
       }
     };
 
-    const handleMouseUp = () => {
-      isDown = false;
-      setIsDragging(false);
-      if (tabsRef.current) {
-        tabsRef.current.style.cursor = "grab";
-        tabsRef.current.style.userSelect = "auto";
-      }
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMove = (clientX: number, preventDefault = false) => {
       if (!isDown || !iconOnly || !tabsRef.current) return;
 
-      e.preventDefault();
-      const x = e.pageX - (tabsRef.current.offsetLeft || 0);
-      const walk = (x - startX) * 1.5; // Scroll speed
-      tabsRef.current.scrollLeft = scrollLeft - walk;
+      const x = clientX - (tabsRef.current.offsetLeft || 0);
+      const deltaX = Math.abs(x - startXRef.current);
+
+      // Eğer threshold'ı geçtiyse drag olarak işaretlr
+      if (deltaX > DRAG_THRESHOLD) {
+        hasDraggedRef.current = true;
+      }
+
+      if (hasDraggedRef.current) {
+        const walk = (x - startXRef.current) * 1.5; // Scroll speed
+        tabsRef.current.scrollLeft = scrollLeftRef.current - walk;
+      }
+    };
+
+    // Mouse events
+    const handleMouseDown = (e: MouseEvent) => handleStart(e.pageX);
+    const handleMouseUp = () => handleEnd();
+    const handleMouseLeave = () => handleEnd();
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isDown) e.preventDefault();
+      handleMove(e.pageX);
+    };
+
+    // Touch events
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        handleStart(e.touches[0].clientX);
+      }
+    };
+    const handleTouchEnd = () => handleEnd();
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        handleMove(e.touches[0].clientX, true);
+      }
     };
 
     const tabsElement = tabsRef.current;
     if (tabsElement && iconOnly) {
+      // Mouse events
       tabsElement.addEventListener("mousedown", handleMouseDown);
       tabsElement.addEventListener("mouseleave", handleMouseLeave);
       tabsElement.addEventListener("mouseup", handleMouseUp);
       tabsElement.addEventListener("mousemove", handleMouseMove);
 
+      // Touch events
+      tabsElement.addEventListener("touchstart", handleTouchStart, {
+        passive: true,
+      });
+      tabsElement.addEventListener("touchend", handleTouchEnd, {
+        passive: true,
+      });
+      tabsElement.addEventListener("touchmove", handleTouchMove, {
+        passive: true,
+      });
+
       // Initial cursor style
-      if (isScrollable) {
+      if (isScrollable && !isMobile) {
         tabsElement.style.cursor = "grab";
       }
 
@@ -154,26 +195,40 @@ export default function TabNavigation({
         tabsElement.removeEventListener("mouseleave", handleMouseLeave);
         tabsElement.removeEventListener("mouseup", handleMouseUp);
         tabsElement.removeEventListener("mousemove", handleMouseMove);
+        tabsElement.removeEventListener("touchstart", handleTouchStart);
+        tabsElement.removeEventListener("touchend", handleTouchEnd);
+        tabsElement.removeEventListener("touchmove", handleTouchMove);
         tabsElement.style.cursor = "auto";
         tabsElement.style.userSelect = "auto";
       };
     }
-  }, [iconOnly, isScrollable]);
+  }, [iconOnly, isScrollable, isMobile]);
 
-  const handleTabClick = (tabId: string) => {
-    // Drag sırasında tab tıklamayı engelle
-    if (isDragging) return;
+  const handleTabClick = (
+    e: React.MouseEvent | React.TouchEvent,
+    tabId: string
+  ) => {
+    // Sadece gerçekten drag yapıldıysa engelle
+    if (hasDraggedRef.current) {
+      e.preventDefault();
+      return;
+    }
 
     setActiveTabId(tabId);
     onTabChange?.(tabId);
   };
 
-  // Tab'ların aktif durumunu internal state'e göre ayarla
+  // Tab'ların aktif durumunu internal state'e göre ayarla - sadece bir tab aktif olabilir
   const processedTabs = tabs.map((tab) => ({
     ...tab,
     isActive: tab.id === activeTabId,
   }));
   const getSizeClasses = () => {
+    // Mobile için optimize edilmiş padding ve gap
+    if (isMobile) {
+      return iconOnly ? "gap-8 p-8" : "gap-6 p-6";
+    }
+
     switch (size) {
       case "xxs":
         return "gap-4 p-4";
@@ -190,32 +245,42 @@ export default function TabNavigation({
 
   const getButtonSizeClasses = () => {
     if (iconOnly) {
+      // Mobile için optimize edilmiş boyutlar (sadece icon-only inactive'ler için)
+      if (isMobile) {
+        return "px-10 py-8 text-sm min-w-[44px] min-h-[44px] transition-all duration-300 flex items-center justify-center";
+      }
+
       // Icon-only mode için optimize edilmiş padding'ler
       switch (size) {
         case "xxs":
-          return "px-4 py-3 text-xs min-w-fit transition-all duration-300";
+          return "px-4 py-3 text-xs min-w-fit min-h-[36px] transition-all duration-300 flex items-center justify-center";
         case "xs":
-          return "px-6 py-4 text-sm min-w-fit transition-all duration-300";
+          return "px-6 py-4 text-sm min-w-fit min-h-[40px] transition-all duration-300 flex items-center justify-center";
         case "sm":
-          return "px-8 py-5 text-sm min-w-fit transition-all duration-300";
+          return "px-8 py-5 text-sm min-w-fit min-h-[44px] transition-all duration-300 flex items-center justify-center";
         case "lg":
-          return "px-12 py-8 text-lg min-w-fit transition-all duration-300";
+          return "px-12 py-8 text-lg min-w-fit min-h-[52px] transition-all duration-300 flex items-center justify-center";
         default: // md
-          return "px-10 py-6 text-md min-w-fit transition-all duration-300";
+          return "px-10 py-6 text-md min-w-fit min-h-[48px] transition-all duration-300 flex items-center justify-center";
       }
     } else {
+      // Mobile için daha küçük padding'ler
+      if (isMobile) {
+        return "px-12 py-6 text-sm min-h-[44px] transition-all duration-300";
+      }
+
       // Normal mode
       switch (size) {
         case "xxs":
-          return "px-8 py-4 text-xs transition-all duration-300";
+          return "px-8 py-4 text-xs min-h-[36px] transition-all duration-300";
         case "xs":
-          return "px-10 py-5 text-sm transition-all duration-300";
+          return "px-10 py-5 text-sm min-h-[40px] transition-all duration-300";
         case "sm":
-          return "px-12 py-6 text-sm transition-all duration-300";
+          return "px-12 py-6 text-sm min-h-[44px] transition-all duration-300";
         case "lg":
-          return "px-20 py-12 text-lg transition-all duration-300";
+          return "px-20 py-12 text-lg min-h-[52px] transition-all duration-300";
         default: // md
-          return "px-16 py-8 text-md transition-all duration-300";
+          return "px-16 py-8 text-md min-h-[48px] transition-all duration-300";
       }
     }
   };
@@ -225,15 +290,22 @@ export default function TabNavigation({
       ref={tabsRef}
       className={`nav nav-pills common-tab d-flex bg-white border border-neutral-30 rounded-12 ${getSizeClasses()} ${
         iconOnly
-          ? `overflow-x-auto flex-nowrap ${isScrollable ? "scrollable" : ""}`
+          ? `overflow-x-auto flex-nowrap ${isScrollable ? "scrollable" : ""} ${
+              isMobile ? "mobile-scroll" : ""
+            }`
           : allowMultiline
           ? "flex-wrap multiline"
           : "overflow-auto"
-      } ${center ? "justify-content-center" : ""}`}
+      } ${center && !iconOnly ? "justify-content-center" : ""}`}
       id={navigationId}
       role="tablist"
+      style={{
+        WebkitOverflowScrolling: "touch",
+        scrollbarWidth: isMobile ? "none" : "thin",
+        msOverflowStyle: isMobile ? "none" : "auto",
+      }}
     >
-      {processedTabs.map((tab, index) => {
+      {processedTabs.map((tab) => {
         // Helper functions to avoid repetition
         const getIconSize = (): "sm" | "md" | "lg" => {
           return size === "xxs" || size === "xs"
@@ -254,9 +326,11 @@ export default function TabNavigation({
         };
 
         const getCommonProps = () => ({
-          onClick: () => handleTabClick(tab.id),
+          onClick: (e: React.MouseEvent | React.TouchEvent) =>
+            handleTabClick(e, tab.id),
           "data-bs-toggle": "pill",
           "data-bs-target": `#${tab.id}`,
+          role: "tab",
         });
 
         const getTabStyles = (isActiveButton = false) => ({
@@ -271,6 +345,7 @@ export default function TabNavigation({
         });
 
         // Determine which component to render
+        // Icon-only modda sadece inactive'ler icon olarak gösterilir (hem mobil hem desktop)
         const shouldUseIcon = iconOnly && !tab.isActive;
 
         const buttonElement = shouldUseIcon ? (
@@ -278,13 +353,21 @@ export default function TabNavigation({
             icon={tab.icon}
             variant="inline"
             size={getIconSize()}
-            hoverText={tab.label || tab.title}
-            className={`nav-link tab-button-animate tab-icon-only ${getButtonSizeClasses()}`}
+            hoverText={isMobile ? undefined : tab.label || tab.title}
+            className={`nav-link tab-button-animate tab-icon-only ${getButtonSizeClasses()} touch-target ${
+              tab.isActive ? "active" : ""
+            }`}
             aria-label={tab.label || tab.title}
+            aria-selected={tab.isActive}
             animate="fade-up"
             disabled={false}
             loading={false}
-            style={getTabStyles(false)}
+            style={{
+              ...getTabStyles(false),
+              touchAction: "manipulation",
+              WebkitTapHighlightColor: "transparent",
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
             {...getCommonProps()}
           />
         ) : (
@@ -292,12 +375,17 @@ export default function TabNavigation({
             variant={tab.isActive ? "inline" : "outline"}
             size={getButtonSize()}
             leftIcon={tab.icon}
-            className={`nav-link ${
-              iconOnly && tab.isActive ? "tab-button-animate tab-full" : ""
-            } ${getButtonSizeClasses()} ${tab.isActive ? "active" : ""}`}
+            className={`nav-link tab-button-animate tab-full ${getButtonSizeClasses()} ${
+              tab.isActive ? "active" : ""
+            } touch-target`}
             aria-controls={tab.id}
             aria-selected={tab.isActive ? "true" : "false"}
-            style={getTabStyles(true)}
+            style={{
+              ...getTabStyles(true),
+              touchAction: "manipulation",
+              WebkitTapHighlightColor: "transparent",
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
             {...getCommonProps()}
           >
             {tab.label || tab.title}

@@ -86,7 +86,7 @@ const Results = ({
       if (node && shouldScroll) {
         // DOM'a eklendikten sonra scroll yap
         requestAnimationFrame(() => {
-          const headerOffset = 100;
+          const headerOffset = window.innerWidth <= 768 ? 25 : 100;
           const elementPosition = node.getBoundingClientRect().top;
           const offsetPosition =
             elementPosition + window.scrollY - headerOffset;
