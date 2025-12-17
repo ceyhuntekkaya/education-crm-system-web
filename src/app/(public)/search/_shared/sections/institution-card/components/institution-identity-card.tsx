@@ -10,7 +10,7 @@ export const InstitutionIdentityCard = () => {
   const hasPrice = !!institution.formattedPrice;
 
   return (
-    <div className="bg-white border rounded-16 p-24 box-shadow-sm">
+    <div className="bg-white border rounded-16 p-12 box-shadow-sm">
       {/* Logo ve Başlık */}
       <InstitutionHeader logoSize={64} />
 
