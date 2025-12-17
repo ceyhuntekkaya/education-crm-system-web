@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { InstitutionCard } from "../institution-card/institution-card";
 import { SchoolSearchResultDto } from "@/types/dto/institution/InstitutionSearch.types";
 import { LoadingState } from "@/components/ui/loadings";
@@ -24,9 +24,10 @@ const Results = ({
   pagination,
   showPagination = true,
 }: ResultsProps) => {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-
+  const expandedCardRef = useRef<HTMLDivElement | null>(null);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
+  const [shouldScroll, setShouldScroll] = useState(false);
+  const pendingCardIdRef = useRef<string | null>(null);
 
   // Helper functions
   const getRowIndex = (index: number) => Math.floor(index / CARDS_PER_ROW);
@@ -41,24 +42,61 @@ const Results = ({
     expandedCardIndex !== -1 ? getRowIndex(expandedCardIndex) : -1;
 
   const handleCardClick = (institutionId: string) => {
-    // Aynı karta tıklandıysa toggle işlemi yap
+    // Aynı karta tıklandıysa kapat
     if (expandedCardId === institutionId) {
       setExpandedCardId(null);
+      setShouldScroll(false);
+      pendingCardIdRef.current = null;
       return;
     }
 
-    // Farklı bir karta tıklandıysa direkt olarak aç
-    setExpandedCardId(institutionId);
+    // Eğer başka bir kart zaten açıksa, önce kapat sonra yeni kartı aç
+    if (expandedCardId !== null) {
+      pendingCardIdRef.current = institutionId;
+      setExpandedCardId(null);
+      setShouldScroll(false);
+      return;
+    }
 
-    // Scroll işlemi - kısa bir delay ile
-    setTimeout(() => {
-      if (scrollRef.current) {
-        const element = scrollRef.current;
-        const y = element.getBoundingClientRect().top + window.scrollY - 125;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    }, 50);
+    // Hiçbir kart açık değilse direkt aç
+    setExpandedCardId(institutionId);
+    setShouldScroll(true);
   };
+
+  // Pending card'ı açmak için useEffect
+  useEffect(() => {
+    if (expandedCardId === null && pendingCardIdRef.current !== null) {
+      const pendingId = pendingCardIdRef.current;
+      pendingCardIdRef.current = null;
+
+      // Kısa bir gecikme ile yeni kartı aç
+      const timer = setTimeout(() => {
+        setExpandedCardId(pendingId);
+        setShouldScroll(true);
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [expandedCardId]);
+
+  // Ref callback - element DOM'a eklendiğinde scroll yap
+  const setExpandedCardRefCallback = useCallback(
+    (node: HTMLDivElement | null) => {
+      expandedCardRef.current = node;
+      if (node && shouldScroll) {
+        // DOM'a eklendikten sonra scroll yap
+        requestAnimationFrame(() => {
+          const headerOffset = 100;
+          const elementPosition = node.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.scrollY - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+          setShouldScroll(false);
+        });
+      }
+    },
+    [shouldScroll]
+  );
 
   // Loading state - skeleton cards göster
   if (loading) {
@@ -92,7 +130,7 @@ const Results = ({
           isExpanded={true}
           onCardClick={() => handleCardClick(expandedCard.id?.toString() || "")}
           animationDelay={getAnimationDelay(0)}
-          ref={scrollRef}
+          ref={setExpandedCardRefCallback}
         />
       );
     }
@@ -106,7 +144,6 @@ const Results = ({
         isExpanded={false}
         onCardClick={() => handleCardClick(institution.id?.toString() || "")}
         animationDelay={getAnimationDelay(idx)}
-        ref={scrollRef}
       />
     ));
   };

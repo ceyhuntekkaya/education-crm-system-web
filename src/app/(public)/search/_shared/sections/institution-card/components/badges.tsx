@@ -1,3 +1,4 @@
+import { formatTitle } from "@/utils";
 import { useInstitutionCardContext } from "../context";
 
 interface BadgesProps {
@@ -36,7 +37,7 @@ export const Badges = ({ variant = "compact" }: BadgesProps) => {
             className={isCompact ? "text-xs fw-medium" : "text-sm fw-medium"}
             style={{ color: institutionTypeStyle.color }}
           >
-            {institution.institutionTypeName}
+            {formatTitle(institution.institutionTypeName || "")}
           </span>
         </div>
       )}
