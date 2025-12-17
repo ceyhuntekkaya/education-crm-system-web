@@ -27,25 +27,19 @@
   @include lg-screen {
     padding: 16px !important;
   }
-  
-  @include md-screen {
-    position: fixed !important;
-    inset-inline-start: 0;
-    top: 0;
-    z-index: 99;
-    width: 100%;
-    max-width: 348px;
+
+  // Mobile drawer içindeki form için özel stiller
+  .filter-form-drawer & {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    border: none !important;
     border-radius: 0 !important;
-    border: 0 !important;
-    border-inline-end: 1px solid var(--neutral-30) !important;
-    transform: translateX(-100%);
-    transition: 0.2s linear;
-    overflow-y: auto;
-    height: 100vh;
-    
-    &.active {
-      transform: translateX(0%);
-    }
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: transparent !important;
   }
 
   &__sticky-footer {
@@ -60,6 +54,14 @@
     margin-right: -32px;
     margin-bottom: -32px;
     z-index: 10;
+    
+    // Mobile drawer içindeki sticky footer
+    .filter-form-drawer & {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      padding: 16px 0;
+    }
     
     // Favori buton alanı için özel stil
     .border-top {
@@ -84,6 +86,198 @@
       margin-left: -16px;
       margin-right: -16px;
       margin-bottom: -16px;
+    }
+  }
+}
+
+// Mobile Filter Drawer Styles
+.filter-form-drawer {
+  .drawer__menu {
+    padding: 0 !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  // Form container mobilde daha compact
+  .search-sidebar-filter {
+    padding: 16px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    
+    // İlk border'ı gizle (üst header border'ı drawer'da var zaten)
+    > div > span:first-of-type {
+      display: none;
+    }
+  }
+  
+  // Accordion stilleri drawer içinde
+  .accordion-item {
+    border: none;
+    margin-bottom: 0;
+    
+    &__header {
+      padding: 12px 0;
+      font-size: 14px;
+    }
+    
+    &__body {
+      padding: 12px 0;
+    }
+  }
+  
+  // Border'lar arası spacing'i azalt
+  .border-dashed {
+    margin: 16px 0 !important;
+  }
+  
+  // Başlık stilleri - daha compact
+  h4, h5, h6 {
+    font-size: 16px !important;
+    margin-bottom: 0 !important;
+  }
+  
+  // Butonlar mobilde full-width ve daha compact
+  .btn {
+    white-space: nowrap;
+    
+    &-xxs {
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+  }
+  
+  // Sticky footer mobilde daha az padding
+  .search-sidebar-filter__sticky-footer {
+    padding: 12px 16px !important;
+    margin: 0 -16px -16px -16px !important;
+    
+    .d-flex {
+      gap: 8px !important;
+    }
+  }
+  
+  // Form elementleri için genel düzenlemeler
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .form-label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  
+  // Section title'lar için
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  // Gap'leri azalt
+  .gap-12 {
+    gap: 8px !important;
+  }
+  
+  .gap-16 {
+    gap: 12px !important;
+  }
+  
+  // Padding'leri optimize et
+  .p-24 {
+    padding: 16px !important;
+  }
+  
+  .p-32 {
+    padding: 16px !important;
+  }
+  
+  .py-24 {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+  
+  .my-24 {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .mb-24 {
+    margin-bottom: 12px !important;
+  }
+}
+
+// =======================================
+//   Mobile Sticky Filter Button
+//   Ekranın altına sabit filtre butonu
+// =======================================
+.mobile-filter-sticky-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); // iOS safe area
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  
+  &__container {
+    pointer-events: auto;
+  }
+  
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: linear-gradient(45deg, var(--main-500), var(--main-600));
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(var(--main-600-rgb), 0.3),
+      0 5px 10px rgba(var(--main-600-rgb), 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    span {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .ph-caret-up {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    &:hover {
+      background: linear-gradient(45deg, var(--main-600), var(--main-700));
+      transform: translateY(-3px);
+      box-shadow: 0 14px 35px rgba(var(--main-600-rgb), 0.35),
+        0 7px 15px rgba(var(--main-600-rgb), 0.15);
+
+      i.ph-funnel {
+        transform: rotate(-5deg);
+      }
+      i.ph-caret-up {
+        transform: translateY(-2px);
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 15px rgba(var(--main-600-rgb), 0.2);
     }
   }
 }

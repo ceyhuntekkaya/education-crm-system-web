@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, FormValues as FormDebug } from "@/components";
 import { Accordion, AccordionItem } from "@/components/ui";
+import { Drawer } from "@/components/ui/drawer";
 import { useAccordion, useFormHook, useModal } from "@/hooks";
 import { useSearchContext } from "../../contexts";
 import { SaveFavoriteSearchModal } from "../save-favorite-search-modal";
@@ -30,7 +31,15 @@ interface Section {
   forceOpen?: boolean;
 }
 
-const FormContent = () => {
+interface FormContentProps {
+  onSubmitSuccess?: () => void;
+  hideHeader?: boolean; // Drawer'da başlığı gizlemek için
+}
+
+const FormContent = ({
+  onSubmitSuccess,
+  hideHeader = false,
+}: FormContentProps) => {
   const { resetForm } = useFormHook();
   const { search, sectionChanges, institutionTypes, resetSearch } =
     useSearchContext();
@@ -96,30 +105,37 @@ const FormContent = () => {
     console.log("API Parametreleri:", cleanParams);
     // Search fonksiyonunu hook'tan kullan
     search(cleanParams);
+
+    // Mobile drawer'ı kapat
+    onSubmitSuccess?.();
   };
 
   return (
     <Form
       onSubmit={onSubmit}
-      className={`search-sidebar-filter sidebar rounded-12 bg-white p-32 box-shadow-md `}
-      data-aos="fade-up"
+      className={`search-sidebar-filter sidebar rounded-12 bg-white ${
+        hideHeader ? "p-0" : "p-32"
+      } ${hideHeader ? "" : "box-shadow-md"} `}
+      data-aos={hideHeader ? undefined : "fade-up"}
     >
       {/* <FormDebug /> */}
       <div>
-        <div className="flex-between">
-          <div className="flex-grow-1">
-            <div className="flex-between">
-              <h4 className="mb-0">Arama Kriterleri</h4>
-              <button
-                type="button"
-                className="sidebar-close text-xl text-neutral-500 d-lg-none hover-text-main-600"
-              >
-                <i className="ph-bold ph-x" />
-              </button>
+        {!hideHeader && (
+          <div className="flex-between">
+            <div className="flex-grow-1">
+              <div className="flex-between">
+                <h4 className="mb-0">Arama Kriterleri</h4>
+                <button
+                  type="button"
+                  className="sidebar-close text-xl text-neutral-500 d-lg-none hover-text-main-600"
+                >
+                  <i className="ph-bold ph-x" />
+                </button>
+              </div>
+              <span className="d-block border border-neutral-30 border-dashed my-24" />
             </div>
-            <span className="d-block border border-neutral-30 border-dashed my-24" />
           </div>
-        </div>
+        )}
         {/* Form Bölümleri - Accordion ile render */}
         <Accordion styling="off">
           {formSections.map((section, index) => {
@@ -213,7 +229,70 @@ const FormContent = () => {
 };
 
 const FilterForm = () => {
-  return <FormContent />;
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Ekran boyutunu kontrol et
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992); // lg breakpoint
+    };
+
+    // İlk yüklemede kontrol et
+    checkMobile();
+
+    // Resize event listener
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => setIsDrawerOpen(false);
+
+  // Desktop görünümü - Orijinal tasarım
+  if (!isMobile) {
+    return <FormContent />;
+  }
+
+  // Mobile görünümü - Sticky Bottom Button + Drawer
+  return (
+    <>
+      {/* Mobile - Form yerine sticky button göster */}
+      <div className="d-lg-none">
+        {/* Mobile Sticky Filter Button - Ekranın altına sabit */}
+        <div className="mobile-filter-sticky-button">
+          <div className="mobile-filter-sticky-button__container">
+            <button
+              type="button"
+              onClick={openDrawer}
+              className="mobile-filter-sticky-button__btn"
+            >
+              <i className="ph-bold ph-funnel" />
+              <span>Filtrele</span>
+              {/* <i className="ph-bold ph-caret-up" /> */}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Drawer */}
+        <Drawer
+          isOpen={isDrawerOpen}
+          onClose={closeDrawer}
+          position="left"
+          width="80%"
+          header={
+            <h5 className="mb-0 fw-semibold text-neutral-700">
+              <i className="ph ph-funnel me-8"></i>
+              Arama Kriterleri
+            </h5>
+          }
+          className="filter-form-drawer"
+        >
+          <FormContent onSubmitSuccess={closeDrawer} hideHeader={true} />
+        </Drawer>
+      </div>
+    </>
+  );
 };
 
 export default FilterForm;
