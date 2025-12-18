@@ -251,13 +251,49 @@ export const SchoolFormContent: React.FC = () => {
           <Divider />
         </div>
 
+        {/* GÖRSEL BİLGİLER */}
+        <div className="col-12">
+          <h5 className="mb-16">Görsel Bilgiler</h5>
+        </div>
+
+        {/* Logo */}
+        <div className="col-6">
+          <FileInput
+            label="Kurum Logosu"
+            type="img"
+            variant="outline"
+            placeholder="Logo yüklemek için tıklayın veya sürükleyin"
+            maxSize={5}
+            isAutoUpload
+            name="logoUrl"
+          />
+        </div>
+
+        {/* Kapak Resmi */}
+        <div className="col-6">
+          <FileInput
+            label="Kapak Resmi"
+            type="img"
+            variant="outline"
+            placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
+            maxSize={5}
+            isAutoUpload
+            name="coverImageUrl"
+          />
+        </div>
+
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
         {/* İLETİŞİM BİLGİLERİ */}
         <div className="col-12">
           <h5 className="mb-16">İletişim Bilgileri</h5>
         </div>
 
         {/* E-posta */}
-        <div className="col-6">
+        <div className="col-12">
           <FormInput
             name="email"
             label="E-posta"
@@ -284,6 +320,86 @@ export const SchoolFormContent: React.FC = () => {
             placeholder="Dahili numarasını giriniz..."
           />
         </div>
+
+        {/* Divider */}
+        <div className="col-12">
+          <Divider />
+        </div>
+
+        {/* EĞİTİM BİLGİLERİ */}
+        <div className="col-12">
+          <h5 className="mb-16">Eğitim Bilgileri</h5>
+        </div>
+
+        {/* Eğitim Dili */}
+        <div className="col-4">
+          <FormAutocomplete
+            name="languageOfInstruction"
+            label="Eğitim Dili"
+            placeholder="Eğitim dili seçiniz..."
+            options={languageOptions}
+            noOptionsText="Dil bulunamadı"
+          />
+        </div>
+
+        {/* Minimum Yaş */}
+        <div className="col-4">
+          <FormInput
+            name="minAge"
+            label="Minimum Yaş"
+            type="number"
+            placeholder="Minimum yaşı giriniz..."
+          />
+        </div>
+
+        {/* Maksimum Yaş */}
+        <div className="col-4">
+          <FormInput
+            name="maxAge"
+            label="Maksimum Yaş"
+            type="number"
+            placeholder="Maksimum yaşı giriniz..."
+          />
+        </div>
+
+        {/* Kapasite */}
+        <div className="col-4">
+          <FormInput
+            name="capacity"
+            label="Kapasite"
+            type="number"
+            placeholder="Kapasiteyi giriniz..."
+          />
+        </div>
+
+        {/* Mevcut Öğrenci Sayısı */}
+        <div className="col-4">
+          <FormInput
+            name="currentStudentCount"
+            label="Mevcut Öğrenci Sayısı"
+            type="number"
+            placeholder="Mevcut öğrenci sayısını giriniz..."
+          />
+        </div>
+
+        {/* Ortalama Sınıf Büyüklüğü */}
+        <div className="col-4">
+          <FormInput
+            name="classSizeAverage"
+            label="Maksimum Sınıf Mevcudu"
+            type="number"
+            placeholder="Maksimum sınıf mevcudunu giriniz..."
+          />
+        </div>
+
+        {/* Müfredat Tipi */}
+        {/* <div className="col-6">
+          <FormInput
+            name="curriculumType"
+            label="Müfredat Tipi"
+            placeholder="Müfredat tipini giriniz..."
+          />
+        </div> */}
 
         {/* Divider */}
         <div className="col-12">
@@ -337,122 +453,6 @@ export const SchoolFormContent: React.FC = () => {
             name="youtubeUrl"
             label="Youtube"
             placeholder="Youtube URL'sini giriniz..."
-          />
-        </div>
-
-        {/* Divider */}
-        <div className="col-12">
-          <Divider />
-        </div>
-
-        {/* EĞİTİM BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16">Eğitim Bilgileri</h5>
-        </div>
-
-        {/* Minimum Yaş */}
-        <div className="col-4">
-          <FormInput
-            name="minAge"
-            label="Minimum Yaş"
-            type="number"
-            placeholder="Minimum yaşı giriniz..."
-          />
-        </div>
-
-        {/* Maksimum Yaş */}
-        <div className="col-4">
-          <FormInput
-            name="maxAge"
-            label="Maksimum Yaş"
-            type="number"
-            placeholder="Maksimum yaşı giriniz..."
-          />
-        </div>
-
-        {/* Kapasite */}
-        <div className="col-4">
-          <FormInput
-            name="capacity"
-            label="Kapasite"
-            type="number"
-            placeholder="Kapasiteyi giriniz..."
-          />
-        </div>
-
-        {/* Mevcut Öğrenci Sayısı */}
-        <div className="col-6">
-          <FormInput
-            name="currentStudentCount"
-            label="Mevcut Öğrenci Sayısı"
-            type="number"
-            placeholder="Mevcut öğrenci sayısını giriniz..."
-          />
-        </div>
-
-        {/* Ortalama Sınıf Büyüklüğü */}
-        <div className="col-6">
-          <FormInput
-            name="classSizeAverage"
-            label="Maksimum Sınıf Mevcudu"
-            type="number"
-            placeholder="Maksimum sınıf mevcudunu giriniz..."
-          />
-        </div>
-
-        {/* Müfredat Tipi */}
-        {/* <div className="col-6">
-          <FormInput
-            name="curriculumType"
-            label="Müfredat Tipi"
-            placeholder="Müfredat tipini giriniz..."
-          />
-        </div> */}
-
-        {/* Eğitim Dili */}
-        <div className="col-6">
-          <FormAutocomplete
-            name="languageOfInstruction"
-            label="Eğitim Dili"
-            placeholder="Eğitim dili seçiniz..."
-            options={languageOptions}
-            noOptionsText="Dil bulunamadı"
-          />
-        </div>
-
-        {/* Divider */}
-        <div className="col-12">
-          <Divider />
-        </div>
-
-        {/* GÖRSEL BİLGİLER */}
-        <div className="col-12">
-          <h5 className="mb-16">Görsel Bilgiler</h5>
-        </div>
-
-        {/* Logo */}
-        <div className="col-6">
-          <FileInput
-            label="Kurum Logosu"
-            type="img"
-            variant="outline"
-            placeholder="Logo yüklemek için tıklayın veya sürükleyin"
-            maxSize={5}
-            isAutoUpload
-            name="logoUrl"
-          />
-        </div>
-
-        {/* Kapak Resmi */}
-        <div className="col-6">
-          <FileInput
-            label="Kapak Resmi"
-            type="img"
-            variant="outline"
-            placeholder="Kapak resmi yüklemek için tıklayın veya sürükleyin"
-            maxSize={5}
-            isAutoUpload
-            name="coverImageUrl"
           />
         </div>
 
