@@ -156,7 +156,7 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
             overflow: "hidden",
           }}
         >
-          {campaign.description}
+          {campaign.shortDescription}
         </p>
 
         {/* Bottom Info Row */}
