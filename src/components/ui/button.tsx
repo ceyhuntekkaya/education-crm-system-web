@@ -127,7 +127,7 @@ const Button: React.FC<ButtonProps> = ({
   const ButtonContent = () => (
     <>
       <LeftIcon />
-      {loading ? "Loading..." : children}
+      {loading ? "Yükleniyor..." : children}
       <RightIcon />
     </>
   );
