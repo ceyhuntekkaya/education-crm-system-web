@@ -6,12 +6,12 @@ import { useInstitutionDetail } from "../../contexts";
 import { mapCampaignSchoolArrayToCampaignDtoArray } from "./utils";
 
 const InstitutionCampaigns = () => {
-  const { school, loading } = useInstitutionDetail();
+  const { campaigns, loading } = useInstitutionDetail();
 
   // school.activeCampaigns'den kampanyaları al (ayrı API isteği yok)
   // CampaignSchoolDto'yu CampaignDto'ya dönüştür
-  const campaignSchools = school?.activeCampaigns || [];
-  const campaigns = mapCampaignSchoolArrayToCampaignDtoArray(campaignSchools);
+  // const campaignSchools = school?.activeCampaigns || [];
+  // const campaigns = mapCampaignSchoolArrayToCampaignDtoArray(campaignSchools);
   const { activeCampaigns, inactiveCampaigns } = useCampaigns(campaigns);
 
   // Tab items for campaigns

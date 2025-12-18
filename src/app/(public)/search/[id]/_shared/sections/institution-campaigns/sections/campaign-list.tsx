@@ -40,9 +40,9 @@ const CampaignList = ({ campaigns = [], type }: CampaignListProps) => {
   });
 
   return (
-    <div className="row gy-20 gap-20">
+    <div className="row row-gap-24 pb-16">
       {normalizedCampaigns.map((campaign) => (
-        <div key={campaign.id} className="col-12">
+        <div key={campaign.id} className="col-12 col-md-6">
           <CampaignCard campaign={campaign} />
         </div>
       ))}
