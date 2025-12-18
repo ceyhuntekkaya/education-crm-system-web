@@ -45,10 +45,10 @@ export const PersonalInfoStep: React.FC = () => {
               autoComplete="email"
               disabled
             />
-            <small className="text-neutral-500 mt-4 d-block">
+            {/* <small className="text-neutral-500 mt-4 d-block">
               <i className="ph-info me-4" />
               E-posta adresi Adım 1&apos;de kaydedildi
-            </small>
+            </small> */}
           </div>
 
           <div className="col-12">
