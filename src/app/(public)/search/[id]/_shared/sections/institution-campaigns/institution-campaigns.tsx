@@ -62,17 +62,8 @@ const InstitutionCampaigns = () => {
   }
 
   return (
-    <div className="tutor-details__content">
-      <CustomCard
-        title="Kampanyalar ve Fırsatlar"
-        size="md"
-        variant="outline"
-        bgColor="bg-white"
-        headerBgColor="bg-main-25"
-        padding="p-8"
-        headerPadding="p-32"
-        spacing="mt-24"
-      >
+    <div className="mt-24">
+      <CustomCard title="Kampanyalar ve Fırsatlar">
         {/* Tab Navigation */}
         <div className="border border-neutral-30 rounded-12 bg-white p-8 mb-24">
           <TabNavigation tabs={campaignTabs} size="sm" />

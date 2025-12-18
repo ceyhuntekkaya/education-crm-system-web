@@ -31,7 +31,7 @@ export default function InstitutionAdditionalFeatures() {
       emptyIcon={emptyIcon}
     >
       {!isEmpty && (
-        <div className="p-24">
+        <div>
           {/* Başlık ve Açıklama */}
           <div className="mb-24">
             <h5 className="mb-16">Özellikler</h5>
@@ -54,7 +54,7 @@ export default function InstitutionAdditionalFeatures() {
                   {group.properties.map((property) => (
                     <div
                       key={property.propertyTypeId}
-                      className="col-6 form-check common-check mb-0 mt-20 ps-32"
+                      className="col-12 col-md-6 form-check common-check mb-0 mt-20 ps-32"
                     >
                       <input
                         id={`property-${property.propertyTypeId}`}
