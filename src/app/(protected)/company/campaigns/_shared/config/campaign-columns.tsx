@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { GridColDef } from "@/components/ui/data-grid";
 import { CampaignDto } from "@/types/dto/campaign/CampaignDto";
 import { CampaignSummaryDto } from "@/types/dto/campaign/CampaignSummaryDto";
@@ -9,7 +8,7 @@ import {
   getStatusDisplay,
   getCampaignDiscountInfo,
 } from "../utils";
-import { Badge, Popover } from "@/components";
+import { Badge, Popover, CustomImage } from "@/components";
 
 // Main column definitions
 export const createCampaignColumns = (): GridColDef<
@@ -19,51 +18,18 @@ export const createCampaignColumns = (): GridColDef<
   {
     field: "thumbnailImageUrl",
     headerName: "",
-    width: 70,
+    width: 80,
     sortable: false,
     renderCell: (params: any) => (
       <div className="d-flex align-items-center justify-content-center h-100">
-        {params?.row?.thumbnailImageUrl || params?.row?.bannerImageUrl ? (
-          <Image
-            src={params.row.thumbnailImageUrl || params.row.bannerImageUrl}
-            alt={params?.row?.title || "Kampanya Görseli"}
-            width={44}
-            height={32}
-            className="rounded"
-            style={{ objectFit: "cover", border: "1px solid #e5e7eb" }}
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              const parent = img.parentElement;
-
-              // Eğer zaten bir fallback element varsa, yenisini ekleme
-              if (parent?.querySelector(".fallback-icon")) {
-                img.style.display = "none";
-                return;
-              }
-
-              img.style.display = "none";
-              const fallback = document.createElement("div");
-              fallback.className =
-                "rounded d-flex align-items-center justify-content-center fallback-icon";
-              fallback.style.cssText = `width: 44px; height: 32px; background-color: #9ca3af; color: white;`;
-              fallback.innerHTML =
-                '<i class="ph ph-tag" style="font-size: 16px;"></i>';
-              parent?.appendChild(fallback);
-            }}
-          />
-        ) : (
-          <div
-            className="rounded d-flex align-items-center justify-content-center"
-            style={{
-              width: "44px",
-              height: "32px",
-              backgroundColor: "#9ca3af",
-              color: "white",
-            }}
-          >
-            <i className="ph ph-tag" style={{ fontSize: "16px" }} />
-          </div>
-        )}
+        <CustomImage
+          src={params.row.thumbnailImageUrl || params.row.bannerImageUrl}
+          alt={params?.row?.title || "Kampanya Görseli"}
+          width={75}
+          height={50}
+          variant="rounded"
+          style={{ objectFit: "cover", border: "1px solid #e5e7eb" }}
+        />
       </div>
     ),
   },
