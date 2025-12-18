@@ -3,24 +3,14 @@
 import { Sidebar } from "./_shared";
 import React, { useState, useEffect } from "react";
 import { companyLayoutNavigation, CompanyProvider } from "./_shared";
+import { useResponsive } from "@/hooks";
 
 const CompanyLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if we're on mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 992);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const { isDesktop } = useResponsive();
+  const isMobile = !isDesktop;
 
   // Close mobile menu when clicking overlay
   const handleOverlayClick = () => {

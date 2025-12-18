@@ -217,11 +217,14 @@
       &-text {
         font-size: 0.9rem;
         color: #94a3b8;
+           display: flex;
+      align-items: center;
       }
 
       i {
         color: var(--card-color);
         transition: transform 0.3s ease;
+        
       }
     }
 
