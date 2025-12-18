@@ -6,3 +6,4 @@ export { useAuthLogin } from "./use-auth-login";
 export { useAuthLogout } from "./use-auth-logout";
 export { useAuthInitialization } from "./use-auth-initialization";
 export { usePostLoginRedirect } from "./use-post-login-redirect";
+export { useRefreshToken } from "./use-refresh-token";

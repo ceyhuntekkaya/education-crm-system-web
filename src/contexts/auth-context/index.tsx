@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useEffect } from "react";
 import { AuthContextType } from "./types";
 import { AuthenticationRequest, AuthenticationResponse } from "@/types";
 import {
@@ -12,6 +12,7 @@ import {
   useAuthLogout,
   useAuthInitialization,
   usePostLoginRedirect,
+  useRefreshToken,
 } from "./hooks";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,6 +35,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Post-login redirect hook
   const { checkAndRedirect } = usePostLoginRedirect();
+
+  // ** refecth token api user bilgisi eklendikten sonra açılacak
+  // Refresh token hook
+  // const { refreshToken, refreshLoading } = useRefreshToken();
 
   // Handle login success
   const handleLoginSuccess = (data: AuthenticationResponse) => {
@@ -95,6 +100,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     updateRolePermissions,
     setIsLoading,
   });
+
+  // // Refresh token on component mount (page load/refresh)
+  // useEffect(() => {
+  //   refreshToken({});
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // Wrapper for updateUserSchools to also update context state
   const handleUpdateUserSchools = (
