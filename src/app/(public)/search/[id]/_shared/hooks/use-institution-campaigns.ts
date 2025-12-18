@@ -3,6 +3,7 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto, CampaignDto } from "@/types";
+import { useAuth } from "@/contexts";
 
 interface UseInstitutionCampaignsProps {
   schoolId: string | number | null;
@@ -23,14 +24,18 @@ interface UseInstitutionCampaignsReturn {
 export const useInstitutionCampaigns = ({
   schoolId,
 }: UseInstitutionCampaignsProps): UseInstitutionCampaignsReturn => {
+  const { user } = useAuth();
+
+  // API isteği sadece user varsa ve schoolId varsa yapılsın
+  const apiUrl =
+    schoolId && user ? API_ENDPOINTS.CAMPAIGNS.BY_SCHOOL(schoolId) : null;
+
   const {
     data: campaignsResponse,
     loading,
     error,
     refetch,
-  } = useGet<ApiResponseDto<CampaignDto[]>>(
-    schoolId ? API_ENDPOINTS.CAMPAIGNS.BY_SCHOOL(schoolId) : null
-  );
+  } = useGet<ApiResponseDto<CampaignDto[]>>(apiUrl);
 
   return {
     campaigns: campaignsResponse?.data || [],

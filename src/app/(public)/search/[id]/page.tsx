@@ -21,6 +21,7 @@ import {
   Notes,
   useInstitutionDetail,
   ProtectedUserGuard,
+  ContactForm,
 } from "./_shared";
 
 // UI Components
@@ -33,6 +34,7 @@ import {
   LoadingSpinner,
 } from "@/components";
 import { usePageTitle } from "@/hooks";
+import { useInstitutionSidebarData } from "./_shared/sections/institution-sidebar";
 
 export default function InstitutionDetailPage({
   params,
@@ -42,7 +44,7 @@ export default function InstitutionDetailPage({
   usePageTitle("Kurum Detayı");
   const schoolId = parseInt(params.id);
 
-  const { school, loading } = useInstitutionDetail();
+  const { school, loading, campus } = useInstitutionDetail();
 
   // Show loading state while data is being fetched
   if (loading) {
@@ -255,6 +257,13 @@ export default function InstitutionDetailPage({
               <ProtectedUserGuard hidden>
                 <Notes />
               </ProtectedUserGuard>
+
+              {/* Contact Form - Protected - Sadece mobilde görünür */}
+              <div className="d-lg-none mb-32 mb-lg-0">
+                <ProtectedUserGuard message="İletişim formu için lütfen giriş yapınız.">
+                  <ContactForm schoolId={school.id} campusId={campus.id} />
+                </ProtectedUserGuard>
+              </div>
             </div>
           </div>
         </div>

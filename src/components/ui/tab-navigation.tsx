@@ -289,20 +289,21 @@ export default function TabNavigation({
     <ul
       ref={tabsRef}
       className={`nav nav-pills common-tab d-flex bg-white border border-neutral-30 rounded-12 ${getSizeClasses()} ${
-        iconOnly
-          ? `overflow-x-auto flex-nowrap ${isScrollable ? "scrollable" : ""} ${
-              isMobile ? "mobile-scroll" : ""
-            }`
+        isMobile
+          ? "overflow-x-auto flex-nowrap mobile-scroll"
+          : iconOnly
+          ? `overflow-x-auto flex-nowrap ${isScrollable ? "scrollable" : ""}`
           : allowMultiline
           ? "flex-wrap multiline"
           : "overflow-auto"
-      } ${center && !iconOnly ? "justify-content-center" : ""}`}
+      } ${center && !iconOnly && !isMobile ? "justify-content-center" : ""}`}
       id={navigationId}
       role="tablist"
       style={{
         WebkitOverflowScrolling: "touch",
         scrollbarWidth: isMobile ? "none" : "thin",
         msOverflowStyle: isMobile ? "none" : "auto",
+        overflowY: "hidden",
       }}
     >
       {processedTabs.map((tab) => {

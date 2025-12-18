@@ -9,6 +9,7 @@ import {
   useInstitutionProperties,
   GroupedInstitutionProperty,
   useAppointmentData,
+  useInstitutionCampaigns,
 } from "../hooks";
 import { AppointmentSlotDto } from "@/types";
 
@@ -79,12 +80,12 @@ export function InstitutionDetailProvider({
   // } = useInstitutionPricingHook({ schoolId: id });
 
   // Campaigns artık institutionDetail.activeCampaigns'den alınıyor (ayrı API isteği yok)
-  // const {
-  //   campaigns: campaignsData,
-  //   loading: campaignsLoading,
-  //   error: campaignsError,
-  //   refetch: refetchCampaigns,
-  // } = useInstitutionCampaigns({ schoolId: id });
+  const {
+    campaigns: campaignsData,
+    loading: campaignsLoading,
+    error: campaignsError,
+    refetch: refetchCampaigns,
+  } = useInstitutionCampaigns({ schoolId: id });
 
   // Galleries hook'unu kullan
   const {
@@ -134,7 +135,7 @@ export function InstitutionDetailProvider({
   const brand = institutionDetail?.brand || null;
   const pricings = institutionDetail?.pricings || [];
   const customFees = institutionDetail?.customFees || [];
-  const campaigns = institutionDetail?.activeCampaigns || [];
+  // const campaigns = institutionDetail?.activeCampaigns || [];
 
   const contextValue: InstitutionDetailState = {
     institutionDetail,
@@ -143,7 +144,7 @@ export function InstitutionDetailProvider({
     brand: brand,
     pricings: pricings, // institutionDetail.pricings'den alınıyor
     customFees: customFees, // institutionDetail.customFees'den alınıyor
-    campaigns: campaigns, // institutionDetail.activeCampaigns'den alınıyor
+    campaigns: campaignsData, // institutionDetail.activeCampaigns'den alınıyor
     galleries: galleriesData || [],
     posts: postsData || [],
     institutionProperties: propertiesData || [],
@@ -155,14 +156,16 @@ export function InstitutionDetailProvider({
       // campaignsLoading || // YORUM: Artık campaigns ayrı hook'tan gelmiyor
       galleriesLoading ||
       postsLoading ||
-      propertiesLoading,
+      propertiesLoading ||
+      campaignsLoading,
     error:
       institutionError ||
       // pricingError || // YORUM: Artık pricing ayrı hook'tan gelmiyor
       // campaignsError || // YORUM: Artık campaigns ayrı hook'tan gelmiyor
       galleriesError ||
       postsError ||
-      propertiesError,
+      propertiesError ||
+      campaignsError,
     refetch: () => {
       refetchInstitution();
       // refetchPricing(); // YORUM: Artık pricing ayrı hook'tan gelmiyor
@@ -172,6 +175,7 @@ export function InstitutionDetailProvider({
       refetchProperties();
       refetchAppointmentSlots();
       refetchCurrentAppointment();
+      refetchCampaigns();
     },
     renderStars,
     formatCurrency,
