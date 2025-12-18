@@ -49,6 +49,17 @@ export const validationSchema = Yup.object({
   currentStudentCount: Yup.number()
     .transform((value, originalValue) => (originalValue === "" ? null : value))
     .min(0, "Mevcut öğrenci sayısı 0'dan küçük olamaz")
+    .test(
+      "max-capacity",
+      "Mevcut öğrenci sayısı kapasiteden fazla olamaz",
+      function (value) {
+        const { capacity } = this.parent;
+        if (value && capacity && value > capacity) {
+          return false;
+        }
+        return true;
+      }
+    )
     .nullable()
     .optional(),
   classSizeAverage: Yup.number()
