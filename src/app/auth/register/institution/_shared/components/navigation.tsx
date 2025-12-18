@@ -71,18 +71,19 @@ export const StepNavigation: React.FC = () => {
   return (
     <div className="step-navigation d-flex justify-content-between align-items-center mt-32 pt-24 border-top">
       <div>
-        {!isFirstStep && (
+        {/* {!isFirstStep && (
           <Button
             type="button"
             variant="outline"
             onClick={previousStep}
-            disabled={isLoading || isSubmitting}
+            // disabled={isLoading || isSubmitting}
+            disabled={true}
             className="btn-lg"
           >
             <i className="ph-bold ph-arrow-left me-8" />
             Geri
           </Button>
-        )}
+        )} */}
       </div>
 
       <div className="text-center">
