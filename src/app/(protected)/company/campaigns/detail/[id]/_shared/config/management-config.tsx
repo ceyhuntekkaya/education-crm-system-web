@@ -16,7 +16,7 @@ export const managementConfig: ManagementItemConfig[] = [
       if (isExpired || remaining <= 0) {
         return (
           <span className="badge bg-danger-subtle text-danger fw-semibold fs-6">
-            <i className="ph ph-x-circle me-1"></i>
+            <i className="ph ph-x-circle me-8"></i>
             Süresi Doldu
           </span>
         );
@@ -38,7 +38,7 @@ export const managementConfig: ManagementItemConfig[] = [
 
       return (
         <span className={`badge fw-semibold fs-6 ${badgeClass}`}>
-          <i className={`ph ${icon} me-1`}></i>
+          <i className={`ph ${icon} me-8`}></i>
           {formatNumber(remaining)} gün kaldı
         </span>
       );
@@ -49,7 +49,7 @@ export const managementConfig: ManagementItemConfig[] = [
     label: "Oluşturan",
     value: (campaign) => (
       <span className="text-secondary-700 fw-medium">
-        <i className="ph ph-user me-2 text-primary"></i>
+        <i className="ph ph-user me-8 text-primary"></i>
         {campaign?.createdByUserName}
       </span>
     ),
@@ -61,7 +61,7 @@ export const managementConfig: ManagementItemConfig[] = [
       if (!campaign?.createdAt) return null;
       return (
         <span className="text-secondary-600 fw-medium">
-          <i className="ph ph-calendar-plus me-2"></i>
+          <i className="ph ph-calendar-plus me-8"></i>
           {formatDateTime(campaign.createdAt)}
         </span>
       );

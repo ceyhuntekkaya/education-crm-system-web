@@ -10,7 +10,7 @@ export const discountConfig: DiscountItemConfig[] = [
     label: "İndirim Türü",
     value: (campaign) => (
       <span className="fw-medium text-secondary-700">
-        <i className="ph ph-percent me-2 text-warning"></i>
+        <i className="ph ph-percent me-8 text-warning"></i>
         {translateDiscountType(campaign?.discountType)}
       </span>
     ),
@@ -24,7 +24,7 @@ export const discountConfig: DiscountItemConfig[] = [
       if (!amount || amount === 0) return "-";
       return (
         <span className="fw-semibold text-success-700 fs-5">
-          <i className="ph ph-currency-circle-dollar me-2"></i>
+          <i className="ph ph-currency-circle-dollar me-8"></i>
           {new Intl.NumberFormat("tr-TR", {
             style: "currency",
             currency: "TRY",
@@ -44,7 +44,7 @@ export const discountConfig: DiscountItemConfig[] = [
       if (!percentage || percentage === 0) return "-";
       return (
         <span className="fw-semibold text-primary-700 fs-5">
-          <i className="ph ph-percent me-2"></i>%{percentage}
+          <i className="ph ph-percent me-8"></i>%{percentage}
         </span>
       );
     },

@@ -22,14 +22,8 @@ export const datesConfig: DatesItemConfig[] = [
   {
     label: "Başlangıç Tarihi",
     value: (campaign) => (
-      <span
-        className={`fw-medium ${
-          isDatePast(campaign?.startDate)
-            ? "text-neutral-600"
-            : "text-success-700"
-        }`}
-      >
-        <i className="ph ph-calendar-blank me-2"></i>
+      <span className="fw-medium text-dark">
+        <i className="ph ph-calendar-blank me-8"></i>
         {formatDate(campaign?.startDate)}
       </span>
     ),
@@ -40,10 +34,10 @@ export const datesConfig: DatesItemConfig[] = [
     value: (campaign) => (
       <span
         className={`fw-medium ${
-          isDatePast(campaign?.endDate) ? "text-danger-600" : "text-warning-700"
+          isDatePast(campaign?.endDate) ? "text-danger-700" : "text-danger-600"
         }`}
       >
-        <i className="ph ph-calendar-x me-2"></i>
+        <i className="ph ph-calendar-x me-8"></i>
         {formatDate(campaign?.endDate)}
       </span>
     ),
