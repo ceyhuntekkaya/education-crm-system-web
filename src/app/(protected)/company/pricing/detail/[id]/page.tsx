@@ -47,20 +47,26 @@ const PricingDetailPage: React.FC = () => {
       emptyMessage={
         showNoSchoolMessage
           ? "Lütfen önce bir Kurum seçin"
-          : "Fiyat bilgisi bulunamadı"
+          : "Fiyat Bilgisi Henüz Mevcut Değil"
       }
       emptyDescription={
         showNoSchoolMessage
           ? "Fiyat bilgilerini görüntülemek için yan menüden bir Kurum seçmeniz gerekmektedir."
+          : "Seçili kurum için henüz fiyat bilgisi tanımlanmamıştır. Fiyat bilgisi eklemek için sağ üstteki butonu kullanabilirsiniz."
+      }
+      emptyIcon={
+        showNoSchoolMessage ? "ph-buildings" : "ph-currency-circle-dollar"
+      }
+      addButtonUrl={
+        !showNoSchoolMessage && !pricing && selectedSchool
+          ? `/company/pricing/add-edit/${selectedSchool.id}`
           : undefined
       }
-      emptyIcon={showNoSchoolMessage ? "ph-buildings" : "ph-info"}
-      // editButtonUrl={
-      //   pricing?.id
-      //     ? `/company/pricing/add-edit/${pricing.id}`
-      //     : `/company/pricing/add-edit/${selectedSchool?.id}`
-      // }
-      editButtonUrl={`/company/pricing/add-edit/${selectedSchool?.id}`}
+      editButtonUrl={
+        pricing?.id
+          ? `/company/pricing/add-edit/${selectedSchool?.id}`
+          : undefined
+      }
       multiItems={allSections}
     />
   );
