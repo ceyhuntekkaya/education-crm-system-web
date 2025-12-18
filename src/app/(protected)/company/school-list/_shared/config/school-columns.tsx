@@ -1,7 +1,7 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { SchoolDto } from "@/types";
 import { Badge, CustomImage } from "@/components";
-import { getLanguageTypeLabel, formatTitle } from "@/utils";
+import { getLanguageTypeLabel, formatTitle, formatPhoneNumber } from "@/utils";
 
 export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
   // Logo
@@ -62,6 +62,36 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
       </div>
     ),
   },
+
+  // İletişim
+  {
+    field: "phone",
+    headerName: "Telefon",
+    width: 200,
+    renderCell: (params) => formatPhoneNumber(params?.row?.phone) || "-",
+  },
+  {
+    field: "extension",
+    headerName: "Dahili",
+    width: 120,
+    renderCell: (params) => params?.row?.extension || "-",
+  },
+  {
+    field: "email",
+    headerName: "E-posta",
+    width: 300,
+    renderCell: (params) =>
+      params?.row?.email ? (
+        <span
+          className="text-muted text-truncate d-block"
+          title={params.row.email}
+        >
+          {params.row.email}
+        </span>
+      ) : (
+        "-"
+      ),
+  },
   {
     field: "province",
     headerName: "İl",
@@ -90,12 +120,12 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
       </div>
     ),
   },
-  {
-    field: "curriculumType",
-    headerName: "Müfredat",
-    width: 150,
-    renderCell: (params) => params?.row?.curriculumType || "-",
-  },
+  // {
+  //   field: "curriculumType",
+  //   headerName: "Müfredat",
+  //   width: 150,
+  //   renderCell: (params) => params?.row?.curriculumType || "-",
+  // },
   {
     field: "languageOfInstruction",
     headerName: "Eğitim Dili",
@@ -105,12 +135,12 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
         ? getLanguageTypeLabel(params.row.languageOfInstruction)
         : "-",
   },
-  {
-    field: "foreignLanguages",
-    headerName: "Yabancı Dil",
-    width: 150,
-    renderCell: (params) => params?.row?.foreignLanguages || "-",
-  },
+  // {
+  //   field: "foreignLanguages",
+  //   headerName: "Yabancı Dil",
+  //   width: 150,
+  //   renderCell: (params) => params?.row?.foreignLanguages || "-",
+  // },
 
   // Kapasite ve Ücretler
   {
@@ -172,112 +202,82 @@ export const createSchoolColumns = (): GridColDef<SchoolDto>[] => [
       </div>
     ),
   },
-  {
-    field: "ratingCount",
-    headerName: "Değerlendirme",
-    width: 190,
-    type: "number",
-    renderCell: (params) =>
-      params?.row?.ratingCount ? `${params.row.ratingCount}` : "-",
-  },
-  {
-    field: "viewCount",
-    headerName: "Görüntülenme",
-    width: 180,
-    type: "number",
-    renderCell: (params) => {
-      const value = params?.row?.viewCount || 0;
-      return (
-        <span className="fw-medium text-primary">
-          {value > 1000 ? `${Math.round(value / 1000)}k` : value}
-        </span>
-      );
-    },
-  },
-  {
-    field: "likeCount",
-    headerName: "Beğeni",
-    width: 140,
-    type: "number",
-    renderCell: (params) => {
-      const value = params?.row?.likeCount || 0;
-      return (
-        <span className="fw-medium text-danger">
-          {value > 1000 ? `${Math.round(value / 1000)}k` : value}
-        </span>
-      );
-    },
-  },
-  {
-    field: "postCount",
-    headerName: "İçerik",
-    width: 140,
-    type: "number",
-    renderCell: (params) => (
-      <span className="fw-medium text-info">{params?.row?.postCount || 0}</span>
-    ),
-  },
-
-  // İletişim
-  {
-    field: "phone",
-    headerName: "Telefon",
-    width: 200,
-    renderCell: (params) => params?.row?.phone || "-",
-  },
-  {
-    field: "extension",
-    headerName: "Dahili",
-    width: 120,
-    renderCell: (params) => params?.row?.extension || "-",
-  },
-  {
-    field: "email",
-    headerName: "E-posta",
-    width: 300,
-    renderCell: (params) =>
-      params?.row?.email ? (
-        <span
-          className="text-muted text-truncate d-block"
-          title={params.row.email}
-        >
-          {params.row.email}
-        </span>
-      ) : (
-        "-"
-      ),
-  },
+  // {
+  //   field: "ratingCount",
+  //   headerName: "Değerlendirme",
+  //   width: 190,
+  //   type: "number",
+  //   renderCell: (params) =>
+  //     params?.row?.ratingCount ? `${params.row.ratingCount}` : "-",
+  // },
+  // {
+  //   field: "viewCount",
+  //   headerName: "Görüntülenme",
+  //   width: 180,
+  //   type: "number",
+  //   renderCell: (params) => {
+  //     const value = params?.row?.viewCount || 0;
+  //     return (
+  //       <span className="fw-medium text-primary">
+  //         {value > 1000 ? `${Math.round(value / 1000)}k` : value}
+  //       </span>
+  //     );
+  //   },
+  // },
+  // {
+  //   field: "likeCount",
+  //   headerName: "Beğeni",
+  //   width: 140,
+  //   type: "number",
+  //   renderCell: (params) => {
+  //     const value = params?.row?.likeCount || 0;
+  //     return (
+  //       <span className="fw-medium text-danger">
+  //         {value > 1000 ? `${Math.round(value / 1000)}k` : value}
+  //       </span>
+  //     );
+  //   },
+  // },
+  // {
+  //   field: "postCount",
+  //   headerName: "İçerik",
+  //   width: 140,
+  //   type: "number",
+  //   renderCell: (params) => (
+  //     <span className="fw-medium text-info">{params?.row?.postCount || 0}</span>
+  //   ),
+  // },
 
   // Durum ve Kampanyalar
-  {
-    field: "isActive",
-    headerName: "Durum",
-    width: 100,
-    type: "boolean",
-    renderCell: (params) => (
-      <Badge variant={params?.row?.isActive ? "success" : "secondary"}>
-        {params?.row?.isActive ? "Aktif" : "Pasif"}
-      </Badge>
-    ),
-  },
-  {
-    field: "activeCampaigns",
-    headerName: "Kampanyalar",
-    width: 200,
-    renderCell: (params) => {
-      const campaignCount = params?.row?.activeCampaigns?.length || 0;
-      return (
-        <div>
-          {campaignCount > 0 ? (
-            <div className="d-flex align-items-center gap-1">
-              <i className="ph-fill ph-megaphone text-success" />
-              <span className="text-success fw-medium">{campaignCount}</span>
-            </div>
-          ) : (
-            <span className="text-muted">-</span>
-          )}
-        </div>
-      );
-    },
-  },
+  // {
+  //   field: "isActive",
+  //   headerName: "Durum",
+  //   width: 100,
+  //   type: "boolean",
+  //   renderCell: (params) => (
+  //     <Badge variant={params?.row?.isActive ? "success" : "secondary"}>
+  //       {params?.row?.isActive ? "Aktif" : "Pasif"}
+  //     </Badge>
+  //   ),
+  // },
+  // {
+  //   field: "activeCampaigns",
+  //   headerName: "Kampanyalar",
+  //   width: 200,
+  //   renderCell: (params) => {
+  //     const campaignCount = params?.row?.activeCampaigns?.length || 0;
+  //     return (
+  //       <div>
+  //         {campaignCount > 0 ? (
+  //           <div className="d-flex align-items-center gap-1">
+  //             <i className="ph-fill ph-megaphone text-success" />
+  //             <span className="text-success fw-medium">{campaignCount}</span>
+  //           </div>
+  //         ) : (
+  //           <span className="text-muted">-</span>
+  //         )}
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
