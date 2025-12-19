@@ -13,7 +13,7 @@ const AppointmentActionButtons: React.FC<AppointmentActionButtonsProps> = ({
     if (onReschedule) {
       onReschedule();
     } else {
-      console.log("Reschedule appointment:", appointment.id);
+      // console.log("Reschedule appointment:", appointment.id);
     }
   };
 
@@ -21,7 +21,7 @@ const AppointmentActionButtons: React.FC<AppointmentActionButtonsProps> = ({
     if (onCancel) {
       onCancel();
     } else {
-      console.log("Cancel appointment:", appointment.id);
+      // console.log("Cancel appointment:", appointment.id);
     }
   };
 
@@ -29,7 +29,7 @@ const AppointmentActionButtons: React.FC<AppointmentActionButtonsProps> = ({
     if (onComplete) {
       onComplete();
     } else {
-      console.log("Complete appointment:", appointment.id);
+      // console.log("Complete appointment:", appointment.id);
     }
   };
 

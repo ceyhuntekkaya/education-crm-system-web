@@ -26,12 +26,8 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   const hasActiveChildItem = hasActiveChild(item.children, pathname);
 
   // Kurum seçili değilse ve menü disabled olması gerekiyorsa kontrol et
-  // Giriş, Kurum Listesi ve Kampüs Bilgileri hariç tüm menüler disabled
-  const shouldBeDisabled =
-    isDisabled &&
-    item.href !== "/company" &&
-    item.href !== "/company/school-list" &&
-    item.href !== "/company/campus-detail";
+  // requiresSchool: true olan menüler disabled olur
+  const shouldBeDisabled = isDisabled && item.requiresSchool !== false;
 
   // Handle link click - close sidebar on mobile
   const handleLinkClick = (e: React.MouseEvent) => {

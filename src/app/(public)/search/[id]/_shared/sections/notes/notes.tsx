@@ -45,7 +45,7 @@ const NotesFormContent: React.FC = () => {
         createdAt: new Date().toISOString(),
       };
 
-      console.log("Note Data:", noteData);
+      // console.log("Note Data:", noteData);
 
       // API call logic here
       // await createNote(noteData);

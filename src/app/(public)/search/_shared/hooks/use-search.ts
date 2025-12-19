@@ -82,11 +82,11 @@ export function useSearch(params?: UseSearchParams): UseSearchReturn {
     API_ENDPOINTS.INSTITUTIONS.SCHOOLS_SEARCH,
     {
       onSuccess: (response) => {
-        console.log(
-          "✅ Arama başarılı:",
-          response?.data?.content?.length || 0,
-          "sonuç"
-        );
+        // console.log(
+        //   "✅ Arama başarılı:",
+        //   response?.data?.content?.length || 0,
+        //   "sonuç"
+        // );
         if (response?.success && response?.data?.content) {
           setInstitutions(response.data.content);
           setTotalElements(response.data.totalElements || 0);

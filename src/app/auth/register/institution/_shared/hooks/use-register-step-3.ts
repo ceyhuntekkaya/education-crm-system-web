@@ -17,7 +17,7 @@ export const useRegisterStep3 = () => {
     API_ENDPOINTS.REGISTER.STEP_3_CONFIRM,
     {
       onSuccess: (data) => {
-        console.log("[Register Step 3] Verification confirmed:", data);
+        // console.log("[Register Step 3] Verification confirmed:", data);
       },
       onError: (errorMsg) => {
         console.error("[Register Step 3] Error:", errorMsg);

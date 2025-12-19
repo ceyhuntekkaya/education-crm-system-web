@@ -64,7 +64,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   );
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Get selected values for multiple mode
@@ -321,7 +321,10 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
         highlightedIndex
       ] as HTMLElement;
       if (highlightedElement) {
-        highlightedElement.scrollIntoView({ block: "nearest" });
+        highlightedElement.scrollIntoView({
+          block: "nearest",
+          behavior: "smooth",
+        });
       }
     }
   }, [highlightedIndex]);
@@ -604,7 +607,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
                 {loadingText}
               </div>
             ) : filteredOptions.length > 0 ? (
-              <div className="form-autocomplete-results">
+              <div className="form-autocomplete-results" ref={listRef}>
                 {filteredOptions.map((option, index) => {
                   const isSelected =
                     multiple && selectedValues.includes(option.value);

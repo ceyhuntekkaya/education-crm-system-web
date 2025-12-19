@@ -16,13 +16,13 @@ export const useAddGalleryItem = () => {
     API_ENDPOINTS.CONTENT.GALLERY_ITEM_CREATE,
     {
       onSuccess: (data) => {
-        console.log(
-          "✅ onSuccess alanı -> Gallery item başarıyla eklendi:",
-          data
-        );
+        // console.log(
+        //   "✅ onSuccess alanı -> Gallery item başarıyla eklendi:",
+        //   data
+        // );
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Gallery item eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Gallery item eklenirken hata:", error);
       },
     }
   );

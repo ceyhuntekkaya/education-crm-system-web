@@ -18,7 +18,7 @@ export const MessagePane: React.FC = () => {
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
-      console.log("Mesaj gönderiliyor:", newMessage);
+      // console.log("Mesaj gönderiliyor:", newMessage);
       setNewMessage("");
     }
   };

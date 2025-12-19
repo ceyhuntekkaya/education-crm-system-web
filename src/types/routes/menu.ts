@@ -9,4 +9,5 @@ export interface MenuItem {
   departments?: string[];
   permissions?: string[];
   children?: MenuItem[];
+  requiresSchool?: boolean; // Okul seçimi gerektiren menüler için
 }

@@ -38,21 +38,21 @@ export function useFilterSubmit() {
   const handleSubmit = (useOnlyChangedFields: boolean = true) => {
     // Değişiklik kontrolü
     if (!isDirty) {
-      console.log("Form değişikliği yok, submit işlemi yapılmıyor.");
+      // console.log("Form değişikliği yok, submit işlemi yapılmıyor.");
       return;
     }
 
     // Kullanılacak değerleri belirle
     const formValues = useOnlyChangedFields ? getChangedFields() : values;
 
-    console.log("Form değerleri:", formValues);
-    console.log("Değişen alanlar:", getChangedFields());
+    // console.log("Form değerleri:", formValues);
+    // console.log("Değişen alanlar:", getChangedFields());
 
     // API parametrelerini oluştur
     const apiParams = createFilterApiParams(formValues);
     const cleanParams = cleanFilterApiParams(apiParams);
 
-    console.log("API Parametreleri:", cleanParams);
+    // console.log("API Parametreleri:", cleanParams);
 
     // Query parametrelerini oluştur ve /search sayfasına yönlendir
     const searchParams = new URLSearchParams();

@@ -73,12 +73,12 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
   };
 
   const renderFileContent = (file: FileWithPreview) => {
-    console.log("🖼️ renderFileContent:", {
-      name: file.name,
-      type: file.type,
-      preview: file.preview?.substring(0, 50) + "...",
-      isImage: file.type?.startsWith("image/"),
-    });
+    // console.log("🖼️ renderFileContent:", {
+    //   name: file.name,
+    //   type: file.type,
+    //   preview: file.preview?.substring(0, 50) + "...",
+    //   isImage: file.type?.startsWith("image/"),
+    // });
 
     if (file.type?.startsWith("image/") && file.preview) {
       return (
@@ -247,12 +247,12 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
     // Placeholder file mı kontrol et (size = 0 veya isUploaded flag)
     const isPlaceholder = file.size === 0 || (file as any).isUploaded;
 
-    console.log("🎴 renderFileCard:", {
-      index,
-      fileName: file.name,
-      preview: file.preview?.substring(0, 50),
-      isPlaceholder,
-    });
+    // console.log("🎴 renderFileCard:", {
+    //   index,
+    //   fileName: file.name,
+    //   preview: file.preview?.substring(0, 50),
+    //   isPlaceholder,
+    // });
 
     return (
       <div key={index}>
@@ -263,11 +263,11 @@ export const FilePreview: React.FC<FilePreviewProps> = () => {
               icon="ph-x"
               size="md"
               onClick={() => {
-                console.log("❌ Kaldır butonuna tıklandı:", {
-                  index,
-                  fileName: file.name,
-                  preview: file.preview?.substring(0, 50),
-                });
+                // console.log("❌ Kaldır butonuna tıklandı:", {
+                //   index,
+                //   fileName: file.name,
+                //   preview: file.preview?.substring(0, 50),
+                // });
                 // File object'i gönder (index yerine)
                 removeFile(file);
               }}

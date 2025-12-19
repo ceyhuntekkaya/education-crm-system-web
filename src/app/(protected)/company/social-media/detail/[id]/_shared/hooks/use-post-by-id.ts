@@ -26,7 +26,7 @@ export const usePostById = (id: number): UsePostByIdReturn => {
     id ? API_ENDPOINTS.CONTENT.POST_BY_ID(id) : null
   );
 
-  console.log(postResponse?.data);
+  // console.log(postResponse?.data);
 
   return {
     post: postResponse?.data || null,

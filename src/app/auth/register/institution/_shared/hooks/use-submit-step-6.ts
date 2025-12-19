@@ -21,10 +21,10 @@ export const useSubmitStep6 = (
   const { submitPayment } = useRegisterStep6();
 
   const handleSubmit = useCallback(async () => {
-    console.log("🚀 handleSubmitStep6 çağrıldı:", {
-      userId,
-      packageSelection: values?.packageSelection,
-    });
+    // console.log("🚀 handleSubmitStep6 çağrıldı:", {
+    //   userId,
+    //   packageSelection: values?.packageSelection,
+    // });
 
     // userId yoksa auth context'ten user'ın id'sini kullan
     const authUserId = user?.id;
@@ -41,10 +41,10 @@ export const useSubmitStep6 = (
       return;
     }
 
-    console.log("📤 Step 6 API isteği gönderiliyor:", {
-      userId: effectiveUserId,
-      subscriptionId: values.packageSelection.selectedPlanId,
-    });
+    // console.log("📤 Step 6 API isteği gönderiliyor:", {
+    //   userId: effectiveUserId,
+    //   subscriptionId: values.packageSelection.selectedPlanId,
+    // });
 
     // Backend: RegisterPaymentDto (userId, subscriptionId)
     const payload = {
@@ -53,7 +53,7 @@ export const useSubmitStep6 = (
     };
 
     const response = await submitPayment(payload);
-    console.log("📥 Step 6 API response:", response);
+    // console.log("📥 Step 6 API response:", response);
 
     if (response?.success) {
       // userId'yi set et (eğer yoksa)

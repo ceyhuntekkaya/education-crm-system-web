@@ -18,7 +18,7 @@ const MessageAddEditPage: React.FC = () => {
 
   const handleSave = () => {
     // Save logic here
-    console.log("Saving message...");
+    // console.log("Saving message...");
     router.push("/company/messages");
   };
 

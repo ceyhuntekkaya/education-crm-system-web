@@ -44,7 +44,7 @@ export const PricingTable = () => {
           showActions: true,
           addButtonText: "Yeni Fiyat Bilgisi",
           onAddNew: () => {
-            console.log("Yeni Fiyat Bilgisi ekleme formu açılacak");
+            // console.log("Yeni Fiyat Bilgisi ekleme formu açılacak");
           },
         }}
       />

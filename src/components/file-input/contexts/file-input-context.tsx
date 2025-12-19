@@ -57,9 +57,24 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     clearError,
     internalLoading,
     setInternalLoading,
-    handleInternalChange,
+    handleInternalChange: baseHandleInternalChange,
     handleInternalUpload,
   } = useContextState();
+
+  // Form state'ini de güncelleyen onChange handler
+  const handleInternalChangeWithForm = React.useCallback(
+    (files: File[] | File | null) => {
+      baseHandleInternalChange(files);
+
+      // Form state'ini de güncelle (eğer name varsa ve multiple ise)
+      if (name && multiple) {
+        // Çoklu dosya yüklemede, sadece yüklenmiş dosyaları form'a kaydet
+        // Yeni dosyalar henüz yüklenmediği için form'a kaydetmeyelim
+        // Form güncellemesi handleUpload içinde yapılacak
+      }
+    },
+    [baseHandleInternalChange, name, multiple]
+  );
 
   // Accept attribute
   const acceptAttribute = getAcceptAttribute(type);
@@ -69,13 +84,13 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     files,
     loading,
     processFiles,
-    removeFile,
+    removeFile: baseRemoveFile,
     markFilesAsUploaded,
     hasNewFiles,
   } = useFileManagement({
     value: undefined,
     initialValue: finalInitialValue, // Form'dan veya prop'tan gelen değer
-    onChange: handleInternalChange,
+    onChange: handleInternalChangeWithForm,
     onError: handleInternalError,
     type,
     multiple,
@@ -83,6 +98,61 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
     maxFiles,
     acceptAttribute,
   });
+
+  // Form state'ini de güncelleyen removeFile wrapper
+  const removeFile = React.useCallback(
+    (fileToRemove: any) => {
+      // Önce base removeFile'ı çağır
+      baseRemoveFile(fileToRemove);
+
+      // Form state'ini de güncelle (eğer name varsa ve multiple ise)
+      if (name && multiple) {
+        // Silme sonrası kalan dosyaları form'a kaydet
+        // Sadece yüklenmiş dosyaları form'a kaydet (isUploaded olanlar)
+        const remainingUploadedFiles = files
+          .filter((f, index) => {
+            // Silinecek dosyayı hariç tut
+            if (typeof fileToRemove === "number") {
+              return index !== fileToRemove && (f as any).isUploaded;
+            } else {
+              return (
+                f.preview !== fileToRemove.preview && (f as any).isUploaded
+              );
+            }
+          })
+          .map((file: any) => {
+            let fileUrl = "";
+
+            // 1. Önce path field'ını kontrol et
+            if (file.path) {
+              fileUrl = file.path;
+            }
+            // 2. preview'dan çıkar
+            else if (file.preview) {
+              fileUrl = file.preview;
+              // Serve prefix'ini çıkar
+              const servePrefix = "/api/files/serve/";
+              if (fileUrl.includes(servePrefix)) {
+                fileUrl = fileUrl.substring(
+                  fileUrl.indexOf(servePrefix) + servePrefix.length
+                );
+              }
+            }
+
+            return {
+              id: file.id || null,
+              itemType: file.itemType,
+              fileUrl: fileUrl,
+              fileName: file.name,
+              sortOrder: file.sortOrder,
+            };
+          });
+
+        setValue(name, remainingUploadedFiles);
+      }
+    },
+    [baseRemoveFile, files, name, multiple, setValue]
+  );
 
   const { dragActive, handleDrag, handleDrop } = useDragAndDrop(
     disabled,
@@ -141,17 +211,17 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
           configurable: true,
         });
 
-        console.log("🎨 Crop save - Preview URL eklendi:", previewUrl);
+        // console.log("🎨 Crop save - Preview URL eklendi:", previewUrl);
 
-        console.log(
-          "📤 Crop save - handleUpload çağrılıyor (kırpılmış dosya ile)..."
-        );
+        // console.log(
+        //   "📤 Crop save - handleUpload çağrılıyor (kırpılmış dosya ile)..."
+        // );
 
         // CROP SONRASI OTOMATIK UPLOAD - kırpılmış dosyayı direkt gönder
         // State güncellemesini beklemeye gerek yok, dosyayı parametre olarak gönder
         await handleUpload([croppedFile]);
 
-        console.log("✅ Crop save - handleUpload tamamlandı!");
+        // console.log("✅ Crop save - handleUpload tamamlandı!");
 
         // Upload başarılı olduktan SONRA files state'ine ekle (preview için)
         const fileList = new DataTransfer();

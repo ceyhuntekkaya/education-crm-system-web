@@ -47,7 +47,7 @@ export const SchoolPricingFormContent: React.FC = () => {
     usePricingAddEdit();
 
   const handleSubmit = async (values: SchoolPricingFormData) => {
-    console.log("📝 Form değerleri:", values);
+    // console.log("📝 Form değerleri:", values);
 
     // Edit veya Add moduna göre doğru hook'u kullan
     try {
@@ -56,7 +56,7 @@ export const SchoolPricingFormContent: React.FC = () => {
         const filteredData = filterDataForEdit(
           values
         ) as SchoolPricingUpdateDto;
-        console.log("🔄 Edit modu - Filtrelenmiş veri:", filteredData);
+        // console.log("🔄 Edit modu - Filtrelenmiş veri:", filteredData);
         await putPricing(filteredData);
       } else {
         // Add modunda schoolId ve createdByUserId ekle
@@ -65,7 +65,7 @@ export const SchoolPricingFormContent: React.FC = () => {
           schoolId: selectedSchool?.id,
           createdByUserId: user?.id,
         } as SchoolPricingCreateDto;
-        console.log("➕ Add modu - Form verisi:", formData);
+        // console.log("➕ Add modu - Form verisi:", formData);
         await postPricing(formData);
       }
     } catch (error) {

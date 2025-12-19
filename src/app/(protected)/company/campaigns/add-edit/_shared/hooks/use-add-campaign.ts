@@ -21,14 +21,14 @@ export const useAddCampaign = () => {
     API_ENDPOINTS.CAMPAIGNS.CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Campaign başarıyla eklendi:", data);
+        // console.log("✅ onSuccess alanı -> Campaign başarıyla eklendi:", data);
         // Liste API'sini refetch et
         refetchCampaigns();
         // Kampanyalar sayfasına yönlendir
         router.push("/company/campaigns");
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Campaign eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Campaign eklenirken hata:", error);
       },
     }
   );

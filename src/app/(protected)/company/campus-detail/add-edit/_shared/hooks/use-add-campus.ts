@@ -19,12 +19,12 @@ export const useAddCampus = () => {
     API_ENDPOINTS.INSTITUTIONS.CAMPUS_CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Campus başarıyla eklendi:", data);
+        // console.log("✅ onSuccess alanı -> Campus başarıyla eklendi:", data);
         // Campus detay sayfasına yönlendir
         router.push(`/company/campus-detail/${data.id}`);
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Campus eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Campus eklenirken hata:", error);
       },
     }
   );

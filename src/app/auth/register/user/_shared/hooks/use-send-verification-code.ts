@@ -16,7 +16,7 @@ export const useSendVerificationCode = () => {
   } = useGet<ApiResponseDto<string>>(API_ENDPOINTS.REGISTER.SEND_CODE, {
     enabled: false,
     onSuccess: (data) => {
-      console.log("[User Send Verification Code] Email sent:", data);
+      // console.log("[User Send Verification Code] Email sent:", data);
     },
     onError: (errorMsg) => {
       console.error("[User Send Verification Code] Error:", errorMsg);

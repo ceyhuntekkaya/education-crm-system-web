@@ -58,17 +58,17 @@ export const useAddToListForm = ({
   };
 
   const handleFormSubmit = async (formValues: FormValues) => {
-    console.log("handleFormSubmit çağrıldı");
-    console.log("formValues:", formValues);
+    // console.log("handleFormSubmit çağrıldı");
+    // console.log("formValues:", formValues);
     const selectedListId = formValues.selectedListId as string;
-    console.log("selectedListId:", selectedListId);
+    // console.log("selectedListId:", selectedListId);
 
     if (!schoolId || !selectedListId) return;
-    console.log("selectedListId:", selectedListId);
+    // console.log("selectedListId:", selectedListId);
 
     const listId = parseInt(selectedListId);
     if (!listId) return;
-    console.log("listId:", listId);
+    // console.log("listId:", listId);
     // Add school to selected list
     const response = await addSchoolToList({
       schoolId,
@@ -76,7 +76,7 @@ export const useAddToListForm = ({
       isFavorite: false,
       addedFromSearch: window.location.pathname,
     });
-    console.log("response:", response);
+    // console.log("response:", response);
     if (response?.data) {
       onSuccess();
     }

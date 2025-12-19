@@ -27,7 +27,7 @@ export const useUrlToFormSync = () => {
     if (favSearchId) {
       hasInitialized.current = true;
       setHasUrlParams(false);
-      console.log("🔗 URL sync skipped - favori arama mevcut:", favSearchId);
+      // console.log("🔗 URL sync skipped - favori arama mevcut:", favSearchId);
       return;
     }
 

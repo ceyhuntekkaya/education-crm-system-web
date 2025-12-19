@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useFormField } from "@/contexts";
+import { formatTitle } from "@/utils";
 import Icon from "../ui/icon";
 
 export interface CheckboxGroup {
@@ -175,10 +176,10 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
             </span>
           )}
           <h6 className="mb-0 text-neutral-600 fw-semibold">
-            {group.groupDisplayName}
+            {formatTitle(group.groupDisplayName)}
             {group.isMultiple === false && (
               <span className="text-neutral-400 ms-2 fw-normal text-sm">
-                (Tek seçim)
+                ({formatTitle("tek seçim")})
               </span>
             )}
           </h6>
@@ -187,7 +188,7 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
           {/* Seçili öğe sayısını göster */}
           {hasSelection && (
             <span className="badge bg-main-100 text-main-600 fw-medium px-12 py-4 rounded-pill text-sm">
-              {selectedCount} seçenek seçildi
+              {selectedCount} {formatTitle("seçenek seçildi")}
             </span>
           )}
           {isCollapsible && (
@@ -266,7 +267,7 @@ const CollapsibleGroupItem: React.FC<CollapsibleGroupItemProps> = ({
                     className="form-check-label fw-normal flex-grow-1"
                     htmlFor={`${name}-${group.groupId}-${property.value}`}
                   >
-                    {property.label}
+                    {formatTitle(property.label)}
                   </label>
                 </div>
               );
@@ -324,7 +325,9 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
         {/* Başlık ve Açıklama */}
         {(groupedTitle || groupedDescription) && (
           <div className="mb-24">
-            {groupedTitle && <h5 className="mb-16">{groupedTitle}</h5>}
+            {groupedTitle && (
+              <h5 className="mb-16">{formatTitle(groupedTitle)}</h5>
+            )}
             {groupedDescription && (
               <p className="text-neutral-500 text-sm mb-0">
                 {groupedDescription}
@@ -362,7 +365,9 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
     return (
       <div className={`${getContainerClasses()} ${className || ""}`}>
         {label && (
-          <h6 className="mb-12 text-neutral-600 fw-semibold">{label}</h6>
+          <h6 className="mb-12 text-neutral-600 fw-semibold">
+            {typeof label === "string" ? formatTitle(label) : label}
+          </h6>
         )}
         <div className="d-flex flex-column gap-16">
           {options.map((option) => {
@@ -414,7 +419,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
                   className="form-check-label fw-normal flex-grow-1"
                   htmlFor={`${name}-${option.value}`}
                 >
-                  {option.label}
+                  {formatTitle(option.label)}
                 </label>
               </div>
             );
@@ -470,7 +475,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
           className="form-check-label fw-normal flex-grow-1"
           htmlFor={id || `${name}-${value || label}`}
         >
-          {label}
+          {typeof label === "string" ? formatTitle(label) : label}
         </label>
       </div>
       {error && (

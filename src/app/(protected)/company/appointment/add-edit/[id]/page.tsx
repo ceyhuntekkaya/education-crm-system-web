@@ -22,7 +22,7 @@ const AppointmentAddEditPage: React.FC<AppointmentAddEditPageProps> = () => {
 
   const handleSave = () => {
     // Save logic will be implemented here
-    console.log("Saving appointment data...");
+    // console.log("Saving appointment data...");
     // After save, redirect to list
     router.push("/company/appointment");
   };

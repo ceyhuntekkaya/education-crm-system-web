@@ -19,7 +19,7 @@ export const useDeleteCampaign = () => {
     },
     {
       onSuccess: () => {
-        console.log("✅ Campaign başarıyla silindi");
+        // console.log("✅ Campaign başarıyla silindi");
       },
       onError: (error) => {
         console.error("❌ Campaign silinirken hata:", error);

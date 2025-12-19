@@ -116,27 +116,7 @@ export const GalleryFormContent: React.FC = () => {
 
         <span className="d-block border border-neutral-30 my-12 border-dashed" />
 
-        {/* Galeri Öğeleri - Multi File Upload */}
-        <div className="col-12">
-          <div className="d-flex flex-column gap-16">
-            <h5>Galeri Öğeleri</h5>
-            <FileInput
-              label="Galeri Öğeleri (Çoklu Yükleme)"
-              type="all"
-              variant="outline"
-              placeholder="Dosyaları yüklemek için tıklayın veya sürükleyin (Çoklu seçim yapabilirsiniz)"
-              maxSize={100}
-              maxFiles={20}
-              uploadButtonText="Dosyaları Yükle"
-              name="items"
-              multiple
-            />
-          </div>
-        </div>
-
-        <span className="d-block border border-neutral-30 my-12 border-dashed" />
-
-        {/* Alt Satır - Görünürlük ve Ayarlar (Sol) */}
+        {/* Görünürlük ve Ayarlar (Sol) */}
         <div className="col-12">
           <div className="d-flex flex-column gap-16">
             <h5>Görünürlük ve Ayarlar</h5>
@@ -191,6 +171,26 @@ export const GalleryFormContent: React.FC = () => {
                 />
               </div> */}
             </div>
+          </div>
+        </div>
+
+        <span className="d-block border border-neutral-30 my-12 border-dashed" />
+
+        {/* Galeri Öğeleri - Multi File Upload */}
+        <div className="col-12">
+          <div className="d-flex flex-column gap-16">
+            <h5>Galeri Öğeleri</h5>
+            <FileInput
+              label="Galeri Öğeleri (Çoklu Yükleme)"
+              type="all"
+              variant="outline"
+              placeholder="Dosyaları yüklemek için tıklayın veya sürükleyin (Çoklu seçim yapabilirsiniz)"
+              maxSize={100}
+              maxFiles={20}
+              uploadButtonText="Dosyaları Yükle"
+              name="items"
+              multiple
+            />
           </div>
         </div>
 

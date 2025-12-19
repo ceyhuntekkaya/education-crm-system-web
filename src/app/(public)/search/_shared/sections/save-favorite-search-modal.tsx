@@ -54,13 +54,13 @@ const SaveFavoriteSearchModalContent: React.FC<{
     ).trim();
 
     // Debug: Context'teki form values'ları kontrol et
-    console.log("Search formValues from context:", searchFormData);
+    // console.log("Search formValues from context:", searchFormData);
 
     // Form values'ları search ile aynı API formatına dönüştür
     const apiParams = createApiParams(searchFormData, institutionTypes || []);
     const cleanParams = cleanApiParams(apiParams);
 
-    console.log("API formatında kayıt edilecek data:", cleanParams);
+    // console.log("API formatında kayıt edilecek data:", cleanParams);
 
     // API formatındaki data'yı JSON string'e çevir
     const dataString = JSON.stringify(cleanParams);

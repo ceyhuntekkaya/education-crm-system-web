@@ -21,7 +21,7 @@ export const useEditBrand = ({ brandId, refetch }: UseEditBrandProps) => {
     () => API_ENDPOINTS.INSTITUTIONS.BRAND_BY_ID(brandId),
     {
       onSuccess: (data) => {
-        console.log("✅ Brand başarıyla güncellendi:", data);
+        // console.log("✅ Brand başarıyla güncellendi:", data);
         // Refetch varsa çalıştır
         if (refetch) {
           refetch();

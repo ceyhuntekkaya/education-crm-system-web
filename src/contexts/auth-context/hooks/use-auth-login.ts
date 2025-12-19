@@ -17,7 +17,7 @@ export function useAuthLogin({ onLoginSuccess, onLoginError }: UseAuthLoginProps
     API_ENDPOINTS.AUTH.LOGIN,
     {
       onSuccess: (data) => {
-        console.log("login başarılı:", data);
+        // console.log("login başarılı:", data);
         onLoginSuccess(data);
       },
       onError: (err) => {

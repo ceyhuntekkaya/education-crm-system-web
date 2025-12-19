@@ -19,7 +19,7 @@ export const useEditSchool = (schoolId: number, refetchSchool?: () => void) => {
     () => API_ENDPOINTS.INSTITUTIONS.SCHOOL_BY_ID(schoolId),
     {
       onSuccess: (res) => {
-        console.log("✅ School başarıyla güncellendi:", res);
+        // console.log("✅ School başarıyla güncellendi:", res);
         if ("data" in res && res.data) {
           updateUserSchools(res.data, "edit");
           refetchSchool?.();

@@ -19,12 +19,12 @@ export const useAddSlot = () => {
     API_ENDPOINTS.APPOINTMENTS.SLOT_CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Slot başarıyla eklendi:", data);
+        // console.log("✅ onSuccess alanı -> Slot başarıyla eklendi:", data);
         // Appointment availability sayfasına yönlendir
         router.push("/company/appointment-availability");
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Slot eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Slot eklenirken hata:", error);
       },
     }
   );

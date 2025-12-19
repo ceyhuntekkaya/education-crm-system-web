@@ -17,7 +17,7 @@ export const useRegisterStep7 = () => {
     API_ENDPOINTS.REGISTER.STEP_7_VERIFICATION,
     {
       onSuccess: (data) => {
-        console.log("[Register Step 7] Final verification completed:", data);
+        // console.log("[Register Step 7] Final verification completed:", data);
       },
       onError: (errorMsg) => {
         console.error("[Register Step 7] Error:", errorMsg);

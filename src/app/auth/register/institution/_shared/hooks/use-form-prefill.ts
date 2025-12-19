@@ -44,10 +44,10 @@ export const useFormPrefill = (
         currentValue === null ||
         currentValue === undefined
       ) {
-        console.log(`📝 Prefilling ${field}:`, value);
+        // console.log(`📝 Prefilling ${field}:`, value);
         setValue(field, value);
       } else {
-        console.log(`⏭️ Skipping ${field} (already has value):`, currentValue);
+        // console.log(`⏭️ Skipping ${field} (already has value):`, currentValue);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,12 +70,12 @@ export const useFormPrefill = (
   const prefillPersonalInfo = useCallback(() => {
     if (!user) return;
 
-    console.log("🔍 Prefilling Personal Info from user:", {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phone: user.phone,
-    });
+    // console.log("🔍 Prefilling Personal Info from user:", {
+    //   firstName: user.firstName,
+    //   lastName: user.lastName,
+    //   email: user.email,
+    //   phone: user.phone,
+    // });
 
     setIfEmpty("personalInfo.firstName", user.firstName);
     setIfEmpty("personalInfo.lastName", user.lastName);
@@ -200,11 +200,11 @@ export const useFormPrefill = (
    */
   const prefillFormFromUser = useCallback(async () => {
     if (!user) {
-      console.log("⚠️ User bulunamadı, form prefill yapılmayacak");
+      // console.log("⚠️ User bulunamadı, form prefill yapılmayacak");
       return;
     }
 
-    console.log("🚀 Form prefill başlıyor, user:", user);
+    // console.log("🚀 Form prefill başlıyor, user:", user);
 
     prefillLoginCredentials();
     prefillPersonalInfo();
@@ -212,7 +212,7 @@ export const useFormPrefill = (
     await prefillCampusInfo();
     prefillPackageSelection();
 
-    console.log("✅ Form prefill tamamlandı");
+    // console.log("✅ Form prefill tamamlandı");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, subscriptionPlans, plansLoading]);
 
@@ -221,11 +221,11 @@ export const useFormPrefill = (
    */
   useEffect(() => {
     if (stepIdParam && user && !plansLoading) {
-      console.log("🔄 stepId parametresi ile form prefill tetikleniyor:", {
-        stepIdParam,
-        user,
-        plansLoading,
-      });
+      // console.log("🔄 stepId parametresi ile form prefill tetikleniyor:", {
+      //   stepIdParam,
+      //   user,
+      //   plansLoading,
+      // });
       prefillFormFromUser();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -21,14 +21,14 @@ export const useAddGallery = () => {
     API_ENDPOINTS.CONTENT.GALLERY_CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Gallery başarıyla eklendi:", data);
+        // console.log("✅ onSuccess alanı -> Gallery başarıyla eklendi:", data);
         // Liste API'sine tekrar istek at
         refetchGalleries();
         // Gallery sayfasına yönlendir
         router.push("/company/gallery");
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Gallery eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Gallery eklenirken hata:", error);
       },
     }
   );

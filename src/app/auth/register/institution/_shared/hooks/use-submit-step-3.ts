@@ -22,11 +22,11 @@ export const useSubmitStep3 = (
   const { submitConfirm } = useRegisterStep3();
 
   const handleSubmit = useCallback(async () => {
-    console.log("🚀 handleSubmitStep3 çağrıldı:", {
-      userId,
-      fullCode,
-      verificationCode: values?.verificationCode,
-    });
+    // console.log("🚀 handleSubmitStep3 çağrıldı:", {
+    //   userId,
+    //   fullCode,
+    //   verificationCode: values?.verificationCode,
+    // });
 
     // userId yoksa auth context'ten user'ın id'sini kullan
     const authUserId = user?.id;
@@ -73,10 +73,10 @@ export const useSubmitStep3 = (
       return;
     }
 
-    console.log("📤 Step 3 API isteği gönderiliyor:", {
-      userId: effectiveUserId,
-      code,
-    });
+    // console.log("📤 Step 3 API isteği gönderiliyor:", {
+    //   userId: effectiveUserId,
+    //   code,
+    // });
 
     // Backend: RegisterConfirmDto (userId, code)
     const payload = {
@@ -85,7 +85,7 @@ export const useSubmitStep3 = (
     };
 
     const response = await submitConfirm(payload);
-    console.log("📥 Step 3 API response:", response);
+    // console.log("📥 Step 3 API response:", response);
 
     if (response?.success) {
       // userId'yi set et (eğer yoksa)

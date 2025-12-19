@@ -75,7 +75,7 @@ export const DateTimeStep = () => {
     updateField("selectedSlotId", slotId);
   };
 
-  console.log("slots ", slots);
+  // console.log("slots ", slots);
 
   return (
     <div className="date-time-step">

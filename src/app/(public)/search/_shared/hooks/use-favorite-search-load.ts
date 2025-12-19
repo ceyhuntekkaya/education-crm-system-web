@@ -54,7 +54,7 @@ export const useFavoriteSearchLoad = (props?: UseFavoriteSearchLoadProps) => {
       );
 
       if (favoriteSearch?.data) {
-        console.log("⭐ Favori arama yükleniyor:", favoriteSearch.name);
+        // console.log("⭐ Favori arama yükleniyor:", favoriteSearch.name);
 
         // Parse edilmiş API data
         const apiData = JSON.parse(favoriteSearch.data);
@@ -72,12 +72,12 @@ export const useFavoriteSearchLoad = (props?: UseFavoriteSearchLoadProps) => {
         if (search) {
           setTimeout(() => {
             const cleanParams = cleanApiParams(apiData);
-            console.log("🔍 Favori aramadan otomatik arama:", cleanParams);
+            // console.log("🔍 Favori aramadan otomatik arama:", cleanParams);
             search(cleanParams);
           }, 500); // 500ms timeout artırıldı
         }
 
-        console.log("✅ Favori arama başarıyla yüklendi!");
+        // console.log("✅ Favori arama başarıyla yüklendi!");
       }
     } catch (error) {
       console.warn("Favori arama parse hatası:", error);

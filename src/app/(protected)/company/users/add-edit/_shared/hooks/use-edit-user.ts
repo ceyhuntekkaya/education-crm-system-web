@@ -21,14 +21,14 @@ export const useEditUser = (userId: number) => {
     API_ENDPOINTS.USERS.UPDATE_PROFILE(userId),
     {
       onSuccess: (data) => {
-        console.log("✅ Kullanıcı başarıyla güncellendi:", data);
+        // console.log("✅ Kullanıcı başarıyla güncellendi:", data);
         // Liste API'sine tekrar istek at
         refetchUsers();
         // Kullanıcı detay sayfasına yönlendir
         router.push(`/company/users/detail/${userId}`);
       },
       onError: (error) => {
-        console.log("❌ Kullanıcı güncellenirken hata:", error);
+        // console.log("❌ Kullanıcı güncellenirken hata:", error);
       },
     }
   );

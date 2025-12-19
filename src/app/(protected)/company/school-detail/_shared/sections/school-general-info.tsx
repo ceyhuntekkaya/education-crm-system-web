@@ -1,6 +1,6 @@
 import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CustomCard, CustomImage } from "@/components/ui";
-import { renderStars, getLanguageTypeLabel } from "@/utils";
+import { renderStars, getLanguageTypeLabel, formatPhoneNumber } from "@/utils";
 
 const tempIconUrl =
   "https://img.freepik.com/premium-vector/school-icon-set-public-primary-high-school-vector-symbol-college-institute-building-sign-university-icon-black-filled-outlined-style_268104-13445.jpg";
@@ -30,40 +30,20 @@ export default function SchoolGeneralInfo() {
   const school = currentSchool;
   const campus = school.campus;
 
-  const institutionInfoItems = [
+  // Temel Bilgiler
+  const basicInfoItems = [
     {
       label: "Kurum Adı",
-      value: <span className="text-main-600 fw-semibold">{school.name}</span>,
+      value: (
+        <span className="fw-semibold text-neutral-800">{school.name}</span>
+      ),
       isShowing: school.name && school.name.trim() !== "",
     },
     {
       label: "Kurum Türü",
       value: (
-        <span className="fw-semibold text-warning-600 text-md">
-          <div className="d-flex align-items-center gap-8">
-            {school.institutionType?.iconUrl && (
-              <CustomImage
-                src={school.institutionType.iconUrl}
-                tempImage={tempIconUrl}
-                alt={school.institutionType.displayName || ""}
-                width={20}
-                height={20}
-              />
-            )}
-            <span
-              className="px-12 py-4 rounded-pill text-sm fw-medium"
-              style={{
-                backgroundColor: `${school.institutionType?.colorCode}20`,
-                color: school.institutionType?.colorCode,
-                border: `1px solid ${school.institutionType?.colorCode}30`,
-              }}
-            >
-              {school.institutionType?.displayName}
-            </span>
-          </div>
-          <small className="text-neutral-500 d-block mt-4">
-            {school.institutionType?.description}
-          </small>
+        <span className="fw-semibold text-neutral-800">
+          {school.institutionType?.displayName}
         </span>
       ),
       isShowing: school.institutionType && school.institutionType.displayName,
@@ -96,28 +76,63 @@ export default function SchoolGeneralInfo() {
     {
       label: "Öğrenci Kapasitesi",
       value: (
-        <div className="d-flex align-items-center gap-8">
-          <span>
-            {school.currentStudentCount} / {school.capacity}
-          </span>
-          <div className="w-100px h-8 bg-neutral-100 rounded-4 position-relative">
+        <div className="d-flex flex-column gap-8">
+          <div className="d-flex justify-content-between align-items-center">
+            <span className="text-neutral-600 text-sm">Mevcut / Toplam</span>
+            <span className="fw-semibold text-main-600">
+              {school.currentStudentCount?.toLocaleString()} /{" "}
+              {school.capacity?.toLocaleString()}
+            </span>
+          </div>
+          <div
+            className="w-100 h-8 rounded-pill position-relative overflow-hidden"
+            style={{ backgroundColor: "#E2E8F0" }}
+          >
             <div
-              className="h-100 bg-success-500 rounded-4"
+              className="h-100 rounded-pill transition-all"
               style={{
-                width: `${
+                width: `${Math.min(
                   ((school.currentStudentCount || 0) / (school.capacity || 1)) *
+                    100,
                   100
-                }%`,
+                )}%`,
+                backgroundColor:
+                  ((school.currentStudentCount || 0) / (school.capacity || 1)) *
+                    100 >=
+                  90
+                    ? "#EF4444"
+                    : ((school.currentStudentCount || 0) /
+                        (school.capacity || 1)) *
+                        100 >=
+                      75
+                    ? "#F59E0B"
+                    : "#10B981",
               }}
             ></div>
           </div>
-          <small className="text-neutral-500">
-            %
-            {Math.round(
-              ((school.currentStudentCount || 0) / (school.capacity || 1)) * 100
-            )}{" "}
-            dolu
-          </small>
+          <div className="d-flex justify-content-between align-items-center">
+            <span className="text-xs text-neutral-500">Doluluk Oranı</span>
+            <span
+              className={`text-sm fw-medium ${
+                ((school.currentStudentCount || 0) / (school.capacity || 1)) *
+                  100 >=
+                90
+                  ? "text-danger-600"
+                  : ((school.currentStudentCount || 0) /
+                      (school.capacity || 1)) *
+                      100 >=
+                    75
+                  ? "text-warning-600"
+                  : "text-success-600"
+              }`}
+            >
+              %
+              {Math.round(
+                ((school.currentStudentCount || 0) / (school.capacity || 1)) *
+                  100
+              )}
+            </span>
+          </div>
         </div>
       ),
       isShowing:
@@ -130,52 +145,57 @@ export default function SchoolGeneralInfo() {
       value: `${school.classSizeAverage} öğrenci`,
       isShowing: school.classSizeAverage && school.classSizeAverage > 0,
     },
+  ];
+
+  // İletişim Bilgileri
+  const contactInfoItems = [
     {
-      label: "İletişim",
+      label: "Telefon",
       value: (
-        <div className="d-flex flex-column gap-4">
-          {school.phone && (
-            <div className="d-flex align-items-center gap-8">
-              <i className="ph ph-phone text-main-500"></i>
-              <span>{school.phone}</span>
-              {school.extension && (
-                <small className="text-neutral-500">
-                  Dahili: {school.extension}
-                </small>
-              )}
-            </div>
-          )}
-          {school.email && (
-            <div className="d-flex align-items-center gap-8">
-              <i className="ph ph-envelope text-main-500"></i>
-              <a href={`mailto:${school.email}`} className="text-main-600">
-                {school.email}
-              </a>
-            </div>
+        <div className="d-flex align-items-center gap-8">
+          <i className="ph ph-phone text-main-600"></i>
+          <span>{formatPhoneNumber(school.phone)}</span>
+          {school.extension && (
+            <>
+              <span className="text-neutral-300 mx-4">|</span>
+              <span className="text-sm text-neutral-500">
+                Dahili: {school.extension}
+              </span>
+            </>
           )}
         </div>
       ),
-      isShowing:
-        (school.phone && school.phone.trim() !== "") ||
-        (school.email && school.email.trim() !== ""),
+      isShowing: school.phone && school.phone.trim() !== "",
+    },
+    {
+      label: "E-posta",
+      value: (
+        <div className="d-flex align-items-center gap-8">
+          <i className="ph ph-envelope text-main-600"></i>
+          <a href={`mailto:${school.email}`} className="text-main-600">
+            {school.email}
+          </a>
+        </div>
+      ),
+      isShowing: school.email && school.email.trim() !== "",
     },
     {
       label: "Sosyal Medya",
       value: (
-        <div className="d-flex flex-wrap gap-12">
+        <div className="d-flex flex-wrap gap-8">
           {school.facebookUrl && (
             <a
               href={ensureProtocol(school.facebookUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              className="d-inline-flex align-items-center gap-6 px-10 py-6 rounded-6 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
               title="Facebook"
             >
               <i
-                className="ph-fill ph-facebook-logo text-lg"
+                className="ph-fill ph-facebook-logo text-base"
                 style={{ color: "#1877F2" }}
               ></i>
-              <span className="text-sm text-neutral-700">Facebook</span>
+              <span className="text-xs text-neutral-700">Facebook</span>
             </a>
           )}
           {school.twitterUrl && (
@@ -183,14 +203,14 @@ export default function SchoolGeneralInfo() {
               href={ensureProtocol(school.twitterUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              className="d-inline-flex align-items-center gap-6 px-10 py-6 rounded-6 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
               title="Twitter"
             >
               <i
-                className="ph-fill ph-twitter-logo text-lg"
+                className="ph-fill ph-twitter-logo text-base"
                 style={{ color: "#1DA1F2" }}
               ></i>
-              <span className="text-sm text-neutral-700">Twitter</span>
+              <span className="text-xs text-neutral-700">Twitter</span>
             </a>
           )}
           {school.instagramUrl && (
@@ -198,14 +218,14 @@ export default function SchoolGeneralInfo() {
               href={ensureProtocol(school.instagramUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              className="d-inline-flex align-items-center gap-6 px-10 py-6 rounded-6 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
               title="Instagram"
             >
               <i
-                className="ph-fill ph-instagram-logo text-lg"
+                className="ph-fill ph-instagram-logo text-base"
                 style={{ color: "#E4405F" }}
               ></i>
-              <span className="text-sm text-neutral-700">Instagram</span>
+              <span className="text-xs text-neutral-700">Instagram</span>
             </a>
           )}
           {school.linkedinUrl && (
@@ -213,14 +233,14 @@ export default function SchoolGeneralInfo() {
               href={ensureProtocol(school.linkedinUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              className="d-inline-flex align-items-center gap-6 px-10 py-6 rounded-6 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
               title="LinkedIn"
             >
               <i
-                className="ph-fill ph-linkedin-logo text-lg"
+                className="ph-fill ph-linkedin-logo text-base"
                 style={{ color: "#0A66C2" }}
               ></i>
-              <span className="text-sm text-neutral-700">LinkedIn</span>
+              <span className="text-xs text-neutral-700">LinkedIn</span>
             </a>
           )}
           {school.youtubeUrl && (
@@ -228,14 +248,14 @@ export default function SchoolGeneralInfo() {
               href={ensureProtocol(school.youtubeUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="d-flex align-items-center gap-8 px-12 py-8 rounded-8 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
+              className="d-inline-flex align-items-center gap-6 px-10 py-6 rounded-6 bg-main-50 hover:bg-main-100 text-decoration-none transition-all"
               title="Youtube"
             >
               <i
-                className="ph-fill ph-youtube-logo text-lg"
+                className="ph-fill ph-youtube-logo text-base"
                 style={{ color: "#FF0000" }}
               ></i>
-              <span className="text-sm text-neutral-700">Youtube</span>
+              <span className="text-xs text-neutral-700">Youtube</span>
             </a>
           )}
         </div>
@@ -247,128 +267,111 @@ export default function SchoolGeneralInfo() {
         school.linkedinUrl ||
         school.youtubeUrl,
     },
+  ];
+
+  // Konum Bilgileri
+  const locationInfoItems = [
     {
-      label: "Konum",
+      label: "İl",
       value: (
-        <div className="d-flex flex-wrap align-items-center gap-8">
-          {campus?.district?.name && (
-            <span className="badge bg-neutral-50 text-neutral-600 px-8 py-4">
-              <i className="ph ph-buildings me-4"></i>
-              {campus.district.name}
-            </span>
-          )}
-          {campus?.province?.name && (
-            <span className="badge bg-neutral-50 text-neutral-600 px-8 py-4">
-              <i className="ph ph-map-pin me-4"></i>
-              {campus.province.name}
+        <div className="d-flex align-items-center gap-8">
+          <span className="text-main-600 fw-semibold">
+            {campus?.province?.name}
+          </span>
+          {campus?.province?.plateCode && (
+            <span className="bg-main-50 text-main-600 px-8 py-4 rounded-6 text-sm fw-medium">
+              {campus.province.plateCode}
             </span>
           )}
         </div>
       ),
-      isShowing: campus?.district?.name || campus?.province?.name,
+      isShowing: campus?.province?.name && campus.province.name.trim() !== "",
     },
     {
-      label: "Kampüs",
+      label: "İlçe",
       value: (
-        <div className="d-flex flex-column gap-4">
-          <span className="fw-semibold">{campus?.name}</span>
-          <span className="text-sm text-neutral-500">ID: #{campus?.id}</span>
-        </div>
+        <span className="text-success-600 fw-semibold">
+          {campus?.district?.name}
+        </span>
       ),
-      isShowing: campus?.name && campus.name.trim() !== "",
+      isShowing: campus?.district?.name && campus.district.name.trim() !== "",
     },
     {
-      label: "Fiyat Bilgisi",
+      label: "Sosyoekonomik Seviye",
       value: (
-        <div className="d-flex flex-column gap-8">
-          {school.registrationFee && (
-            <div className="d-flex justify-content-between align-items-center">
-              <span>Kayıt Ücreti:</span>
-              <span className="fw-semibold text-main-600">
-                {school.registrationFee?.toLocaleString()} ₺
-              </span>
-            </div>
+        <span className="bg-primary-50 text-primary-600 px-12 py-6 rounded-8 fw-medium d-inline-flex align-items-center gap-4">
+          <i className="ph-bold ph-trend-up text-sm"></i>
+          {campus?.district?.socioeconomicLevel === "UPPER_MIDDLE"
+            ? "Üst Orta Gelir"
+            : campus?.district?.socioeconomicLevel === "HIGH"
+            ? "Üst Gelir"
+            : campus?.district?.socioeconomicLevel === "MIDDLE"
+            ? "Orta Gelir"
+            : campus?.district?.socioeconomicLevel === "LOWER_MIDDLE"
+            ? "Alt Orta Gelir"
+            : campus?.district?.socioeconomicLevel === "LOW"
+            ? "Alt Gelir"
+            : campus?.district?.socioeconomicLevel}
+        </span>
+      ),
+      isShowing:
+        campus?.district?.socioeconomicLevel &&
+        campus.district.socioeconomicLevel.trim() !== "",
+    },
+    {
+      label: "Bölge Tipi",
+      value: (
+        <div className="d-flex align-items-center gap-8 flex-wrap">
+          {campus?.province?.isMetropolitan && (
+            <span className="bg-success-50 text-success-600 px-10 py-4 rounded-6 text-sm fw-medium d-inline-flex align-items-center gap-4">
+              <i className="ph-bold ph-city text-xs"></i>
+              Büyükşehir
+            </span>
           )}
-          {school.monthlyFee && (
-            <div className="d-flex justify-content-between align-items-center">
-              <span>Aylık Ücret:</span>
-              <span className="fw-semibold text-main-600">
-                {school.monthlyFee?.toLocaleString()} ₺
-              </span>
-            </div>
-          )}
-          {school.annualFee && (
-            <div className="d-flex justify-content-between align-items-center border-top pt-8">
-              <span>Yıllık Ücret:</span>
-              <span className="fw-bold text-success-600">
-                {school.annualFee?.toLocaleString()} ₺
-              </span>
-            </div>
+          {campus?.district?.isCentral && (
+            <span className="bg-warning-50 text-warning-600 px-10 py-4 rounded-6 text-sm fw-medium d-inline-flex align-items-center gap-4">
+              <i className="ph-bold ph-star text-xs"></i>
+              Merkez İlçe
+            </span>
           )}
         </div>
       ),
       isShowing:
-        school.registrationFee || school.monthlyFee || school.annualFee,
-    },
-    {
-      label: "İstatistikler",
-      value: (
-        <div className="d-flex flex-column gap-8">
-          {school.viewCount && (
-            <div className="d-flex justify-content-between align-items-center">
-              <span>Görüntülenme:</span>
-              <span className="fw-semibold">
-                {school.viewCount.toLocaleString()}
-              </span>
-            </div>
-          )}
-          {school.likeCount && (
-            <div className="d-flex justify-content-between align-items-center">
-              <span>Beğeni:</span>
-              <span className="fw-semibold">
-                {school.likeCount.toLocaleString()}
-              </span>
-            </div>
-          )}
-          {school.postCount && (
-            <div className="d-flex justify-content-between align-items-center">
-              <span>Paylaşım:</span>
-              <span className="fw-semibold">{school.postCount}</span>
-            </div>
-          )}
-        </div>
-      ),
-      isShowing: school.viewCount || school.likeCount || school.postCount,
-    },
-    {
-      label: "Değerlendirme",
-      value: (
-        <div className="d-flex flex-column gap-8">
-          <div className="d-flex align-items-center gap-8">
-            {renderStars(school.ratingAverage || 0)}
-            <span className="text-md text-neutral-700 ms-8 fw-semibold">
-              {school.ratingAverage}
-            </span>
-          </div>
-          <small className="text-neutral-500">
-            {school.ratingCount} değerlendirme
-          </small>
-        </div>
-      ),
-      isShowing:
-        school.ratingAverage &&
-        school.ratingCount &&
-        (school.ratingCount || 0) > 0,
+        campus?.province?.isMetropolitan || campus?.district?.isCentral,
     },
   ];
 
-  // Eğer görüntülenecek herhangi bir bilgi yoksa boş state göster
-  const visibleItems = institutionInfoItems.filter((item) => item.isShowing);
+  const visibleBasicInfo = basicInfoItems.filter((item) => item.isShowing);
+  const visibleContactInfo = contactInfoItems.filter((item) => item.isShowing);
+  const visibleLocationInfo = locationInfoItems.filter(
+    (item) => item.isShowing
+  );
+
+  const sections = [
+    {
+      title: "Temel Bilgiler",
+      titleColor: "text-main-600",
+      titleIcon: "ph-bold ph-graduation-cap",
+      items: basicInfoItems,
+    },
+    {
+      title: "İletişim Bilgileri",
+      titleColor: "text-success-600",
+      titleIcon: "ph-bold ph-phone",
+      items: contactInfoItems,
+    },
+    {
+      title: "Konum Bilgileri",
+      titleColor: "text-warning-600",
+      titleIcon: "ph-bold ph-map-pin",
+      items: locationInfoItems,
+    },
+  ];
 
   return (
     <div className="d-flex flex-column gap-24">
       {/* Kurum Açıklaması */}
-      {school.description && (
+      {school.description && school.description.trim() !== "" && (
         <CustomCard
           title="Kurum Hakkında"
           editButtonUrl={
@@ -381,25 +384,11 @@ export default function SchoolGeneralInfo() {
         </CustomCard>
       )}
 
-      {visibleItems.length > 0 ? (
-        <CustomCard
-          title="Kurum Bilgileri"
-          items={institutionInfoItems}
-          // editButtonUrl={
-          //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          // }
-        />
-      ) : (
-        <CustomCard
-          title="Kurum Bilgileri"
-          // editButtonUrl={
-          //   school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          // }
-        >
-          <p className="text-neutral-500">
-            Kurum bilgileri henüz mevcut değil.
-          </p>
-        </CustomCard>
+      {/* Temel, İletişim ve Konum Bilgileri */}
+      {(visibleBasicInfo.length > 0 ||
+        visibleContactInfo.length > 0 ||
+        visibleLocationInfo.length > 0) && (
+        <CustomCard title="Kurum Bilgileri" multiItems={sections} />
       )}
     </div>
   );

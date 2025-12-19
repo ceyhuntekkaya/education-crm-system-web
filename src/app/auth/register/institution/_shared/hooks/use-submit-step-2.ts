@@ -21,10 +21,10 @@ export const useSubmitStep2 = (
   const { submitIdentity } = useRegisterStep2();
 
   const handleSubmit = useCallback(async () => {
-    console.log("🚀 handleSubmitStep2 çağrıldı:", {
-      userId,
-      personalInfo: values?.personalInfo,
-    });
+    // console.log("🚀 handleSubmitStep2 çağrıldı:", {
+    //   userId,
+    //   personalInfo: values?.personalInfo,
+    // });
 
     // userId yoksa auth context'ten user'ın id'sini kullan
     const authUserId = user?.id;
@@ -41,12 +41,12 @@ export const useSubmitStep2 = (
       return;
     }
 
-    console.log("📤 Step 2 API isteği gönderiliyor:", {
-      userId: effectiveUserId,
-      firstName: values.personalInfo.firstName,
-      lastName: values.personalInfo.lastName,
-      phone: values.personalInfo.phone,
-    });
+    // console.log("📤 Step 2 API isteği gönderiliyor:", {
+    //   userId: effectiveUserId,
+    //   firstName: values.personalInfo.firstName,
+    //   lastName: values.personalInfo.lastName,
+    //   phone: values.personalInfo.phone,
+    // });
 
     // Backend: RegisterIdentityDto (userId, firstName, lastName, phone)
     const payload = {
@@ -57,7 +57,7 @@ export const useSubmitStep2 = (
     };
 
     const response = await submitIdentity(payload);
-    console.log("📥 Step 2 API response:", response);
+    // console.log("📥 Step 2 API response:", response);
 
     if (response?.success) {
       // userId'yi set et (eğer yoksa)

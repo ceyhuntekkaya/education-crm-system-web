@@ -39,21 +39,40 @@ export const validationSchema = Yup.object({
     .transform((value, originalValue) => (originalValue === "" ? null : value))
     .min(0, "Maksimum yaş 0'dan küçük olamaz")
     .max(100, "Maksimum yaş 100'den büyük olamaz")
+    .test(
+      "max-greater-than-min",
+      "Maksimum yaş, minimum yaştan küçük olamaz",
+      function (maxAge) {
+        const { minAge } = this.parent;
+        if (minAge != null && maxAge != null) {
+          return maxAge >= minAge;
+        }
+        return true;
+      }
+    )
     .nullable()
     .optional(),
   capacity: Yup.number()
     .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .min(0, "Kapasite 0'dan küçük olamaz")
     .nullable()
     .optional(),
   currentStudentCount: Yup.number()
     .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .min(0, "Mevcut öğrenci sayısı 0'dan küçük olamaz")
+    .test(
+      "student-count-within-capacity",
+      "Mevcut öğrenci sayısı, kapasiteden fazla olamaz",
+      function (currentStudentCount) {
+        const { capacity } = this.parent;
+        if (capacity != null && capacity > 0 && currentStudentCount != null) {
+          return currentStudentCount <= capacity;
+        }
+        return true;
+      }
+    )
     .nullable()
     .optional(),
   classSizeAverage: Yup.number()
     .transform((value, originalValue) => (originalValue === "" ? null : value))
-    .min(0, "Maksimum sınıf mevcudu 0'dan küçük olamaz")
     .nullable()
     .optional(),
   // curriculumType: Yup.string().optional(),

@@ -38,7 +38,7 @@ export const AppointmentTable: React.FC<AppointmentTableProps> = ({
           showActions: true,
           addButtonText: "Yeni Randevu",
           onAddNew: () => {
-            console.log("Yeni Randevu ekleme formu açılacak");
+            // console.log("Yeni Randevu ekleme formu açılacak");
           },
         }}
       />

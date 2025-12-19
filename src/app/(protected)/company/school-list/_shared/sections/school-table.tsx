@@ -36,7 +36,7 @@ export const SchoolTable: React.FC<SchoolTableProps> = () => {
           showActions: true,
           addButtonText: "Yeni Kurum Ekle",
           onAddNew: () => {
-            console.log("Yeni Kurum ekleme formu açılacak");
+            // console.log("Yeni Kurum ekleme formu açılacak");
           },
         }}
       />

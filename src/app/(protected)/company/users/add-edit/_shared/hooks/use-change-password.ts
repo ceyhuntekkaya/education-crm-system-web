@@ -16,10 +16,10 @@ export const useChangePassword = (userId: number | null) => {
     userId ? API_ENDPOINTS.USERS.CHANGE_PASSWORD(userId) : "",
     {
       onSuccess: () => {
-        console.log("✅ Şifre başarıyla değiştirildi");
+        // console.log("✅ Şifre başarıyla değiştirildi");
       },
       onError: (error) => {
-        console.log("❌ Şifre değiştirilirken hata:", error);
+        // console.log("❌ Şifre değiştirilirken hata:", error);
       },
     }
   );

@@ -23,19 +23,19 @@ export const usePostLoginRedirect = () => {
    * Login sonrası kullanıcı kontrolü ve yönlendirme
    */
   const checkAndRedirect = (user: UserDto | null) => {
-    console.log("🔍 checkAndRedirect çağrıldı:", user);
+    // console.log("🔍 checkAndRedirect çağrıldı:", user);
 
     // User yoksa yönlendirme yapma
     if (!user) {
-      console.log("❌ User bulunamadı, yönlendirme yapılmadı");
+      // console.log("❌ User bulunamadı, yönlendirme yapılmadı");
       return false;
     }
 
     // INSTITUTION_USER kontrolü
     if (user.userType !== "INSTITUTION_USER") {
-      console.log(
-        `ℹ️ User type ${user.userType}, INSTITUTION_USER değil, yönlendirme yapılmadı`
-      );
+      // console.log(
+      //   `ℹ️ User type ${user.userType}, INSTITUTION_USER değil, yönlendirme yapılmadı`
+      // );
       return false;
     }
 
@@ -53,17 +53,17 @@ export const usePostLoginRedirect = () => {
 
     if (isPersonalInfoMissing) {
       targetStep = 2;
-      console.log("📝 Kişisel bilgiler eksik (firstName, lastName, phone)");
+      // console.log("📝 Kişisel bilgiler eksik (firstName, lastName, phone)");
     }
     // 2. Email doğrulama kontrolü
     else if (!user.isEmailVerified) {
       targetStep = 3;
-      console.log("✉️ Email doğrulanmamış");
+      // console.log("✉️ Email doğrulanmamış");
     }
     // 3. Campus bilgisi kontrolü
     else if (!user.campus) {
       targetStep = 4;
-      console.log("🏢 Campus bilgisi yok");
+      // console.log("🏢 Campus bilgisi yok");
     }
     // 4. Subscription kontrolü
     //  ** sonradan açılacak
@@ -75,18 +75,18 @@ export const usePostLoginRedirect = () => {
     // Yönlendirme yap
     if (targetStep !== null) {
       const targetUrl = `/auth/register/institution?stepId=${targetStep}`;
-      console.log(`🔄 Login sonrası yönlendirme yapılıyor: ${targetUrl}`);
+      // console.log(`🔄 Login sonrası yönlendirme yapılıyor: ${targetUrl}`);
 
       // setTimeout ile bir sonraki tick'te yönlendir
       setTimeout(() => {
-        console.log(`🚀 Router.push çalıştırılıyor: ${targetUrl}`);
+        // console.log(`🚀 Router.push çalıştırılıyor: ${targetUrl}`);
         router.push(targetUrl);
       }, 100);
 
       return true; // Yönlendirme yapıldı
     }
 
-    console.log("✅ Tüm bilgiler tam, yönlendirme yapılmadı");
+    // console.log("✅ Tüm bilgiler tam, yönlendirme yapılmadı");
     return false; // Yönlendirme yapılmadı
   };
 

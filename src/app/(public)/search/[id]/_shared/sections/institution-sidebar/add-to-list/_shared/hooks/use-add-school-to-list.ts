@@ -29,7 +29,7 @@ export const useAddSchoolToList = (options?: UseAddSchoolToListOptions) => {
     AddSchoolToListRequest
   >(API_ENDPOINTS.PARENT_SCHOOL_LISTS.ADD_SCHOOL, {
     onSuccess: (response) => {
-      console.log("✅ Kurum listeye başarıyla eklendi:", response.data);
+      // console.log("✅ Kurum listeye başarıyla eklendi:", response.data);
 
       // Listeleri yeniden yükle
       refetchLists();

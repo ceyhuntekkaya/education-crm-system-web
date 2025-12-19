@@ -2,11 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import { companyLayoutNavigation } from "./_shared/navigation/navigation";
+import { useCompany } from "./_shared/context/company-context";
 import FileInputExamples from "@/components/file-input/file-input.example";
 import { usePageTitle } from "@/hooks";
 
 const CompanyPage: React.FC = () => {
   usePageTitle("Kurum Paneli");
+  const { selectedSchool } = useCompany();
   // Icon mapping - eğer navigation'dan gelen icon uygun değilse alternatif kullan
   const getModuleIcon = (label: string, originalIcon: string) => {
     const iconMap: { [key: string]: string } = {
@@ -109,7 +111,7 @@ const CompanyPage: React.FC = () => {
                   <i className="ph-bold ph-buildings"></i>
                 </div>
                 <h1 className="company-dashboard__welcome-title">
-                  Kurum Yönetim Paneli �
+                  Kurum Yönetim Paneli
                 </h1>
                 <h2 className="company-dashboard__welcome-subtitle">
                   Eğitim Kurumunuzu Profesyonelce Yönetin
@@ -181,33 +183,92 @@ const CompanyPage: React.FC = () => {
                 </div>
 
                 <div className="company-dashboard__modules-grid">
-                  {moduleItems.map((item, index) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`company-dashboard__card company-dashboard__card--${item.variant}`}
-                      style={{ animationDelay: `${0.1 * (index + 1)}s` }}
-                    >
-                      <div className="company-dashboard__card-icon">
-                        <i className={`ph-bold ${item.icon}`}></i>
+                  {moduleItems.map((item, index) => {
+                    const isDisabled =
+                      !selectedSchool && item.requiresSchool !== false;
+
+                    return isDisabled ? (
+                      <div
+                        key={item.href}
+                        className={`company-dashboard__card company-dashboard__card--${item.variant} company-dashboard__card--disabled`}
+                        style={{
+                          animationDelay: `${0.1 * (index + 1)}s`,
+                          opacity: 0.5,
+                          cursor: "not-allowed",
+                          position: "relative",
+                        }}
+                        title="Bu modülü kullanmak için önce bir okul seçmelisiniz"
+                      >
+                        <div className="company-dashboard__card-icon">
+                          <i className={`ph-bold ${item.icon}`}></i>
+                        </div>
+
+                        <h4 className="company-dashboard__card-title">
+                          {item.label}
+                        </h4>
+
+                        <p className="company-dashboard__card-description">
+                          {item.description}
+                        </p>
+
+                        <div className="company-dashboard__card-footer">
+                          <span className="company-dashboard__card-footer-text">
+                            <i className="ph-bold ph-lock me-8"></i>
+                            Okul Seçimi Gerekli
+                          </span>
+                        </div>
+
+                        {/* Overlay badge */}
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "12px",
+                            right: "12px",
+                            background: "rgba(220, 53, 69, 0.9)",
+                            color: "white",
+                            padding: "4px 8px",
+                            borderRadius: "4px",
+                            fontSize: "11px",
+                            fontWeight: "600",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          <i
+                            className="ph-bold ph-lock"
+                            style={{ fontSize: "10px", marginRight: "4px" }}
+                          ></i>
+                          Kilitli
+                        </div>
                       </div>
+                    ) : (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`company-dashboard__card company-dashboard__card--${item.variant}`}
+                        style={{ animationDelay: `${0.1 * (index + 1)}s` }}
+                      >
+                        <div className="company-dashboard__card-icon">
+                          <i className={`ph-bold ${item.icon}`}></i>
+                        </div>
 
-                      <h4 className="company-dashboard__card-title">
-                        {item.label}
-                      </h4>
+                        <h4 className="company-dashboard__card-title">
+                          {item.label}
+                        </h4>
 
-                      <p className="company-dashboard__card-description">
-                        {item.description}
-                      </p>
+                        <p className="company-dashboard__card-description">
+                          {item.description}
+                        </p>
 
-                      <div className="company-dashboard__card-footer">
-                        <span className="company-dashboard__card-footer-text">
-                          Başlat
-                        </span>
-                        <i className="ph-bold ph-arrow-right"></i>
-                      </div>
-                    </Link>
-                  ))}
+                        <div className="company-dashboard__card-footer">
+                          <span className="company-dashboard__card-footer-text">
+                            Başlat
+                          </span>
+                          <i className="ph-bold ph-arrow-right"></i>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 {/* <div className="company-dashboard__help">

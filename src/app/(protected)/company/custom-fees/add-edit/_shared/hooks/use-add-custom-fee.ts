@@ -26,7 +26,7 @@ export const useAddCustomFee = () => {
     API_ENDPOINTS.PRICING.CUSTOM_FEE_CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ Ek ücret başarıyla eklendi:", data);
+        // console.log("✅ Ek ücret başarıyla eklendi:", data);
         // Liste sayfasını yenile
         refetchCustomFees();
         // Liste sayfasına yönlendir
