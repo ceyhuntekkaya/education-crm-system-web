@@ -32,9 +32,6 @@ const SchoolDetailPage: React.FC = () => {
     <div className="d-flex flex-column gap-24">
       <SchoolCoverImage />
       <SchoolGeneralInfo />
-      <SchoolBrandDetail />
-      <SchoolCampusDetail />
-      <SchoolLocationInfo />
       <SchoolAdditionalFeatures />
     </div>
   );

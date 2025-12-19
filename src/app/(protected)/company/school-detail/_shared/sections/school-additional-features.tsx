@@ -1,3 +1,4 @@
+import { formatTitle } from "@/utils";
 import { useSchoolDetailContext } from "../context/school-detail-context";
 import { CustomCard } from "@/components/ui";
 
@@ -31,14 +32,14 @@ export default function SchoolAdditionalFeatures() {
       emptyIcon={emptyIcon}
     >
       {!isEmpty && (
-        <div className="p-24">
+        <div>
           {/* Başlık ve Açıklama */}
-          <div className="mb-24">
+          {/* <div className="mb-24">
             <h5 className="mb-16">Özellikler</h5>
             <p className="text-neutral-500 text-sm mb-16">
               Bu Kuruma tanımlanmış olan ek özellikler aşağıda listelenmektedir.
             </p>
-          </div>
+          </div> */}
 
           {/* Checkbox Grupları */}
           <div className="d-flex flex-column gap-20">
@@ -48,7 +49,7 @@ export default function SchoolAdditionalFeatures() {
                 className="property-group mb-20 bg-white rounded-32 px-24 pt-24 pb-32"
               >
                 <h6 className="mb-12 text-neutral-600 fw-semibold">
-                  {group.groupDisplayName}
+                  {formatTitle(group.groupName)}
                 </h6>
                 <div className="row row-gap-12">
                   {group.properties.map((property) => (
@@ -67,7 +68,7 @@ export default function SchoolAdditionalFeatures() {
                         className="form-check-label fw-normal flex-grow-1"
                         htmlFor={`property-${property.propertyTypeId}`}
                       >
-                        {property.displayName}
+                        {formatTitle(property.displayName)}
                       </label>
                     </div>
                   ))}
