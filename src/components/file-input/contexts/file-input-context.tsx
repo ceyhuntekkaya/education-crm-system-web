@@ -73,7 +73,7 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
         // Form güncellemesi handleUpload içinde yapılacak
       }
     },
-    [baseHandleInternalChange, name, multiple, setValue]
+    [baseHandleInternalChange, name, multiple]
   );
 
   // Accept attribute
