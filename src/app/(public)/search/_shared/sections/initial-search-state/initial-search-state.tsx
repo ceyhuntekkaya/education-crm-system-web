@@ -14,7 +14,10 @@ const InitialSearchState: React.FC = () => {
   }, []);
 
   return (
-    <div className="initial-search-state" style={{ opacity: isMounted ? 1 : 0, transition: 'opacity 0.2s ease-in' }}>
+    <div
+      className="initial-search-state"
+      style={{ opacity: isMounted ? 1 : 0, transition: "opacity 0.2s ease-in" }}
+    >
       <div className="empty-state-card bg-white rounded-20 p-24 p-md-48 text-center position-relative overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="decoration-circle decoration-circle-1"></div>
@@ -86,9 +89,7 @@ const InitialSearchState: React.FC = () => {
         </div>
 
         {/* Features Grid */}
-        <div 
-          className="row row-cols-1 row-cols-md-3 g-12 g-md-20 mb-24 mb-md-40 position-relative features-grid"
-        >
+        <div className="row row-cols-1 row-cols-md-3 g-12 g-md-20 mb-24 mb-md-40 position-relative features-grid">
           <div className="col">
             <div className="feature-card bg-gradient-primary-subtle rounded-16 p-20 p-md-28 h-100">
               <div className="feature-icon bg-primary-600 rounded-circle p-10 p-md-14 d-inline-flex align-items-center justify-content-center mb-12 mb-md-20 shadow-sm">
