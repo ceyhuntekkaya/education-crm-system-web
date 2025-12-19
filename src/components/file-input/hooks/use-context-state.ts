@@ -27,6 +27,8 @@ export const useContextState = () => {
   // Internal change handler
   const handleInternalChange = useCallback((files: File[] | File | null) => {
     // console.log("Files selected:", files);
+    // Not: Form state güncellemesi use-file-upload.ts içinde setValue ile yapılıyor
+    // Bu fonksiyon sadece internal değişiklikleri izlemek için
   }, []);
 
   // Internal upload handler

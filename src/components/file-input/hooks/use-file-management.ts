@@ -290,12 +290,19 @@ export const useFileManagement = (props: {
         }
       }
 
+      // Silinecek dosyanın preview URL'ini temizle
+      const fileToClean = files[indexToRemove];
+      if (fileToClean?.preview && fileToClean.preview.startsWith("blob:")) {
+        URL.revokeObjectURL(fileToClean.preview);
+      }
+
       const updatedFiles = files.filter((_, i) => i !== indexToRemove);
       setFiles(updatedFiles);
 
       // Dosya silindiğinde hataları temizle
       onError?.("");
 
+      // Parent component'i bilgilendir - Bu önemli! Form state'i güncellensin
       const outputValue = multiple ? updatedFiles : updatedFiles[0] || null;
       onChange?.(outputValue);
     },
@@ -349,7 +356,6 @@ export const useFileManagement = (props: {
               }
             }
 
-
             // Placeholder file oluştur
             const placeholderFile = {
               name: fileName,
@@ -386,7 +392,7 @@ export const useFileManagement = (props: {
           //   }
           // );
         } else {
-          // Eski dosyaları koru, yeni dosyaları ekle
+          // replaceAll=false: Eski yüklenmiş dosyaları koru, yeni dosyaları ekle
           const oldUploadedFiles = files.filter((f) => (f as any).isUploaded);
           allFiles = [...oldUploadedFiles, ...placeholderFiles];
           // console.log(
