@@ -8,6 +8,7 @@ import {
   LoginCredentialsStep,
   PersonalInfoStep,
   VerificationCodeStep,
+  VerificationCodeStepDemo,
   CampusInfoStep,
   PackageSelectionStep,
   PaymentInfoStep,
@@ -32,7 +33,8 @@ export const RegisterFormContent: React.FC = () => {
       case 2:
         return <PersonalInfoStep />;
       case 3:
-        return <VerificationCodeStep />;
+        // return <VerificationCodeStep />;
+        return <VerificationCodeStepDemo />;
       case 4:
         return <CampusInfoStep />;
       case 5:
