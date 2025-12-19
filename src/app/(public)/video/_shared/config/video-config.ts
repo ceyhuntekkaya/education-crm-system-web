@@ -7,8 +7,8 @@ export const VIDEO_CONFIG = {
   // YouTube video için:
   // url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
 
-  // Direkt video için:
-  url: "https://api.egitimiste.com/api/upload/serve/4/items/420eb04a-ff85-476c-9e8c-6986894caf04_egitim_iste_1080.mp4",
+  // Public klasöründen tanıtım videosu
+  url: "/assets/video/tanitim_video.mp4",
 
   // Video bilgileri
   publishDate: "11 Ara 2025",
