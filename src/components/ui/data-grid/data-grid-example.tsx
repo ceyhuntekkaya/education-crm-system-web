@@ -549,7 +549,7 @@ export function DataGridExample() {
 
   // Handle row selection
   const handleRowSelectionChange = (selectedRows: Course[]) => {
-    console.log("Selected rows:", selectedRows);
+    // console.log("Selected rows:", selectedRows);
   };
 
   return (

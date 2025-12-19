@@ -52,10 +52,10 @@ export const useUpdateSchoolProperties = (
 
         const response = await apiClient.post<ApiResponse<any>>(endpoint, data);
 
-        console.log(
-          "✅ School properties başarıyla güncellendi:",
-          response.data
-        );
+        // console.log(
+        //   "✅ School properties başarıyla güncellendi:",
+        //   response.data
+        // );
 
         refetchProperties?.();
         onSuccess?.(response.data, data);

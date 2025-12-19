@@ -15,7 +15,7 @@ export default function SchoolLocationInfo() {
   const school = currentSchool;
   const campus = school.campus;
 
-  console.log("campus ,=> ", campus);
+  // console.log("campus ,=> ", campus);
 
   if (!campus) {
     return (

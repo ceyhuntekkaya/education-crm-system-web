@@ -21,14 +21,14 @@ export const useAddUser = () => {
     API_ENDPOINTS.USERS.REGISTER_INSTITUTION,
     {
       onSuccess: (data) => {
-        console.log("✅ Kullanıcı başarıyla eklendi:", data);
+        // console.log("✅ Kullanıcı başarıyla eklendi:", data);
         // Liste API'sine tekrar istek at
         refetchUsers();
         // Kullanıcılar sayfasına yönlendir
         router.push("/company/users");
       },
       onError: (error) => {
-        console.log("❌ Kullanıcı eklenirken hata:", error);
+        // console.log("❌ Kullanıcı eklenirken hata:", error);
       },
     }
   );

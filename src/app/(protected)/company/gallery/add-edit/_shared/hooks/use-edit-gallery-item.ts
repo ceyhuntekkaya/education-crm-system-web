@@ -24,7 +24,7 @@ export const useEditGalleryItem = ({
     () => API_ENDPOINTS.CONTENT.GALLERY_ITEM_UPDATE(galleryItemId),
     {
       onSuccess: (data) => {
-        console.log("✅ Gallery item başarıyla güncellendi:", data);
+        // console.log("✅ Gallery item başarıyla güncellendi:", data);
         // Refetch varsa çalıştır
         if (refetch) {
           refetch();

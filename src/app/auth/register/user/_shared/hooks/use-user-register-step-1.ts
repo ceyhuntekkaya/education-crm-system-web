@@ -17,7 +17,7 @@ export const useUserRegisterStep1 = () => {
     API_ENDPOINTS.REGISTER.STEP_1_CREDENTIAL,
     {
       onSuccess: (data) => {
-        console.log("[User Register Step 1] Credential saved:", data);
+        // console.log("[User Register Step 1] Credential saved:", data);
       },
       onError: (errorMsg) => {
         console.error("[User Register Step 1] Error:", errorMsg);

@@ -47,7 +47,7 @@ const LoginFormContent: React.FC = () => {
       ) => Promise<AuthenticationResponse>
     )(loginRequest);
 
-    console.log("Login response:", res);
+    // console.log("Login response:", res);
 
     // ** dashboard yönlendirme işlemi role göre yapılacak
     // if (res?.accessToken) {
@@ -78,9 +78,9 @@ const LoginFormContent: React.FC = () => {
     if (res?.accessToken) {
       // Eğer registration'a yönlendirme yapıldıysa, başka yönlendirme yapma
       if ((res as any).wasRedirectedToRegistration) {
-        console.log(
-          "✅ Kullanıcı registration'a yönlendirildi, başka yönlendirme yapılmayacak"
-        );
+        // console.log(
+        //   "✅ Kullanıcı registration'a yönlendirildi, başka yönlendirme yapılmayacak"
+        // );
         return;
       }
 
@@ -183,7 +183,7 @@ const LoginFormContent: React.FC = () => {
                     className="social-login-btn google"
                     onClick={() => {
                       // Google OAuth işlemi buraya eklenecek
-                      console.log("Google ile giriş yapılıyor...");
+                      // console.log("Google ile giriş yapılıyor...");
                     }}
                   >
                     <svg
@@ -218,7 +218,7 @@ const LoginFormContent: React.FC = () => {
                     className="social-login-btn apple"
                     onClick={() => {
                       // Apple OAuth işlemi buraya eklenecek
-                      console.log("Apple ile giriş yapılıyor...");
+                      // console.log("Apple ile giriş yapılıyor...");
                     }}
                   >
                     <svg

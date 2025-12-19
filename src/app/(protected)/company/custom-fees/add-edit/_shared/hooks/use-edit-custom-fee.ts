@@ -37,7 +37,7 @@ export const useEditCustomFee = ({
     API_ENDPOINTS.PRICING.CUSTOM_FEE_UPDATE(customFeeId),
     {
       onSuccess: (data) => {
-        console.log("✅ Ek ücret başarıyla güncellendi:", data);
+        // console.log("✅ Ek ücret başarıyla güncellendi:", data);
         refetch?.();
         // Liste sayfasını yenile
         refetchCustomFees();

@@ -112,7 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     school: any,
     variant: "add" | "edit" = "add"
   ) => {
-    console.log("gelen data güncellencek ==> ", school);
+    // console.log("gelen data güncellencek ==> ", school);
 
     const updatedUser = updateUserSchools(school, variant);
     if (updatedUser) {

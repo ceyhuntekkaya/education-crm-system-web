@@ -26,7 +26,7 @@ export const useUserRegisterFinal = () => {
     "https://api.egitimiste.com/api/register/user",
     {
       onSuccess: (data) => {
-        console.log("[User Register Final] User registration completed:", data);
+        // console.log("[User Register Final] User registration completed:", data);
       },
       onError: (errorMsg) => {
         console.error("[User Register Final] Error:", errorMsg);

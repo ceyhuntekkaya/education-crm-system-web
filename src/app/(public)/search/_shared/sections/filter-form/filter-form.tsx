@@ -94,7 +94,7 @@ const FormContent = ({
   ];
 
   const onSubmit = (values: FormValues) => {
-    console.log("Form Values:", values);
+    // console.log("Form Values:", values);
 
     // API parametrelerini oluştur (propertyFilters dahil)
     const apiParams = createApiParams(values, institutionTypes);
@@ -102,7 +102,7 @@ const FormContent = ({
     // Undefined değerleri temizle
     const cleanParams = cleanApiParams(apiParams);
 
-    console.log("API Parametreleri:", cleanParams);
+    // console.log("API Parametreleri:", cleanParams);
     // Search fonksiyonunu hook'tan kullan
     search(cleanParams);
 

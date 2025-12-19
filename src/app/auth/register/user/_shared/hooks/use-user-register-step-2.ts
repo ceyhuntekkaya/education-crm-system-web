@@ -17,7 +17,7 @@ export const useUserRegisterStep2 = () => {
     API_ENDPOINTS.REGISTER.STEP_2_IDENTITY,
     {
       onSuccess: (data) => {
-        console.log("[User Register Step 2] Identity saved:", data);
+        // console.log("[User Register Step 2] Identity saved:", data);
       },
       onError: (errorMsg) => {
         console.error("[User Register Step 2] Error:", errorMsg);

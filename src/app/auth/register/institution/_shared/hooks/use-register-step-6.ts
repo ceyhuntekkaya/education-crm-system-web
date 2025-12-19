@@ -17,7 +17,7 @@ export const useRegisterStep6 = () => {
     API_ENDPOINTS.REGISTER.STEP_6_PAYMENT,
     {
       onSuccess: (data) => {
-        console.log("[Register Step 6] Payment completed:", data);
+        // console.log("[Register Step 6] Payment completed:", data);
       },
       onError: (errorMsg) => {
         console.error("[Register Step 6] Error:", errorMsg);

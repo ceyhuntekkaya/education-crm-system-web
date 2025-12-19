@@ -24,7 +24,7 @@ import { CampusCreateDto } from "@/types";
 export const CampusFormContent: React.FC = () => {
   // Form hook - validation ve error kontrolü için
   const { hasErrors, values, errors } = useFormHook();
-  console.log("errrors ", errors);
+  // console.log("errrors ", errors);
 
   // Form context
   const { reset } = useForm();

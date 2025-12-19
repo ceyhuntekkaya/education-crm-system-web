@@ -28,13 +28,13 @@ export const filterDataForEdit = (formData: any): any => {
     delete filtered[field];
   });
 
-  console.log("🔍 Filtreleme sonucu:", {
-    original: Object.keys(formData),
-    filtered: Object.keys(filtered),
-    removed: Object.keys(formData).filter(
-      (key) => !Object.keys(filtered).includes(key)
-    ),
-  });
+  // console.log("🔍 Filtreleme sonucu:", {
+  //   original: Object.keys(formData),
+  //   filtered: Object.keys(filtered),
+  //   removed: Object.keys(formData).filter(
+  //     (key) => !Object.keys(filtered).includes(key)
+  //   ),
+  // });
 
   return filtered;
 };

@@ -74,7 +74,7 @@ export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
   const filterSubmit = (values: PostSearchDto) => {
     // TODO: Filtreleme mantığı burada implement edilecek
     // Şimdilik sadece console'a yazdırıyoruz
-    console.log("Post filter values:", values);
+    // console.log("Post filter values:", values);
   };
 
   const value: PostContextType = {

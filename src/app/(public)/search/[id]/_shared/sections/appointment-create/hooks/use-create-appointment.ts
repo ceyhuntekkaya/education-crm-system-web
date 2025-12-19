@@ -64,7 +64,7 @@ export const useCreateAppointment = (
     API_ENDPOINTS.APPOINTMENTS.CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ Randevu başarıyla oluşturuldu:", data);
+        // console.log("✅ Randevu başarıyla oluşturuldu:", data);
         onSuccess?.(data);
       },
       onError: (error) => {

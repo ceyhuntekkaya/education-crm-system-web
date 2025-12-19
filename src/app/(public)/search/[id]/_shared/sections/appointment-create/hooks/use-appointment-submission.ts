@@ -69,7 +69,7 @@ export const useAppointmentSubmission = (): UseAppointmentSubmissionReturn => {
       // Create DTO using schema
       const appointmentDto = mapFormDataToDto(formData);
 
-      console.log("Submitting appointment:", appointmentDto);
+      // console.log("Submitting appointment:", appointmentDto);
 
       // Call API
       createAppointment(appointmentDto);

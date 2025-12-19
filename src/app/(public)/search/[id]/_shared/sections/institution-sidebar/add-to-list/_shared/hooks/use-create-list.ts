@@ -29,7 +29,7 @@ export const useCreateList = (options?: UseCreateListOptions) => {
     CreateParentSchoolListRequest
   >(API_ENDPOINTS.PARENT_SCHOOL_LISTS.CREATE_LIST, {
     onSuccess: (response) => {
-      console.log("✅ Liste başarıyla oluşturuldu:", response.data);
+      // console.log("✅ Liste başarıyla oluşturuldu:", response.data);
 
       // Listeleri yeniden yükle
       refetchLists();

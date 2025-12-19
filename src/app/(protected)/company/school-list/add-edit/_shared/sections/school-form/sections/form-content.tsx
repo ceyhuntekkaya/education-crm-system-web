@@ -80,7 +80,7 @@ export const SchoolFormContent: React.FC = () => {
     return getGroupsByInstitutionTypeId(institutionTypeId);
   }, [values?.institutionTypeId, getGroupsByInstitutionTypeId]);
 
-  console.log("currentPropertyGroups", currentPropertyGroups);
+  // console.log("currentPropertyGroups", currentPropertyGroups);
 
   const handleSubmit = async (values: any) => {
     // PropertyValues'i number array'ine çevir

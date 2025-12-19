@@ -141,17 +141,17 @@ export const FileInputContextProvider: React.FC<FileInputContextProps> = ({
           configurable: true,
         });
 
-        console.log("🎨 Crop save - Preview URL eklendi:", previewUrl);
+        // console.log("🎨 Crop save - Preview URL eklendi:", previewUrl);
 
-        console.log(
-          "📤 Crop save - handleUpload çağrılıyor (kırpılmış dosya ile)..."
-        );
+        // console.log(
+        //   "📤 Crop save - handleUpload çağrılıyor (kırpılmış dosya ile)..."
+        // );
 
         // CROP SONRASI OTOMATIK UPLOAD - kırpılmış dosyayı direkt gönder
         // State güncellemesini beklemeye gerek yok, dosyayı parametre olarak gönder
         await handleUpload([croppedFile]);
 
-        console.log("✅ Crop save - handleUpload tamamlandı!");
+        // console.log("✅ Crop save - handleUpload tamamlandı!");
 
         // Upload başarılı olduktan SONRA files state'ine ekle (preview için)
         const fileList = new DataTransfer();

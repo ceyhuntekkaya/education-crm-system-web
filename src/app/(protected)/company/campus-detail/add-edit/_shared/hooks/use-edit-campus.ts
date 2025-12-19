@@ -21,7 +21,7 @@ export const useEditCampus = ({ campusId, refetch }: UseEditCampusProps) => {
     () => API_ENDPOINTS.INSTITUTIONS.CAMPUS_BY_ID(campusId),
     {
       onSuccess: (data) => {
-        console.log("✅ Campus başarıyla güncellendi:", data);
+        // console.log("✅ Campus başarıyla güncellendi:", data);
         // Refetch varsa çalıştır
         if (refetch) {
           refetch();

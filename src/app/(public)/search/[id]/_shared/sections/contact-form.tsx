@@ -69,7 +69,7 @@ const ContactFormContent: React.FC<ContactFormProps> = ({
 
     try {
       // TODO: API çağrısını buraya ekle
-      console.log("Contact form submitted:", contactRequest);
+      // console.log("Contact form submitted:", contactRequest);
 
       // Başarılı gönderim sonrası bilgilendirme
       alert("Mesajınız başarıyla gönderildi!");

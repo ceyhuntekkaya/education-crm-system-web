@@ -55,7 +55,7 @@ export const GalleryProvider: React.FC<GalleryProviderProps> = ({
   const filterSubmit = (values: GallerySearchDto) => {
     // TODO: Filtreleme mantığı burada implement edilecek
     // Şimdilik sadece console'a yazdırıyoruz
-    console.log("Gallery filter values:", values);
+    // console.log("Gallery filter values:", values);
   };
 
   const value: GalleryContextType = {

@@ -17,7 +17,7 @@ export const useRegisterStep5 = () => {
     API_ENDPOINTS.REGISTER.STEP_5_SUBSCRIPTION,
     {
       onSuccess: (data) => {
-        console.log("[Register Step 5] Subscription selected:", data);
+        // console.log("[Register Step 5] Subscription selected:", data);
       },
       onError: (errorMsg) => {
         console.error("[Register Step 5] Error:", errorMsg);

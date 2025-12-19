@@ -25,7 +25,7 @@ const ActiveFilters: React.FC = () => {
     const apiParams = createApiParams(values, institutionTypes);
     const cleanParams = cleanApiParams(apiParams);
 
-    console.log("Değişiklikler kaydediliyor, API parametreleri:", cleanParams);
+    // console.log("Değişiklikler kaydediliyor, API parametreleri:", cleanParams);
 
     // Arama yap
     search(cleanParams);

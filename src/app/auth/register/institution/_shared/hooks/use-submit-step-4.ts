@@ -21,11 +21,11 @@ export const useSubmitStep4 = (
   const { submitCampus } = useRegisterStep4();
 
   const handleSubmit = useCallback(async () => {
-    console.log("🚀 handleSubmitStep4 çağrıldı:", {
-      userId,
-      campusInfo: values?.campusInfo,
-      personalInfo: values?.personalInfo,
-    });
+    // console.log("🚀 handleSubmitStep4 çağrıldı:", {
+    //   userId,
+    //   campusInfo: values?.campusInfo,
+    //   personalInfo: values?.personalInfo,
+    // });
 
     // userId yoksa auth context'ten user'ın id'sini kullan
     const authUserId = user?.id;
@@ -42,15 +42,15 @@ export const useSubmitStep4 = (
       return;
     }
 
-    console.log("📤 Step 4 API isteği gönderiliyor:", {
-      userId: effectiveUserId,
-      brandId: values.campusInfo.brandId,
-      campusName: values.campusInfo.campusName,
-      countryId: values.campusInfo.countryId,
-      provinceId: values.campusInfo.provinceId,
-      districtId: values.campusInfo.districtId,
-      neighborhoodId: values.campusInfo.neighborhoodId,
-    });
+    // console.log("📤 Step 4 API isteği gönderiliyor:", {
+    //   userId: effectiveUserId,
+    //   brandId: values.campusInfo.brandId,
+    //   campusName: values.campusInfo.campusName,
+    //   countryId: values.campusInfo.countryId,
+    //   provinceId: values.campusInfo.provinceId,
+    //   districtId: values.campusInfo.districtId,
+    //   neighborhoodId: values.campusInfo.neighborhoodId,
+    // });
 
     // Backend: RegisterCampusDto - Backend string bekliyor, number göndermiyoruz!
     const payload: any = {
@@ -69,7 +69,7 @@ export const useSubmitStep4 = (
     };
 
     const response = await submitCampus(payload);
-    console.log("📥 Step 4 API response:", response);
+    // console.log("📥 Step 4 API response:", response);
 
     if (response?.success) {
       // userId'yi set et (eğer yoksa)

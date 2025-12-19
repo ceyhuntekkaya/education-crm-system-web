@@ -21,10 +21,10 @@ export const useSubmitStep5 = (
   const { submitSubscription } = useRegisterStep5();
 
   const handleSubmit = useCallback(async () => {
-    console.log("🚀 handleSubmitStep5 çağrıldı:", {
-      userId,
-      packageSelection: values?.packageSelection,
-    });
+    // console.log("🚀 handleSubmitStep5 çağrıldı:", {
+    //   userId,
+    //   packageSelection: values?.packageSelection,
+    // });
 
     // userId yoksa auth context'ten user'ın id'sini kullan
     const authUserId = user?.id;
@@ -41,10 +41,10 @@ export const useSubmitStep5 = (
       return;
     }
 
-    console.log("📤 Step 5 API isteği gönderiliyor:", {
-      userId: effectiveUserId,
-      subscriptionId: values.packageSelection.selectedPlanId,
-    });
+    // console.log("📤 Step 5 API isteği gönderiliyor:", {
+    //   userId: effectiveUserId,
+    //   subscriptionId: values.packageSelection.selectedPlanId,
+    // });
 
     // Backend: RegisterSubscriptionDto (userId, subscriptionId)
     const payload = {
@@ -53,7 +53,7 @@ export const useSubmitStep5 = (
     };
 
     const response = await submitSubscription(payload);
-    console.log("📥 Step 5 API response:", response);
+    // console.log("📥 Step 5 API response:", response);
 
     if (response?.success) {
       // userId'yi set et (eğer yoksa)

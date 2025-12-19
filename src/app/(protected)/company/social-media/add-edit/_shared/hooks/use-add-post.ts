@@ -19,14 +19,14 @@ export const useAddPost = () => {
     error,
   } = usePost<PostDto, PostCreateDto>(API_ENDPOINTS.CONTENT.POST_CREATE, {
     onSuccess: (data) => {
-      console.log("✅ onSuccess alanı -> Post başarıyla eklendi:", data);
+      // console.log("✅ onSuccess alanı -> Post başarıyla eklendi:", data);
       // Liste API'sine tekrar istek at
       refetchPosts();
       // Social media sayfasına yönlendir
       router.push("/company/social-media");
     },
     onError: (error) => {
-      console.log("❌ onError alanı -> Post eklenirken hata:", error);
+      // console.log("❌ onError alanı -> Post eklenirken hata:", error);
     },
   });
 

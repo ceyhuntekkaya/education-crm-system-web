@@ -17,7 +17,7 @@ export const useRegisterStep4 = () => {
     API_ENDPOINTS.REGISTER.STEP_4_CAMPUS,
     {
       onSuccess: (data) => {
-        console.log("[Register Step 4] Campus saved:", data);
+        // console.log("[Register Step 4] Campus saved:", data);
       },
       onError: (errorMsg) => {
         console.error("[Register Step 4] Error:", errorMsg);

@@ -19,12 +19,12 @@ export const useAddBrand = () => {
     API_ENDPOINTS.INSTITUTIONS.BRAND_CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Brand başarıyla eklendi:", data);
+        // console.log("✅ onSuccess alanı -> Brand başarıyla eklendi:", data);
         // Markalar sayfasına yönlendir
         router.push("/company/brands");
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Brand eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Brand eklenirken hata:", error);
       },
     }
   );

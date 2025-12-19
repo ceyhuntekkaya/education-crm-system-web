@@ -19,13 +19,13 @@ export const useAddSchool = () => {
     API_ENDPOINTS.INSTITUTIONS.SCHOOL_CREATE,
     {
       onSuccess: (res) => {
-        console.log("✅ onSuccess alanı -> School başarıyla eklendi:", res);
+        // console.log("✅ onSuccess alanı -> School başarıyla eklendi:", res);
         if ("data" in res && res.data) {
           updateUserSchools(res.data, "add");
         }
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> School eklenirken hata:", error);
+        // console.log("❌ onError alanı -> School eklenirken hata:", error);
       },
     }
   );

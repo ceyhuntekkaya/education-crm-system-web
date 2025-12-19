@@ -24,7 +24,7 @@ export const useEditPost = ({ postId, refetch }: UseEditPostProps) => {
     () => API_ENDPOINTS.CONTENT.POST_UPDATE(postId),
     {
       onSuccess: (data) => {
-        console.log("✅ Post başarıyla güncellendi:", data);
+        // console.log("✅ Post başarıyla güncellendi:", data);
         // Liste API'sine tekrar istek at
         refetchPosts();
         // Refetch varsa çalıştır (post detail için)

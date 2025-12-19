@@ -23,7 +23,7 @@ export function useAuthLogout({
       // Auth state'leri temizle
       onLogoutSuccess();
 
-      console.log("Logout başarılı - Tüm localStorage temizlendi");
+      // console.log("Logout başarılı - Tüm localStorage temizlendi");
     } catch (error) {
       console.error("Logout error:", error);
       setLogoutError(error);

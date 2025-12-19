@@ -48,10 +48,10 @@ class ApiClient {
                 token = tokenStr;
               }
 
-              console.log(
-                "Adding token to request:",
-                token.substring(0, 20) + "..."
-              );
+              // console.log(
+              //   "Adding token to request:",
+              //   token.substring(0, 20) + "..."
+              // );
               config.headers.Authorization = `Bearer ${token}`;
             }
           } catch (error) {
@@ -189,21 +189,21 @@ class ApiClient {
     data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
-    console.log("POST Request:", {
-      url: this.client.defaults.baseURL + url,
-      data,
-      headers: config?.headers,
-      timestamp: new Date().toISOString(),
-    });
+    // console.log("POST Request:", {
+    //   url: this.client.defaults.baseURL + url,
+    //   data,
+    //   headers: config?.headers,
+    //   timestamp: new Date().toISOString(),
+    // });
 
     try {
       const response = await this.client.post<T>(url, data, config);
-      console.log("POST Response:", {
-        status: response.status,
-        statusText: response.statusText,
-        data: response.data,
-        headers: response.headers,
-      });
+      // console.log("POST Response:", {
+      //   status: response.status,
+      //   statusText: response.statusText,
+      //   data: response.data,
+      //   headers: response.headers,
+      // });
       return response;
     } catch (error) {
       console.error("POST Error:", error);

@@ -4,7 +4,7 @@ import { useSchoolDetailContext } from "../context/school-detail-context";
 export default function SchoolBrandDetail() {
   const { currentSchool } = useSchoolDetailContext();
 
-  console.log("curretn school => ", currentSchool);
+  // console.log("curretn school => ", currentSchool);
 
   if (!currentSchool) {
     return (

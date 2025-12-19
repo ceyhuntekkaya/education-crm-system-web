@@ -26,19 +26,19 @@ export const useContextState = () => {
 
   // Internal change handler
   const handleInternalChange = useCallback((files: File[] | File | null) => {
-    console.log("Files selected:", files);
+    // console.log("Files selected:", files);
   }, []);
 
   // Internal upload handler
   const handleInternalUpload = useCallback(async (files: File[]) => {
     setInternalLoadingState(true);
-    console.log("Uploading files:", files);
+    // console.log("Uploading files:", files);
 
     // Simulated upload - 2 saniye bekle
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setInternalLoadingState(false);
-    console.log("Upload complete:", files);
+    // console.log("Upload complete:", files);
   }, []);
 
   return {

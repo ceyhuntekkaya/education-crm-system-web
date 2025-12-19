@@ -23,7 +23,7 @@ export const useSendVerificationCode = () => {
     {
       enabled: false, // Manual trigger
       onSuccess: (data) => {
-        console.log("[Send Verification Code] Email sent:", data);
+        // console.log("[Send Verification Code] Email sent:", data);
       },
       onError: (errorMsg) => {
         console.error("[Send Verification Code] Error:", errorMsg);

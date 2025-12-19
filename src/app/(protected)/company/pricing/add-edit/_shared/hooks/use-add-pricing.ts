@@ -17,10 +17,10 @@ export const useAddPricing = () => {
     API_ENDPOINTS.PRICING.SCHOOL_PRICING_CREATE,
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Pricing başarıyla eklendi:", data);
+        // console.log("✅ onSuccess alanı -> Pricing başarıyla eklendi:", data);
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Pricing eklenirken hata:", error);
+        // console.log("❌ onError alanı -> Pricing eklenirken hata:", error);
       },
     }
   );

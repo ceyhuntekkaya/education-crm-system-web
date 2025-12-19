@@ -17,7 +17,7 @@ export const useCreateSurvey = () => {
     API_ENDPOINTS.SURVEYS.USER_ASSIGNMENT,
     {
       onSuccess: () => {
-        console.log("Survey assignment created successfully");
+        // console.log("Survey assignment created successfully");
       },
       onError: (error) => {
         console.error("Failed to create survey assignment:", error);

@@ -26,7 +26,7 @@ export const useGalleryById = (id: number): UseGalleryByIdReturn => {
     id ? API_ENDPOINTS.CONTENT.GALLERY_BY_ID(id) : null
   );
 
-  console.log(galleryResponse?.data);
+  // console.log(galleryResponse?.data);
 
   return {
     gallery: galleryResponse?.data || null,

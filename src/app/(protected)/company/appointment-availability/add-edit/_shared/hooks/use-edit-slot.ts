@@ -24,7 +24,7 @@ export const useEditSlot = ({ slotId, refetch }: UseEditSlotProps) => {
     API_ENDPOINTS.APPOINTMENTS.SLOT_UPDATE(slotId),
     {
       onSuccess: (data) => {
-        console.log("✅ onSuccess alanı -> Slot başarıyla güncellendi:", data);
+        // console.log("✅ onSuccess alanı -> Slot başarıyla güncellendi:", data);
 
         // Refetch varsa çağır
         if (refetch) {
@@ -35,7 +35,7 @@ export const useEditSlot = ({ slotId, refetch }: UseEditSlotProps) => {
         router.push("/company/appointment-availability");
       },
       onError: (error) => {
-        console.log("❌ onError alanı -> Slot güncellenirken hata:", error);
+        // console.log("❌ onError alanı -> Slot güncellenirken hata:", error);
       },
     }
   );

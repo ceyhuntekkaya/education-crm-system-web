@@ -205,10 +205,6 @@ export const useFileManagement = (props: {
 
             // Eğer dosyada zaten preview varsa (crop'tan geliyorsa), onu koru
             if (fileWithPreview.preview) {
-              console.log(
-                "✅ Preview zaten var, yeniden oluşturulmayacak:",
-                fileWithPreview.preview
-              );
               return fileWithPreview;
             }
 
@@ -290,25 +286,12 @@ export const useFileManagement = (props: {
         });
 
         if (indexToRemove === -1) {
-          console.error("❌ removeFile - Dosya bulunamadı:", fileToRemove.name);
           return;
         }
       }
 
-      console.log("🗑️ removeFile çağrıldı:", {
-        index: indexToRemove,
-        fileName: files[indexToRemove]?.name,
-        totalFiles: files.length,
-        method: typeof fileToRemove === "number" ? "index" : "file-object",
-      });
-
       const updatedFiles = files.filter((_, i) => i !== indexToRemove);
       setFiles(updatedFiles);
-
-      console.log("✅ removeFile sonrası:", {
-        kalan: updatedFiles.length,
-        kaldırılan: files[indexToRemove]?.name,
-      });
 
       // Dosya silindiğinde hataları temizle
       onError?.("");
@@ -366,13 +349,6 @@ export const useFileManagement = (props: {
               }
             }
 
-            console.log("🔍 markFilesAsUploaded DEBUG:", {
-              rawFileUrl,
-              fileUrl,
-              fileName,
-              documentType: fileData.documentType,
-              mimeType,
-            });
 
             // Placeholder file oluştur
             const placeholderFile = {
@@ -403,24 +379,24 @@ export const useFileManagement = (props: {
         if (replaceAll === true) {
           // Tüm listeyi değiştir (use-file-upload.ts'den allItems geliyorsa)
           allFiles = placeholderFiles;
-          console.log(
-            "📁 markFilesAsUploaded - Tüm dosyalar değiştirildi (replaceAll=true):",
-            {
-              totalCount: allFiles.length,
-            }
-          );
+          // console.log(
+          //   "📁 markFilesAsUploaded - Tüm dosyalar değiştirildi (replaceAll=true):",
+          //   {
+          //     totalCount: allFiles.length,
+          //   }
+          // );
         } else {
           // Eski dosyaları koru, yeni dosyaları ekle
           const oldUploadedFiles = files.filter((f) => (f as any).isUploaded);
           allFiles = [...oldUploadedFiles, ...placeholderFiles];
-          console.log(
-            "📁 markFilesAsUploaded - Dosyalar eklendi (replaceAll=false):",
-            {
-              oldCount: oldUploadedFiles.length,
-              newCount: placeholderFiles.length,
-              totalCount: allFiles.length,
-            }
-          );
+          // console.log(
+          //   "📁 markFilesAsUploaded - Dosyalar eklendi (replaceAll=false):",
+          //   {
+          //     oldCount: oldUploadedFiles.length,
+          //     newCount: placeholderFiles.length,
+          //     totalCount: allFiles.length,
+          //   }
+          // );
         }
 
         setFiles(allFiles);

@@ -104,12 +104,12 @@ export const useFileUpload = ({
 
   const handleUpload = useCallback(
     async (filesToUpload?: File[]) => {
-      console.log(
-        "🚀 handleUpload başladı - files:",
-        files.length,
-        "filesToUpload:",
-        filesToUpload?.length
-      );
+      // console.log(
+      //   "🚀 handleUpload başladı - files:",
+      //   files.length,
+      //   "filesToUpload:",
+      //   filesToUpload?.length
+      // );
 
       // Eğer filesToUpload parametresi varsa onu kullan (SADECE CROP İÇİN), yoksa state'ten al
       let newFiles: File[];
@@ -118,36 +118,36 @@ export const useFileUpload = ({
       if (isCropUpload) {
         // Direkt gönderilen dosyaları kullan (crop için - TEK DOSYA)
         newFiles = filesToUpload;
-        console.log("📁 Crop upload - Tek dosya:", newFiles[0].name);
+        // console.log("📁 Crop upload - Tek dosya:", newFiles[0].name);
       } else {
         // State'ten dosyaları al (NORMAL UPLOAD veya ÇOKLu UPLOAD)
         if (files.length === 0) {
-          console.log("❌ handleUpload - files.length === 0, çıkılıyor");
+          // console.log("❌ handleUpload - files.length === 0, çıkılıyor");
           return;
         }
 
         // Sadece yeni dosyaları filtrele (isUploaded olmayan dosyalar)
         newFiles = files.filter((file) => !(file as any).isUploaded);
 
-        console.log("📊 handleUpload - State'ten dosya durumu:", {
-          totalFiles: files.length,
-          newFiles: newFiles.length,
-          uploadedFiles: files.filter((f) => (f as any).isUploaded).length,
-        });
+        // console.log("📊 handleUpload - State'ten dosya durumu:", {
+        //   totalFiles: files.length,
+        //   newFiles: newFiles.length,
+        //   uploadedFiles: files.filter((f) => (f as any).isUploaded).length,
+        // });
 
         // Eğer yeni dosya yoksa, yükleme yapma
         if (newFiles.length === 0) {
-          console.log("⚠️ Yüklenecek yeni dosya yok");
+          // console.log("⚠️ Yüklenecek yeni dosya yok");
           return;
         }
       }
 
-      console.log("📤 handleUpload - API'ye istek atılıyor...", {
-        schoolId: selectedSchool?.id,
-        name,
-        fileCount: newFiles.length,
-        isCropUpload,
-      });
+      // console.log("📤 handleUpload - API'ye istek atılıyor...", {
+      //   schoolId: selectedSchool?.id,
+      //   name,
+      //   fileCount: newFiles.length,
+      //   isCropUpload,
+      // });
 
       // Loading başlat
       setInternalLoading?.(true);
@@ -178,7 +178,7 @@ export const useFileUpload = ({
           xhr.upload.addEventListener("progress", (e) => {
             if (e.lengthComputable) {
               const progress = Math.round((e.loaded * 100) / e.total);
-              console.log(`Upload progress: ${progress}%`);
+              // console.log(`Upload progress: ${progress}%`);
             }
           });
 
@@ -222,13 +222,13 @@ export const useFileUpload = ({
                           }
                         }
 
-                        console.log("🔄 oldItems - Eski dosya işleniyor:", {
-                          name: file.name,
-                          hasPath: !!file.path,
-                          hasPreview: !!file.preview,
-                          fileUrl,
-                          id: file.id,
-                        });
+                        // console.log("🔄 oldItems - Eski dosya işleniyor:", {
+                        //   name: file.name,
+                        //   hasPath: !!file.path,
+                        //   hasPreview: !!file.preview,
+                        //   fileUrl,
+                        //   id: file.id,
+                        // });
 
                         // Dosya tipini MIME type ve dosya adına göre belirle
                         const itemType = getMediaTypeFromMimeType(
@@ -277,10 +277,10 @@ export const useFileUpload = ({
 
                     // Tüm dosyaları form'a kaydet
                     setValue(name, allItems);
-                    console.log(
-                      `Multi file upload başarılı (${oldItems.length} eski + ${newItems.length} yeni = ${allItems.length} toplam dosya):`,
-                      allItems
-                    );
+                    // console.log(
+                    //   `Multi file upload başarılı (${oldItems.length} eski + ${newItems.length} yeni = ${allItems.length} toplam dosya):`,
+                    //   allItems
+                    // );
 
                     // Yükleme başarılı olduktan sonra tüm dosyaları işaretle
                     // allItems'ı kullanarak placeholder dosyalar oluştur

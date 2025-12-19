@@ -27,7 +27,7 @@ const PostFilterFormContent: React.FC<
   const { filterSubmit } = usePostContext();
 
   const handleSubmit = async (values: PostSearchDto) => {
-    console.log("Post Filter Values:", values);
+    // console.log("Post Filter Values:", values);
     filterSubmit(values);
   };
 

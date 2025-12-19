@@ -30,7 +30,7 @@ const GalleryFilterFormContent: React.FC<
   const { filterSubmit } = useGalleryContext();
 
   const handleSubmit = async (values: GallerySearchDto) => {
-    console.log("Gallery Filter Values:", values);
+    // console.log("Gallery Filter Values:", values);
     filterSubmit(values);
   };
 

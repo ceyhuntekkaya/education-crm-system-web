@@ -28,7 +28,7 @@ export const useEditCampaign = ({
     () => API_ENDPOINTS.CAMPAIGNS.UPDATE(campaignId),
     {
       onSuccess: (data) => {
-        console.log("✅ Campaign başarıyla güncellendi:", data);
+        // console.log("✅ Campaign başarıyla güncellendi:", data);
         // Kampanya detayını yenile
         if (refetch) {
           refetch();

@@ -27,7 +27,7 @@ export const useMessageById = (id: number): UseMessageByIdReturn => {
     id ? API_ENDPOINTS.CONTENT.MESSAGE_BY_ID(id) : null
   );
 
-  console.log(messageResponse?.data);
+  // console.log(messageResponse?.data);
 
   return {
     message: messageResponse?.data || null,
