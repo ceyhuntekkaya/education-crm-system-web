@@ -130,7 +130,7 @@ const MembershipCard = ({
                 disabled
               >
                 <i className="ph-bold ph-check-circle d-flex text-lg" />
-                Seçildi
+                Paket Seçildi
               </button>
             ) : onClick ? (
               <button
@@ -143,7 +143,7 @@ const MembershipCard = ({
                   plan.isPopular ? "btn-main" : "btn-main"
                 } rounded-pill flex-align gap-8 justify-content-center w-100`}
               >
-                Seç
+                Paketi Seç
                 <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
               </button>
             ) : (

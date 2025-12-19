@@ -21,7 +21,7 @@ const mainNavItems = [
   },
   {
     href: "/memberships",
-    label: "Üyelikler",
+    label: "Kurumsal Üyelik",
     icon: "ph-crown",
   },
 ];

@@ -4,7 +4,7 @@ import { MembershipHeader, MembershipGrid } from "./_shared";
 import { usePageTitle } from "@/hooks";
 
 const MembershipsPage = () => {
-  usePageTitle("Üyelik Planları");
+  usePageTitle("Kurumsal Üyelik Paketleri");
   return (
     <section className="favorite-course py-40">
       <div className="container">
