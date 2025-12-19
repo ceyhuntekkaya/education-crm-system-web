@@ -69,6 +69,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.egitimiste.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

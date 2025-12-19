@@ -20,7 +20,7 @@ export const useSurveys = (): UseSurveysReturn => {
 
   // API URL - only make request if schoolId exists
   const apiUrl = selectedSchool?.id
-    ? `https://demo.designexium.co.uk/api/surveys/school/assignment/${selectedSchool.id}`
+    ? `https://api.egitimiste.com/api/surveys/school/assignment/${selectedSchool.id}`
     : null;
 
   const {

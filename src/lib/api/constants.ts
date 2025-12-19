@@ -6,7 +6,7 @@
 /**
  * Ana API base URL
  */
-export const API_BASE_URL = "https://demo.designexium.co.uk/api";
+export const API_BASE_URL = "https://api.egitimiste.com/api";
 
 /**
  * Upload endpoint base URL
