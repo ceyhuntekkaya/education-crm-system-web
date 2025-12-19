@@ -27,7 +27,7 @@ const MainNavigation = ({ className = "", navItems }: NavigationProps) => {
     },
     {
       href: "/memberships",
-      label: "Üyelikler",
+      label: "Kurumsal Üyelik",
     },
   ];
 
