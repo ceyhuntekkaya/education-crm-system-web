@@ -7,8 +7,8 @@ export const VIDEO_CONFIG = {
   // YouTube video için:
   // url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
 
-  // Direkt video için:
-  url: "https://demo.designexium.co.uk/api/upload/serve/5/items/f28d8d3a-6589-40a8-8a22-3457e92328d2_egitim_iste_1080.mp4",
+  // Public klasöründen tanıtım videosu
+  url: "/assets/video/tanitim_video.mp4",
 
   // Video bilgileri
   publishDate: "11 Ara 2025",

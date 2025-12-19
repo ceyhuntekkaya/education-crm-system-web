@@ -94,6 +94,18 @@
   // =============================================
   // Feature Cards
   // =============================================
+  .features-grid {
+    > .row {
+      display: flex !important;
+      flex-wrap: wrap !important;
+    }
+
+    .col {
+      flex: 1 0 0% !important;
+      min-width: 0 !important;
+    }
+  }
+
   .feature-card {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
@@ -260,14 +272,17 @@
     .features-grid {
       margin-bottom: 24px;
 
-      .row {
+      > .row {
         margin-bottom: 0;
+        display: flex !important;
+        flex-wrap: wrap !important;
       }
 
       // Make columns full width on mobile
-      [class*="col-md-"] {
-        flex: 0 0 100%;
-        max-width: 100%;
+      .col {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
         margin-bottom: 12px;
 
         &:last-child {

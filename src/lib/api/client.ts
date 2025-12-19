@@ -6,7 +6,7 @@ import { snackbarService } from "../snackbar-service";
 // http://46.62.141.0:8080/api
 // http://192.168.1.105:8080/api
 // http://192.168.1.87:8080/api
-// https://demo.designexium.co.uk/api
+// https://api.egitimiste.com/api
 // https://api.egitimiste.com/
 class ApiClient {
   private client: AxiosInstance;
