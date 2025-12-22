@@ -214,19 +214,19 @@
 }
 
 .panel-menu-item-description {
-  font-size: 12px;
+  font-size: 10px;
   color: var(--neutral-500);
   line-height: 1.3;
   font-weight: 400;
 
   // Mobile
   @media (max-width: 767px) {
-    font-size: 11px;
+    font-size: 8px;
   }
 
   // Small Mobile
   @media (max-width: 576px) {
-    font-size: 10px;
+    font-size: 8px;
     display: none; // Çok küçük ekranlarda açıklamayı gizle
   }
 }
