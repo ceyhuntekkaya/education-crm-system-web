@@ -1,6 +1,11 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui";
 
 const Unauthorized: React.FC = () => {
+  const router = useRouter();
+
   return (
     <div className="flex-center min-vh-100 bg-neutral-10">
       <div className="bg-white box-shadow-lg p-40 rounded-16 text-center">
@@ -16,12 +21,19 @@ const Unauthorized: React.FC = () => {
           dönün.
         </p>
         <div className="d-flex justify-content-center gap-16">
-          <Link href="/auth/login" className="btn btn-main px-32 py-16">
+          <Button
+            variant="outline"
+            onClick={() => window.history.go(-2)}
+            leftIcon="ph-arrow-left"
+          >
+            Geri Dön
+          </Button>
+          <Button href="/auth/login" variant="inline">
             Giriş Yap
-          </Link>
-          <Link href="/" className="btn btn-outline-main px-32 py-16">
+          </Button>
+          <Button href="/" variant="outline">
             Ana Sayfa
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

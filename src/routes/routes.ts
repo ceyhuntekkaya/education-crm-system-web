@@ -98,4 +98,25 @@ export const ROUTES = [
       },
     ],
   },
+  {
+    title: "Supply",
+    path: PATHS.PROTECTED.SUPPLY.HOME,
+    roles: [Role.SUPPLY, Role.ADMIN], // Admin ve Supply rolleri erişebilir
+    children: [
+      {
+        title: "Supply Home",
+        index: true,
+      },
+      {
+        title: "Supply Company",
+        path: PATHS.PROTECTED.SUPPLY.COMPANY.HOME,
+        roles: [Role.COMPANY, Role.ADMIN], // Company ve Admin erişebilir
+      },
+      {
+        title: "Supply Supplier",
+        path: PATHS.PROTECTED.SUPPLY.SUPPLIER.HOME,
+        roles: [Role.SUPPLY, Role.ADMIN], // Sadece Supply ve Admin erişebilir
+      },
+    ],
+  },
 ];
