@@ -6,15 +6,18 @@ import { Role } from "@/enums/Role";
 const PanelMenu = () => {
   const { user, currentRole } = useAuth();
 
-  // Paneller menüsü sadece COMPANY ve ADMIN rollerinde görünsün
+  // Paneller menüsü sadece COMPANY, SUPPLY ve ADMIN rollerinde görünsün
   const showPanelMenu =
-    currentRole === Role.COMPANY || currentRole === Role.ADMIN;
+    currentRole === Role.COMPANY ||
+    currentRole === Role.SUPPLY ||
+    currentRole === Role.ADMIN;
 
   if (!user || !showPanelMenu) {
     return null;
   }
 
-  const panelOptions = [
+  // Rol bazlı panel seçenekleri
+  const allPanelOptions = [
     {
       id: "company-management",
       label: "Kurum Yönetimi",
@@ -23,17 +26,39 @@ const PanelMenu = () => {
       description: "Kurumları görüntüle ve düzenle",
       color: "#487bff",
       bgColor: "rgba(72, 123, 255, 0.1)",
+      allowedRoles: [Role.COMPANY, Role.ADMIN],
+    },
+    {
+      id: "supply-panel",
+      label: "Tedarik Paneli",
+      icon: "ph ph-package",
+      href: "/supply/supplier",
+      description: "Tedarikçi işlemleri",
+      color: "#f59e0b",
+      bgColor: "rgba(245, 158, 11, 0.1)",
+      allowedRoles: [Role.SUPPLY, Role.ADMIN],
     },
     {
       id: "supply-management",
-      label: "Tedarik Yönetimi",
+      label: "Kurum Tedarik Yönetimi",
       icon: "ph ph-shopping-cart",
       href: "/supply/company",
       description: "Malzeme ve tedarik talepleri",
       color: "#10b981",
       bgColor: "rgba(16, 185, 129, 0.1)",
+      allowedRoles: [Role.COMPANY, Role.ADMIN],
     },
   ];
+
+  // Kullanıcının rolüne göre panelleri filtrele
+  const panelOptions = allPanelOptions.filter((panel) =>
+    panel.allowedRoles.includes(currentRole as Role)
+  );
+
+  // Hiç panel yoksa menüyü gösterme
+  if (panelOptions.length === 0) {
+    return null;
+  }
 
   return (
     <div className="panel-menu-wrapper">

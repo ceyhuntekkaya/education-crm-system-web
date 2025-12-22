@@ -1,3 +1,5 @@
+import { Role } from "@/enums/Role";
+
 export interface MenuLink {
   href: string;
   label: string;
@@ -10,4 +12,5 @@ export interface MenuItem {
   links?: MenuLink[];
   count?: number;
   hasNoData?: boolean; // Veri olmadığını belirten flag
+  allowedRoles?: Role[]; // Hangi rollerin bu menüyü görebileceği
 }
