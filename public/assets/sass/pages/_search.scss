@@ -82,48 +82,109 @@
   // =============================================
   .empty-state-content {
     z-index: 1;
+    
+    h2 {
+      font-size: 1.75rem;
+      
+      @media (min-width: 768px) {
+        font-size: 2.25rem;
+      }
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      
+      @media (min-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+    
+    p {
+      max-width: 600px;
+      line-height: 1.7;
+      font-size: 1rem;
+      
+      @media (min-width: 768px) {
+        font-size: 1.125rem;
+      }
+    }
   }
 
   // =============================================
   // Feature Cards
   // =============================================
-  .features-grid {
+  .search-features-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
+    z-index: 1;
+    
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    
+    @media (max-width: 767.98px) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
     
     .feature-col {
       min-width: 0;
+      width: 100%;
     }
   }
 
-  .feature-card {
+  .search-feature-card {
+    width: 100%;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
     z-index: 1;
-    min-height: 240px;
-    padding: 28px !important;
+    min-height: 260px;
+    padding: 32px !important;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     text-align: center;
 
     @media (min-width: 768px) {
       padding: 40px !important;
-      min-height: 280px;
+      min-height: 300px;
     }
 
     &:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 
       .feature-icon {
-        transform: scale(1.1) rotate(5deg);
+        transform: scale(1.08) rotate(3deg);
       }
     }
 
     .feature-icon {
       transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    h6 {
+      width: 100%;
+      font-size: 1.125rem;
+      
+      @media (min-width: 768px) {
+        font-size: 1.35rem;
+      }
+    }
+    
+    p {
+      width: 100%;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      
+      @media (min-width: 768px) {
+        font-size: 1.05rem;
+      }
     }
   }
 
@@ -150,100 +211,74 @@
   .quick-tips {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
     z-index: 1;
+    
+    h6 {
+      font-size: 1.125rem;
+      
+      @media (min-width: 768px) {
+        font-size: 1.35rem;
+      }
+    }
+    
+    p {
+      line-height: 1.6;
+      font-size: 0.95rem;
+      
+      @media (min-width: 768px) {
+        font-size: 1.05rem;
+      }
+    }
   }
 
   // =============================================
   // Responsive Styles
   // =============================================
 
-  // Tablet (992px ve altı)
+  // Tablet (768px - 991px)
   @media (max-width: 991.98px) {
-    .features-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .feature-card {
-      padding: 32px !important;
-      min-height: 240px;
-    }
-
     .empty-state-card {
-      padding: 32px 24px;
+      padding: 40px 28px !important;
     }
 
     .empty-state-icon-wrapper {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
 
       .icon-container {
-        padding: 24px;
+        padding: 28px;
 
         i {
-          font-size: 56px;
+          font-size: 60px;
         }
       }
-    }
-
-    .empty-state-content {
-      margin-bottom: 28px;
-
-      h2 {
-        font-size: 1.5rem;
-      }
-
-      h3 {
-        font-size: 1.25rem;
-      }
-
-      p {
-        font-size: 0.95rem;
-      }
-    }
-
-    .feature-card {
-      padding: 20px;
-
-      .feature-icon {
-        padding: 12px;
-        margin-bottom: 14px;
-
-        i {
-          font-size: 24px;
-        }
-      }
-    }
-
-    .quick-tips {
-      padding: 20px;
     }
 
     .decoration-circle {
       &-1 {
-        width: 250px;
-        height: 250px;
-        top: -125px;
+        width: 300px;
+        height: 300px;
+        top: -150px;
         right: -80px;
       }
 
       &-2 {
-        width: 200px;
-        height: 200px;
-        bottom: -100px;
+        width: 250px;
+        height: 250px;
+        bottom: -125px;
         left: -80px;
       }
 
       &-3 {
-        width: 120px;
-        height: 120px;
-        left: -40px;
+        width: 150px;
+        height: 150px;
+        left: -50px;
       }
     }
   }
 
-  // Mobile (768px ve altı)
+  // Mobile (max 767px)
   @media (max-width: 767.98px) {
     .empty-state-card {
-      padding: 24px 20px;
+      padding: 32px 24px !important;
       border-radius: 16px;
     }
 
@@ -264,7 +299,7 @@
 
       h2 {
         font-size: 1.25rem;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
 
       h3 {
@@ -280,35 +315,31 @@
       }
     }
 
-    // Feature Cards - Stack vertically on mobile
-    .features-grid {
+    .search-features-grid {
       margin-bottom: 24px;
-      grid-template-columns: 1fr;
-      gap: 20px;
     }
 
-    .feature-card {
+    .search-feature-card {
       padding: 24px !important;
       min-height: 220px;
-      padding: 16px;
       border-radius: 12px;
 
       h6 {
-        font-size: 0.9rem;
-        margin-bottom: 8px;
+        font-size: 1rem;
+        margin-bottom: 10px;
       }
 
       p {
-        font-size: 0.8rem;
+        font-size: 0.875rem;
         line-height: 1.5;
       }
 
       .feature-icon {
-        padding: 10px;
-        margin-bottom: 12px;
+        padding: 12px;
+        margin-bottom: 14px;
 
         i {
-          font-size: 22px;
+          font-size: 24px;
         }
       }
 
@@ -320,13 +351,6 @@
     .quick-tips {
       padding: 20px;
       border-radius: 12px;
-
-      .d-flex {
-        flex-direction: row;
-        align-items: flex-start;
-        text-align: left;
-        gap: 16px;
-      }
 
       .tip-icon {
         flex-shrink: 0;
@@ -342,7 +366,7 @@
 
       h6 {
         font-size: 1rem;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
 
       p {
@@ -353,18 +377,18 @@
 
     .decoration-circle {
       &-1 {
-        width: 150px;
-        height: 150px;
-        top: -75px;
-        right: -50px;
+        width: 200px;
+        height: 200px;
+        top: -100px;
+        right: -60px;
         opacity: 0.03;
       }
 
       &-2 {
-        width: 120px;
-        height: 120px;
-        bottom: -60px;
-        left: -50px;
+        width: 150px;
+        height: 150px;
+        bottom: -75px;
+        left: -60px;
         opacity: 0.03;
       }
 
@@ -374,10 +398,10 @@
     }
   }
 
-  // Small Mobile (576px ve altı)
+  // Small Mobile (max 575px)
   @media (max-width: 575.98px) {
     .empty-state-card {
-      padding: 20px 16px;
+      padding: 24px 20px !important;
       border-radius: 12px;
     }
 
@@ -391,10 +415,6 @@
           font-size: 40px;
         }
       }
-
-      .icon-pulse {
-        animation: none; // Disable animation on small devices for performance
-      }
     }
 
     .empty-state-content {
@@ -402,7 +422,7 @@
 
       h2 {
         font-size: 1.1rem;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
 
       h3 {
@@ -415,49 +435,48 @@
       }
     }
 
-    .feature-card {
-      padding: 14px;
+    .search-feature-card {
+      padding: 20px !important;
+      min-height: 200px;
 
       h6 {
-        font-size: 0.85rem;
-      }
-
-      p {
-        font-size: 0.75rem;
-      }
-
-      .feature-icon {
-        padding: 8px;
-        margin-bottom: 10px;
-
-        i {
-          font-size: 20px;
-        }
-      }
-
-      &:hover {
-        transform: none; // Disable hover on touch devices
-      }
-    }
-
-    .quick-tips {
-      padding: 14px;
-
-      h6 {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
       }
 
       p {
         font-size: 0.8rem;
       }
 
+      .feature-icon {
+        padding: 10px;
+        margin-bottom: 10px;
+
+        i {
+          font-size: 22px;
+        }
+      }
+    }
+
+    .quick-tips {
+      padding: 16px;
+
+      h6 {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 0.85rem;
+      }
+
       .tip-icon {
         > div {
-          padding: 8px;
+          padding: 10px;
         }
 
         i {
-          font-size: 18px;
+          font-size: 20px;
         }
       }
     }

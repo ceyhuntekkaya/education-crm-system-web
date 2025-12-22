@@ -16,53 +16,22 @@ const InitialSearchState: React.FC = () => {
           <div className="icon-container rounded-circle p-20 p-md-32 d-inline-flex align-items-center justify-content-center position-relative">
             <div className="icon-pulse position-absolute w-100 h-100 rounded-circle"></div>
             <i
-              className="ph-bold ph-magnifying-glass text-white position-relative d-none d-md-inline"
-              style={{ fontSize: "72px" }}
-            ></i>
-            <i
-              className="ph-bold ph-magnifying-glass text-white position-relative d-inline d-md-none"
-              style={{ fontSize: "48px" }}
+              className="ph-bold ph-magnifying-glass text-white position-relative"
+              style={{ fontSize: "56px" }}
             ></i>
           </div>
         </div>
 
         {/* Content Section */}
         <div className="empty-state-content mb-24 mb-md-40 position-relative">
-          <h2
-            className="text-neutral-900 mb-12 mb-md-16 fw-bold"
-            style={{ fontSize: "1.5rem" }}
-          >
-            <span className="d-none d-md-inline" style={{ fontSize: "2rem" }}>
-              Arama Sonuçlarını Görmek İçin
-            </span>
-            <span className="d-inline d-md-none">
-              Arama Sonuçlarını Görmek İçin
-            </span>
+          <h2 className="text-neutral-900 mb-12 mb-md-16 fw-bold">
+            Arama Sonuçlarını Görmek İçin
           </h2>
-          <h3
-            className="text-primary-600 mb-16 mb-md-24 fw-bold"
-            style={{ fontSize: "1.25rem" }}
-          >
-            <span
-              className="d-none d-md-inline"
-              style={{ fontSize: "1.75rem" }}
-            >
-              Filtre Seçimi Yapınız
-            </span>
-            <span className="d-inline d-md-none">Filtre Seçimi Yapınız</span>
+          <h3 className="text-primary-600 mb-16 mb-md-24 fw-bold">
+            Filtre Seçimi Yapınız
           </h3>
-          <p
-            className="text-neutral-600 mb-0 mx-auto description-text px-3 px-md-0"
-            style={{
-              maxWidth: "560px",
-              lineHeight: "1.7",
-              fontSize: "0.875rem",
-            }}
-          >
-            <span
-              className="d-none d-md-inline"
-              style={{ fontSize: "1.125rem" }}
-            >
+          <p className="text-neutral-600 mb-0 mx-auto description-text px-3 px-md-0">
+            <span className="d-none d-md-inline">
               Sol taraftaki filtreleme seçeneklerini kullanarak size en uygun
               eğitim kurumlarını kolayca bulabilirsiniz.
             </span>
@@ -76,128 +45,48 @@ const InitialSearchState: React.FC = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="features-grid mb-24 mb-md-40 position-relative">
-          <div className="feature-col">
-            <div className="feature-card bg-gradient-primary-subtle rounded-16 p-28 p-md-40 h-100">
-              <div className="feature-icon bg-primary-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
-                <i
-                  className="ph-bold ph-buildings text-white d-none d-md-inline"
-                  style={{ fontSize: "32px" }}
-                ></i>
-                <i
-                  className="ph-bold ph-buildings text-white d-inline d-md-none"
-                  style={{ fontSize: "24px" }}
-                ></i>
-              </div>
-              <h6
-                className="text-neutral-900 mb-8 mb-md-12 fw-bold"
-                style={{ fontSize: "1rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1.25rem" }}
-                >
-                  Kurum Türü
-                </span>
-                <span className="d-inline d-md-none">Kurum Türü</span>
-              </h6>
-              <p
-                className="text-neutral-600 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1rem" }}
-                >
-                  Anaokulu, ilkokul, lise gibi kurum türlerinden seçim yapın
-                </span>
-                <span className="d-inline d-md-none">
-                  Anaokulu, ilkokul, lise gibi kurum türlerinden seçim yapın
-                </span>
-              </p>
+        <div className="search-features-grid mb-24 mb-md-40 position-relative">
+          <div className="search-feature-card bg-gradient-primary-subtle rounded-16">
+            <div className="feature-icon bg-primary-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
+              <i
+                className="ph-bold ph-buildings text-white"
+                style={{ fontSize: "28px" }}
+              ></i>
             </div>
+            <h6 className="text-neutral-900 mb-8 mb-md-12 fw-bold">
+              Kurum Türü
+            </h6>
+            <p className="text-neutral-600 mb-0">
+              Anaokulu, ilkokul, lise gibi kurum türlerinden seçim yapın
+            </p>
           </div>
 
-          <div className="feature-col">
-            <div className="feature-card bg-gradient-success-subtle rounded-16 p-28 p-md-40 h-100">
-              <div className="feature-icon bg-success-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
-                <i
-                  className="ph-bold ph-map-pin text-white d-none d-md-inline"
-                  style={{ fontSize: "32px" }}
-                ></i>
-                <i
-                  className="ph-bold ph-map-pin text-white d-inline d-md-none"
-                  style={{ fontSize: "24px" }}
-                ></i>
-              </div>
-              <h6
-                className="text-neutral-900 mb-12 mb-md-16 fw-bold"
-                style={{ fontSize: "1rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1.25rem" }}
-                >
-                  Konum
-                </span>
-                <span className="d-inline d-md-none">Konum</span>
-              </h6>
-              <p
-                className="text-neutral-600 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1rem" }}
-                >
-                  Size en yakın kurumları bulmak için konum seçin
-                </span>
-                <span className="d-inline d-md-none">
-                  Size en yakın kurumları bulmak için konum seçin
-                </span>
-              </p>
+          <div className="search-feature-card bg-gradient-success-subtle rounded-16">
+            <div className="feature-icon bg-success-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
+              <i
+                className="ph-bold ph-map-pin text-white"
+                style={{ fontSize: "28px" }}
+              ></i>
             </div>
+            <h6 className="text-neutral-900 mb-12 mb-md-16 fw-bold">Konum</h6>
+            <p className="text-neutral-600 mb-0">
+              Size en yakın kurumları bulmak için konum seçin
+            </p>
           </div>
 
-          <div className="feature-col">
-            <div className="feature-card bg-gradient-warning-subtle rounded-16 p-28 p-md-40 h-100">
-              <div className="feature-icon bg-warning-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
-                <i
-                  className="ph-bold ph-sliders text-white d-none d-md-inline"
-                  style={{ fontSize: "32px" }}
-                ></i>
-                <i
-                  className="ph-bold ph-sliders text-white d-inline d-md-none"
-                  style={{ fontSize: "24px" }}
-                ></i>
-              </div>
-              <h6
-                className="text-neutral-900 mb-12 mb-md-16 fw-bold"
-                style={{ fontSize: "1rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1.25rem" }}
-                >
-                  Özellikler
-                </span>
-                <span className="d-inline d-md-none">Özellikler</span>
-              </h6>
-              <p
-                className="text-neutral-600 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1rem" }}
-                >
-                  Ücret, yaş aralığı, özellikler ile filtreleme yapın
-                </span>
-                <span className="d-inline d-md-none">
-                  Ücret, yaş aralığı, özellikler ile filtreleme yapın
-                </span>
-              </p>
+          <div className="search-feature-card bg-gradient-warning-subtle rounded-16">
+            <div className="feature-icon bg-warning-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
+              <i
+                className="ph-bold ph-sliders text-white"
+                style={{ fontSize: "28px" }}
+              ></i>
             </div>
+            <h6 className="text-neutral-900 mb-12 mb-md-16 fw-bold">
+              Özellikler
+            </h6>
+            <p className="text-neutral-600 mb-0">
+              Ücret, yaş aralığı, özellikler ile filtreleme yapın
+            </p>
           </div>
         </div>
 
@@ -207,36 +96,17 @@ const InitialSearchState: React.FC = () => {
             <div className="tip-icon flex-shrink-0">
               <div className="bg-info-600 rounded-circle p-10 p-md-14 d-inline-flex align-items-center justify-content-center shadow-sm">
                 <i
-                  className="ph-bold ph-lightbulb text-white d-none d-md-inline"
-                  style={{ fontSize: "28px" }}
-                ></i>
-                <i
-                  className="ph-bold ph-lightbulb text-white d-inline d-md-none"
-                  style={{ fontSize: "22px" }}
+                  className="ph-bold ph-lightbulb text-white"
+                  style={{ fontSize: "24px" }}
                 ></i>
               </div>
             </div>
             <div>
-              <h6
-                className="text-neutral-900 mb-12 mb-md-16 fw-bold"
-                style={{ fontSize: "1rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1.25rem" }}
-                >
-                  💡 İpucu
-                </span>
-                <span className="d-inline d-md-none">💡 İpucu</span>
+              <h6 className="text-neutral-900 mb-12 mb-md-16 fw-bold">
+                💡 İpucu
               </h6>
-              <p
-                className="text-neutral-700 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
-              >
-                <span
-                  className="d-none d-md-inline"
-                  style={{ fontSize: "1.05rem" }}
-                >
+              <p className="text-neutral-700 mb-0">
+                <span className="d-none d-md-inline">
                   Daha spesifik sonuçlar için birden fazla filtreyi birlikte
                   kullanabilirsiniz. Sol taraftaki{" "}
                   <span className="text-primary-600 fw-semibold">Filtrele</span>{" "}
