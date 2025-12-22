@@ -6,6 +6,7 @@ import {
   UserNavigation,
   MainNavigation,
   UserMenu,
+  PanelMenu,
   MobileMenu,
 } from "./sections";
 import { classNames } from "./utils";
@@ -35,6 +36,11 @@ const HeaderContent = () => {
               <ProtectedGuard>
                 {/* Kullanıcı Navigasyonu (Randevularım, Listelerim, vs.) */}
                 <UserNavigation />
+              </ProtectedGuard>
+
+              <ProtectedGuard>
+                {/* Panel Seçici (Kullanıcı Paneli / Tedarik Paneli) */}
+                <PanelMenu />
               </ProtectedGuard>
 
               <UserMenu />

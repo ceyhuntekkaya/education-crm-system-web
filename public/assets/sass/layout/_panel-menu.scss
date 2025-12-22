@@ -1,0 +1,307 @@
+// Panel Menu Styles - Modern & Clean Design
+
+.panel-menu-wrapper {
+  display: flex;
+  align-items: center;
+  
+  // Mobile responsive
+  @media (max-width: 767px) {
+    .panel-menu-trigger-btn {
+      padding: 8px !important;
+      min-width: 36px;
+      
+      .panel-menu-trigger-text {
+        display: none;
+      }
+      
+      i {
+        margin: 0 !important;
+      }
+    }
+  }
+}
+
+// Panel Menu Trigger Button
+.panel-menu-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--neutral-700);
+  background-color: var(--white);
+  border: 1px solid var(--neutral-200);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+
+  i {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    color: var(--main-600);
+    border-color: var(--main-300);
+    background-color: var(--main-50);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(72, 123, 255, 0.15);
+    
+    i {
+      transform: rotate(90deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Popover Content
+.panel-menu-popover-content {
+  min-width: 260px;
+  padding: 8px;
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+
+  // Tablet
+  @media (max-width: 991px) {
+    min-width: 240px;
+  }
+
+  // Mobile
+  @media (max-width: 767px) {
+    min-width: 220px;
+    padding: 6px;
+  }
+
+  // Small Mobile
+  @media (max-width: 576px) {
+    min-width: 200px;
+    max-width: calc(100vw - 40px);
+  }
+}
+
+// Panel List
+.panel-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+// Panel Menu Item
+.panel-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background-color: var(--neutral-50);
+    transform: translateX(2px);
+
+    .panel-menu-item-icon {
+      transform: scale(1.08);
+    }
+
+    .panel-menu-item-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98) translateX(2px);
+  }
+
+  // Tablet
+  @media (max-width: 991px) {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  // Mobile
+  @media (max-width: 767px) {
+    gap: 10px;
+    padding: 10px 8px;
+  }
+
+  // Small Mobile
+  @media (max-width: 576px) {
+    gap: 8px;
+    padding: 8px 6px;
+  }
+}
+
+// Icon
+.panel-menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  i {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  // Tablet
+  @media (max-width: 991px) {
+    width: 38px;
+    height: 38px;
+
+    i {
+      font-size: 20px;
+    }
+  }
+
+  // Mobile
+  @media (max-width: 767px) {
+    width: 36px;
+    height: 36px;
+
+    i {
+      font-size: 18px;
+    }
+  }
+
+  // Small Mobile
+  @media (max-width: 576px) {
+    width: 32px;
+    height: 32px;
+
+    i {
+      font-size: 16px;
+    }
+  }
+}
+
+// Content
+.panel-menu-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.panel-menu-item-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin-bottom: 2px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+
+  // Mobile
+  @media (max-width: 767px) {
+    font-size: 13px;
+  }
+
+  // Small Mobile
+  @media (max-width: 576px) {
+    font-size: 12px;
+  }
+}
+
+.panel-menu-item-description {
+  font-size: 12px;
+  color: var(--neutral-500);
+  line-height: 1.3;
+  font-weight: 400;
+
+  // Mobile
+  @media (max-width: 767px) {
+    font-size: 11px;
+  }
+
+  // Small Mobile
+  @media (max-width: 576px) {
+    font-size: 10px;
+    display: none; // Çok küçük ekranlarda açıklamayı gizle
+  }
+}
+
+// Arrow
+.panel-menu-item-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--neutral-400);
+  transition: all 0.2s ease;
+  opacity: 0.5;
+
+  i {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  // Mobile
+  @media (max-width: 767px) {
+    width: 20px;
+    height: 20px;
+
+    i {
+      font-size: 16px;
+    }
+  }
+
+  // Small Mobile
+  @media (max-width: 576px) {
+    width: 18px;
+    height: 18px;
+
+    i {
+      font-size: 14px;
+    }
+  }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .panel-menu-popover-content {
+    background-color: var(--dark-card);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .panel-menu-trigger-btn {
+    color: var(--neutral-200);
+    background-color: var(--dark-card);
+    border-color: var(--neutral-700);
+
+    &:hover {
+      color: var(--main-400);
+      border-color: var(--main-600);
+      background-color: rgba(72, 123, 255, 0.15);
+    }
+  }
+
+  .panel-menu-item {
+    &:hover {
+      background-color: var(--neutral-800);
+    }
+  }
+
+  .panel-menu-item-label {
+    color: var(--neutral-100);
+  }
+
+  .panel-menu-item-description {
+    color: var(--neutral-400);
+  }
+
+  .panel-menu-item-arrow {
+    color: var(--neutral-500);
+  }
+}
