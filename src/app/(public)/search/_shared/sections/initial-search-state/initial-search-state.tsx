@@ -1,23 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const InitialSearchState: React.FC = () => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    // CSS'in tamamen yüklenmesini garantilemek için küçük bir gecikme
-    const timer = setTimeout(() => {
-      setIsMounted(true);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div
-      className="initial-search-state"
-      style={{ opacity: isMounted ? 1 : 0, transition: "opacity 0.2s ease-in" }}
-    >
+    <div className="initial-search-state">
       <div className="empty-state-card bg-white rounded-20 p-24 p-md-48 text-center position-relative overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="decoration-circle decoration-circle-1"></div>
@@ -89,26 +76,26 @@ const InitialSearchState: React.FC = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="row row-cols-1 row-cols-md-3 g-12 g-md-20 mb-24 mb-md-40 position-relative features-grid">
-          <div className="col">
-            <div className="feature-card bg-gradient-primary-subtle rounded-16 p-20 p-md-28 h-100">
-              <div className="feature-icon bg-primary-600 rounded-circle p-10 p-md-14 d-inline-flex align-items-center justify-content-center mb-12 mb-md-20 shadow-sm">
+        <div className="features-grid mb-24 mb-md-40 position-relative">
+          <div className="feature-col">
+            <div className="feature-card bg-gradient-primary-subtle rounded-16 p-28 p-md-40 h-100">
+              <div className="feature-icon bg-primary-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
                 <i
                   className="ph-bold ph-buildings text-white d-none d-md-inline"
-                  style={{ fontSize: "28px" }}
+                  style={{ fontSize: "32px" }}
                 ></i>
                 <i
                   className="ph-bold ph-buildings text-white d-inline d-md-none"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "24px" }}
                 ></i>
               </div>
               <h6
                 className="text-neutral-900 mb-8 mb-md-12 fw-bold"
-                style={{ fontSize: "0.95rem" }}
+                style={{ fontSize: "1rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "1.125rem" }}
+                  style={{ fontSize: "1.25rem" }}
                 >
                   Kurum Türü
                 </span>
@@ -116,11 +103,11 @@ const InitialSearchState: React.FC = () => {
               </h6>
               <p
                 className="text-neutral-600 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.8rem" }}
+                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "0.875rem" }}
+                  style={{ fontSize: "1rem" }}
                 >
                   Anaokulu, ilkokul, lise gibi kurum türlerinden seçim yapın
                 </span>
@@ -131,25 +118,25 @@ const InitialSearchState: React.FC = () => {
             </div>
           </div>
 
-          <div className="col">
-            <div className="feature-card bg-gradient-success-subtle rounded-16 p-20 p-md-28 h-100">
-              <div className="feature-icon bg-success-600 rounded-circle p-10 p-md-14 d-inline-flex align-items-center justify-content-center mb-12 mb-md-20 shadow-sm">
+          <div className="feature-col">
+            <div className="feature-card bg-gradient-success-subtle rounded-16 p-28 p-md-40 h-100">
+              <div className="feature-icon bg-success-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
                 <i
                   className="ph-bold ph-map-pin text-white d-none d-md-inline"
-                  style={{ fontSize: "28px" }}
+                  style={{ fontSize: "32px" }}
                 ></i>
                 <i
                   className="ph-bold ph-map-pin text-white d-inline d-md-none"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "24px" }}
                 ></i>
               </div>
               <h6
-                className="text-neutral-900 mb-8 mb-md-12 fw-bold"
-                style={{ fontSize: "0.95rem" }}
+                className="text-neutral-900 mb-12 mb-md-16 fw-bold"
+                style={{ fontSize: "1rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "1.125rem" }}
+                  style={{ fontSize: "1.25rem" }}
                 >
                   Konum
                 </span>
@@ -157,11 +144,11 @@ const InitialSearchState: React.FC = () => {
               </h6>
               <p
                 className="text-neutral-600 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.8rem" }}
+                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "0.875rem" }}
+                  style={{ fontSize: "1rem" }}
                 >
                   Size en yakın kurumları bulmak için konum seçin
                 </span>
@@ -172,25 +159,25 @@ const InitialSearchState: React.FC = () => {
             </div>
           </div>
 
-          <div className="col">
-            <div className="feature-card bg-gradient-warning-subtle rounded-16 p-20 p-md-28 h-100">
-              <div className="feature-icon bg-warning-600 rounded-circle p-10 p-md-14 d-inline-flex align-items-center justify-content-center mb-12 mb-md-20 shadow-sm">
+          <div className="feature-col">
+            <div className="feature-card bg-gradient-warning-subtle rounded-16 p-28 p-md-40 h-100">
+              <div className="feature-icon bg-warning-600 rounded-circle p-12 p-md-16 d-inline-flex align-items-center justify-content-center mb-16 mb-md-24 shadow-sm">
                 <i
                   className="ph-bold ph-sliders text-white d-none d-md-inline"
-                  style={{ fontSize: "28px" }}
+                  style={{ fontSize: "32px" }}
                 ></i>
                 <i
                   className="ph-bold ph-sliders text-white d-inline d-md-none"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "24px" }}
                 ></i>
               </div>
               <h6
-                className="text-neutral-900 mb-8 mb-md-12 fw-bold"
-                style={{ fontSize: "0.95rem" }}
+                className="text-neutral-900 mb-12 mb-md-16 fw-bold"
+                style={{ fontSize: "1rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "1.125rem" }}
+                  style={{ fontSize: "1.25rem" }}
                 >
                   Özellikler
                 </span>
@@ -198,11 +185,11 @@ const InitialSearchState: React.FC = () => {
               </h6>
               <p
                 className="text-neutral-600 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.8rem" }}
+                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "0.875rem" }}
+                  style={{ fontSize: "1rem" }}
                 >
                   Ücret, yaş aralığı, özellikler ile filtreleme yapın
                 </span>
@@ -215,28 +202,28 @@ const InitialSearchState: React.FC = () => {
         </div>
 
         {/* Quick Tips */}
-        <div className="quick-tips bg-gradient-info-subtle rounded-16 p-20 p-md-28 position-relative">
+        <div className="quick-tips bg-gradient-info-subtle rounded-16 p-24 p-md-32 position-relative">
           <div className="d-flex align-items-start gap-12 gap-md-16 text-start">
             <div className="tip-icon flex-shrink-0">
-              <div className="bg-info-600 rounded-circle p-8 p-md-12 d-inline-flex align-items-center justify-content-center shadow-sm">
+              <div className="bg-info-600 rounded-circle p-10 p-md-14 d-inline-flex align-items-center justify-content-center shadow-sm">
                 <i
                   className="ph-bold ph-lightbulb text-white d-none d-md-inline"
-                  style={{ fontSize: "24px" }}
+                  style={{ fontSize: "28px" }}
                 ></i>
                 <i
                   className="ph-bold ph-lightbulb text-white d-inline d-md-none"
-                  style={{ fontSize: "18px" }}
+                  style={{ fontSize: "22px" }}
                 ></i>
               </div>
             </div>
             <div>
               <h6
-                className="text-neutral-900 mb-8 mb-md-12 fw-bold"
-                style={{ fontSize: "0.95rem" }}
+                className="text-neutral-900 mb-12 mb-md-16 fw-bold"
+                style={{ fontSize: "1rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "1.125rem" }}
+                  style={{ fontSize: "1.25rem" }}
                 >
                   💡 İpucu
                 </span>
@@ -244,11 +231,11 @@ const InitialSearchState: React.FC = () => {
               </h6>
               <p
                 className="text-neutral-700 mb-0"
-                style={{ lineHeight: "1.6", fontSize: "0.8rem" }}
+                style={{ lineHeight: "1.6", fontSize: "0.9rem" }}
               >
                 <span
                   className="d-none d-md-inline"
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "1.05rem" }}
                 >
                   Daha spesifik sonuçlar için birden fazla filtreyi birlikte
                   kullanabilirsiniz. Sol taraftaki{" "}

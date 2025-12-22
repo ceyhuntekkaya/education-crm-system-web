@@ -69,8 +69,8 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ onClose }) => {
                   Kurum Seçimi
                 </p>
                 <p
-                  className="text-neutral-600 mb-0 fw-medium"
-                  style={{ fontSize: "11px" }}
+                  className="text-neutral-600 mb-0 fw-normal"
+                  style={{ fontSize: "10px" }}
                 >
                   {selectedSchool?.name || "Kurum Seçiniz"}
                 </p>
@@ -160,7 +160,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ onClose }) => {
                   {user?.fullName || "Kullanıcı"}
                 </p>
                 <p
-                  className="text-neutral-600 mb-0"
+                  className="text-neutral-600 mb-0 fw-normal"
                   style={{ fontSize: "9px" }}
                 >
                   {currentRole || "Kullanıcı"}

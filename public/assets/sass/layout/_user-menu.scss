@@ -1,33 +1,9 @@
 // User Menu Styles - Minimal & Elegant Design
 
-// User Menu Wrapper - Dashboard Button ve User Menu için container
+// User Menu Wrapper
 .user-menu-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
-  
-  // Tablet
-  @media (max-width: 991px) {
-    gap: 10px;
-  }
-  
-  // Mobile - Sadece ikon göster
-  @media (max-width: 767px) {
-    gap: 8px;
-    
-    .dashboard-btn {
-      padding: 8px !important;
-      min-width: 36px;
-      
-      .dashboard-btn-text {
-        display: none;
-      }
-      
-      i {
-        margin: 0 !important;
-      }
-    }
-  }
 }
 
 .auth-buttons-wrapper {

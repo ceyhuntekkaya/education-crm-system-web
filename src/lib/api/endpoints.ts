@@ -236,6 +236,65 @@ export const API_ENDPOINTS = {
       `/parent/school-lists/search-list/${id}`,
   },
 
+  // Supply Management endpoints
+  SUPPLY: {
+    // Dashboard Statistics
+    DASHBOARD: {
+      COMPANY_SUMMARY: (companyId: string | number) =>
+        `/supply/dashboard/company/summary?companyId=${companyId}`,
+      ORDER_STATISTICS: (companyId: string | number) =>
+        `/supply/dashboard/company/order-statistics?companyId=${companyId}`,
+      RFQ_STATISTICS: (companyId: string | number) =>
+        `/supply/dashboard/company/rfq-statistics?companyId=${companyId}`,
+    },
+
+    // Orders
+    ORDERS: {
+      BY_COMPANY: (companyId: string | number) =>
+        `/supply/orders/by-company/${companyId}`,
+      BY_ID: (id: string | number) => `/supply/orders/${id}`,
+      CREATE: "/supply/orders",
+      UPDATE: (id: string | number) => `/supply/orders/${id}`,
+      CANCEL: (id: string | number) => `/supply/orders/${id}/cancel`,
+    },
+
+    // RFQs (Request for Quotation)
+    RFQS: {
+      BY_COMPANY: (companyId: string | number) =>
+        `/supply/rfqs/by-company/${companyId}`,
+      ACTIVE: "/supply/rfqs/active",
+      BY_ID: (id: string | number) => `/supply/rfqs/${id}`,
+      CREATE: "/supply/rfqs",
+      UPDATE: (id: string | number) => `/supply/rfqs/${id}`,
+      DELETE: (id: string | number) => `/supply/rfqs/${id}`,
+    },
+
+    // Products
+    PRODUCTS: {
+      SEARCH: "/supply/products/search",
+      BY_ID: (id: string | number) => `/supply/products/${id}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/products/supplier/${supplierId}`,
+    },
+
+    // Suppliers
+    SUPPLIERS: {
+      LIST: "/supply/suppliers",
+      BY_ID: (id: string | number) => `/supply/suppliers/${id}`,
+      BY_COMPANY: (companyId: string | number) =>
+        `/supply/suppliers/company/${companyId}`,
+    },
+
+    // Quotations
+    QUOTATIONS: {
+      BY_RFQ: (rfqId: string | number) => `/supply/quotations/rfq/${rfqId}`,
+      BY_ID: (id: string | number) => `/supply/quotations/${id}`,
+      CREATE: "/supply/quotations",
+      ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
+      REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
+    },
+  },
+
   // // Todos
   // TODOS: {
   //   LIST: '/todos',

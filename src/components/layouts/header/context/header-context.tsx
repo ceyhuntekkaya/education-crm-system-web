@@ -38,7 +38,7 @@ interface HeaderProviderProps {
 export const HeaderProvider = ({ children }: HeaderProviderProps) => {
   // Hook'ları burada çağırıyoruz
 
-  const { isLoading, user } = useAuth();
+  const { isLoading, user, currentRole } = useAuth();
   const { appointmentsCount, surveysCount, messagesCount } = useData();
 
   const scroll = useScroll();
@@ -55,56 +55,66 @@ export const HeaderProvider = ({ children }: HeaderProviderProps) => {
       return staticMenuItems;
     }
 
-    // Menü öğelerini dinamik olarak güncelle
-    return staticMenuItems.map((item) => {
-      // "Randevularım" menü öğesini bul ve count ekle
-      if (item.label === "Randevularım") {
-        return {
-          ...item,
-          count: appointmentsCount,
-        };
-      }
+    // Menü öğelerini dinamik olarak güncelle ve rol bazlı filtreleme yap
+    return staticMenuItems
+      .filter((item) => {
+        // Eğer allowedRoles tanımlıysa, kullanıcının rolü bu roller arasında olmalı
+        if (item.allowedRoles && item.allowedRoles.length > 0) {
+          return item.allowedRoles.includes(currentRole as any);
+        }
+        // allowedRoles tanımlı değilse, tüm roller için görünür
+        return true;
+      })
+      .map((item) => {
+        // "Randevularım" menü öğesini bul ve count ekle
+        if (item.label === "Randevularım") {
+          return {
+            ...item,
+            count: appointmentsCount,
+          };
+        }
 
-      // "Anketlerim" menü öğesini bul ve count ekle
-      if (item.label === "Anketlerim") {
-        return {
-          ...item,
-          count: surveysCount,
-        };
-      }
+        // "Anketlerim" menü öğesini bul ve count ekle
+        if (item.label === "Anketlerim") {
+          return {
+            ...item,
+            count: surveysCount,
+          };
+        }
 
-      // "Mesajlarım" menü öğesini bul ve count ekle
-      if (item.label === "Mesajlarım") {
-        return {
-          ...item,
-          count: messagesCount,
-        };
-      }
+        // "Mesajlarım" menü öğesini bul ve count ekle
+        if (item.label === "Mesajlarım") {
+          return {
+            ...item,
+            count: messagesCount,
+          };
+        }
 
-      // "Listelerim" menü öğesini bul ve güncelle
-      if (item.label === "Listelerim") {
-        // Eğer listMenuLinks null ise (veri yok), boş bir link dizisi ile item döndür
-        // Bu durumda UI'da "Henüz liste yok" mesajı gösterilebilir
-        return {
-          ...item,
-          links: listMenuLinks || [],
-          hasNoData: listMenuLinks === null, // Veri olmadığını belirten flag
-        };
-      }
+        // "Listelerim" menü öğesini bul ve güncelle
+        if (item.label === "Listelerim") {
+          // Eğer listMenuLinks null ise (veri yok), boş bir link dizisi ile item döndür
+          // Bu durumda UI'da "Henüz liste yok" mesajı gösterilebilir
+          return {
+            ...item,
+            links: listMenuLinks || [],
+            hasNoData: listMenuLinks === null, // Veri olmadığını belirten flag
+          };
+        }
 
-      // "Favori Aramalarım" menü öğesini bul ve güncelle
-      if (item.label === "Favori Aramalarım") {
-        return {
-          ...item,
-          links: favoriteSearchMenuLinks || [],
-          hasNoData: favoriteSearchMenuLinks === null, // Veri olmadığını belirten flag
-        };
-      }
+        // "Favori Aramalarım" menü öğesini bul ve güncelle
+        if (item.label === "Favori Aramalarım") {
+          return {
+            ...item,
+            links: favoriteSearchMenuLinks || [],
+            hasNoData: favoriteSearchMenuLinks === null, // Veri olmadığını belirten flag
+          };
+        }
 
-      return item;
-    });
+        return item;
+      });
   }, [
     user,
+    currentRole,
     listMenuLinks,
     favoriteSearchMenuLinks,
     appointmentsCount,

@@ -28,6 +28,16 @@ export const PATHS = {
       HOME: "/company",
       LIST: "/company/list",
     },
+
+    SUPPLY: {
+      HOME: "/supply",
+      COMPANY: {
+        HOME: "/supply/company",
+      },
+      SUPPLIER: {
+        HOME: "/supply/supplier",
+      },
+    },
   },
 
   UNAUTHORIZED: "/unauthorized",

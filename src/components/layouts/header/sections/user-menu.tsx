@@ -2,34 +2,11 @@ import Link from "next/link";
 import { Button, Loading, Popover, CustomImage } from "@/components/ui";
 import { HEADER_CONFIG } from "../config";
 import { useAuth } from "@/contexts";
-import { Role } from "@/enums/Role";
-import "./user-menu.scss";
 
 const UserMenu = () => {
   const { user, currentRole, logout } = useAuth();
 
   // console.log("user in user menu:", user);
-
-  const getDashboardUrl = () => {
-    switch (currentRole) {
-      case Role.COMPANY:
-        return "/company";
-      case Role.ADMIN:
-        return "/company";
-      // case Role.ADMIN:
-      //   return "/admin";
-      // case Role.USER:
-      //   return "/user";
-      // case Role.CANDIDATE:
-      //   return "/candidate";
-      default:
-        return "/";
-    }
-  };
-
-  // Kullanıcı Paneli butonu sadece COMPANY ve ADMIN rollerinde görünsün
-  const showDashboardButton =
-    currentRole === Role.COMPANY || currentRole === Role.ADMIN;
 
   if (!user) {
     return (
@@ -48,19 +25,6 @@ const UserMenu = () => {
 
   return (
     <div className="user-menu-wrapper">
-      {/* Dashboard Button - Sadece COMPANY ve ADMIN için görünür */}
-      {showDashboardButton && (
-        <Button
-          href={getDashboardUrl()}
-          variant="inline"
-          size="xs"
-          leftIcon="ph ph-squares-four"
-          className="dashboard-btn"
-        >
-          <span className="dashboard-btn-text">Kullanıcı Paneli</span>
-        </Button>
-      )}
-
       {/* User Menu Popover */}
       <div className="user-menu-popover">
         <Popover
