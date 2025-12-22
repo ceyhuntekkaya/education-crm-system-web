@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import type { UserDto } from "@/types/dto/user/UserDto";
+import { Role } from "@/enums/Role";
 
 /**
  * Login sonrası kullanıcı bilgilerine göre yönlendirme yapar
@@ -29,6 +30,15 @@ export const usePostLoginRedirect = () => {
     if (!user) {
       // console.log("❌ User bulunamadı, yönlendirme yapılmadı");
       return false;
+    }
+
+    // SUPPLY rolü için direkt ana sayfaya yönlendir
+    const userRole = user.userRoles?.[0]?.role;
+    if (userRole === Role.SUPPLY) {
+      setTimeout(() => {
+        router.push("/");
+      }, 100);
+      return true;
     }
 
     // INSTITUTION_USER kontrolü
