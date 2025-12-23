@@ -287,6 +287,8 @@ export const API_ENDPOINTS = {
 
     // Quotations
     QUOTATIONS: {
+      BY_COMPANY: (companyId: string | number) =>
+        `/supply/quotations/by-company/${companyId}`,
       BY_RFQ: (rfqId: string | number) => `/supply/quotations/rfq/${rfqId}`,
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
