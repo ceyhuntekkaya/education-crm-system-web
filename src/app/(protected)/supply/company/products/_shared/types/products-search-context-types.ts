@@ -42,7 +42,7 @@ export interface ProductResultDto {
   stockTrackingType?: string;
   currentStock?: number; // ProductDto'da stockQuantity
   minStockLevel?: number;
-  imageUrl?: string; // ProductDto'da mainImageUrl
+  mainImageUrl?: string; // ProductDto'da mainImageUrl
   status?: string;
   deliveryDays?: number; // ProductDto'da deliveryDays
   createdAt?: string;
@@ -68,7 +68,7 @@ export function mapProductDtoToResult(dto: ProductDto): ProductResultDto {
     stockTrackingType: dto.stockTrackingType,
     currentStock: dto.stockQuantity,
     minStockLevel: dto.minStockLevel,
-    imageUrl: dto.mainImageUrl,
+    mainImageUrl: dto.mainImageUrl,
     status: dto.status,
     deliveryDays: dto.deliveryDays,
     createdAt: dto.createdAt,

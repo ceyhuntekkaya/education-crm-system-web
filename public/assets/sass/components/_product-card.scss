@@ -1,0 +1,271 @@
+// =============================================
+// Product Card Component Styles
+// Institution Card, Campaign Card ve Active Orders Card tasarımlarının birleşimi
+// =============================================
+
+// Product Card Hover Effects - Campaign Card Style
+.bg-white.rounded-16 {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    
+    // Image zoom effect on hover
+    img {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+  }
+  
+  // Image transition
+  img {
+    transition: transform 0.3s ease;
+  }
+}
+
+// Amount Box - Active Orders Card Style
+.amount-box {
+  transition: all 0.2s ease;
+  
+  .amount-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 6px;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.6875rem;
+      margin-bottom: 5px;
+    }
+  }
+  
+  .amount-value {
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    font-weight: 700;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Soft Card - Active Orders Card Style
+.soft-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+// Meta Container - Active Orders Card Style
+.meta-container {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  
+  @media (max-width: 767.98px) {
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+  }
+}
+
+.meta-item {
+  flex: 1 1 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  max-width: 100%;
+  
+  @media (max-width: 767.98px) {
+    width: 100%;
+    gap: 8px;
+  }
+}
+
+.meta-item-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(17, 24, 39, 0.12);
+  flex-shrink: 0;
+  
+  @media (max-width: 767.98px) {
+    width: 100%;
+    height: 1px;
+    margin: 3px 0;
+  }
+}
+
+.meta-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  
+  @media (max-width: 767.98px) {
+    gap: 6px;
+  }
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  color: rgba(17, 24, 39, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.6875rem;
+  }
+}
+
+.meta-value-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  @media (max-width: 767.98px) {
+    gap: 6px;
+  }
+}
+
+.meta-value {
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgba(17, 24, 39, 0.95);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.875rem;
+  }
+}
+
+.meta-icon-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  
+  @media (max-width: 767.98px) {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+.meta-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  
+  @media (max-width: 767.98px) {
+    font-size: 12px;
+    border-radius: 5px;
+  }
+}
+
+// Status Icon - Active Orders Card Style
+.status-icon {
+  transition: all 0.2s ease;
+}
+
+.status-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-grow: 1;
+  min-width: 0;
+  
+  @media (max-width: 767.98px) {
+    gap: 8px;
+  }
+}
+
+.status-value {
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 700;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.9375rem;
+  }
+}
+
+.status-text {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.6875rem;
+  }
+}
+
+// Products Results Container
+.products-results {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    
+    > [class*="col-"] {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+// Responsive Design
+@media only screen and (max-width: 991px) {
+  .bg-white.rounded-16 {
+    // Mobile hover effect - daha hafif
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  // Mobile optimizations
+  .bg-white.rounded-16 {
+    // Touch devices için hover efektini kaldır
+    &:hover {
+      transform: none;
+    }
+  }
+}
