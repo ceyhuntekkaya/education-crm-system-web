@@ -58,17 +58,7 @@ export interface PageOrderDto {
  * API Endpoint: GET /supply/orders/by-company/{companyId}
  */
 export const useCompanyOrders = (companyId: number | null) => {
-  const params: Record<string, unknown> = {
-    page: 0,
-    size: 100,
-    sort: "orderDate,desc",
-  };
-
   return useGet<ApiResponseDto<PageOrderDto>>(
-    companyId ? API_ENDPOINTS.SUPPLY.ORDERS.BY_COMPANY(companyId) : null,
-    {
-      enabled: !!companyId,
-      params,
-    }
+    companyId ? API_ENDPOINTS.SUPPLY.ORDERS.BY_COMPANY(companyId) : null
   );
 };
