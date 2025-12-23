@@ -41,8 +41,8 @@ const SupplyCompanyDashboardPage: React.FC = () => {
 
       {/* Quick Actions */}
       <CustomCard
-        title="Hızlı İşlemler"
-        subtitle="Tedarik süreçleriniz için hızlı erişim"
+        title="Hızlı Yönlendirme"
+        subtitle="Sık kullanılan sayfalara hızlıca erişin"
       >
         <QuickActions />
       </CustomCard>

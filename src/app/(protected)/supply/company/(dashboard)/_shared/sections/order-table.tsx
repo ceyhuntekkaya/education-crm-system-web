@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
 import { OrderDto } from "../hooks/api";
 import { createOrderColumns } from "../config";
 import { useDashboard } from "../context";
 
 export const OrderTable: React.FC = () => {
-  const router = useRouter();
-
   // Context'ten tüm siparişleri al (filtrelenmemiş)
   const { orders, ordersLoading } = useDashboard();
 
@@ -24,13 +21,6 @@ export const OrderTable: React.FC = () => {
       .slice(0, 5);
   }, [orders]);
 
-  // Row tıklama handler'ı
-  const handleRowClick = (params: any) => {
-    if (params.row?.id) {
-      router.push(`/supply/orders/detail/${params.row.id}`);
-    }
-  };
-
   // Kolonları oluştur
   const columns = createOrderColumns();
 
@@ -40,7 +30,6 @@ export const OrderTable: React.FC = () => {
         rows={recentOrders}
         columns={columns}
         loading={ordersLoading}
-        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
