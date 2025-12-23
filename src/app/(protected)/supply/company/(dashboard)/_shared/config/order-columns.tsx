@@ -83,7 +83,7 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
   {
     field: "orderNumber",
     headerName: "Sipariş No",
-    width: 150,
+    width: 200,
     renderCell: (params: any) => (
       <div className="fw-semibold text-primary" title={params.value}>
         {params.value || "-"}
@@ -96,14 +96,14 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
     width: 200,
     renderCell: (params: any) => (
       <div className="text-truncate" title={params.value}>
-        {params.value || params.row.supplierName || "-"}
+        {params.value || "-"}
       </div>
     ),
   },
   {
     field: "status",
     headerName: "Durum",
-    width: 150,
+    width: 140,
     align: "center",
     renderCell: (params: any) => {
       const status = params.value;
@@ -119,7 +119,7 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
   },
   {
     field: "itemCount",
-    headerName: "Ürün Sayısı",
+    headerName: "Ürün",
     width: 120,
     align: "center",
     renderCell: (params: any) => (
@@ -129,7 +129,7 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
   {
     field: "totalAmount",
     headerName: "Toplam Tutar",
-    width: 150,
+    width: 180,
     align: "right",
     renderCell: (params: any) => (
       <div className="fw-semibold text-success">
@@ -138,9 +138,9 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
     ),
   },
   {
-    field: "orderDate",
+    field: "createdAt",
     headerName: "Sipariş Tarihi",
-    width: 180,
+    width: 170,
     renderCell: (params: any) => (
       <div className="text-muted">
         {params.value ? formatDateTime(params.value) : "-"}
@@ -150,10 +150,26 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
   {
     field: "expectedDeliveryDate",
     headerName: "Tahmini Teslimat",
-    width: 150,
+    width: 200,
     renderCell: (params: any) => (
       <div className="text-muted">
         {params.value ? formatDate(params.value) : "-"}
+      </div>
+    ),
+  },
+  {
+    field: "trackingNumber",
+    headerName: "Takip No",
+    width: 170,
+    renderCell: (params: any) => (
+      <div className="text-truncate" title={params.value}>
+        {params.value ? (
+          <span className="badge bg-secondary-subtle text-secondary">
+            {params.value}
+          </span>
+        ) : (
+          "-"
+        )}
       </div>
     ),
   },
@@ -162,7 +178,7 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
     headerName: "Fatura No",
     width: 150,
     renderCell: (params: any) => (
-      <div className="text-truncate text-muted" title={params.value}>
+      <div className="text-truncate fw-medium" title={params.value}>
         {params.value || "-"}
       </div>
     ),
