@@ -82,7 +82,7 @@ export const ActiveRFQsCard: React.FC = () => {
   }
 
   return (
-    <div className="active-card bg-white rounded-16 h-100 position-relative overflow-hidden">
+    <div className="active-card bg-white rounded-16 h-100 position-relative overflow-hidden d-flex flex-column">
       <div className="floating-blur blur-a"></div>
       <div className="floating-blur blur-b"></div>
 
@@ -182,7 +182,7 @@ export const ActiveRFQsCard: React.FC = () => {
         })}
       </div>
 
-      <div className="meta-container soft-card rounded-16">
+      <div className="meta-container soft-card rounded-16 mt-auto">
         <div className="meta-item">
           <div className="meta-content">
             <p className="meta-label">Toplam Ürün</p>
