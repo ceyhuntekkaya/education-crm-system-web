@@ -285,6 +285,12 @@ export const API_ENDPOINTS = {
         `/supply/suppliers/company/${companyId}`,
     },
 
+    // Categories
+    CATEGORIES: {
+      LIST: "/supply/categories",
+      BY_ID: (id: string | number) => `/supply/categories/${id}`,
+    },
+
     // Quotations
     QUOTATIONS: {
       BY_COMPANY: (companyId: string | number) =>
