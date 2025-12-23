@@ -2,12 +2,13 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { useDashboardStats } from "../hooks";
-import { OrderDto, QuotationDto } from "../hooks/api";
+import { OrderDto, QuotationDto, RFQDto } from "../hooks/api";
 
 interface DashboardContextValue {
   // Stats Card Data
   activeOrders: OrderDto[]; // Aktif Siparişler
   pendingQuotations: QuotationDto[]; // Bekleyen Teklifler
+  activeRFQs: RFQDto[]; // Aktif İlanlar
 
   // Loading & Error States
   isLoading: boolean;
@@ -28,10 +29,11 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({
   children,
   companyId,
 }) => {
-  // Stats Hook - Aktif siparişler ve bekleyen teklifler
+  // Stats Hook - Aktif siparişler, bekleyen teklifler ve aktif ilanlar
   const {
     activeOrders,
     pendingQuotations,
+    activeRFQs,
     statsLoading,
     statsError,
     refetchStats,
@@ -41,6 +43,7 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({
     // Stats Card Data
     activeOrders,
     pendingQuotations,
+    activeRFQs,
 
     // Loading & Error
     isLoading: statsLoading,
