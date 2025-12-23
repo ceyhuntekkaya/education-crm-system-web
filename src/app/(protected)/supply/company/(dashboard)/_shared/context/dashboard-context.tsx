@@ -1,17 +1,23 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode } from "react";
-import { useDashboardStats } from "../hooks";
+import { useOrders } from "../hooks";
+import { usePendingQuotations } from "../hooks/usePendingQuotations";
+import { useActiveRFQs } from "../hooks/useActiveRFQs";
 import { OrderDto, QuotationDto, RFQDto } from "../hooks/api";
 
 interface DashboardContextValue {
   // Stats Card Data
-  activeOrders: OrderDto[]; // Aktif Siparişler
+  activeOrders: OrderDto[]; // Aktif Siparişler (Filtrelenmiş)
   pendingQuotations: QuotationDto[]; // Bekleyen Teklifler
   activeRFQs: RFQDto[]; // Aktif İlanlar
 
+  // Tüm Siparişler (Filtrelenmemiş)
+  orders: OrderDto[];
+
   // Loading & Error States
   isLoading: boolean;
+  ordersLoading: boolean;
   error: string | null;
   refetchDashboard: () => void;
 }
@@ -29,15 +35,25 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({
   children,
   companyId,
 }) => {
-  // Stats Hook - Aktif siparişler, bekleyen teklifler ve aktif ilanlar
+  // Siparişleri getir (tüm ve aktif)
+  const { orders, activeOrders, ordersLoading, ordersError, refetchOrders } =
+    useOrders(companyId);
+
+  // Pending Quotations Hook
   const {
-    activeOrders,
     pendingQuotations,
-    activeRFQs,
-    statsLoading,
-    statsError,
-    refetchStats,
-  } = useDashboardStats(companyId);
+    quotationsLoading,
+    quotationsError,
+    refetchQuotations,
+  } = usePendingQuotations(companyId);
+
+  // Active RFQs Hook
+  const { activeRFQs, rfqsLoading, rfqsError, refetchRFQs } =
+    useActiveRFQs(companyId);
+
+  // Combined loading & error states
+  const statsLoading = quotationsLoading || rfqsLoading;
+  const statsError = quotationsError || rfqsError;
 
   const value: DashboardContextValue = {
     // Stats Card Data
@@ -45,10 +61,18 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({
     pendingQuotations,
     activeRFQs,
 
+    // Tüm Siparişler
+    orders,
+
     // Loading & Error
     isLoading: statsLoading,
-    error: statsError,
-    refetchDashboard: refetchStats,
+    ordersLoading,
+    error: statsError || ordersError,
+    refetchDashboard: () => {
+      refetchOrders();
+      refetchQuotations();
+      refetchRFQs();
+    },
   };
 
   return (
