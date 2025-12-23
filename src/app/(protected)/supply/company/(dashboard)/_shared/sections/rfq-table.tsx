@@ -35,7 +35,8 @@ export const RFQTable: React.FC = () => {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[5, 10, 25, 50]}
+        height={"auto"}
+        pageSizeOptions={[5]}
         disableRowSelectionOnClick
         emptyState={{
           icon: "ph-megaphone",
