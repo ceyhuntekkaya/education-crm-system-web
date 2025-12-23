@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
 import { OrderDto } from "../hooks/api";
@@ -12,6 +12,17 @@ export const OrderTable: React.FC = () => {
 
   // Context'ten tüm siparişleri al (filtrelenmemiş)
   const { orders, ordersLoading } = useDashboard();
+
+  // En son oluşturulan 5 siparişi filtrele
+  const recentOrders = useMemo(() => {
+    return [...orders]
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt || 0).getTime();
+        const dateB = new Date(b.createdAt || 0).getTime();
+        return dateB - dateA; // Yeniden eskiye sıralama
+      })
+      .slice(0, 5);
+  }, [orders]);
 
   // Row tıklama handler'ı
   const handleRowClick = (params: any) => {
@@ -26,21 +37,22 @@ export const OrderTable: React.FC = () => {
   return (
     <div>
       <DataGrid<OrderDto>
-        rows={orders}
+        rows={recentOrders}
         columns={columns}
         loading={ordersLoading}
         onRowClick={handleRowClick}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
+            paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10, 25, 50]}
+        pageSizeOptions={[5]}
         disableRowSelectionOnClick
+        hideFooter
         emptyState={{
           icon: "ph-package",
           title: "Henüz Sipariş Yok",
-          description: "Aktif siparişleriniz burada görünecektir.",
+          description: "Siparişleriniz burada görünecektir.",
           showActions: false,
         }}
       />

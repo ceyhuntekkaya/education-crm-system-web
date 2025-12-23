@@ -9,7 +9,7 @@ const SupplyCompanyDashboardPage: React.FC = () => {
   usePageTitle("Kurum Tedarik Yönetimi");
 
   return (
-    <div className="d-flex flex-column gap-32">
+    <div className="d-flex flex-column gap-24">
       {/* Header with CustomCard */}
       <CustomCard
         title="Kurum Tedarik Yönetimi"
@@ -21,7 +21,7 @@ const SupplyCompanyDashboardPage: React.FC = () => {
       {/* Son Siparişler Tablosu */}
       <CustomCard
         title="Son Siparişler"
-        subtitle="En son oluşturulan siparişlerinizin detaylarını görüntüleyin"
+        subtitle="En son oluşturulan 5 siparişinizi görüntüleyin"
       >
         <OrderTable />
       </CustomCard>

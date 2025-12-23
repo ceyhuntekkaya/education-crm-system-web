@@ -140,7 +140,7 @@ export const createOrderColumns = (): GridColDef<OrderDto>[] => [
   {
     field: "createdAt",
     headerName: "Sipariş Tarihi",
-    width: 170,
+    width: 180,
     renderCell: (params: any) => (
       <div className="text-muted">
         {params.value ? formatDateTime(params.value) : "-"}

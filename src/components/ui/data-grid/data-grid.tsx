@@ -65,6 +65,7 @@ export interface DataGridProps<T = any> {
   className?: string;
   height?: number | string;
   rowClassName?: (row: T, index: number) => string;
+  hideFooter?: boolean;
   initialState?: {
     pagination?: {
       paginationModel?: {
@@ -101,6 +102,7 @@ export function DataGrid<T extends Record<string, any>>({
   className = "",
   height = 600,
   rowClassName,
+  hideFooter = false,
   initialState,
 }: DataGridProps<T>) {
   // State management
@@ -115,7 +117,7 @@ export function DataGrid<T extends Record<string, any>>({
   });
 
   const [selectedRows, setSelectedRows] = useState<Set<any>>(new Set());
-  
+
   // Mobile detection
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
@@ -190,7 +192,7 @@ export function DataGrid<T extends Record<string, any>>({
   // Filter columns for responsive views
   const visibleColumns = useMemo(() => {
     if (!isMobile) return columns;
-    
+
     // On mobile, show only columns without hideOnMobile flag
     // Or show columns based on priority
     return columns
@@ -320,7 +322,9 @@ export function DataGrid<T extends Record<string, any>>({
     return (
       <div
         key={row.id || index}
-        className={`data-grid-mobile-card ${isSelected ? "selected" : ""} ${customRowClass}`}
+        className={`data-grid-mobile-card ${
+          isSelected ? "selected" : ""
+        } ${customRowClass}`}
         style={{
           backgroundColor: "#FFFFFF",
           border: `2px solid ${isSelected ? "#487FFF" : "#E5E7EB"}`,
@@ -347,7 +351,7 @@ export function DataGrid<T extends Record<string, any>>({
         <div
           style={{
             padding: "18px",
-            background: isSelected 
+            background: isSelected
               ? "linear-gradient(135deg, #487FFF 0%, #6B9FFF 100%)"
               : "linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)",
             borderBottom: isSelected ? "none" : "2px solid #E5E7EB",
@@ -359,15 +363,17 @@ export function DataGrid<T extends Record<string, any>>({
         >
           <div style={{ flex: 1 }}>
             {mainColumn.renderCell ? (
-              <div style={{ 
-                fontSize: "17px", 
-                fontWeight: 700, 
-                color: isSelected ? "#FFFFFF" : "#0F172A",
-                lineHeight: "1.4",
-                wordBreak: "break-word",
-                overflowWrap: "break-word",
-                whiteSpace: "normal",
-              }}>
+              <div
+                style={{
+                  fontSize: "17px",
+                  fontWeight: 700,
+                  color: isSelected ? "#FFFFFF" : "#0F172A",
+                  lineHeight: "1.4",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
+                }}
+              >
                 {renderCellContent(row, mainColumn)}
               </div>
             ) : (
@@ -412,7 +418,9 @@ export function DataGrid<T extends Record<string, any>>({
                   width: "22px",
                   height: "22px",
                   marginTop: "2px",
-                  border: isSelected ? "2px solid #FFFFFF" : "2px solid #CBD5E1",
+                  border: isSelected
+                    ? "2px solid #FFFFFF"
+                    : "2px solid #CBD5E1",
                   backgroundColor: isSelected ? "#FFFFFF" : "transparent",
                   flexShrink: 0,
                 }}
@@ -709,54 +717,61 @@ export function DataGrid<T extends Record<string, any>>({
             backgroundColor: "#ffffff",
           }}
         >
-          <div className="text-center" style={{ padding: isMobile ? "40px 20px" : "60px 40px" }}>
+          <div
+            className="text-center"
+            style={{ padding: isMobile ? "40px 20px" : "60px 40px" }}
+          >
             <div className="mb-4">
-            <div
+              <div
+                style={{
+                  width: isMobile ? "64px" : "80px",
+                  height: isMobile ? "64px" : "80px",
+                  borderRadius: "50%",
+                  backgroundColor: "#f8f9fa",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 24px",
+                  border: "1px solid #e9ecef",
+                }}
+              >
+                <i
+                  className={`ph-bold ${emptyConfig.icon}`}
+                  style={{
+                    fontSize: isMobile ? "28px" : "32px",
+                    color: "#9ca3af",
+                  }}
+                ></i>
+              </div>
+            </div>
+            <h5
               style={{
-                width: isMobile ? "64px" : "80px",
-                height: isMobile ? "64px" : "80px",
-                borderRadius: "50%",
-                backgroundColor: "#f8f9fa",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "0 auto 24px",
-                border: "1px solid #e9ecef",
+                color: "#343e56",
+                marginBottom: "12px",
+                fontWeight: 600,
+                fontSize: isMobile ? "16px" : "18px",
               }}
             >
-              <i
-                className={`ph-bold ${emptyConfig.icon}`}
-                style={{
-                  fontSize: isMobile ? "28px" : "32px",
-                  color: "#9ca3af",
-                }}
-              ></i>
-            </div>
-          </div>
-          <h5
-            style={{
-              color: "#343e56",
-              marginBottom: "12px",
-              fontWeight: 600,
-              fontSize: isMobile ? "16px" : "18px",
-            }}
-          >
-            {emptyConfig.title}
-          </h5>
-          <p
-            style={{
-              color: "#798090",
-              marginBottom: "32px",
-              fontSize: isMobile ? "13px" : "14px",
-              lineHeight: "1.5",
-              maxWidth: "400px",
-              margin: "0 auto 32px",
-            }}
-          >
-            {emptyConfig.description}
-          </p>
-          {emptyConfig.showActions && (
-            <div className={`d-flex ${isMobile ? "flex-column" : ""} justify-content-center gap-3`}>
+              {emptyConfig.title}
+            </h5>
+            <p
+              style={{
+                color: "#798090",
+                marginBottom: "32px",
+                fontSize: isMobile ? "13px" : "14px",
+                lineHeight: "1.5",
+                maxWidth: "400px",
+                margin: "0 auto 32px",
+              }}
+            >
+              {emptyConfig.description}
+            </p>
+            {emptyConfig.showActions && (
+              <div
+                className={`d-flex ${
+                  isMobile ? "flex-column" : ""
+                } justify-content-center gap-3`}
+              >
                 {emptyConfig.onAddNew && (
                   <Button
                     leftIcon="ph-plus"
@@ -795,10 +810,18 @@ export function DataGrid<T extends Record<string, any>>({
 
   return (
     <div
-      className={`data-grid card ${className} ${isLoading ? "loading" : ""} ${isMobile ? "mobile-view" : ""}`}
+      className={`data-grid card ${className} ${isLoading ? "loading" : ""} ${
+        isMobile ? "mobile-view" : ""
+      }`}
       style={{
-        height: isMobile ? "auto" : height,
-        minHeight: isMobile ? "auto" : (typeof height === "number" ? `${height}px` : "400px"),
+        height: isMobile ? "auto" : hideFooter ? "auto" : height,
+        minHeight: isMobile
+          ? "auto"
+          : hideFooter 
+          ? "auto"
+          : typeof height === "number"
+          ? `${height}px`
+          : "400px",
         boxShadow: isMobile ? "none" : "0 2px 8px rgba(0,0,0,0.1)",
         border: isMobile ? "none" : "1px solid #e9ecef",
         borderRadius: isMobile ? "0" : "12px",
@@ -844,14 +867,20 @@ export function DataGrid<T extends Record<string, any>>({
                   border: "2px solid #CBD5E1",
                 }}
               />
-              <label className="form-check-label ms-2" style={{ 
-                fontSize: "14px", 
-                fontWeight: 700,
-                color: "#1E293B",
-                wordBreak: "break-word",
-                lineHeight: "1.4",
-              }}>
-                Tümünü Seç <span style={{ color: "#64748B", fontWeight: 600 }}>({selectedRows.size}/{rows.length})</span>
+              <label
+                className="form-check-label ms-2"
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#1E293B",
+                  wordBreak: "break-word",
+                  lineHeight: "1.4",
+                }}
+              >
+                Tümünü Seç{" "}
+                <span style={{ color: "#64748B", fontWeight: 600 }}>
+                  ({selectedRows.size}/{rows.length})
+                </span>
               </label>
             </div>
           )}
@@ -908,266 +937,278 @@ export function DataGrid<T extends Record<string, any>>({
                   </th>
                 )}
                 {columns.map((column) => {
-                const columnWidth = column.width || column.minWidth || 120;
-                const columnMinWidth =
-                  column.minWidth ||
-                  Math.max(80, Math.ceil(column.headerName.length * 8) + 40); // Dynamic min width based on header text
+                  const columnWidth = column.width || column.minWidth || 120;
+                  const columnMinWidth =
+                    column.minWidth ||
+                    Math.max(80, Math.ceil(column.headerName.length * 8) + 40); // Dynamic min width based on header text
+
+                  return (
+                    <th
+                      key={column.field as string}
+                      className={`${
+                        column.sortable !== false ? "sortable" : ""
+                      }`}
+                      style={{
+                        width: `${columnWidth}px`,
+                        minWidth: `${columnMinWidth}px`,
+                        maxWidth: column.width
+                          ? `${column.width}px`
+                          : undefined,
+                        textAlign: column.headerAlign || "left",
+                        cursor:
+                          column.sortable !== false ? "pointer" : "default",
+                        padding: "16px 20px",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        fontSize: "14px",
+                        fontWeight: "600",
+                        backgroundColor: "#f8f9fa",
+                        borderBottom: "2px solid #e9ecef",
+                      }}
+                      onClick={() =>
+                        column.sortable !== false &&
+                        handleSort(column.field as string)
+                      }
+                      title={column.description || column.headerName}
+                    >
+                      <div className="d-flex align-items-center justify-content-between">
+                        <span
+                          style={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            flexGrow: 1,
+                          }}
+                        >
+                          {column.headerName}
+                        </span>
+                        {column.sortable !== false && (
+                          <span className="text-muted small ms-1 flex-shrink-0">
+                            {getSortIcon(column.field as string) || "⇅"}
+                          </span>
+                        )}
+                      </div>
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {processedData.data.map((row, index) => {
+                const customRowClass = rowClassName
+                  ? rowClassName(row, index)
+                  : "";
+                const baseRowClass = selectedRows.has(row.id)
+                  ? "table-active"
+                  : "";
+                const finalRowClass =
+                  `${baseRowClass} ${customRowClass}`.trim();
 
                 return (
-                  <th
-                    key={column.field as string}
-                    className={`${column.sortable !== false ? "sortable" : ""}`}
-                    style={{
-                      width: `${columnWidth}px`,
-                      minWidth: `${columnMinWidth}px`,
-                      maxWidth: column.width ? `${column.width}px` : undefined,
-                      textAlign: column.headerAlign || "left",
-                      cursor: column.sortable !== false ? "pointer" : "default",
-                      padding: "16px 20px",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      backgroundColor: "#f8f9fa",
-                      borderBottom: "2px solid #e9ecef",
+                  <tr
+                    key={row.id || index}
+                    className={finalRowClass}
+                    onClick={(event) => {
+                      // Handle row selection for checkbox mode
+                      if (!disableRowSelectionOnClick && checkboxSelection) {
+                        handleRowSelection(row.id, !selectedRows.has(row.id));
+                      }
+
+                      // Handle custom row click
+                      if (onRowClick) {
+                        onRowClick({
+                          row,
+                          field: "",
+                          event,
+                        });
+                      }
                     }}
-                    onClick={() =>
-                      column.sortable !== false &&
-                      handleSort(column.field as string)
-                    }
-                    title={column.description || column.headerName}
+                    style={{
+                      cursor:
+                        (!disableRowSelectionOnClick && checkboxSelection) ||
+                        onRowClick
+                          ? "pointer"
+                          : "default",
+                      transition: "background-color 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!selectedRows.has(row.id)) {
+                        e.currentTarget.style.backgroundColor = "#f8f9fa";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!selectedRows.has(row.id)) {
+                        e.currentTarget.style.backgroundColor = "";
+                      }
+                    }}
                   >
-                    <div className="d-flex align-items-center justify-content-between">
-                      <span
+                    {checkboxSelection && (
+                      <td
+                        className="data-grid-checkbox-cell"
                         style={{
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          flexGrow: 1,
+                          width: "50px",
+                          minWidth: "50px",
+                          maxWidth: "50px",
+                          padding: "16px 20px",
+                          borderBottom: "1px solid #e9ecef",
                         }}
                       >
-                        {column.headerName}
-                      </span>
-                      {column.sortable !== false && (
-                        <span className="text-muted small ms-1 flex-shrink-0">
-                          {getSortIcon(column.field as string) || "⇅"}
-                        </span>
-                      )}
-                    </div>
-                  </th>
+                        <div className="form-check">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={selectedRows.has(row.id)}
+                            onChange={(e) =>
+                              handleRowSelection(row.id, e.target.checked)
+                            }
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                        </div>
+                      </td>
+                    )}
+                    {columns.map((column) => {
+                      const columnWidth =
+                        column.width || column.minWidth || 120;
+                      const columnMinWidth =
+                        column.minWidth ||
+                        Math.max(
+                          80,
+                          Math.ceil(column.headerName.length * 8) + 40
+                        );
+
+                      return (
+                        <td
+                          key={column.field as string}
+                          style={{
+                            width: `${columnWidth}px`,
+                            minWidth: `${columnMinWidth}px`,
+                            maxWidth: column.width
+                              ? `${column.width}px`
+                              : undefined,
+                            textAlign: column.align || "left",
+                            padding: "16px 20px",
+                            overflow: "hidden",
+                            borderBottom: "1px solid #e9ecef",
+                            fontSize: "14px",
+                            lineHeight: "1.5",
+                          }}
+                        >
+                          {column.renderCell ? (
+                            <div className="custom-cell-content">
+                              {renderCellContent(row, column)}
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {renderCellContent(row, column)}
+                            </div>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 );
               })}
-            </tr>
-          </thead>
-          <tbody>
-            {processedData.data.map((row, index) => {
-              const customRowClass = rowClassName
-                ? rowClassName(row, index)
-                : "";
-              const baseRowClass = selectedRows.has(row.id)
-                ? "table-active"
-                : "";
-              const finalRowClass = `${baseRowClass} ${customRowClass}`.trim();
-
-              return (
-                <tr
-                  key={row.id || index}
-                  className={finalRowClass}
-                  onClick={(event) => {
-                    // Handle row selection for checkbox mode
-                    if (!disableRowSelectionOnClick && checkboxSelection) {
-                      handleRowSelection(row.id, !selectedRows.has(row.id));
-                    }
-
-                    // Handle custom row click
-                    if (onRowClick) {
-                      onRowClick({
-                        row,
-                        field: "",
-                        event,
-                      });
-                    }
-                  }}
-                  style={{
-                    cursor:
-                      (!disableRowSelectionOnClick && checkboxSelection) ||
-                      onRowClick
-                        ? "pointer"
-                        : "default",
-                    transition: "background-color 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!selectedRows.has(row.id)) {
-                      e.currentTarget.style.backgroundColor = "#f8f9fa";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!selectedRows.has(row.id)) {
-                      e.currentTarget.style.backgroundColor = "";
-                    }
-                  }}
-                >
-                  {checkboxSelection && (
-                    <td
-                      className="data-grid-checkbox-cell"
-                      style={{
-                        width: "50px",
-                        minWidth: "50px",
-                        maxWidth: "50px",
-                        padding: "16px 20px",
-                        borderBottom: "1px solid #e9ecef",
-                      }}
-                    >
-                      <div className="form-check">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          checked={selectedRows.has(row.id)}
-                          onChange={(e) =>
-                            handleRowSelection(row.id, e.target.checked)
-                          }
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      </div>
-                    </td>
-                  )}
-                  {columns.map((column) => {
-                    const columnWidth = column.width || column.minWidth || 120;
-                    const columnMinWidth =
-                      column.minWidth ||
-                      Math.max(
-                        80,
-                        Math.ceil(column.headerName.length * 8) + 40
-                      );
-
-                    return (
-                      <td
-                        key={column.field as string}
-                        style={{
-                          width: `${columnWidth}px`,
-                          minWidth: `${columnMinWidth}px`,
-                          maxWidth: column.width
-                            ? `${column.width}px`
-                            : undefined,
-                          textAlign: column.align || "left",
-                          padding: "16px 20px",
-                          overflow: "hidden",
-                          borderBottom: "1px solid #e9ecef",
-                          fontSize: "14px",
-                          lineHeight: "1.5",
-                        }}
-                      >
-                        {column.renderCell ? (
-                          <div className="custom-cell-content">
-                            {renderCellContent(row, column)}
-                          </div>
-                        ) : (
-                          <div
-                            style={{
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            {renderCellContent(row, column)}
-                          </div>
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
         </div>
       )}
 
       {/* Custom Pagination Footer - Clean Modern Design */}
-      <div
-        className="data-grid-pagination"
-        style={{
-          flexShrink: 0,
-          padding: isMobile ? "16px" : "16px 24px",
-          borderTop: isMobile ? "2px solid #E5E7EB" : "1px solid #f3f4f6",
-          backgroundColor: isMobile ? "#FFFFFF" : "#fafbfc",
-          display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          alignItems: isMobile ? "stretch" : "center",
-          justifyContent: "space-between",
-          gap: isMobile ? "12px" : "20px",
-          boxShadow: isMobile ? "0 -4px 12px rgba(15, 23, 42, 0.06)" : "none",
-        }}
-      >
-        {/* Left side - Rows per page */}
+      {!hideFooter && (
         <div
-          className="page-size-control"
-          style={{ 
-            display: "flex", 
-            alignItems: "center", 
-            gap: "12px",
-            justifyContent: isMobile ? "space-between" : "flex-start",
-            padding: isMobile ? "14px 16px" : "0",
-            backgroundColor: isMobile ? "#F8FAFC" : "transparent",
-            borderRadius: isMobile ? "16px" : "0",
-            border: isMobile ? "2px solid #E5E7EB" : "none",
+          className="data-grid-pagination"
+          style={{
+            flexShrink: 0,
+            padding: isMobile ? "16px" : "16px 24px",
+            borderTop: isMobile ? "2px solid #E5E7EB" : "1px solid #f3f4f6",
+            backgroundColor: isMobile ? "#FFFFFF" : "#fafbfc",
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: isMobile ? "stretch" : "center",
+            justifyContent: "space-between",
+            gap: isMobile ? "12px" : "20px",
+            boxShadow: isMobile ? "0 -4px 12px rgba(15, 23, 42, 0.06)" : "none",
           }}
         >
-          <span
-            className="pagination-label"
+          {/* Left side - Rows per page */}
+          <div
+            className="page-size-control"
             style={{
-              fontSize: isMobile ? "13px" : "14px",
-              color: isMobile ? "#64748B" : "#6b7280",
-              fontWeight: 700,
-              whiteSpace: "nowrap",
-              textTransform: isMobile ? "uppercase" : "none",
-              letterSpacing: isMobile ? "0.5px" : "normal",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              justifyContent: isMobile ? "space-between" : "flex-start",
+              padding: isMobile ? "14px 16px" : "0",
+              backgroundColor: isMobile ? "#F8FAFC" : "transparent",
+              borderRadius: isMobile ? "16px" : "0",
+              border: isMobile ? "2px solid #E5E7EB" : "none",
             }}
           >
-            Göster:
-          </span>
-          <div style={{ position: "relative", display: "inline-flex" }}>
-            <select
-              className="pagination-select"
-              value={pagination.pageSize}
-              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+            <span
+              className="pagination-label"
               style={{
-                padding: isMobile ? "11px 50px 11px 18px" : "6px 32px 6px 12px",
-                border: isMobile ? "2px solid #CBD5E1" : "none",
-                borderRadius: isMobile ? "14px" : "8px",
-                fontSize: isMobile ? "15px" : "14px",
+                fontSize: isMobile ? "13px" : "14px",
+                color: isMobile ? "#64748B" : "#6b7280",
                 fontWeight: 700,
-                backgroundColor: "#FFFFFF",
-                color: isMobile ? "#1E293B" : "#374151",
-                cursor: "pointer",
-                boxShadow: isMobile ? "0 2px 6px rgba(15, 23, 42, 0.08)" : "0 1px 3px rgba(0, 0, 0, 0.08)",
-                appearance: "none",
-                outline: "none",
-                transition: "all 0.2s ease",
-                minWidth: isMobile ? "70px" : "auto",
+                whiteSpace: "nowrap",
+                textTransform: isMobile ? "uppercase" : "none",
+                letterSpacing: isMobile ? "0.5px" : "normal",
               }}
             >
-              {pageSizeOptions.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            <i
-              className="ph ph-caret-down"
-              style={{
-                position: "absolute",
-                right: isMobile ? "16px" : "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                fontSize: isMobile ? "18px" : "14px",
-                color: isMobile ? "#64748B" : "#9ca3af",
-                pointerEvents: "none",
-              }}
-            ></i>
-          </div>
-          {/* <span
+              Göster:
+            </span>
+            <div style={{ position: "relative", display: "inline-flex" }}>
+              <select
+                className="pagination-select"
+                value={pagination.pageSize}
+                onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                style={{
+                  padding: isMobile
+                    ? "11px 50px 11px 18px"
+                    : "6px 32px 6px 12px",
+                  border: isMobile ? "2px solid #CBD5E1" : "none",
+                  borderRadius: isMobile ? "14px" : "8px",
+                  fontSize: isMobile ? "15px" : "14px",
+                  fontWeight: 700,
+                  backgroundColor: "#FFFFFF",
+                  color: isMobile ? "#1E293B" : "#374151",
+                  cursor: "pointer",
+                  boxShadow: isMobile
+                    ? "0 2px 6px rgba(15, 23, 42, 0.08)"
+                    : "0 1px 3px rgba(0, 0, 0, 0.08)",
+                  appearance: "none",
+                  outline: "none",
+                  transition: "all 0.2s ease",
+                  minWidth: isMobile ? "70px" : "auto",
+                }}
+              >
+                {pageSizeOptions.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+              <i
+                className="ph ph-caret-down"
+                style={{
+                  position: "absolute",
+                  right: isMobile ? "16px" : "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  fontSize: isMobile ? "18px" : "14px",
+                  color: isMobile ? "#64748B" : "#9ca3af",
+                  pointerEvents: "none",
+                }}
+              ></i>
+            </div>
+            {/* <span
             style={{
               fontSize: "14px",
               color: "#9ca3af",
@@ -1176,163 +1217,187 @@ export function DataGrid<T extends Record<string, any>>({
           >
             satır
           </span> */}
-        </div>
+          </div>
 
-        {/* Right side - Navigation and info */}
-        <div
-          className="pagination-controls"
-          style={{ 
-            display: "flex", 
-            alignItems: "center", 
-            gap: isMobile ? "12px" : "24px",
-            justifyContent: isMobile ? "space-between" : "flex-end",
-            padding: isMobile ? "14px 16px" : "0",
-            backgroundColor: isMobile ? "#F8FAFC" : "transparent",
-            borderRadius: isMobile ? "16px" : "0",
-            border: isMobile ? "2px solid #E5E7EB" : "none",
-          }}
-        >
+          {/* Right side - Navigation and info */}
           <div
-            className="pagination-info"
+            className="pagination-controls"
             style={{
-              fontSize: isMobile ? "15px" : "14px",
-              color: isMobile ? "#1E293B" : "#374151",
-              fontWeight: 700,
-              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: isMobile ? "12px" : "24px",
+              justifyContent: isMobile ? "space-between" : "flex-end",
+              padding: isMobile ? "14px 16px" : "0",
+              backgroundColor: isMobile ? "#F8FAFC" : "transparent",
+              borderRadius: isMobile ? "16px" : "0",
+              border: isMobile ? "2px solid #E5E7EB" : "none",
             }}
           >
-            <span style={{ color: isMobile ? "#1E293B" : "#374151" }}>
-              {pagination.page * pagination.pageSize + 1}–
-              {Math.min(
-                (pagination.page + 1) * pagination.pageSize,
-                processedData.total
-              )}
-            </span>
-            {" "}
-            <span style={{ color: "#64748B", fontWeight: 600 }}>/ {processedData.total}</span>
-          </div>
-
-          <div
-            className="pagination-buttons"
-            style={{ display: "flex", alignItems: "center", gap: isMobile ? "10px" : "8px" }}
-          >
-            <button
-              className="pagination-nav-btn"
-              disabled={pagination.page === 0}
-              onClick={() => handlePageChange(pagination.page - 1)}
-              title="Önceki sayfa"
+            <div
+              className="pagination-info"
               style={{
-                width: isMobile ? "46px" : "36px",
-                height: isMobile ? "46px" : "36px",
-                border: isMobile 
-                  ? pagination.page === 0 
-                    ? "2px solid #E5E7EB" 
-                    : "2px solid #CBD5E1"
-                  : "none",
-                borderRadius: isMobile ? "16px" : "8px",
-                backgroundColor: pagination.page === 0 
-                  ? (isMobile ? "#F1F5F9" : "#f3f4f6")
-                  : (isMobile ? "#FFFFFF" : "#fff"),
-                color: pagination.page === 0 
-                  ? (isMobile ? "#CBD5E1" : "#d1d5db")
-                  : (isMobile ? "#1E293B" : "#374151"),
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: pagination.page === 0 ? "not-allowed" : "pointer",
-                boxShadow:
-                  pagination.page === 0
-                    ? "none"
-                    : isMobile 
-                    ? "0 2px 6px rgba(15, 23, 42, 0.08)"
-                    : "0 1px 3px rgba(0, 0, 0, 0.08)",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                if (pagination.page !== 0) {
-                  e.currentTarget.style.backgroundColor = "#f9fafb";
-                  e.currentTarget.style.transform = "translateY(-1px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 6px rgba(0, 0, 0, 0.12)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (pagination.page !== 0) {
-                  e.currentTarget.style.backgroundColor = "#fff";
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 1px 3px rgba(0, 0, 0, 0.08)";
-                }
+                fontSize: isMobile ? "15px" : "14px",
+                color: isMobile ? "#1E293B" : "#374151",
+                fontWeight: 700,
+                whiteSpace: "nowrap",
               }}
             >
-              <i
-                className="ph-bold ph-caret-left"
-                style={{ fontSize: isMobile ? "20px" : "18px" }}
-              ></i>
-            </button>
+              <span style={{ color: isMobile ? "#1E293B" : "#374151" }}>
+                {pagination.page * pagination.pageSize + 1}–
+                {Math.min(
+                  (pagination.page + 1) * pagination.pageSize,
+                  processedData.total
+                )}
+              </span>{" "}
+              <span style={{ color: "#64748B", fontWeight: 600 }}>
+                / {processedData.total}
+              </span>
+            </div>
 
-            <button
-              className="pagination-nav-btn"
-              disabled={pagination.page >= processedData.totalPages - 1}
-              onClick={() => handlePageChange(pagination.page + 1)}
-              title="Sonraki sayfa"
+            <div
+              className="pagination-buttons"
               style={{
-                width: isMobile ? "46px" : "36px",
-                height: isMobile ? "46px" : "36px",
-                border: isMobile 
-                  ? pagination.page >= processedData.totalPages - 1
-                    ? "2px solid #E5E7EB" 
-                    : "2px solid #CBD5E1"
-                  : "none",
-                borderRadius: isMobile ? "16px" : "8px",
-                backgroundColor:
-                  pagination.page >= processedData.totalPages - 1
-                    ? (isMobile ? "#F1F5F9" : "#f3f4f6")
-                    : (isMobile ? "#FFFFFF" : "#fff"),
-                color:
-                  pagination.page >= processedData.totalPages - 1
-                    ? (isMobile ? "#CBD5E1" : "#d1d5db")
-                    : (isMobile ? "#1E293B" : "#374151"),
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                cursor:
-                  pagination.page >= processedData.totalPages - 1
-                    ? "not-allowed"
-                    : "pointer",
-                boxShadow:
-                  pagination.page >= processedData.totalPages - 1
-                    ? "none"
-                    : isMobile 
-                    ? "0 2px 6px rgba(15, 23, 42, 0.08)"
-                    : "0 1px 3px rgba(0, 0, 0, 0.08)",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                if (pagination.page < processedData.totalPages - 1) {
-                  e.currentTarget.style.backgroundColor = "#f9fafb";
-                  e.currentTarget.style.transform = "translateY(-1px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 6px rgba(0, 0, 0, 0.12)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (pagination.page < processedData.totalPages - 1) {
-                  e.currentTarget.style.backgroundColor = "#fff";
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 1px 3px rgba(0, 0, 0, 0.08)";
-                }
+                gap: isMobile ? "10px" : "8px",
               }}
             >
-              <i
-                className="ph-bold ph-caret-right"
-                style={{ fontSize: isMobile ? "20px" : "18px" }}
-              ></i>
-            </button>
+              <button
+                className="pagination-nav-btn"
+                disabled={pagination.page === 0}
+                onClick={() => handlePageChange(pagination.page - 1)}
+                title="Önceki sayfa"
+                style={{
+                  width: isMobile ? "46px" : "36px",
+                  height: isMobile ? "46px" : "36px",
+                  border: isMobile
+                    ? pagination.page === 0
+                      ? "2px solid #E5E7EB"
+                      : "2px solid #CBD5E1"
+                    : "none",
+                  borderRadius: isMobile ? "16px" : "8px",
+                  backgroundColor:
+                    pagination.page === 0
+                      ? isMobile
+                        ? "#F1F5F9"
+                        : "#f3f4f6"
+                      : isMobile
+                      ? "#FFFFFF"
+                      : "#fff",
+                  color:
+                    pagination.page === 0
+                      ? isMobile
+                        ? "#CBD5E1"
+                        : "#d1d5db"
+                      : isMobile
+                      ? "#1E293B"
+                      : "#374151",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: pagination.page === 0 ? "not-allowed" : "pointer",
+                  boxShadow:
+                    pagination.page === 0
+                      ? "none"
+                      : isMobile
+                      ? "0 2px 6px rgba(15, 23, 42, 0.08)"
+                      : "0 1px 3px rgba(0, 0, 0, 0.08)",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (pagination.page !== 0) {
+                    e.currentTarget.style.backgroundColor = "#f9fafb";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 2px 6px rgba(0, 0, 0, 0.12)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (pagination.page !== 0) {
+                    e.currentTarget.style.backgroundColor = "#fff";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 1px 3px rgba(0, 0, 0, 0.08)";
+                  }
+                }}
+              >
+                <i
+                  className="ph-bold ph-caret-left"
+                  style={{ fontSize: isMobile ? "20px" : "18px" }}
+                ></i>
+              </button>
+
+              <button
+                className="pagination-nav-btn"
+                disabled={pagination.page >= processedData.totalPages - 1}
+                onClick={() => handlePageChange(pagination.page + 1)}
+                title="Sonraki sayfa"
+                style={{
+                  width: isMobile ? "46px" : "36px",
+                  height: isMobile ? "46px" : "36px",
+                  border: isMobile
+                    ? pagination.page >= processedData.totalPages - 1
+                      ? "2px solid #E5E7EB"
+                      : "2px solid #CBD5E1"
+                    : "none",
+                  borderRadius: isMobile ? "16px" : "8px",
+                  backgroundColor:
+                    pagination.page >= processedData.totalPages - 1
+                      ? isMobile
+                        ? "#F1F5F9"
+                        : "#f3f4f6"
+                      : isMobile
+                      ? "#FFFFFF"
+                      : "#fff",
+                  color:
+                    pagination.page >= processedData.totalPages - 1
+                      ? isMobile
+                        ? "#CBD5E1"
+                        : "#d1d5db"
+                      : isMobile
+                      ? "#1E293B"
+                      : "#374151",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor:
+                    pagination.page >= processedData.totalPages - 1
+                      ? "not-allowed"
+                      : "pointer",
+                  boxShadow:
+                    pagination.page >= processedData.totalPages - 1
+                      ? "none"
+                      : isMobile
+                      ? "0 2px 6px rgba(15, 23, 42, 0.08)"
+                      : "0 1px 3px rgba(0, 0, 0, 0.08)",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (pagination.page < processedData.totalPages - 1) {
+                    e.currentTarget.style.backgroundColor = "#f9fafb";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 2px 6px rgba(0, 0, 0, 0.12)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (pagination.page < processedData.totalPages - 1) {
+                    e.currentTarget.style.backgroundColor = "#fff";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 1px 3px rgba(0, 0, 0, 0.08)";
+                  }
+                }}
+              >
+                <i
+                  className="ph-bold ph-caret-right"
+                  style={{ fontSize: isMobile ? "20px" : "18px" }}
+                ></i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Overlay Loading */}
       {showOverlayLoading && (
