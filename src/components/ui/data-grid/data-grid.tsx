@@ -817,7 +817,7 @@ export function DataGrid<T extends Record<string, any>>({
         height: isMobile ? "auto" : hideFooter ? "auto" : height,
         minHeight: isMobile
           ? "auto"
-          : hideFooter 
+          : hideFooter
           ? "auto"
           : typeof height === "number"
           ? `${height}px`
