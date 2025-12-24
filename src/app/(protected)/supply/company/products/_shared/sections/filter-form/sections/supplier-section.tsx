@@ -15,7 +15,7 @@ export const SupplierSection = () => {
         <FormAutocomplete
           key={`supplier-${values.supplierId || "empty"}`}
           name="supplierId"
-          variant="inline"
+          variant="outline"
           placeholder="Tedarikçi ara..."
           options={options.suppliers.data}
           noOptionsText="Tedarikçi bulunamadı"

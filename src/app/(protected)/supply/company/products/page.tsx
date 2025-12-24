@@ -14,23 +14,16 @@ const ProductsPage: React.FC = () => {
   usePageTitle("Ürün Arama");
 
   return (
-    <div>
-      <section
-        className="course-list-view py-40 background-img bg-img"
-        data-background-image="assets/images/bg/gradient-bg.png"
-      >
-        <div className={`side-overlay`}></div>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <ProductsFilterForm />
-            </div>
-            <div className="col-lg-9">
-              {!hasSearched ? <InitialProductsSearchState /> : <Results />}
-            </div>
-          </div>
+    <div className="d-flex flex-column gap-24">
+      {/* Filter Form - Header Tarzı */}
+      <ProductsFilterForm />
+
+      {/* Results - Alt Kısım */}
+      <div className="row">
+        <div className="col-12">
+          {!hasSearched ? <InitialProductsSearchState /> : <Results />}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

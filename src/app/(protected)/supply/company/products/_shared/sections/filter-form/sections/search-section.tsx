@@ -8,9 +8,10 @@ export const SearchSection = {
     <div className="position-relative d-flex flex-column gap-12">
       <FormInput
         name="searchTerm"
-        variant="inline"
+        variant="outline"
         placeholder="Ürün adı, kodu veya açıklama ile ara..."
         iconLeft="ph-magnifying-glass"
+        fullWidth
       />
     </div>
   ),

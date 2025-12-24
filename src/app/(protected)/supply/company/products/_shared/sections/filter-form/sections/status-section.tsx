@@ -12,7 +12,8 @@ export const StatusSection = () => ({
       value=""
       options={statusOptions}
       multi={true}
-      isShowAll={false}
+      direction="horizontal"
+      col={6}
     />
   ),
 });

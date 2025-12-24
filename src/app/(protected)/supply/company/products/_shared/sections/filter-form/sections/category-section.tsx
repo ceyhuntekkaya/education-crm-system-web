@@ -15,7 +15,7 @@ export const CategorySection = () => {
         <FormAutocomplete
           key={`category-${values.categoryId || "empty"}`}
           name="categoryId"
-          variant="inline"
+          variant="outline"
           placeholder="Kategori ara..."
           options={options.categories.data}
           noOptionsText="Kategori bulunamadı"
