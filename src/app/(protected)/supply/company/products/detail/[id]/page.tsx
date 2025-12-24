@@ -7,9 +7,9 @@ import {
   useProductDetail,
   useProductSections,
   useSupplierSections,
+  ProductFooter,
 } from "./_shared";
 import { usePageTitle } from "@/hooks";
-import { AddToFavorite } from "../../../_shared";
 
 /**
  * Product detay bilgilerini gösteren kart bileşeni
@@ -28,33 +28,41 @@ const ProductDetailPage: React.FC = () => {
   const hasValidId = !!(productId && productId > 0);
 
   return (
-    <div className="d-flex flex-column gap-24">
-      <AddToFavorite productId={productId} />
-      <CustomCard
-        title="Ürün Bilgisi Detayı"
-        subtitle="Ürün bilgilerini detaylı olarak görüntüleyin"
-        isLoading={isLoading && hasValidId}
-        loadingMessage="Ürün bilgisi yükleniyor..."
-        isError={!!error && hasValidId}
-        errorMessage={
-          error ? `Ürün bilgisi yüklenirken hata oluştu: ${error}` : undefined
-        }
-        isEmpty={!product && !isLoading && !error && hasValidId}
-        emptyMessage="Ürün Bilgisi Bulunamadı"
-        emptyDescription="Bu ID ile ilişkili bir ürün bulunamadı. Lütfen geçerli bir ürün ID'si ile tekrar deneyin."
-        emptyIcon="ph-package"
-        multiItems={allSections}
-        isBack
-      />
-
-      {supplier && supplierSections.length > 0 && (
+    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+      <div className="d-flex flex-column gap-24 flex-grow-1">
         <CustomCard
-          title="Tedarikçi Bilgileri"
-          subtitle="Ürünün tedarikçi bilgilerini görüntüleyin"
-          multiItems={supplierSections}
-          //   type="accordion"
+          title="Ürün Bilgisi Detayı"
+          subtitle="Ürün bilgilerini detaylı olarak görüntüleyin"
+          isLoading={isLoading && hasValidId}
+          loadingMessage="Ürün bilgisi yükleniyor..."
+          isError={!!error && hasValidId}
+          errorMessage={
+            error ? `Ürün bilgisi yüklenirken hata oluştu: ${error}` : undefined
+          }
+          isEmpty={!product && !isLoading && !error && hasValidId}
+          emptyMessage="Ürün Bilgisi Bulunamadı"
+          emptyDescription="Bu ID ile ilişkili bir ürün bulunamadı. Lütfen geçerli bir ürün ID'si ile tekrar deneyin."
+          emptyIcon="ph-package"
+          multiItems={allSections}
+          isBack
         />
-      )}
+
+        {supplier && supplierSections.length > 0 && (
+          <CustomCard
+            title="Tedarikçi Bilgileri"
+            subtitle="Ürünün tedarikçi bilgilerini görüntüleyin"
+            multiItems={supplierSections}
+            //   type="accordion"
+          />
+        )}
+      </div>
+
+      {/* Sticky Footer - Sadece içerik alanını kaplar */}
+      <ProductFooter
+        product={product}
+        productId={productId}
+        supplierId={supplier?.id}
+      />
     </div>
   );
 };
