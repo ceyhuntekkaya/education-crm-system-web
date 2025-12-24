@@ -5,14 +5,14 @@ import { ProductDto } from "@/types";
 
 /**
  * Product sections hook'u
- * Tüm section işleme mantığını kapsüller
+ * Product section işleme mantığını kapsüller (tedarikçi bilgileri ayrı CustomCard'da)
  */
 export const useProductSections = (product: ProductDto | null) => {
   return useMemo(() => {
     // Product null ise boş array döndür
     if (!product) return [];
 
-    // Ana section'ları oluştur
+    // Ana section'ları oluştur (tedarikçi bilgileri ayrı CustomCard'da olacak)
     const productSections = createSections(PRODUCT_SECTIONS, product);
 
     return productSections;

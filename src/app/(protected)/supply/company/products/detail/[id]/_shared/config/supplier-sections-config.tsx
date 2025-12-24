@@ -4,10 +4,9 @@ import type { SupplierInfoItemConfig } from "../types";
 import { formatPhoneNumber, renderStars } from "@/utils";
 
 /**
- * Tedarikçi özet bilgileri konfigürasyonu
- * Supplier objesinden gelen detaylı bilgileri gösterir
+ * Tedarikçi Temel Bilgileri
  */
-export const supplierInfoConfig: SupplierInfoItemConfig[] = [
+export const supplierBasicInfoConfig: SupplierInfoItemConfig[] = [
   {
     label: "Firma Adı",
     value: (supplier) => {
@@ -26,6 +25,34 @@ export const supplierInfoConfig: SupplierInfoItemConfig[] = [
     },
     isShowing: () => true,
   },
+  {
+    label: "Vergi Numarası",
+    value: (supplier) => (
+      <span className="text-neutral-700 font-monospace">
+        {supplier?.taxNumber || "Belirtilmemiş"}
+      </span>
+    ),
+    isShowing: (supplier) => !!supplier?.taxNumber,
+  },
+  {
+    label: "Durum",
+    value: (supplier) => (
+      <span
+        className={`fw-semibold ${
+          supplier?.isActive ? "text-success-600" : "text-danger-600"
+        }`}
+      >
+        {supplier?.isActive ? "Aktif" : "Pasif"}
+      </span>
+    ),
+    isShowing: () => true,
+  },
+];
+
+/**
+ * Tedarikçi İletişim Bilgileri
+ */
+export const supplierContactInfoConfig: SupplierInfoItemConfig[] = [
   {
     label: "E-posta",
     value: (supplier) => (
@@ -51,15 +78,6 @@ export const supplierInfoConfig: SupplierInfoItemConfig[] = [
     isShowing: (supplier) => !!supplier?.phone,
   },
   {
-    label: "Vergi Numarası",
-    value: (supplier) => (
-      <span className="text-neutral-700 font-monospace">
-        {supplier?.taxNumber || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (supplier) => !!supplier?.taxNumber,
-  },
-  {
     label: "Adres",
     value: (supplier) => (
       <span className="text-neutral-600">
@@ -68,6 +86,12 @@ export const supplierInfoConfig: SupplierInfoItemConfig[] = [
     ),
     isShowing: (supplier) => !!supplier?.address,
   },
+];
+
+/**
+ * Tedarikçi Değerlendirme ve Ek Bilgiler
+ */
+export const supplierAdditionalInfoConfig: SupplierInfoItemConfig[] = [
   {
     label: "Ortalama Değerlendirme",
     value: (supplier) => (
@@ -89,18 +113,5 @@ export const supplierInfoConfig: SupplierInfoItemConfig[] = [
       </span>
     ),
     isShowing: (supplier) => !!supplier?.description,
-  },
-  {
-    label: "Durum",
-    value: (supplier) => (
-      <span
-        className={`fw-semibold ${
-          supplier?.isActive ? "text-success-600" : "text-danger-600"
-        }`}
-      >
-        {supplier?.isActive ? "Aktif" : "Pasif"}
-      </span>
-    ),
-    isShowing: () => true,
   },
 ];

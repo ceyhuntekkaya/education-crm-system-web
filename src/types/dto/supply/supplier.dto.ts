@@ -21,12 +21,24 @@ export interface SupplierDto {
 }
 
 /**
- * Tedarikçi API response
+ * Tedarikçi API response (Liste)
+ */
+export interface ApiResponseSupplierListDto {
+  success?: boolean;
+  message?: string;
+  data?: SupplierDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+/**
+ * Tedarikçi API response (Tekil)
  */
 export interface ApiResponseSupplierDto {
   success?: boolean;
   message?: string;
-  data?: SupplierDto[];
+  data?: SupplierDto;
   errors?: string[];
   timestamp?: string;
   path?: string;

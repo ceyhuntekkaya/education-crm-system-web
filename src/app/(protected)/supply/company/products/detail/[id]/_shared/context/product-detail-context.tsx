@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useProductById } from "../hooks/use-product-by-id";
+import { useProductById, useSupplierById } from "../hooks/api";
 import {
   ProductDetailContextValue,
   ProductDetailProviderProps,
@@ -17,12 +17,24 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
 }) => {
   const { product, isLoading, error, refetch } = useProductById(productId);
 
+  // Product yüklendikten sonra supplierId ile supplier bilgisini çek
+  const {
+    supplier,
+    isLoading: isLoadingSupplier,
+    error: supplierError,
+    refetch: refetchSupplier,
+  } = useSupplierById(product?.supplierId);
+
   const contextValue: ProductDetailContextValue = {
     productId,
     product,
+    supplier,
     isLoading,
+    isLoadingSupplier,
     error,
+    supplierError,
     refetch,
+    refetchSupplier,
   };
 
   return (

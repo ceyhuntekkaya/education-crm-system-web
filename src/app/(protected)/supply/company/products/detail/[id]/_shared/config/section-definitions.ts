@@ -3,12 +3,12 @@ import {
   basicInfoConfig,
   stockInfoConfig,
   priceInfoConfig,
-  supplierInfoConfig,
   additionalInfoConfig,
 } from "./";
 
 /**
  * Ana product section'ları tanımlar
+ * Not: Tedarikçi Bilgileri section'ı dinamik olarak supplier verisi ile oluşturulur
  */
 export const PRODUCT_SECTIONS: SectionConfig[] = [
   {
@@ -16,12 +16,6 @@ export const PRODUCT_SECTIONS: SectionConfig[] = [
     titleColor: "text-primary-600",
     titleIcon: "ph-bold ph-info",
     config: basicInfoConfig,
-  },
-  {
-    title: "Tedarikçi Bilgileri",
-    titleColor: "text-secondary-600",
-    titleIcon: "ph-bold ph-buildings",
-    config: supplierInfoConfig,
   },
   {
     title: "Stok Bilgileri",

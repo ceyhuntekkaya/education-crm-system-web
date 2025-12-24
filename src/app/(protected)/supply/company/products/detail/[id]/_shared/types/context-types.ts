@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductDto } from "@/types";
+import { ProductDto, SupplierDto } from "@/types";
 
 /**
  * Product detail context için interface'ler
@@ -7,9 +7,13 @@ import { ProductDto } from "@/types";
 export interface ProductDetailContextValue {
   productId: number;
   product: ProductDto | null;
+  supplier: SupplierDto | null;
   isLoading: boolean;
+  isLoadingSupplier: boolean;
   error: string | null;
+  supplierError: string | null;
   refetch: () => void;
+  refetchSupplier: () => void;
 }
 
 export interface ProductDetailProviderProps {

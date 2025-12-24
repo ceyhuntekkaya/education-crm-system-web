@@ -1,6 +1,7 @@
 import React from "react";
 import type { SectionConfigItem, ProcessedSectionItem } from "../types";
-import { ProductDto } from "@/types";
+import { ProductDto, SupplierDto } from "@/types";
+import type { SupplierInfoItemConfig } from "../types/config-types";
 
 /**
  * Config'i işleyerek kullanılabilir item listesine dönüştürür
@@ -15,6 +16,22 @@ export const processConfig = (
     label: configItem.label,
     value: configItem.value(product),
     isShowing: configItem.isShowing(product),
+  }));
+};
+
+/**
+ * Supplier config'i işleyerek kullanılabilir item listesine dönüştürür
+ */
+export const processSupplierConfig = (
+  config: SupplierInfoItemConfig[],
+  supplier: SupplierDto | null
+): ProcessedSectionItem[] => {
+  if (!supplier) return [];
+
+  return config.map((configItem) => ({
+    label: configItem.label,
+    value: configItem.value(supplier),
+    isShowing: configItem.isShowing(supplier),
   }));
 };
 
