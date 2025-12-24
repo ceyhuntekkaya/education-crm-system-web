@@ -179,7 +179,7 @@ const FormContent = ({
   );
 };
 
-const ProductsFilterForm = () => {
+const FilterForm = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -245,4 +245,4 @@ const ProductsFilterForm = () => {
   );
 };
 
-export default ProductsFilterForm;
+export default FilterForm;

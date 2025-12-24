@@ -4,9 +4,9 @@ import React from "react";
 import { usePageTitle } from "@/hooks";
 import {
   ProductsFilterForm,
-  ProductsResults,
   InitialProductsSearchState,
   useProductsSearchContext,
+  Results,
 } from "./_shared";
 
 const ProductsPage: React.FC = () => {
@@ -26,11 +26,7 @@ const ProductsPage: React.FC = () => {
               <ProductsFilterForm />
             </div>
             <div className="col-lg-9">
-              {!hasSearched ? (
-                <InitialProductsSearchState />
-              ) : (
-                <ProductsResults />
-              )}
+              {!hasSearched ? <InitialProductsSearchState /> : <Results />}
             </div>
           </div>
         </div>

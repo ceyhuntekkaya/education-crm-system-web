@@ -27,6 +27,7 @@ export function ProductsSearchProvider({
 }: ProductsSearchProviderProps) {
   const [searchUrl, setSearchUrl] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useState<Record<string, unknown>>({});
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // 📝 FORM MANAGEMENT
   const { values, resetForm } = useFormHook();
@@ -67,6 +68,8 @@ export function ProductsSearchProvider({
     searchLoading: loading,
     searchError: error,
     resetSearch,
+    viewMode,
+    setViewMode,
   };
 
   return (

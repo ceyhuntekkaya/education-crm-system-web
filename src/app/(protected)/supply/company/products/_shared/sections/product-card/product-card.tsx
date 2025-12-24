@@ -81,8 +81,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return "bg-success-100 text-success-700";
   };
 
-  console.log("products ", product);
-
   return (
     <div className="col-12 col-md-6 col-lg-4 col-xl-3">
       <div
@@ -90,8 +88,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           !product.status || product.status === "PASSIVE" ? "opacity-70" : ""
         }`}
         style={{
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-          border: "1px solid hsl(var(--neutral-30))",
+          boxShadow:
+            "0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)",
+          border: "1.5px solid hsl(var(--neutral-40))",
         }}
       >
         {/* Product Image - Campaign Card Style */}

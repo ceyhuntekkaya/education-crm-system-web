@@ -85,6 +85,10 @@ export interface ProductsSearchContextValue {
   products: ProductResultDto[];
   hasSearched: boolean; // İlk arama yapıldı mı?
 
+  // View mode (grid/list)
+  viewMode: "grid" | "list";
+  setViewMode: (mode: "grid" | "list") => void;
+
   // Kategoriler
   categories: {
     data: { value: string; label: string }[];
