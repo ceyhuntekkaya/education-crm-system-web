@@ -1,5 +1,6 @@
 import React from "react";
-import { CustomImage } from "@/components/ui";
+import { useRouter } from "next/navigation";
+import { CustomImage, Button } from "@/components/ui";
 import { ProductResultDto } from "../../types";
 
 interface ProductCardProps {
@@ -7,6 +8,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const router = useRouter();
+
   // Stok durumu kontrolü
   const isLowStock =
     product.currentStock !== undefined &&
@@ -314,13 +317,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
           </div>
 
-          {/* Delivery Days - If exists */}
+          {/* Delivery Days with Detail Button */}
           {product.deliveryDays && (
-            <div className="d-flex align-items-center gap-6 mb-12">
-              <i className="ph-bold ph-clock text-neutral-400 text-sm"></i>
-              <span className="text-xs text-neutral-500 fw-medium">
-                Teslimat: {product.deliveryDays} Gün
-              </span>
+            <div className="d-flex align-items-center justify-content-between gap-12 mb-12">
+              <div className="d-flex align-items-center gap-6">
+                <i className="ph-bold ph-clock text-neutral-400 text-sm"></i>
+                <span className="text-xs text-neutral-500 fw-medium">
+                  Teslimat: {product.deliveryDays} Gün
+                </span>
+              </div>
+              <Button
+                variant="outline"
+                size="xs"
+                rightIcon="ph-bold ph-eye"
+                onClick={() =>
+                  router.push(`/supply/company/products/detail/${product.id}`)
+                }
+              >
+                Detay
+              </Button>
             </div>
           )}
 
