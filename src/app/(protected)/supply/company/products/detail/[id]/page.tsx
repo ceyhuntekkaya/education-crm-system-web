@@ -9,6 +9,7 @@ import {
   useSupplierSections,
 } from "./_shared";
 import { usePageTitle } from "@/hooks";
+import { AddToFavorite } from "../../../_shared";
 
 /**
  * Product detay bilgilerini gösteren kart bileşeni
@@ -28,6 +29,7 @@ const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="d-flex flex-column gap-24">
+      <AddToFavorite productId={productId} />
       <CustomCard
         title="Ürün Bilgisi Detayı"
         subtitle="Ürün bilgilerini detaylı olarak görüntüleyin"

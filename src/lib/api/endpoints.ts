@@ -301,6 +301,16 @@ export const API_ENDPOINTS = {
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
     },
+
+    // Wishlists
+    WISHLISTS: {
+      LIST: "/supply/wishlists",
+      BY_ID: (id: string | number) => `/supply/wishlists/${id}`,
+      CREATE: "/supply/wishlists",
+      DELETE: (id: string | number) => `/supply/wishlists/${id}`,
+      CHECK: (productId: string | number) =>
+        `/supply/wishlists/check/${productId}`,
+    },
   },
 
   // // Todos
