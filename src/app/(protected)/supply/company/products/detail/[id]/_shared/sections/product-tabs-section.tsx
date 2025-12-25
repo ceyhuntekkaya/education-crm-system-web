@@ -65,8 +65,10 @@ export const ProductTabsSection: React.FC = () => {
           <div>
             {product.description ? (
               <div className="product-detail-page__description">
-                <h4>Açıklama</h4>
-                <Divider size="sm" />
+                <div>
+                  <h4>Açıklama</h4>
+                  <Divider size="sm" />
+                </div>
                 <p>{product.description}</p>
               </div>
             ) : (
@@ -76,7 +78,7 @@ export const ProductTabsSection: React.FC = () => {
             )}
 
             {allSections.length > 0 && (
-              <div className="product-detail-page__section-grid">
+              <div className="product-detail-page__section-grid mt-32">
                 {allSections.map((section, sectionIndex) => {
                   const filteredItems = section.items.filter(
                     (item: ProcessedSectionItem) => item.isShowing
@@ -88,17 +90,19 @@ export const ProductTabsSection: React.FC = () => {
                       key={sectionIndex}
                       className="product-detail-page__section-item"
                     >
-                      <h4
-                        className={`product-detail-page__section-title ${
-                          section.titleColor || "text-main-600"
-                        }`}
-                      >
-                        {section.titleIcon && (
-                          <i className={section.titleIcon}></i>
-                        )}
-                        {section.title}
-                      </h4>
-                      <Divider size="sm" />
+                      <div>
+                        <h4
+                          className={`product-detail-page__section-title ${
+                            section.titleColor || "text-main-600"
+                          }`}
+                        >
+                          {section.titleIcon && (
+                            <i className={section.titleIcon}></i>
+                          )}
+                          {section.title}
+                        </h4>
+                        <Divider size="sm" />
+                      </div>
                       <div className="product-detail-page__section-items">
                         {filteredItems.map(
                           (item: ProcessedSectionItem, itemIndex: number) => (
@@ -126,8 +130,10 @@ export const ProductTabsSection: React.FC = () => {
 
         {activeTab === "specs" && product.technicalSpecs && (
           <div className="product-detail-page__specs-container">
-            <h4>Teknik Özellikler</h4>
-            <Divider size="sm" />
+            <div>
+              <h4>Teknik Özellikler</h4>
+              <Divider size="sm" />
+            </div>
             <div className="product-detail-page__specs-content">
               <pre>{product.technicalSpecs}</pre>
             </div>
@@ -138,9 +144,9 @@ export const ProductTabsSection: React.FC = () => {
           supplier &&
           supplierSections.length > 0 && (
             <div>
-              <h4 className="fw-semibold text-neutral-900 mb-24">
+              {/* <h4 className="fw-semibold text-neutral-900 mb-24">
                 Tedarikçi Bilgileri
-              </h4>
+              </h4> */}
               <div className="row g-3">
                 {supplierSections.map((section, sectionIndex) => {
                   const filteredItems = section.items.filter(
