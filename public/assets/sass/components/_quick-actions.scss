@@ -1,0 +1,306 @@
+// =============================================
+// Quick Actions Card Component
+// =============================================
+.quick-action-card {
+  border: 1px solid rgba(17, 24, 39, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+  position: relative;
+  padding: 12px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  height: 100%;
+  min-height: 110px;
+
+  @media (max-width: 767.98px) {
+    padding: 10px !important;
+    min-height: 100px;
+  }
+
+  // Hover effect
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: rgba(17, 24, 39, 0.1);
+
+    .quick-action-icon-box {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(72, 127, 238, 0.3);
+    }
+
+    .quick-action-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+      background: rgba(72, 127, 238, 0.1);
+      color: #487fee;
+    }
+
+    .quick-action-blur {
+      opacity: 0.04;
+    }
+  }
+
+  // Active state
+  &:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+  }
+}
+
+// =============================================
+// Decorative Background Elements (Color Variants)
+// =============================================
+.quick-action-blur {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+  transition: opacity 0.3s ease;
+
+  @media (max-width: 767.98px) {
+    opacity: 0.015;
+  }
+}
+
+.quick-action-blur-primary {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, #487fee 0%, #6366f1 100%);
+  top: -80px;
+  right: -50px;
+
+  @media (max-width: 767.98px) {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -40px;
+  }
+}
+
+.quick-action-blur-success {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  top: -80px;
+  right: -50px;
+
+  @media (max-width: 767.98px) {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -40px;
+  }
+}
+
+.quick-action-blur-info {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  top: -80px;
+  right: -50px;
+
+  @media (max-width: 767.98px) {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -40px;
+  }
+}
+
+.quick-action-blur-secondary {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  bottom: -70px;
+  left: -40px;
+
+  @media (max-width: 767.98px) {
+    width: 100px;
+    height: 100px;
+    bottom: -50px;
+    left: -30px;
+  }
+}
+
+// =============================================
+// Quick Action Content Section
+// =============================================
+.quick-action-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row; // Icon solda, yazılar sağda
+  align-items: flex-start; // Icon ve yazılar üstten hizalı
+  gap: 10px;
+  flex: 1;
+  padding-bottom: 24px; // Arrow için yer bırak
+
+  @media (max-width: 767.98px) {
+    gap: 8px;
+    padding-bottom: 20px;
+  }
+}
+
+.quick-action-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0; // Text overflow için
+
+  @media (max-width: 767.98px) {
+    gap: 3px;
+  }
+}
+
+// =============================================
+// Icon Box
+// =============================================
+.quick-action-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(72, 127, 238, 0.2);
+  flex-shrink: 0; // Icon boyutu sabit kalacak
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 767.98px) {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+
+  // Color variants
+  &.bg-primary-600 {
+    background: linear-gradient(135deg, #487fee 0%, #6366f1 100%);
+    box-shadow: 0 4px 12px rgba(72, 127, 238, 0.25);
+  }
+
+  &.bg-success-600 {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+  }
+
+  &.bg-info-600 {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+  }
+}
+
+// =============================================
+// Title
+// =============================================
+.quick-action-title {
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  padding: 0 36px 0 0; // Sağ tarafta arrow için yer bırak
+  transition: color 0.2s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+
+  @media (max-width: 767.98px) {
+    font-size: 0.875rem;
+    padding: 0 32px 0 0;
+    line-height: 1.25;
+  }
+}
+
+// =============================================
+// Description
+// =============================================
+.quick-action-description {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: rgba(17, 24, 39, 0.65);
+  margin: 0;
+  padding: 0 36px 0 0; // Sağ tarafta arrow için yer bırak
+  max-width: 100%;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 767.98px) {
+    font-size: 0.6875rem;
+    padding: 0 32px 0 0;
+    line-height: 1.35;
+    -webkit-line-clamp: 2;
+  }
+}
+
+// =============================================
+// Arrow Indicator
+// =============================================
+.quick-action-arrow {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 24, 39, 0.04);
+  color: rgba(17, 24, 39, 0.5);
+  font-size: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.6;
+  z-index: 10; // Content'in üstünde olması için
+  pointer-events: none; // Tıklamaları engelleme
+
+  @media (max-width: 767.98px) {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    bottom: 6px;
+    right: 6px;
+  }
+
+  .quick-action-card:hover & {
+    background: rgba(72, 127, 238, 0.12);
+    color: #487fee;
+    opacity: 1;
+  }
+}
+
+// =============================================
+// Link Wrapper
+// =============================================
+.quick-action-link {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+  color: inherit;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #487fee;
+    outline-offset: 2px;
+    border-radius: 16px;
+  }
+}
+

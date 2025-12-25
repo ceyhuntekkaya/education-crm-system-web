@@ -156,7 +156,7 @@ export default function CustomCard({
   items,
   multiItems,
   headerBgColor = "bg-main-25",
-  headerPadding = "p-32",
+  headerPadding,
   mobileHeaderPadding,
   mobilePadding,
   showDivider = true,
@@ -190,15 +190,49 @@ export default function CustomCard({
     .filter(Boolean)
     .join(" ");
 
+  // Size-based padding classes
+  const getHeaderPaddingClass = (size: string) => {
+    if (headerPadding) return headerPadding;
+    switch (size) {
+      case "xs":
+        return "p-12";
+      case "sm":
+        return "p-16";
+      case "md":
+        return "p-24";
+      case "lg":
+        return "p-28";
+      case "xl":
+      default:
+        return "p-32";
+    }
+  };
+
+  const getDividerSpacing = (size: string) => {
+    switch (size) {
+      case "xs":
+        return "my-8";
+      case "sm":
+        return "my-12";
+      case "md":
+        return "my-16";
+      case "lg":
+        return "my-20";
+      case "xl":
+      default:
+        return "my-24";
+    }
+  };
+
   // Size-based font classes
   const getTitleClass = (size: string) => {
     switch (size) {
       case "xs":
-        return "custom-card-title-xs mb-4"; // Smallest title
+        return "custom-card-title-xs mb-2"; // Smallest title
       case "sm":
-        return "custom-card-title-sm mb-6"; // Small title
+        return "custom-card-title-sm mb-4"; // Small title
       case "md":
-        return "custom-card-title-md mb-8"; // Medium title
+        return "custom-card-title-md mb-6"; // Medium title
       case "lg":
         return "custom-card-title-lg mb-8"; // Large title
       case "xl":
@@ -364,8 +398,8 @@ export default function CustomCard({
     ? `${padding} mobile-custom-padding`
     : padding;
   const responsiveHeaderPadding = mobileHeaderPadding
-    ? `${headerPadding} mobile-custom-header-padding`
-    : headerPadding;
+    ? `${getHeaderPaddingClass(size)} mobile-custom-header-padding`
+    : getHeaderPaddingClass(size);
 
   return (
     <div
@@ -476,7 +510,7 @@ export default function CustomCard({
                   isAccordionOpen
                     ? "card-expand-transition opacity-100"
                     : "opacity-0"
-                }`
+                } ${responsivePadding}`
               : ""
           }`}
           style={{
@@ -490,7 +524,11 @@ export default function CustomCard({
           {(type === "card" || hasContent) && (
             <>
               {hasHeader && hasContent && showDivider && (
-                <span className="d-block border border-neutral-30 my-24 border-dashed" />
+                <span
+                  className={`d-block border border-neutral-30 ${getDividerSpacing(
+                    size
+                  )} border-dashed`}
+                />
               )}
 
               {/* State Content (Loading, Error, Empty) */}
@@ -501,7 +539,17 @@ export default function CustomCard({
                 <>
                   {/* Children Content */}
                   {children && (
-                    <div className={items || multiItems ? "mb-24" : ""}>
+                    <div
+                      className={
+                        items || multiItems
+                          ? size === "xs"
+                            ? "mb-12"
+                            : size === "sm"
+                            ? "mb-16"
+                            : "mb-24"
+                          : ""
+                      }
+                    >
                       {children}
                     </div>
                   )}
@@ -561,22 +609,34 @@ export default function CustomCard({
                         <div key={sectionIndex}>
                           {/* Section Title */}
                           <h4
-                            className={`mb-16 ${
-                              section.titleColor || "text-main-600"
-                            }`}
+                            className={`${
+                              size === "xs"
+                                ? "mb-8"
+                                : size === "sm"
+                                ? "mb-12"
+                                : "mb-16"
+                            } ${section.titleColor || "text-main-600"}`}
                           >
                             {section.titleIcon && (
                               <i className={`${section.titleIcon} me-8`}></i>
                             )}
                             {section.title}
                           </h4>
-                          <span className="d-block border border-neutral-30 my-24 border-dashed" />
+                          <span
+                            className={`d-block border border-neutral-30 ${getDividerSpacing(
+                              size
+                            )} border-dashed`}
+                          />
 
                           {/* Section Items */}
                           <ul
                             className={`tution-info-list bg-white rounded-8 ${
                               sectionIndex < multiItems.length - 1
-                                ? "mb-32"
+                                ? size === "xs"
+                                  ? "mb-16"
+                                  : size === "sm"
+                                  ? "mb-20"
+                                  : "mb-32"
                                 : ""
                             }`}
                           >

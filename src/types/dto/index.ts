@@ -8,5 +8,6 @@ export * from "./parent";
 export * from "./pricing";
 export * from "./register";
 export * from "./subscription";
+export * from "./supply";
 export * from "./survey";
 export * from "./user";
