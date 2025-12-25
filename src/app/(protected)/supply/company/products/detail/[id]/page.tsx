@@ -1,68 +1,65 @@
 "use client";
 
 import React from "react";
-
-import { CustomCard } from "@/components/ui";
 import {
   useProductDetail,
-  useProductSections,
-  useSupplierSections,
   ProductFooter,
+  ProductImageSection,
+  ProductInfoSection,
+  ProductTabsSection,
+  ProductLoadingState,
+  ProductErrorState,
+  ProductEmptyState,
+  ProductBackButton,
 } from "./_shared";
 import { usePageTitle } from "@/hooks";
 
 /**
- * Product detay bilgilerini gösteren kart bileşeni
+ * Modern e-ticaret tarzı ürün detay sayfası
+ * Product Card tasarımından ilham alınmıştır
+ * Trendyol, Amazon, Hepsiburada gibi sitelerden esinlenilmiştir
  */
 const ProductDetailPage: React.FC = () => {
   usePageTitle("Ürün Detayı");
-  const { product, supplier, isLoading, error, productId } = useProductDetail();
+  const { product, isLoading, error, hasValidId } = useProductDetail();
 
-  // Ana section'ları oluştur (tedarikçi bilgileri ayrı gösterilecek)
-  const allSections = useProductSections(product);
+  // Loading state
+  if (isLoading && hasValidId) {
+    return <ProductLoadingState />;
+  }
 
-  // Tedarikçi section'larını oluştur
-  const supplierSections = useSupplierSections(supplier);
+  // Error state
+  if (error && hasValidId) {
+    return <ProductErrorState error={error} />;
+  }
 
-  // ID yoksa veya 0 ise özel mesaj göster
-  const hasValidId = !!(productId && productId > 0);
+  // Empty state
+  if (!product && !isLoading && !error && hasValidId) {
+    return <ProductEmptyState />;
+  }
+
+  if (!product) return null;
 
   return (
-    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
-      <div className="d-flex flex-column gap-24 flex-grow-1">
-        <CustomCard
-          title="Ürün Bilgisi Detayı"
-          subtitle="Ürün bilgilerini detaylı olarak görüntüleyin"
-          isLoading={isLoading && hasValidId}
-          loadingMessage="Ürün bilgisi yükleniyor..."
-          isError={!!error && hasValidId}
-          errorMessage={
-            error ? `Ürün bilgisi yüklenirken hata oluştu: ${error}` : undefined
-          }
-          isEmpty={!product && !isLoading && !error && hasValidId}
-          emptyMessage="Ürün Bilgisi Bulunamadı"
-          emptyDescription="Bu ID ile ilişkili bir ürün bulunamadı. Lütfen geçerli bir ürün ID'si ile tekrar deneyin."
-          emptyIcon="ph-package"
-          multiItems={allSections}
-          isBack
-        />
+    <div className="product-detail-page">
+      <div className="product-detail-page__container">
+        {/* Geri Dön - Minimal Tasarım */}
+        <ProductBackButton />
 
-        {supplier && supplierSections.length > 0 && (
-          <CustomCard
-            title="Tedarikçi Bilgileri"
-            subtitle="Ürünün tedarikçi bilgilerini görüntüleyin"
-            multiItems={supplierSections}
-            //   type="accordion"
-          />
-        )}
+        {/* Ana Ürün Bilgileri */}
+        <div className="product-detail-page__main-section">
+          <div className="row g-4">
+            <ProductImageSection />
+            <ProductInfoSection />
+          </div>
+        </div>
+
+        {/* Detaylı Bilgiler - Tab Navigation */}
+        <ProductTabsSection />
       </div>
 
-      {/* Sticky Footer - Sadece içerik alanını kaplar */}
-      <ProductFooter
-        product={product}
-        productId={productId}
-        supplierId={supplier?.id}
-      />
+      {/* Sticky Footer */}
+      <ProductFooter />
     </div>
   );
 };

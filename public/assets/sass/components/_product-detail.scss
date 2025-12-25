@@ -1,0 +1,822 @@
+// =============================================
+// Product Detail Page Styles
+// E-ticaret tarzı ürün detay sayfası tasarımı
+// Product Card tasarımından ilham alınmıştır
+// =============================================
+
+.product-detail-page {
+  // Ana container
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  // Breadcrumb ve geri dön butonu
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  // Minimal geri dön butonu
+  &__back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    color: hsl(var(--neutral-600));
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: hsl(var(--main-600));
+      background: hsl(var(--main-50));
+
+      i {
+        transform: translateX(-2px);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Ana ürün bilgileri bölümü
+  &__main-section {
+    margin-bottom: 32px;
+  }
+
+  // Görsel galeri bölümü (sol taraf)
+  &__image-section {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+
+    @media (max-width: 991.98px) {
+      position: relative;
+      top: 0;
+      margin-bottom: 24px;
+    }
+  }
+
+  // Ana section - col-6 col-6 layout
+  &__main-section {
+    margin-bottom: 32px;
+
+    .row {
+      @media (min-width: 992px) {
+        // Desktop'ta görsel ve bilgiler yan yana
+        display: flex;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  &__image-container {
+    background: #fff;
+    border: 1.5px solid hsl(var(--neutral-40));
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  &__main-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: hsl(var(--neutral-50));
+    min-height: 400px;
+
+    @media (max-width: 767.98px) {
+      min-height: 300px;
+    }
+
+    img {
+      transition: transform 0.3s ease;
+      object-fit: contain;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  &__image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: hsl(var(--neutral-400));
+    background: hsl(var(--neutral-50));
+
+    i {
+      font-size: 4rem;
+      opacity: 0.3;
+      margin-bottom: 12px;
+    }
+  }
+
+  // Ürün bilgileri bölümü (sağ taraf)
+  &__info-section {
+    padding-left: 32px;
+
+    @media (max-width: 991.98px) {
+      padding-left: 0;
+    }
+  }
+
+  &__title-section {
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  &__favorite-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+
+    @media (max-width: 767.98px) {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &__badges {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  &__status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &--active {
+      background: hsl(var(--success-25));
+      color: hsl(var(--success-600));
+    }
+
+    &--passive {
+      background: hsl(var(--warning-25));
+      color: hsl(var(--warning-600));
+    }
+
+    &--out-of-stock {
+      background: hsl(var(--danger-25));
+      color: hsl(var(--danger-600));
+    }
+
+    &--discontinued {
+      background: hsl(var(--neutral-25));
+      color: hsl(var(--neutral-500));
+    }
+  }
+
+  &__category-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: hsl(var(--main-25));
+    color: hsl(var(--main-600));
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: hsl(var(--neutral-900));
+    margin-bottom: 12px;
+
+    @media (max-width: 767.98px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__sku {
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: hsl(var(--neutral-500));
+
+    span {
+      color: hsl(var(--neutral-700));
+      font-weight: 600;
+    }
+  }
+
+  // Fiyat bölümü
+  &__price-section {
+    border-top: 1px solid hsl(var(--neutral-30));
+    border-bottom: 1px solid hsl(var(--neutral-30));
+    padding: 24px 0;
+    margin: 24px 0;
+  }
+
+  &__price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  &__price-item {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  &__price-label {
+    font-size: 0.75rem;
+    color: hsl(var(--neutral-500));
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  &__price-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    &--base {
+      color: hsl(var(--primary-600));
+    }
+
+    &--with-tax {
+      color: hsl(var(--success-600));
+      font-size: 1.5rem;
+    }
+
+    &--tax {
+      color: hsl(var(--neutral-700));
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 767.98px) {
+      font-size: 1.5rem;
+
+      &--with-tax {
+        font-size: 1.25rem;
+      }
+
+      &--tax {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  // Stok bilgisi
+  &__stock-section {
+    margin: 24px 0;
+  }
+
+  &__stock-label {
+    font-size: 0.75rem;
+    color: hsl(var(--neutral-500));
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  &__stock-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__stock-value {
+    font-weight: 600;
+    font-size: 1rem;
+
+    &--success {
+      color: hsl(var(--success-600));
+    }
+
+    &--warning {
+      color: hsl(var(--warning-600));
+    }
+
+    &--danger {
+      color: hsl(var(--danger-600));
+    }
+
+    &--neutral {
+      color: hsl(var(--neutral-500));
+    }
+  }
+
+  // Tedarikçi bilgisi
+  &__supplier-card {
+    background: hsl(var(--main-25));
+    border-radius: 12px;
+    padding: 16px;
+    margin: 24px 0;
+  }
+
+  &__supplier-label {
+    font-size: 0.75rem;
+    color: hsl(var(--neutral-500));
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  &__supplier-name {
+    font-weight: 600;
+    color: hsl(var(--main-600));
+    font-size: 1rem;
+  }
+
+  // Bilgi kartları
+  &__info-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  &__info-icon {
+    flex-shrink: 0;
+  }
+
+  &__info-text {
+    font-weight: 600;
+    color: hsl(var(--neutral-700));
+    font-size: 0.9375rem;
+  }
+
+  // Aksiyon kartları - Product Card Style (Zarif ve Belirgin)
+  &__action-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 24px;
+
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  &__action-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid rgba(17, 24, 39, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    flex: 1;
+    min-width: 0;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+      border-color: rgba(17, 24, 39, 0.12);
+
+      .product-detail-page__action-card-icon {
+        transform: scale(1.05);
+      }
+
+      .product-detail-page__action-card-arrow {
+        transform: translateX(3px);
+        color: hsl(var(--main-600));
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &--message {
+      border-color: rgba(72, 127, 238, 0.15);
+
+      .product-detail-page__action-card-icon {
+        background: hsl(var(--main-100));
+        border: 1px solid hsl(var(--main-200));
+
+        i {
+          color: hsl(var(--main-600)) !important;
+          opacity: 1 !important;
+          font-weight: 700 !important;
+        }
+      }
+
+      &:hover {
+        background: rgba(72, 127, 238, 0.02);
+        border-color: rgba(72, 127, 238, 0.25);
+
+        .product-detail-page__action-card-icon {
+          background: hsl(var(--main-50));
+          border-color: hsl(var(--main-300));
+
+          i {
+            color: hsl(var(--main-600)) !important;
+          }
+        }
+
+        .product-detail-page__action-card-label {
+          color: hsl(var(--main-700));
+        }
+      }
+    }
+
+    &--quote {
+      border-color: rgba(34, 197, 94, 0.15);
+
+      .product-detail-page__action-card-icon {
+        background: hsl(var(--success-100));
+        border: 1px solid hsl(var(--success-200));
+
+        i {
+          color: hsl(var(--success-600)) !important;
+          opacity: 1 !important;
+          font-weight: 700 !important;
+        }
+      }
+
+      &:hover {
+        background: rgba(34, 197, 94, 0.02);
+        border-color: rgba(34, 197, 94, 0.25);
+
+        .product-detail-page__action-card-icon {
+          background: hsl(var(--success-50));
+          border-color: hsl(var(--success-300));
+
+          i {
+            color: hsl(var(--success-600)) !important;
+          }
+        }
+
+        .product-detail-page__action-card-label {
+          color: hsl(var(--success-700));
+        }
+      }
+    }
+  }
+
+  &__action-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+
+    i {
+      font-size: 20px !important;
+      line-height: 1 !important;
+      display: block !important;
+      opacity: 1 !important;
+      font-weight: 700 !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (max-width: 575.98px) {
+      width: 40px;
+      height: 40px;
+
+      i {
+        font-size: 18px !important;
+      }
+    }
+  }
+
+  &__action-card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__action-card-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(var(--neutral-900));
+    margin: 0 0 3px 0;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease;
+
+    @media (max-width: 575.98px) {
+      font-size: 0.8125rem;
+      white-space: normal;
+    }
+  }
+
+  &__action-card-description {
+    font-size: 0.6875rem;
+    color: hsl(var(--neutral-500));
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: 575.98px) {
+      font-size: 0.625rem;
+      white-space: normal;
+    }
+  }
+
+  &__action-card-arrow {
+    font-size: 16px;
+    color: hsl(var(--neutral-400));
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    display: block;
+    line-height: 1;
+    margin-left: auto;
+
+    @media (max-width: 575.98px) {
+      font-size: 14px;
+    }
+  }
+
+  // Tab navigasyon
+  &__tabs-container {
+    background: #fff;
+    border: 1.5px solid hsl(var(--neutral-40));
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 32px;
+  }
+
+  &__tabs-header {
+    display: flex;
+    border-bottom: 1px solid hsl(var(--neutral-30));
+    background: hsl(var(--neutral-25));
+
+    @media (max-width: 575.98px) {
+      flex-direction: column;
+    }
+  }
+
+  &__tab-button {
+    flex: 1;
+    padding: 16px 24px;
+    text-align: center;
+    font-weight: 600;
+    border: 0;
+    background: transparent;
+    color: hsl(var(--neutral-500));
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+    position: relative;
+
+    @media (max-width: 575.98px) {
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    i {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      color: hsl(var(--main-600));
+      background: rgba(72, 127, 238, 0.05);
+    }
+
+    &--active {
+      color: hsl(var(--main-600));
+      border-bottom-color: hsl(var(--main-600));
+      background: #fff;
+    }
+  }
+
+  &__tab-content {
+    padding: 32px;
+
+    @media (max-width: 767.98px) {
+      padding: 20px;
+    }
+  }
+
+  &__description {
+    margin-bottom: 32px;
+
+    h4 {
+      font-weight: 600;
+      color: hsl(var(--neutral-900));
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+    }
+
+    p {
+      color: hsl(var(--neutral-600));
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+  }
+
+  &__empty-description {
+    text-align: center;
+    color: hsl(var(--neutral-500));
+    padding: 40px 0;
+  }
+
+  // Section grid
+  &__section-grid {
+    margin-top: 32px;
+  }
+
+  &__section-item {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__section-title {
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-size: 1.125rem;
+
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  &__section-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+
+    @media (max-width: 575.98px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__info-box {
+    background: hsl(var(--neutral-25));
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: hsl(var(--neutral-50));
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__info-box-label {
+    font-size: 0.75rem;
+    color: hsl(var(--neutral-500));
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  &__info-box-value {
+    color: hsl(var(--neutral-700));
+    font-size: 0.9375rem;
+  }
+
+  // Teknik özellikler
+  &__specs-container {
+    h4 {
+      font-weight: 600;
+      color: hsl(var(--neutral-900));
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__specs-content {
+    background: hsl(var(--neutral-25));
+    border-radius: 12px;
+    padding: 24px;
+
+    pre {
+      color: hsl(var(--neutral-700));
+      white-space: pre-wrap;
+      font-family: inherit;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+
+  // Loading, Error, Empty states
+  &__state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  &__state-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+
+  &__state-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+  }
+
+  &__state-message {
+    color: hsl(var(--neutral-500));
+    margin-bottom: 24px;
+    max-width: 400px;
+  }
+}
+
+// Responsive Design
+@media only screen and (max-width: 991.98px) {
+  .product-detail-page {
+    &__info-section {
+      padding-left: 0;
+    }
+
+    &__image-section {
+      position: relative;
+      top: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .product-detail-page {
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__price-value {
+      font-size: 1.5rem;
+
+      &--with-tax {
+        font-size: 1.25rem;
+      }
+    }
+
+    &__tab-content {
+      padding: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 575.98px) {
+  .product-detail-page {
+    &__action-buttons {
+      button,
+      > div {
+        flex: 1 1 100%;
+      }
+    }
+
+    &__tabs-header {
+      flex-direction: column;
+    }
+
+    &__tab-button {
+      text-align: left;
+    }
+  }
+}
+

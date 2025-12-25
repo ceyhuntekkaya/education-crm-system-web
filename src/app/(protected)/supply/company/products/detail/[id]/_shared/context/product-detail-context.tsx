@@ -1,11 +1,13 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useProductById, useSupplierById } from "../hooks/api";
+import { useProductComputedValues } from "../hooks";
 import {
   ProductDetailContextValue,
   ProductDetailProviderProps,
 } from "../types";
+import { TabType } from "../types";
 
 const ProductDetailContext = createContext<
   ProductDetailContextValue | undefined
@@ -25,6 +27,19 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     refetch: refetchSupplier,
   } = useSupplierById(product?.supplierId);
 
+  // UI State
+  const [activeTab, setActiveTab] = useState<TabType>("details");
+
+  // Helper değerleri hesapla
+  const {
+    statusInfo,
+    stockInfo,
+    priceWithTax,
+    isLowStock,
+    isOutOfStock,
+    hasValidId,
+  } = useProductComputedValues(product, productId);
+
   const contextValue: ProductDetailContextValue = {
     productId,
     product,
@@ -35,6 +50,14 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     supplierError,
     refetch,
     refetchSupplier,
+    statusInfo,
+    stockInfo,
+    priceWithTax,
+    isLowStock,
+    isOutOfStock,
+    hasValidId,
+    activeTab,
+    setActiveTab,
   };
 
   return (

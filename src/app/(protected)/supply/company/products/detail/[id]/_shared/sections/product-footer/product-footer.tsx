@@ -3,19 +3,11 @@
 import React from "react";
 import { CustomImage, Icon } from "@/components/ui";
 import { AddToFavorite } from "../../../../../../_shared";
-import { ProductDto } from "@/types";
+import { useProductDetail } from "../../context";
 
-interface ProductFooterProps {
-  product: ProductDto | null;
-  productId: number;
-  supplierId?: number;
-}
-
-export const ProductFooter: React.FC<ProductFooterProps> = ({
-  product,
-  productId,
-  supplierId,
-}) => {
+export const ProductFooter: React.FC = () => {
+  const { product, productId, supplier } = useProductDetail();
+  const supplierId = supplier?.id;
   // Ürün yoksa footer'ı gösterme
   if (!product) return null;
 
