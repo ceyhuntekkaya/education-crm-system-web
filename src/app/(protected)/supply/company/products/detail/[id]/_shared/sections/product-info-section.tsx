@@ -29,11 +29,11 @@ export const ProductInfoSection: React.FC = () => {
         </div>
 
         <div className="product-detail-page__badges">
-          <span
+          {/* <span
             className={`product-detail-page__status-badge ${statusInfo.badgeClass}`}
           >
             {statusInfo.label}
-          </span>
+          </span> */}
           {product.categoryName && (
             <span className="product-detail-page__category-badge">
               {product.categoryName}
