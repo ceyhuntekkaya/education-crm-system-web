@@ -53,9 +53,9 @@
   }
 
   // Ana ürün bilgileri bölümü
-  &__main-section {
-    margin-bottom: 32px;
-  }
+  // &__main-section {
+  //   margin-bottom: 32px;
+  // }
 
   // Görsel galeri bölümü (sol taraf)
   &__image-section {
@@ -72,7 +72,7 @@
 
   // Ana section - col-6 col-6 layout
   &__main-section {
-    margin-bottom: 32px;
+    margin-bottom: 48px;
 
     .row {
       @media (min-width: 992px) {
