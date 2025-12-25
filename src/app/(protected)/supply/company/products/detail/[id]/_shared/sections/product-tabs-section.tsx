@@ -1,5 +1,6 @@
 import React from "react";
 import { Divider } from "@/components";
+import { useScrollToElement } from "@/hooks";
 import { useProductDetail } from "../context";
 import { useProductSections, useSupplierSections } from "../hooks";
 import { ProcessedSectionItem } from "../types";
@@ -8,13 +9,17 @@ export const ProductTabsSection: React.FC = () => {
   const { product, supplier, activeTab, setActiveTab } = useProductDetail();
   const allSections = useProductSections(product);
   const supplierSections = useSupplierSections(supplier);
+  const { ref: tabHeaderRef } = useScrollToElement({
+    dependencies: [activeTab],
+    skipFirstRender: true,
+  });
 
   if (!product) return null;
 
   return (
     <div className="product-detail-page__tabs-container">
       {/* Tab Headers */}
-      <div className="product-detail-page__tabs-header">
+      <div ref={tabHeaderRef} className="product-detail-page__tabs-header">
         <button
           className={`product-detail-page__tab-button ${
             activeTab === "details"
