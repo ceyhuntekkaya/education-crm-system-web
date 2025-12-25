@@ -48,7 +48,8 @@ export const ProductInfoSection: React.FC = () => {
           <h1 className="product-detail-page__title">
             {product.name || "Ürün Adı"}
           </h1>
-          {product.description && (
+          {/* Açıklama - Zaten Ürün Detayları tabında gösteriliyor */}
+          {/* {product.description && (
             <p
               className="text-sm text-neutral-600 line-height-1-5"
               style={{
@@ -60,7 +61,7 @@ export const ProductInfoSection: React.FC = () => {
             >
               {product.description}
             </p>
-          )}
+          )} */}
         </div>
 
         {/* Fiyat Bilgisi */}

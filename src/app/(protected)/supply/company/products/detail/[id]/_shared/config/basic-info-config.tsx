@@ -94,22 +94,24 @@ export const basicInfoConfig: BasicInfoItemConfig[] = [
     ),
     isShowing: (product) => !!product?.categoryName,
   },
-  {
-    label: "Açıklama",
-    value: (product) => (
-      <span className="text-neutral-600">
-        {product?.description || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (product) => !!product?.description,
-  },
-  {
-    label: "Teknik Özellikler",
-    value: (product) => (
-      <span className="text-neutral-600 text-pre-wrap">
-        {product?.technicalSpecs || "Belirtilmemiş"}
-      </span>
-    ),
-    isShowing: (product) => !!product?.technicalSpecs,
-  },
+  // Açıklama - Zaten Ürün Detayları tabında gösteriliyor
+  // {
+  //   label: "Açıklama",
+  //   value: (product) => (
+  //     <span className="text-neutral-600">
+  //       {product?.description || "Belirtilmemiş"}
+  //     </span>
+  //   ),
+  //   isShowing: (product) => !!product?.description,
+  // },
+  // Teknik Özellikler - Zaten ayrı tabda gösteriliyor
+  // {
+  //   label: "Teknik Özellikler",
+  //   value: (product) => (
+  //     <span className="text-neutral-600 text-pre-wrap">
+  //       {product?.technicalSpecs || "Belirtilmemiş"}
+  //     </span>
+  //   ),
+  //   isShowing: (product) => !!product?.technicalSpecs,
+  // },
 ];
