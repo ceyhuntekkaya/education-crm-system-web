@@ -26,6 +26,11 @@ export interface ProductDetailContextValue {
   // UI State
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
+  // Favorite State
+  isFavorite: boolean;
+  wishlistId: number | undefined;
+  setIsFavorite: (isFavorite: boolean) => void;
+  setWishlistId: (wishlistId: number | undefined) => void;
 }
 
 export interface ProductDetailProviderProps {

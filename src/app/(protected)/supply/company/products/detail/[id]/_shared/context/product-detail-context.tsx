@@ -30,6 +30,10 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
   // UI State
   const [activeTab, setActiveTab] = useState<TabType>("details");
 
+  // Favorite State
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [wishlistId, setWishlistId] = useState<number | undefined>(undefined);
+
   // Helper değerleri hesapla
   const {
     statusInfo,
@@ -58,6 +62,10 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     hasValidId,
     activeTab,
     setActiveTab,
+    isFavorite,
+    wishlistId,
+    setIsFavorite,
+    setWishlistId,
   };
 
   return (

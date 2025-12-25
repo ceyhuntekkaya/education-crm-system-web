@@ -29,7 +29,15 @@ export interface AddToFavoriteProps {
    * Icon component variant'ı
    * @default "inline"
    */
-  variant?: "inline" | "outline" | "inline-danger" | "inline-success" | "inline-warning" | "outline-danger" | "outline-success" | "outline-warning";
+  variant?:
+    | "inline"
+    | "outline"
+    | "inline-danger"
+    | "inline-success"
+    | "inline-warning"
+    | "outline-danger"
+    | "outline-success"
+    | "outline-warning";
 
   /**
    * Icon boyutu
@@ -51,7 +59,7 @@ export interface AddToFavoriteProps {
   /**
    * Favori durumu değiştiğinde çağrılır
    */
-  onFavoriteChange?: (isFavorite: boolean) => void;
+  onFavoriteChange?: (isFavorite: boolean, wishlistId?: number) => void;
 
   /**
    * Disabled durumu

@@ -2,6 +2,7 @@ import React from "react";
 import { AddToFavorite } from "@/app/(protected)/supply/company/_shared";
 import { formatCurrency } from "../utils";
 import { useProductDetail } from "../context";
+import ProductAddToFavoriteSection from "./product-add-to-favorite-section";
 
 export const ProductInfoSection: React.FC = () => {
   const {
@@ -23,7 +24,7 @@ export const ProductInfoSection: React.FC = () => {
         {/* Ürün Başlığı ve Durum */}
         <div className="product-detail-page__title-section">
           <div className="product-detail-page__favorite-wrapper">
-            <AddToFavorite productId={productId} size="md" />
+            <ProductAddToFavoriteSection />
           </div>
 
           <div className="product-detail-page__badges">

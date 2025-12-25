@@ -2,7 +2,7 @@
 
 import React from "react";
 import { CustomImage, Icon } from "@/components/ui";
-import { AddToFavorite } from "../../../../../../_shared";
+import { ProductAddToFavoriteSection } from "../product-add-to-favorite-section";
 import { useProductDetail } from "../../context";
 
 export const ProductFooter: React.FC = () => {
@@ -55,7 +55,7 @@ export const ProductFooter: React.FC = () => {
           {/* Action Buttons */}
           <div className="footer-actions">
             {/* Add to Favorite */}
-            <AddToFavorite productId={productId} size="sm" />
+            <ProductAddToFavoriteSection />
 
             {/* Send Message Button */}
             {supplierId && (

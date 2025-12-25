@@ -178,7 +178,7 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
             setIsFavorite(false);
             setWishlistId(undefined);
             showSnackbar("Ürün favorilerden kaldırıldı", "error");
-            onFavoriteChange?.(false);
+            onFavoriteChange?.(false, undefined);
           },
         });
         return;
@@ -190,11 +190,12 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
         {
           onSuccess: (data) => {
             setIsFavorite(true);
-            if (data?.data?.id) {
-              setWishlistId(data.data.id);
+            const newWishlistId = data?.data?.id;
+            if (newWishlistId) {
+              setWishlistId(newWishlistId);
             }
             showSnackbar("Ürün favorilere eklendi", "success");
-            onFavoriteChange?.(true);
+            onFavoriteChange?.(true, newWishlistId);
           },
         }
       );
