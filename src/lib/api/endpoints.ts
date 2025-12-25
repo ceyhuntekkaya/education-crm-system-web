@@ -275,6 +275,8 @@ export const API_ENDPOINTS = {
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
         `/supply/products/supplier/${supplierId}`,
+      DISCOUNTS: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
     },
 
     // Suppliers

@@ -139,3 +139,95 @@ export const getStockInfo = (
     iconBoxClass: "bg-neutral-100 text-neutral-700",
   };
 };
+
+/**
+ * İndirim tipi label'ını getir
+ */
+export const getDiscountTypeLabel = (type?: string): string => {
+  switch (type) {
+    case "PERCENTAGE":
+      return "Yüzde";
+    case "FIXED_AMOUNT":
+      return "Sabit Tutar";
+    case "FREE_MONTHS":
+      return "Ücretsiz Aylar";
+    case "BUY_X_GET_Y":
+      return "Al X Al Y";
+    case "TIERED":
+      return "Kademeli";
+    case "BUNDLE":
+      return "Paket";
+    default:
+      return "İndirim";
+  }
+};
+
+/**
+ * İndirim tipi ikonunu getir
+ */
+export const getDiscountTypeIcon = (type?: string): string => {
+  switch (type) {
+    case "PERCENTAGE":
+      return "ph-bold ph-percent";
+    case "FIXED_AMOUNT":
+      return "ph-bold ph-currency-circle-dollar";
+    case "FREE_MONTHS":
+      return "ph-bold ph-calendar-check";
+    case "BUY_X_GET_Y":
+      return "ph-bold ph-gift";
+    case "TIERED":
+      return "ph-bold ph-stairs";
+    case "BUNDLE":
+      return "ph-bold ph-package";
+    default:
+      return "ph-bold ph-tag";
+  }
+};
+
+/**
+ * İndirim değerini formatla
+ */
+export const formatDiscountValue = (
+  discountType?: string,
+  discountValue?: number,
+  currency?: string
+): string => {
+  if (!discountValue) return "-";
+
+  if (discountType === "PERCENTAGE") {
+    return `%${discountValue}`;
+  } else if (discountType === "FIXED_AMOUNT") {
+    return formatCurrency(discountValue, currency);
+  } else if (discountType === "FREE_MONTHS") {
+    return `${discountValue} Ay Ücretsiz`;
+  }
+  return discountValue.toString();
+};
+
+/**
+ * Tarih aralığını formatla
+ */
+export const formatDateRange = (
+  startDate?: string,
+  endDate?: string
+): string | null => {
+  if (!startDate && !endDate) return null;
+
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("tr-TR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
+  const start = formatDate(startDate);
+  const end = formatDate(endDate);
+
+  if (start && end) return `${start} - ${end}`;
+  if (start) return `${start} tarihinden itibaren`;
+  if (end) return `${end} tarihine kadar`;
+  return null;
+};

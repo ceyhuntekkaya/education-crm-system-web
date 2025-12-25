@@ -7,3 +7,4 @@ export { ProductErrorState } from "./product-error-state";
 export { ProductEmptyState } from "./product-empty-state";
 export { ProductBackButton } from "./product-back-button";
 export { ProductAddToFavoriteSection } from "./product-add-to-favorite-section";
+export { ProductDiscountSection } from "./product-discount-section";
