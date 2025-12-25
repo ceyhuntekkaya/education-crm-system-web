@@ -4,22 +4,13 @@ import React from "react";
 import { CustomImage, Icon } from "@/components/ui";
 import { ProductAddToFavoriteSection } from "./product-add-to-favorite-section";
 import { useProductDetail } from "../context";
+import { SendSupplierMessageSection } from "./send-supplier-message-section";
+import { RequestQuoteSection } from "./request-quote-section";
 
 export const ProductFooter: React.FC = () => {
   const { product, productId, supplier } = useProductDetail();
-  const supplierId = supplier?.id;
   // Ürün yoksa footer'ı gösterme
   if (!product) return null;
-
-  const handleSendMessage = () => {
-    // TODO: Tedarikçiye mesaj gönderme işlemi
-    console.log("Tedarikçiye mesaj gönder:", supplierId);
-  };
-
-  const handleRequestQuote = () => {
-    // TODO: Teklif iste işlemi
-    console.log("Teklif iste:", productId);
-  };
 
   return (
     <div className="product-detail-footer">
@@ -58,27 +49,13 @@ export const ProductFooter: React.FC = () => {
             <ProductAddToFavoriteSection />
 
             {/* Send Message Button */}
-            {supplierId && (
-              <Icon
-                icon="ph-bold ph-chat-circle"
-                variant="inline"
-                size="sm"
-                onClick={handleSendMessage}
-                hoverText="Mesaj Gönder"
-                aria-label="Tedarikçiye Mesaj Gönder"
-                className="d-none d-md-flex"
-              />
-            )}
+            <SendSupplierMessageSection
+              variant="icon"
+              className="d-none d-md-flex"
+            />
 
             {/* Request Quote Button */}
-            <Icon
-              icon="ph-bold ph-file-text"
-              variant="inline"
-              size="sm"
-              onClick={handleRequestQuote}
-              hoverText="Teklif İste"
-              aria-label="Teklif İste"
-            />
+            <RequestQuoteSection variant="icon" />
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { AddToFavorite } from "@/app/(protected)/supply/company/_shared";
 import { formatCurrency } from "../utils";
 import { useProductDetail } from "../context";
 import ProductAddToFavoriteSection from "./product-add-to-favorite-section";
+import { SendSupplierMessageSection } from "./send-supplier-message-section";
+import { RequestQuoteSection } from "./request-quote-section";
 
 export const ProductInfoSection: React.FC = () => {
   const {
@@ -213,45 +215,9 @@ export const ProductInfoSection: React.FC = () => {
 
       {/* Aksiyon Butonları */}
       <div className="product-detail-page__action-cards">
-        <div
-          className="product-detail-page__action-card product-detail-page__action-card--message"
-          onClick={() => {
-            console.log("Tedarikçiye mesaj gönder:", supplier?.id);
-          }}
-        >
-          <div className="product-detail-page__action-card-icon">
-            <i className="ph-bold ph-chat-circle-dots"></i>
-          </div>
-          <div className="product-detail-page__action-card-content">
-            <p className="product-detail-page__action-card-label">
-              Tedarikçiye Mesaj Gönder
-            </p>
-            <p className="product-detail-page__action-card-description">
-              Hızlı iletişim için
-            </p>
-          </div>
-          <i className="ph-bold ph-arrow-right product-detail-page__action-card-arrow"></i>
-        </div>
+        <SendSupplierMessageSection variant="card" />
 
-        <div
-          className="product-detail-page__action-card product-detail-page__action-card--quote"
-          onClick={() => {
-            console.log("Teklif iste:", productId);
-          }}
-        >
-          <div className="product-detail-page__action-card-icon">
-            <i className="ph-bold ph-file-text"></i>
-          </div>
-          <div className="product-detail-page__action-card-content">
-            <p className="product-detail-page__action-card-label">
-              Teklif İste
-            </p>
-            <p className="product-detail-page__action-card-description">
-              Özel fiyat teklifi al
-            </p>
-          </div>
-          <i className="ph-bold ph-arrow-right product-detail-page__action-card-arrow"></i>
-        </div>
+        <RequestQuoteSection variant="card" />
       </div>
     </div>
   );
