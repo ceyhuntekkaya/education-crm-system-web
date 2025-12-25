@@ -99,7 +99,7 @@ export const ProductInfoSection: React.FC = () => {
         )}
 
         {/* Stok Bilgisi */}
-        <div className="soft-card rounded-16 mb-16">
+        <div className="soft-card rounded-16">
           <div className="d-flex align-items-center gap-12 p-12">
             <div
               className={`status-icon ${stockInfo.iconBoxClass}`}
@@ -135,7 +135,7 @@ export const ProductInfoSection: React.FC = () => {
 
         {/* Low Stock Warning */}
         {isLowStock && !isOutOfStock && (
-          <div className="mb-16">
+          <div>
             <div className="d-flex align-items-center gap-8 bg-warning-50 px-12 py-8 rounded-8">
               <i className="ph-fill ph-warning text-warning-600"></i>
               <span className="text-xs text-warning-700 fw-medium">
@@ -148,7 +148,7 @@ export const ProductInfoSection: React.FC = () => {
         )}
 
         {/* Meta Container */}
-        <div className="meta-container soft-card rounded-16 mb-16">
+        <div className="meta-container soft-card rounded-16">
           {product.categoryName && (
             <>
               <div className="meta-item">
@@ -192,7 +192,7 @@ export const ProductInfoSection: React.FC = () => {
         {/* Teslimat ve Minimum Sipariş */}
         {(product.deliveryDays !== undefined ||
           product.minOrderQuantity !== undefined) && (
-          <div className="d-flex flex-column gap-12 mb-16">
+          <div className="d-flex flex-column gap-12">
             {product.deliveryDays !== undefined && (
               <div className="d-flex align-items-center gap-6">
                 <i className="ph-bold ph-clock text-neutral-400 text-sm"></i>

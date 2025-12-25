@@ -124,6 +124,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 12px;
     width: 100%;
     height: 100%;
     color: hsl(var(--neutral-400));
@@ -132,13 +133,15 @@
     i {
       font-size: 4rem;
       opacity: 0.3;
-      margin-bottom: 12px;
     }
   }
 
   // Ürün bilgileri bölümü (sağ taraf)
   &__info-section {
-    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    // padding-left: 32px;
 
     @media (max-width: 991.98px) {
       padding-left: 0;
@@ -146,7 +149,6 @@
   }
 
   &__title-section {
-    margin-bottom: 24px;
     position: relative;
   }
 
@@ -171,7 +173,6 @@
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 12px;
   }
 
   &__status-badge {
@@ -217,11 +218,12 @@
   }
 
   &__title {
-    font-size: 2rem;
+    margin: 0; // Global h1-h6 margin'ı override et
+    // font-size: 2rem;
     font-weight: 700;
-    line-height: 1.3;
+    // line-height: 1.3;
     color: hsl(var(--neutral-900));
-    margin-bottom: 12px;
+    padding-top: 16px;
 
     @media (max-width: 767.98px) {
       font-size: 1.5rem;
@@ -243,8 +245,8 @@
   &__price-section {
     border-top: 1px solid hsl(var(--neutral-30));
     border-bottom: 1px solid hsl(var(--neutral-30));
-    padding: 24px 0;
-    margin: 24px 0;
+    // padding: 24px 0;
+    // margin: 24px 0;
   }
 
   &__price-container {
@@ -255,6 +257,9 @@
   }
 
   &__price-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     flex: 1;
     min-width: 150px;
   }
@@ -262,7 +267,6 @@
   &__price-label {
     font-size: 0.75rem;
     color: hsl(var(--neutral-500));
-    margin-bottom: 4px;
     font-weight: 500;
   }
 
@@ -300,13 +304,14 @@
 
   // Stok bilgisi
   &__stock-section {
-    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   &__stock-label {
     font-size: 0.75rem;
     color: hsl(var(--neutral-500));
-    margin-bottom: 8px;
     font-weight: 500;
   }
 
@@ -340,16 +345,17 @@
 
   // Tedarikçi bilgisi
   &__supplier-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     background: hsl(var(--main-25));
     border-radius: 12px;
     padding: 16px;
-    margin: 24px 0;
   }
 
   &__supplier-label {
     font-size: 0.75rem;
     color: hsl(var(--neutral-500));
-    margin-bottom: 8px;
     font-weight: 500;
   }
 
@@ -364,7 +370,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 16px 0;
   }
 
   &__info-icon {
@@ -382,16 +387,17 @@
     display: flex;
     flex-direction: row;
     gap: 12px;
-    margin-top: 24px;
 
     @media (max-width: 767.98px) {
       flex-direction: column;
-      gap: 12px;
     }
   }
 
   // İndirim Section - Fiyat bilgisinden sonra gösterilir
   &__discount-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     background: linear-gradient(135deg, hsl(var(--success-50)) 0%, hsl(var(--success-25)) 100%);
     border: 1.5px solid hsl(var(--success-200));
     border-radius: 16px;
@@ -409,7 +415,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
     padding-bottom: 16px;
     border-bottom: 1px solid hsl(var(--success-200));
 
@@ -428,6 +433,9 @@
   }
 
   &__discount-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     background: #fff;
     border: 1px solid hsl(var(--success-100));
     border-radius: 12px;
@@ -445,7 +453,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
 
     @media (max-width: 575.98px) {
       flex-direction: column;
@@ -752,12 +759,13 @@
   }
 
   &__description {
-    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
     h4 {
       font-weight: 600;
       color: hsl(var(--neutral-900));
-      margin-bottom: 16px;
       font-size: 1.25rem;
     }
 
@@ -776,25 +784,23 @@
 
   // Section grid
   &__section-grid {
-    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
   }
 
   &__section-item {
-    margin-bottom: 32px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   &__section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-weight: 600;
-    margin-bottom: 16px;
     font-size: 1.125rem;
-
-    i {
-      margin-right: 8px;
-    }
   }
 
   &__section-items {
@@ -808,6 +814,9 @@
   }
 
   &__info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     background: hsl(var(--neutral-25));
     border-radius: 8px;
     padding: 16px;
@@ -823,7 +832,6 @@
   &__info-box-label {
     font-size: 0.75rem;
     color: hsl(var(--neutral-500));
-    margin-bottom: 8px;
     font-weight: 600;
   }
 
@@ -834,10 +842,13 @@
 
   // Teknik özellikler
   &__specs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
     h4 {
       font-weight: 600;
       color: hsl(var(--neutral-900));
-      margin-bottom: 16px;
       font-size: 1.25rem;
     }
   }
@@ -862,24 +873,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 16px;
     min-height: 60vh;
     text-align: center;
   }
 
   &__state-icon {
     font-size: 3rem;
-    margin-bottom: 16px;
   }
 
   &__state-title {
     font-weight: 600;
-    margin-bottom: 8px;
     font-size: 1.25rem;
   }
 
   &__state-message {
     color: hsl(var(--neutral-500));
-    margin-bottom: 24px;
     max-width: 400px;
   }
 }
