@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductDto, SupplierDto } from "@/types";
+import { ProductDto, SupplierDto, ProductDiscountDto } from "@/types";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
 import { TabType } from "./page-types";
 
@@ -31,6 +31,13 @@ export interface ProductDetailContextValue {
   wishlistId: number | undefined;
   setIsFavorite: (isFavorite: boolean) => void;
   setWishlistId: (wishlistId: number | undefined) => void;
+  // Discounts
+  discounts: ProductDiscountDto[];
+  activeDiscounts: ProductDiscountDto[];
+  hasActiveDiscount: boolean;
+  isLoadingDiscounts: boolean;
+  discountsError: string | null;
+  refetchDiscounts: () => void;
 }
 
 export interface ProductDetailProviderProps {

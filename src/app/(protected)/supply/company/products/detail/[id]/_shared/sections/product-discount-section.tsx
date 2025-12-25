@@ -1,5 +1,4 @@
 import React from "react";
-import { useProductDiscounts } from "../hooks/api";
 import {
   formatDiscountValue,
   formatDateRange,
@@ -9,12 +8,13 @@ import {
 import { useProductDetail } from "../context";
 
 export const ProductDiscountSection: React.FC = () => {
-  const { product } = useProductDetail();
-  const productId = product?.id || null;
+  const {
+    product,
+    activeDiscounts,
+    isLoadingDiscounts: isLoading,
+    hasActiveDiscount,
+  } = useProductDetail();
   const currency = product?.currency || "TRY";
-
-  const { activeDiscounts, isLoading, hasActiveDiscount } =
-    useProductDiscounts(productId);
 
   // Eğer yükleniyor veya aktif indirim yoksa gösterme
   if (isLoading || !hasActiveDiscount) {

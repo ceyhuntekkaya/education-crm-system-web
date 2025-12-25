@@ -1,7 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { useProductById, useSupplierById } from "../hooks/api";
+import {
+  useProductById,
+  useSupplierById,
+  useProductDiscounts,
+} from "../hooks/api";
 import { useProductComputedValues } from "../hooks";
 import {
   ProductDetailContextValue,
@@ -44,6 +48,16 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     hasValidId,
   } = useProductComputedValues(product, productId);
 
+  // Product discounts
+  const {
+    discounts,
+    activeDiscounts,
+    hasActiveDiscount,
+    isLoading: isLoadingDiscounts,
+    error: discountsError,
+    refetch: refetchDiscounts,
+  } = useProductDiscounts(productId);
+
   const contextValue: ProductDetailContextValue = {
     productId,
     product,
@@ -66,6 +80,13 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     wishlistId,
     setIsFavorite,
     setWishlistId,
+    // Discounts
+    discounts,
+    activeDiscounts,
+    hasActiveDiscount,
+    isLoadingDiscounts,
+    discountsError,
+    refetchDiscounts,
   };
 
   return (
