@@ -1,107 +1,29 @@
-import React, {
-  useState,
-  useMemo,
-  useRef,
-  useEffect,
-  useCallback,
-} from "react";
+import React from "react";
 import { CustomImage, Modal, ModalBody } from "@/components/ui";
 import { useProductDetail } from "../context";
 import { getRandomPlaceholderImage } from "../utils";
 
 export const ProductImageSection: React.FC = () => {
-  const { product, statusInfo, isLowStock, isOutOfStock, images } =
-    useProductDetail();
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
-  const [isZooming, setIsZooming] = useState(false);
-  const mainImageRef = useRef<HTMLDivElement>(null);
-  const lightboxImageRef = useRef<HTMLDivElement>(null);
-
-  // Ana görsel + ek görselleri birleştir
-  const allImages = useMemo(() => {
-    const imagesList = [];
-
-    // Ana görseli ilk sıraya ekle
-    if (product?.mainImageUrl) {
-      imagesList.push({
-        id: 0,
-        imageUrl: product.mainImageUrl,
-        displayOrder: 0,
-        isMain: true,
-      });
-    }
-
-    // Ek görselleri ekle (displayOrder'a göre sıralı)
-    if (images && images.length > 0) {
-      const sortedImages = [...images].sort(
-        (a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)
-      );
-      imagesList.push(
-        ...sortedImages.map((img) => ({
-          ...img,
-          isMain: false,
-        }))
-      );
-    }
-
-    return imagesList;
-  }, [product?.mainImageUrl, images]);
-
-  const selectedImage = allImages[selectedImageIndex];
-
-  const handleNextImage = useCallback(() => {
-    setSelectedImageIndex((prev) =>
-      prev < allImages.length - 1 ? prev + 1 : 0
-    );
-  }, [allImages.length]);
-
-  const handlePreviousImage = useCallback(() => {
-    setSelectedImageIndex((prev) =>
-      prev > 0 ? prev - 1 : allImages.length - 1
-    );
-  }, [allImages.length]);
-
-  // Klavye navigasyonu
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isLightboxOpen) return;
-
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        handlePreviousImage();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        handleNextImage();
-      } else if (e.key === "Escape") {
-        e.preventDefault();
-        setIsLightboxOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isLightboxOpen, handleNextImage, handlePreviousImage]);
-
-  const handleImageMouseMove = (
-    e: React.MouseEvent<HTMLDivElement>,
-    isLightbox = false
-  ) => {
-    const container = isLightbox
-      ? lightboxImageRef.current
-      : mainImageRef.current;
-    if (!container) return;
-
-    const rect = container.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    setZoomPosition({
-      x: Math.max(0, Math.min(100, x)),
-      y: Math.max(0, Math.min(100, y)),
-    });
-  };
+  const {
+    product,
+    statusInfo,
+    isLowStock,
+    isOutOfStock,
+    selectedImageIndex,
+    setSelectedImageIndex,
+    isLightboxOpen,
+    setIsLightboxOpen,
+    zoomPosition,
+    isZooming,
+    setIsZooming,
+    mainImageRef,
+    lightboxImageRef,
+    allImages,
+    selectedImage,
+    handleNextImage,
+    handlePreviousImage,
+    handleImageMouseMove,
+  } = useProductDetail();
 
   if (!product) return null;
 

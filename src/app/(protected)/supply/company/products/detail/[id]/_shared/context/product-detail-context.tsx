@@ -7,7 +7,7 @@ import {
   useProductDiscounts,
   useProductImages,
 } from "../hooks/api";
-import { useProductComputedValues } from "../hooks";
+import { useProductComputedValues, useProductImageGallery } from "../hooks";
 import {
   ProductDetailContextValue,
   ProductDetailProviderProps,
@@ -67,6 +67,24 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     refetch: refetchImages,
   } = useProductImages(productId);
 
+  // Image gallery
+  const {
+    selectedImageIndex,
+    setSelectedImageIndex,
+    isLightboxOpen,
+    setIsLightboxOpen,
+    zoomPosition,
+    isZooming,
+    setIsZooming,
+    mainImageRef,
+    lightboxImageRef,
+    allImages,
+    selectedImage,
+    handleNextImage,
+    handlePreviousImage,
+    handleImageMouseMove,
+  } = useProductImageGallery(product, images);
+
   const contextValue: ProductDetailContextValue = {
     productId,
     product,
@@ -101,6 +119,21 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     isLoadingImages,
     imagesError,
     refetchImages,
+    // Image Gallery
+    selectedImageIndex,
+    setSelectedImageIndex,
+    isLightboxOpen,
+    setIsLightboxOpen,
+    zoomPosition,
+    isZooming,
+    setIsZooming,
+    mainImageRef,
+    lightboxImageRef,
+    allImages,
+    selectedImage,
+    handleNextImage,
+    handlePreviousImage,
+    handleImageMouseMove,
   };
 
   return (
