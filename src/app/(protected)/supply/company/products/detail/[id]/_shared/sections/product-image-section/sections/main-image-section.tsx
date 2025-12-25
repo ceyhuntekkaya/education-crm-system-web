@@ -74,10 +74,10 @@ export const MainImageSection: React.FC = () => {
       )}
 
       {/* Status Badge */}
-      <div className="product-detail-page__badge product-detail-page__badge--status">
+      {/* <div className="product-detail-page__badge product-detail-page__badge--status">
         <span className="product-detail-page__badge-dot"></span>
         <span>{statusInfo.label}</span>
-      </div>
+      </div> */}
 
       {/* Out of Stock Overlay */}
       {isOutOfStock && (
