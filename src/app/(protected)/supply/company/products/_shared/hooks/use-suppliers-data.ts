@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-import { ApiResponseSupplierDto } from "@/types";
+import { ApiResponseSupplierListDto } from "@/types";
 
 /**
  * Tedarikçileri API'den çeken hook
@@ -13,7 +13,7 @@ export function useSuppliersData() {
     data: response,
     loading,
     error,
-  } = useGet<ApiResponseSupplierDto>(API_ENDPOINTS.SUPPLY.SUPPLIERS.LIST);
+  } = useGet<ApiResponseSupplierListDto>(API_ENDPOINTS.SUPPLY.SUPPLIERS.LIST);
 
   // Transform to SelectOption[] format
   const suppliers = useMemo(() => {
