@@ -5,6 +5,7 @@ import {
   useProductById,
   useSupplierById,
   useProductDiscounts,
+  useProductImages,
 } from "../hooks/api";
 import { useProductComputedValues } from "../hooks";
 import {
@@ -58,6 +59,14 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     refetch: refetchDiscounts,
   } = useProductDiscounts(productId);
 
+  // Product images
+  const {
+    images,
+    isLoading: isLoadingImages,
+    error: imagesError,
+    refetch: refetchImages,
+  } = useProductImages(productId);
+
   const contextValue: ProductDetailContextValue = {
     productId,
     product,
@@ -87,6 +96,11 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     isLoadingDiscounts,
     discountsError,
     refetchDiscounts,
+    // Images
+    images,
+    isLoadingImages,
+    imagesError,
+    refetchImages,
   };
 
   return (

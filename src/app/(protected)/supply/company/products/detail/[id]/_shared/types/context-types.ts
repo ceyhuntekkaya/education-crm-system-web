@@ -2,6 +2,7 @@ import React from "react";
 import { ProductDto, SupplierDto, ProductDiscountDto } from "@/types";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
 import { TabType } from "./page-types";
+import { ProductImageDto } from "../hooks/api";
 
 /**
  * Product detail context için interface'ler
@@ -38,6 +39,11 @@ export interface ProductDetailContextValue {
   isLoadingDiscounts: boolean;
   discountsError: string | null;
   refetchDiscounts: () => void;
+  // Images
+  images: ProductImageDto[];
+  isLoadingImages: boolean;
+  imagesError: string | null;
+  refetchImages: () => void;
 }
 
 export interface ProductDetailProviderProps {

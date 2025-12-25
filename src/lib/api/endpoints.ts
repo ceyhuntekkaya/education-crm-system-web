@@ -277,6 +277,7 @@ export const API_ENDPOINTS = {
         `/supply/products/supplier/${supplierId}`,
       DISCOUNTS: (productId: string | number) =>
         `/supply/products/${productId}/discounts`,
+      IMAGES: (id: string | number) => `/supply/products/${id}/images`,
     },
 
     // Suppliers
