@@ -49,9 +49,14 @@ const ProductDetailPage: React.FC = () => {
 
         {/* Ana Ürün Bilgileri */}
         <div className="product-detail-page__main-section">
-          <div className="row">
-            <ProductImageSection />
-            <ProductInfoSection />
+          <div className="row gx-5">
+            <div className="col-6">
+              <ProductImageSection />
+            </div>
+
+            <div className="col-6">
+              <ProductInfoSection />
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-export { ProductFooter } from "./product-footer/product-footer";
+export { ProductFooter } from "./product-footer";
 export { ProductImageSection } from "./product-image-section";
 export { ProductInfoSection } from "./product-info-section";
 export { ProductTabsSection } from "./product-tabs-section";

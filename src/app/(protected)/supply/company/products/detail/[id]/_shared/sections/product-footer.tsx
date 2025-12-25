@@ -2,8 +2,8 @@
 
 import React from "react";
 import { CustomImage, Icon } from "@/components/ui";
-import { ProductAddToFavoriteSection } from "../product-add-to-favorite-section";
-import { useProductDetail } from "../../context";
+import { ProductAddToFavoriteSection } from "./product-add-to-favorite-section";
+import { useProductDetail } from "../context";
 
 export const ProductFooter: React.FC = () => {
   const { product, productId, supplier } = useProductDetail();
