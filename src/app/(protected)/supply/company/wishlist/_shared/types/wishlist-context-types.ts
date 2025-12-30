@@ -8,6 +8,10 @@ export interface WishlistContextState {
   loading: boolean;
   error: Error | null;
   viewMode: "grid" | "list";
+  // Selection mode states
+  isSelectionMode: boolean;
+  selectedProductIds: number[];
+  isSubmitting: boolean;
 }
 
 /**
@@ -18,9 +22,19 @@ export interface WishlistContextValue extends WishlistContextState {
   refetchWishlist: () => void;
   setViewMode: (mode: "grid" | "list") => void;
 
+  // Selection mode actions
+  enableSelectionMode: () => void;
+  disableSelectionMode: () => void;
+  toggleProductSelection: (productId: number) => void;
+  clearSelection: () => void;
+  selectAll: () => void;
+  submitToProposal: () => Promise<void>;
+
   // Computed values
   isEmpty: boolean;
   totalCount: number;
+  selectedCount: number;
+  isProductSelected: (productId: number) => boolean;
 }
 
 /**

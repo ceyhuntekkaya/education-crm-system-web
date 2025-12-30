@@ -26,6 +26,22 @@ export interface WishlistCheckDto {
 }
 
 /**
+ * Seçili ürünleri teklif aşamasına eklemek için DTO
+ */
+export interface AddToProposalDto {
+  productIds: number[];
+}
+
+/**
+ * Teklif aşamasına ekleme response
+ */
+export interface AddToProposalResponseDto {
+  proposalId?: number;
+  addedProductCount?: number;
+  message?: string;
+}
+
+/**
  * Kullanıcının wishlist'ini getirir
  *
  * @returns Wishlist listesi
@@ -85,6 +101,23 @@ export const useRemoveFromWishlist = () => {
     (id: number) => API_ENDPOINTS.SUPPLY.WISHLISTS.DELETE(id),
     {
       showSnackbar: false,
+    }
+  );
+};
+
+/**
+ * Seçili ürünleri teklif aşamasına ekler
+ *
+ * @returns Mutation hook
+ *
+ * API Endpoint: POST /supply/proposals/add-from-wishlist
+ * NOT: Bu endpoint henüz backend'de olmayabilir, API hazır olunca güncellenecek
+ */
+export const useAddToProposal = () => {
+  return usePost<ApiResponseDto<AddToProposalResponseDto>, AddToProposalDto>(
+    "/supply/proposals/add-from-wishlist", // TODO: API_ENDPOINTS'e eklenecek
+    {
+      showSnackbar: true,
     }
   );
 };

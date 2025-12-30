@@ -1,14 +1,12 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { createContext, useContext } from "react";
 import { useSnackbar } from "@/contexts";
-import { useGetWishlist } from "../hooks/api";
+import {
+  useWishlistData,
+  useWishlistView,
+  useWishlistSelection,
+} from "../hooks";
 import { WishlistContextValue, WishlistProviderProps } from "../types";
 
 /**
@@ -22,28 +20,59 @@ const WishlistContext = createContext<WishlistContextValue | undefined>(
 
 export function WishlistProvider({ children }: WishlistProviderProps) {
   const { showSnackbar } = useSnackbar();
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  // 📊 API DATA
-  const { data, loading, error, refetch: refetchWishlist } = useGetWishlist();
+  // 🎨 VIEW MODE
+  const { viewMode, setViewMode } = useWishlistView();
 
-  // 📦 DATA
-  const wishlistItems = useMemo(() => data?.data || [], [data]);
+  // 📊 DATA
+  const {
+    loading,
+    error,
+    refetchWishlist,
+    wishlistItems,
+    isEmpty,
+    totalCount,
+  } = useWishlistData();
 
-  // 🎯 COMPUTED VALUES
-  const isEmpty = useMemo(() => wishlistItems.length === 0, [wishlistItems]);
-  const totalCount = useMemo(() => wishlistItems.length, [wishlistItems]);
+  // 🎯 SELECTION MODE
+  const {
+    isSelectionMode,
+    selectedProductIds,
+    isSubmitting,
+    selectedCount,
+    enableSelectionMode,
+    disableSelectionMode,
+    toggleProductSelection,
+    clearSelection,
+    selectAll,
+    isProductSelected,
+    submitToProposal,
+  } = useWishlistSelection({
+    wishlistItems,
+    showSnackbar,
+  });
 
   // 🎯 CONTEXT VALUE
   const contextValue: WishlistContextValue = {
-    wishlistItems,
-    loading,
-    error: error as Error | null,
     viewMode,
     setViewMode,
+    loading,
+    error,
     refetchWishlist,
+    wishlistItems,
     isEmpty,
     totalCount,
+    isSelectionMode,
+    selectedProductIds,
+    isSubmitting,
+    selectedCount,
+    enableSelectionMode,
+    disableSelectionMode,
+    toggleProductSelection,
+    clearSelection,
+    selectAll,
+    isProductSelected,
+    submitToProposal,
   };
 
   return (
