@@ -16,7 +16,6 @@ export interface WishlistContextState {
 export interface WishlistContextValue extends WishlistContextState {
   // Actions
   refetchWishlist: () => void;
-  removeFromWishlist: (id: number) => Promise<void>;
   setViewMode: (mode: "grid" | "list") => void;
 
   // Computed values

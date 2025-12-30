@@ -8,7 +8,7 @@ import React, {
   useMemo,
 } from "react";
 import { useSnackbar } from "@/contexts";
-import { useGetWishlist, useRemoveFromWishlist } from "../hooks/api";
+import { useGetWishlist } from "../hooks/api";
 import { WishlistContextValue, WishlistProviderProps } from "../types";
 
 /**
@@ -27,25 +27,8 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
   // 📊 API DATA
   const { data, loading, error, refetch: refetchWishlist } = useGetWishlist();
 
-  const { mutateAsync: removeFromWishlistMutation } = useRemoveFromWishlist();
-
   // 📦 DATA
   const wishlistItems = useMemo(() => data?.data || [], [data]);
-
-  // 🗑️ REMOVE FROM WISHLIST
-  const removeFromWishlist = useCallback(
-    async (id: number) => {
-      try {
-        await removeFromWishlistMutation(id);
-        showSnackbar("Ürün favorilerden çıkarıldı", "success");
-        refetchWishlist();
-      } catch (err) {
-        showSnackbar("Ürün favorilerden çıkarılırken bir hata oluştu", "error");
-        throw err;
-      }
-    },
-    [removeFromWishlistMutation, refetchWishlist, showSnackbar]
-  );
 
   // 🎯 COMPUTED VALUES
   const isEmpty = useMemo(() => wishlistItems.length === 0, [wishlistItems]);
@@ -59,7 +42,6 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
     viewMode,
     setViewMode,
     refetchWishlist,
-    removeFromWishlist,
     isEmpty,
     totalCount,
   };
