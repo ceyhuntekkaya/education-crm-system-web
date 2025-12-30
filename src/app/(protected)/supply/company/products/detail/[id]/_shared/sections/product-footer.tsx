@@ -4,8 +4,8 @@ import React from "react";
 import { CustomImage, Icon } from "@/components/ui";
 import { ProductAddToFavoriteSection } from "./product-add-to-favorite-section";
 import { useProductDetail } from "../context";
-import { SendSupplierMessageSection } from "./send-supplier-message-section";
-import { RequestQuoteSection } from "./request-quote-section";
+import { SendSupplierMessageSection } from "./send-supplier-message-section/send-supplier-message-section";
+import { RequestQuoteSection } from "./request-quote-section/request-quote-section";
 
 export const ProductFooter: React.FC = () => {
   const { product, productId, supplier } = useProductDetail();

@@ -3,8 +3,8 @@ import { AddToFavorite } from "@/app/(protected)/supply/company/_shared";
 import { formatCurrency } from "../utils";
 import { useProductDetail } from "../context";
 import ProductAddToFavoriteSection from "./product-add-to-favorite-section";
-import { SendSupplierMessageSection } from "./send-supplier-message-section";
-import { RequestQuoteSection } from "./request-quote-section";
+import { SendSupplierMessageSection } from "./send-supplier-message-section/send-supplier-message-section";
+import { RequestQuoteSection } from "./request-quote-section/request-quote-section";
 
 export const ProductInfoSection: React.FC = () => {
   const {

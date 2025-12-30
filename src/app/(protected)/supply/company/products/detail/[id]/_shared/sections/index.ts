@@ -1,5 +1,5 @@
 export { ProductFooter } from "./product-footer";
-export { ProductImageSection } from "./product-image-section";
+export { ProductImageSection } from "./product-image-section/product-image-section";
 export { ProductInfoSection } from "./product-info-section";
 export { ProductTabsSection } from "./product-tabs-section";
 export { ProductLoadingState } from "./product-loading-state";
@@ -8,3 +8,5 @@ export { ProductEmptyState } from "./product-empty-state";
 export { ProductBackButton } from "./product-back-button";
 export { ProductAddToFavoriteSection } from "./product-add-to-favorite-section";
 export { ProductDiscountSection } from "./product-discount-section";
+export { SendSupplierMessageSection } from "./send-supplier-message-section/send-supplier-message-section";
+export { RequestQuoteSection } from "./request-quote-section/request-quote-section";
