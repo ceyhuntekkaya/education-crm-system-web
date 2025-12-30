@@ -1,0 +1,247 @@
+.conversation-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  max-height: 70vh;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+
+  // Eğer sadece form varsa (mesaj listesi yoksa), yüksekliği otomatik ayarla
+  &:not(:has(.conversation-view__messages)) {
+    height: auto;
+    min-height: auto;
+  }
+
+  // Mesaj Listesi Alanı
+  &__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+
+    // Scrollbar stilini özelleştir
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #e9ecef;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ced4da;
+      border-radius: 4px;
+
+      &:hover {
+        background: #adb5bd;
+      }
+    }
+  }
+
+  // Loading state
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  // Empty state
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+
+  // Mesaj Listesi
+  &__messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  // Tek Bir Mesaj
+  &__message {
+    display: flex;
+    max-width: 70%;
+
+    &--own {
+      align-self: flex-end;
+
+      .conversation-view__message-bubble {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border-radius: 18px 18px 4px 18px;
+      }
+
+      .conversation-view__message-time {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    &--other {
+      align-self: flex-start;
+
+      .conversation-view__message-bubble {
+        background: #fff;
+        color: #212529;
+        border-radius: 18px 18px 18px 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .conversation-view__message-time {
+        color: #6c757d;
+      }
+    }
+  }
+
+  // Mesaj Balonu
+  &__message-bubble {
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  // Mesaj İçeriği
+  &__message-content {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  // Mesaj Zamanı
+  &__message-time {
+    font-size: 0.75rem;
+    text-align: right;
+    margin-top: 0.25rem;
+  }
+
+  // Form Alanı
+  &__form {
+    border-top: 1px solid #dee2e6;
+    background: #fff;
+    padding: 1rem 1.5rem;
+  }
+
+  &__form-container {
+    width: 100%;
+  }
+
+  &__input-group {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+  }
+
+  // Textarea
+  &__textarea {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    &:disabled {
+      background-color: #e9ecef;
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &::placeholder {
+      color: #6c757d;
+    }
+  }
+
+  // Gönder Butonu
+  &__send-button {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    min-width: 120px;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .conversation-view {
+    height: 500px;
+    max-height: 80vh;
+
+    &__message {
+      max-width: 85%;
+    }
+
+    &__form {
+      padding: 0.75rem 1rem;
+    }
+
+    &__input-group {
+      gap: 0.5rem;
+    }
+
+    &__textarea {
+      font-size: 0.875rem;
+    }
+
+    &__send-button {
+      min-width: 100px;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+}
