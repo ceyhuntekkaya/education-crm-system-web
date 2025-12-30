@@ -1,11 +1,11 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useSnackbar } from "@/contexts";
 import {
   useWishlistData,
   useWishlistView,
   useWishlistSelection,
+  useRFQFormModal,
 } from "../hooks";
 import { WishlistContextValue, WishlistProviderProps } from "../types";
 
@@ -19,14 +19,12 @@ const WishlistContext = createContext<WishlistContextValue | undefined>(
 );
 
 export function WishlistProvider({ children }: WishlistProviderProps) {
-  const { showSnackbar } = useSnackbar();
-
   // 🎨 VIEW MODE
   const { viewMode, setViewMode } = useWishlistView();
 
   // 📊 DATA
   const {
-    loading,
+    wishlistLoading,
     error,
     refetchWishlist,
     wishlistItems,
@@ -38,7 +36,6 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
   const {
     isSelectionMode,
     selectedProductIds,
-    isSubmitting,
     selectedCount,
     enableSelectionMode,
     disableSelectionMode,
@@ -46,17 +43,26 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
     clearSelection,
     selectAll,
     isProductSelected,
-    submitToProposal,
   } = useWishlistSelection({
     wishlistItems,
-    showSnackbar,
+  });
+
+  // 🎨 RFQ FORM MODAL
+  const {
+    isRFQModalOpen,
+    openRFQModal,
+    closeRFQModal,
+    submitRFQ: createRFQ,
+    isCreateLoadingRFQ,
+  } = useRFQFormModal({
+    disableSelectionMode,
   });
 
   // 🎯 CONTEXT VALUE
   const contextValue: WishlistContextValue = {
     viewMode,
     setViewMode,
-    loading,
+    wishlistLoading,
     error,
     refetchWishlist,
     wishlistItems,
@@ -64,7 +70,7 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
     totalCount,
     isSelectionMode,
     selectedProductIds,
-    isSubmitting,
+    isCreateLoadingRFQ,
     selectedCount,
     enableSelectionMode,
     disableSelectionMode,
@@ -72,7 +78,10 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
     clearSelection,
     selectAll,
     isProductSelected,
-    submitToProposal,
+    isRFQModalOpen,
+    openRFQModal,
+    closeRFQModal,
+    submitRFQ: createRFQ,
   };
 
   return (

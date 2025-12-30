@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
     selectedCount,
     enableSelectionMode,
     disableSelectionMode,
-    submitToProposal,
+    openRFQModal,
     isSubmitting,
     selectAll,
     clearSelection,
@@ -193,7 +193,7 @@ export const Header: React.FC = () => {
                 variant="success"
                 size="sm"
                 leftIcon="ph-bold ph-check"
-                onClick={submitToProposal}
+                onClick={openRFQModal}
                 disabled={selectedCount === 0 || isSubmitting}
                 loading={isSubmitting}
               >

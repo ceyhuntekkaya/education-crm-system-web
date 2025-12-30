@@ -1,17 +1,22 @@
-import { WishlistDto } from "../hooks/api";
+import { WishlistDto, RFQCreateDto } from "../hooks/api";
+import { ApiResponseDto } from "@/types";
+import { RFQDto } from "@/types/dto/supply/rfq.dto";
+import { MutationOptions } from "@/hooks/api/types";
 
 /**
  * Wishlist Context State tipi
  */
 export interface WishlistContextState {
   wishlistItems: WishlistDto[];
-  loading: boolean;
+  wishlistLoading: boolean;
   error: Error | null;
   viewMode: "grid" | "list";
   // Selection mode states
   isSelectionMode: boolean;
   selectedProductIds: number[];
-  isSubmitting: boolean;
+  isCreateLoadingRFQ: boolean;
+  // RFQ modal state
+  isRFQModalOpen: boolean;
 }
 
 /**
@@ -28,7 +33,15 @@ export interface WishlistContextValue extends WishlistContextState {
   toggleProductSelection: (productId: number) => void;
   clearSelection: () => void;
   selectAll: () => void;
-  submitToProposal: () => Promise<void>;
+
+  // RFQ modal actions
+  isRFQModalOpen: boolean;
+  openRFQModal: () => void;
+  closeRFQModal: () => void;
+  submitRFQ: (
+    data: RFQCreateDto,
+    mutationOptions?: MutationOptions<ApiResponseDto<RFQDto>, RFQCreateDto>
+  ) => Promise<ApiResponseDto<RFQDto> | null>;
 
   // Computed values
   isEmpty: boolean;

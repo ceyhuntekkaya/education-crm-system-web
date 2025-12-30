@@ -1,27 +1,18 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import { WishlistDto, useAddToProposal } from "./api";
+import { WishlistDto } from "./api";
 
 interface UseWishlistSelectionProps {
   wishlistItems: WishlistDto[];
-  showSnackbar: (
-    message: string,
-    type: "success" | "error" | "warning"
-  ) => void;
 }
 
 export const useWishlistSelection = ({
   wishlistItems,
-  showSnackbar,
 }: UseWishlistSelectionProps) => {
-  // 🎯 API HOOK
-  const { mutate: addToProposal } = useAddToProposal();
-
   // 🎯 SELECTION STATE
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedProductIds, setSelectedProductIds] = useState<number[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 🎯 COMPUTED VALUES
   const selectedCount = useMemo(
@@ -65,35 +56,10 @@ export const useWishlistSelection = ({
     [selectedProductIds]
   );
 
-  const submitToProposal = useCallback(async () => {
-    if (selectedProductIds.length === 0) {
-      showSnackbar("Lütfen en az bir ürün seçin", "warning");
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-
-      // API'ye istek at
-      await addToProposal({
-        productIds: selectedProductIds,
-      });
-
-      // Başarılı ise seçim modunu kapat
-      disableSelectionMode();
-    } catch (error) {
-      console.error("Error submitting to proposal:", error);
-      showSnackbar("RFQ oluşturulurken bir hata oluştu", "error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [selectedProductIds, showSnackbar, disableSelectionMode, addToProposal]);
-
   return {
     // State
     isSelectionMode,
     selectedProductIds,
-    isSubmitting,
     selectedCount,
 
     // Actions
@@ -103,6 +69,5 @@ export const useWishlistSelection = ({
     clearSelection,
     selectAll,
     isProductSelected,
-    submitToProposal,
   };
 };

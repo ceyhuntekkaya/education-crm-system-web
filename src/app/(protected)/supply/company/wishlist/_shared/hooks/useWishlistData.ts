@@ -19,7 +19,7 @@ export const useWishlistData = () => {
 
   return {
     // API State
-    loading,
+    wishlistLoading: loading,
     error: error as Error | null,
     refetchWishlist,
 

@@ -7,12 +7,13 @@ import { WishlistEmptyState } from "./wishlist-empty-state";
 import { WishlistLoadingState } from "./wishlist-loading-state";
 import { WishlistErrorState } from "./wishlist-error-state";
 import { Header } from "./header";
+import { RFQFormModal } from "./rfq-form-modal/rfq-form-modal";
 
 export const Results: React.FC = () => {
-  const { loading, error, viewMode, isEmpty } = useWishlistContext();
+  const { wishlistLoading, error, viewMode, isEmpty } = useWishlistContext();
 
   // Loading durumu
-  if (loading) {
+  if (wishlistLoading) {
     return <WishlistLoadingState />;
   }
 
@@ -27,12 +28,17 @@ export const Results: React.FC = () => {
   }
 
   return (
-    <div className="wishlist-results">
-      {/* Results Header */}
-      <Header />
+    <>
+      <div className="wishlist-results">
+        {/* Results Header */}
+        <Header />
 
-      {/* Conditional View Rendering */}
-      {viewMode === "grid" ? <WishlistGrid /> : <WishlistList />}
-    </div>
+        {/* Conditional View Rendering */}
+        {viewMode === "grid" ? <WishlistGrid /> : <WishlistList />}
+      </div>
+
+      {/* RFQ Form Modal */}
+      <RFQFormModal />
+    </>
   );
 };
