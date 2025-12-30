@@ -38,16 +38,17 @@ const PanelMenu = () => {
       bgColor: "rgba(245, 158, 11, 0.1)",
       allowedRoles: [Role.SUPPLY, Role.ADMIN],
     },
-    {
-      id: "supply-management",
-      label: "Kurum Tedarik Yönetimi",
-      icon: "ph ph-shopping-cart",
-      href: "/supply/company",
-      description: "Malzeme ve tedarik talepleri",
-      color: "#10b981",
-      bgColor: "rgba(16, 185, 129, 0.1)",
-      allowedRoles: [Role.COMPANY, Role.ADMIN],
-    },
+    // ** Public de kapatıldı, ileride açılabilir
+    // {
+    //   id: "supply-management",
+    //   label: "Kurum Tedarik Yönetimi",
+    //   icon: "ph ph-shopping-cart",
+    //   href: "/supply/company",
+    //   description: "Malzeme ve tedarik talepleri",
+    //   color: "#10b981",
+    //   bgColor: "rgba(16, 185, 129, 0.1)",
+    //   allowedRoles: [Role.COMPANY, Role.ADMIN],
+    // },
   ];
 
   // Kullanıcının rolüne göre panelleri filtrele

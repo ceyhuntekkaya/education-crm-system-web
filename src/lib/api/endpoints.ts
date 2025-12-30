@@ -275,6 +275,9 @@ export const API_ENDPOINTS = {
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
         `/supply/products/supplier/${supplierId}`,
+      DISCOUNTS: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
+      IMAGES: (id: string | number) => `/supply/products/${id}/images`,
     },
 
     // Suppliers
@@ -285,13 +288,31 @@ export const API_ENDPOINTS = {
         `/supply/suppliers/company/${companyId}`,
     },
 
+    // Categories
+    CATEGORIES: {
+      LIST: "/supply/categories",
+      BY_ID: (id: string | number) => `/supply/categories/${id}`,
+    },
+
     // Quotations
     QUOTATIONS: {
+      BY_COMPANY: (companyId: string | number) =>
+        `/supply/quotations/by-company/${companyId}`,
       BY_RFQ: (rfqId: string | number) => `/supply/quotations/rfq/${rfqId}`,
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
+    },
+
+    // Wishlists
+    WISHLISTS: {
+      LIST: "/supply/wishlists",
+      BY_ID: (id: string | number) => `/supply/wishlists/${id}`,
+      CREATE: "/supply/wishlists",
+      DELETE: (id: string | number) => `/supply/wishlists/${id}`,
+      CHECK: (productId: string | number) =>
+        `/supply/wishlists/check/${productId}`,
     },
   },
 

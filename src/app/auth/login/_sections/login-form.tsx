@@ -135,7 +135,6 @@ const LoginFormContent: React.FC = () => {
                 </p>
               </div>
               <Form onSubmit={onSubmit} className="d-flex flex-column gap-16">
-                şimdi şu şekilde bir işlem yapmanı
                 <FormInput
                   name="username"
                   label="Kullanıcı Adı"

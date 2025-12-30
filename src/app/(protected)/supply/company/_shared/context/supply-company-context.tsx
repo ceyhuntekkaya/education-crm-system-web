@@ -2,8 +2,9 @@
 
 import React, { createContext, useContext } from "react";
 
+// Context'te sadece gerekli type'ları export edelim
 interface SupplyCompanyContextType {
-  // Tedarik şirketi ile ilgili state'ler buraya eklenecek
+  // Context içinde başka state'ler varsa buraya eklenecek
 }
 
 interface SupplyCompanyProviderProps {
