@@ -1,15 +1,15 @@
 // Placeholder images for products without images
 export const PRODUCT_PLACEHOLDER_IMAGES = [
-  "https://media.istockphoto.com/id/1943833207/tr/foto%C4%9Fraf/woman-playing-in-club-soccer-tournament-giving-daughter-a-hug-on-the-sidelines.jpg?s=2048x2048&w=is&k=20&c=Sxrxd_c1VNJQI6wHyXgpc2E5j-iRmLpM4nPnsXbHyvU=",
-  "https://media.istockphoto.com/id/2177952659/tr/foto%C4%9Fraf/dad-needs-face-paint.jpg?s=2048x2048&w=is&k=20&c=B32ciPizNTTdpZN2w9FXhwQuIbJ66VDm7OFRR4dnj2k=",
-  "https://media.istockphoto.com/id/1889829405/tr/foto%C4%9Fraf/group-of-volunteers-preparing-for-renovating.jpg?s=612x612&w=0&k=20&c=vHD4sXLyoljgNASDrzB2EesR9Bn2hB2MoyYjI7pxcSU=",
-  "https://media.istockphoto.com/id/1213544256/tr/foto%C4%9Fraf/arkada%C5%9Flar-%C3%A7im-%C3%BCzerinde-oturan-ve-yaz-holi-festivalinde-e%C4%9Flenmek.jpg?s=612x612&w=0&k=20&c=0sFHRjDO_Y-N6pu5n9LGBFZppgtG7nFkn4sR97tmMQk=",
-  "https://media.istockphoto.com/id/1356364287/tr/foto%C4%9Fraf/close-up-of-human-hand-planting-seedling-in-soil.jpg?s=612x612&w=0&k=20&c=lXthKDVfF9Y8pR3Clss7lqBXLvbxBCr7GJ_-FZKlops=",
-  "https://media.istockphoto.com/id/1411772543/tr/foto%C4%9Fraf/side-view-of-cheerful-male-and-female-volunteers-sorting-donation-boxes.jpg?s=612x612&w=0&k=20&c=7YdXmH5qx8P46jKYQqmL4z_MqKKCQm6eOvh4vRfXNg4=",
-  "https://media.istockphoto.com/id/1432945701/tr/foto%C4%9Fraf/happy-children-playing-outdoors.jpg?s=612x612&w=0&k=20&c=8p8h_iP7qT2TJUqLQZkz7rVfYq5YsXYpz9lQ8tR5yK8=",
-  "https://media.istockphoto.com/id/1369509413/tr/foto%C4%9Fraf/young-woman-volunteering-at-food-bank.jpg?s=612x612&w=0&k=20&c=M5TqMh6C8pXQ6bX7zJ8hZ9cK6qY8jQ9TmD5gX8tY6bE=",
-  "https://media.istockphoto.com/id/1303835904/tr/foto%C4%9Fraf/group-of-diverse-people-working-together.jpg?s=612x612&w=0&k=20&c=7dY5jL9qK6pR8hT9zJ7cV8mN6bX5tQ9wP7gY8jK6rT8=",
-  "https://media.istockphoto.com/id/1318134789/tr/foto%C4%9Fraf/happy-family-enjoying-summer-day.jpg?s=612x612&w=0&k=20&c=8T5rQ9pJ7mK6hL8jY9tR7bN6cZ5qP8wX7gT9jL6sY8=",
+  "https://media.istockphoto.com/id/1053820220/tr/foto%C4%9Fraf/%C3%A7anta-sokakta-oturan-kad%C4%B1n-k%C4%B1demli.jpg?s=612x612&w=0&k=20&c=d7-XoPORvT1nVLnaIsAay99jMHvSE0wY-pXgq3UMtdg=",
+  "https://media.istockphoto.com/id/480556950/tr/foto%C4%9Fraf/temple-in-reflection.jpg?s=612x612&w=0&k=20&c=Xes-CwUSQRA8_i41U5SeohkvxifqgeCx017gEZBU_fk=",
+  "https://media.istockphoto.com/id/609686580/tr/foto%C4%9Fraf/girl-in-st-petersburg.jpg?s=612x612&w=0&k=20&c=wmLinUuKJlKbm7jxSau3r-n4ZYsuPufW7nsgFuiXOc8=",
+  "https://media.istockphoto.com/id/1159164272/tr/foto%C4%9Fraf/pasta-haz%C4%B1rlama.jpg?s=612x612&w=0&k=20&c=ZlsNwg-rtm2xIyHCi8hTyM6VaXOf34fTKugP8dpSu54=",
+  "https://media.istockphoto.com/id/1148009067/tr/foto%C4%9Fraf/ortak-starling-pili%C3%A7-ve-ebeveyn.jpg?s=612x612&w=0&k=20&c=cbiqUuhDWNXngoGyF-iJNGdEHPzJAxRwTQ1I_w7hUkw=",
+  "https://media.istockphoto.com/id/187494109/tr/foto%C4%9Fraf/black-rubber-duck-in-a-row-of-yellow-rubber-ducks.jpg?s=612x612&w=0&k=20&c=Pu1NrvvIRVYvEolC2ueDLNqN_q6o50D_XHhCFsD2tmg=",
+  "https://media.istockphoto.com/id/1011777484/tr/foto%C4%9Fraf/bulut-f%C4%B1rt%C4%B1na-g%C3%B6ky%C3%BCz%C3%BC-ile-k%C4%B1rsal-manzara-%C3%BCzerinde-y%C4%B1ld%C4%B1r%C4%B1m.jpg?s=612x612&w=0&k=20&c=E_IMkM3bDDubsN1srz_-fPaX2yM2LyhB9KkmLXHrq6o=",
+  "https://media.istockphoto.com/id/1162416364/tr/foto%C4%9Fraf/mutlu-do%C4%9Fum-g%C3%BCn%C3%BC-k%C3%B6pe%C4%9Fi.jpg?s=612x612&w=0&k=20&c=m--0mHdHIZ81AClMsvxVwDjyXh4k8UalUTvDpfter_Y=",
+  "https://media.istockphoto.com/id/1162401822/tr/foto%C4%9Fraf/monument-vadisi-nde-gece-f%C4%B1rt%C4%B1na.jpg?s=612x612&w=0&k=20&c=A6BRiLBsawwXQzoMZhb5d2MNN9I9dTydxycoLD1rpDs=",
+  "https://media.istockphoto.com/id/685591246/tr/foto%C4%9Fraf/ucube-pembe-plastik-flamingo.jpg?s=612x612&w=0&k=20&c=wjqtJv35qdULKqJmqzzJBFivwdE2dT5CKlEJH9IfCBU=",
 ];
 
 /**

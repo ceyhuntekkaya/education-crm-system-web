@@ -23,7 +23,7 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
   if (!product.id) return null;
 
   return (
-    <div className="col-12 col-md-6 col-lg-4 col-xl-3">
+    <div className="col-4">
       <div
         className="bg-white rounded-16 h-100 overflow-hidden transition-all d-flex flex-column position-relative"
         style={{
