@@ -38,6 +38,7 @@ const PanelMenu = () => {
       bgColor: "rgba(245, 158, 11, 0.1)",
       allowedRoles: [Role.SUPPLY, Role.ADMIN],
     },
+    // ** Public de kapatıldı, ileride açılabilir
     // {
     //   id: "supply-management",
     //   label: "Kurum Tedarik Yönetimi",
