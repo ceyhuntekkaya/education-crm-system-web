@@ -47,7 +47,7 @@ export const RFQFormContent: React.FC = () => {
         paymentTerms: formValues.paymentTerms,
         evaluationCriteria: formValues.evaluationCriteria,
         technicalRequirements: formValues.technicalRequirements,
-        productIds: formValues.productIds,
+        // productIds: formValues.productIds,
       };
 
       await submitRFQ(rfqData);
