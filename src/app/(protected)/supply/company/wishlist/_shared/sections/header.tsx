@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
     enableSelectionMode,
     disableSelectionMode,
     openRFQModal,
-    isSubmitting,
+    isCreateLoadingRFQ,
     selectAll,
     clearSelection,
   } = useWishlistContext();
@@ -165,7 +165,7 @@ export const Header: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={selectAll}
-                  disabled={isSubmitting}
+                  disabled={isCreateLoadingRFQ}
                 >
                   Tümünü Seç
                 </Button>
@@ -173,7 +173,7 @@ export const Header: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={clearSelection}
-                  disabled={selectedCount === 0 || isSubmitting}
+                  disabled={selectedCount === 0 || isCreateLoadingRFQ}
                 >
                   Seçimi Temizle
                 </Button>
@@ -184,7 +184,7 @@ export const Header: React.FC = () => {
                 size="sm"
                 leftIcon="ph-bold ph-x"
                 onClick={disableSelectionMode}
-                disabled={isSubmitting}
+                disabled={isCreateLoadingRFQ}
               >
                 İptal
               </Button>
@@ -194,8 +194,8 @@ export const Header: React.FC = () => {
                 size="sm"
                 leftIcon="ph-bold ph-check"
                 onClick={openRFQModal}
-                disabled={selectedCount === 0 || isSubmitting}
-                loading={isSubmitting}
+                disabled={selectedCount === 0 || isCreateLoadingRFQ}
+                loading={isCreateLoadingRFQ}
               >
                 RFQ Oluştur ({selectedCount})
               </Button>
