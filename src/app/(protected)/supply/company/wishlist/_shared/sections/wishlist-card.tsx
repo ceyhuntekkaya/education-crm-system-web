@@ -16,12 +16,8 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
   wishlistId,
 }) => {
   const router = useRouter();
-  const {
-    isSelectionMode,
-    isProductSelected,
-    toggleProductSelection,
-    enableSelectionMode,
-  } = useWishlistContext();
+  const { isSelectionMode, isProductSelected, toggleProductSelection } =
+    useWishlistContext();
 
   // Key for forcing re-mount on favorite state change
   const favoriteKey = `favorite-${product.id}-${wishlistId || "none"}`;
@@ -47,14 +43,15 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
   return (
     <div className="col-4">
       <div
-        className={`bg-white rounded-16 h-100 overflow-hidden transition-all d-flex flex-column position-relative ${
+        className={`rounded-16 h-100 overflow-hidden transition-all d-flex flex-column position-relative ${
           isSelectionMode ? "cursor-pointer" : ""
-        }`}
+        } ${isSelected ? "bg-primary-50" : "bg-white"}`}
         style={{
-          boxShadow:
-            "0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)",
+          boxShadow: isSelected
+            ? "0 4px 16px rgba(72, 127, 255, 0.2), 0 2px 8px rgba(72, 127, 255, 0.15)"
+            : "0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)",
           border: isSelected
-            ? "2px solid hsl(var(--primary-600))"
+            ? "3px solid hsl(var(--primary-600))"
             : "1.5px solid hsl(var(--neutral-40))",
           transform: isSelected ? "scale(0.98)" : "scale(1)",
           cursor: isSelectionMode ? "pointer" : "default",
