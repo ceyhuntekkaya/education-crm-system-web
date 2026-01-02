@@ -3,7 +3,7 @@
 import React from "react";
 
 import { usePageTitle } from "@/hooks";
-import { Results, useQuotationsContext } from "./_shared";
+import { Results } from "./_shared";
 
 const RFQsPage: React.FC = () => {
   usePageTitle("Fiyat Teklifleri");

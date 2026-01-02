@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 import { QuotationsContextValue, QuotationsProviderProps } from "../types";
-import { useQuotationsData } from "../hooks";
+import { useQuotationsData, useQuotationsSort } from "../hooks";
 
 /**
  * 🔍 QUOTATIONS CONTEXT
@@ -20,15 +20,57 @@ export function QuotationsProvider({
   // 🎨 VIEW MODE
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
+  // 🔄 SORTING
+  const {
+    sortBy,
+    sortOrder,
+    showSortDropdown,
+    dropdownRef,
+    sortOptions,
+    currentSortOption,
+    setSortBy,
+    setSortOrder,
+    setShowSortDropdown,
+    handleSortChange,
+    toggleSortOrder,
+    onSortChange,
+    toggleSortDropdown,
+    resetSort,
+  } = useQuotationsSort();
+
   // 📊 DATA
   const { quotations, loading, error, totalElements, isEmpty, refetch } =
-    useQuotationsData(companyId);
+    useQuotationsData(companyId, sortBy, sortOrder);
 
   // 🎯 CONTEXT VALUE
   const contextValue: QuotationsContextValue = {
     // View
     viewMode,
     setViewMode,
+
+    // Sorting State
+    sortBy,
+    sortOrder,
+    showSortDropdown,
+
+    // Sorting Refs
+    dropdownRef,
+
+    // Sorting Data
+    sortOptions,
+    currentSortOption,
+
+    // Sorting Setters
+    setSortBy,
+    setSortOrder,
+    setShowSortDropdown,
+
+    // Sorting Handlers
+    handleSortChange,
+    toggleSortOrder,
+    onSortChange,
+    toggleSortDropdown,
+    resetSort,
 
     // API State
     quotationsListLoading: loading,

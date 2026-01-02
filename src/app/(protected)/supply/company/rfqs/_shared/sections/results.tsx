@@ -21,13 +21,13 @@ export const Results: React.FC = () => {
   }
 
   return (
-    <div className="quotations-results">
+    <div className="quotations-results" style={{ position: "relative" }}>
       {/* Results Header */}
       <Header />
 
       {/* Conditional View Rendering */}
       {viewMode === "grid" ? (
-        <div className="row row-gap-24">
+        <div className="row row-gap-24" style={{ position: "relative", zIndex: 1 }}>
           {quotations.map((quotation) => (
             <QuotationCard
               key={quotation.id || Math.random()}

@@ -36,6 +36,8 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({ quotation }) => {
           boxShadow:
             "0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)",
           border: "1.5px solid hsl(var(--neutral-40))",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         {/* Quotation Header Image - Campaign Card Style */}
@@ -57,7 +59,7 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({ quotation }) => {
               style={{
                 top: "12px",
                 left: "12px",
-                zIndex: 10,
+                zIndex: 2,
               }}
             >
               {isExpired ? (
@@ -111,7 +113,7 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({ quotation }) => {
           {/* Status Badge - Overlay on Image */}
           <div
             className="position-absolute"
-            style={{ top: "12px", right: "12px" }}
+            style={{ top: "12px", right: "12px", zIndex: 2 }}
           >
             <span
               className={`d-inline-flex align-items-center gap-6 px-12 py-6 rounded-8 text-xs fw-semibold ${statusConfig.bgClass} ${statusConfig.textClass}`}
@@ -131,6 +133,7 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({ quotation }) => {
               style={{
                 backgroundColor: "rgba(239, 68, 68, 0.9)",
                 backdropFilter: "blur(2px)",
+                zIndex: 3,
               }}
             >
               <span className="text-white fw-bold fs-5">Süresi Doldu</span>
