@@ -3,6 +3,7 @@ import { ProductDto, SupplierDto, ProductDiscountDto } from "@/types";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
 import { TabType } from "./page-types";
 import { ProductImageDto } from "../hooks/api";
+import { ConversationDto } from "../hooks/api/use-conversations";
 
 interface ImageGalleryItem {
   id: number;
@@ -69,6 +70,17 @@ export interface ProductDetailContextValue {
     e: React.MouseEvent<HTMLDivElement>,
     isLightbox?: boolean
   ) => void;
+  // Conversations & Messages
+  conversationId: number | null;
+  existingConversation: ConversationDto | null;
+  isCheckingConversation: boolean;
+  conversationsError: string | null;
+  refetchConversations: () => void;
+  isSendingMessage: boolean;
+  sendMessage: (content: string) => Promise<boolean>;
+  messages: any[];
+  isLoadingMessages: boolean;
+  companyId: number;
 }
 
 export interface ProductDetailProviderProps {

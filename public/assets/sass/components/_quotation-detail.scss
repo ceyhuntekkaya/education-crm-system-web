@@ -1,0 +1,493 @@
+// =============================================
+// Quotation Detail Page Styles
+// Modern RFQ detay sayfası tasarımı
+// Product Detail tasarımından ilham alınmıştır
+// =============================================
+
+.quotation-detail-page {
+  // Ana container
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  // Breadcrumb ve geri dön butonu
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  // Minimal geri dön butonu (product-detail'den aynı)
+  &__back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    color: hsl(var(--neutral-600));
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: hsl(var(--main-600));
+      background: hsl(var(--main-50));
+
+      i {
+        transform: translateX(-2px);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Ana section - 8-4 layout (product detail'deki 6-6'dan farklı)
+  &__main-section {
+    margin-bottom: 48px;
+
+    .row {
+      @media (min-width: 992px) {
+        display: flex;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  // Bilgiler bölümü (sol taraf - 8 column)
+  &__info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: 991.98px) {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__title-section {
+    position: relative;
+  }
+
+  &__badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 700;
+    color: hsl(var(--neutral-900));
+    padding-top: 8px;
+
+    @media (max-width: 767.98px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Fiyat bölümü
+  &__price-section {
+    border-top: 1px solid hsl(var(--neutral-30));
+    border-bottom: 1px solid hsl(var(--neutral-30));
+    padding: 20px 0;
+  }
+
+  &__price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  &__price-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  &__price-label {
+    font-size: 0.75rem;
+    color: hsl(var(--neutral-500));
+    font-weight: 500;
+  }
+
+  &__price-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    &--base {
+      color: hsl(var(--primary-600));
+    }
+
+    @media (max-width: 767.98px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Detaylar section
+  &__details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 24px;
+  }
+
+  // Section grid
+  &__section-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__section-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  &__section-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+
+    @media (max-width: 575.98px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border-color: rgba(17, 24, 39, 0.1);
+    }
+  }
+
+  &__info-box-label {
+    font-size: 0.75rem;
+    color: rgba(17, 24, 39, 0.7);
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 0;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.6875rem;
+    }
+  }
+
+  &__info-box-value {
+    color: rgba(17, 24, 39, 0.95);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.875rem;
+    }
+  }
+
+  // Loading, Error, Empty states
+  &__state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  &__state-icon {
+    font-size: 3rem;
+  }
+
+  &__state-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  &__state-message {
+    color: hsl(var(--neutral-500));
+    max-width: 400px;
+  }
+}
+
+// Amount Box - Product Card Style (from _product-card.scss)
+.amount-box {
+  transition: all 0.2s ease;
+  
+  .amount-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 6px;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.6875rem;
+      margin-bottom: 5px;
+    }
+  }
+  
+  .amount-value {
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    font-weight: 700;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Soft Card - Product Card Style
+.soft-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+// Meta Container - Product Card Style
+.meta-container {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  
+  @media (max-width: 767.98px) {
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+  }
+}
+
+.meta-item {
+  flex: 1 1 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  max-width: 100%;
+  
+  @media (max-width: 767.98px) {
+    width: 100%;
+    gap: 8px;
+  }
+}
+
+.meta-item-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(17, 24, 39, 0.12);
+  flex-shrink: 0;
+  
+  @media (max-width: 767.98px) {
+    width: 100%;
+    height: 1px;
+    margin: 3px 0;
+  }
+}
+
+.meta-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  
+  @media (max-width: 767.98px) {
+    gap: 6px;
+  }
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  color: rgba(17, 24, 39, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.6875rem;
+  }
+}
+
+.meta-value-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  @media (max-width: 767.98px) {
+    gap: 6px;
+  }
+}
+
+.meta-value {
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgba(17, 24, 39, 0.95);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.875rem;
+  }
+}
+
+.meta-icon-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  
+  @media (max-width: 767.98px) {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+.meta-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  
+  @media (max-width: 767.98px) {
+    font-size: 12px;
+    border-radius: 5px;
+  }
+}
+
+// Status Icon - Product Card Style
+.status-icon {
+  transition: all 0.2s ease;
+}
+
+.status-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-grow: 1;
+  min-width: 0;
+  
+  @media (max-width: 767.98px) {
+    gap: 8px;
+  }
+}
+
+.status-value {
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 700;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.9375rem;
+  }
+}
+
+.status-text {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  @media (max-width: 767.98px) {
+    font-size: 0.6875rem;
+  }
+}
+
+// Responsive Design
+@media only screen and (max-width: 991.98px) {
+  .quotation-detail-page {
+    &__info-section {
+      padding-left: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .quotation-detail-page {
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__price-value {
+      font-size: 1.5rem;
+    }
+
+    &__details-section {
+      gap: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: 575.98px) {
+  .quotation-detail-page {
+    &__section-items {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+

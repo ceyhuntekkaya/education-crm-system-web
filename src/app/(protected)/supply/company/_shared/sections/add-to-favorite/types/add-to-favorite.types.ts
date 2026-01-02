@@ -20,10 +20,18 @@ export interface AddToFavoriteProps {
   initialIsFavorite?: boolean;
 
   /**
-   * Buton boyutu
+   * Gösterim tipi (icon veya button)
+   * @default "icon"
+   */
+  type?: "icon" | "button";
+
+  /**
+   * Buton/Icon boyutu
+   * Icon için: tüm boyutlar desteklenir
+   * Button için: "xxs" | "xs" | "sm" | "md" (lg otomatik md'ye dönüşür)
    * @default "md"
    */
-  size?: "sm" | "md" | "lg";
+  size?: "xxs" | "xs" | "sm" | "md" | "lg";
 
   /**
    * Icon component variant'ı
@@ -40,10 +48,10 @@ export interface AddToFavoriteProps {
     | "outline-warning";
 
   /**
-   * Icon boyutu
+   * Icon boyutu (pixel olarak, sadece type="icon" için kullanılır)
    * @default 20
    */
-  iconSize?: number;
+  iconPixelSize?: number;
 
   /**
    * Yalnızca icon göster (text gösterme)

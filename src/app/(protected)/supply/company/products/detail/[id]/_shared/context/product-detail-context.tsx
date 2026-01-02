@@ -1,18 +1,23 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   useProductById,
   useSupplierById,
   useProductDiscounts,
   useProductImages,
 } from "../hooks/api";
-import { useProductComputedValues, useProductImageGallery } from "../hooks";
+import {
+  useProductComputedValues,
+  useProductImageGallery,
+  useProductMessages,
+} from "../hooks";
 import {
   ProductDetailContextValue,
   ProductDetailProviderProps,
 } from "../types";
 import { TabType } from "../types";
+import { useAuth } from "@/contexts";
 
 const ProductDetailContext = createContext<
   ProductDetailContextValue | undefined
@@ -22,6 +27,8 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
   children,
   productId,
 }) => {
+  const { user } = useAuth();
+
   const { product, isLoading, error, refetch } = useProductById(productId);
 
   // Product yüklendikten sonra supplierId ile supplier bilgisini çek
@@ -85,6 +92,20 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     handleImageMouseMove,
   } = useProductImageGallery(product, images);
 
+  // Messages and conversations
+  const {
+    conversationId,
+    existingConversation,
+    isCheckingConversation,
+    conversationsError,
+    refetchConversations,
+    isSendingMessage,
+    sendMessage,
+    messages,
+    isLoadingMessages,
+    companyId,
+  } = useProductMessages(productId, product, supplier);
+
   const contextValue: ProductDetailContextValue = {
     productId,
     product,
@@ -134,6 +155,17 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     handleNextImage,
     handlePreviousImage,
     handleImageMouseMove,
+    // Conversations & Messages
+    conversationId,
+    existingConversation,
+    isCheckingConversation,
+    conversationsError,
+    refetchConversations,
+    isSendingMessage,
+    sendMessage,
+    messages,
+    isLoadingMessages,
+    companyId,
   };
 
   return (

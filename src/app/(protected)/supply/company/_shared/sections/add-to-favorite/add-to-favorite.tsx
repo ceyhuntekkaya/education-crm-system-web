@@ -8,6 +8,7 @@ import {
 } from "../../hooks";
 import { AddToFavoriteProps } from "./types";
 import { Icon } from "@/components/ui/icon";
+import { Button } from "@/components/ui/button";
 import { useSnackbar } from "@/contexts";
 
 // ============================================================================
@@ -85,9 +86,10 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
   productId,
   wishlistId: initialWishlistId,
   initialIsFavorite = false,
+  type = "icon",
   size = "md",
   variant = "inline",
-  iconSize = 20,
+  iconPixelSize = 20,
   iconOnly = false,
   className = "",
   onFavoriteChange,
@@ -165,7 +167,7 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
    * Favori durumunu toggle eder (ekle/çıkar)
    */
   const handleToggleFavorite = useCallback(
-    async (e: React.MouseEvent<HTMLDivElement>) => {
+    async (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
       e.preventDefault();
       e.stopPropagation();
 
@@ -217,6 +219,30 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
   // RENDER
   // ========================================================================
 
+  if (type === "button") {
+    // Button component için size mapping (lg → md)
+    const buttonSize: "xxs" | "xs" | "sm" | "md" = size === "lg" ? "md" : size;
+
+    return (
+      <Button
+        variant={isFavorite ? "error" : "outline"}
+        size={buttonSize}
+        onClick={handleToggleFavorite}
+        disabled={disabled}
+        loading={isLoading}
+        leftIcon={iconName}
+        className={className}
+        aria-label={buttonLabel}
+      >
+        {buttonLabel}
+      </Button>
+    );
+  }
+
+  // Icon component için size mapping (xxs, xs → sm)
+  const mappedIconSize: "sm" | "md" | "lg" =
+    size === "xxs" || size === "xs" ? "sm" : size === "lg" ? "lg" : size;
+
   return (
     <div
       className="d-inline-block"
@@ -225,7 +251,7 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
       <Icon
         icon={iconName}
         variant={iconVariant}
-        size={size}
+        size={mappedIconSize}
         onClick={handleToggleFavorite}
         disabled={disabled}
         loading={isLoading}

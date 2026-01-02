@@ -314,6 +314,24 @@ export const API_ENDPOINTS = {
       CHECK: (productId: string | number) =>
         `/supply/wishlists/check/${productId}`,
     },
+
+    // Conversations
+    CONVERSATIONS: {
+      CREATE: "/supply/conversations",
+      BY_ID: (id: string | number) => `/supply/conversations/${id}`,
+      BY_PRODUCT: (productId: string | number) =>
+        `/supply/conversations/by-product/${productId}`,
+      BY_COMPANY: (companyId: string | number) =>
+        `/supply/conversations/by-company/${companyId}`,
+    },
+
+    // Messages
+    MESSAGES: {
+      SEND: (conversationId: string | number) =>
+        `/supply/conversations/${conversationId}/messages`,
+      BY_CONVERSATION: (conversationId: string | number) =>
+        `/supply/conversations/${conversationId}/messages`,
+    },
   },
 
   // // Todos

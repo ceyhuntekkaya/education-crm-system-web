@@ -34,6 +34,23 @@ export type RFQStatus = "DRAFT" | "PUBLISHED" | "CLOSED" | "CANCELLED";
 export type RFQType = "OPEN" | "INVITED";
 
 /**
+ * RFQ Create DTO - Yeni RFQ oluşturma
+ * API: POST /supply/rfqs
+ */
+export interface RFQCreateDto {
+  companyId: number;
+  title: string;
+  description?: string;
+  rfqType?: RFQType;
+  submissionDeadline: string; // ISO 8601
+  expectedDeliveryDate?: string; // ISO 8601
+  paymentTerms?: string;
+  evaluationCriteria?: string;
+  technicalRequirements?: string;
+  productIds?: number[]; // Seçilen ürün ID'leri
+}
+
+/**
  * Paginated RFQ Response
  * Sayfalanmış ilan listesi
  */

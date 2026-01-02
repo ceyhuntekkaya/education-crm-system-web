@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Icon, Modal, ModalHeader, ModalBody } from "@/components/ui";
 import { useProductDetail } from "../../context";
+import { useModal } from "@/hooks";
+import { ConversationView } from "./sections/conversation-view";
 
 interface SendSupplierMessageSectionProps {
   /**
@@ -20,20 +22,16 @@ interface SendSupplierMessageSectionProps {
 export const SendSupplierMessageSection: React.FC<
   SendSupplierMessageSectionProps
 > = ({ variant = "card", className = "" }) => {
-  const { supplier } = useProductDetail();
+  const { product, supplier, conversationId } = useProductDetail();
+  const { isOpen, open, close } = useModal();
+
   const supplierId = supplier?.id;
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Eğer tedarikçi yoksa, hiçbir şey gösterme
-  if (!supplierId) return null;
+  // Eğer tedarikçi veya ürün yoksa, hiçbir şey gösterme
+  if (!supplierId || !product) return null;
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  // Supplier bilgisi
+  const supplierName = supplier?.companyName || "Tedarikçi";
 
   // Icon variant - footer için kompakt görünüm
   if (variant === "icon") {
@@ -43,25 +41,26 @@ export const SendSupplierMessageSection: React.FC<
           icon="ph-bold ph-chat-circle"
           variant="inline"
           size="sm"
-          onClick={handleOpenModal}
+          onClick={open}
           hoverText="Mesaj Gönder"
           aria-label="Tedarikçiye Mesaj Gönder"
           className={className}
         />
 
         <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={isOpen}
+          onClose={close}
           size="md"
           closeOnBackdropClick
           closeOnEscape
         >
-          <ModalHeader onClose={handleCloseModal}>
-            Tedarikçiye Mesaj Gönder
+          <ModalHeader onClose={close}>
+            {conversationId
+              ? `${supplierName} ile Mesajlaşma`
+              : `${supplierName}'e Mesaj Gönder`}
           </ModalHeader>
           <ModalBody>
-            {/* İleride buraya sections içeriği gelecek */}
-            <p>Modal içeriği buraya gelecek...</p>
+            <ConversationView conversationId={conversationId} />
           </ModalBody>
         </Modal>
       </>
@@ -73,7 +72,7 @@ export const SendSupplierMessageSection: React.FC<
     <>
       <div
         className={`product-detail-page__action-card product-detail-page__action-card--message ${className}`}
-        onClick={handleOpenModal}
+        onClick={open}
       >
         <div className="product-detail-page__action-card-icon">
           <i className="ph-bold ph-chat-circle-dots"></i>
@@ -90,18 +89,19 @@ export const SendSupplierMessageSection: React.FC<
       </div>
 
       <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        isOpen={isOpen}
+        onClose={close}
         size="md"
         closeOnBackdropClick
         closeOnEscape
       >
-        <ModalHeader onClose={handleCloseModal}>
-          Tedarikçiye Mesaj Gönder
+        <ModalHeader onClose={close}>
+          {conversationId
+            ? `${supplierName} ile Mesajlaşma`
+            : `${supplierName}'e Mesaj Gönder`}
         </ModalHeader>
         <ModalBody>
-          {/* İleride buraya sections içeriği gelecek */}
-          <p>Modal içeriği buraya gelecek...</p>
+          <ConversationView conversationId={conversationId} />
         </ModalBody>
       </Modal>
     </>
