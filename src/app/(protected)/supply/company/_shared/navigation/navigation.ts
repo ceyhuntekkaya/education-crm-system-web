@@ -26,6 +26,12 @@ export const supplyCompanyLayoutNavigation: MenuItem[] = [
     requiresSchool: false,
   },
   {
+    href: "/supply/company/rfqs",
+    label: "RFQ'lar",
+    icon: "ph-file-text",
+    requiresSchool: false,
+  },
+  {
     href: "/supply/company/messages",
     label: "Mesajlar",
     icon: "ph-chat-circle",

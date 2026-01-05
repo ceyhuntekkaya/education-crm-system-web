@@ -51,6 +51,22 @@ export interface RFQCreateDto {
 }
 
 /**
+ * RFQ Update DTO - RFQ güncelleme
+ * API: PUT /supply/rfqs/{id}
+ */
+export interface RFQUpdateDto {
+  title?: string;
+  description?: string;
+  rfqType?: RFQType;
+  submissionDeadline?: string; // ISO 8601
+  expectedDeliveryDate?: string; // ISO 8601
+  paymentTerms?: string;
+  evaluationCriteria?: string;
+  technicalRequirements?: string;
+  productIds?: number[]; // Seçilen ürün ID'leri
+}
+
+/**
  * Paginated RFQ Response
  * Sayfalanmış ilan listesi
  */
@@ -62,4 +78,45 @@ export interface PageRFQDto {
   number?: number; // 0-indexed
   first?: boolean;
   last?: boolean;
+}
+
+/**
+ * API Response RFQ DTO
+ * Tek bir RFQ için API response
+ */
+export interface ApiResponseRFQDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
+ * API Response Page RFQ DTO
+ * Sayfalanmış RFQ listesi için API response
+ */
+export interface ApiResponsePageRFQDto {
+  success?: boolean;
+  message?: string;
+  data?: PageRFQDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
+ * Get RFQs by Company Params
+ * Şirkete ait ilanları getirmek için parametreler
+ */
+export interface GetRFQsByCompanyParams extends Record<string, unknown> {
+  page?: number;
+  size?: number;
+  sort?: string;
+  status?: RFQStatus;
+  rfqType?: RFQType;
+  search?: string;
 }
