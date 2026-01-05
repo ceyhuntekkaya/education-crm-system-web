@@ -5,6 +5,9 @@ import type { RFQDto, RFQCreateDto, RFQUpdateDto } from "@/types";
  * Quotations yapısı ile aynı mimari
  */
 export interface RFQAddEditContextType {
+  // Company ID
+  companyId: number;
+
   // Current RFQ data
   rfq: RFQDto | null;
   rfqDetailLoading: boolean; // Sadece veri çekerken

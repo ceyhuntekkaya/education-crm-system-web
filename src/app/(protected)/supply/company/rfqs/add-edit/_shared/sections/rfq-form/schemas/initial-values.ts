@@ -5,8 +5,8 @@ import { RFQFormData } from "../types/form-data";
  * RFQCreateDto'ya uygun
  */
 export const initialValues: RFQFormData = {
-  // Required fields
-  companyId: "",
+  // Required fields - companyId context'ten gelecek
+  companyId: null as any,
   title: "",
   submissionDeadline: "",
 

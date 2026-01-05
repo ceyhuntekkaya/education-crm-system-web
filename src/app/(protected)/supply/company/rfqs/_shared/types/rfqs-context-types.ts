@@ -17,6 +17,9 @@ export interface SortOption {
 }
 
 export interface RFQsContextValue {
+  // Company ID
+  companyId: number;
+
   // View
   viewMode: "grid" | "list";
   setViewMode: (mode: "grid" | "list") => void;

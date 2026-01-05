@@ -42,6 +42,9 @@ export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
 
   // 🎯 CONTEXT VALUE
   const contextValue: RFQsContextValue = {
+    // Company ID
+    companyId,
+
     // View
     viewMode,
     setViewMode,

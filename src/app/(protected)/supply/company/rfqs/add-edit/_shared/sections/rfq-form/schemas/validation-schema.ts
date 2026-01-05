@@ -6,26 +6,17 @@ import * as Yup from "yup";
  */
 export const validationSchema = Yup.object({
   // Required fields (CREATE için)
-  companyId: Yup.number().when("$isEditing", {
-    is: false,
-    then: (schema) =>
-      schema
-        .required("Şirket ID gereklidir")
-        .min(1, "Geçerli bir şirket seçiniz")
-        .typeError("Geçerli bir sayı giriniz"),
-    otherwise: (schema) => schema.optional(),
-  }),
 
   title: Yup.string()
     .required("Başlık gereklidir")
     .min(1, "Başlık en az 1 karakter olmalıdır")
     .max(255, "Başlık en fazla 255 karakter olabilir"),
 
-  submissionDeadline: Yup.string().when("$isEditing", {
-    is: false,
-    then: (schema) => schema.required("Son başvuru tarihi gereklidir"),
-    otherwise: (schema) => schema.optional(),
-  }),
+  submissionDeadline: Yup.string().required("Son başvuru tarihi gereklidir"),
+
+  expectedDeliveryDate: Yup.string().required(
+    "Beklenen teslimat tarihi gereklidir"
+  ),
 
   // Optional fields (hem CREATE hem UPDATE için)
   description: Yup.string()
@@ -35,8 +26,6 @@ export const validationSchema = Yup.object({
   rfqType: Yup.string()
     .oneOf(["OPEN", "INVITED"], "Geçerli bir tip seçiniz")
     .optional(),
-
-  expectedDeliveryDate: Yup.string().optional(),
 
   paymentTerms: Yup.string()
     .max(500, "Ödeme koşulları en fazla 500 karakter olabilir")

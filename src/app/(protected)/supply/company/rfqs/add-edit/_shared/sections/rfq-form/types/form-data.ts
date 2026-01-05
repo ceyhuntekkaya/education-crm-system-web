@@ -9,11 +9,11 @@ export interface RFQFormData {
   companyId: string | number;
   title: string;
   submissionDeadline: string;
+  expectedDeliveryDate: string;
 
   // Optional fields
   description?: string;
   rfqType?: "OPEN" | "INVITED";
-  expectedDeliveryDate?: string;
   paymentTerms?: string;
   evaluationCriteria?: string;
   technicalRequirements?: string;

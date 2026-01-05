@@ -42,8 +42,8 @@ export interface RFQCreateDto {
   title: string;
   description?: string;
   rfqType?: RFQType;
-  submissionDeadline: string; // ISO 8601
-  expectedDeliveryDate?: string; // ISO 8601
+  submissionDeadline: string; // ISO 8601 - Zorunlu
+  expectedDeliveryDate: string; // ISO 8601 - Zorunlu
   paymentTerms?: string;
   evaluationCriteria?: string;
   technicalRequirements?: string;
@@ -59,7 +59,7 @@ export interface RFQUpdateDto {
   description?: string;
   rfqType?: RFQType;
   submissionDeadline?: string; // ISO 8601
-  expectedDeliveryDate?: string; // ISO 8601
+  expectedDeliveryDate: string; // ISO 8601 - Zorunlu
   paymentTerms?: string;
   evaluationCriteria?: string;
   technicalRequirements?: string;

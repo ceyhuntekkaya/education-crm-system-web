@@ -40,14 +40,42 @@ export const RFQFormContent: React.FC = () => {
 
     try {
       if (isEditing) {
-        // UPDATE - companyId gönderilmez
-        await putRFQ(formData);
-      } else {
-        // CREATE - tüm veriler gönderilir, companyId'yi number'a çevir
-        const createData = {
-          ...formData,
-          companyId: parseInt(formData.companyId as string),
+        // UPDATE - Sadece RFQUpdateDto'daki alanları gönder, boş stringleri undefined yap
+        const updateData: any = {
+          title: formData.title,
+          description: formData.description || undefined,
+          rfqType: formData.rfqType,
+          submissionDeadline: formData.submissionDeadline,
+          expectedDeliveryDate: formData.expectedDeliveryDate,
+          paymentTerms: formData.paymentTerms || undefined,
+          evaluationCriteria: formData.evaluationCriteria || undefined,
+          technicalRequirements: formData.technicalRequirements || undefined,
         };
+        // Undefined değerleri temizle
+        Object.keys(updateData).forEach(
+          (key) => updateData[key] === undefined && delete updateData[key]
+        );
+        await putRFQ(updateData);
+      } else {
+        // CREATE - Zorunlu alanlar ve opsiyonel alanlar
+        const createData: any = {
+          companyId:
+            typeof formData.companyId === "string"
+              ? parseInt(formData.companyId)
+              : formData.companyId,
+          title: formData.title,
+          submissionDeadline: formData.submissionDeadline,
+          expectedDeliveryDate: formData.expectedDeliveryDate,
+          description: formData.description || undefined,
+          rfqType: formData.rfqType,
+          paymentTerms: formData.paymentTerms || undefined,
+          evaluationCriteria: formData.evaluationCriteria || undefined,
+          technicalRequirements: formData.technicalRequirements || undefined,
+        };
+        // Undefined değerleri temizle
+        Object.keys(createData).forEach(
+          (key) => createData[key] === undefined && delete createData[key]
+        );
         await postRFQ(createData);
       }
     } catch (error) {
@@ -66,18 +94,6 @@ export const RFQFormContent: React.FC = () => {
         <div className="col-12">
           <h5 className="mb-16">Temel Bilgiler</h5>
         </div>
-
-        {!isEditing && (
-          <div className="col-12">
-            <FormInput
-              name="companyId"
-              label="Şirket ID"
-              type="number"
-              placeholder="Şirket ID giriniz..."
-              isRequired
-            />
-          </div>
-        )}
 
         <div className="col-12">
           <FormInput
@@ -120,7 +136,7 @@ export const RFQFormContent: React.FC = () => {
             label="Son Başvuru Tarihi"
             type="date"
             placeholder="Son başvuru tarihini seçiniz..."
-            isRequired={!isEditing}
+            isRequired
           />
         </div>
 
@@ -130,6 +146,7 @@ export const RFQFormContent: React.FC = () => {
             label="Beklenen Teslimat Tarihi"
             type="date"
             placeholder="Beklenen teslimat tarihini seçiniz..."
+            isRequired
           />
         </div>
 

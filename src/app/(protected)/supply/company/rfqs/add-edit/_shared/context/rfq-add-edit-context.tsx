@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { RFQAddEditContextType } from "../types";
 import { useRFQById, useAddRFQ, useEditRFQ } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
+import { useRFQsContext } from "../../../_shared/contexts";
 
 /**
  * RFQAddEditContext
@@ -20,6 +21,9 @@ interface RFQAddEditProviderProps {
 export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
   children,
 }) => {
+  // RFQs context'ten companyId'yi al
+  const rfqsContext = useRFQsContext();
+  const companyId = rfqsContext?.companyId || 1; // Fallback olarak 1
   const params = useParams();
   const { id } = params;
 
@@ -59,6 +63,9 @@ export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
   });
 
   const contextValue: RFQAddEditContextType = {
+    // Company ID
+    companyId,
+
     // Current RFQ data
     rfq: rfq || null,
     rfqDetailLoading: rfqLoading, // Sadece veri çekerken
