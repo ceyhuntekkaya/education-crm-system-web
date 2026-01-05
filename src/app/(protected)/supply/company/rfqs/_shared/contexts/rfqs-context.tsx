@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 import { RFQsContextValue, RFQsProviderProps } from "../types";
-import { useRFQsData, useRFQsSort } from "../hooks";
+import { useRFQsData, useRFQsSort, useRFQsFilter } from "../hooks";
 
 /**
  * 🔍 RFQS CONTEXT
@@ -14,6 +14,9 @@ const RFQsContext = createContext<RFQsContextValue | undefined>(undefined);
 export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
   // 🎨 VIEW MODE
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  // 🔍 FILTERING
+  const { filters, filterHandlers, activeFilterCount } = useRFQsFilter();
 
   // 🔄 SORTING
   const {
@@ -37,7 +40,8 @@ export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
   const { rfqs, loading, error, totalElements, isEmpty, refetch } = useRFQsData(
     companyId,
     sortBy,
-    sortOrder
+    sortOrder,
+    filters
   );
 
   // 🎯 CONTEXT VALUE
@@ -72,6 +76,15 @@ export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
     onSortChange,
     toggleSortDropdown,
     resetSort,
+
+    // Filter State
+    filters,
+
+    // Filter Handlers
+    filterHandlers,
+
+    // Active Filter Count
+    activeFilterCount,
 
     // API State
     rfqsListLoading: loading,

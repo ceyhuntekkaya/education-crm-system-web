@@ -1,4 +1,4 @@
-import type { RFQDto } from "@/types";
+import type { RFQDto, RFQStatus, RFQType } from "@/types";
 import type { RefObject } from "react";
 
 export type SortField =
@@ -14,6 +14,25 @@ export interface SortOption {
   value: SortField;
   label: string;
   icon: string;
+}
+
+// Filter Types
+export interface FilterState {
+  status: RFQStatus | "ALL";
+  type: RFQType | "ALL";
+  dateFrom: string | null;
+  dateTo: string | null;
+  searchQuery: string;
+}
+
+export interface FilterHandlers {
+  setStatus: (status: RFQStatus | "ALL") => void;
+  setType: (type: RFQType | "ALL") => void;
+  setDateFrom: (date: string | null) => void;
+  setDateTo: (date: string | null) => void;
+  setSearchQuery: (query: string) => void;
+  resetFilters: () => void;
+  clearDateRange: () => void;
 }
 
 export interface RFQsContextValue {
@@ -47,6 +66,15 @@ export interface RFQsContextValue {
   onSortChange: (field: SortField) => void;
   toggleSortDropdown: () => void;
   resetSort: () => void;
+
+  // Filter State
+  filters: FilterState;
+
+  // Filter Handlers
+  filterHandlers: FilterHandlers;
+
+  // Active Filter Count
+  activeFilterCount: number;
 
   // API State
   rfqsListLoading: boolean;

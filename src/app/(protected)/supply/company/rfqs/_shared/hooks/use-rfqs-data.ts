@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import type { RFQDto } from "@/types";
-import type { SortField, SortOrder } from "../types";
+import type { SortField, SortOrder, FilterState } from "../types";
 
 import { useGetRFQsByCompany } from "./api";
 
@@ -13,19 +13,63 @@ import { useGetRFQsByCompany } from "./api";
 export const useRFQsData = (
   companyId: number,
   sortBy: SortField,
-  sortOrder: SortOrder
+  sortOrder: SortOrder,
+  filters: FilterState
 ) => {
   // 📊 API DATA
   const { data, loading, error, refetch } = useGetRFQsByCompany(companyId);
 
-  // 📦 DATA
+  // 📦 DATA WITH FILTERS AND SORTING
   const rfqs = useMemo<RFQDto[]>(() => {
     if (!data?.data?.content || !Array.isArray(data.data.content)) return [];
-    const filteredData = data.data.content.filter(
+
+    let filteredData = data.data.content.filter(
       (rfq) => rfq && typeof rfq === "object"
     );
 
-    // Sıralama yok ise, default haliyle dön
+    // 🔍 APPLY FILTERS
+
+    // Status filter
+    if (filters.status !== "ALL") {
+      filteredData = filteredData.filter(
+        (rfq) => rfq.status === filters.status
+      );
+    }
+
+    // Type filter
+    if (filters.type !== "ALL") {
+      filteredData = filteredData.filter((rfq) => rfq.rfqType === filters.type);
+    }
+
+    // Date range filter (createdAt)
+    if (filters.dateFrom) {
+      const fromDate = new Date(filters.dateFrom);
+      filteredData = filteredData.filter((rfq) => {
+        if (!rfq.createdAt) return false;
+        return new Date(rfq.createdAt) >= fromDate;
+      });
+    }
+
+    if (filters.dateTo) {
+      const toDate = new Date(filters.dateTo);
+      toDate.setHours(23, 59, 59, 999); // End of day
+      filteredData = filteredData.filter((rfq) => {
+        if (!rfq.createdAt) return false;
+        return new Date(rfq.createdAt) <= toDate;
+      });
+    }
+
+    // Search filter (title)
+    if (filters.searchQuery.trim()) {
+      const query = filters.searchQuery.toLowerCase().trim();
+      filteredData = filteredData.filter((rfq) =>
+        rfq.title?.toLowerCase().includes(query)
+      );
+    }
+
+    // 🔄 APPLY SORTING
+
+    // Sıralama yok ise, filtrelenmiş haliyle dön
     if (sortBy === "none") {
       return filteredData;
     }
@@ -60,7 +104,7 @@ export const useRFQsData = (
       const comparison = aStr.localeCompare(bStr);
       return sortOrder === "asc" ? comparison : -comparison;
     });
-  }, [data, sortBy, sortOrder]);
+  }, [data, sortBy, sortOrder, filters]);
 
   // 🎯 COMPUTED VALUES
   const totalElements = useMemo(() => data?.data?.totalElements ?? 0, [data]);

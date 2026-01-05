@@ -18,9 +18,6 @@ export const Results: React.FC = () => {
 
   return (
     <div className="rfqs-results" style={{ position: "relative" }}>
-      {/* Results Header */}
-      <Header />
-
       {/* Conditional View Rendering */}
       {viewMode === "grid" ? (
         <div
