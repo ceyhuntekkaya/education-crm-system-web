@@ -301,6 +301,7 @@ export const API_ENDPOINTS = {
       BY_RFQ: (rfqId: string | number) => `/supply/quotations/rfq/${rfqId}`,
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
+      UPDATE: (id: string | number) => `/supply/quotations/${id}`,
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
     },

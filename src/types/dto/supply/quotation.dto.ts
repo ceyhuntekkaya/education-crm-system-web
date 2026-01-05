@@ -129,3 +129,89 @@ export interface GetQuotationsByCompanyParams extends Record<string, unknown> {
    */
   size?: number;
 }
+
+// ================== CREATE & UPDATE DTOs ==================
+
+/**
+ * Quotation Create DTO - Yeni teklif oluşturma
+ * API: POST /supply/quotations
+ */
+export interface QuotationCreateDto {
+  rfqId: number;
+  supplierId: number;
+  totalAmount?: number;
+  currency?: QuotationCreateDtoCurrency;
+  validUntil?: string;
+  deliveryDays?: number;
+  paymentTerms?: string;
+  warrantyTerms?: string;
+  notes?: string;
+}
+
+export type QuotationCreateDtoCurrency =
+  (typeof QuotationCreateDtoCurrency)[keyof typeof QuotationCreateDtoCurrency];
+
+export const QuotationCreateDtoCurrency = {
+  TRY: "TRY",
+  USD: "USD",
+  EUR: "EUR",
+  GBP: "GBP",
+  CHF: "CHF",
+  CAD: "CAD",
+  AUD: "AUD",
+  JPY: "JPY",
+  CNY: "CNY",
+  RUB: "RUB",
+  SAR: "SAR",
+  AED: "AED",
+  QAR: "QAR",
+  KWD: "KWD",
+  BHD: "BHD",
+} as const;
+
+/**
+ * Quotation Update DTO - Teklif güncelleme
+ * API: PUT /supply/quotations/{id}
+ */
+export interface QuotationUpdateDto {
+  totalAmount?: number;
+  currency?: QuotationUpdateDtoCurrency;
+  validUntil?: string;
+  deliveryDays?: number;
+  paymentTerms?: string;
+  warrantyTerms?: string;
+  notes?: string;
+}
+
+export type QuotationUpdateDtoCurrency =
+  (typeof QuotationUpdateDtoCurrency)[keyof typeof QuotationUpdateDtoCurrency];
+
+export const QuotationUpdateDtoCurrency = {
+  TRY: "TRY",
+  USD: "USD",
+  EUR: "EUR",
+  GBP: "GBP",
+  CHF: "CHF",
+  CAD: "CAD",
+  AUD: "AUD",
+  JPY: "JPY",
+  CNY: "CNY",
+  RUB: "RUB",
+  SAR: "SAR",
+  AED: "AED",
+  QAR: "QAR",
+  KWD: "KWD",
+  BHD: "BHD",
+} as const;
+
+/**
+ * API Response wrapper for single QuotationDto
+ */
+export interface ApiResponseQuotationDto {
+  success?: boolean;
+  message?: string;
+  data?: QuotationDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
