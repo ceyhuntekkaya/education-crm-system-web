@@ -5,7 +5,7 @@ import Link from "next/link";
 
 /**
  * ➕ ADD QUOTATION BUTTON
- * Yeni alım ilanı ekleme butonu
+ * Yeni teklif ekleme butonu
  */
 export const AddQuotationButton: React.FC = () => {
   return (
@@ -31,7 +31,7 @@ export const AddQuotationButton: React.FC = () => {
       }}
     >
       <i className="ph-bold ph-plus-circle" style={{ fontSize: "18px" }}></i>
-      <span className="d-none d-lg-inline">Yeni İlan Ekle</span>
+      <span className="d-none d-lg-inline">Yeni Teklif Ekle</span>
     </Link>
   );
 };

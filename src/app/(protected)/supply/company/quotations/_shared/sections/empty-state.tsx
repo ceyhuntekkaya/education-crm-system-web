@@ -11,11 +11,11 @@ export const QuotationsEmptyState: React.FC = () => {
           style={{ fontSize: "64px" }}
         ></i>
       </div>
-      <h4 className="mb-16 text-neutral-900">İlan Bulunamadı</h4>
+      <h4 className="mb-16 text-neutral-900">Teklif Bulunamadı</h4>
       <p className="text-neutral-500 mb-0 text-sm">
-        Henüz bu şirket için alım ilanı oluşturulmamış.
+        Henüz herhangi bir teklif oluşturulmamış.
         <br />
-        Yeni bir ilan oluşturarak tedarikçilerden fiyat teklifi alabilirsiniz.
+        Yeni bir teklif oluşturarak tedarikçilerinizden fiyat alabilirsiniz.
       </p>
     </div>
   );

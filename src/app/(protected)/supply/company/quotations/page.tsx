@@ -6,7 +6,7 @@ import { usePageTitle } from "@/hooks";
 import { Results } from "./_shared";
 
 const QuotationsPage: React.FC = () => {
-  usePageTitle("Alım İlanları");
+  usePageTitle("Teklifler");
 
   return (
     <div className="d-flex flex-column gap-24">

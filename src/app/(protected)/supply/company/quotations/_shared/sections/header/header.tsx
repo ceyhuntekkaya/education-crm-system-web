@@ -11,7 +11,7 @@ import { useQuotationsContext } from "../../contexts";
 
 /**
  * 📋 HEADER COMPONENT
- * Alım ilanları header - info, sıralama ve görünüm kontrolü
+ * Teklifler header - info, sıralama ve görünüm kontrolü
  */
 export const Header: React.FC = () => {
   const { showSortDropdown } = useQuotationsContext();

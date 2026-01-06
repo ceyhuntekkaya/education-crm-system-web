@@ -365,7 +365,7 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({ quotation }) => {
               <div className="d-flex align-items-center gap-8 bg-danger-50 px-12 py-8 rounded-8">
                 <i className="ph-fill ph-x-circle text-danger-600"></i>
                 <span className="text-xs text-danger-700 fw-medium">
-                  Bu ilanın geçerlilik süresi dolmuştur
+                  Bu teklifin geçerlilik süresi dolmuştur
                 </span>
               </div>
             </div>

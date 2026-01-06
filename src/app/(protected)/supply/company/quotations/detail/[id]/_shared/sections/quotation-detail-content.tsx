@@ -49,7 +49,7 @@ export const QuotationDetailContent: React.FC<QuotationDetailContentProps> = ({
             </Badge>
           </div>
           <h3 className="mb-0 fw-semibold text-neutral-900">
-            {quotation.rfqTitle || "İlan Başlığı"}
+            {quotation.rfqTitle || "Teklif Başlığı"}
           </h3>
         </div>
       </div>

@@ -21,7 +21,7 @@ export const supplyCompanyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/supply/company/quotations",
-    label: "Alım İlanları",
+    label: "Teklifler",
     icon: "ph-clipboard-text",
     requiresSchool: false,
   },
