@@ -391,7 +391,7 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
               <div className="d-flex align-items-center gap-8 bg-danger-50 px-12 py-8 rounded-8">
                 <i className="ph-fill ph-x-circle text-danger-600"></i>
                 <span className="text-xs text-danger-700 fw-medium">
-                  Bu teklif talebinin süresi dolmuştur
+                  Bu alım ilanının süresi dolmuştur
                 </span>
               </div>
             </div>

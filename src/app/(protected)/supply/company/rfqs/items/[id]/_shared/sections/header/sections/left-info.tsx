@@ -19,9 +19,7 @@ export const LeftInfo: React.FC = () => {
         <i className="ph-bold ph-package" style={{ fontSize: "24px" }} />
       </div>
       <div className="flex-grow-1 min-w-0">
-        <h5 className="mb-4 fw-semibold text-neutral-900">
-          Teklif Talebi Kalemleri
-        </h5>
+        <h5 className="mb-4 fw-semibold text-neutral-900">İhtiyaç Listesi</h5>
         <div className="d-flex align-items-center gap-8">
           <span className="text-neutral-600 text-xs fw-medium">Toplam</span>
           <span className="d-inline-flex align-items-center gap-6 text-xs text-neutral-700 bg-neutral-50 px-10 py-6 rounded-8 fw-medium">

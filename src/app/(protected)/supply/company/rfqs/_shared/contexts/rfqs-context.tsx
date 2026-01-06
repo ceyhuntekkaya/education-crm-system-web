@@ -6,7 +6,7 @@ import { useRFQsData, useRFQsSort, useRFQsFilter } from "../hooks";
 
 /**
  * 🔍 RFQS CONTEXT
- * Teklif talepleri için context
+ * Alım ilanları için context
  */
 
 const RFQsContext = createContext<RFQsContextValue | undefined>(undefined);

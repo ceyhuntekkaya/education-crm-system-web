@@ -27,7 +27,7 @@ export const supplyCompanyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/supply/company/rfqs",
-    label: "RFQ'lar",
+    label: "Alım İlanları",
     icon: "ph-file-text",
     requiresSchool: false,
   },

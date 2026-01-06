@@ -133,17 +133,17 @@ export const ItemFormContent: React.FC = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <div className="row row-gap-24">
-        {/* ÜRÜN BİLGİLERİ */}
+        {/* KALEM BİLGİLERİ */}
         <div className="col-12">
-          <h5 className="mb-16">Ürün Bilgileri</h5>
+          <h5 className="mb-16">Kalem Bilgileri</h5>
         </div>
 
         <div className="col-12">
           <FormInput
             name="itemName"
-            label="Ürün Adı"
+            label="Kalem Adı"
             type="text"
-            placeholder="Ürün adını giriniz..."
+            placeholder="Kalem adını giriniz..."
             isRequired
           />
         </div>
@@ -181,7 +181,7 @@ export const ItemFormContent: React.FC = () => {
           <FormTextarea
             name="specifications"
             label="Özellikler"
-            placeholder="Ürün özelliklerini giriniz..."
+            placeholder="Kalem özelliklerini giriniz..."
             rows={4}
           />
         </div>

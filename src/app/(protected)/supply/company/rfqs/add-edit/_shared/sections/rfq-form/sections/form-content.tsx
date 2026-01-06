@@ -100,7 +100,7 @@ export const RFQFormContent: React.FC = () => {
             name="title"
             label="Başlık"
             type="text"
-            placeholder="Teklif talebi başlığını giriniz..."
+            placeholder="Alım ilanı başlığını giriniz..."
             isRequired
           />
         </div>
@@ -109,7 +109,7 @@ export const RFQFormContent: React.FC = () => {
           <FormTextarea
             name="description"
             label="Açıklama"
-            placeholder="Teklif talebi açıklamasını giriniz..."
+            placeholder="Alım ilanı açıklamasını giriniz..."
             rows={4}
           />
         </div>

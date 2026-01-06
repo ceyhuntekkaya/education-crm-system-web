@@ -135,7 +135,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
                 e.currentTarget.style.color = categoryColor;
                 e.currentTarget.style.transform = "scale(1)";
               }}
-              aria-label="Ürünü düzenle"
+              aria-label="Kalemi düzenle"
             >
               <i
                 className="ph-bold ph-pencil-simple"

@@ -16,7 +16,7 @@ export const RFQErrorState: React.FC<RFQErrorStateProps> = ({ error }) => {
             Hata Oluştu
           </h3>
           <p className="rfq-detail-page__state-message">
-            {error || "Teklif talebi bilgileri yüklenirken bir hata oluştu."}
+            {error || "Alım ilanı bilgileri yüklenirken bir hata oluştu."}
           </p>
         </div>
       </div>

@@ -16,10 +16,10 @@ import {
 
 /**
  * Modern RFQ detay sayfası
- * Quotation Detail sayfasından ilham alınmıştır
+ * Alım ilanı detaylarını görüntüler
  */
 const RFQDetailPage: React.FC = () => {
-  usePageTitle("Teklif Talebi Detayı");
+  usePageTitle("Alım İlanı Detayı");
   const { rfq, isLoading, error, hasValidId } = useRFQDetail();
 
   // Loading state

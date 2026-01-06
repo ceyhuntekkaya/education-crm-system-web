@@ -9,7 +9,7 @@ import { useRFQAddEdit } from "../_shared/context";
 const RFQAddEditPage: React.FC = () => {
   const { rfq, rfqDetailLoading, isEditing } = useRFQAddEdit();
 
-  const pageTitle = isEditing ? "Teklif Talebi Düzenle" : "Yeni Teklif Talebi";
+  const pageTitle = isEditing ? "Alım İlanı Düzenle" : "Yeni Alım İlanı";
 
   usePageTitle(pageTitle);
 
@@ -18,8 +18,8 @@ const RFQAddEditPage: React.FC = () => {
       title={pageTitle}
       subtitle={
         isEditing
-          ? "Mevcut teklif talebini düzenleyin"
-          : "Yeni bir teklif talebi oluşturun"
+          ? "Mevcut alım ilanını düzenleyin"
+          : "Yeni bir alım ilanı oluşturun"
       }
       isBack
       isLoading={isEditing && rfqDetailLoading}

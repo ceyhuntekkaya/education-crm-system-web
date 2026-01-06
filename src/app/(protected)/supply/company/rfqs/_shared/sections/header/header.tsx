@@ -17,7 +17,7 @@ import { Divider } from "@/components";
 
 /**
  * 📋 HEADER COMPONENT
- * Teklif talepleri header - info, filtreleme, arama, sıralama ve görünüm kontrolü
+ * Alım ilanları header - info, filtreleme, arama, sıralama ve görünüm kontrolü
  */
 export const Header: React.FC = () => {
   const { activeFilterCount, filterHandlers } = useRFQsContext();

@@ -19,7 +19,7 @@ export const RFQEditButton: React.FC = () => {
     <button
       className="rfq-detail-page__edit-button"
       onClick={handleEdit}
-      aria-label="Teklif talebini düzenle"
+      aria-label="Alım ilanını düzenle"
     >
       <i className="ph ph-pencil-simple"></i>
       <span>Düzenle</span>

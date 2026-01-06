@@ -42,7 +42,7 @@ export const RFQInfoSection: React.FC = () => {
           </Badge>
         </div>
         <h1 className="rfq-detail-page__title mb-0">
-          {rfq.title || "Teklif Talebi Başlığı"}
+          {rfq.title || "Alım İlanı Başlığı"}
         </h1>
       </div>
 

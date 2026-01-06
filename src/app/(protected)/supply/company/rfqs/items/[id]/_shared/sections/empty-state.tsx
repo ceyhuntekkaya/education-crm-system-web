@@ -33,7 +33,7 @@ export const EmptyState: React.FC = () => {
         <>
           <h5 className="mb-8 text-neutral-900">Henüz Kalem Yok</h5>
           <p className="text-neutral-600 text-center mb-0">
-            Bu teklif talebinde henüz kalem bulunmamaktadır.
+            Bu alım ilanında henüz kalem bulunmamaktadır.
           </p>
         </>
       )}

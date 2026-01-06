@@ -6,7 +6,7 @@ import { usePageTitle } from "@/hooks";
 import { Header, Results } from "./_shared";
 
 const RFQItemsPage: React.FC = () => {
-  usePageTitle("Teklif Talebi Kalemleri");
+  usePageTitle("İhtiyaç Listesi");
 
   return (
     <div className="d-flex flex-column gap-24">

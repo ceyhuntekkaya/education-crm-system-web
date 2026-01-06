@@ -9,10 +9,10 @@ export const RFQEmptyState: React.FC = () => {
         <div className="rfq-detail-page__state-container">
           <i className="ph-duotone ph-file-text text-neutral-400 rfq-detail-page__state-icon"></i>
           <h3 className="rfq-detail-page__state-title text-neutral-600">
-            Teklif Talebi Bulunamadı
+            Alım İlanı Bulunamadı
           </h3>
           <p className="rfq-detail-page__state-message">
-            Aradığınız teklif talebi bulunamadı veya erişim yetkiniz bulunmuyor.
+            Aradığınız alım ilanı bulunamadı veya erişim yetkiniz bulunmuyor.
           </p>
         </div>
       </div>

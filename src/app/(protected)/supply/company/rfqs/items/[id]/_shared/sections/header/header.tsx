@@ -13,7 +13,7 @@ import { Divider } from "@/components";
 
 /**
  * 📋 HEADER COMPONENT
- * RFQ Kalemleri header - info, arama, sıralama ve görünüm kontrolü
+ * İhtiyaç listesi header - info, arama, sıralama ve görünüm kontrolü
  */
 export const Header: React.FC = () => {
   const { activeFilterCount, filterHandlers } = useRFQItemsContext();

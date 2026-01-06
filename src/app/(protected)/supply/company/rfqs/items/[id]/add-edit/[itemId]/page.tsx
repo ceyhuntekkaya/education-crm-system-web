@@ -9,7 +9,7 @@ import { useRFQItemAddEdit } from "../_shared/context";
 const RFQItemAddEditPage: React.FC = () => {
   const { item, itemDetailLoading, isEditing } = useRFQItemAddEdit();
 
-  const pageTitle = isEditing ? "Ürün Düzenle" : "Yeni Ürün Ekle";
+  const pageTitle = isEditing ? "Kalem Düzenle" : "Yeni Kalem Ekle";
 
   usePageTitle(pageTitle);
 
@@ -18,8 +18,8 @@ const RFQItemAddEditPage: React.FC = () => {
       title={pageTitle}
       subtitle={
         isEditing
-          ? "Mevcut ürünü düzenleyin"
-          : "Teklif talebine yeni bir ürün ekleyin"
+          ? "Mevcut kalemi düzenleyin"
+          : "Alım ilanına yeni bir kalem ekleyin"
       }
       isBack
       isLoading={isEditing && itemDetailLoading}

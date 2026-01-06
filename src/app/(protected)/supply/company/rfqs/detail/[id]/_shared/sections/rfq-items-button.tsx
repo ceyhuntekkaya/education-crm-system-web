@@ -4,8 +4,8 @@ import React from "react";
 import { useRouter, useParams } from "next/navigation";
 
 /**
- * RFQ detay sayfası için ilan kalemleri butonu
- * İlan kalemlerini görüntülemek için items sayfasına yönlendirir
+ * RFQ detay sayfası için ihtiyaç listesi butonu
+ * İhtiyaç listesini görüntülemek için items sayfasına yönlendirir
  */
 export const RFQItemsButton: React.FC = () => {
   const router = useRouter();
@@ -20,10 +20,10 @@ export const RFQItemsButton: React.FC = () => {
     <button
       className="rfq-detail-page__items-button"
       onClick={handleViewItems}
-      aria-label="İlan kalemlerini görüntüle"
+      aria-label="İhtiyaç listesini görüntüle"
     >
       <i className="ph ph-list-bullets"></i>
-      <span>İlan Kalemleri</span>
+      <span>İhtiyaç Listesi</span>
     </button>
   );
 };
