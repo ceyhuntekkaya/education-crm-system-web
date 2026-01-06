@@ -138,6 +138,44 @@ export interface RFQItemDto {
 }
 
 /**
+ * RFQ Item Create DTO - Yeni RFQ Item oluşturma
+ * API: POST /supply/rfqs/{id}/items
+ */
+export interface RFQItemCreateDto {
+  categoryId?: number;
+  itemName: string;
+  specifications?: string;
+  quantity: number;
+  unit?: string;
+}
+
+/**
+ * RFQ Item Update DTO - RFQ Item güncelleme
+ * API: PUT /supply/rfqs/{id}/items/{itemId}
+ */
+export interface RFQItemUpdateDto {
+  categoryId?: number;
+  itemName?: string;
+  specifications?: string;
+  quantity?: number;
+  unit?: string;
+}
+
+/**
+ * API Response RFQ Item DTO
+ * Tek bir RFQ Item için API response
+ */
+export interface ApiResponseRFQItemDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQItemDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
  * API Response List RFQ Item DTO
  * RFQ Item listesi için API response
  */

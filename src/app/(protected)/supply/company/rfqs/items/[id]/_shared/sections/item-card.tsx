@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components";
 import type { RFQItemDto } from "@/types";
 import { getItemCardSummary, formatQuantity, getCategoryColor } from "../utils";
@@ -10,11 +11,20 @@ interface ItemCardProps {
 }
 
 export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
+  const router = useRouter();
   const summary = getItemCardSummary(item);
   const categoryColor = getCategoryColor(summary.categoryName);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showExpandButton, setShowExpandButton] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
+
+  const handleEdit = () => {
+    if (item.rfqId && item.id) {
+      router.push(
+        `/supply/company/rfqs/items/${item.rfqId}/add-edit/${item.id}`
+      );
+    }
+  };
 
   useEffect(() => {
     // Check if text is overflowing
@@ -92,6 +102,47 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
               </span>
             </div>
           )}
+
+          {/* Edit Button */}
+          <div
+            className="position-absolute"
+            style={{
+              bottom: "12px",
+              right: "12px",
+              zIndex: 2,
+            }}
+          >
+            <button
+              onClick={handleEdit}
+              className="d-inline-flex align-items-center justify-content-center rounded-8 border-0"
+              style={{
+                width: "36px",
+                height: "36px",
+                backgroundColor: "rgba(255, 255, 255, 0.95)",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                color: categoryColor,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = categoryColor;
+                e.currentTarget.style.color = "white";
+                e.currentTarget.style.transform = "scale(1.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "rgba(255, 255, 255, 0.95)";
+                e.currentTarget.style.color = categoryColor;
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+              aria-label="Ürünü düzenle"
+            >
+              <i
+                className="ph-bold ph-pencil-simple"
+                style={{ fontSize: "16px" }}
+              ></i>
+            </button>
+          </div>
         </div>
 
         {/* Item Content */}

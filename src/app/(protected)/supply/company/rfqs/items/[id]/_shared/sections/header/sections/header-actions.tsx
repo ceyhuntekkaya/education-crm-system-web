@@ -17,8 +17,7 @@ export const HeaderActions: React.FC = () => {
   };
 
   const handleAddItem = () => {
-    // TODO: Yeni kalem ekleme modalı veya sayfası
-    console.log("Yeni kalem ekle");
+    router.push(`/supply/company/rfqs/items/${rfqId}/add-edit/new`);
   };
 
   return (

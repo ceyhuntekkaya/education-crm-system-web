@@ -270,6 +270,18 @@ export const API_ENDPOINTS = {
       DELETE: (id: string | number) => `/supply/rfqs/${id}`,
     },
 
+    // RFQ Items
+    RFQ_ITEMS: {
+      GET_ALL: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
+      GET_BY_ID: (rfqId: string | number, itemId: string | number) =>
+        `/supply/rfqs/${rfqId}/items/${itemId}`,
+      CREATE: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
+      UPDATE: (rfqId: string | number, itemId: string | number) =>
+        `/supply/rfqs/${rfqId}/items/${itemId}`,
+      DELETE: (rfqId: string | number, itemId: string | number) =>
+        `/supply/rfqs/${rfqId}/items/${itemId}`,
+    },
+
     // Products
     PRODUCTS: {
       SEARCH: "/supply/products/search",
