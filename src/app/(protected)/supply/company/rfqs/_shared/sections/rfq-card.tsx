@@ -32,6 +32,11 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
   const deadlineBadge = getDeadlineBadgeInfo(rfq.submissionDeadline);
   const summary = getRFQCardSummary(rfq);
 
+  const handleItemsClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/supply/company/rfqs/items/${rfq.id}`);
+  };
+
   return (
     <div className="col-4">
       <div
@@ -170,7 +175,19 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
             {/* İlk satır: Kalem ve Teklif Sayısı */}
             <div className="meta-container">
               {/* Item Count */}
-              <div className="meta-item">
+              <div
+                className="meta-item"
+                onClick={handleItemsClick}
+                style={{ cursor: "pointer" }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleItemsClick(e as any);
+                  }
+                }}
+              >
                 <div className="meta-content">
                   <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
                     Kalem Sayısı

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils";
 import { Badge } from "@/components";
 import { useRFQDetail } from "../context";
@@ -18,6 +19,7 @@ import {
 
 export const RFQInfoSection: React.FC = () => {
   const { rfq } = useRFQDetail();
+  const router = useRouter();
 
   if (!rfq) return null;
 
@@ -25,6 +27,10 @@ export const RFQInfoSection: React.FC = () => {
   const daysUntilDeadline = calculateDaysUntilDeadline(rfq.submissionDeadline);
   const isApproaching = isRFQDeadlineApproaching(rfq.submissionDeadline);
   const statusConfig = getRFQStatusConfig(rfq.status);
+
+  const handleItemsClick = () => {
+    router.push(`/supply/company/rfqs/items/${rfq.id}`);
+  };
 
   return (
     <div className="rfq-detail-page__info-section">
@@ -90,7 +96,19 @@ export const RFQInfoSection: React.FC = () => {
       {/* Meta Container - İstatistikler */}
       <div className="meta-container soft-card rounded-16">
         {/* Kalem Sayısı */}
-        <div className="meta-item">
+        <div
+          className="meta-item"
+          onClick={handleItemsClick}
+          style={{ cursor: "pointer" }}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleItemsClick();
+            }
+          }}
+        >
           <div className="meta-icon-wrapper">
             <div className="meta-icon bg-primary-100 text-primary-700">
               <i className="ph-bold ph-package"></i>
