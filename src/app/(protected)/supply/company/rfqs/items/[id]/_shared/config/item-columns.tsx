@@ -7,17 +7,24 @@ export const createItemColumns = (): GridColDef<RFQItemDto>[] => [
   {
     field: "itemName",
     headerName: "Kalem Adı",
-    minWidth: 300,
+    minWidth: 250,
     renderCell: (params: any) => (
       <div className="w-100">
         <div
-          className="fw-semibold text-primary text-truncate mb-1"
+          className="fw-semibold text-dark mb-1"
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
           title={params.value || "Kalem Adı Yok"}
         >
           {params.value || "Kalem Adı Yok"}
         </div>
         {params.row.id && (
-          <div className="text-muted text-xs">#{params.row.id}</div>
+          <div className="text-muted" style={{ fontSize: "0.75rem" }}>
+            #{params.row.id}
+          </div>
         )}
       </div>
     ),
@@ -25,10 +32,11 @@ export const createItemColumns = (): GridColDef<RFQItemDto>[] => [
   {
     field: "categoryName",
     headerName: "Kategori",
-    width: 180,
+    width: 200,
     align: "center",
+    headerAlign: "center",
     renderCell: (params: any) => (
-      <Badge variant="secondary" size="sm">
+      <Badge variant="info" size="sm">
         {params.value || "Kategorisiz"}
       </Badge>
     ),
@@ -36,15 +44,18 @@ export const createItemColumns = (): GridColDef<RFQItemDto>[] => [
   {
     field: "quantity",
     headerName: "Miktar",
-    width: 150,
+    width: 180,
     align: "center",
+    headerAlign: "center",
     renderCell: (params: any) => (
-      <div className="d-flex align-items-center gap-1 justify-content-center">
-        <span className="text-sm fw-semibold text-neutral-900">
+      <div className="d-flex align-items-center justify-content-center gap-2">
+        <span className="fw-bold text-dark" style={{ fontSize: "0.95rem" }}>
           {params.value || 0}
         </span>
         {params.row.unit && (
-          <span className="text-xs text-neutral-600">{params.row.unit}</span>
+          <span className="text-muted" style={{ fontSize: "0.85rem" }}>
+            {params.row.unit}
+          </span>
         )}
       </div>
     ),
@@ -52,21 +63,29 @@ export const createItemColumns = (): GridColDef<RFQItemDto>[] => [
   {
     field: "unit",
     headerName: "Birim",
-    width: 120,
+    width: 140,
     align: "center",
+    headerAlign: "center",
     renderCell: (params: any) => (
       <Badge variant="secondary" size="sm">
-        {params.value || "Birim Yok"}
+        {params.value || "-"}
       </Badge>
     ),
   },
   {
     field: "specifications",
     headerName: "Özellikler",
-    minWidth: 250,
+    minWidth: 300,
     renderCell: (params: any) => (
       <div
-        className="text-sm text-neutral-700 text-truncate"
+        className="text-muted"
+        style={{
+          fontSize: "0.875rem",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          lineHeight: "1.5",
+        }}
         title={params.value || "Özellik belirtilmemiş"}
       >
         {params.value || "Özellik belirtilmemiş"}

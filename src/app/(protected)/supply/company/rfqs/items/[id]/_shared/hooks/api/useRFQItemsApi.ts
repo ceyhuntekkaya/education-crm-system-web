@@ -1,6 +1,7 @@
 "use client";
 
 import { useGet } from "@/hooks";
+import { API_ENDPOINTS } from "@/lib";
 import type { ApiResponseListRFQItemDto } from "@/types";
 
 // ================== API HOOKS ==================
@@ -18,7 +19,7 @@ export const useGetRFQItems = (
   options?: { enabled?: boolean }
 ) => {
   return useGet<ApiResponseListRFQItemDto>(
-    rfqId ? `/supply/rfqs/${rfqId}/items` : null,
+    rfqId ? API_ENDPOINTS.SUPPLY.RFQS.ITEMS(rfqId) : null,
     {
       enabled: options?.enabled ?? !!rfqId,
     }

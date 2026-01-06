@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Badge } from "@/components";
 import type { RFQItemDto } from "@/types";
 import { getItemCardSummary, formatQuantity, getCategoryColor } from "../utils";
@@ -12,6 +12,19 @@ interface ItemCardProps {
 export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   const summary = getItemCardSummary(item);
   const categoryColor = getCategoryColor(summary.categoryName);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showExpandButton, setShowExpandButton] = useState(false);
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    // Check if text is overflowing
+    if (textRef.current) {
+      // Use scrollHeight > clientHeight to detect overflow
+      const isOverflowing =
+        textRef.current.scrollHeight > textRef.current.clientHeight;
+      setShowExpandButton(isOverflowing);
+    }
+  }, [summary.specifications]);
 
   return (
     <div className="col-4">
@@ -93,23 +106,67 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
           {/* Specifications */}
           <div
             style={{
-              minHeight: "42px",
               marginBottom: "16px",
             }}
           >
             <p
+              ref={textRef}
               className="text-sm text-neutral-600 mb-0"
               style={{
                 display: "-webkit-box",
-                WebkitLineClamp: 2,
+                WebkitLineClamp: isExpanded ? "unset" : 2,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 lineHeight: "1.5",
+                transition: "all 0.3s ease",
               }}
             >
               {summary.specifications}
             </p>
+            {showExpandButton && (
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="mt-10 d-inline-flex align-items-center gap-8 px-14 py-8 rounded-10 text-xs fw-medium border-0"
+                style={{
+                  color: categoryColor,
+                  backgroundColor: `${categoryColor}10`,
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  cursor: "pointer",
+                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                  border: `1px solid ${categoryColor}20`,
+                  alignSelf: "flex-start",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = `${categoryColor}20`;
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 12px rgba(0, 0, 0, 0.1)";
+                  e.currentTarget.style.borderColor = `${categoryColor}30`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = `${categoryColor}10`;
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 1px 3px rgba(0, 0, 0, 0.05)";
+                  e.currentTarget.style.borderColor = `${categoryColor}20`;
+                }}
+              >
+                <i
+                  className={`ph-bold ${
+                    isExpanded ? "ph-caret-up" : "ph-caret-down"
+                  }`}
+                  style={{
+                    fontSize: "13px",
+                    transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transform: isExpanded ? "rotate(0deg)" : "rotate(0deg)",
+                  }}
+                ></i>
+                <span style={{ letterSpacing: "0.01em" }}>
+                  {isExpanded ? "Daha Az Göster" : "Devamını Gör"}
+                </span>
+              </button>
+            )}
           </div>
 
           {/* Quantity Container */}

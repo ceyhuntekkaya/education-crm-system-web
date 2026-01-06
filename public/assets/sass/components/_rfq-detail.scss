@@ -25,6 +25,13 @@
     }
   }
 
+  // Header aksiyon butonları grubu
+  &__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   // Minimal geri dön butonu
   &__back-button {
     display: inline-flex;
@@ -85,6 +92,41 @@
 
       i {
         transform: rotate(15deg) scale(1.1);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // İlan kalemleri butonu
+  &__items-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid hsl(var(--main-200));
+    color: hsl(var(--main-600));
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: hsl(var(--main-700));
+      background: hsl(var(--main-50));
+      border-color: hsl(var(--main-300));
+
+      i {
+        transform: translateX(2px);
       }
     }
 
@@ -213,6 +255,47 @@
   &__state-message {
     color: hsl(var(--neutral-500));
     max-width: 400px;
+  }
+}
+
+// =============================================
+// RFQ Items Header Styles
+// Kalem listesi header butonları
+// =============================================
+.rfq-items-header {
+  // Geri dön butonu
+  &__back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid hsl(var(--neutral-200));
+    color: hsl(var(--neutral-700));
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: hsl(var(--neutral-900));
+      background: hsl(var(--neutral-50));
+      border-color: hsl(var(--neutral-300));
+
+      i {
+        transform: translateX(-2px);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
   }
 }
 

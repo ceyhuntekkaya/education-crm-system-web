@@ -2,6 +2,7 @@
 
 import React from "react";
 import { LeftInfo } from "./sections/left-info";
+import { HeaderActions } from "./sections/header-actions";
 import { ViewModeToggle } from "./sections/view-mode-toggle";
 import { SortDropdown } from "./sections/sort-dropdown";
 import { SearchInput } from "./sections/search-input";
@@ -27,9 +28,10 @@ export const Header: React.FC = () => {
         padding: "16px",
       }}
     >
-      {/* Row 1: Başlık Bilgisi */}
+      {/* Row 1: Başlık Bilgisi ve Aksiyon Butonları */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-16 mb-16">
         <LeftInfo />
+        <HeaderActions />
       </div>
 
       {/* Divider */}

@@ -9,10 +9,14 @@ import { useRouter } from "next/navigation";
 export const RFQBackButton: React.FC = () => {
   const router = useRouter();
 
+  const handleBack = () => {
+    router.push("/supply/company/rfqs");
+  };
+
   return (
     <button
       className="rfq-detail-page__back-button"
-      onClick={() => router.back()}
+      onClick={handleBack}
       aria-label="Geri dön"
     >
       <i className="ph ph-arrow-left"></i>

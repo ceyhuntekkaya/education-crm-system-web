@@ -11,6 +11,7 @@ import {
   RFQEmptyState,
   RFQBackButton,
   RFQEditButton,
+  RFQItemsButton,
 } from "./_shared";
 
 /**
@@ -44,7 +45,10 @@ const RFQDetailPage: React.FC = () => {
         {/* Header: Geri Dön ve Düzenle - Minimal Tasarım */}
         <div className="rfq-detail-page__header">
           <RFQBackButton />
-          <RFQEditButton />
+          <div className="rfq-detail-page__header-actions">
+            <RFQItemsButton />
+            <RFQEditButton />
+          </div>
         </div>
 
         {/* Ana RFQ Bilgileri */}
