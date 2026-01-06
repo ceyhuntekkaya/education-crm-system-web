@@ -120,3 +120,32 @@ export interface GetRFQsByCompanyParams extends Record<string, unknown> {
   rfqType?: RFQType;
   search?: string;
 }
+
+/**
+ * RFQ Item DTO - Request for Quotation Item (İlan Kalemi) detayları
+ * API: GET /supply/rfqs/{id}/items
+ */
+export interface RFQItemDto {
+  id?: number;
+  rfqId?: number;
+  rfqTitle?: string;
+  categoryId?: number;
+  categoryName?: string;
+  itemName?: string;
+  specifications?: string;
+  quantity?: number;
+  unit?: string;
+}
+
+/**
+ * API Response List RFQ Item DTO
+ * RFQ Item listesi için API response
+ */
+export interface ApiResponseListRFQItemDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQItemDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
