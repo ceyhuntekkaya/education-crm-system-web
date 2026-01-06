@@ -1,21 +1,23 @@
 "use client";
 
 import React from "react";
-import { Loading } from "@/components";
 import { useRFQsContext } from "../contexts";
-import { Header, RFQCard, RFQsList, EmptyState } from ".";
+import { Header, RFQCard, RFQsList, EmptyState, LoadingState } from ".";
 
 export const Results: React.FC = () => {
   const { rfqs, rfqsListLoading, viewMode, rfqsListIsEmpty } = useRFQsContext();
 
+  // 1️⃣ Loading State - En önce kontrol
   if (rfqsListLoading) {
-    return <Loading />;
+    return <LoadingState />;
   }
 
+  // 2️⃣ Empty State - Loading bittiyse ve veri yoksa
   if (rfqsListIsEmpty || !rfqs || rfqs.length === 0) {
     return <EmptyState />;
   }
 
+  // 3️⃣ Data State - Veri varsa göster
   return (
     <div className="rfqs-results" style={{ position: "relative" }}>
       {/* Conditional View Rendering */}
