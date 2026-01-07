@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useRFQById } from "../../../../_shared/hooks/api";
+import { useRFQById, useRFQActions } from "../../../../_shared/hooks/api";
 import { RFQDetailContextValue, RFQDetailProviderProps } from "../types";
 
 const RFQDetailContext = createContext<RFQDetailContextValue | undefined>(
@@ -13,6 +13,14 @@ export const RFQDetailProvider: React.FC<RFQDetailProviderProps> = ({
   rfqId,
 }) => {
   const { rfq, isLoading, error, refetch } = useRFQById(rfqId);
+  const {
+    publishRFQ,
+    closeRFQ,
+    cancelRFQ,
+    isPublishing,
+    isClosing,
+    isCancelling,
+  } = useRFQActions(rfqId);
 
   const hasValidId = rfqId > 0;
 
@@ -23,6 +31,13 @@ export const RFQDetailProvider: React.FC<RFQDetailProviderProps> = ({
     error,
     refetch,
     hasValidId,
+    // RFQ Actions
+    publishRFQ,
+    closeRFQ,
+    cancelRFQ,
+    isPublishing,
+    isClosing,
+    isCancelling,
   };
 
   return (

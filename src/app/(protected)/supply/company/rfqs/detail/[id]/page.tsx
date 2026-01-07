@@ -12,6 +12,7 @@ import {
   RFQBackButton,
   RFQEditButton,
   RFQItemsButton,
+  RFQActionButtons,
 } from "./_shared";
 
 /**
@@ -46,6 +47,7 @@ const RFQDetailPage: React.FC = () => {
         <div className="rfq-detail-page__header">
           <RFQBackButton />
           <div className="rfq-detail-page__header-actions">
+            <RFQActionButtons />
             <RFQItemsButton />
             <RFQEditButton />
           </div>

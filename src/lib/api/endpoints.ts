@@ -270,6 +270,10 @@ export const API_ENDPOINTS = {
       CREATE: "/supply/rfqs",
       UPDATE: (id: string | number) => `/supply/rfqs/${id}`,
       DELETE: (id: string | number) => `/supply/rfqs/${id}`,
+      // RFQ Actions
+      PUBLISH: (id: string | number) => `/supply/rfqs/${id}/publish`,
+      CLOSE: (id: string | number) => `/supply/rfqs/${id}/close`,
+      CANCEL: (id: string | number) => `/supply/rfqs/${id}/cancel`,
     },
 
     // RFQ Items
