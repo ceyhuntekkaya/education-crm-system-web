@@ -57,7 +57,7 @@ export const QuotationCardMeta: React.FC<QuotationCardMetaProps> = ({
               </div>
               <span
                 className="meta-value fw-bold"
-                style={{ fontSize: "1rem", color: statusColor }}
+                style={{ fontSize: "1.25rem", color: statusColor }}
               >
                 {totalAmount !== undefined && totalAmount !== null && currency
                   ? formatCurrency(totalAmount, currency)
