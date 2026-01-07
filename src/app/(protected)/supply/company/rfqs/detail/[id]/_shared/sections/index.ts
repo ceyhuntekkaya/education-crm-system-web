@@ -7,3 +7,4 @@ export * from "./rfq-error-state";
 export * from "./rfq-info-section";
 export * from "./rfq-details-section";
 export * from "./rfq-action-buttons/index";
+export * from "./send-supplier-message-section/send-supplier-message-section";

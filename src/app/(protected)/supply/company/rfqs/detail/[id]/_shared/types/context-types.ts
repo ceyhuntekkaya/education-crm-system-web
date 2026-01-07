@@ -2,6 +2,28 @@ import React from "react";
 import type { RFQDto, ApiResponseDto } from "@/types";
 import type { MutationOptions } from "@/hooks/api";
 
+// Supply message/conversation types
+interface MessageDto {
+  id: number;
+  conversationId: number;
+  senderId: number;
+  senderName?: string;
+  content: string;
+  isRead: boolean;
+  createdAt: string;
+}
+
+interface ConversationDto {
+  id: number;
+  companyId: number;
+  supplierId?: number;
+  rfqId?: number;
+  productId?: number;
+  subject: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 /**
  * RFQ detail context için interface'ler
  */
@@ -38,6 +60,17 @@ export interface RFQDetailContextValue {
   isPublishing: boolean;
   isClosing: boolean;
   isCancelling: boolean;
+  // Messaging functionality
+  conversationId: number | null;
+  existingConversation: ConversationDto | null;
+  isCheckingConversation: boolean;
+  conversationsError: string | null;
+  refetchConversations: () => void;
+  isSendingMessage: boolean;
+  sendMessage: (content: string) => Promise<boolean>;
+  messages: MessageDto[];
+  isLoadingMessages: boolean;
+  companyId: number;
 }
 
 export interface RFQDetailProviderProps {

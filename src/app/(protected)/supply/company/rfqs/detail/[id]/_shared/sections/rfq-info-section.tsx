@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils";
 import { Badge } from "@/components";
 import { useRFQDetail } from "../context";
+import { SendSupplierMessageSection } from "./send-supplier-message-section/send-supplier-message-section";
 import {
   isRFQExpired,
   calculateDaysUntilDeadline,
@@ -51,51 +52,25 @@ export const RFQInfoSection: React.FC = () => {
             {statusConfig.text}
           </Badge>
         </div>
-        <h1 className="rfq-detail-page__title mb-0">
-          {rfq.title || "Alım İlanı Başlığı"}
-        </h1>
-      </div>
 
-      {/* Şirket Bilgisi */}
-      {rfq.companyName && (
-        <div className="soft-card rounded-16">
-          <div className="d-flex align-items-center gap-12 p-12">
-            <div
-              className="status-icon bg-primary-100 text-primary-700"
-              style={{
-                width: "30px",
-                height: "30px",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "15px",
-                flexShrink: 0,
-              }}
-            >
-              <i className="ph-bold ph-buildings"></i>
-            </div>
-            <div className="status-info flex-grow-1">
-              <span
-                className="fw-bold text-neutral-900 status-value"
-                style={{ fontSize: "1rem" }}
-              >
-                {rfq.companyName}
-              </span>
-              <span
-                className="text-neutral-600 status-text"
-                style={{
-                  fontSize: "0.75rem",
-                  display: "block",
-                  marginTop: "2px",
-                }}
-              >
-                ID: {rfq.companyId}
-              </span>
-            </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "16px",
+          }}
+        >
+          <h1 className="rfq-detail-page__title mb-0">
+            {rfq.title || "Alım İlanı Başlığı"}
+          </h1>
+
+          {/* Tedarikçiye Mesaj Gönder */}
+          <div style={{ flexShrink: 0 }}>
+            <SendSupplierMessageSection variant="card" />
           </div>
         </div>
-      )}
+      </div>
 
       {/* Meta Container - İstatistikler */}
       <div className="meta-container soft-card rounded-16">
