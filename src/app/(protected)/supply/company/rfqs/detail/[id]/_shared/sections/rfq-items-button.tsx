@@ -19,6 +19,10 @@ export const RFQItemsButton: React.FC = () => {
     router.push(`/supply/company/rfqs/quotations/${id}`);
   };
 
+  const handleViewComparison = () => {
+    router.push(`/supply/company/rfqs/comparison/${id}`);
+  };
+
   return (
     <>
       <button
@@ -36,6 +40,14 @@ export const RFQItemsButton: React.FC = () => {
       >
         <i className="ph ph-file-text"></i>
         <span>Gelen Teklifler</span>
+      </button>
+      <button
+        className="rfq-detail-page__items-button"
+        onClick={handleViewComparison}
+        aria-label="Teklif karşılaştırmasını görüntüle"
+      >
+        <i className="ph ph-scales"></i>
+        <span>Teklif Karşılaştırma</span>
       </button>
     </>
   );
