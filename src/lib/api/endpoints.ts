@@ -265,6 +265,8 @@ export const API_ENDPOINTS = {
       ACTIVE: "/supply/rfqs/active",
       BY_ID: (id: string | number) => `/supply/rfqs/${id}`,
       ITEMS: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
+      QUOTATIONS: (rfqId: string | number) =>
+        `/supply/rfqs/${rfqId}/quotations`,
       CREATE: "/supply/rfqs",
       UPDATE: (id: string | number) => `/supply/rfqs/${id}`,
       DELETE: (id: string | number) => `/supply/rfqs/${id}`,

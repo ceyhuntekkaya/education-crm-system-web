@@ -37,6 +37,11 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
     router.push(`/supply/company/rfqs/items/${rfq.id}`);
   };
 
+  const handleQuotationsClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/supply/company/rfqs/quotations/${rfq.id}`);
+  };
+
   return (
     <div className="col-4">
       <div
@@ -219,7 +224,19 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
               <div className="meta-item-divider"></div>
 
               {/* Quotation Count */}
-              <div className="meta-item">
+              <div
+                className="meta-item"
+                onClick={handleQuotationsClick}
+                style={{ cursor: "pointer" }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleQuotationsClick(e as any);
+                  }
+                }}
+              >
                 <div className="meta-content">
                   <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
                     Teklif Sayısı

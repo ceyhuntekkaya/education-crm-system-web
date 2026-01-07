@@ -8,10 +8,13 @@ export function formatNumber(
 }
 
 // Para birimi formatlama fonksiyonu
-export function formatCurrency(amount: number): string {
+export function formatCurrency(
+  amount: number,
+  currency: string = "TRY"
+): string {
   return new Intl.NumberFormat("tr-TR", {
     style: "currency",
-    currency: "TRY",
+    currency: currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);

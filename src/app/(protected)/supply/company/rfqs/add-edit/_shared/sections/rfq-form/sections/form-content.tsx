@@ -212,7 +212,7 @@ export const RFQFormContent: React.FC = () => {
               disabled={hasErrors || rfqSubmitLoading}
               loading={rfqSubmitLoading}
             >
-              {isEditing ? "Güncelle" : "Kaydet"}
+              {isEditing ? "Güncelle" : "Taslak Olarak Kaydet"}
             </Button>
           </div>
         </div>

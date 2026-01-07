@@ -32,6 +32,10 @@ export const RFQInfoSection: React.FC = () => {
     router.push(`/supply/company/rfqs/items/${rfq.id}`);
   };
 
+  const handleQuotationsClick = () => {
+    router.push(`/supply/company/rfqs/quotations/${rfq.id}`);
+  };
+
   return (
     <div className="rfq-detail-page__info-section">
       {/* Başlık ve Durum */}
@@ -124,7 +128,19 @@ export const RFQInfoSection: React.FC = () => {
         <div className="meta-item-divider"></div>
 
         {/* Teklif Sayısı */}
-        <div className="meta-item">
+        <div
+          className="meta-item"
+          onClick={handleQuotationsClick}
+          style={{ cursor: "pointer" }}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleQuotationsClick();
+            }
+          }}
+        >
           <div className="meta-icon-wrapper">
             <div className="meta-icon bg-success-100 text-success-700">
               <i className="ph-bold ph-file-text"></i>

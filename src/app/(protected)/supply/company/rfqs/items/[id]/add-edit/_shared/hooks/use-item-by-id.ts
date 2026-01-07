@@ -15,15 +15,15 @@ interface UseItemByIdProps {
 export const useItemById = ({ itemId }: UseItemByIdProps) => {
   // Items context'ten items listesini al
   const itemsContext = useRFQItemsContext();
-  const items = itemsContext?.items || [];
   const isLoading = itemsContext?.itemsListLoading || false;
   const error = itemsContext?.itemsListError || null;
 
   // Items listesinden itemId'ye göre eşleşeni bul
   const item = useMemo(() => {
+    const items = itemsContext?.items || [];
     if (!itemId || items.length === 0) return null;
     return items.find((item) => item.id === itemId) || null;
-  }, [itemId, items]);
+  }, [itemId, itemsContext?.items]);
 
   // Refetch items listesini yeniden çeker
   const refetch = () => {
