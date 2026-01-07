@@ -1,6 +1,7 @@
 export * from "./rfq-back-button";
 export * from "./rfq-edit-button";
 export * from "./rfq-items-button";
+export * from "./rfq-invited-suppliers-button";
 export * from "./rfq-loading-state";
 export * from "./rfq-empty-state";
 export * from "./rfq-error-state";
