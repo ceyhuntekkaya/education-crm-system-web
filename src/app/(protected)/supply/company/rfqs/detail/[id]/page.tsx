@@ -13,7 +13,6 @@ import {
   RFQEditButton,
   RFQItemsButton,
   RFQInvitedSuppliersButton,
-  RFQActionButtons,
 } from "./_shared";
 
 /**
@@ -46,13 +45,15 @@ const RFQDetailPage: React.FC = () => {
       <div className="rfq-detail-page__container">
         {/* Header: Geri Dön ve Düzenle - Minimal Tasarım */}
         <div className="rfq-detail-page__header">
-          <RFQBackButton />
           <div className="rfq-detail-page__header-actions">
-            <RFQActionButtons />
+            {/* <RFQActionButtons /> */}
             <RFQItemsButton />
-            <RFQInvitedSuppliersButton />
+            {/* Davet edilen tedarikçiler - Sadece davetiye ilanlarda */}
+            {rfq.rfqType === "INVITED" && <RFQInvitedSuppliersButton />}
             <RFQEditButton />
           </div>
+
+          <RFQBackButton />
         </div>
 
         {/* Ana RFQ Bilgileri */}

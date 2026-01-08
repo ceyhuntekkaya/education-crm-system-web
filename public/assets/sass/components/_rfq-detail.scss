@@ -378,6 +378,29 @@
         color: #fff;
       }
     }
+
+    // Compact variant - daha küçük boyutlar
+    &--compact {
+      padding: 10px 12px;
+      border-radius: 12px;
+      gap: 10px;
+
+      .rfq-detail-page__action-card-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+
+      .rfq-detail-page__action-card-label {
+        font-size: 0.8125rem;
+        font-weight: 500;
+      }
+
+      .rfq-detail-page__action-card-arrow {
+        font-size: 16px;
+      }
+    }
   }
 
   &__action-card-icon {

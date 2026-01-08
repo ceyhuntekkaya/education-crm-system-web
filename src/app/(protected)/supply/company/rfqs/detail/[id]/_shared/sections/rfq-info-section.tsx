@@ -17,6 +17,7 @@ import {
   getRFQTypeDisplay,
   getRFQTypeBadgeVariant,
 } from "../../../../_shared/utils";
+import { RFQActionButtons } from "./rfq-action-buttons";
 
 export const RFQInfoSection: React.FC = () => {
   const { rfq } = useRFQDetail();
@@ -41,16 +42,29 @@ export const RFQInfoSection: React.FC = () => {
     <div className="rfq-detail-page__info-section">
       {/* Başlık ve Durum */}
       <div className="rfq-detail-page__title-section">
-        <div className="rfq-detail-page__badges">
-          <span className="d-inline-flex align-items-center gap-6 text-xs text-neutral-700 bg-neutral-50 px-10 py-6 rounded-8 fw-medium">
-            <i className="ph-bold ph-hash text-xs"></i>#{rfq.id || "N/A"}
-          </span>
-          <Badge variant={getRFQTypeBadgeVariant(rfq.rfqType)} size="sm">
-            {getRFQTypeDisplay(rfq.rfqType)}
-          </Badge>
-          <Badge variant={getRFQStatusBadgeVariant(rfq.status)} size="sm">
-            {statusConfig.text}
-          </Badge>
+        <div
+          className="rfq-detail-page__badges"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+            {/* <span className="d-inline-flex align-items-center gap-6 text-xs text-neutral-700 bg-neutral-50 px-10 py-6 rounded-8 fw-medium">
+              <i className="ph-bold ph-hash text-xs"></i>#{rfq.id || "N/A"}
+            </span> */}
+            <Badge variant={getRFQTypeBadgeVariant(rfq.rfqType)} size="sm">
+              {getRFQTypeDisplay(rfq.rfqType)}
+            </Badge>
+            <Badge variant={getRFQStatusBadgeVariant(rfq.status)} size="sm">
+              {statusConfig.text}
+            </Badge>
+          </div>
+          <div className="d-flex gap-8">
+            <RFQActionButtons />
+          </div>
         </div>
 
         <div

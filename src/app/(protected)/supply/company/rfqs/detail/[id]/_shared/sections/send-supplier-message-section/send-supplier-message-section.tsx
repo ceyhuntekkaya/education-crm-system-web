@@ -69,7 +69,7 @@ export const SendSupplierMessageSection: React.FC<
   return (
     <>
       <div
-        className={`rfq-detail-page__action-card rfq-detail-page__action-card--message ${className}`}
+        className={`rfq-detail-page__action-card rfq-detail-page__action-card--message rfq-detail-page__action-card--compact ${className}`}
         onClick={open}
       >
         <div className="rfq-detail-page__action-card-icon">
@@ -78,9 +78,6 @@ export const SendSupplierMessageSection: React.FC<
         <div className="rfq-detail-page__action-card-content">
           <p className="rfq-detail-page__action-card-label">
             Tedarikçiye Mesaj Gönder
-          </p>
-          <p className="rfq-detail-page__action-card-description">
-            İlanı oluşturan şirket ile iletişim
           </p>
         </div>
         <i className="ph-bold ph-arrow-right rfq-detail-page__action-card-arrow"></i>
