@@ -17,6 +17,17 @@ export const useSuppliersData = (
   filters: FilterState
 ) => {
   // 📊 API DATA
+
+  // 📊 API DATA
+  //   const apiParams = {
+  //     page: 0,
+  //     size: 100,
+  //     sortBy: sortBy,
+  //     sortDir: sortOrder === "asc" ? "asc" : "desc",
+  //   };
+
+  //   const { data, loading, error, refetch } = useGetAllSuppliers(apiParams);
+
   const { data, loading, error, refetch } = useGetAllSuppliers();
 
   // 📦 DATA WITH FILTERS AND SORTING
