@@ -187,3 +187,29 @@ export interface ApiResponseListRFQItemDto {
   timestamp?: string;
   path?: string;
 }
+
+/**
+ * RFQ Invitation DTO - RFQ Davet detayları
+ * API: GET /supply/rfqs/{id}/invitations
+ */
+export interface RFQInvitationDto {
+  id?: number;
+  rfqId?: number;
+  rfqTitle?: string;
+  supplierId?: number;
+  supplierCompanyName?: string;
+  invitedAt?: string; // ISO 8601
+}
+
+/**
+ * API Response List RFQ Invitation DTO
+ * RFQ Invitation listesi için API response
+ */
+export interface ApiResponseListRFQInvitationDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQInvitationDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}

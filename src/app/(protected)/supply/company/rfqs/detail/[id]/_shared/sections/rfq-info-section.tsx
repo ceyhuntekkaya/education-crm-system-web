@@ -127,11 +127,38 @@ export const RFQInfoSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Davet Sayısı (sadece INVITED tipinde) */}
+        {/* Davet Sayısı (sadece INVITED tipinde) - Tıklanabilir */}
         {rfq.rfqType === "INVITED" && (
           <>
             <div className="meta-item-divider"></div>
-            <div className="meta-item">
+            <div
+              className="meta-item"
+              onClick={() => {
+                if (rfq.invitationCount && rfq.invitationCount > 0) {
+                  router.push(
+                    `/supply/company/rfqs/invited-suppliers/${rfq.id}`
+                  );
+                }
+              }}
+              style={{
+                cursor:
+                  rfq.invitationCount && rfq.invitationCount > 0
+                    ? "pointer"
+                    : "default",
+                transition: "all 0.2s ease",
+                borderRadius: "8px",
+                padding: "4px",
+                margin: "-4px",
+              }}
+              onMouseEnter={(e) => {
+                if (rfq.invitationCount && rfq.invitationCount > 0) {
+                  e.currentTarget.style.backgroundColor = "hsl(var(--info-50))";
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
+            >
               <div className="meta-icon-wrapper">
                 <div className="meta-icon bg-info-100 text-info-700">
                   <i className="ph-bold ph-users"></i>
@@ -139,7 +166,18 @@ export const RFQInfoSection: React.FC = () => {
               </div>
               <div className="meta-content">
                 <p className="meta-label">Davet Sayısı</p>
-                <span className="meta-value">{rfq.invitationCount || 0}</span>
+                <div className="d-flex align-items-center gap-2">
+                  <span className="meta-value">{rfq.invitationCount || 0}</span>
+                  {/* {rfq.invitationCount && rfq.invitationCount > 0 && (
+                    <i
+                      className="ph-bold ph-arrow-right"
+                      style={{
+                        fontSize: "14px",
+                        color: "hsl(var(--info-700))",
+                      }}
+                    ></i>
+                  )} */}
+                </div>
               </div>
             </div>
           </>

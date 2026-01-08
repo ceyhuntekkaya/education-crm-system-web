@@ -269,6 +269,8 @@ export const API_ENDPOINTS = {
         `/supply/rfqs/${rfqId}/quotations`,
       COMPARISON: (rfqId: string | number) =>
         `/supply/rfqs/${rfqId}/comparison`,
+      INVITATIONS: (rfqId: string | number) =>
+        `/supply/rfqs/${rfqId}/invitations`,
       CREATE: "/supply/rfqs",
       UPDATE: (id: string | number) => `/supply/rfqs/${id}`,
       DELETE: (id: string | number) => `/supply/rfqs/${id}`,

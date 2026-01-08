@@ -99,8 +99,32 @@ export const createRFQColumns = (): GridColDef<RFQDto>[] => [
     align: "center",
     renderCell: (params: any) => {
       const count = params.value || 0;
+      const rfqId = params.row.id;
+
       return (
-        <div className="d-flex align-items-center gap-1 justify-content-center">
+        <div
+          className="d-flex align-items-center gap-1 justify-content-center"
+          onClick={(e) => {
+            if (count > 0) {
+              e.stopPropagation();
+              window.location.href = `/supply/company/rfqs/invited-suppliers/${rfqId}`;
+            }
+          }}
+          style={{
+            cursor: count > 0 ? "pointer" : "default",
+            transition: "all 0.2s ease",
+            padding: "4px 8px",
+            borderRadius: "6px",
+          }}
+          onMouseEnter={(e) => {
+            if (count > 0) {
+              e.currentTarget.style.backgroundColor = "hsl(var(--info-50))";
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+          }}
+        >
           <div
             className="d-flex align-items-center justify-content-center bg-info-100 text-info-700"
             style={{

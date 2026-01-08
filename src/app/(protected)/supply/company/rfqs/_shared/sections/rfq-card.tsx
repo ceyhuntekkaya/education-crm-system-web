@@ -275,8 +275,31 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
             ></div>
 
             <div className="meta-container">
-              {/* Invitation Count */}
-              <div className="meta-item">
+              {/* Invitation Count - Tıklanabilir */}
+              <div
+                className="meta-item"
+                onClick={(e) => {
+                  if (summary.invitationCount > 0) {
+                    e.stopPropagation();
+                    router.push(
+                      `/supply/company/rfqs/invited-suppliers/${rfq.id}`
+                    );
+                  }
+                }}
+                style={{
+                  cursor: summary.invitationCount > 0 ? "pointer" : "default",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (summary.invitationCount > 0) {
+                    e.currentTarget.style.backgroundColor =
+                      "hsl(var(--info-50))";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+              >
                 <div className="meta-content">
                   <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
                     Davet Sayısı
@@ -301,6 +324,16 @@ export const RFQCard: React.FC<RFQCardProps> = ({ rfq }) => {
                         ? `${summary.invitationCount} davet`
                         : "Henüz davet yok"}
                     </span>
+                    {/* {summary.invitationCount > 0 && (
+                      <i
+                        className="ph-bold ph-arrow-right"
+                        style={{
+                          fontSize: "12px",
+                          marginLeft: "6px",
+                          color: "hsl(var(--info-700))",
+                        }}
+                      ></i>
+                    )} */}
                   </div>
                 </div>
               </div>
