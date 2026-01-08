@@ -19,12 +19,12 @@ export const supplyCompanyLayoutNavigation: MenuItem[] = [
     icon: "ph-heart",
     requiresSchool: false,
   },
-  {
-    href: "/supply/company/quotations",
-    label: "Teklifler",
-    icon: "ph-clipboard-text",
-    requiresSchool: false,
-  },
+  // {
+  //   href: "/supply/company/quotations",
+  //   label: "Teklifler",
+  //   icon: "ph-clipboard-text",
+  //   requiresSchool: false,
+  // },
   {
     href: "/supply/company/rfqs",
     label: "Alım İlanları",

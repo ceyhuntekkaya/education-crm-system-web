@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { CustomImage, Button } from "@/components/ui";
+import { CustomImage } from "@/components/ui";
 import { ProductResultDto } from "@/app/(protected)/supply/company/products/_shared/types";
 import { getRandomPlaceholderImage } from "../utils";
 import { AddToFavorite } from "@/app/(protected)/supply/company/_shared/sections/add-to-favorite";
@@ -191,29 +191,90 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
           {/* Action Buttons */}
           <div className="mt-auto d-flex flex-column gap-8">
             {isSelectionMode ? (
-              <Button
-                variant={isSelected ? "success" : "outline"}
-                size="sm"
-                leftIcon={
-                  isSelected ? "ph-bold ph-check-circle" : "ph-bold ph-plus"
-                }
+              <button
+                className={`d-flex align-items-center justify-content-center gap-6 transition-all rounded-12 fw-semibold border-0 w-100 ${
+                  isSelected
+                    ? "bg-success-600 text-white"
+                    : "bg-white text-neutral-700"
+                }`}
+                style={{
+                  fontSize: "13px",
+                  height: "40px",
+                  padding: "0 16px",
+                  boxShadow: isSelected
+                    ? "0 2px 8px rgba(16, 185, 129, 0.25)"
+                    : "0 2px 8px rgba(0, 0, 0, 0.04)",
+                  border: isSelected
+                    ? "none"
+                    : "1px solid hsl(var(--neutral-200))",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => {
+                  if (isSelected) {
+                    e.currentTarget.style.backgroundColor =
+                      "hsl(var(--success-700))";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 12px rgba(16, 185, 129, 0.3)";
+                  } else {
+                    e.currentTarget.style.backgroundColor =
+                      "hsl(var(--neutral-50))";
+                    e.currentTarget.style.borderColor =
+                      "hsl(var(--neutral-300))";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (isSelected) {
+                    e.currentTarget.style.backgroundColor =
+                      "hsl(var(--success-600))";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 2px 8px rgba(16, 185, 129, 0.25)";
+                  } else {
+                    e.currentTarget.style.backgroundColor = "white";
+                    e.currentTarget.style.borderColor =
+                      "hsl(var(--neutral-200))";
+                  }
+                }}
                 onClick={handleAddToProposal}
-                className="w-100"
+                aria-label={isSelected ? "Seçildi" : "İlanı Ekle"}
               >
-                {isSelected ? "Seçildi" : "RFQ'ya Ekle"}
-              </Button>
+                <i
+                  className={`ph-bold ${
+                    isSelected ? "ph-check-circle" : "ph-plus"
+                  }`}
+                  style={{ fontSize: "18px" }}
+                />
+                <span>{isSelected ? "Seçildi" : "İlanı Ekle"}</span>
+              </button>
             ) : (
-              <Button
-                variant="inline"
-                size="sm"
-                rightIcon="ph-bold ph-eye"
+              <button
+                className="d-flex align-items-center justify-content-center gap-6 transition-all rounded-12 bg-white text-neutral-700 fw-medium border-0 w-100"
+                style={{
+                  fontSize: "13px",
+                  height: "40px",
+                  padding: "0 16px",
+                  border: "1px solid hsl(var(--neutral-200))",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "hsl(var(--neutral-50))";
+                  e.currentTarget.style.borderColor = "hsl(var(--neutral-300))";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "white";
+                  e.currentTarget.style.borderColor = "hsl(var(--neutral-200))";
+                }}
                 onClick={() =>
                   router.push(`/supply/company/products/detail/${product.id}`)
                 }
-                className="w-100"
+                aria-label="Ürün Detayı"
               >
-                Ürün Detayı
-              </Button>
+                <span>Ürün Detayı</span>
+                <i className="ph-bold ph-eye" style={{ fontSize: "18px" }} />
+              </button>
             )}
           </div>
         </div>

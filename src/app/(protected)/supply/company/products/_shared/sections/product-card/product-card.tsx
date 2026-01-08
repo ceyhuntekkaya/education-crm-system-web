@@ -2,6 +2,12 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { CustomImage, Button } from "@/components/ui";
 import { ProductResultDto } from "../../types";
+import {
+  getStatusConfig,
+  getStockDisplay,
+  getStockColorClass,
+  getStockIconBoxColor,
+} from "../../utils";
 
 interface ProductCardProps {
   product: ProductResultDto;
@@ -21,71 +27,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     product.status === "OUT_OF_STOCK" ||
     (product.currentStock !== undefined && product.currentStock === 0);
 
-  // Status badge helper
-  const getStatusConfig = () => {
-    switch (product.status) {
-      case "ACTIVE":
-        return {
-          text: "Aktif",
-          bgClass: "bg-success-600",
-          textClass: "text-white",
-        };
-      case "PASSIVE":
-        return {
-          text: "Pasif",
-          bgClass: "bg-neutral-600",
-          textClass: "text-white",
-        };
-      case "OUT_OF_STOCK":
-        return {
-          text: "Stokta Yok",
-          bgClass: "bg-danger-600",
-          textClass: "text-white",
-        };
-      case "DISCONTINUED":
-        return {
-          text: "Üretimi Durduruldu",
-          bgClass: "bg-warning-600",
-          textClass: "text-white",
-        };
-      default:
-        return {
-          text: "Bilinmiyor",
-          bgClass: "bg-neutral-600",
-          textClass: "text-white",
-        };
-    }
-  };
-
-  const statusConfig = getStatusConfig();
-
-  // Stock display helper
-  const getStockDisplay = () => {
-    if (product.stockTrackingType === "UNLIMITED") {
-      return "Sınırsız";
-    }
-    if (product.currentStock !== undefined) {
-      return `${product.currentStock} Adet`;
-    }
-    return "Belirtilmemiş";
-  };
-
-  // Stock color helper
-  const getStockColorClass = () => {
-    if (isOutOfStock) return "text-danger-600";
-    if (isLowStock) return "text-warning-600";
-    return "text-success-600";
-  };
-
-  // Stock icon box color helper
-  const getStockIconBoxColor = () => {
-    if (isOutOfStock) return "bg-danger-100 text-danger-700";
-    if (isLowStock) return "bg-warning-100 text-warning-700";
-    return "bg-success-100 text-success-700";
-  };
+  const statusConfig = getStatusConfig(product.status);
+  const stockDisplay = getStockDisplay(product);
+  const stockColorClass = getStockColorClass(isOutOfStock, isLowStock);
+  const stockIconBoxColor = getStockIconBoxColor(isOutOfStock, isLowStock);
 
   return (
-    <div className="col-12 col-md-6 col-lg-4 col-xl-3">
+    <div className="col-4">
       <div
         className={`bg-white rounded-16 h-100 overflow-hidden transition-all d-flex flex-column ${
           !product.status || product.status === "PASSIVE" ? "opacity-70" : ""
@@ -184,10 +132,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {/* Stock Status - Campaign Card Style */}
             <div className="d-inline-flex align-items-center gap-6">
               <i
-                className={`ph-bold ph-package text-sm ${getStockColorClass()}`}
+                className={`ph-bold ph-package text-sm ${stockColorClass}`}
               ></i>
-              <span className={`text-xs fw-semibold ${getStockColorClass()}`}>
-                {getStockDisplay()}
+              <span className={`text-xs fw-semibold ${stockColorClass}`}>
+                {stockDisplay}
               </span>
             </div>
           </div>
@@ -286,7 +234,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="soft-card rounded-16 mb-12">
             <div className="d-flex align-items-center gap-12 p-12">
               <div
-                className={`status-icon ${getStockIconBoxColor()}`}
+                className={`status-icon ${stockIconBoxColor}`}
                 style={{
                   width: "30px",
                   height: "30px",
@@ -302,10 +250,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </div>
               <div className="status-info flex-grow-1">
                 <span
-                  className={`fw-bold ${getStockColorClass()} status-value`}
+                  className={`fw-bold ${stockColorClass} status-value`}
                   style={{ fontSize: "1rem" }}
                 >
-                  {getStockDisplay()}
+                  {stockDisplay}
                 </span>
                 <span
                   className="text-neutral-600 status-text"

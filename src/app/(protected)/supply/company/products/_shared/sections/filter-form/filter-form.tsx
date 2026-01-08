@@ -37,20 +37,20 @@ const FilterForm = () => {
       title="Arama Kriterleri"
       subtitle="Lütfen arama kriterlerinizi seçin"
       type="accordion"
-      size="md"
+      size="sm"
     >
       <Form onSubmit={onSubmit}>
-        <FormInput
-          name="searchTerm"
-          variant="outline"
-          placeholder="Ürün adı, kodu veya açıklama ile ara..."
-          iconLeft="ph-magnifying-glass"
-          fullWidth
-        />
+        <div className="row g-4">
+          <div className="col-12">
+            <FormInput
+              name="searchTerm"
+              variant="outline"
+              placeholder="Ürün adı, kodu veya açıklama ile ara..."
+              iconLeft="ph-magnifying-glass"
+              fullWidth
+            />
+          </div>
 
-        <Divider />
-
-        <div className="row g-3">
           <div className="col-6">
             <FormAutocomplete
               key={`category-${values.categoryId || "empty"}`}
@@ -74,11 +74,7 @@ const FilterForm = () => {
               isLoading={options.suppliers.loading}
             />
           </div>
-        </div>
 
-        <Divider />
-
-        <div className="row g-3">
           <div className="col-6">
             <FormRange
               name="priceRange"
@@ -86,23 +82,26 @@ const FilterForm = () => {
               max={1000000}
               step={1}
               prefix="₺"
+              direction="horizontal"
             />
           </div>
 
           <div className="col-6">
-            <FormRadio
-              name="status"
-              label=""
-              value=""
-              options={statusOptions}
-              multi={true}
-              direction="horizontal"
-              col={6}
-            />
+            <div className="px-24">
+              <FormRadio
+                name="status"
+                label=""
+                value=""
+                options={statusOptions}
+                multi={true}
+                direction="horizontal"
+                col={6}
+              />
+            </div>
           </div>
         </div>
 
-        <Divider />
+        <Divider size="sm" />
 
         <div className="d-flex gap-12 justify-content-end">
           <Button

@@ -13,19 +13,19 @@ interface QuickAction {
 
 const quickActionsData: QuickAction[] = [
   {
-    title: "Yeni RFQ Oluştur",
+    title: "Yeni Alım İlanı Oluştur",
     description:
       "Hızlıca yeni bir talep oluşturun ve tedarikçilerden teklif alın",
     icon: "ph-plus-circle",
     colorClass: "primary",
-    href: "#",
+    href: "/supply/company/rfqs/add-edit/new",
   },
   {
     title: "Ürün Ara",
     description: "Katalogdaki ürünleri arayın ve sipariş verin",
     icon: "ph-magnifying-glass",
     colorClass: "success",
-    href: "#",
+    href: "/supply/company/products",
   },
   {
     title: "Tedarikçileri Gör",

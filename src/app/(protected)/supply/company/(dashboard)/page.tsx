@@ -31,10 +31,10 @@ const SupplyCompanyDashboardPage: React.FC = () => {
         <OrderTable />
       </CustomCard>
 
-      {/* Aktif İlan Listesi Tablosu */}
+      {/* Aktif Alım İlanı Listesi Tablosu */}
       <CustomCard
-        title="Aktif İlan Listesi"
-        subtitle="Tüm aktif ilanlarınızı görüntüleyin"
+        title="Aktif Alım İlanı Listesi"
+        subtitle="Tüm aktif alım ilanlarınızı görüntüleyin"
       >
         <RFQTable />
       </CustomCard>

@@ -1,5 +1,5 @@
 import { SearchProductsParams } from "../api";
-import { ProductDto } from "@/types";
+import { ProductDto, ProductDtoStatus } from "@/types";
 
 /**
  * Pagination state tipi (context için)
@@ -43,7 +43,7 @@ export interface ProductResultDto {
   currentStock?: number; // ProductDto'da stockQuantity
   minStockLevel?: number;
   mainImageUrl?: string; // ProductDto'da mainImageUrl
-  status?: string;
+  status?: ProductDtoStatus;
   deliveryDays?: number; // ProductDto'da deliveryDays
   createdAt?: string;
   updatedAt?: string;
