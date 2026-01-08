@@ -1,0 +1,253 @@
+// =============================================
+// Supplier Detail Page Styles
+// Modern Supplier detay sayfası tasarımı
+// RFQ Detail tasarımından uyarlanmıştır
+// =============================================
+
+.supplier-detail-page {
+  // Ana container
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  // Header - Geri dön ve düzenle butonu
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  // Header aksiyon butonları grubu
+  &__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  // Minimal geri dön butonu
+  &__back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    color: hsl(var(--neutral-600));
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: hsl(var(--main-600));
+      background: hsl(var(--main-50));
+
+      i {
+        transform: translateX(-2px);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Düzenle butonu
+  &__edit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    color: hsl(var(--neutral-600));
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+
+    i {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: hsl(var(--main-600));
+      background: hsl(var(--main-50));
+
+      i {
+        transform: rotate(15deg) scale(1.1);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Ana section
+  &__main-section {
+    margin-bottom: 48px;
+
+    .row {
+      @media (min-width: 992px) {
+        display: flex;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  // Bilgiler bölümü
+  &__info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: 991.98px) {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__title-section {
+    position: relative;
+  }
+
+  &__badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 700;
+    color: hsl(var(--neutral-900));
+    padding-top: 8px;
+
+    @media (max-width: 767.98px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Detaylar section
+  &__details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 24px;
+  }
+
+  // Info box
+  &__info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border-color: rgba(17, 24, 39, 0.1);
+    }
+  }
+
+  &__info-box-label {
+    font-size: 0.75rem;
+    color: rgba(17, 24, 39, 0.7);
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 0;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.6875rem;
+    }
+  }
+
+  &__info-box-value {
+    color: rgba(17, 24, 39, 0.95);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0;
+    
+    @media (max-width: 767.98px) {
+      font-size: 0.875rem;
+    }
+  }
+
+  // Loading, Error, Empty states
+  &__state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  &__state-icon {
+    font-size: 3rem;
+  }
+
+  &__state-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  &__state-message {
+    color: hsl(var(--neutral-500));
+    max-width: 400px;
+  }
+}
+
+// Responsive Design
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
+  .supplier-detail-page {
+    &__header-actions {
+      gap: 6px;
+    }
+  }
+}
+
+@media only screen and (max-width: 991.98px) {
+  .supplier-detail-page {
+    &__info-section {
+      padding-left: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .supplier-detail-page {
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__details-section {
+      gap: 24px;
+    }
+  }
+}

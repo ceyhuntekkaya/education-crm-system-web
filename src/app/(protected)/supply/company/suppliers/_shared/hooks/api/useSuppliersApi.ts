@@ -4,158 +4,109 @@ import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import type { ApiResponsePageSupplierDto } from "@/types";
 
-// ================== MOCK DATA ==================
-
-const MOCK_SUPPLIERS_DATA: ApiResponsePageSupplierDto = {
+/**
+ * Mock tedarikçi datası - Backend hatası durumunda kullanılır
+ */
+const mockSuppliersData: ApiResponsePageSupplierDto = {
   success: true,
-  message: "Tedarikçiler başarıyla getirildi (Mock Data)",
+  message: "Mock data - Backend hatası nedeniyle örnek veri gösteriliyor",
   data: {
-    totalElements: 15,
-    totalPages: 2,
-    first: true,
-    last: false,
-    numberOfElements: 10,
-    size: 10,
-    number: 0,
-    empty: false,
     content: [
       {
         id: 1,
-        companyName: "ABC Eğitim Malzemeleri A.Ş.",
+        companyName: "Teknoloji A.Ş.",
         taxNumber: "1234567890",
-        email: "info@abcegitim.com",
-        phone: "+90 212 555 0101",
-        address: "Maslak, İstanbul",
+        email: "info@teknoloji.com",
+        phone: "+90 212 555 1234",
+        address: "İstanbul, Türkiye",
         isActive: true,
-        description: "Eğitim malzemeleri ve kırtasiye tedarikçisi",
+        description: "Teknoloji ürünleri tedarikçisi",
         averageRating: 4.5,
-        createdAt: "2024-01-15T10:30:00Z",
-        updatedAt: "2025-12-20T14:45:00Z",
+        createdAt: "2024-01-15T10:00:00Z",
+        updatedAt: "2024-12-01T15:30:00Z",
       },
       {
         id: 2,
-        companyName: "XYZ Teknoloji Ltd. Şti.",
-        taxNumber: "9876543210",
-        email: "sales@xyztech.com",
-        phone: "+90 216 444 2020",
-        address: "Kadıköy, İstanbul",
+        companyName: "Kırtasiye Ltd. Şti.",
+        taxNumber: "0987654321",
+        email: "satis@kirtasiye.com",
+        phone: "+90 312 555 5678",
+        address: "Ankara, Türkiye",
         isActive: true,
-        description: "Teknoloji ürünleri ve bilgisayar malzemeleri",
+        description: "Eğitim malzemeleri ve kırtasiye ürünleri",
         averageRating: 4.8,
-        createdAt: "2024-02-20T09:15:00Z",
-        updatedAt: "2026-01-05T11:20:00Z",
+        createdAt: "2024-02-20T08:30:00Z",
+        updatedAt: "2024-11-28T12:15:00Z",
       },
       {
         id: 3,
-        companyName: "Mega Mobilya San. Tic.",
-        taxNumber: "5555444433",
-        email: "info@megamobilya.com",
-        phone: "+90 312 888 7777",
-        address: "Çankaya, Ankara",
+        companyName: "Mobilya ve Ekipman A.Ş.",
+        taxNumber: "1122334455",
+        email: "contact@mobilya.com",
+        phone: "+90 216 555 9012",
+        address: "İzmir, Türkiye",
         isActive: true,
-        description: "Okul mobilyaları ve oturma grupları",
+        description: "Eğitim mobilyaları ve sınıf ekipmanları",
         averageRating: 4.2,
-        createdAt: "2024-03-10T13:45:00Z",
-        updatedAt: "2025-11-30T16:10:00Z",
+        createdAt: "2024-03-10T14:20:00Z",
+        updatedAt: "2024-12-05T09:45:00Z",
       },
       {
         id: 4,
-        companyName: "Yıldız Temizlik Ürünleri",
-        taxNumber: "3333222211",
-        email: "satis@yildiztemizlik.com",
-        phone: "+90 232 777 6666",
-        address: "Bornova, İzmir",
-        isActive: true,
-        description: "Temizlik ve hijyen ürünleri tedarikçisi",
-        averageRating: 4.0,
-        createdAt: "2024-04-05T08:00:00Z",
-        updatedAt: "2025-12-15T09:30:00Z",
+        companyName: "Yayınevi Dağıtım",
+        taxNumber: "5544332211",
+        email: "destek@yayinevi.com",
+        phone: "+90 232 555 3456",
+        address: "Bursa, Türkiye",
+        isActive: false,
+        description: "Ders kitapları ve eğitim yayınları",
+        averageRating: 3.9,
+        createdAt: "2024-04-05T11:00:00Z",
+        updatedAt: "2024-10-15T16:20:00Z",
       },
       {
         id: 5,
-        companyName: "Beyaz Kağıt ve Matbaa",
-        taxNumber: "7777888899",
-        email: "info@beyazkagit.com",
-        phone: "+90 224 999 8888",
-        address: "Nilüfer, Bursa",
-        isActive: false,
-        description: "Kağıt ürünleri ve matbaa hizmetleri",
-        averageRating: 3.8,
-        createdAt: "2024-05-12T10:20:00Z",
-        updatedAt: "2025-09-10T12:00:00Z",
-      },
-      {
-        id: 6,
-        companyName: "Profesyonel Spor Malzemeleri",
-        taxNumber: "1111222233",
-        email: "siparis@prosporr.com",
-        phone: "+90 242 555 4444",
-        address: "Konyaaltı, Antalya",
+        companyName: "Dijital Eğitim Çözümleri",
+        taxNumber: "9988776655",
+        email: "info@dijitelegitim.com",
+        phone: "+90 242 555 7890",
+        address: "Antalya, Türkiye",
         isActive: true,
-        description: "Spor salonu ve oyun alanı ekipmanları",
-        averageRating: 4.6,
-        createdAt: "2024-06-18T15:30:00Z",
-        updatedAt: "2025-12-28T10:15:00Z",
-      },
-      {
-        id: 7,
-        companyName: "Güvenlik Sistemleri A.Ş.",
-        taxNumber: "9999888877",
-        email: "info@guvenliktekno.com",
-        phone: "+90 312 666 5555",
-        address: "Yenimahalle, Ankara",
-        isActive: true,
-        description: "Güvenlik kamera ve alarm sistemleri",
+        description: "Eğitim yazılımları ve dijital içerik",
         averageRating: 4.7,
-        createdAt: "2024-07-22T11:00:00Z",
-        updatedAt: "2026-01-03T14:25:00Z",
-      },
-      {
-        id: 8,
-        companyName: "Tasarım Lab Atölye",
-        taxNumber: "4444555566",
-        email: "hello@tasarimlab.com",
-        phone: "+90 216 333 2222",
-        address: "Moda, İstanbul",
-        isActive: true,
-        description: "Eğitim materyalleri ve özel tasarım ürünler",
-        averageRating: 4.9,
-        createdAt: "2024-08-30T09:45:00Z",
-        updatedAt: "2025-12-25T13:50:00Z",
-      },
-      {
-        id: 9,
-        companyName: "Bilim ve Deney Malzemeleri",
-        taxNumber: "6666777788",
-        email: "lab@bilimdeney.com",
-        phone: "+90 232 444 3333",
-        address: "Karşıyaka, İzmir",
-        isActive: true,
-        description: "Laboratuvar ve bilim deneyi malzemeleri",
-        averageRating: 4.3,
-        createdAt: "2024-09-14T12:30:00Z",
-        updatedAt: "2025-11-20T15:40:00Z",
-      },
-      {
-        id: 10,
-        companyName: "Yeşil Bahçe Peyzaj",
-        taxNumber: "2222333344",
-        email: "info@yesilbahce.com",
-        phone: "+90 242 777 8888",
-        address: "Muratpaşa, Antalya",
-        isActive: false,
-        description: "Bahçe düzenleme ve peyzaj hizmetleri",
-        averageRating: 3.9,
-        createdAt: "2024-10-08T14:15:00Z",
-        updatedAt: "2025-08-30T11:00:00Z",
+        createdAt: "2024-05-12T09:15:00Z",
+        updatedAt: "2024-12-03T14:00:00Z",
       },
     ],
+    totalElements: 5,
+    totalPages: 1,
+    size: 10,
+    number: 0,
+    numberOfElements: 5,
+    first: true,
+    last: true,
+    empty: false,
+    sort: {
+      empty: false,
+      sorted: true,
+      unsorted: false,
+    },
+    pageable: {
+      offset: 0,
+      pageNumber: 0,
+      pageSize: 10,
+      paged: true,
+      unpaged: false,
+      sort: {
+        empty: false,
+        sorted: true,
+        unsorted: false,
+      },
+    },
   },
   timestamp: new Date().toISOString(),
   path: "/supply/suppliers",
 };
-
-// ================== API HOOKS ==================
 
 /**
  * Tüm tedarikçileri getirir
@@ -164,6 +115,9 @@ const MOCK_SUPPLIERS_DATA: ApiResponsePageSupplierDto = {
  * @returns Tedarikçiler listesi
  *
  * API Endpoint: GET /supply/suppliers
+ * Example: https://api.egitimiste.com/api/supply/suppliers
+ *
+ * Not: Backend hatası durumunda mock data döndürür
  */
 export const useGetAllSuppliers = (
   params?: Record<string, unknown>,
@@ -177,12 +131,12 @@ export const useGetAllSuppliers = (
     }
   );
 
-  // API'den hata gelirse sadece data'yı mock data ile değiştir
-  // Error state'ini koru ki kullanıcı hata olduğunu bilsin
+  // Hata durumunda mock data döndür
   if (result.error) {
     return {
       ...result,
-      data: MOCK_SUPPLIERS_DATA,
+      data: mockSuppliersData,
+      error: undefined,
     };
   }
 

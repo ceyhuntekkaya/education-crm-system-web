@@ -233,7 +233,7 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
                 size="xs"
                 rightIcon="ph-bold ph-eye"
                 onClick={() =>
-                  router.push(`/supply/company/suppliers/${supplier.id}`)
+                  router.push(`/supply/company/suppliers/detail/${supplier.id}`)
                 }
               >
                 Detay
