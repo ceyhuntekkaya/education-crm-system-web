@@ -10,7 +10,7 @@ export const ProductBackButton: React.FC = () => {
   return (
     <button
       className="product-detail-page__back-button"
-      onClick={() => router.back()}
+      onClick={() => router.push("/supply/company/products")}
     >
       <i className="ph ph-arrow-left"></i>
       <span>Geri Dön</span>

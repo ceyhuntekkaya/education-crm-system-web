@@ -467,6 +467,76 @@
 }
 
 // Responsive Design
+// MacBook Air ve orta boy ekranlar (1300px - 1440px)
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
+  .rfq-detail-page {
+    // Header butonları için gap azaltma
+    &__header-actions {
+      gap: 6px;
+    }
+
+    // Geri dön butonu - kompakt ama yazılı
+    &__back-button {
+      padding: 6px 10px;
+      font-size: 12px;
+      gap: 6px;
+      
+      i {
+        font-size: 16px;
+      }
+
+      span {
+        white-space: nowrap;
+      }
+    }
+
+    // Düzenle butonu - kompakt ama yazılı
+    &__edit-button {
+      padding: 6px 10px;
+      font-size: 12px;
+      gap: 6px;
+      
+      i {
+        font-size: 16px;
+      }
+
+      span {
+        white-space: nowrap;
+      }
+    }
+
+    // İlan kalemleri butonu - kompakt ama yazılı
+    &__items-button {
+      padding: 6px 10px;
+      font-size: 12px;
+      gap: 6px;
+      
+      i {
+        font-size: 16px;
+      }
+
+      span {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  // Action butonları - kompakt ama yazılı
+  .rfq-action-button {
+    padding: 6px 10px;
+    font-size: 12px;
+    gap: 6px;
+    
+    i {
+      font-size: 16px;
+    }
+
+    span {
+      white-space: nowrap;
+    }
+  }
+}
+
 @media only screen and (max-width: 991.98px) {
   .rfq-detail-page {
     &__info-section {

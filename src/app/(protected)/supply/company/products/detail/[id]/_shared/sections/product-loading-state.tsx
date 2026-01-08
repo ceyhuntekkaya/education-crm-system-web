@@ -6,13 +6,12 @@ import { SkeletonCard } from "@/components/ui/loadings";
  */
 export const ProductLoadingState: React.FC = () => {
   return (
-    <div className="row">
-      {Array.from({ length: 3 }).map((_, index) => (
-        <SkeletonCard
-          key={`product-skeleton-${index}`}
-          className="col-lg-4 col-md-6 mb-24"
-        />
+    <div className="row g-3">
+      {Array.from({ length: 2 }).map((_, index) => (
+        <SkeletonCard key={`product-skeleton-${index}`} className="col-6" />
       ))}
+
+      <SkeletonCard className="col-12 " />
     </div>
   );
 };
