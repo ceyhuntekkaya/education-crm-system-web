@@ -305,6 +305,7 @@ export const API_ENDPOINTS = {
 
     // Suppliers
     SUPPLIERS: {
+      GET_ALL: "/supply/suppliers",
       LIST: "/supply/suppliers",
       BY_ID: (id: string | number) => `/supply/suppliers/${id}`,
       BY_COMPANY: (companyId: string | number) =>

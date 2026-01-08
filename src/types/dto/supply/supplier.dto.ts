@@ -3,6 +3,8 @@
  * Tedarikçi ile ilgili veri transfer objeleri
  */
 
+import { PageableObject, SortObject } from "../../api/api-general.types";
+
 /**
  * Tedarikçi bilgileri
  */
@@ -18,6 +20,35 @@ export interface SupplierDto {
   averageRating?: number;
   createdAt?: string;
   updatedAt?: string;
+}
+
+/**
+ * Sayfalama ile Tedarikçi Listesi
+ */
+export interface PageSupplierDto {
+  totalElements?: number;
+  totalPages?: number;
+  sort?: SortObject;
+  first?: boolean;
+  last?: boolean;
+  numberOfElements?: number;
+  pageable?: PageableObject;
+  size?: number;
+  content?: SupplierDto[];
+  number?: number;
+  empty?: boolean;
+}
+
+/**
+ * Tedarikçi API response (Sayfalı Liste)
+ */
+export interface ApiResponsePageSupplierDto {
+  success?: boolean;
+  message?: string;
+  data?: PageSupplierDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
 }
 
 /**
@@ -42,4 +73,15 @@ export interface ApiResponseSupplierDto {
   errors?: string[];
   timestamp?: string;
   path?: string;
+}
+
+/**
+ * Tedarikçileri getirme parametreleri
+ */
+export interface GetAllSuppliersParams {
+  page?: number;
+  size?: number;
+  sort?: string;
+  isActive?: boolean;
+  searchQuery?: string;
 }
