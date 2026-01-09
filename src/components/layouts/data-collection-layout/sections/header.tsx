@@ -80,7 +80,7 @@ export function Header<T extends Record<string, any>>({
 
   return (
     <div
-      className="bg-white rounded-16 mb-24 transition-all"
+      className="bg-white rounded-16 transition-all"
       style={{
         border: "1.5px solid hsl(var(--neutral-40))",
         boxShadow:
