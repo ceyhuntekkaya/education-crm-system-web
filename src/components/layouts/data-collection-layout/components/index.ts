@@ -8,3 +8,4 @@ export { EmptyState } from "./empty-state";
 export { FilterButton } from "./filter-button";
 export { FilterDropdownContent } from "./filter-dropdown-content";
 export { FilterOption } from "./filter-option";
+export { Pagination } from "./pagination";

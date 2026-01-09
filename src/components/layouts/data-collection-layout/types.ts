@@ -213,6 +213,23 @@ export interface StylingConfig {
   header?: string;
 }
 
+export interface PaginationConfig {
+  /** Pagination aktif mi? */
+  enabled?: boolean;
+  /** Sayfa başına öğe sayısı (varsayılan: 12) */
+  pageSize?: number;
+  /** Sayfa boyutu seçenekleri */
+  pageSizeOptions?: number[];
+  /** Sayfa boyutu seçici gösterilsin mi? */
+  showPageSizeSelector?: boolean;
+  /** Sayfa bilgisi gösterilsin mi? */
+  showPageInfo?: boolean;
+  /** Compact mod */
+  compact?: boolean;
+  /** Ek CSS sınıfı */
+  className?: string;
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // MAIN DATA COLLECTION LAYOUT PROPS (Grouped Structure)
 // ═══════════════════════════════════════════════════════════════════════════
@@ -226,4 +243,5 @@ export interface DataCollectionLayoutProps<T extends Record<string, any> = any> 
   search?: SearchConfig;
   states?: StatesConfig;
   styling?: StylingConfig;
+  pagination?: PaginationConfig;
 }

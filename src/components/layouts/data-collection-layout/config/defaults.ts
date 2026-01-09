@@ -28,6 +28,15 @@ export const DEFAULT_VALUES = {
 
   // Loading
   LOADING_TEXT: "Yükleniyor...",
+
+  // Pagination
+  PAGINATION_ENABLED: false,
+  PAGINATION_PAGE_SIZE: 12,
+  PAGINATION_PAGE_SIZE_OPTIONS: [6, 12, 24, 48] as const,
+  PAGINATION_SHOW_PAGE_SIZE_SELECTOR: true,
+  PAGINATION_SHOW_PAGE_INFO: true,
+  PAGINATION_COMPACT: false,
+  PAGINATION_CLIENT_SIDE: false,
 } as const;
 
 // CSS sınıfları

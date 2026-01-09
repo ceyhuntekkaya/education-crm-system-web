@@ -21,7 +21,8 @@
  * ✅ Custom header
  * ✅ Custom filters
  * ✅ Action buttons
- * ✅ Organize edilmiş prop yapısı (header, data, view, filters, sort, search, states, styling)
+ * ✅ Pagination (client-side & server-side)
+ * ✅ Organize edilmiş prop yapısı (header, data, view, filters, sort, search, states, styling, pagination)
  */
 
 "use client";
@@ -46,8 +47,10 @@ import {
   useSearchConfig,
   useStatesConfig,
   useStylingConfig,
+  usePaginationConfig,
   usePopoverFilters,
   useFilteredData,
+  usePagination,
 } from "./hooks";
 
 /**
@@ -67,6 +70,7 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
   const searchConfig = useSearchConfig(props.search);
   const statesConfig = useStatesConfig(props.states);
   const stylingConfig = useStylingConfig(props.styling);
+  const paginationConfig = usePaginationConfig(props.pagination);
 
   // Popover filter state yönetimi
   const {
@@ -104,6 +108,17 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
       searchConfig.searchFields,
       searchQuery,
       popoverConfigKey
+    );
+
+    // Pagination hook - sadece enabled ise kullan
+    const pagination = usePagination(
+      paginationConfig.enablePagination
+        ? {
+            defaultPageSize: paginationConfig.pageSize,
+            clientSide: true,
+            totalElements: filteredData?.length || 0,
+          }
+        : undefined
     );
 
     // Computed total count
@@ -156,6 +171,39 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
           loadingText={statesConfig.loadingText}
           customLoadingState={statesConfig.customLoadingState}
           customEmptyState={statesConfig.customEmptyState}
+          enablePagination={paginationConfig.enablePagination}
+          paginationCurrentPage={
+            paginationConfig.enablePagination ? pagination.page : 0
+          }
+          paginationTotalPages={
+            paginationConfig.enablePagination
+              ? pagination.totalPages
+              : undefined
+          }
+          paginationTotalElements={
+            paginationConfig.enablePagination
+              ? pagination.totalElements
+              : undefined
+          }
+          paginationPageSize={
+            paginationConfig.enablePagination
+              ? pagination.size
+              : paginationConfig.pageSize
+          }
+          paginationOnPageChange={
+            paginationConfig.enablePagination ? pagination.goToPage : undefined
+          }
+          paginationOnPageSizeChange={
+            paginationConfig.enablePagination
+              ? pagination.changePageSize
+              : undefined
+          }
+          paginationPageSizeOptions={paginationConfig.pageSizeOptions}
+          paginationShowPageSizeSelector={paginationConfig.showPageSizeSelector}
+          paginationShowPageInfo={paginationConfig.showPageInfo}
+          paginationCompact={paginationConfig.compact}
+          paginationClientSide={paginationConfig.enablePagination}
+          paginationClassName={paginationConfig.paginationClassName}
         />
       </>
     );

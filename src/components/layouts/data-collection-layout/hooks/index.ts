@@ -13,6 +13,13 @@ export { useSortConfig } from "./use-config";
 export { useSearchConfig } from "./use-config";
 export { useStatesConfig } from "./use-config";
 export { useStylingConfig } from "./use-config";
+export { usePaginationConfig } from "./use-config";
 
 export { usePopoverFilters } from "./use-popover-filters";
 export { useFilteredData } from "./use-filtered-data";
+export { usePagination } from "./use-pagination";
+export type {
+  UsePaginationParams,
+  UsePaginationReturn,
+  PaginationResponse,
+} from "./use-pagination";

@@ -216,3 +216,32 @@ export function useStylingConfig<T extends Record<string, any> = any>(
     return { containerClassName, headerClassName };
   }, [styling]);
 }
+
+/**
+ * Pagination konfigürasyonunu parse eder
+ */
+export function usePaginationConfig<T extends Record<string, any> = any>(
+  pagination?: DataCollectionLayoutProps<T>["pagination"]
+) {
+  return useMemo(() => {
+    const {
+      enabled: enablePagination = false,
+      pageSize = 12,
+      pageSizeOptions = [6, 12, 24, 48],
+      showPageSizeSelector = true,
+      showPageInfo = true,
+      compact = false,
+      className: paginationClassName,
+    } = pagination || {};
+
+    return {
+      enablePagination,
+      pageSize,
+      pageSizeOptions,
+      showPageSizeSelector,
+      showPageInfo,
+      compact,
+      paginationClassName,
+    };
+  }, [pagination]);
+}
