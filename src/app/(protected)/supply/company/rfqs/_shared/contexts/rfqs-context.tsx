@@ -1,100 +1,41 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
-import { RFQsContextValue, RFQsProviderProps } from "../types";
-import { useRFQsData, useRFQsSort, useRFQsFilter } from "../hooks";
+import React, { createContext, useContext } from "react";
+import { useGetRFQsByCompany } from "../hooks/api";
+import type { RFQDto } from "@/types";
 
 /**
  * 🔍 RFQS CONTEXT
- * Alım ilanları için context
+ * Basitleştirilmiş context - sadece API verileri
  */
+
+interface RFQsContextValue {
+  rfqs: RFQDto[];
+  rfqsListLoading: boolean;
+  rfqsListError: any;
+  refetch: () => void;
+}
+
+interface RFQsProviderProps {
+  children: React.ReactNode;
+  companyId: number;
+}
 
 const RFQsContext = createContext<RFQsContextValue | undefined>(undefined);
 
 export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
-  // 🎨 VIEW MODE
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  // 📊 API DATA - Sadece ham veriyi al
+  const { data, loading, error, refetch } = useGetRFQsByCompany(companyId);
 
-  // 🔍 FILTERING
-  const { filters, filterHandlers, activeFilterCount } = useRFQsFilter();
-
-  // 🔄 SORTING
-  const {
-    sortBy,
-    sortOrder,
-    showSortDropdown,
-    dropdownRef,
-    sortOptions,
-    currentSortOption,
-    setSortBy,
-    setSortOrder,
-    setShowSortDropdown,
-    handleSortChange,
-    toggleSortOrder,
-    onSortChange,
-    toggleSortDropdown,
-    resetSort,
-  } = useRFQsSort();
-
-  // 📊 DATA
-  const { rfqs, loading, error, totalElements, isEmpty, refetch } = useRFQsData(
-    companyId,
-    sortBy,
-    sortOrder,
-    filters
-  );
+  // Raw API verisini RFQDto[] formatına dönüştür
+  const rfqs: RFQDto[] = data?.data?.content || [];
 
   // 🎯 CONTEXT VALUE
   const contextValue: RFQsContextValue = {
-    // Company ID
-    companyId,
-
-    // View
-    viewMode,
-    setViewMode,
-
-    // Sorting State
-    sortBy,
-    sortOrder,
-    showSortDropdown,
-
-    // Sorting Refs
-    dropdownRef,
-
-    // Sorting Data
-    sortOptions,
-    currentSortOption,
-
-    // Sorting Setters
-    setSortBy,
-    setSortOrder,
-    setShowSortDropdown,
-
-    // Sorting Handlers
-    handleSortChange,
-    toggleSortOrder,
-    onSortChange,
-    toggleSortDropdown,
-    resetSort,
-
-    // Filter State
-    filters,
-
-    // Filter Handlers
-    filterHandlers,
-
-    // Active Filter Count
-    activeFilterCount,
-
-    // API State
+    rfqs,
     rfqsListLoading: loading,
     rfqsListError: error,
-    rfqsListRefetch: refetch,
-
-    // Data
-    rfqs,
-    totalElements,
-    rfqsListIsEmpty: isEmpty,
+    refetch,
   };
 
   return (
