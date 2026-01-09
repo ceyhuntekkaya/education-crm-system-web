@@ -98,7 +98,7 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
    * İç bileşen - context'e erişimi olan
    */
   function DataCollectionLayoutContent() {
-    const { searchQuery } = useDataCollectionLayoutContext();
+    const { searchQuery, viewMode } = useDataCollectionLayoutContext();
 
     // Filtered data
     const filteredData = useFilteredData(
@@ -110,9 +110,9 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
       popoverConfigKey
     );
 
-    // Pagination hook - sadece enabled ise kullan
+    // Pagination hook - sadece grid mode'da ve enabled ise kullan
     const pagination = usePagination(
-      paginationConfig.enablePagination
+      paginationConfig.enablePagination && viewMode === "grid"
         ? {
             defaultPageSize: paginationConfig.pageSize,
             clientSide: true,
@@ -171,30 +171,36 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
           loadingText={statesConfig.loadingText}
           customLoadingState={statesConfig.customLoadingState}
           customEmptyState={statesConfig.customEmptyState}
-          enablePagination={paginationConfig.enablePagination}
+          enablePagination={
+            paginationConfig.enablePagination && viewMode === "grid"
+          }
           paginationCurrentPage={
-            paginationConfig.enablePagination ? pagination.page : 0
+            paginationConfig.enablePagination && viewMode === "grid"
+              ? pagination.page
+              : 0
           }
           paginationTotalPages={
-            paginationConfig.enablePagination
+            paginationConfig.enablePagination && viewMode === "grid"
               ? pagination.totalPages
               : undefined
           }
           paginationTotalElements={
-            paginationConfig.enablePagination
+            paginationConfig.enablePagination && viewMode === "grid"
               ? pagination.totalElements
               : undefined
           }
           paginationPageSize={
-            paginationConfig.enablePagination
+            paginationConfig.enablePagination && viewMode === "grid"
               ? pagination.size
               : paginationConfig.pageSize
           }
           paginationOnPageChange={
-            paginationConfig.enablePagination ? pagination.goToPage : undefined
+            paginationConfig.enablePagination && viewMode === "grid"
+              ? pagination.goToPage
+              : undefined
           }
           paginationOnPageSizeChange={
-            paginationConfig.enablePagination
+            paginationConfig.enablePagination && viewMode === "grid"
               ? pagination.changePageSize
               : undefined
           }
@@ -202,7 +208,9 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
           paginationShowPageSizeSelector={paginationConfig.showPageSizeSelector}
           paginationShowPageInfo={paginationConfig.showPageInfo}
           paginationCompact={paginationConfig.compact}
-          paginationClientSide={paginationConfig.enablePagination}
+          paginationClientSide={
+            paginationConfig.enablePagination && viewMode === "grid"
+          }
           paginationClassName={paginationConfig.paginationClassName}
         />
       </>
