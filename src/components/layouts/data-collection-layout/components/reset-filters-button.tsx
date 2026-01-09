@@ -8,36 +8,47 @@ interface ResetFiltersButtonProps {
 }
 
 /**
- * 🔄 RESET FILTERS BUTTON
- * Filtreleri sıfırlama butonu
+ * �️ RESET FILTERS BUTTON
+ * Aktif filtreleri temizleme butonu
  */
-export const ResetFiltersButton: React.FC<ResetFiltersButtonProps> = ({ activeCount, onReset }) => {
+export const ResetFiltersButton: React.FC<ResetFiltersButtonProps> = ({
+  activeCount,
+  onReset,
+}) => {
   if (activeCount === 0) return null;
 
   return (
     <button
       type="button"
+      className="d-flex align-items-center gap-6 transition-all rounded-12"
       onClick={onReset}
-      className="btn btn-text d-flex align-items-center gap-6 px-12 py-6"
       style={{
-        height: "36px",
-        borderRadius: "8px",
-        fontSize: "14px",
+        padding: "6px 10px",
+        background: "rgba(239, 68, 68, 0.08)",
+        border: "1px solid rgba(239, 68, 68, 0.2)",
+        color: "#ef4444",
+        fontSize: "11px",
         fontWeight: 500,
-        color: "hsl(var(--danger-500))",
-        border: "1px solid hsl(var(--danger-200))",
-        background: "hsl(var(--danger-50))",
+        height: "32px",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(239, 68, 68, 0.12)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "rgba(239, 68, 68, 0.08)";
       }}
     >
-      <i className="bi bi-x-circle" style={{ fontSize: "16px" }} />
-      <span>Filtreleri Temizle</span>
+      <i className="ph-bold ph-x-circle" style={{ fontSize: "14px" }} />
       <span
-        className="badge bg-danger-500 text-white"
+        className="rounded-pill d-flex align-items-center justify-content-center"
         style={{
-          fontSize: "11px",
-          padding: "2px 6px",
-          borderRadius: "12px",
+          background: "#ef4444",
+          color: "white",
+          fontSize: "9px",
+          fontWeight: 600,
           minWidth: "18px",
+          height: "18px",
+          padding: "0 5px",
         }}
       >
         {activeCount}

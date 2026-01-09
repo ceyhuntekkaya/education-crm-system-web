@@ -26,7 +26,7 @@
 
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import {
   DataCollectionLayoutProvider,
   useDataCollectionLayoutContext,
@@ -72,12 +72,23 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
   const {
     popoverFilterValues,
     handlePopoverFilterChange,
+    resetPopoverFilters,
     activeFiltersCount,
     popoverConfigKey,
   } = usePopoverFilters(
     filtersConfig.popoverFiltersConfig,
     filtersConfig.filterOptions
   );
+
+  // Tüm filtreleri sıfırla (hem popover hem de external)
+  const handleFiltersReset = useCallback(() => {
+    // Önce popover filter'ları sıfırla
+    resetPopoverFilters();
+    // Sonra external onReset'i çağır (varsa)
+    if (filtersConfig.onFiltersReset) {
+      filtersConfig.onFiltersReset();
+    }
+  }, [resetPopoverFilters, filtersConfig]);
 
   /**
    * İç bileşen - context'e erişimi olan
@@ -119,7 +130,7 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
             enableSort={sortConfig.enableSort}
             enableFilters={filtersConfig.enableFilters}
             filters={filtersConfig.filterOptions}
-            onFiltersReset={filtersConfig.onFiltersReset}
+            onFiltersReset={handleFiltersReset}
             customHeader={headerConfig.customHeader}
             activeFiltersCount={activeFiltersCount}
             popoverFilters={filtersConfig.popoverFiltersConfig}

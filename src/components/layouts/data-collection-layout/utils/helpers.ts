@@ -60,7 +60,7 @@ export function calculateActiveFiltersCount(
   }).length;
 
   const popoverFiltersCount = Object.values(popoverFilterValues).filter(
-    (value) => value !== "ALL"
+    (value) => value && value !== "ALL" && value !== ""
   ).length;
 
   return standardFiltersCount + popoverFiltersCount;

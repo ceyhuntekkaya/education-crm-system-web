@@ -163,7 +163,7 @@ export function Header<T extends Record<string, any>>({
             })}
 
           {/* Reset Filters Button */}
-          {enableFilters && onFiltersReset && (
+          {enableFilters && onFiltersReset && activeFiltersCount > 0 && (
             <ResetFiltersButton
               activeCount={activeFiltersCount}
               onReset={onFiltersReset}

@@ -29,6 +29,15 @@ export function usePopoverFilters(
     []
   );
 
+  // Tüm popover filter'ları sıfırla
+  const resetPopoverFilters = useCallback(() => {
+    const resetValues: Record<string, string> = {};
+    popoverFiltersConfig.forEach((filter) => {
+      resetValues[filter.id] = filter.defaultValue || "ALL";
+    });
+    setPopoverFilterValues(resetValues);
+  }, [popoverFiltersConfig]);
+
   // PopoverFilters config'inin signature'ını hesapla
   const popoverConfigKey = useMemo(() => {
     return getPopoverConfigKey(popoverFiltersConfig);
@@ -67,6 +76,7 @@ export function usePopoverFilters(
   return {
     popoverFilterValues,
     handlePopoverFilterChange,
+    resetPopoverFilters,
     activeFiltersCount,
     popoverConfigKey,
   };
