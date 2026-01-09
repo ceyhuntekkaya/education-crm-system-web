@@ -15,7 +15,7 @@ import type { ViewMode, SortOrder } from "../types";
 // CONTEXT TYPES
 // ═══════════════════════════════════════════════════════════════════════════
 
-interface ListViewContextValue {
+interface DataCollectionLayoutContextValue {
   // View Mode
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
@@ -43,7 +43,7 @@ interface ListViewContextValue {
   setActiveFiltersCount: (count: number) => void;
 }
 
-interface ListViewProviderProps {
+interface DataCollectionLayoutProviderProps {
   children: React.ReactNode;
   defaultViewMode?: ViewMode;
   defaultSortBy?: string;
@@ -56,7 +56,7 @@ interface ListViewProviderProps {
 // CONTEXT
 // ═══════════════════════════════════════════════════════════════════════════
 
-const ListViewContext = createContext<ListViewContextValue | undefined>(
+const DataCollectionLayoutContext = createContext<DataCollectionLayoutContextValue | undefined>(
   undefined
 );
 
@@ -64,14 +64,14 @@ const ListViewContext = createContext<ListViewContextValue | undefined>(
 // PROVIDER
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function ListViewProvider({
+export function DataCollectionLayoutProvider({
   children,
   defaultViewMode = "grid",
   defaultSortBy = "none",
   defaultSortOrder = "desc",
   onSortChange,
   onSearchChange,
-}: ListViewProviderProps) {
+}: DataCollectionLayoutProviderProps) {
   // View Mode
   const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
 
@@ -184,9 +184,9 @@ export function ListViewProvider({
   );
 
   return (
-    <ListViewContext.Provider value={value}>
+    <DataCollectionLayoutContext.Provider value={value}>
       {children}
-    </ListViewContext.Provider>
+    </DataCollectionLayoutContext.Provider>
   );
 }
 
@@ -194,11 +194,11 @@ export function ListViewProvider({
 // HOOK
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function useListViewContext() {
-  const context = useContext(ListViewContext);
+export function useDataCollectionLayoutContext() {
+  const context = useContext(DataCollectionLayoutContext);
   if (!context) {
     throw new Error(
-      "useListViewContext must be used within a ListViewProvider"
+      "useDataCollectionLayoutContext must be used within a DataCollectionLayoutProvider"
     );
   }
   return context;

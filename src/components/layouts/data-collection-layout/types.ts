@@ -1,5 +1,5 @@
 /**
- * 🎯 LIST VIEW TYPES
+ * 🎯 DATA COLLECTION LAYOUT TYPES
  * Generic liste görünümü için tip tanımlamaları
  */
 
@@ -214,10 +214,10 @@ export interface StylingConfig {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// MAIN LIST VIEW PROPS (Grouped Structure)
+// MAIN DATA COLLECTION LAYOUT PROPS (Grouped Structure)
 // ═══════════════════════════════════════════════════════════════════════════
 
-export interface ListViewProps<T extends Record<string, any> = any> {
+export interface DataCollectionLayoutProps<T extends Record<string, any> = any> {
   header: HeaderConfig;
   data: DataConfig<T>;
   view?: ViewConfig<T>;

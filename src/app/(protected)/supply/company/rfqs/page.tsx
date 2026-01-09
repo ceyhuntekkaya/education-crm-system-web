@@ -3,12 +3,14 @@
 import React, { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { usePageTitle } from "@/hooks";
-import { ListView } from "@/components/layouts/list-view";
+import { DataCollectionLayout } from "@/components/layouts/data-collection-layout";
 import { RFQCard } from "./_shared/sections/rfq-card";
 import {
   createRFQColumns,
   RFQ_POPOVER_FILTERS,
   RFQ_SORT_OPTIONS,
+  createRFQActionButtons,
+  createRFQEmptyStateAction,
 } from "./_shared/config";
 import { useRFQsContext } from "./_shared/contexts";
 import type { RFQDto } from "@/types";
@@ -26,28 +28,14 @@ const RFQsPage: React.FC = () => {
   const rfqSortOptions = useMemo(() => RFQ_SORT_OPTIONS, []);
 
   // Action buttons'ları da memoize et
-  const actionButtons = useMemo(
-    () => [
-      {
-        label: "Yeni İlan Ekle",
-        icon: "ph-plus-circle",
-        onClick: () => router.push("/supply/company/rfqs/add-edit/new"),
-        variant: "primary" as const,
-      },
-    ],
-    [router]
-  );
-
+  const actionButtons = useMemo(() => createRFQActionButtons(router), [router]);
   const emptyStateAction = useMemo(
-    () => ({
-      label: "İlk İlanı Oluştur",
-      onClick: () => router.push("/supply/company/rfqs/add-edit/new"),
-    }),
+    () => createRFQEmptyStateAction(router),
     [router]
   );
 
   return (
-    <ListView<RFQDto>
+    <DataCollectionLayout<RFQDto>
       // ═══════════════════════════════════════════════════════════════════
       // HEADER - Başlık ve Aksiyon Butonları
       // ═══════════════════════════════════════════════════════════════════

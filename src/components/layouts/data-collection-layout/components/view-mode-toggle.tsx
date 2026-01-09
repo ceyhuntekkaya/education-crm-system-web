@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useListViewContext } from "../contexts";
+import { useDataCollectionLayoutContext } from "../contexts";
 import { ToggleButton } from "./toggle-button";
 
 /**
@@ -9,7 +9,7 @@ import { ToggleButton } from "./toggle-button";
  * Görünüm modu değiştirme bileşeni
  */
 export const ViewModeToggle: React.FC = () => {
-  const { viewMode, setViewMode } = useListViewContext();
+  const { viewMode, setViewMode } = useDataCollectionLayoutContext();
 
   return (
     <>

@@ -1,4 +1,4 @@
-import type { SortOption } from "@/components/layouts/list-view";
+import type { SortOption } from "@/components/layouts/data-collection-layout";
 
 /**
  * 🔽 RFQ SORT OPTIONS

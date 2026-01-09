@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useListViewContext } from "../contexts";
+import { useDataCollectionLayoutContext } from "../contexts";
 import { Popover } from "@/components/ui/popover";
 import { SortButton } from "./sort-button";
 import { FilterDropdownContent } from "./filter-dropdown-content";
@@ -17,7 +17,7 @@ interface SortDropdownProps {
  */
 export const SortDropdown: React.FC<SortDropdownProps> = ({ options }) => {
   const { sortBy, sortOrder, handleSortChange, toggleSortOrder, resetSort } =
-    useListViewContext();
+    useDataCollectionLayoutContext();
 
   const currentOption = options.find((opt) => opt.value === sortBy);
 

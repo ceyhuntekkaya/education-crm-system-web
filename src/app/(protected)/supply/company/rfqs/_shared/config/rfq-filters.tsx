@@ -1,4 +1,4 @@
-import type { PopoverFilterConfig } from "@/components/layouts/list-view";
+import type { PopoverFilterConfig } from "@/components/layouts/data-collection-layout";
 
 /**
  * 🔍 RFQ POPOVER FILTERS

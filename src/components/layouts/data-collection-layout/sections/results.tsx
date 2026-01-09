@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useListViewContext } from "../contexts";
+import { useDataCollectionLayoutContext } from "../contexts";
 import { LoadingState, EmptyState } from "../components";
 import { DataGrid } from "@/components/ui/data-grid";
 import type { GridColDef } from "@/components/ui/data-grid";
@@ -49,7 +49,7 @@ export function Results<T extends Record<string, any>>({
   customLoadingState,
   customEmptyState,
 }: ResultsProps<T>) {
-  const { viewMode } = useListViewContext();
+  const { viewMode } = useDataCollectionLayoutContext();
 
   // gridCol prop'u varsa, otomatik className üret
   const computedGridClassName = gridCol

@@ -7,7 +7,7 @@
 
 import { useMemo } from "react";
 import type {
-  ListViewProps,
+  DataCollectionLayoutProps,
   FilterOption,
   PopoverFilterConfig,
   ViewConfig,
@@ -19,7 +19,7 @@ import { separateFilters } from "../utils/helpers";
  * Header konfigürasyonunu parse eder
  */
 export function useHeaderConfig<T extends Record<string, any> = any>(
-  header?: ListViewProps<T>["header"]
+  header?: DataCollectionLayoutProps<T>["header"]
 ) {
   return useMemo(() => {
     if (!header) {
@@ -43,7 +43,7 @@ export function useHeaderConfig<T extends Record<string, any> = any>(
  * Data konfigürasyonunu parse eder
  */
 export function useDataConfig<T extends Record<string, any> = any>(
-  data?: ListViewProps<T>["data"]
+  data?: DataCollectionLayoutProps<T>["data"]
 ) {
   return useMemo(() => {
     const { data: dataItems = [], loading = false } = data || {};
@@ -55,7 +55,7 @@ export function useDataConfig<T extends Record<string, any> = any>(
  * View konfigürasyonunu parse eder
  */
 export function useViewConfig<T extends Record<string, any> = any>(
-  view?: ListViewProps<T>["view"]
+  view?: DataCollectionLayoutProps<T>["view"]
 ) {
   return useMemo(() => {
     const {
@@ -104,7 +104,7 @@ export function useListConfig<T extends Record<string, any> = any>(
  * Filters konfigürasyonunu parse eder ve ayırır
  */
 export function useFiltersConfig<T extends Record<string, any> = any>(
-  filters?: ListViewProps<T>["filters"]
+  filters?: DataCollectionLayoutProps<T>["filters"]
 ) {
   return useMemo(() => {
     const {
@@ -130,7 +130,7 @@ export function useFiltersConfig<T extends Record<string, any> = any>(
  * Sort konfigürasyonunu parse eder
  */
 export function useSortConfig<T extends Record<string, any> = any>(
-  sort?: ListViewProps<T>["sort"]
+  sort?: DataCollectionLayoutProps<T>["sort"]
 ) {
   return useMemo(() => {
     const {
@@ -155,7 +155,7 @@ export function useSortConfig<T extends Record<string, any> = any>(
  * Search konfigürasyonunu parse eder
  */
 export function useSearchConfig<T extends Record<string, any> = any>(
-  search?: ListViewProps<T>["search"]
+  search?: DataCollectionLayoutProps<T>["search"]
 ) {
   return useMemo(() => {
     const {
@@ -173,7 +173,7 @@ export function useSearchConfig<T extends Record<string, any> = any>(
  * States konfigürasyonunu parse eder
  */
 export function useStatesConfig<T extends Record<string, any> = any>(
-  states?: ListViewProps<T>["states"]
+  states?: DataCollectionLayoutProps<T>["states"]
 ) {
   return useMemo(() => {
     const { empty: emptyStateConfig = {}, loading: loadingStateConfig = {} } =
@@ -208,7 +208,7 @@ export function useStatesConfig<T extends Record<string, any> = any>(
  * Styling konfigürasyonunu parse eder
  */
 export function useStylingConfig<T extends Record<string, any> = any>(
-  styling?: ListViewProps<T>["styling"]
+  styling?: DataCollectionLayoutProps<T>["styling"]
 ) {
   return useMemo(() => {
     const { container: containerClassName, header: headerClassName } =

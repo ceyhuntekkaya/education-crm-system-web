@@ -1,5 +1,5 @@
 /**
- * 🎨 LIST VIEW - REFACTORED
+ * 🎨 DATA COLLECTION LAYOUT - REFACTORED
  *
  * Generic liste görünümü componenti - tüm liste sayfaları için kullanılabilir
  *
@@ -27,10 +27,13 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { ListViewProvider, useListViewContext } from "./contexts";
+import {
+  DataCollectionLayoutProvider,
+  useDataCollectionLayoutContext,
+} from "./contexts";
 import { Header } from "./sections/header";
 import { Results } from "./sections/results";
-import type { ListViewProps } from "./types";
+import type { DataCollectionLayoutProps } from "./types";
 import { CSS_CLASSES } from "./config";
 import {
   useHeaderConfig,
@@ -48,10 +51,10 @@ import {
 } from "./hooks";
 
 /**
- * List View Ana Bileşeni
+ * Data Collection Layout Ana Bileşeni
  */
-export function ListView<T extends Record<string, any> = any>(
-  props: ListViewProps<T>
+export function DataCollectionLayout<T extends Record<string, any> = any>(
+  props: DataCollectionLayoutProps<T>
 ) {
   // Props'ları parse eden hook'lar
   const headerConfig = useHeaderConfig(props.header);
@@ -79,8 +82,8 @@ export function ListView<T extends Record<string, any> = any>(
   /**
    * İç bileşen - context'e erişimi olan
    */
-  function ListViewContent() {
-    const { searchQuery } = useListViewContext();
+  function DataCollectionLayoutContent() {
+    const { searchQuery } = useDataCollectionLayoutContext();
 
     // Filtered data
     const filteredData = useFilteredData(
@@ -148,7 +151,7 @@ export function ListView<T extends Record<string, any> = any>(
   }
 
   return (
-    <ListViewProvider
+    <DataCollectionLayoutProvider
       defaultViewMode={viewConfig.defaultViewMode}
       defaultSortBy={sortConfig.defaultSortBy}
       defaultSortOrder={sortConfig.defaultSortOrder}
@@ -160,11 +163,11 @@ export function ListView<T extends Record<string, any> = any>(
           stylingConfig.containerClassName || ""
         }`}
       >
-        <ListViewContent />
+        <DataCollectionLayoutContent />
       </div>
-    </ListViewProvider>
+    </DataCollectionLayoutProvider>
   );
 }
 
 // Default export
-export default ListView;
+export default DataCollectionLayout;

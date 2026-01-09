@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useListViewContext } from "../contexts";
+import { useDataCollectionLayoutContext } from "../contexts";
 
 interface SearchInputProps {
   placeholder?: string;
@@ -14,7 +14,7 @@ interface SearchInputProps {
 export const SearchInput: React.FC<SearchInputProps> = ({
   placeholder = "Ara...",
 }) => {
-  const { searchQuery, setSearchQuery } = useListViewContext();
+  const { searchQuery, setSearchQuery } = useDataCollectionLayoutContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasSearch = searchQuery.trim().length > 0;
 
