@@ -6,30 +6,40 @@ import type { RFQType } from "@/types";
 import { Popover } from "@/components/ui/popover";
 import { FilterButton, FilterDropdownContent } from "../components";
 
+type TypeOption = {
+  value: RFQType | "ALL";
+  label: string;
+  icon: string;
+};
+
+interface TypeFilterProps {
+  options?: TypeOption[];
+}
+
 /**
  * 🔍 TYPE FILTER
  * Tip filtresi dropdown bileşeni
  */
-export const TypeFilter: React.FC = () => {
+export const TypeFilter: React.FC<TypeFilterProps> = ({ options }) => {
   const { filters, filterHandlers } = useRFQsContext();
 
-  const typeOptions: Array<{
-    value: RFQType | "ALL";
-    label: string;
-    icon: string;
-  }> = [
+  const fallbackOptions: TypeOption[] = [
     { value: "ALL", label: "Tüm Tipler", icon: "ph-stack" },
     { value: "OPEN", label: "Açık İhale", icon: "ph-globe" },
     { value: "INVITED", label: "Davetli İhale", icon: "ph-users-three" },
   ];
 
-  const currentOption = typeOptions.find((opt) => opt.value === filters.type);
+  const computedOptions = options?.length ? options : fallbackOptions;
+
+  const currentOption = computedOptions.find(
+    (opt) => opt.value === filters.type
+  );
 
   return (
     <Popover
       content={
         <FilterDropdownContent
-          options={typeOptions}
+          options={computedOptions}
           selectedValue={filters.type}
           onChange={filterHandlers.setType}
         />

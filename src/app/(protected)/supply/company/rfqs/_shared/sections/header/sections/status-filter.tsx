@@ -6,25 +6,33 @@ import type { RFQStatus } from "@/types";
 import { Popover } from "@/components/ui/popover";
 import { FilterButton, FilterDropdownContent } from "../components";
 
+type StatusOption = {
+  value: RFQStatus | "ALL";
+  label: string;
+  icon: string;
+};
+
+interface StatusFilterProps {
+  options?: StatusOption[];
+}
+
 /**
  * 🔍 STATUS FILTER
  * Durum filtresi dropdown bileşeni
  */
-export const StatusFilter: React.FC = () => {
+export const StatusFilter: React.FC<StatusFilterProps> = ({ options }) => {
   const { filters, filterHandlers } = useRFQsContext();
 
-  const statusOptions: Array<{
-    value: RFQStatus | "ALL";
-    label: string;
-    icon: string;
-  }> = [
+  const fallbackOptions: StatusOption[] = [
     { value: "ALL", label: "Tüm Durumlar", icon: "ph-stack" },
     { value: "DRAFT", label: "Taslak", icon: "ph-note-pencil" },
     { value: "PUBLISHED", label: "Yayınlandı", icon: "ph-paper-plane-tilt" },
     { value: "CLOSED", label: "Kapandı", icon: "ph-lock" },
   ];
 
-  const currentOption = statusOptions.find(
+  const computedOptions = options?.length ? options : fallbackOptions;
+
+  const currentOption = computedOptions.find(
     (opt) => opt.value === filters.status
   );
 
@@ -32,7 +40,7 @@ export const StatusFilter: React.FC = () => {
     <Popover
       content={
         <FilterDropdownContent
-          options={statusOptions}
+          options={computedOptions}
           selectedValue={filters.status}
           onChange={filterHandlers.setStatus}
         />
