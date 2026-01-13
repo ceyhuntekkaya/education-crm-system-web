@@ -1,0 +1,231 @@
+// Custom Grid System - CSS Grid Based with Child Selectors
+// Usage: <div class="rows gap-16">
+//          <div class="col-6">Item 1</div>
+//          <div class="col-6">Item 2</div>
+//        </div>
+
+// Base grid container
+.rows {
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  
+  // Reset all children
+  > * {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+}
+
+// Custom Grid System - CSS Grid Based with gx/gy naming
+// Usage: <div class="rows gx-4 gy-8">    // column-gap: 16px, row-gap: 32px
+//          <div class="col-6">Item 1</div>
+//          <div class="col-6">Item 2</div>
+//        </div>
+//        <div class="rows">               // Default: 12px gap (gap-12)
+//          <div class="col-6">Item 1</div>
+//          <div class="col-6">Item 2</div>
+//        </div>
+
+// Base grid container with default gap
+.rows {
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  gap: var(--size-12) !important; // Default 12px gap (gap-12) if no gap specified
+  
+  // Default column definitions (for when no specific gap is used)
+  > .col-1 { grid-column: span 1 !important; }
+  > .col-2 { grid-column: span 2 !important; }  
+  > .col-3 { grid-column: span 3 !important; }
+  > .col-4 { grid-column: span 4 !important; }
+  > .col-5 { grid-column: span 5 !important; }
+  > .col-6 { grid-column: span 6 !important; }
+  > .col-7 { grid-column: span 7 !important; }
+  > .col-8 { grid-column: span 8 !important; }
+  > .col-9 { grid-column: span 9 !important; }
+  > .col-10 { grid-column: span 10 !important; }
+  > .col-11 { grid-column: span 11 !important; }
+  > .col-12 { grid-column: span 12 !important; }
+  
+  // Reset all children
+  > * {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+}
+
+// Gap utilities with gx/gy naming + standard gap classes for .rows container
+@each $property, $value in $spaces {
+  
+  // Standard gap-* classes (for backward compatibility)
+  .rows.gap-#{$property} {
+    gap: var(--size-#{$property}) !important;
+    
+    > .col-1 { grid-column: span 1 !important; }
+    > .col-2 { grid-column: span 2 !important; }  
+    > .col-3 { grid-column: span 3 !important; }
+    > .col-4 { grid-column: span 4 !important; }
+    > .col-5 { grid-column: span 5 !important; }
+    > .col-6 { grid-column: span 6 !important; }
+    > .col-7 { grid-column: span 7 !important; }
+    > .col-8 { grid-column: span 8 !important; }
+    > .col-9 { grid-column: span 9 !important; }
+    > .col-10 { grid-column: span 10 !important; }
+    > .col-11 { grid-column: span 11 !important; }
+    > .col-12 { grid-column: span 12 !important; }
+  }
+  
+  // Standard column-gap-* classes
+  .rows.column-gap-#{$property} {
+    column-gap: var(--size-#{$property}) !important;
+    
+    > .col-1 { grid-column: span 1 !important; }
+    > .col-2 { grid-column: span 2 !important; }  
+    > .col-3 { grid-column: span 3 !important; }
+    > .col-4 { grid-column: span 4 !important; }
+    > .col-5 { grid-column: span 5 !important; }
+    > .col-6 { grid-column: span 6 !important; }
+    > .col-7 { grid-column: span 7 !important; }
+    > .col-8 { grid-column: span 8 !important; }
+    > .col-9 { grid-column: span 9 !important; }
+    > .col-10 { grid-column: span 10 !important; }
+    > .col-11 { grid-column: span 11 !important; }
+    > .col-12 { grid-column: span 12 !important; }
+  }
+  
+  // Standard row-gap-* classes
+  .rows.row-gap-#{$property} {
+    row-gap: var(--size-#{$property}) !important;
+    
+    > .col-1 { grid-column: span 1 !important; }
+    > .col-2 { grid-column: span 2 !important; }  
+    > .col-3 { grid-column: span 3 !important; }
+    > .col-4 { grid-column: span 4 !important; }
+    > .col-5 { grid-column: span 5 !important; }
+    > .col-6 { grid-column: span 6 !important; }
+    > .col-7 { grid-column: span 7 !important; }
+    > .col-8 { grid-column: span 8 !important; }
+    > .col-9 { grid-column: span 9 !important; }
+    > .col-10 { grid-column: span 10 !important; }
+    > .col-11 { grid-column: span 11 !important; }
+    > .col-12 { grid-column: span 12 !important; }
+  }
+  
+  // gx-* = Row Gap (X-axis movement between rows)
+  .rows.gx-#{$property} {
+    row-gap: var(--size-#{$property}) !important;
+    
+    // Column definitions for this specific gx value
+    > .col-1 { grid-column: span 1 !important; }
+    > .col-2 { grid-column: span 2 !important; }  
+    > .col-3 { grid-column: span 3 !important; }
+    > .col-4 { grid-column: span 4 !important; }
+    > .col-5 { grid-column: span 5 !important; }
+    > .col-6 { grid-column: span 6 !important; }
+    > .col-7 { grid-column: span 7 !important; }
+    > .col-8 { grid-column: span 8 !important; }
+    > .col-9 { grid-column: span 9 !important; }
+    > .col-10 { grid-column: span 10 !important; }
+    > .col-11 { grid-column: span 11 !important; }
+    > .col-12 { grid-column: span 12 !important; }
+  }
+  
+  // gy-* = Column Gap (Y-axis movement between columns)
+  .rows.gy-#{$property} {
+    column-gap: var(--size-#{$property}) !important;
+    
+    // Column definitions for this specific gy value
+    > .col-1 { grid-column: span 1 !important; }
+    > .col-2 { grid-column: span 2 !important; }  
+    > .col-3 { grid-column: span 3 !important; }
+    > .col-4 { grid-column: span 4 !important; }
+    > .col-5 { grid-column: span 5 !important; }
+    > .col-6 { grid-column: span 6 !important; }
+    > .col-7 { grid-column: span 7 !important; }
+    > .col-8 { grid-column: span 8 !important; }
+    > .col-9 { grid-column: span 9 !important; }
+    > .col-10 { grid-column: span 10 !important; }
+    > .col-11 { grid-column: span 11 !important; }
+    > .col-12 { grid-column: span 12 !important; }
+  }
+  
+  // g-* = Both gaps (shorthand)
+  .rows.g-#{$property} {
+    gap: var(--size-#{$property}) !important;
+    
+    // Column definitions for this specific g value
+    > .col-1 { grid-column: span 1 !important; }
+    > .col-2 { grid-column: span 2 !important; }  
+    > .col-3 { grid-column: span 3 !important; }
+    > .col-4 { grid-column: span 4 !important; }
+    > .col-5 { grid-column: span 5 !important; }
+    > .col-6 { grid-column: span 6 !important; }
+    > .col-7 { grid-column: span 7 !important; }
+    > .col-8 { grid-column: span 8 !important; }
+    > .col-9 { grid-column: span 9 !important; }
+    > .col-10 { grid-column: span 10 !important; }
+    > .col-11 { grid-column: span 11 !important; }
+    > .col-12 { grid-column: span 12 !important; }
+  }
+}
+
+// Responsive column system
+@media (max-width: 768px) {
+  .rows {
+    // On mobile, make all columns full width
+    grid-template-columns: 1fr !important;
+    
+    > * {
+      grid-column: span 1 !important;
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .rows {
+    // On tablet, adjust grid for better layout
+    > .col-1,
+    > .col-2,
+    > .col-3,
+    > .col-4 {
+      grid-column: span 6 !important; // Half width
+    }
+    
+    > .col-5,
+    > .col-6,
+    > .col-7,
+    > .col-8,
+    > .col-9,
+    > .col-10,
+    > .col-11,
+    > .col-12 {
+      grid-column: span 12 !important; // Full width
+    }
+  }
+}
+
+/* Example Usage:
+<div class="rows gap-4">
+  <div class="col-6">First item - 50% width</div>
+  <div class="col-6">Second item - 50% width</div>
+  <div class="col-4">Third item - 33.33% width</div>
+  <div class="col-4">Fourth item - 33.33% width</div>
+  <div class="col-4">Fifth item - 33.33% width</div>
+</div>
+
+<div class="rows column-gap-8 row-gap-4">
+  <div class="col-6">Different gap values</div>
+  <div class="col-6">Column gap: 32px, Row gap: 16px</div>
+</div>
+*/
