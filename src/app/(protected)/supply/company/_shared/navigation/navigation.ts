@@ -15,7 +15,7 @@ export const supplyCompanyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/supply/company/wishlist",
-    label: "İstek/Favoriler",
+    label: "İstek Listesi",
     icon: "ph-heart",
     requiresSchool: false,
   },

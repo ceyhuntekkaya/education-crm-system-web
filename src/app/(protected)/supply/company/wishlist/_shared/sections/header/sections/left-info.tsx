@@ -23,12 +23,12 @@ export const LeftInfo: React.FC = () => {
         <i className="ph-fill ph-heart" style={{ fontSize: "24px" }}></i>
       </div>
       <div className="flex-grow-1 min-w-0">
-        <h5 className="mb-4 fw-semibold text-neutral-900">Favori Ürünlerim</h5>
+        <h5 className="mb-4 fw-semibold text-neutral-900">İstek Listem</h5>
         <div className="d-flex align-items-center gap-8 flex-wrap">
           <span className="text-neutral-600 text-xs fw-medium">Toplam</span>
           <span className="d-inline-flex align-items-center gap-6 text-xs text-neutral-700 bg-neutral-50 px-10 py-6 rounded-8 fw-medium">
             <i className="ph-fill ph-heart text-xs"></i>
-            {totalCount} favori ürün
+            {totalCount} ürün
           </span>
         </div>
       </div>
