@@ -17,9 +17,9 @@ export function useSuppliersData() {
 
   // Transform to SelectOption[] format
   const suppliers = useMemo(() => {
-    if (!response?.data) return [];
+    if (!response?.data?.content) return [];
 
-    return response.data
+    return response.data.content
       .filter((supplier) => supplier.isActive) // Sadece aktif tedarikçiler
       .map((supplier) => ({
         value: supplier.id?.toString() || "",

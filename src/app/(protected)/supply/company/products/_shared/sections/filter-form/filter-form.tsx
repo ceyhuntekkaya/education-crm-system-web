@@ -36,7 +36,7 @@ const FilterForm = () => {
     <CustomCard
       title="Arama Kriterleri"
       subtitle="Lütfen arama kriterlerinizi seçin"
-      type="accordion"
+      // type="accordion"
       size="sm"
     >
       <Form onSubmit={onSubmit}>

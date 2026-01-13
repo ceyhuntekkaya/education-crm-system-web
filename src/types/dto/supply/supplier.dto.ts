@@ -57,7 +57,9 @@ export interface ApiResponsePageSupplierDto {
 export interface ApiResponseSupplierListDto {
   success?: boolean;
   message?: string;
-  data?: SupplierDto[];
+  data?: {
+    content: SupplierDto[];
+  };
   errors?: string[];
   timestamp?: string;
   path?: string;

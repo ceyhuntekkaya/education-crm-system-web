@@ -17,9 +17,9 @@ export function useCategoriesData() {
 
   // Transform to SelectOption[] format
   const categories = useMemo(() => {
-    if (!response?.data) return [];
+    if (!response?.data?.content) return [];
 
-    return response.data
+    return response.data.content
       .filter((cat) => cat.isActive) // Sadece aktif kategoriler
       .map((cat) => ({
         value: cat.id?.toString() || "",

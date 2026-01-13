@@ -27,7 +27,17 @@ export interface CategoryDto {
 export interface ApiResponseCategoryDto {
   success?: boolean;
   message?: string;
-  data?: CategoryDto[];
+  data?: {
+    content: CategoryDto[];
+    totalElements?: number;
+    totalPages?: number;
+    size?: number;
+    number?: number;
+    first?: boolean;
+    last?: boolean;
+    numberOfElements?: number;
+    empty?: boolean;
+  };
   errors?: string[];
   timestamp?: string;
   path?: string;

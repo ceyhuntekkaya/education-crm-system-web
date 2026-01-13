@@ -24,7 +24,7 @@ export const useProductsSearch = (
   const { data, loading, error, refetch } = useGet<ApiResponsePageProductDto>(
     searchUrl,
     {
-      params: searchParams,
+      // params: searchParams,
       enabled: !!searchUrl,
       onSuccess: () => {
         setHasSearched(true);
