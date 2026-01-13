@@ -32,7 +32,7 @@ const quickActionsData: QuickAction[] = [
     description: "Onaylı tedarikçilerinizi görüntüleyin ve iletişime geçin",
     icon: "ph-users-three",
     colorClass: "info",
-    href: "#",
+    href: "/supply/company/suppliers",
   },
 ];
 
