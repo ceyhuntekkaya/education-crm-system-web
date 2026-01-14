@@ -12,6 +12,7 @@ import {
   ProductEmptyState,
   ProductBackButton,
   ProductDiscountSection,
+  ProductVariantsSection,
 } from "./_shared";
 import { usePageTitle } from "@/hooks";
 
@@ -62,6 +63,9 @@ const ProductDetailPage: React.FC = () => {
 
         {/* İndirimler - Fiyat bilgisinden sonra */}
         <ProductDiscountSection />
+
+        {/* Ürün Varyantları */}
+        <ProductVariantsSection productId={product.id!} />
 
         {/* Detaylı Bilgiler - Tab Navigation */}
         <ProductTabsSection />

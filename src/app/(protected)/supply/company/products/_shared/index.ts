@@ -1,7 +1,6 @@
 // Products Search Page Components & Contexts
 export * from "./contexts";
-export * from "./sections/initial-search-state";
-export * from "./sections/product-card";
+export * from "./sections";
 
 // Config exports for DataCollectionLayout
 export * from "./config";

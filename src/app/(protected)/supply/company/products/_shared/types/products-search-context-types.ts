@@ -5,7 +5,8 @@ import {
 } from "@/types/dto/supply/product.dto";
 
 // Re-export for convenience
-export { ProductResultDto, mapProductDtoToResult };
+export type { ProductResultDto };
+export { mapProductDtoToResult };
 
 /**
  * Products Search Context Type - Ürün arama context'inin tipi

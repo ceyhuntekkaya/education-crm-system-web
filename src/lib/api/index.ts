@@ -3,4 +3,3 @@ export * from "./client";
 export * from "./endpoints";
 export * from "./types";
 export * from "./constants";
-export * from "./supply";
