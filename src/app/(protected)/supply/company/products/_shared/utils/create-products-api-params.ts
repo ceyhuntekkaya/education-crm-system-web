@@ -35,7 +35,7 @@ export const createProductsApiParams = (
     minPrice,
     maxPrice,
     page: 0,
-    size: 20,
+    size: 10000000,
   };
 
   return apiParams;

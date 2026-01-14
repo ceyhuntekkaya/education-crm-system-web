@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { useFormHook } from "@/hooks";
 import {
   useSearchProducts,
@@ -72,13 +78,21 @@ export function ProductsProvider({ children }: ProductsProviderProps) {
   const products: ProductResultDto[] =
     data?.data?.content?.map((item) => mapProductDtoToResult(item)) || [];
 
+  useEffect(() => {
+    if (values) {
+      const apiParams = createProductsApiParams(values);
+      setSearchParams(cleanProductsApiParams(apiParams));
+    }
+  }, [values]);
+
   // Search action
-  const search = useCallback((formValues: FormValues) => {
-    const apiParams = createProductsApiParams(formValues);
-    const cleanParams = cleanProductsApiParams(apiParams);
-    setSearchParams(cleanParams);
-    setHasSearched(true);
-  }, []);
+  const search = useCallback(
+    (formValues: FormValues) => {
+      setHasSearched(true);
+      refetch();
+    },
+    [refetch]
+  );
 
   // Reset action
   const resetSearch = useCallback(() => {
