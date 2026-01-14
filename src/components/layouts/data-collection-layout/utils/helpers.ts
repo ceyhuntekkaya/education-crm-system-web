@@ -15,7 +15,7 @@ export function separateFilters(
     (opt): opt is FilterOption => "type" in opt
   );
   const popoverFiltersConfig = allFilterOptions.filter(
-    (opt): opt is PopoverFilterConfig => "activeColor" in opt
+    (opt): opt is PopoverFilterConfig => "options" in opt && !("type" in opt) // PopoverFilterConfig'de options var ama type yok
   );
 
   return { filterOptions, popoverFiltersConfig };
@@ -109,4 +109,83 @@ export function filterData<T extends Record<string, any>>(
   }
 
   return result;
+}
+
+/**
+ * Data'yı verilen kriterlere göre sıralar
+ */
+export function sortData<T extends Record<string, any>>(
+  data: T[],
+  sortBy: string,
+  sortOrder: string
+): T[] {
+  if (!data || data.length === 0 || !sortBy || sortBy === "none") {
+    return data;
+  }
+
+  // Sıralama kriterini parse et ("field" veya "field_desc" formatı)
+  let sortField = sortBy;
+  let isDescending = false;
+
+  if (sortBy.endsWith("_desc")) {
+    sortField = sortBy.replace("_desc", "");
+    isDescending = true;
+  } else if (sortOrder === "desc") {
+    isDescending = true;
+  }
+
+  // Sıralama işlemi
+  const sorted = [...data].sort((a, b) => {
+    const aValue = a[sortField];
+    const bValue = b[sortField];
+
+    // Null/undefined değerleri en sona koy
+    if (aValue == null && bValue == null) return 0;
+    if (aValue == null) return 1;
+    if (bValue == null) return -1;
+
+    let comparison = 0;
+
+    // Sayısal karşılaştırma - string'den number'a çevirme dahil
+    if (
+      typeof aValue === "number" ||
+      typeof bValue === "number" ||
+      (!isNaN(parseFloat(aValue)) && !isNaN(parseFloat(bValue)))
+    ) {
+      const numA = typeof aValue === "number" ? aValue : parseFloat(aValue);
+      const numB = typeof bValue === "number" ? bValue : parseFloat(bValue);
+      comparison = numA - numB;
+    }
+    // Tarih karşılaştırması - ISO string ve Date objesi desteği
+    else if (
+      aValue instanceof Date ||
+      bValue instanceof Date ||
+      (typeof aValue === "string" && /\d{4}-\d{2}-\d{2}/.test(aValue)) ||
+      (typeof bValue === "string" && /\d{4}-\d{2}-\d{2}/.test(bValue))
+    ) {
+      const dateA = new Date(aValue);
+      const dateB = new Date(bValue);
+
+      // Geçersiz tarih kontrolü
+      if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+        // Geçersiz tarihler string olarak karşılaştırılsın
+        const strA = String(aValue).toLowerCase();
+        const strB = String(bValue).toLowerCase();
+        comparison = strA.localeCompare(strB, "tr", { numeric: true });
+      } else {
+        comparison = dateA.getTime() - dateB.getTime();
+      }
+    }
+    // String karşılaştırması
+    else {
+      const strA = String(aValue).toLowerCase();
+      const strB = String(bValue).toLowerCase();
+      comparison = strA.localeCompare(strB, "tr", { numeric: true });
+    }
+
+    // Sıralama yönünü uygula
+    return isDescending ? -comparison : comparison;
+  });
+
+  return sorted;
 }

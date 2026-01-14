@@ -10,10 +10,9 @@ import {
 } from "@/components";
 import { CustomCard, Divider } from "@/components/ui";
 import { useFormHook } from "@/hooks";
-import { useProductsSearchContext } from "../../contexts";
+import { useProductsContext } from "../../contexts";
 import { FormValues } from "@/types";
-import { createProductsApiParams, cleanProductsApiParams } from "../../utils";
-import { SearchProductsStatus } from "../../api";
+import { SearchProductsStatus } from "@/types/dto/supply/product.dto";
 
 const statusOptions = [
   { value: SearchProductsStatus.ACTIVE, label: "Aktif" },
@@ -24,12 +23,17 @@ const statusOptions = [
 
 const FilterForm = () => {
   const { resetForm, values } = useFormHook();
-  const { search, resetSearch, options } = useProductsSearchContext();
+  const {
+    search,
+    resetSearch,
+    categories,
+    categoriesLoading,
+    suppliers,
+    suppliersLoading,
+  } = useProductsContext();
 
   const onSubmit = (values: FormValues) => {
-    const apiParams = createProductsApiParams(values);
-    const cleanParams = cleanProductsApiParams(apiParams);
-    search(cleanParams);
+    search(values);
   };
 
   return (
@@ -57,9 +61,9 @@ const FilterForm = () => {
               name="categoryId"
               variant="outline"
               placeholder="Kategori ara..."
-              options={options.categories.data}
+              options={categories}
               noOptionsText="Kategori bulunamadı"
-              isLoading={options.categories.loading}
+              isLoading={categoriesLoading}
             />
           </div>
 
@@ -69,9 +73,9 @@ const FilterForm = () => {
               name="supplierId"
               variant="outline"
               placeholder="Tedarikçi ara..."
-              options={options.suppliers.data}
+              options={suppliers}
               noOptionsText="Tedarikçi bulunamadı"
-              isLoading={options.suppliers.loading}
+              isLoading={suppliersLoading}
             />
           </div>
 

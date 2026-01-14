@@ -31,8 +31,8 @@ export interface PopoverFilterOption {
 export interface PopoverFilterConfig {
   id: string; // Filter ID - data field name ile eşleşir (örn: "status", "rfqType")
   label: string;
-  activeColor: string;
-  activeBackground: string;
+  activeColor?: string; // Opsiyonel - varsayılan renk kullanılacak
+  activeBackground?: string; // Opsiyonel - varsayılan background kullanılacak
   options: PopoverFilterOption[];
   defaultValue?: string;
   fieldName?: string; // Optional: data field name (default: id)
@@ -234,7 +234,9 @@ export interface PaginationConfig {
 // MAIN DATA COLLECTION LAYOUT PROPS (Grouped Structure)
 // ═══════════════════════════════════════════════════════════════════════════
 
-export interface DataCollectionLayoutProps<T extends Record<string, any> = any> {
+export interface DataCollectionLayoutProps<
+  T extends Record<string, any> = any
+> {
   header: HeaderConfig;
   data: DataConfig<T>;
   view?: ViewConfig<T>;

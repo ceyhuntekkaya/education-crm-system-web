@@ -98,7 +98,8 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
    * İç bileşen - context'e erişimi olan
    */
   function DataCollectionLayoutContent() {
-    const { searchQuery, viewMode } = useDataCollectionLayoutContext();
+    const { searchQuery, viewMode, sortBy, sortOrder } =
+      useDataCollectionLayoutContext();
 
     // Filtered data
     const filteredData = useFilteredData(
@@ -107,7 +108,9 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
       popoverFilterValues,
       searchConfig.searchFields,
       searchQuery,
-      popoverConfigKey
+      popoverConfigKey,
+      sortBy,
+      sortOrder
     );
 
     // Pagination hook - sadece grid mode'da ve enabled ise kullan
@@ -220,8 +223,8 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
   return (
     <DataCollectionLayoutProvider
       defaultViewMode={viewConfig.defaultViewMode}
-      defaultSortBy={sortConfig.defaultSortBy}
-      defaultSortOrder={sortConfig.defaultSortOrder}
+      defaultSortBy={sortConfig.defaultSortBy || "name"}
+      defaultSortOrder={sortConfig.defaultSortOrder || "asc"}
       onSortChange={sortConfig.onSortChange}
       onSearchChange={searchConfig.onSearchChange}
     >

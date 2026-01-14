@@ -1,11 +1,11 @@
 import React from "react";
 import { FormAutocomplete } from "@/components";
-import { useProductsSearchContext } from "../../../contexts";
+import { useProductsContext } from "../../../contexts";
 import { useFormHook } from "@/hooks";
 
 export const SupplierSection = () => {
   const { values } = useFormHook();
-  const { options } = useProductsSearchContext();
+  const { suppliers, suppliersLoading } = useProductsContext();
 
   return {
     id: "supplier",
@@ -17,9 +17,9 @@ export const SupplierSection = () => {
           name="supplierId"
           variant="outline"
           placeholder="Tedarikçi ara..."
-          options={options.suppliers.data}
+          options={suppliers}
           noOptionsText="Tedarikçi bulunamadı"
-          isLoading={options.suppliers.loading}
+          isLoading={suppliersLoading}
         />
       </div>
     ),

@@ -240,3 +240,6 @@ class ApiClient {
 
 // Singleton instance
 export const apiClient = new ApiClient();
+
+// Export as 'api' for convenience
+export const api = apiClient;

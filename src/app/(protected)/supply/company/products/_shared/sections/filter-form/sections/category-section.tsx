@@ -1,11 +1,11 @@
 import React from "react";
 import { FormAutocomplete } from "@/components";
-import { useProductsSearchContext } from "../../../contexts";
+import { useProductsContext } from "../../../contexts";
 import { useFormHook } from "@/hooks";
 
 export const CategorySection = () => {
   const { values } = useFormHook();
-  const { options } = useProductsSearchContext();
+  const { categories, categoriesLoading } = useProductsContext();
 
   return {
     id: "category",
@@ -17,9 +17,9 @@ export const CategorySection = () => {
           name="categoryId"
           variant="outline"
           placeholder="Kategori ara..."
-          options={options.categories.data}
+          options={categories}
           noOptionsText="Kategori bulunamadı"
-          isLoading={options.categories.loading}
+          isLoading={categoriesLoading}
         />
       </div>
     ),

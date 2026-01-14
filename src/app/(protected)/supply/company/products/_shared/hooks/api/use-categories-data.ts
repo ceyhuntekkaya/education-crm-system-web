@@ -20,12 +20,12 @@ export function useCategoriesData() {
     if (!response?.data?.content) return [];
 
     return response.data.content
-      .filter((cat) => cat.isActive) // Sadece aktif kategoriler
-      .map((cat) => ({
+      .filter((cat: any) => cat.isActive) // Sadece aktif kategoriler
+      .map((cat: any) => ({
         value: cat.id?.toString() || "",
         label: cat.name || "",
       }))
-      .sort((a, b) => a.label.localeCompare(b.label)); // Alfabetik sırala
+      .sort((a: any, b: any) => a.label.localeCompare(b.label)); // Alfabetik sırala
   }, [response]);
 
   return {

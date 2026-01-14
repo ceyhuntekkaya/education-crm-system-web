@@ -1,27 +1,5 @@
-import { SearchProductsParams } from "../api";
-import { ProductDto, ProductDtoStatus } from "@/types";
-
-/**
- * Pagination state tipi (context için)
- */
-export interface ProductsPaginationState {
-  page: number;
-  size: number;
-  totalPages: number;
-  totalElements: number;
-  isFirstPage: boolean;
-  isLastPage: boolean;
-  pageNumbers: number[];
-  startItem: number;
-  endItem: number;
-  goToPage: (page: number) => void;
-  goToNextPage: () => void;
-  goToPreviousPage: () => void;
-  goToFirstPage: () => void;
-  goToLastPage: () => void;
-  changePageSize: (size: number) => void;
-  resetPagination: () => void;
-}
+import { SearchProductsParams, ProductDto } from "@/types/dto/supply/product.dto";
+import { ProductDtoStatus } from "@/types";
 
 /**
  * Ürün sonucu DTO tipi (UI için optimize edilmiş)
@@ -50,7 +28,7 @@ export interface ProductResultDto {
 }
 
 /**
- * ProductDto'yu ProductResultDto'ya map eder
+ * ProductDto'yu ProductResultDto'ya map eder (Backend response'una uygun)
  */
 export function mapProductDtoToResult(dto: ProductDto): ProductResultDto {
   return {
@@ -61,42 +39,20 @@ export function mapProductDtoToResult(dto: ProductDto): ProductResultDto {
     categoryId: dto.categoryId,
     categoryName: dto.categoryName,
     supplierId: dto.supplierId,
-    supplierName: dto.supplierCompanyName,
-    unitPrice: dto.basePrice,
+    supplierName: dto.supplierCompanyName, // Backend field name
+    unitPrice: dto.basePrice, // Backend field name
     currency: dto.currency,
     taxRate: dto.taxRate,
     stockTrackingType: dto.stockTrackingType,
-    currentStock: dto.stockQuantity,
+    currentStock: dto.stockQuantity, // Backend field name
     minStockLevel: dto.minStockLevel,
-    mainImageUrl: dto.mainImageUrl,
+    mainImageUrl: dto.mainImageUrl, // Backend field name
     status: dto.status,
     deliveryDays: dto.deliveryDays,
     createdAt: dto.createdAt,
     updatedAt: dto.updatedAt,
   };
 }
-
-// Context'te tutulacak değerlerin tipi
-export interface ProductsSearchContextValue {
-  // Form values (search form'unun mevcut değerleri)
-  formValues: Record<string, any>;
-
-  // API'den gelen veriler
-  products: ProductResultDto[];
-  hasSearched: boolean; // İlk arama yapıldı mı?
-
-  // View mode (grid/list)
-  viewMode: "grid" | "list";
-  setViewMode: (mode: "grid" | "list") => void;
-
-  // Kategoriler
-  categories: {
-    data: { value: string; label: string }[];
-    loading: boolean;
-    error: any;
-  };
-
-  // Tedarikçiler
   suppliers: {
     data: { value: string; label: string }[];
     loading: boolean;

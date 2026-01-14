@@ -6,6 +6,22 @@ import { PageableObject, SortObject } from "../../api/api-general.types";
  */
 
 /**
+ * Ürün arama durumu enum
+ */
+export type SearchProductsStatus =
+  | "ACTIVE"
+  | "INACTIVE"
+  | "OUT_OF_STOCK"
+  | "DISCONTINUED";
+
+export const SearchProductsStatus = {
+  ACTIVE: "ACTIVE" as const,
+  INACTIVE: "INACTIVE" as const,
+  OUT_OF_STOCK: "OUT_OF_STOCK" as const,
+  DISCONTINUED: "DISCONTINUED" as const,
+};
+
+/**
  * Ürün durumu enum
  */
 export const ProductDtoStatus = {
@@ -95,6 +111,73 @@ export interface PageProductDto {
   content?: ProductDto[];
   number?: number;
   empty?: boolean;
+}
+
+/**
+ * Ürün sonucu DTO tipi (UI için optimize edilmiş)
+ * ProductDto'dan map edilir
+ */
+export interface ProductResultDto {
+  id?: number;
+  name?: string;
+  description?: string;
+  sku?: string;
+  categoryId?: number;
+  categoryName?: string;
+  supplierId?: number;
+  supplierName?: string; // ProductDto'da supplierCompanyName
+  unitPrice?: number; // ProductDto'da basePrice
+  currency?: string;
+  taxRate?: number;
+  stockTrackingType?: string;
+  currentStock?: number; // ProductDto'da stockQuantity
+  minStockLevel?: number;
+  mainImageUrl?: string; // ProductDto'da mainImageUrl
+  status?: ProductDtoStatus;
+  deliveryDays?: number; // ProductDto'da deliveryDays
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+/**
+ * ProductDto'yu ProductResultDto'ya map eder (Backend response'una uygun)
+ */
+export function mapProductDtoToResult(dto: ProductDto): ProductResultDto {
+  return {
+    id: dto.id,
+    name: dto.name,
+    description: dto.description,
+    sku: dto.sku,
+    categoryId: dto.categoryId,
+    categoryName: dto.categoryName,
+    supplierId: dto.supplierId,
+    supplierName: dto.supplierCompanyName, // Backend field name
+    unitPrice: dto.basePrice, // Backend field name
+    currency: dto.currency,
+    taxRate: dto.taxRate,
+    stockTrackingType: dto.stockTrackingType,
+    currentStock: dto.stockQuantity, // Backend field name
+    minStockLevel: dto.minStockLevel,
+    mainImageUrl: dto.mainImageUrl, // Backend field name
+    status: dto.status as ProductDtoStatus,
+    deliveryDays: dto.deliveryDays,
+    createdAt: dto.createdAt,
+    updatedAt: dto.updatedAt,
+  };
+}
+
+/**
+ * Ürün arama parametreleri
+ */
+export interface SearchProductsParams {
+  searchTerm?: string;
+  categoryId?: number;
+  supplierId?: number;
+  status?: SearchProductsStatus;
+  minPrice?: number;
+  maxPrice?: number;
+  page?: number;
+  size?: number;
 }
 
 /**

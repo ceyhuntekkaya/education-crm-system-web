@@ -56,9 +56,9 @@ interface DataCollectionLayoutProviderProps {
 // CONTEXT
 // ═══════════════════════════════════════════════════════════════════════════
 
-const DataCollectionLayoutContext = createContext<DataCollectionLayoutContextValue | undefined>(
-  undefined
-);
+const DataCollectionLayoutContext = createContext<
+  DataCollectionLayoutContextValue | undefined
+>(undefined);
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROVIDER
@@ -67,8 +67,8 @@ const DataCollectionLayoutContext = createContext<DataCollectionLayoutContextVal
 export function DataCollectionLayoutProvider({
   children,
   defaultViewMode = "grid",
-  defaultSortBy = "none",
-  defaultSortOrder = "desc",
+  defaultSortBy = "name",
+  defaultSortOrder = "asc",
   onSortChange,
   onSearchChange,
 }: DataCollectionLayoutProviderProps) {

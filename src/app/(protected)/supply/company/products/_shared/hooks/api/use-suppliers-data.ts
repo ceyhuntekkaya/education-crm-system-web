@@ -20,12 +20,12 @@ export function useSuppliersData() {
     if (!response?.data?.content) return [];
 
     return response.data.content
-      .filter((supplier) => supplier.isActive) // Sadece aktif tedarikçiler
-      .map((supplier) => ({
+      .filter((supplier: any) => supplier.isActive) // Sadece aktif tedarikçiler
+      .map((supplier: any) => ({
         value: supplier.id?.toString() || "",
         label: supplier.companyName || "",
       }))
-      .sort((a, b) => a.label.localeCompare(b.label)); // Alfabetik sırala
+      .sort((a: any, b: any) => a.label.localeCompare(b.label)); // Alfabetik sırala
   }, [response]);
 
   return {

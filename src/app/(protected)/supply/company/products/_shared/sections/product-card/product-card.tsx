@@ -33,7 +33,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const stockIconBoxColor = getStockIconBoxColor(isOutOfStock, isLowStock);
 
   return (
-    <div className="col-4">
+    <div>
       <div
         className={`bg-white rounded-16 h-100 overflow-hidden transition-all d-flex flex-column ${
           !product.status || product.status === "PASSIVE" ? "opacity-70" : ""

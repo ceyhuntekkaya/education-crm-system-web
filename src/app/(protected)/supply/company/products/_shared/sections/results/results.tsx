@@ -2,13 +2,12 @@ import React from "react";
 import { Loading } from "@/components";
 import { ProductCard } from "../product-card";
 import { ProductsList } from "../products-list";
-import { useProductsSearchContext } from "../../contexts";
-import { Header } from "../header/header";
+import { useProductsContext } from "../../contexts";
 
 export const Results: React.FC = () => {
-  const { products, searchLoading, viewMode } = useProductsSearchContext();
+  const { products, productsLoading } = useProductsContext();
 
-  if (searchLoading) {
+  if (productsLoading) {
     return <Loading />;
   }
 
@@ -32,19 +31,12 @@ export const Results: React.FC = () => {
 
   return (
     <div className="products-results">
-      {/* Results Header */}
-      <Header />
-
       {/* Conditional View Rendering */}
-      {viewMode === "grid" ? (
-        <div className="row row-gap-24">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <ProductsList products={products} loading={false} />
-      )}
+      <div className="row row-gap-24">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };

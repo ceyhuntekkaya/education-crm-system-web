@@ -1,4 +1,4 @@
-import { SearchProductsParams } from "../api";
+import { SearchProductsParams } from "@/types/dto/supply/product.dto";
 import { FormValues } from "@/types";
 
 /**
