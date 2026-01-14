@@ -181,6 +181,96 @@ export interface SearchProductsParams {
 }
 
 /**
+ * Ürün özet bilgileri (Summary)
+ */
+export interface ProductSummaryDto {
+  id?: number;
+  name?: string;
+  sku?: string;
+  status?: ProductSummaryDtoStatus;
+  basePrice?: number;
+  currency?: ProductSummaryDtoCurrency;
+  mainImageUrl?: string;
+  stockQuantity?: number;
+}
+
+/**
+ * Ürün özet durumu enum
+ */
+export const ProductSummaryDtoStatus = {
+  ACTIVE: "ACTIVE",
+  PASSIVE: "PASSIVE",
+  OUT_OF_STOCK: "OUT_OF_STOCK",
+  DISCONTINUED: "DISCONTINUED",
+} as const;
+
+export type ProductSummaryDtoStatus =
+  (typeof ProductSummaryDtoStatus)[keyof typeof ProductSummaryDtoStatus];
+
+/**
+ * Ürün özet para birimi enum
+ */
+export const ProductSummaryDtoCurrency = {
+  TRY: "TRY",
+  USD: "USD",
+  EUR: "EUR",
+  GBP: "GBP",
+  CHF: "CHF",
+  CAD: "CAD",
+  AUD: "AUD",
+  JPY: "JPY",
+  CNY: "CNY",
+  RUB: "RUB",
+  SAR: "SAR",
+  AED: "AED",
+  QAR: "QAR",
+  KWD: "KWD",
+  BHD: "BHD",
+} as const;
+
+export type ProductSummaryDtoCurrency =
+  (typeof ProductSummaryDtoCurrency)[keyof typeof ProductSummaryDtoCurrency];
+
+/**
+ * Sayfalanmış ürün özet listesi
+ */
+export interface PageProductSummaryDto {
+  totalElements?: number;
+  totalPages?: number;
+  sort?: SortObject;
+  first?: boolean;
+  last?: boolean;
+  numberOfElements?: number;
+  pageable?: PageableObject;
+  size?: number;
+  content?: ProductSummaryDto[];
+  number?: number;
+  empty?: boolean;
+}
+
+/**
+ * Tedarikçi ürünleri arama parametreleri
+ */
+export interface GetSupplierProductsParams {
+  searchTerm?: string;
+  status?: ProductSummaryDtoStatus;
+  page?: number;
+  size?: number;
+}
+
+/**
+ * Tedarikçi ürünleri API response
+ */
+export interface ApiResponsePageProductSummaryDto {
+  success?: boolean;
+  message?: string;
+  data?: PageProductSummaryDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+/**
  * Ürün arama API response
  */
 export interface ApiResponsePageProductDto {

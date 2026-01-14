@@ -312,6 +312,7 @@ export const API_ENDPOINTS = {
       BY_ID: (id: string | number) => `/supply/suppliers/${id}`,
       BY_COMPANY: (companyId: string | number) =>
         `/supply/suppliers/company/${companyId}`,
+      PRODUCTS: (id: string | number) => `/supply/suppliers/${id}/products`,
     },
 
     // Categories

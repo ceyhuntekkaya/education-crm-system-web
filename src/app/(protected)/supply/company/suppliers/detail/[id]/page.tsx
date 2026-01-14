@@ -11,6 +11,7 @@ import {
   SupplierEmptyState,
   SupplierBackButton,
   SupplierEditButton,
+  SupplierProductsSection,
 } from "./_shared";
 
 /**
@@ -61,6 +62,11 @@ const SupplierDetailPage: React.FC = () => {
 
         {/* Detaylı Bilgiler */}
         <SupplierDetailsSection />
+
+        {/* Tedarikçi Ürünleri */}
+        <div className="mt-32">
+          <SupplierProductsSection />
+        </div>
       </div>
     </div>
   );

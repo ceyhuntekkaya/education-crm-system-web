@@ -5,3 +5,5 @@ export * from "./supplier-back-button";
 export * from "./supplier-edit-button";
 export * from "./supplier-info-section";
 export * from "./supplier-details-section";
+export * from "./supplier-product-card";
+export * from "./supplier-products-section";

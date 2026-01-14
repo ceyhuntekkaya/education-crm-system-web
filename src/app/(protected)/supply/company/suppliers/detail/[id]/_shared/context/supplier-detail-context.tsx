@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useSupplierById } from "../hooks";
+import { useSupplierById, useSupplierProductsApi } from "../hooks";
 import {
   SupplierDetailContextValue,
   SupplierDetailProviderProps,
@@ -15,7 +15,17 @@ export const SupplierDetailProvider: React.FC<SupplierDetailProviderProps> = ({
   children,
   supplierId,
 }) => {
+  // Tedarikçi verileri
   const { data, loading, error, refetch } = useSupplierById(supplierId);
+
+  // Ürün verileri
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+    total: productsTotal,
+    refetch: refetchProducts,
+  } = useSupplierProductsApi(supplierId);
 
   const hasValidId = supplierId > 0;
 
@@ -26,6 +36,12 @@ export const SupplierDetailProvider: React.FC<SupplierDetailProviderProps> = ({
     error: error || null,
     refetch,
     hasValidId,
+    // Ürün verileri
+    products,
+    productsLoading,
+    productsError,
+    productsTotal,
+    refetchProducts,
   };
 
   return (
