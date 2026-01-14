@@ -1,4 +1,4 @@
-import { QuotationComparisonDto } from "@/types/supply/quotation";
+import { QuotationComparisonDto } from "@/types/dto/supply/quotation.dto";
 import type {
   QuotationSortBy,
   SortOrder,

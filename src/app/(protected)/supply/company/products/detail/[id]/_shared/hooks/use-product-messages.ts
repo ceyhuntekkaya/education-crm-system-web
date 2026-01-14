@@ -1,22 +1,24 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
-  useConversationsByProduct,
+  useConversationsByCompany,
   useCreateConversation,
   useMessagesByConversation,
 } from "./api";
 import { apiClient } from "@/lib/api";
 import type { ProductDto, SupplierDto } from "@/types";
+import type { ConversationDto, MessageCreateDto } from "@/types/dto/supply";
 
 // ============================================================================
 // HOOK: useProductMessages
 // ============================================================================
 /**
- * Ürün detayında tedarikçi ile mesajlaşma yönetimi
+ * Ürün detayında tedarikçi ile mesajlaşma yönetimi (Güncellenmiş)
  *
  * Özellikler:
- * - Mevcut konuşma kontrolü (otomatik)
+ * - Şirket bazlı konuşmaları getirme
+ * - Product ID ile eşleşen konuşmayı bulma
  * - Yeni konuşma oluşturma (gerekirse)
  * - Mesaj gönderme
  * - Mesaj geçmişi
@@ -45,45 +47,89 @@ export const useProductMessages = (
   const [isSendingMessage, setIsSendingMessage] = useState(false);
 
   // --------------------------------------------------------------------------
-  // API HOOKS - Conversations
+  // API HOOKS - Conversations (Şirkete göre)
   // --------------------------------------------------------------------------
   /**
-   * Konuşmaları yükle ve mevcut konuşmayı otomatik bul
-   * onSuccess: Konuşma bulunduğunda conversationId'yi set et
+   * Şirkete ait tüm konuşmaları getir ve product ID ile eşleşeni bul
    */
   const {
     data: conversationsData,
     loading: isLoadingConversations,
     error: conversationsError,
     refetch: refetchConversations,
-  } = useConversationsByProduct(productId, {
+  } = useConversationsByCompany(companyId, {
     onSuccess: (data) => {
-      console.log("🔍 Konuşmalar yüklendi:", {
+      console.log("🔍 Şirkete ait konuşmalar yüklendi:", {
         total: data.data?.content?.length,
         supplierId: supplier?.id,
         companyId,
         productId,
       });
-
-      const existingConv = data.data?.content?.find(
-        (conv) =>
-          conv.supplierId === supplier?.id &&
-          conv.companyId === companyId &&
-          conv.productId === productId
-      );
-
-      if (existingConv?.id) {
-        setConversationId(existingConv.id);
-        console.log("✅ Mevcut konuşma:", existingConv.id);
-      } else {
-        setConversationId(null);
-        console.log("❌ Konuşma yok → Yeni oluşturulacak");
-      }
     },
     onError: (error) => {
       console.error("❌ Konuşmalar yüklenemedi:", error);
     },
   });
+
+  // --------------------------------------------------------------------------
+  // CONVERSATION FILTERING EFFECT
+  // --------------------------------------------------------------------------
+  useEffect(() => {
+    if (!conversationsData?.data?.content || !supplier?.id) {
+      console.log("❌ Filtreleme için gerekli veriler eksik:", {
+        hasConversations: !!conversationsData?.data?.content,
+        supplierId: supplier?.id,
+        productId,
+      });
+      return;
+    }
+
+    // Product ID ile eşleşen konuşmayı bul
+    const existingConv = conversationsData.data.content.find(
+      (conv) =>
+        conv.supplierId === supplier.id &&
+        conv.companyId === companyId &&
+        conv.productId === productId
+    );
+
+    console.log("🔄 Konuşma filtrelemesi:", {
+      totalConversations: conversationsData.data.content.length,
+      searchCriteria: {
+        supplierId: supplier.id,
+        companyId,
+        productId,
+      },
+      existingConv,
+    });
+
+    if (existingConv?.id) {
+      setConversationId(existingConv.id);
+      console.log("✅ Mevcut konuşma bulundu:", {
+        conversationId: existingConv.id,
+        productId: existingConv.productId,
+        supplierId: existingConv.supplierId,
+      });
+    } else {
+      setConversationId(null);
+      console.log("❌ Bu ürün için konuşma yok → Yeni oluşturulacak");
+    }
+  }, [conversationsData?.data?.content, supplier?.id, companyId, productId]);
+
+  // --------------------------------------------------------------------------
+  // COMPUTED VALUES
+  // --------------------------------------------------------------------------
+  /**
+   * Mevcut konuşma verisi
+   */
+  const existingConversation = useMemo<ConversationDto | null>(() => {
+    if (!conversationsData?.data?.content || !conversationId) return null;
+
+    return (
+      conversationsData.data.content.find(
+        (conv) => conv.id === conversationId
+      ) || null
+    );
+  }, [conversationsData, conversationId]);
 
   // --------------------------------------------------------------------------
   // API HOOKS - Create Conversation
@@ -110,17 +156,9 @@ export const useProductMessages = (
     [messagesData]
   );
 
-  const existingConversation = useMemo(
-    () =>
-      conversationsData?.data?.content?.find(
-        (conv) =>
-          conv.supplierId === supplier?.id &&
-          conv.companyId === companyId &&
-          conv.productId === productId
-      ) || null,
-    [conversationsData, supplier?.id, companyId, productId]
-  );
-
+  /**
+   * Konuşma kontrol durumu
+   */
   const isCheckingConversation = isLoadingConversations;
 
   // --------------------------------------------------------------------------
@@ -189,24 +227,22 @@ export const useProductMessages = (
         console.log("🔄 Conversations listesi güncellendi");
       }
 
-      // Step 3: Mesaj gönder
+      // Step 3: Mesaj gönder (Yeni API)
       console.log("📤 Mesaj gönderiliyor...", {
         conversationId: currentConversationId,
         length: trimmedContent.length,
       });
 
-      await apiClient.post(
+      const messageData: MessageCreateDto = {
+        content: trimmedContent,
+      };
+
+      const messageResponse = await apiClient.post(
         `/supply/conversations/${currentConversationId}/messages`,
-        {
-          content: trimmedContent,
-          subject: `${product?.name || "Ürün"} hakkında`,
-          messageType: "PRODUCT_INQUIRY" as const,
-          priority: "NORMAL" as const,
-          status: "NEW" as const,
-        }
+        messageData
       );
 
-      console.log("✅ Mesaj gönderildi");
+      console.log("✅ Mesaj gönderildi:", messageResponse.data);
 
       // Step 4: Refetch messages only (conversations already refetched after creation)
       await refetchMessages();

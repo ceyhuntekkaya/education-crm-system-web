@@ -1,5 +1,5 @@
 import React from "react";
-import { QuotationComparisonDtoStatus } from "@/types/supply/quotation";
+import { QuotationComparisonDtoStatus } from "@/types/dto/supply/quotation.dto";
 import { getStatusColor, getStatusLabel } from "../../../utils";
 
 interface QuotationCardHeaderProps {

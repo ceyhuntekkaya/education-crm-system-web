@@ -1,9 +1,9 @@
 import React, { RefObject } from "react";
 import { ProductDto, SupplierDto, ProductDiscountDto } from "@/types";
+import { ConversationDto } from "@/types/dto/supply";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
 import { TabType } from "./page-types";
 import { ProductImageDto } from "../hooks/api";
-import { ConversationDto } from "../hooks/api/use-conversations";
 
 interface ImageGalleryItem {
   id: number;

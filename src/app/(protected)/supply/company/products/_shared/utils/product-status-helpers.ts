@@ -1,5 +1,5 @@
 import { ProductDtoStatus } from "@/types";
-import { ProductResultDto } from "../types";
+import { ProductResultDto } from "@/types/dto/supply/product.dto";
 
 export const getStatusConfig = (status: ProductDtoStatus | undefined) => {
   switch (status) {

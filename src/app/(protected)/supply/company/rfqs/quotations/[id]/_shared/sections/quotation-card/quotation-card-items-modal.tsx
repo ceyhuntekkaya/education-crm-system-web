@@ -4,7 +4,7 @@ import { formatCurrency } from "@/utils";
 import type {
   QuotationItemComparisonDto,
   QuotationComparisonDtoStatus,
-} from "@/types/supply/quotation";
+} from "@/types/dto/supply/quotation.dto";
 import { getStatusColor } from "../../utils";
 
 interface QuotationCardItemsModalProps {

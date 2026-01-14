@@ -13,8 +13,11 @@ import {
   useCategoriesData,
   useSuppliersData,
 } from "../hooks/api";
-import { SearchProductsParams } from "@/types/dto/supply/product.dto";
-import { ProductResultDto, mapProductDtoToResult } from "../types";
+import {
+  SearchProductsParams,
+  ProductResultDto,
+  mapProductDtoToResult,
+} from "@/types/dto/supply/product.dto";
 import { createProductsApiParams, cleanProductsApiParams } from "../utils";
 import { FormValues } from "@/types";
 

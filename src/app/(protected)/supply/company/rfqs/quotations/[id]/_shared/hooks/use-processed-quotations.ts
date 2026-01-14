@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import type { QuotationComparisonDto } from "@/types/supply/quotation";
+import type { QuotationComparisonDto } from "@/types/dto/supply/quotation.dto";
 import type { QuotationFilters } from "./use-quotations-filter";
 import type { QuotationSortBy, SortOrder } from "./use-quotations-sort";
 

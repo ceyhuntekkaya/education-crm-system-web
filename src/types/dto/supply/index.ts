@@ -1,4 +1,6 @@
 export * from "./category.dto";
+export * from "./conversation.dto";
+export * from "./message.dto";
 export * from "./order.dto";
 export * from "./product.dto";
 export * from "./product-discount.dto";

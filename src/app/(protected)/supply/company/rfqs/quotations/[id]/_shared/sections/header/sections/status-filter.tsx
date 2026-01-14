@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRFQQuotationsContext } from "../../../contexts";
-import type { QuotationComparisonDtoStatus } from "@/types/supply/quotation";
+import type { QuotationComparisonDtoStatus } from "@/types/dto/supply/quotation.dto";
 import { Popover } from "@/components/ui/popover";
 import { FilterButton, FilterDropdownContent } from "../components";
 

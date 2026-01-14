@@ -1,4 +1,4 @@
-import { QuotationComparisonDtoStatus } from "@/types/supply/quotation";
+import { QuotationComparisonDtoStatus } from "@/types/dto/supply/quotation.dto";
 import type { BadgeVariant } from "@/components";
 
 export const getStatusColor = (

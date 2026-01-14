@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import type { QuotationComparisonDtoStatus } from "@/types/supply/quotation";
+import type { QuotationComparisonDtoStatus } from "@/types/dto/supply/quotation.dto";
 
 export interface QuotationFilters {
   status: QuotationComparisonDtoStatus | "ALL";

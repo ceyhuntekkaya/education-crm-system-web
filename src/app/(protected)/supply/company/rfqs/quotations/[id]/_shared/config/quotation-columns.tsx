@@ -1,6 +1,6 @@
 import { GridColDef } from "@/components/ui/data-grid";
 import { Badge } from "@/components";
-import { QuotationComparisonDto } from "@/types/supply/quotation";
+import { QuotationComparisonDto } from "@/types/dto/supply/quotation.dto";
 import { formatCurrency, formatDate } from "@/utils";
 import { getStatusColor, getStatusLabel } from "../utils";
 

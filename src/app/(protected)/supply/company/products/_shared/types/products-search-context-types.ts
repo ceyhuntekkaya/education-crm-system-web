@@ -1,58 +1,27 @@
-import { SearchProductsParams, ProductDto } from "@/types/dto/supply/product.dto";
-import { ProductDtoStatus } from "@/types";
+import {
+  SearchProductsParams,
+  ProductResultDto,
+  mapProductDtoToResult,
+} from "@/types/dto/supply/product.dto";
+
+// Re-export for convenience
+export { ProductResultDto, mapProductDtoToResult };
 
 /**
- * Ürün sonucu DTO tipi (UI için optimize edilmiş)
- * ProductDto'dan map edilir
+ * Products Search Context Type - Ürün arama context'inin tipi
  */
-export interface ProductResultDto {
-  id?: number;
-  name?: string;
-  description?: string;
-  sku?: string;
-  categoryId?: number;
-  categoryName?: string;
-  supplierId?: number;
-  supplierName?: string; // ProductDto'da supplierCompanyName
-  unitPrice?: number; // ProductDto'da basePrice
-  currency?: string;
-  taxRate?: number;
-  stockTrackingType?: string;
-  currentStock?: number; // ProductDto'da stockQuantity
-  minStockLevel?: number;
-  mainImageUrl?: string; // ProductDto'da mainImageUrl
-  status?: ProductDtoStatus;
-  deliveryDays?: number; // ProductDto'da deliveryDays
-  createdAt?: string;
-  updatedAt?: string;
-}
+export interface ProductsSearchContextType {
+  // Arama sonuçları
+  searchResults: ProductResultDto[];
 
-/**
- * ProductDto'yu ProductResultDto'ya map eder (Backend response'una uygun)
- */
-export function mapProductDtoToResult(dto: ProductDto): ProductResultDto {
-  return {
-    id: dto.id,
-    name: dto.name,
-    description: dto.description,
-    sku: dto.sku,
-    categoryId: dto.categoryId,
-    categoryName: dto.categoryName,
-    supplierId: dto.supplierId,
-    supplierName: dto.supplierCompanyName, // Backend field name
-    unitPrice: dto.basePrice, // Backend field name
-    currency: dto.currency,
-    taxRate: dto.taxRate,
-    stockTrackingType: dto.stockTrackingType,
-    currentStock: dto.stockQuantity, // Backend field name
-    minStockLevel: dto.minStockLevel,
-    mainImageUrl: dto.mainImageUrl, // Backend field name
-    status: dto.status,
-    deliveryDays: dto.deliveryDays,
-    createdAt: dto.createdAt,
-    updatedAt: dto.updatedAt,
+  // Kategori seçenekleri
+  categories: {
+    data: { value: string; label: string }[];
+    loading: boolean;
+    error: any;
   };
-}
+
+  // Supplier seçenekleri
   suppliers: {
     data: { value: string; label: string }[];
     loading: boolean;
@@ -80,7 +49,7 @@ export function mapProductDtoToResult(dto: ProductDto): ProductResultDto {
   search: (data: SearchProductsParams) => Promise<any>; // Arama fonksiyonu
   searchLoading: boolean; // Arama yükleniyor durumu
   searchError: any; // Arama hata durumu
-  resetSearch: () => void; // Arama'yı sıfırla ve initial state'e dön
+  resetSearch: () => void; // Arama sıfırlama ve initial state dönüş
 }
 
 // Context Provider component'i için props tipi

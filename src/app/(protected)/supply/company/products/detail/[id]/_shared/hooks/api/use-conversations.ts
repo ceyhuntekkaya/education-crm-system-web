@@ -10,11 +10,19 @@ import type {
   MessageDto,
   ConversationCreateDto,
   ConversationDto,
+} from "@/types/dto/supply";
+import type {
   ApiResponseConversation,
   ApiResponseConversations,
+  ApiResponsePageConversationDto,
+  ApiResponseConversationDto,
+} from "@/types/dto/supply/conversation.dto";
+import type {
   ApiResponseMessage,
   ApiResponseMessages,
-} from "../../types/supply";
+  ApiResponsePageMessageDto,
+  ApiResponseMessageDto,
+} from "@/types/dto/supply/message.dto";
 
 // Re-export types for external use
 export type {
@@ -27,8 +35,12 @@ export type {
   ConversationDto,
   ApiResponseConversation,
   ApiResponseConversations,
+  ApiResponsePageConversationDto,
   ApiResponseMessage,
   ApiResponseMessages,
+  ApiResponsePageMessageDto,
+  ApiResponseMessageDto,
+  ApiResponseConversationDto,
 };
 
 // ========================
@@ -36,10 +48,10 @@ export type {
 // ========================
 
 /**
- * Yeni konuşma oluşturma hook'u
+ * Yeni konuşma oluşturma hook'u (Güncellenmiş)
  */
 export const useCreateConversation = () => {
-  return usePost<ApiResponseConversation, ConversationCreateDto>(
+  return usePost<ApiResponseConversationDto, ConversationCreateDto>(
     API_ENDPOINTS.SUPPLY.CONVERSATIONS.CREATE,
     {
       showSnackbar: true,
@@ -82,14 +94,23 @@ export const useConversationsByProduct = (
 };
 
 /**
- * Şirkete göre konuşmaları getirme hook'u
+ * Şirkete göre konuşmaları getirme hook'u (Güncellenmiş)
  * @param companyId - Şirket ID'si
+ * @param options - API options (onSuccess, onError, onFinally)
  */
-export const useConversationsByCompany = (companyId?: number) => {
-  return useGet<ApiResponseConversations>(
+export const useConversationsByCompany = (
+  companyId?: number,
+  options?: {
+    onSuccess?: (data: ApiResponsePageConversationDto) => void;
+    onError?: (error: string) => void;
+    onFinally?: () => void;
+  }
+) => {
+  return useGet<ApiResponsePageConversationDto>(
     companyId ? API_ENDPOINTS.SUPPLY.CONVERSATIONS.BY_COMPANY(companyId) : null,
     {
       enabled: !!companyId,
+      ...options,
     }
   );
 };
@@ -99,10 +120,10 @@ export const useConversationsByCompany = (companyId?: number) => {
 // ========================
 
 /**
- * Mesaj gönderme hook'u
+ * Mesaj gönderme hook'u (Güncellenmiş)
  */
 export const useSendMessage = (conversationId: number) => {
-  return usePost<ApiResponseMessage, MessageCreateDto>(
+  return usePost<ApiResponseMessageDto, MessageCreateDto>(
     API_ENDPOINTS.SUPPLY.MESSAGES.SEND(conversationId),
     {
       showSnackbar: true,
@@ -111,10 +132,10 @@ export const useSendMessage = (conversationId: number) => {
 };
 
 /**
- * Konuşmaya ait mesajları getirme hook'u
+ * Konuşmaya ait mesajları getirme hook'u (Güncellenmiş)
  */
 export const useMessagesByConversation = (conversationId?: number) => {
-  return useGet<ApiResponseMessages>(
+  return useGet<ApiResponsePageMessageDto>(
     conversationId
       ? API_ENDPOINTS.SUPPLY.MESSAGES.BY_CONVERSATION(conversationId)
       : null,

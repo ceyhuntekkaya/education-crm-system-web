@@ -3,7 +3,7 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { useParams } from "next/navigation";
-import type { ApiResponseListQuotationComparisonDto } from "@/types/supply/quotation";
+import type { ApiResponseListQuotationComparisonDto } from "@/types/dto/supply/quotation.dto";
 
 /**
  * RFQ'nun tekliflerini getirir

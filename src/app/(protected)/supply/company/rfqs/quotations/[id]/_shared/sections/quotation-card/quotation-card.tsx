@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { QuotationComparisonDto } from "@/types/supply/quotation";
+import type { QuotationComparisonDto } from "@/types/dto/supply/quotation.dto";
 import { useModal } from "@/hooks";
 import { getStatusColor } from "../../utils";
 import {

@@ -12,7 +12,7 @@ import {
   PRODUCT_SORT_OPTIONS,
 } from "./_shared/config";
 import { useProductsContext, InitialProductsSearchState } from "./_shared";
-import type { ProductResultDto } from "./_shared/types";
+import type { ProductResultDto } from "@/types/dto/supply/product.dto";
 
 const ProductsPage: React.FC = () => {
   usePageTitle("Ürün Arama");
