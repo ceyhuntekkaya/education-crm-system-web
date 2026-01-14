@@ -1,15 +1,14 @@
-"use client";
-
 import React from "react";
 import { Badge } from "@/components";
-import { useSupplierDetail } from "../context";
-import { getSupplierStatusConfig, getStarRating } from "../utils";
+import { SupplierDto } from "@/types";
+import { DetailColumn } from "@/components/layouts/detail-layout/types";
+import {
+  getSupplierStatusConfig,
+  getStarRating,
+} from "../utils/supplier-detail.utils";
 
-export const SupplierInfoSection: React.FC = () => {
-  const { supplier } = useSupplierDetail();
-
-  if (!supplier) return null;
-
+// Column render helper functions
+const renderBasicInfo = (supplier: SupplierDto) => {
   const statusConfig = getSupplierStatusConfig(supplier.isActive);
   const rating = getStarRating(supplier.averageRating);
 
@@ -112,4 +111,108 @@ export const SupplierInfoSection: React.FC = () => {
       </div>
     </div>
   );
+};
+
+// Main column definitions
+export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
+  // Info Section - En üstte
+  {
+    field: "basicInfo",
+    headerName: "Temel Bilgiler",
+    section: "info",
+    icon: "ph-bold ph-info",
+    iconColor: "text-primary-700",
+    width: 100,
+    order: 0, // En üstte olsun
+    renderCell: renderBasicInfo,
+  },
+
+  // Details Section
+  {
+    field: "description",
+    headerName: "Firma Hakkında",
+    section: "details",
+    icon: "ph-bold ph-note",
+    iconColor: "text-primary-700",
+    width: 100,
+    order: 1,
+    grid: 6,
+    condition: (supplier) => !!supplier.description,
+  },
+  {
+    field: "address",
+    headerName: "Adres",
+    section: "details",
+    icon: "ph-bold ph-map-pin",
+    iconColor: "text-warning-700",
+    width: 100,
+    order: 2,
+    grid: 6,
+    condition: (supplier) => !!supplier.address,
+  },
+  // Dates Section
+  {
+    field: "createdAt",
+    headerName: "Kayıt Tarihi",
+    section: "dates",
+    icon: "ph-bold ph-calendar",
+    iconColor: "text-neutral-700",
+    width: 100,
+    grid: 6,
+    order: 4,
+    condition: (supplier) => !!supplier.createdAt,
+  },
+  {
+    field: "updatedAt",
+    headerName: "Son Güncelleme",
+    section: "dates",
+    icon: "ph-bold ph-calendar-check",
+    iconColor: "text-neutral-700",
+    width: 100,
+    grid: 6,
+    order: 5,
+    condition: (supplier) => !!supplier.updatedAt,
+  },
+  // Rating Section
+  {
+    field: "averageRating",
+    headerName: "Değerlendirme Puanı",
+    section: "rating",
+    icon: "ph-fill ph-star",
+    iconColor: "text-warning-700",
+    width: 100,
+    order: 6,
+    condition: (supplier) => !!supplier.averageRating,
+  },
+];
+
+// Helper function to get filtered columns based on Supplier data and section
+export const getFilteredColumns = (
+  supplier: SupplierDto,
+  section?: DetailColumn<SupplierDto>["section"]
+): DetailColumn<SupplierDto>[] => {
+  const allColumns = createSupplierDetailColumns();
+
+  let filteredColumns = allColumns.filter((column) => {
+    if (section && column.section !== section) return false;
+    if (column.condition && !column.condition(supplier)) return false;
+    return true;
+  });
+
+  // Sort by order
+  filteredColumns.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  return filteredColumns;
+};
+
+// Helper function to get sections
+export const getSections = (supplier: SupplierDto) => {
+  const allColumns = createSupplierDetailColumns();
+  const sections = new Set(
+    allColumns
+      .filter((column) => !column.condition || column.condition(supplier))
+      .map((column) => column.section)
+  );
+
+  return Array.from(sections);
 };

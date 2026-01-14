@@ -2,73 +2,66 @@
 
 import React from "react";
 import { usePageTitle } from "@/hooks";
+import { DetailLayout } from "@/components/layouts";
 import {
   useSupplierDetail,
-  SupplierInfoSection,
-  SupplierDetailsSection,
-  SupplierLoadingState,
-  SupplierErrorState,
-  SupplierEmptyState,
-  SupplierBackButton,
-  SupplierEditButton,
   SupplierProductsSection,
+  createSupplierDetailColumns,
 } from "./_shared";
 
 /**
- * Modern Supplier detay sayfası
+ * Modern Supplier detay sayfası - DetailLayout kullanarak
  * Tedarikçi detaylarını görüntüler
  */
 const SupplierDetailPage: React.FC = () => {
   usePageTitle("Tedarikçi Detayı");
   const { supplier, isLoading, error, hasValidId } = useSupplierDetail();
 
-  // Loading state
-  if (isLoading && hasValidId) {
-    return <SupplierLoadingState />;
-  }
-
-  // Error state
-  if (error && hasValidId) {
-    return <SupplierErrorState error={error} />;
-  }
-
-  // Empty state
-  if (!supplier && !isLoading && !error && hasValidId) {
-    return <SupplierEmptyState />;
-  }
-
-  if (!supplier) return null;
-
   return (
-    <div className="supplier-detail-page">
-      <div className="supplier-detail-page__container">
-        {/* Header: Geri Dön ve Düzenle - Minimal Tasarım */}
-        <div className="supplier-detail-page__header">
-          <div className="supplier-detail-page__header-actions">
-            {/* <SupplierEditButton /> */}
-          </div>
-
-          <SupplierBackButton />
-        </div>
-
-        {/* Ana Supplier Bilgileri */}
-        <div className="supplier-detail-page__main-section">
-          <div className="row gx-5">
-            <div className="col-12">
-              <SupplierInfoSection />
-            </div>
-          </div>
-        </div>
-
-        {/* Detaylı Bilgiler */}
-        <SupplierDetailsSection />
-
-        {/* Tedarikçi Ürünleri */}
+    <>
+      <DetailLayout
+        header={{
+          backButton: {
+            label: "Geri Dön",
+            href: "/supply/company/suppliers",
+          },
+          actionButtons: [
+            // İleride düzenle butonu eklenebilir
+            // {
+            //   id: "edit",
+            //   label: "Düzenle",
+            //   onClick: handleEdit,
+            // },
+          ],
+        }}
+        loading={{
+          isLoading: isLoading && hasValidId,
+        }}
+        error={{
+          error: error && hasValidId ? error : null,
+        }}
+        empty={{
+          isEmpty: !supplier && !isLoading && !error && hasValidId,
+          emptyTitle: "Tedarikçi Bulunamadı",
+          emptyDescription:
+            "İstenen tedarikçi bulunamadı veya erişim izniniz yok.",
+        }}
+        columns={
+          supplier
+            ? {
+                data: supplier,
+                columns: createSupplierDetailColumns(),
+              }
+            : undefined
+        }
+      />
+      {/* Tedarikçi Ürünleri */}
+      {supplier && (
         <div className="mt-32">
           <SupplierProductsSection />
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

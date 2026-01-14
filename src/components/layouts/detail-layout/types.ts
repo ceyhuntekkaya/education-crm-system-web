@@ -36,7 +36,7 @@ export interface BackButton {
 export interface DetailColumn<T = any> {
   field: string;
   headerName: string;
-  section: "info" | "details" | "dates" | "meta";
+  section: "info" | "details" | "dates" | "meta" | "rating";
   icon?: string;
   iconColor?: string;
   width?: number;

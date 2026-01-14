@@ -330,6 +330,109 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
       );
     }
 
+    // Rating section için özel render
+    if (sectionType === "rating") {
+      return (
+        <div key={sectionType} className="rows gap-16">
+          {sectionColumns.map((column) => {
+            const gridClass = column.grid ? `col-${column.grid}` : "col-12";
+            // Eğer renderCell varsa onu kullan
+            if (column.renderCell) {
+              return (
+                <div key={column.field} className={gridClass}>
+                  {column.renderCell(data)}
+                </div>
+              );
+            }
+
+            // Rating değerini al
+            const rating = (data as any)[column.field];
+            if (!rating && rating !== 0) return null;
+
+            const roundedRating = Math.round(rating);
+            const formattedRating =
+              typeof rating === "number" ? rating.toFixed(1) : rating;
+
+            return (
+              <div key={column.field} className={gridClass}>
+                <div
+                  className="bg-white rounded-12 p-12 h-100"
+                  style={{
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+                    border: "1px solid rgba(17, 24, 39, 0.06)",
+                    transition:
+                      "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                    cursor: "default",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 16px rgba(0, 0, 0, 0.12)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 2px 8px rgba(0, 0, 0, 0.04)";
+                  }}
+                >
+                  <div className="d-flex align-items-center gap-8 mb-8">
+                    <div
+                      className={`d-flex align-items-center justify-content-center bg-${getColorPrefix(
+                        column.iconColor
+                      )}-100 ${column.iconColor || "text-warning-700"}`}
+                      style={{
+                        width: "28px",
+                        height: "28px",
+                        borderRadius: "6px",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <i className={column.icon || "ph-fill ph-star"}></i>
+                    </div>
+                    <h5
+                      className="mb-0 fw-semibold text-neutral-900"
+                      style={{ fontSize: "0.875rem" }}
+                    >
+                      {column.headerName}
+                    </h5>
+                  </div>
+                  <div style={{ paddingTop: "4px" }}>
+                    <div className="d-flex align-items-center gap-8">
+                      <span
+                        className="fw-bold text-warning-700"
+                        style={{ fontSize: "1rem" }}
+                      >
+                        {formattedRating}
+                      </span>
+                      <div className="d-flex align-items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <i
+                            key={star}
+                            className={
+                              star <= roundedRating
+                                ? "ph-fill ph-star text-warning-500"
+                                : "ph ph-star text-neutral-300"
+                            }
+                            style={{ fontSize: "1rem" }}
+                          ></i>
+                        ))}
+                      </div>
+                      <span
+                        className="text-neutral-600"
+                        style={{ fontSize: "0.75rem" }}
+                      >
+                        • 5 üzerinden
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
     // Details section için genel render
     return (
       <div key={sectionType} className="rows gap-16">
@@ -401,6 +504,9 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
 
       {/* Dates Section - Üçüncü sırada */}
       {sections.dates && renderSection("dates", sections.dates)}
+
+      {/* Rating Section - Dördüncü sırada */}
+      {sections.rating && renderSection("rating", sections.rating)}
 
       {/* Details Section - En altta */}
       {sections.details && renderSection("details", sections.details)}
