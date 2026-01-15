@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useProductDetail } from "../../../../../context";
 import { useForm } from "@/contexts/form-context";
+import { useAuth } from "@/contexts/auth-context";
 import { useScroll } from "@/hooks";
 import { MessageFormData } from "../types";
 import { useCreateConversation } from "../../../../../hooks/api";
@@ -19,6 +20,7 @@ export const ConversationViewContent: React.FC<
   ConversationViewContentProps
 > = ({ conversationId }) => {
   const { values, setValue, validate, reset } = useForm();
+  const { user } = useAuth();
   const {
     sendMessage,
     isSendingMessage,
@@ -176,7 +178,8 @@ export const ConversationViewContent: React.FC<
               // Mesajlar var, göster
               <div className="conversation-view__messages-list">
                 {messages.map((message) => {
-                  const isOwnMessage = message.senderUser?.id === companyId;
+                  // senderId ile user.id karşılaştırarak kendi mesajlarımızı belirliyoruz
+                  const isOwnMessage = message.senderId === user?.id;
                   return (
                     <div
                       key={message.id}
