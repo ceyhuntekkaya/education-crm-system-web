@@ -78,7 +78,6 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
     handlePopoverFilterChange,
     resetPopoverFilters,
     activeFiltersCount,
-    popoverConfigKey,
   } = usePopoverFilters(
     filtersConfig.popoverFiltersConfig,
     filtersConfig.filterOptions
@@ -108,7 +107,6 @@ export function DataCollectionLayout<T extends Record<string, any> = any>(
       popoverFilterValues,
       searchConfig.searchFields,
       searchQuery,
-      popoverConfigKey,
       sortBy,
       sortOrder
     );
