@@ -8,6 +8,12 @@ export const createItemActionButtons = (
   rfqId: number
 ) => [
   {
+    label: "Geri",
+    icon: "ph-arrow-left",
+    onClick: () => router.push(`/supply/company/rfqs/detail/${rfqId}`),
+    variant: "secondary" as const,
+  },
+  {
     label: "Yeni Kalem Ekle",
     icon: "ph-plus-circle",
     onClick: () =>
