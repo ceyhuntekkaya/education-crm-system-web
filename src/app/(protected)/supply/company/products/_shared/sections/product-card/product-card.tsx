@@ -8,6 +8,7 @@ import {
   getStockColorClass,
   getStockIconBoxColor,
 } from "../../utils";
+import { AddToFavorite } from "../../../../_shared";
 
 interface ProductCardProps {
   product: ProductResultDto;
@@ -115,6 +116,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               }}
             >
               <span className="text-white fw-bold fs-5">Stokta Yok</span>
+            </div>
+          )}
+
+          {/* Add to Favorite Button - Bottom Right */}
+          {product.id && (
+            <div
+              className="position-absolute"
+              style={{
+                bottom: "12px",
+                right: "12px",
+              }}
+            >
+              <AddToFavorite productId={product.id} type="icon" size="md" />
             </div>
           )}
         </div>
