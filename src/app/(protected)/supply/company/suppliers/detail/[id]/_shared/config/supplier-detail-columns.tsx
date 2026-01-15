@@ -43,72 +43,6 @@ const renderBasicInfo = (supplier: SupplierDto) => {
           {supplier.companyName || "Tedarikçi Adı"}
         </h1>
       </div>
-
-      {/* Meta Container - İletişim Bilgileri */}
-      <div className="meta-container soft-card rounded-16">
-        {/* Email */}
-        {supplier.email && (
-          <>
-            <div className="meta-item">
-              <div className="meta-icon-wrapper">
-                <div className="meta-icon bg-primary-100 text-primary-700">
-                  <i className="ph-bold ph-envelope"></i>
-                </div>
-              </div>
-              <div className="meta-content">
-                <p className="meta-label">E-posta</p>
-                <a
-                  href={`mailto:${supplier.email}`}
-                  className="meta-value text-primary-600"
-                  style={{ textDecoration: "none" }}
-                >
-                  {supplier.email}
-                </a>
-              </div>
-            </div>
-            <div className="meta-item-divider"></div>
-          </>
-        )}
-
-        {/* Telefon */}
-        {supplier.phone && (
-          <>
-            <div className="meta-item">
-              <div className="meta-icon-wrapper">
-                <div className="meta-icon bg-success-100 text-success-700">
-                  <i className="ph-bold ph-phone"></i>
-                </div>
-              </div>
-              <div className="meta-content">
-                <p className="meta-label">Telefon</p>
-                <a
-                  href={`tel:${supplier.phone}`}
-                  className="meta-value text-success-600"
-                  style={{ textDecoration: "none" }}
-                >
-                  {supplier.phone}
-                </a>
-              </div>
-            </div>
-            <div className="meta-item-divider"></div>
-          </>
-        )}
-
-        {/* Vergi Numarası */}
-        {supplier.taxNumber && (
-          <div className="meta-item">
-            <div className="meta-icon-wrapper">
-              <div className="meta-icon bg-info-100 text-info-700">
-                <i className="ph-bold ph-identification-card"></i>
-              </div>
-            </div>
-            <div className="meta-content">
-              <p className="meta-label">Vergi Numarası</p>
-              <span className="meta-value">{supplier.taxNumber}</span>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
@@ -122,9 +56,42 @@ export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
     section: "info",
     icon: "ph-bold ph-info",
     iconColor: "text-primary-700",
-    width: 100,
     order: 0, // En üstte olsun
     renderCell: renderBasicInfo,
+  },
+
+  // Meta Section - İletişim Bilgileri
+  {
+    field: "email",
+    headerName: "E-posta",
+    section: "meta",
+    icon: "ph-bold ph-envelope",
+    iconColor: "text-primary-700",
+    width: 50,
+    order: 1,
+    url: (supplier) => (supplier.email ? `mailto:${supplier.email}` : null),
+    condition: (supplier) => !!supplier.email,
+  },
+  {
+    field: "phone",
+    headerName: "Telefon",
+    section: "meta",
+    icon: "ph-bold ph-phone",
+    iconColor: "text-success-700",
+    width: 50,
+    order: 2,
+    url: (supplier) => (supplier.phone ? `tel:${supplier.phone}` : null),
+    condition: (supplier) => !!supplier.phone,
+  },
+  {
+    field: "taxNumber",
+    headerName: "Vergi Numarası",
+    section: "meta",
+    icon: "ph-bold ph-identification-card",
+    iconColor: "text-info-700",
+    width: 50,
+    order: 3,
+    condition: (supplier) => !!supplier.taxNumber,
   },
 
   // Details Section
@@ -134,8 +101,7 @@ export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
     section: "details",
     icon: "ph-bold ph-note",
     iconColor: "text-primary-700",
-    width: 100,
-    order: 1,
+    order: 4,
     grid: 6,
     condition: (supplier) => !!supplier.description,
   },
@@ -145,8 +111,7 @@ export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
     section: "details",
     icon: "ph-bold ph-map-pin",
     iconColor: "text-warning-700",
-    width: 100,
-    order: 2,
+    order: 5,
     grid: 6,
     condition: (supplier) => !!supplier.address,
   },
@@ -157,9 +122,8 @@ export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
     section: "dates",
     icon: "ph-bold ph-calendar",
     iconColor: "text-neutral-700",
-    width: 100,
     grid: 6,
-    order: 4,
+    order: 6,
     condition: (supplier) => !!supplier.createdAt,
   },
   {
@@ -168,9 +132,8 @@ export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
     section: "dates",
     icon: "ph-bold ph-calendar-check",
     iconColor: "text-neutral-700",
-    width: 100,
     grid: 6,
-    order: 5,
+    order: 7,
     condition: (supplier) => !!supplier.updatedAt,
   },
   // Rating Section
@@ -180,8 +143,7 @@ export const createSupplierDetailColumns = (): DetailColumn<SupplierDto>[] => [
     section: "rating",
     icon: "ph-fill ph-star",
     iconColor: "text-warning-700",
-    width: 100,
-    order: 6,
+    order: 8,
     condition: (supplier) => !!supplier.averageRating,
   },
 ];
