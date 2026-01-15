@@ -1,19 +1,16 @@
 import { GridColDef } from "@/components/ui/data-grid";
+import { Badge } from "@/components";
 import { CustomImage } from "@/components/ui";
-import { formatDate } from "@/utils";
-import { ProductResultDto } from "@/app/(protected)/supply/company/products/_shared/types";
-import type { WishlistDto } from "../hooks/api/useWishlistApi";
-import { AddToFavorite } from "@/app/(protected)/supply/company/_shared/sections/add-to-favorite";
+import { formatDate, formatCurrency } from "@/utils";
+import {
+  getProductStatusBadgeVariant,
+  getProductStatusDisplay,
+  getStockColorClass,
+} from "../../../suppliers/_shared/utils";
+import type { ProductResultDto } from "@/types/dto/supply/product.dto";
 
-/**
- * Wishlist için özel column yapısı
- * Normal product columns'dan farklı olarak:
- * - Favoriye eklenme tarihi gösterir
- * - Favorilerden çıkarma butonu içerir
- */
-export const createWishlistColumns = (
-  wishlistItems: WishlistDto[]
-): GridColDef<ProductResultDto>[] => [
+// Main column definitions for wishlist
+export const createWishlistColumns = (): GridColDef<ProductResultDto>[] => [
   {
     field: "mainImageUrl",
     headerName: "Görsel",
@@ -35,73 +32,104 @@ export const createWishlistColumns = (
   {
     field: "name",
     headerName: "Ürün Adı",
-    width: 260,
+    minWidth: 300,
     renderCell: (params: any) => (
-      <div className="fw-semibold text-truncate" title={params.value}>
-        {params.value || "-"}
+      <div>
+        <div
+          className="fw-semibold text-primary text-truncate mb-1"
+          title={params.value}
+        >
+          {params.value || "-"}
+        </div>
+        {params.row.sku && (
+          <div className="text-muted text-sm">SKU: {params.row.sku}</div>
+        )}
       </div>
     ),
   },
   {
-    field: "sku",
-    headerName: "SKU",
-    width: 180,
-    renderCell: (params: any) => params.row.sku || "-",
+    field: "categoryName",
+    headerName: "Kategori",
+    width: 170,
+    renderCell: (params: any) => (
+      <div className="text-muted">{params.value || "-"}</div>
+    ),
   },
   {
     field: "supplierName",
     headerName: "Tedarikçi",
-    width: 240,
+    width: 200,
     renderCell: (params: any) => (
-      <span className="text-truncate d-block" title={params.value}>
-        {params.value || "-"}
-      </span>
+      <div className="fw-medium">{params.value || "-"}</div>
     ),
   },
   {
-    field: "createdAt",
-    headerName: "Eklenme Tarihi",
-    width: 180,
+    field: "unitPrice",
+    headerName: "Birim Fiyat",
+    width: 140,
+    align: "right",
     renderCell: (params: any) => {
-      // WishlistDto'dan createdAt'i al
-      const wishlistItem = wishlistItems.find(
-        (item) => item.productId === params.row.id
-      );
-      const date = wishlistItem?.createdAt;
-
-      return date ? formatDate(date) : "-";
-    },
-  },
-  {
-    field: "actions",
-    headerName: "İşlemler",
-    width: 200,
-    align: "center",
-    renderCell: (params: any) => {
-      // WishlistDto'dan ID'yi al
-      const wishlistItem = wishlistItems.find(
-        (item) => item.productId === params.row.id
-      );
-
-      if (!wishlistItem?.id || !params.row.id) return null;
-
-      const favoriteKey = `favorite-${params.row.id}-${wishlistItem.id}`;
-
+      const price = params.value;
       return (
-        <div
-          className="d-flex align-items-center justify-content-center"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <AddToFavorite
-            key={favoriteKey}
-            productId={params.row.id}
-            wishlistId={wishlistItem.id}
-            initialIsFavorite={true}
-            size="xxs"
-            type="button"
-          />
+        <div className="fw-semibold text-success">
+          {price !== undefined ? formatCurrency(price) : "-"}
         </div>
       );
     },
+  },
+  {
+    field: "currentStock",
+    headerName: "Stok",
+    width: 120,
+    align: "center",
+    renderCell: (params: any) => {
+      const currentStock = params.value;
+      const minStockLevel = params.row.minStockLevel;
+      const colorClass = getStockColorClass(currentStock, minStockLevel);
+
+      return (
+        <div className={`fw-medium ${colorClass}`}>
+          {currentStock !== undefined ? currentStock : "-"}
+        </div>
+      );
+    },
+  },
+  {
+    field: "status",
+    headerName: "Durum",
+    width: 150,
+    align: "center",
+    renderCell: (params: any) => {
+      const status = params.value;
+      const variant = getProductStatusBadgeVariant(status);
+      const display = getProductStatusDisplay(status);
+
+      return (
+        <Badge variant={variant} size="sm">
+          {display}
+        </Badge>
+      );
+    },
+  },
+  {
+    field: "deliveryDays",
+    headerName: "Teslimat",
+    width: 140,
+    align: "center",
+    renderCell: (params: any) => (
+      <div className="text-muted">
+        {params.value ? `${params.value} gün` : "-"}
+      </div>
+    ),
+  },
+  {
+    field: "updatedAt",
+    headerName: "Güncelleme",
+    width: 170,
+    renderCell: (params: any) => (
+      <div className="text-muted text-sm">
+        {params.value ? formatDate(params.value) : "-"}
+      </div>
+    ),
   },
 ];

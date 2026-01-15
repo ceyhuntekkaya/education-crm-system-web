@@ -1,12 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import {
-  useWishlistData,
-  useWishlistView,
-  useWishlistSelection,
-  useRFQFormModal,
-} from "../hooks";
+import { useWishlistData } from "../hooks";
 import { WishlistContextValue, WishlistProviderProps } from "../types";
 
 /**
@@ -19,9 +14,6 @@ const WishlistContext = createContext<WishlistContextValue | undefined>(
 );
 
 export function WishlistProvider({ children }: WishlistProviderProps) {
-  // 🎨 VIEW MODE
-  const { viewMode, setViewMode } = useWishlistView();
-
   // 📊 DATA
   const {
     wishlistLoading,
@@ -32,56 +24,14 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
     totalCount,
   } = useWishlistData();
 
-  // 🎯 SELECTION MODE
-  const {
-    isSelectionMode,
-    selectedProductIds,
-    selectedCount,
-    enableSelectionMode,
-    disableSelectionMode,
-    toggleProductSelection,
-    clearSelection,
-    selectAll,
-    isProductSelected,
-  } = useWishlistSelection({
-    wishlistItems,
-  });
-
-  // 🎨 RFQ FORM MODAL
-  const {
-    isRFQModalOpen,
-    openRFQModal,
-    closeRFQModal,
-    submitRFQ: createRFQ,
-    isCreateLoadingRFQ,
-  } = useRFQFormModal({
-    disableSelectionMode,
-  });
-
   // 🎯 CONTEXT VALUE
   const contextValue: WishlistContextValue = {
-    viewMode,
-    setViewMode,
     wishlistLoading,
     error,
     refetchWishlist,
     wishlistItems,
     isEmpty,
     totalCount,
-    isSelectionMode,
-    selectedProductIds,
-    isCreateLoadingRFQ,
-    selectedCount,
-    enableSelectionMode,
-    disableSelectionMode,
-    toggleProductSelection,
-    clearSelection,
-    selectAll,
-    isProductSelected,
-    isRFQModalOpen,
-    openRFQModal,
-    closeRFQModal,
-    submitRFQ: createRFQ,
   };
 
   return (
