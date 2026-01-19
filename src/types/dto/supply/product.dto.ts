@@ -259,6 +259,15 @@ export interface GetSupplierProductsParams {
 }
 
 /**
+ * Tedarikçiye göre ürün listesi parametreleri
+ */
+export interface GetProductsBySupplierParams {
+  page?: number;
+  size?: number;
+  sort?: string;
+}
+
+/**
  * Tedarikçi ürünleri API response
  */
 export interface ApiResponsePageProductSummaryDto {

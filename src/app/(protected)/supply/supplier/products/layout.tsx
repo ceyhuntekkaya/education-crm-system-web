@@ -1,11 +1,18 @@
 "use client";
 
 import React from "react";
+import { ProductsProvider } from "./_shared";
 
-const SupplierProductsLayout: React.FC<{ children: React.ReactNode }> = ({
+export default function SupplierProductsLayout({
   children,
-}) => {
-  return <>{children}</>;
-};
+}: {
+  children: React.ReactNode;
+}) {
+  // TODO: supplierId'yi context'ten veya props'tan al
+  // Şimdilik örnek bir değer kullanıyoruz
+  const supplierId = 1;
 
-export default SupplierProductsLayout;
+  return (
+    <ProductsProvider supplierId={supplierId}>{children}</ProductsProvider>
+  );
+}
