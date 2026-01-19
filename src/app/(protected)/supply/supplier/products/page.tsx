@@ -65,7 +65,10 @@ const SupplierProductsPage: React.FC = () => {
         enableToggle: true,
         grid: {
           renderCard: ({ item }: { item: any }) => (
-            <ProductCard product={mapProductDtoToResult(item)} />
+            <ProductCard
+              product={mapProductDtoToResult(item)}
+              showFavorite={false}
+            />
           ),
           col: 4,
         },

@@ -12,9 +12,13 @@ import { AddToFavorite } from "../../../../_shared";
 
 interface ProductCardProps {
   product: ProductResultDto;
+  showFavorite?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  showFavorite = true,
+}) => {
   const router = useRouter();
 
   // Stok durumu kontrolü
@@ -128,7 +132,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 right: "12px",
               }}
             >
-              <AddToFavorite productId={product.id} type="icon" size="md" />
+              {showFavorite && (
+                <AddToFavorite productId={product.id} type="icon" size="md" />
+              )}
             </div>
           )}
         </div>
