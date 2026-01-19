@@ -246,6 +246,8 @@ export const API_ENDPOINTS = {
         `/supply/dashboard/company/order-statistics?companyId=${companyId}`,
       RFQ_STATISTICS: (companyId: string | number) =>
         `/supply/dashboard/company/rfq-statistics?companyId=${companyId}`,
+      SUPPLIER_SUMMARY: (supplierId: string | number) =>
+        `/supply/dashboard/supplier/summary?supplierId=${supplierId}`,
     },
 
     // Orders

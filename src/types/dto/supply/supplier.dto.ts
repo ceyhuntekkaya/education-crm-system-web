@@ -87,3 +87,33 @@ export interface GetAllSuppliersParams {
   isActive?: boolean;
   searchQuery?: string;
 }
+
+/**
+ * Tedarikçi Dashboard Özet İstatistikleri
+ */
+export interface SupplierSummaryDto {
+  totalSales?: number;
+  activeQuotations?: number;
+  pendingQuotations?: number;
+  submittedQuotations?: number;
+  acceptedQuotations?: number;
+  totalOrders?: number;
+  pendingOrders?: number;
+  completedOrders?: number;
+  totalProducts?: number;
+  activeProducts?: number;
+  averageRating?: number;
+  totalRatings?: number;
+}
+
+/**
+ * Tedarikçi Dashboard API response
+ */
+export interface ApiResponseSupplierSummaryDto {
+  success?: boolean;
+  message?: string;
+  data?: SupplierSummaryDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
