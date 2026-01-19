@@ -28,7 +28,6 @@ export const ProductFormContent: React.FC = () => {
 
   // Form reset hook'u
   const { reset, errors } = useForm();
-  console.log("errors :", errors);
 
   // Context'ten Product işlemlerini al
   const {

@@ -7,7 +7,7 @@ import { ProductFormData } from "../types/form-data";
 export const initialValues: ProductFormData = {
   // Required fields - supplierId context'ten gelecek
   supplierId: 0,
-  categoryId: 0,
+  categoryId: "", // String olmalı - FormAutocomplete için
   name: "",
   basePrice: 0,
 

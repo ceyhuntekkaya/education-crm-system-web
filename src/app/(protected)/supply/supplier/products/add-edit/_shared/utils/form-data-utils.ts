@@ -10,7 +10,7 @@ export const transformProductToFormData = (product: ProductDto | null): any => {
 
   return {
     supplierId: product.supplierId,
-    categoryId: product.categoryId,
+    categoryId: product.categoryId?.toString() || "", // String'e çevir - FormAutocomplete için
     name: product.name || "",
     sku: product.sku || "",
     description: product.description || "",

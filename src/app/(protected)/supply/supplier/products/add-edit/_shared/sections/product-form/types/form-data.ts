@@ -5,7 +5,7 @@
 export interface ProductFormData {
   // Required fields (CREATE için)
   supplierId: number;
-  categoryId: number;
+  categoryId: string; // FormAutocomplete string olarak çalışıyor
   name: string;
   basePrice: number;
 
