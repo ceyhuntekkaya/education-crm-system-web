@@ -1,19 +1,4 @@
-// ================== SORT & PAGEABLE ==================
-
-export interface SortObject {
-  empty?: boolean;
-  sorted?: boolean;
-  unsorted?: boolean;
-}
-
-export interface PageableObject {
-  offset?: number;
-  sort?: SortObject;
-  paged?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  unpaged?: boolean;
-}
+import { PageableObject, SortObject } from "../../api/api-general.types";
 
 // ================== QUOTATION ==================
 
@@ -128,4 +113,156 @@ export interface GetQuotationsByCompanyParams extends Record<string, unknown> {
    * Page size
    */
   size?: number;
+}
+
+// ================== CREATE & UPDATE DTOs ==================
+
+/**
+ * Quotation Create DTO - Yeni teklif oluşturma
+ * API: POST /supply/quotations
+ */
+export interface QuotationCreateDto {
+  rfqId: number;
+  supplierId: number;
+  totalAmount?: number;
+  currency?: QuotationCreateDtoCurrency;
+  validUntil?: string;
+  deliveryDays?: number;
+  paymentTerms?: string;
+  warrantyTerms?: string;
+  notes?: string;
+}
+
+export type QuotationCreateDtoCurrency =
+  (typeof QuotationCreateDtoCurrency)[keyof typeof QuotationCreateDtoCurrency];
+
+export const QuotationCreateDtoCurrency = {
+  TRY: "TRY",
+  USD: "USD",
+  EUR: "EUR",
+  GBP: "GBP",
+  CHF: "CHF",
+  CAD: "CAD",
+  AUD: "AUD",
+  JPY: "JPY",
+  CNY: "CNY",
+  RUB: "RUB",
+  SAR: "SAR",
+  AED: "AED",
+  QAR: "QAR",
+  KWD: "KWD",
+  BHD: "BHD",
+} as const;
+
+/**
+ * Quotation Update DTO - Teklif güncelleme
+ * API: PUT /supply/quotations/{id}
+ */
+export interface QuotationUpdateDto {
+  totalAmount?: number;
+  currency?: QuotationUpdateDtoCurrency;
+  validUntil?: string;
+  deliveryDays?: number;
+  paymentTerms?: string;
+  warrantyTerms?: string;
+  notes?: string;
+}
+
+export type QuotationUpdateDtoCurrency =
+  (typeof QuotationUpdateDtoCurrency)[keyof typeof QuotationUpdateDtoCurrency];
+
+export const QuotationUpdateDtoCurrency = {
+  TRY: "TRY",
+  USD: "USD",
+  EUR: "EUR",
+  GBP: "GBP",
+  CHF: "CHF",
+  CAD: "CAD",
+  AUD: "AUD",
+  JPY: "JPY",
+  CNY: "CNY",
+  RUB: "RUB",
+  SAR: "SAR",
+  AED: "AED",
+  QAR: "QAR",
+  KWD: "KWD",
+  BHD: "BHD",
+} as const;
+
+/**
+ * API Response wrapper for single QuotationDto
+ */
+export interface ApiResponseQuotationDto {
+  success?: boolean;
+  message?: string;
+  data?: QuotationDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+// ================== QUOTATION COMPARISON ==================
+// Moved from types/supply/quotation.ts
+
+export interface ApiResponseListQuotationComparisonDto {
+  success?: boolean;
+  message?: string;
+  data?: QuotationComparisonDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+export interface QuotationComparisonDto {
+  quotationId?: number;
+  supplierId?: number;
+  supplierCompanyName?: string;
+  averageRating?: number;
+  status?: QuotationComparisonDtoStatus;
+  totalAmount?: number;
+  currency?: QuotationComparisonDtoCurrency;
+  validUntil?: string;
+  deliveryDays?: number;
+  paymentTerms?: string;
+  warrantyTerms?: string;
+  notes?: string;
+  versionNumber?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  items?: QuotationItemComparisonDto[];
+}
+
+export type QuotationComparisonDtoStatus =
+  | "DRAFT"
+  | "SUBMITTED"
+  | "UNDER_REVIEW"
+  | "ACCEPTED"
+  | "REJECTED"
+  | "EXPIRED";
+
+export type QuotationComparisonDtoCurrency =
+  | "TRY"
+  | "USD"
+  | "EUR"
+  | "GBP"
+  | "CHF"
+  | "CAD"
+  | "AUD"
+  | "JPY"
+  | "CNY"
+  | "RUB"
+  | "SAR"
+  | "AED"
+  | "QAR"
+  | "KWD"
+  | "BHD";
+
+export interface QuotationItemComparisonDto {
+  rfqItemId?: number;
+  itemName?: string;
+  quantity?: number;
+  unit?: string;
+  unitPrice?: number;
+  discountAmount?: number;
+  totalPrice?: number;
 }

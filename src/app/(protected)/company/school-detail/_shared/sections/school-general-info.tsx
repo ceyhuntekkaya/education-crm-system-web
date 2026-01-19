@@ -371,18 +371,16 @@ export default function SchoolGeneralInfo() {
   return (
     <div className="d-flex flex-column gap-24">
       {/* Kurum Açıklaması */}
-      {school.description && school.description.trim() !== "" && (
-        <CustomCard
-          title="Kurum Hakkında"
-          editButtonUrl={
-            school.id ? `/company/school-list/add-edit/${school.id}` : undefined
-          }
-        >
-          <p className="text-neutral-700 text-md leading-relaxed mb-0">
-            {school.description}
-          </p>
-        </CustomCard>
-      )}
+      <CustomCard
+        title="Kurum Hakkında"
+        editButtonUrl={
+          school.id ? `/company/school-list/add-edit/${school.id}` : undefined
+        }
+      >
+        <p className="text-neutral-700 text-md leading-relaxed mb-0">
+          {school.description || "-"}
+        </p>
+      </CustomCard>
 
       {/* Temel, İletişim ve Konum Bilgileri */}
       {(visibleBasicInfo.length > 0 ||

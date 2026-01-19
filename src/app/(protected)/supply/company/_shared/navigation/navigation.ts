@@ -15,14 +15,26 @@ export const supplyCompanyLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/supply/company/wishlist",
-    label: "İstek/Favoriler",
+    label: "İstek Listesi",
     icon: "ph-heart",
     requiresSchool: false,
   },
   {
+    href: "/supply/company/suppliers",
+    label: "Tedarikçiler",
+    icon: "ph-buildings",
+    requiresSchool: false,
+  },
+  // {
+  //   href: "/supply/company/quotations",
+  //   label: "Teklifler",
+  //   icon: "ph-clipboard-text",
+  //   requiresSchool: false,
+  // },
+  {
     href: "/supply/company/rfqs",
-    label: "RFQ Yönetimi",
-    icon: "ph-clipboard-text",
+    label: "Alım İlanları",
+    icon: "ph-file-text",
     requiresSchool: false,
   },
   {

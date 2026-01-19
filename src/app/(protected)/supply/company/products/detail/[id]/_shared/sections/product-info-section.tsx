@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import { AddToFavorite } from "@/app/(protected)/supply/company/_shared";
 import { formatCurrency } from "../utils";
 import { useProductDetail } from "../context";
@@ -7,6 +8,7 @@ import { SendSupplierMessageSection } from "./send-supplier-message-section/send
 import { RequestQuoteSection } from "./request-quote-section/request-quote-section";
 
 export const ProductInfoSection: React.FC = () => {
+  const router = useRouter();
   const {
     product,
     supplier,
@@ -17,6 +19,12 @@ export const ProductInfoSection: React.FC = () => {
     isLowStock,
     isOutOfStock,
   } = useProductDetail();
+
+  const handleSupplierClick = () => {
+    if (product?.supplierId) {
+      router.push(`/supply/company/suppliers/detail/${product.supplierId}`);
+    }
+  };
 
   if (!product) return null;
 
@@ -173,7 +181,27 @@ export const ProductInfoSection: React.FC = () => {
           <div className="meta-item">
             <div className="meta-content">
               <p className="meta-label">Tedarikçi</p>
-              <div className="meta-value-wrapper">
+              <div
+                className="meta-value-wrapper"
+                onClick={handleSupplierClick}
+                style={{
+                  cursor: product?.supplierId ? "pointer" : "default",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (product?.supplierId) {
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 2px 8px rgba(0,0,0,0.1)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (product?.supplierId) {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }
+                }}
+              >
                 <div className="meta-icon-wrapper">
                   <div className="meta-icon bg-primary-100 text-primary-700">
                     <i className="ph-bold ph-truck"></i>
@@ -184,6 +212,9 @@ export const ProductInfoSection: React.FC = () => {
                     supplier.companyName ||
                     "Belirtilmemiş"}
                 </span>
+                {product?.supplierId && (
+                  <i className="ph-bold ph-arrow-right text-primary-600 text-sm ml-8"></i>
+                )}
               </div>
             </div>
           </div>

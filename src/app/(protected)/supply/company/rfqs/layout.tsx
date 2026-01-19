@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { QuotationsProvider } from "./_shared";
+import { RFQsProvider } from "./_shared";
 
 export default function RFQsLayout({
   children,
@@ -12,7 +12,5 @@ export default function RFQsLayout({
   // Şimdilik örnek bir değer kullanıyoruz
   const companyId = 1;
 
-  return (
-    <QuotationsProvider companyId={companyId}>{children}</QuotationsProvider>
-  );
+  return <RFQsProvider companyId={companyId}>{children}</RFQsProvider>;
 }

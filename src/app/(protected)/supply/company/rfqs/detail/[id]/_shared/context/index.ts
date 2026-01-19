@@ -1,2 +1,1 @@
-export * from "./quotation-detail-context";
-
+export * from "./rfq-detail-context";

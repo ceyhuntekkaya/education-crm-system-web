@@ -7,13 +7,26 @@ import { ApiResponseDto } from "@/types";
 // Types
 export interface WishlistDto {
   id?: number;
-  userId?: number;
-  productId?: number;
-  productName?: string;
-  productSku?: string;
-  productMainImageUrl?: string;
+  supplierId?: number;
   supplierCompanyName?: string;
+  categoryId?: number;
+  categoryName?: string;
+  name?: string;
+  sku?: string;
+  description?: string;
+  technicalSpecs?: string;
+  status?: string;
+  stockTrackingType?: string;
+  stockQuantity?: number;
+  minStockLevel?: number;
+  basePrice?: number;
+  currency?: string;
+  taxRate?: number;
+  minOrderQuantity?: number;
+  deliveryDays?: number;
+  mainImageUrl?: string;
   createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface WishlistCreateDto {

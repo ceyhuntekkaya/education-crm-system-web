@@ -1,2 +1,1 @@
-export * from "./quotation-detail.utils";
-
+export * from "./rfq-detail.utils";

@@ -1,50 +1,82 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useGet } from "@/hooks";
-import { ApiResponsePageProductDto } from "../api";
+import { useEffect, useMemo, useState } from "react";
+import { SearchProductsParams } from "@/types/dto/supply/product.dto";
 import { ProductResultDto, mapProductDtoToResult } from "../types";
-import { mockProducts } from "../mock/mock-products";
+import { apiClient } from "@/lib/api";
 
 /**
- * Ürün arama hook'u
+ * Ürün arama hook'u - Gerçek API kullanımı
  *
- * @param searchUrl - Arama URL'i (null ise istek atılmaz)
  * @param searchParams - Arama parametreleri
+ * @param enabled - API call'ın aktif olup olmayacağı
  * @returns Ürün listesi ve API durumu
  *
  * API Endpoint: GET /supply/products/search
  */
 export const useProductsSearch = (
-  searchUrl: string | null,
-  searchParams?: Record<string, unknown>
+  searchParams?: SearchProductsParams,
+  enabled: boolean = false
 ) => {
   const [hasSearched, setHasSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
 
-  const { data, loading, error, refetch } = useGet<ApiResponsePageProductDto>(
-    searchUrl,
-    {
-      params: searchParams,
-      enabled: !!searchUrl,
-      onSuccess: () => {
-        setHasSearched(true);
-      },
-      onError: () => {
-        setHasSearched(true);
-      },
+  const executeSearch = async () => {
+    if (!enabled || !searchParams) return;
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await apiClient.get("/supply/products/search", {
+        params: {
+          searchTerm: searchParams.searchTerm,
+          categoryId: searchParams.categoryId,
+          supplierId: searchParams.supplierId,
+          status: searchParams.status,
+          minPrice: searchParams.minPrice,
+          maxPrice: searchParams.maxPrice,
+          page: searchParams.page || 0,
+          size: searchParams.size || 20,
+        },
+      });
+      setData(response.data);
+      setHasSearched(true);
+    } catch (err) {
+      setError(err);
+      setHasSearched(true);
+    } finally {
+      setLoading(false);
     }
-  );
+  };
+
+  useEffect(() => {
+    if (enabled && searchParams) {
+      executeSearch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, JSON.stringify(searchParams)]);
 
   const products = useMemo<ProductResultDto[]>(() => {
     if (!data?.data?.content) return [];
-    return data.data.content.map((item) => mapProductDtoToResult(item as any));
+    return data.data.content.map((item: any) => mapProductDtoToResult(item));
   }, [data]);
 
+  const refetch = () => {
+    executeSearch();
+  };
+
   return {
-    products: mockProducts,
+    products,
     loading,
     error,
     refetch,
     hasSearched,
+    totalElements: data?.data?.totalElements || 0,
+    totalPages: data?.data?.totalPages || 0,
+    currentPage: data?.data?.number || 0,
+    pageSize: data?.data?.size || 20,
   };
 };

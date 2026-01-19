@@ -10,10 +10,9 @@ import {
 } from "@/components";
 import { CustomCard, Divider } from "@/components/ui";
 import { useFormHook } from "@/hooks";
-import { useProductsSearchContext } from "../../contexts";
+import { useProductsContext } from "../../contexts";
 import { FormValues } from "@/types";
-import { createProductsApiParams, cleanProductsApiParams } from "../../utils";
-import { SearchProductsStatus } from "../../api";
+import { SearchProductsStatus } from "@/types/dto/supply/product.dto";
 
 const statusOptions = [
   { value: SearchProductsStatus.ACTIVE, label: "Aktif" },
@@ -24,42 +23,47 @@ const statusOptions = [
 
 const FilterForm = () => {
   const { resetForm, values } = useFormHook();
-  const { search, resetSearch, options } = useProductsSearchContext();
+  const {
+    search,
+    resetSearch,
+    categories,
+    categoriesLoading,
+    suppliers,
+    suppliersLoading,
+  } = useProductsContext();
 
   const onSubmit = (values: FormValues) => {
-    const apiParams = createProductsApiParams(values);
-    const cleanParams = cleanProductsApiParams(apiParams);
-    search(cleanParams);
+    search(values);
   };
 
   return (
     <CustomCard
       title="Arama Kriterleri"
       subtitle="Lütfen arama kriterlerinizi seçin"
-      type="accordion"
-      size="md"
+      // type="accordion"
+      size="sm"
     >
       <Form onSubmit={onSubmit}>
-        <FormInput
-          name="searchTerm"
-          variant="outline"
-          placeholder="Ürün adı, kodu veya açıklama ile ara..."
-          iconLeft="ph-magnifying-glass"
-          fullWidth
-        />
+        <div className="row g-4">
+          <div className="col-12">
+            <FormInput
+              name="searchTerm"
+              variant="outline"
+              placeholder="Ürün adı, kodu veya açıklama ile ara..."
+              iconLeft="ph-magnifying-glass"
+              fullWidth
+            />
+          </div>
 
-        <Divider />
-
-        <div className="row g-3">
           <div className="col-6">
             <FormAutocomplete
               key={`category-${values.categoryId || "empty"}`}
               name="categoryId"
               variant="outline"
               placeholder="Kategori ara..."
-              options={options.categories.data}
+              options={categories}
               noOptionsText="Kategori bulunamadı"
-              isLoading={options.categories.loading}
+              isLoading={categoriesLoading}
             />
           </div>
 
@@ -69,16 +73,12 @@ const FilterForm = () => {
               name="supplierId"
               variant="outline"
               placeholder="Tedarikçi ara..."
-              options={options.suppliers.data}
+              options={suppliers}
               noOptionsText="Tedarikçi bulunamadı"
-              isLoading={options.suppliers.loading}
+              isLoading={suppliersLoading}
             />
           </div>
-        </div>
 
-        <Divider />
-
-        <div className="row g-3">
           <div className="col-6">
             <FormRange
               name="priceRange"
@@ -86,23 +86,26 @@ const FilterForm = () => {
               max={1000000}
               step={1}
               prefix="₺"
+              direction="horizontal"
             />
           </div>
 
           <div className="col-6">
-            <FormRadio
-              name="status"
-              label=""
-              value=""
-              options={statusOptions}
-              multi={true}
-              direction="horizontal"
-              col={6}
-            />
+            <div className="px-24">
+              <FormRadio
+                name="status"
+                label=""
+                value=""
+                options={statusOptions}
+                multi={true}
+                direction="horizontal"
+                col={6}
+              />
+            </div>
           </div>
         </div>
 
-        <Divider />
+        <Divider size="sm" />
 
         <div className="d-flex gap-12 justify-content-end">
           <Button

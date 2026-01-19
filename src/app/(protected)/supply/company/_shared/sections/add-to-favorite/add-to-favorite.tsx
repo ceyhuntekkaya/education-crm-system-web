@@ -16,15 +16,15 @@ import { useSnackbar } from "@/contexts";
 // ============================================================================
 
 const FAVORITE_LABELS = {
-  add: "Favorilere Ekle",
-  remove: "Favorilerden Çıkar",
+  add: "Kaydet",
+  remove: "Kaldır",
 } as const;
 
 const ICON_NAMES = {
-  // Favori: filled heart (ph-bold ph-fill ph-heart → Icon component'te ph ph-bold ph-fill ph-heart olur)
-  favorite: "ph-bold ph-fill ph-heart",
-  // Favori değil: outline heart (ph-bold ph-heart → Icon component'te ph ph-bold ph-heart olur)
-  notFavorite: "ph-bold ph-heart",
+  // İstek listesinde: filled bookmark (ph-bold ph-fill ph-bookmark → Icon component'te ph ph-bold ph-fill ph-bookmark olur)
+  favorite: "ph-bold ph-fill ph-bookmark",
+  // İstek listesinde değil: outline bookmark (ph-bold ph-bookmark → Icon component'te ph ph-bold ph-bookmark olur)
+  notFavorite: "ph-bold ph-bookmark",
 } as const;
 
 // ============================================================================
@@ -32,10 +32,10 @@ const ICON_NAMES = {
 // ============================================================================
 
 /**
- * Favori durumuna göre Icon variant'ını belirler
+ * İstek listesi durumuna göre Icon variant'ını belirler
  *
- * Favori durumunda her zaman kırmızı variant kullanılır (görünürlük için)
- * Favori değilken kullanıcının seçtiği variant kullanılır
+ * İstek listesinde mavi tonlar kullanılır (görünürlük için)
+ * İstek listesinde değilken kullanıcının seçtiği variant kullanılır
  */
 const getIconVariant = (
   variant: AddToFavoriteProps["variant"],
@@ -49,17 +49,17 @@ const getIconVariant = (
   | "outline-danger"
   | "outline-success"
   | "outline-warning" => {
-  // Favori durumunda her zaman kırmızı variant kullan (görünürlük için)
+  // İstek listesindeyken mavi renk, hover'da danger rengi (kaldırma için)
   if (isFavorite) {
-    // Eğer variant zaten danger variant'ı ise, onu kullan
-    if (variant === "inline-danger" || variant === "outline-danger") {
+    // Eğer variant zaten outline ise, onu kullan
+    if (variant === "outline") {
       return variant;
     }
-    // Değilse outline-danger kullan (daha görünür)
-    return "outline-danger";
+    // Değilse outline kullan (mavi renk)
+    return "outline";
   }
 
-  // Favori değilken kullanıcının seçtiği variant'ı kullan
+  // İstek listesinde değilken kullanıcının seçtiği variant'ı kullan
   return variant || "inline";
 };
 
@@ -70,8 +70,8 @@ const getIconVariant = (
 /**
  * AddToFavorite Component
  *
- * Ürünleri favorilere ekleme/çıkarma işlemini yapan buton component'i.
- * Ürünün favori durumunu yönetir ve kullanıcıya görsel geri bildirim sağlar.
+ * Ürünleri istek listesine ekleme/çıkarma işlemini yapan buton component'i.
+ * Ürünün istek listesi durumunu yönetir ve kullanıcıya görsel geri bildirim sağlar.
  *
  * @example
  * ```tsx
@@ -146,7 +146,7 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
   // ========================================================================
 
   /**
-   * API'den gelen favori kontrol sonucunu state'e aktarır
+   * API'den gelen istek listesi kontrol sonucunu state'e aktarır
    */
   useEffect(() => {
     if (!checkData?.data) return;
@@ -164,7 +164,7 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
   // ========================================================================
 
   /**
-   * Favori durumunu toggle eder (ekle/çıkar)
+   * İstek listesi durumunu toggle eder (ekle/çıkar)
    */
   const handleToggleFavorite = useCallback(
     async (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
@@ -173,20 +173,20 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
 
       if (isLoading || disabled) return;
 
-      // Favorilerden çıkar
+      // İstek listesinden çıkar
       if (isFavorite && wishlistId) {
         removeFromWishlist(wishlistId, {
           onSuccess: () => {
             setIsFavorite(false);
             setWishlistId(undefined);
-            // showSnackbar("Ürün favorilerden kaldırıldı", "error");
+            // showSnackbar("Ürün istek listesinden kaldırıldı", "error");
             onFavoriteChange?.(false, undefined);
           },
         });
         return;
       }
 
-      // Favorilere ekle
+      // İstek listesine ekle
       addToWishlist(
         { productId },
         {
@@ -196,7 +196,7 @@ export const AddToFavorite: React.FC<AddToFavoriteProps> = ({
             if (newWishlistId) {
               setWishlistId(newWishlistId);
             }
-            // showSnackbar("Ürün favorilere eklendi", "success");
+            // showSnackbar("Ürün istek listesine eklendi", "success");
             onFavoriteChange?.(true, newWishlistId);
           },
         }

@@ -81,9 +81,19 @@
 @import "quick-actions";
 // product card component
 @import "product-card";
+// product image card component
+@import "product-image-card";
 // product detail footer component
 @import "product-detail-footer";
 // product detail page component
 @import "product-detail";
 // quotation detail page component
 @import "quotation-detail";
+// rfq detail page component
+@import "rfq-detail";
+// supplier detail page component
+@import "supplier-detail";
+// conversation view component (messaging)
+@import "conversation-view";
+// messages page component (WhatsApp-style full page messaging)
+@import "messages-page";

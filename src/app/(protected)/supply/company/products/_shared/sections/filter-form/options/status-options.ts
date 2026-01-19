@@ -1,4 +1,4 @@
-import { SearchProductsStatus } from "../../../api";
+import { SearchProductsStatus } from "@/types/dto/supply/product.dto";
 
 export const statusOptions = [
   { value: SearchProductsStatus.ACTIVE, label: "Aktif" },

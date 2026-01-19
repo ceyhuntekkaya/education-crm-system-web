@@ -246,12 +246,16 @@ export const API_ENDPOINTS = {
         `/supply/dashboard/company/order-statistics?companyId=${companyId}`,
       RFQ_STATISTICS: (companyId: string | number) =>
         `/supply/dashboard/company/rfq-statistics?companyId=${companyId}`,
+      SUPPLIER_SUMMARY: (supplierId: string | number) =>
+        `/supply/dashboard/supplier/summary?supplierId=${supplierId}`,
     },
 
     // Orders
     ORDERS: {
       BY_COMPANY: (companyId: string | number) =>
         `/supply/orders/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/orders/by-supplier/${supplierId}`,
       BY_ID: (id: string | number) => `/supply/orders/${id}`,
       CREATE: "/supply/orders",
       UPDATE: (id: string | number) => `/supply/orders/${id}`,
@@ -264,28 +268,58 @@ export const API_ENDPOINTS = {
         `/supply/rfqs/by-company/${companyId}`,
       ACTIVE: "/supply/rfqs/active",
       BY_ID: (id: string | number) => `/supply/rfqs/${id}`,
+      ITEMS: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
+      QUOTATIONS: (rfqId: string | number) =>
+        `/supply/rfqs/${rfqId}/quotations`,
+      COMPARISON: (rfqId: string | number) =>
+        `/supply/rfqs/${rfqId}/comparison`,
+      INVITATIONS: (rfqId: string | number) =>
+        `/supply/rfqs/${rfqId}/invitations`,
       CREATE: "/supply/rfqs",
       UPDATE: (id: string | number) => `/supply/rfqs/${id}`,
       DELETE: (id: string | number) => `/supply/rfqs/${id}`,
+      // RFQ Actions
+      PUBLISH: (id: string | number) => `/supply/rfqs/${id}/publish`,
+      CLOSE: (id: string | number) => `/supply/rfqs/${id}/close`,
+      CANCEL: (id: string | number) => `/supply/rfqs/${id}/cancel`,
+    },
+
+    // RFQ Items
+    RFQ_ITEMS: {
+      GET_ALL: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
+      GET_BY_ID: (rfqId: string | number, itemId: string | number) =>
+        `/supply/rfqs/${rfqId}/items/${itemId}`,
+      CREATE: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
+      UPDATE: (rfqId: string | number, itemId: string | number) =>
+        `/supply/rfqs/${rfqId}/items/${itemId}`,
+      DELETE: (rfqId: string | number, itemId: string | number) =>
+        `/supply/rfqs/${rfqId}/items/${itemId}`,
     },
 
     // Products
     PRODUCTS: {
+      BASE: "/supply/products",
+      CREATE: "/supply/products",
+      UPDATE: (id: string | number) => `/supply/products/${id}`,
       SEARCH: "/supply/products/search",
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
-        `/supply/products/supplier/${supplierId}`,
+        `/supply/products/by-supplier/${supplierId}`,
       DISCOUNTS: (productId: string | number) =>
         `/supply/products/${productId}/discounts`,
       IMAGES: (id: string | number) => `/supply/products/${id}/images`,
+      VARIANTS: (productId: string | number) =>
+        `/supply/products/${productId}/variants`,
     },
 
     // Suppliers
     SUPPLIERS: {
+      GET_ALL: "/supply/suppliers",
       LIST: "/supply/suppliers",
       BY_ID: (id: string | number) => `/supply/suppliers/${id}`,
       BY_COMPANY: (companyId: string | number) =>
         `/supply/suppliers/company/${companyId}`,
+      PRODUCTS: (id: string | number) => `/supply/suppliers/${id}/products`,
     },
 
     // Categories
@@ -298,9 +332,12 @@ export const API_ENDPOINTS = {
     QUOTATIONS: {
       BY_COMPANY: (companyId: string | number) =>
         `/supply/quotations/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/quotations/by-supplier/${supplierId}`,
       BY_RFQ: (rfqId: string | number) => `/supply/quotations/rfq/${rfqId}`,
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
+      UPDATE: (id: string | number) => `/supply/quotations/${id}`,
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
     },
@@ -348,7 +385,7 @@ export const API_ENDPOINTS = {
 // Endpoint helper fonksiyonları
 export const createEndpoint = (
   template: string,
-  params: Record<string, string | number>
+  params: Record<string, string | number>,
 ): string => {
   let endpoint = template;
   Object.entries(params).forEach(([key, value]) => {

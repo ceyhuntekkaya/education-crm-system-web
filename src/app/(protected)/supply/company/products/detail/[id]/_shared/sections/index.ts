@@ -10,3 +10,4 @@ export { ProductAddToFavoriteSection } from "./product-add-to-favorite-section";
 export { ProductDiscountSection } from "./product-discount-section";
 export { SendSupplierMessageSection } from "./send-supplier-message-section/send-supplier-message-section";
 export { RequestQuoteSection } from "./request-quote-section/request-quote-section";
+export { ProductVariantsSection } from "./product-variants-section";

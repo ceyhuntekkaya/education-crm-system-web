@@ -1,0 +1,201 @@
+/**
+ * 🎨 DETAIL LAYOUT STYLES
+ * Detail sayfaları için genel stiller
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MAIN LAYOUT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.detail-layout {
+  &__container {
+    padding: 1rem 0;
+  }
+
+  &__content {
+    .detail-layout__main-section {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.detail-layout-header {
+  margin-bottom: 2rem;
+
+  &__container {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+
+  &__actions {
+    .btn {
+      margin-right: 0.5rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__back {
+    .btn {
+      border-radius: 0.375rem;
+      font-weight: 500;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   META ITEMS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.meta-item-clickable {
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARD HOVER ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// Meta container hover animation
+.meta-container {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+// Card hover animations for all card types
+.bg-white.rounded-12.p-12 {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STATES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.detail-loading-state,
+.detail-error-state,
+.detail-empty-state {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    text-align: center;
+    padding: 2rem;
+  }
+}
+
+.detail-error-state {
+  .btn {
+    margin-top: 0.5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.detail-layout-main-section {
+  &__title {
+    border-bottom: 1px solid var(--bs-border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+
+    h4, h5 {
+      margin-bottom: 0;
+      color: var(--bs-dark);
+      font-weight: 600;
+    }
+  }
+}
+
+.detail-layout-detail-section {
+  &__title {
+    border-bottom: 1px solid var(--bs-border-color-translucent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+
+    h4, h5 {
+      margin-bottom: 0;
+      color: var(--bs-gray-800);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .detail-layout-header {
+    &__container {
+      .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+
+        .detail-layout-header__actions {
+          order: 2;
+          
+          .d-flex {
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+        }
+
+        .detail-layout-header__back {
+          order: 1;
+          align-self: flex-start;
+        }
+      }
+    }
+  }
+
+  .detail-layout {
+    &__container {
+      padding: 0.5rem 0;
+    }
+
+    &__content {
+      .detail-layout__main-section {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SPACING UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.detail-layout {
+  // Spacing options
+  &--spacing-sm {
+    .detail-layout__detail-sections .row {
+      --bs-gutter-x: 1rem;
+      --bs-gutter-y: 1rem;
+    }
+  }
+
+  &--spacing-lg {
+    .detail-layout__detail-sections .row {
+      --bs-gutter-x: 2rem;
+      --bs-gutter-y: 2rem;
+    }
+  }
+}

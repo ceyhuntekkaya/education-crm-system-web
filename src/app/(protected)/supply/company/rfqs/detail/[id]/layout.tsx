@@ -1,32 +1,27 @@
 "use client";
 
 import React from "react";
-import { QuotationDetailProvider } from "./_shared";
-import { validateQuotationId } from "./_shared/utils";
+import { RFQDetailProvider } from "./_shared";
+import { validateRFQId } from "./_shared/utils";
 
-interface QuotationDetailLayoutProps {
+interface RFQDetailLayoutProps {
   children: React.ReactNode;
   params: { id: string };
 }
 
 /**
- * Quotation detail sayfaları için layout
+ * RFQ detail sayfaları için layout
  * Context provider ve ID validasyonu sağlar
  */
-const QuotationDetailLayout: React.FC<QuotationDetailLayoutProps> = ({
+const RFQDetailLayout: React.FC<RFQDetailLayoutProps> = ({
   children,
   params,
 }) => {
   // URL'den gelen ID'yi kontrol et
-  const quotationId = validateQuotationId(params.id);
+  const rfqId = validateRFQId(params.id);
 
   // ID yoksa veya geçersizse bile devam et, empty state gösterilecek
-  return (
-    <QuotationDetailProvider quotationId={quotationId ?? 0}>
-      {children}
-    </QuotationDetailProvider>
-  );
+  return <RFQDetailProvider rfqId={rfqId ?? 0}>{children}</RFQDetailProvider>;
 };
 
-export default QuotationDetailLayout;
-
+export default RFQDetailLayout;

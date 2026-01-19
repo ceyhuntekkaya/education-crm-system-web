@@ -42,8 +42,24 @@ export interface RFQCreateDto {
   title: string;
   description?: string;
   rfqType?: RFQType;
-  submissionDeadline: string; // ISO 8601
-  expectedDeliveryDate?: string; // ISO 8601
+  submissionDeadline: string; // ISO 8601 - Zorunlu
+  expectedDeliveryDate: string; // ISO 8601 - Zorunlu
+  paymentTerms?: string;
+  evaluationCriteria?: string;
+  technicalRequirements?: string;
+  productIds?: number[]; // Seçilen ürün ID'leri
+}
+
+/**
+ * RFQ Update DTO - RFQ güncelleme
+ * API: PUT /supply/rfqs/{id}
+ */
+export interface RFQUpdateDto {
+  title?: string;
+  description?: string;
+  rfqType?: RFQType;
+  submissionDeadline?: string; // ISO 8601
+  expectedDeliveryDate: string; // ISO 8601 - Zorunlu
   paymentTerms?: string;
   evaluationCriteria?: string;
   technicalRequirements?: string;
@@ -62,4 +78,138 @@ export interface PageRFQDto {
   number?: number; // 0-indexed
   first?: boolean;
   last?: boolean;
+}
+
+/**
+ * API Response RFQ DTO
+ * Tek bir RFQ için API response
+ */
+export interface ApiResponseRFQDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
+ * API Response Page RFQ DTO
+ * Sayfalanmış RFQ listesi için API response
+ */
+export interface ApiResponsePageRFQDto {
+  success?: boolean;
+  message?: string;
+  data?: PageRFQDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
+ * Get RFQs by Company Params
+ * Şirkete ait ilanları getirmek için parametreler
+ */
+export interface GetRFQsByCompanyParams extends Record<string, unknown> {
+  page?: number;
+  size?: number;
+  sort?: string;
+  status?: RFQStatus;
+  rfqType?: RFQType;
+  search?: string;
+}
+
+/**
+ * RFQ Item DTO - Request for Quotation Item (İlan Kalemi) detayları
+ * API: GET /supply/rfqs/{id}/items
+ */
+export interface RFQItemDto {
+  id?: number;
+  rfqId?: number;
+  rfqTitle?: string;
+  categoryId?: number;
+  categoryName?: string;
+  itemName?: string;
+  specifications?: string;
+  quantity?: number;
+  unit?: string;
+}
+
+/**
+ * RFQ Item Create DTO - Yeni RFQ Item oluşturma
+ * API: POST /supply/rfqs/{id}/items
+ */
+export interface RFQItemCreateDto {
+  categoryId?: number;
+  itemName: string;
+  specifications?: string;
+  quantity: number;
+  unit?: string;
+}
+
+/**
+ * RFQ Item Update DTO - RFQ Item güncelleme
+ * API: PUT /supply/rfqs/{id}/items/{itemId}
+ */
+export interface RFQItemUpdateDto {
+  categoryId?: number;
+  itemName?: string;
+  specifications?: string;
+  quantity?: number;
+  unit?: string;
+}
+
+/**
+ * API Response RFQ Item DTO
+ * Tek bir RFQ Item için API response
+ */
+export interface ApiResponseRFQItemDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQItemDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
+ * API Response List RFQ Item DTO
+ * RFQ Item listesi için API response
+ */
+export interface ApiResponseListRFQItemDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQItemDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+/**
+ * RFQ Invitation DTO - RFQ Davet detayları
+ * API: GET /supply/rfqs/{id}/invitations
+ */
+export interface RFQInvitationDto {
+  id?: number;
+  rfqId?: number;
+  rfqTitle?: string;
+  supplierId?: number;
+  supplierCompanyName?: string;
+  invitedAt?: string; // ISO 8601
+}
+
+/**
+ * API Response List RFQ Invitation DTO
+ * RFQ Invitation listesi için API response
+ */
+export interface ApiResponseListRFQInvitationDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQInvitationDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
 }

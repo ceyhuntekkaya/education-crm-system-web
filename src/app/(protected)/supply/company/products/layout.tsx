@@ -3,7 +3,7 @@
 import React from "react";
 import { FormProvider } from "@/contexts";
 import {
-  ProductsSearchProvider,
+  ProductsProvider,
   initialProductsFilterValues,
   productsFilterValidationSchema,
 } from "./_shared";
@@ -24,5 +24,5 @@ export default function ProductsLayout({
 }
 
 const ProductsBridge = ({ children }: { children: React.ReactNode }) => {
-  return <ProductsSearchProvider>{children}</ProductsSearchProvider>;
+  return <ProductsProvider>{children}</ProductsProvider>;
 };

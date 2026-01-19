@@ -1,1 +1,1 @@
-export * from "./products-search-context-types";
+export * from "./products-types";

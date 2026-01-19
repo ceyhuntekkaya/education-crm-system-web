@@ -1,92 +1,141 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { useFormHook } from "@/hooks";
 import {
-  useProductsSearch,
+  useSearchProducts,
   useCategoriesData,
   useSuppliersData,
-} from "../hooks";
+} from "../hooks/api";
 import {
-  ProductsSearchContextValue,
-  ProductsSearchProviderProps,
-} from "../types";
-import { SearchProductsParams } from "../api";
+  SearchProductsParams,
+  ProductResultDto,
+  mapProductDtoToResult,
+} from "@/types/dto/supply/product.dto";
+import { createProductsApiParams, cleanProductsApiParams } from "../utils";
+import { FormValues } from "@/types";
 
 /**
- * 🔍 PRODUCTS SEARCH CONTEXT
- * Ürün arama için context
+ * 🔍 PRODUCTS CONTEXT
+ * Basitleştirilmiş context - RFQ yapısına uygun
  */
 
-const ProductsSearchContext = createContext<
-  ProductsSearchContextValue | undefined
->(undefined);
+interface ProductsContextValue {
+  // Search state
+  hasSearched: boolean;
+  searchParams: SearchProductsParams | undefined;
 
-export function ProductsSearchProvider({
-  children,
-}: ProductsSearchProviderProps) {
-  const [searchUrl, setSearchUrl] = useState<string | null>(null);
-  const [searchParams, setSearchParams] = useState<Record<string, unknown>>({});
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  // Products data
+  products: ProductResultDto[];
+  productsLoading: boolean;
+  productsError: any;
 
-  // 📝 FORM MANAGEMENT
+  // Categories data
+  categories: any;
+  categoriesLoading: boolean;
+
+  // Suppliers data
+  suppliers: any;
+  suppliersLoading: boolean;
+
+  // Form values
+  formValues: Record<string, any>;
+
+  // Actions
+  search: (formValues: FormValues) => void;
+  resetSearch: () => void;
+  refetch: () => void;
+}
+
+interface ProductsProviderProps {
+  children: React.ReactNode;
+}
+
+const ProductsContext = createContext<ProductsContextValue | undefined>(
+  undefined
+);
+
+export function ProductsProvider({ children }: ProductsProviderProps) {
+  const [hasSearched, setHasSearched] = useState(false);
+  const [searchParams, setSearchParams] = useState<SearchProductsParams>();
+
+  // Form management
   const { values, resetForm } = useFormHook();
 
-  // 📊 API DATA
+  // API data - RFQ gibi basit yapı
+  const { data, loading, error, refetch } = useSearchProducts(searchParams, {
+    enabled: !!searchParams,
+  });
+
+  // Categories and Suppliers data
   const categories = useCategoriesData();
   const suppliers = useSuppliersData();
 
-  // 🔍 SEARCH
-  const { products, loading, error, hasSearched } = useProductsSearch(
-    searchUrl,
-    searchParams
+  // Transform data
+  const products: ProductResultDto[] =
+    data?.data?.content?.map((item) => mapProductDtoToResult(item)) || [];
+
+  useEffect(() => {
+    if (values) {
+      const apiParams = createProductsApiParams(values);
+      setSearchParams(cleanProductsApiParams(apiParams));
+    }
+  }, [values]);
+
+  // Search action
+  const search = useCallback(
+    (formValues: FormValues) => {
+      setHasSearched(true);
+      refetch();
+    },
+    [refetch]
   );
 
-  // 🔍 SEARCH ACTION
-  const search = useCallback(async (data: SearchProductsParams) => {
-    setSearchUrl("/supply/products/search");
-    setSearchParams(data as Record<string, unknown>);
-  }, []);
-
-  // 🔄 RESET
+  // Reset action
   const resetSearch = useCallback(() => {
-    setSearchUrl(null);
-    setSearchParams({});
+    setSearchParams(undefined);
+    setHasSearched(false);
     resetForm();
   }, [resetForm]);
 
-  // 🎯 CONTEXT VALUE
-  const contextValue: ProductsSearchContextValue = {
-    products,
+  // Context value
+  const contextValue: ProductsContextValue = {
     hasSearched,
+    searchParams,
+    products,
+    productsLoading: loading,
+    productsError: error,
+    categories: categories.data,
+    categoriesLoading: categories.loading,
+    suppliers: suppliers.data,
+    suppliersLoading: suppliers.loading,
     formValues: values,
-    categories,
-    suppliers,
-    options: { categories, suppliers },
-    sectionChanges: {},
     search,
-    searchLoading: loading,
-    searchError: error,
     resetSearch,
-    viewMode,
-    setViewMode,
+    refetch,
   };
 
   return (
-    <ProductsSearchContext.Provider value={contextValue}>
+    <ProductsContext.Provider value={contextValue}>
       {children}
-    </ProductsSearchContext.Provider>
+    </ProductsContext.Provider>
   );
 }
 
-export function useProductsSearchContext() {
-  const context = useContext(ProductsSearchContext);
+export function useProductsContext() {
+  const context = useContext(ProductsContext);
   if (context === undefined) {
     throw new Error(
-      "useProductsSearchContext must be used within a ProductsSearchProvider"
+      "useProductsContext must be used within a ProductsProvider"
     );
   }
   return context;
 }
 
-export default ProductsSearchContext;
+export default ProductsContext;

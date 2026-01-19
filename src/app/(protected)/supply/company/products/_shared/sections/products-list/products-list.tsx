@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
-import { ProductResultDto } from "../../types";
+import { ProductResultDto } from "@/types/dto/supply/product.dto";
 import { createProductColumns } from "../../config/product-columns";
 
 interface ProductsListProps {

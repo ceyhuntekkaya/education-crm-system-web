@@ -1,5 +1,8 @@
 import type { WishlistDto } from "../hooks/api/useWishlistApi";
-import { ProductResultDto } from "@/app/(protected)/supply/company/products/_shared/types";
+import {
+  ProductResultDto,
+  ProductDtoStatus,
+} from "@/types/dto/supply/product.dto";
 
 /**
  * WishlistDto'yu ProductResultDto'ya dönüştürür
@@ -12,14 +15,25 @@ export const mapWishlistToProduct = (
   wishlistItem: WishlistDto
 ): ProductResultDto => {
   return {
-    id: wishlistItem.productId,
-    name: wishlistItem.productName,
-    sku: wishlistItem.productSku,
-    mainImageUrl: wishlistItem.productMainImageUrl,
+    id: wishlistItem.id,
+    name: wishlistItem.name,
+    sku: wishlistItem.sku,
+    mainImageUrl: wishlistItem.mainImageUrl,
     supplierName: wishlistItem.supplierCompanyName,
-    // Diğer alanlar wishlist'te olmadığı için default değerler
-    status: "ACTIVE", // Wishlist'te olan ürünler genelde aktif
+    categoryId: wishlistItem.categoryId,
+    categoryName: wishlistItem.categoryName,
+    supplierId: wishlistItem.supplierId,
+    unitPrice: wishlistItem.basePrice,
+    currency: wishlistItem.currency,
+    taxRate: wishlistItem.taxRate,
+    stockTrackingType: wishlistItem.stockTrackingType,
+    currentStock: wishlistItem.stockQuantity,
+    minStockLevel: wishlistItem.minStockLevel,
+    status: wishlistItem.status as ProductDtoStatus | undefined,
+    deliveryDays: wishlistItem.deliveryDays,
     createdAt: wishlistItem.createdAt,
+    updatedAt: wishlistItem.updatedAt,
+    description: wishlistItem.description,
   };
 };
 
