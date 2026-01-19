@@ -3,7 +3,7 @@
 import { usePut } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ProductDto, ProductUpdateDto } from "@/types";
-import { useProductsContext } from "../../../_shared/contexts";
+import { useProductsContext } from "../../../../_shared/contexts";
 
 interface UseEditProductParams {
   productId: number;

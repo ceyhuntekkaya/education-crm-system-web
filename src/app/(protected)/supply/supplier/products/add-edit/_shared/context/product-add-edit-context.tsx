@@ -8,9 +8,12 @@ import {
   useAddProduct,
   useEditProduct,
   useCategoryOptions,
+  useProductImages,
+  useCreateProductImage,
+  useDeleteProductImage,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
-import { useProductsContext } from "../../../_shared/contexts";
+import { ProductImageCreateDto } from "@/types";
 
 /**
  * ProductAddEditContext
@@ -64,6 +67,37 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
   const { categoryOptions, isLoading: categoriesLoading } =
     useCategoryOptions();
 
+  // Product Images hooks
+  const {
+    images: productImages,
+    isLoading: productImagesLoading,
+    refetch: refetchProductImages,
+  } = useProductImages(productId);
+
+  // Create Product Image hook
+  const { createProductImage, isLoading: createProductImageLoading } =
+    useCreateProductImage({
+      productId: productId || 0,
+      onSuccess: () => {
+        refetchProductImages();
+      },
+      onError: (error) => {
+        console.error("❌ Görsel eklenirken hata:", error);
+      },
+    });
+
+  // Delete Product Image hook
+  const { deleteProductImage, isLoading: deleteProductImageLoading } =
+    useDeleteProductImage({
+      productId: productId || 0,
+      onSuccess: () => {
+        refetchProductImages();
+      },
+      onError: (error) => {
+        console.error("❌ Görsel silinirken hata:", error);
+      },
+    });
+
   const contextValue: ProductAddEditContextType = {
     // Supplier ID
     supplierId,
@@ -90,6 +124,19 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
     fetchProduct: refetch,
     postProduct,
     putProduct,
+
+    // Product Images
+    productImages,
+    productImagesLoading,
+    refetchProductImages,
+    createProductImage: async (data: ProductImageCreateDto) => {
+      await createProductImage(data);
+    },
+    createProductImageLoading,
+    deleteProductImage: async (imageId: number) => {
+      await deleteProductImage(imageId);
+    },
+    deleteProductImageLoading,
   };
 
   return (

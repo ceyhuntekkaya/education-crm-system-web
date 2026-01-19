@@ -4,7 +4,7 @@ import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ProductDto, ProductCreateDto } from "@/types";
 import { useRouter } from "next/navigation";
-import { useProductsContext } from "../../../_shared/contexts";
+import { useProductsContext } from "../../../../_shared/contexts";
 
 /**
  * Product ekleme hook'u

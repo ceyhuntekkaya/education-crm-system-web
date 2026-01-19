@@ -1,4 +1,10 @@
-import type { ProductDto, ProductCreateDto, ProductUpdateDto } from "@/types";
+import type {
+  ProductDto,
+  ProductCreateDto,
+  ProductUpdateDto,
+  ProductImageDto,
+  ProductImageCreateDto,
+} from "@/types";
 
 /**
  * ProductAddEditContext type
@@ -26,4 +32,13 @@ export interface ProductAddEditContextType {
   fetchProduct: (() => void) | undefined;
   postProduct: (data: ProductCreateDto) => Promise<ProductDto | null>;
   putProduct: (data: ProductUpdateDto) => Promise<ProductDto | null>;
+
+  // Product Images
+  productImages: ProductImageDto[];
+  productImagesLoading: boolean;
+  refetchProductImages: () => void;
+  createProductImage: (data: ProductImageCreateDto) => Promise<void>;
+  createProductImageLoading: boolean;
+  deleteProductImage: (imageId: number) => Promise<void>;
+  deleteProductImageLoading: boolean;
 }
