@@ -3,7 +3,12 @@
 import React from "react";
 import { CustomCard } from "@/components";
 import { usePageTitle } from "@/hooks";
-import { StatsCards, QuickActions } from "./_shared/sections";
+import {
+  StatsCards,
+  QuickActions,
+  OrderTable,
+  QuotationTable,
+} from "./_shared/sections";
 
 const SupplierDashboardPage: React.FC = () => {
   usePageTitle("Tedarikçi Dashboard");
@@ -16,6 +21,19 @@ const SupplierDashboardPage: React.FC = () => {
         subtitle="Tedarikçi portalına hoş geldiniz. Tüm istatistiklerinizi ve performansınızı buradan takip edebilirsiniz."
       >
         <StatsCards />
+      </CustomCard>
+
+      {/* Recent Orders */}
+      <CustomCard title="Son Siparişler" subtitle="En son aldığınız siparişler">
+        <OrderTable />
+      </CustomCard>
+
+      {/* Pending Quotations */}
+      <CustomCard
+        title="Bekleyen Teklifler"
+        subtitle="İşleme alınmayı bekleyen teklifleriniz"
+      >
+        <QuotationTable />
       </CustomCard>
 
       {/* Quick Actions */}

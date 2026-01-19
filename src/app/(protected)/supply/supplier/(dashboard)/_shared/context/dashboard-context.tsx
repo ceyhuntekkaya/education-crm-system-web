@@ -1,12 +1,26 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode } from "react";
-import { useSupplierDashboard } from "../hooks";
-import { SupplierSummaryDto } from "@/types/dto/supply";
+import { useSupplierDashboard, useOrders, useQuotations } from "../hooks";
+import { SupplierSummaryDto, OrderDto, QuotationDto } from "@/types/dto/supply";
 
 interface DashboardContextValue {
   // Dashboard Summary Data
   summary: SupplierSummaryDto;
+
+  // Orders Data
+  orders: OrderDto[];
+  activeOrders: OrderDto[];
+  ordersLoading: boolean;
+  ordersError: string | null;
+  refetchOrders: () => void;
+
+  // Quotations Data
+  quotations: QuotationDto[];
+  pendingQuotations: QuotationDto[];
+  quotationsLoading: boolean;
+  quotationsError: string | null;
+  refetchQuotations: () => void;
 
   // Loading & Error States
   isLoading: boolean;
@@ -31,11 +45,38 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({
   const { summary, summaryLoading, summaryError, refetchSummary } =
     useSupplierDashboard(supplierId);
 
+  // Sipariş verilerini getir
+  const { orders, activeOrders, ordersLoading, ordersError, refetchOrders } =
+    useOrders(supplierId);
+
+  // Teklif verilerini getir
+  const {
+    quotations,
+    pendingQuotations,
+    quotationsLoading,
+    quotationsError,
+    refetchQuotations,
+  } = useQuotations(supplierId);
+
   const value: DashboardContextValue = {
     summary,
-    isLoading: summaryLoading,
-    error: summaryError,
-    refetchDashboard: refetchSummary,
+    orders,
+    activeOrders,
+    ordersLoading,
+    ordersError,
+    refetchOrders,
+    quotations,
+    pendingQuotations,
+    quotationsLoading,
+    quotationsError,
+    refetchQuotations,
+    isLoading: summaryLoading || ordersLoading || quotationsLoading,
+    error: summaryError || ordersError || quotationsError,
+    refetchDashboard: () => {
+      refetchSummary();
+      refetchOrders();
+      refetchQuotations();
+    },
   };
 
   return (

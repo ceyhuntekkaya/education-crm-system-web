@@ -69,10 +69,12 @@ export const ProductPerformanceCard: React.FC = () => {
         </div>
 
         <div className="amount-box">
-          <div className="d-flex align-items-center justify-content-between gap-12">
+          <div className="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-12">
             <div className="flex-grow-1">
-              <p className="text-neutral-500 amount-label">Ortalama Puan</p>
-              <div className="d-flex align-items-center gap-6">
+              <p className="text-neutral-500 amount-label mb-8">
+                Ortalama Puan
+              </p>
+              <div className="d-flex align-items-center gap-6 flex-wrap">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <i
                     key={star}
@@ -82,13 +84,13 @@ export const ProductPerformanceCard: React.FC = () => {
                     style={{ fontSize: "16px" }}
                   ></i>
                 ))}
-                <span className="fw-bold text-warning-700 ms-4">
+                <span className="fw-bold text-warning-700 ms-2">
                   {stats.averageRating.toFixed(1)}
                 </span>
               </div>
             </div>
-            <div className="text-end flex-shrink-0">
-              <p className="text-neutral-500 delivery-label">
+            <div className="text-start text-lg-end flex-lg-shrink-0">
+              <p className="text-neutral-500 delivery-label mb-8">
                 Toplam Değerlendirme
               </p>
               <p className="text-primary-700 mb-0 fw-semibold delivery-value">

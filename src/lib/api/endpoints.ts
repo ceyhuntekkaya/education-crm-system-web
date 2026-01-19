@@ -254,6 +254,8 @@ export const API_ENDPOINTS = {
     ORDERS: {
       BY_COMPANY: (companyId: string | number) =>
         `/supply/orders/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/orders/by-supplier/${supplierId}`,
       BY_ID: (id: string | number) => `/supply/orders/${id}`,
       CREATE: "/supply/orders",
       UPDATE: (id: string | number) => `/supply/orders/${id}`,
@@ -327,6 +329,8 @@ export const API_ENDPOINTS = {
     QUOTATIONS: {
       BY_COMPANY: (companyId: string | number) =>
         `/supply/quotations/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/quotations/by-supplier/${supplierId}`,
       BY_RFQ: (rfqId: string | number) => `/supply/quotations/rfq/${rfqId}`,
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
