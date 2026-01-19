@@ -31,7 +31,7 @@ export const SupplierProductsSection: React.FC = () => {
   const productSortOptions = useMemo(() => SUPPLIER_PRODUCTS_SORT_OPTIONS, []);
   const emptyStateAction = useMemo(
     () => createSupplierProductsEmptyStateAction(),
-    []
+    [],
   );
 
   return (

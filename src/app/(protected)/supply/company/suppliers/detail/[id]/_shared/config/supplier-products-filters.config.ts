@@ -76,8 +76,7 @@ export const createSupplierProductsActionButtons = () => [
  */
 export const createSupplierProductsEmptyStateAction = () => ({
   label: "İlk Ürünü Ekle",
-  icon: "bi-plus-lg",
-  action: () => {
+  onClick: () => {
     console.log("Navigate to add first product");
     // router.push('/supply/products/create');
   },

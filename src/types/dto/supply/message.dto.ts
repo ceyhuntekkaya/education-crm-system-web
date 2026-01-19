@@ -49,30 +49,30 @@ export interface ApiResponseMessageDto {
 }
 
 /**
- * UserSummaryDto (Güncellenmiş)
+ * SupplyUserSummaryDto (Güncellenmiş)
  */
-export interface UserSummaryDto {
+export interface SupplyUserSummaryDto {
   id?: number;
   fullName?: string;
   email?: string;
   phone?: string;
-  userType?: UserSummaryDtoUserType;
+  userType?: SupplyUserSummaryDtoUserType;
   profileImageUrl?: string;
   isActive?: boolean;
 }
 
-export type UserSummaryDtoUserType =
-  (typeof UserSummaryDtoUserType)[keyof typeof UserSummaryDtoUserType];
+export type SupplyUserSummaryDtoUserType =
+  (typeof SupplyUserSummaryDtoUserType)[keyof typeof SupplyUserSummaryDtoUserType];
 
-export const UserSummaryDtoUserType = {
+export const SupplyUserSummaryDtoUserType = {
   INSTITUTION_USER: "INSTITUTION_USER",
   PARENT: "PARENT",
 } as const;
 
 /**
- * SchoolSummaryDto (Yeni)
+ * SupplySchoolSummaryDto (Yeni)
  */
-export interface SchoolSummaryDto {
+export interface SupplySchoolSummaryDto {
   id?: number;
   name?: string;
   slug?: string;
@@ -167,11 +167,11 @@ export interface MessageDto {
   requestCallback?: boolean;
   requestAppointment?: boolean;
   readAt?: string;
-  readBy?: UserSummaryDto;
+  readBy?: SupplyUserSummaryDto;
   firstResponseAt?: string;
   lastResponseAt?: string;
   resolvedAt?: string;
-  resolvedBy?: UserSummaryDto;
+  resolvedBy?: SupplyUserSummaryDto;
   responseTimeHours?: number;
   resolutionTimeHours?: number;
   followUpRequired?: boolean;
@@ -190,9 +190,9 @@ export interface MessageDto {
   satisfactionRating?: number;
   satisfactionFeedback?: string;
   satisfactionDate?: string;
-  school?: SchoolSummaryDto;
-  senderUser?: UserSummaryDto;
-  assignedToUser?: UserSummaryDto;
+  school?: SupplySchoolSummaryDto;
+  senderUser?: SupplyUserSummaryDto;
+  assignedToUser?: SupplyUserSummaryDto;
   isActive?: boolean;
   createdAt?: string;
   // Legacy fields for backward compatibility
@@ -202,7 +202,7 @@ export interface MessageDto {
 }
 
 // Import common pagination types from conversation dto
-import { PageableObject, SortObject } from "./conversation.dto";
+import { PageableObject, SortObject } from "../../api/api-general.types";
 
 /**
  * Page Message DTO (Yeni)

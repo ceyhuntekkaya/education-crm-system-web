@@ -1,19 +1,4 @@
-// ================== SORT & PAGEABLE ==================
-
-export interface SortObject {
-  empty?: boolean;
-  sorted?: boolean;
-  unsorted?: boolean;
-}
-
-export interface PageableObject {
-  offset?: number;
-  sort?: SortObject;
-  paged?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  unpaged?: boolean;
-}
+import { PageableObject, SortObject } from "../../api/api-general.types";
 
 // ================== QUOTATION ==================
 

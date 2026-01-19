@@ -61,26 +61,7 @@ export interface ConversationDto {
   lastMessageAt?: string;
 }
 
-/**
- * Pageable Object
- */
-export interface PageableObject {
-  pageNumber?: number;
-  pageSize?: number;
-  sort?: SortObject;
-  offset?: number;
-  paged?: boolean;
-  unpaged?: boolean;
-}
-
-/**
- * Sort Object
- */
-export interface SortObject {
-  sorted?: boolean;
-  unsorted?: boolean;
-  empty?: boolean;
-}
+import { PageableObject, SortObject } from "../../api/api-general.types";
 
 /**
  * Page Conversation DTO (Güncellenmiş)
