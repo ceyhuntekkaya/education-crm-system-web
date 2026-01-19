@@ -165,11 +165,11 @@ export const ProductInfoSection: React.FC = () => {
                 </div>
               </div>
             </div>
-            {supplier && <div className="meta-item-divider"></div>}
+            {/* {supplier && <div className="meta-item-divider"></div>} */}
           </>
         )}
 
-        {supplier && (
+        {/* {supplier && (
           <div className="meta-item">
             <div className="meta-content">
               <p className="meta-label">Tedarikçi</p>
@@ -210,7 +210,7 @@ export const ProductInfoSection: React.FC = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Teslimat ve Minimum Sipariş */}
