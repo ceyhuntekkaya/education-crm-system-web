@@ -14,7 +14,7 @@ interface UseEditRFQProps {
  * RFQ güncelleme hook'u
  */
 export const useEditRFQ = ({ rfqId, refetch }: UseEditRFQProps) => {
-  const { rfqsListRefetch: refetchList } = useRFQsContext();
+  const { refetch: refetchList } = useRFQsContext();
 
   const {
     mutate: putRFQ,

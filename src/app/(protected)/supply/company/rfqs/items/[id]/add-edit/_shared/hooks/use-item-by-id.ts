@@ -27,8 +27,8 @@ export const useItemById = ({ itemId }: UseItemByIdProps) => {
 
   // Refetch items listesini yeniden çeker
   const refetch = () => {
-    if (itemsContext?.itemsListRefetch) {
-      itemsContext.itemsListRefetch();
+    if (itemsContext?.refetch) {
+      itemsContext.refetch();
     }
   };
 

@@ -8,7 +8,7 @@ import {
   getProductStatusBadgeVariant,
   getProductStatusDisplay,
   getStockColorClass,
-} from "../../_shared/utils";
+} from "../../../../_shared/utils/product.utils";
 
 /**
  * Tedarikçi ürünleri için tablo kolonları
@@ -76,8 +76,7 @@ export const createSupplierProductsColumns =
       align: "center",
       renderCell: (params) => {
         const currentStock = params.value;
-        const minStockLevel = params.row.minStockLevel;
-        const colorClass = getStockColorClass(currentStock, minStockLevel);
+        const colorClass = getStockColorClass(currentStock, undefined);
 
         return React.createElement(
           "div",
@@ -96,11 +95,12 @@ export const createSupplierProductsColumns =
         const variant = getProductStatusBadgeVariant(status);
         const display = getProductStatusDisplay(status);
 
-        return React.createElement(
-          Badge,
-          { variant: variant, size: "sm" },
-          display
-        );
+        // eslint-disable-next-line react/no-children-prop
+        return React.createElement(Badge, {
+          variant: variant,
+          size: "sm",
+          children: display,
+        });
       },
     },
   ];

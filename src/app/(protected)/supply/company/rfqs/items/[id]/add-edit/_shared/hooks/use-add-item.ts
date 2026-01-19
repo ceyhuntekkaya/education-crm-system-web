@@ -15,7 +15,7 @@ interface UseAddItemProps {
  */
 export const useAddItem = ({ rfqId }: UseAddItemProps) => {
   const router = useRouter();
-  const { itemsListRefetch: refetch } = useRFQItemsContext();
+  const { refetch } = useRFQItemsContext();
 
   const {
     mutate: postItem,

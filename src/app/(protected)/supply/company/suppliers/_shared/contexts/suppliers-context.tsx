@@ -93,7 +93,7 @@ export function SuppliersProvider({
 
     // API State
     suppliersListLoading: loading,
-    suppliersListError: error,
+    suppliersListError: error ?? null,
     suppliersListRefetch: refetch,
 
     // Data

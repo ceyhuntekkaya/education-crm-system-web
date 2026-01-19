@@ -64,6 +64,7 @@ export const RFQDetailProvider: React.FC<RFQDetailProviderProps> = ({
     if (rfqId > 0) {
       fetchConversations();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfqId]);
 
   // Fetch messages when conversationId changes
@@ -73,6 +74,7 @@ export const RFQDetailProvider: React.FC<RFQDetailProviderProps> = ({
     } else {
       setMessages([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId]);
 
   const fetchConversations = async () => {

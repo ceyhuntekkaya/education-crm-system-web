@@ -52,7 +52,7 @@ export const SupplierProductsSection: React.FC = () => {
         data={{
           data: products,
           loading: productsLoading,
-          error: productsError,
+          error: productsError ? new Error(productsError) : null,
         }}
         // ═══════════════════════════════════════════════════════════════════
         // VIEW - Görünüm Ayarları

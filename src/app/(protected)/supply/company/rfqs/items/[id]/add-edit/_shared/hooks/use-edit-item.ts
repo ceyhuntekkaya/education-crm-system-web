@@ -15,7 +15,7 @@ interface UseEditItemProps {
  * RFQ Item güncelleme hook'u
  */
 export const useEditItem = ({ rfqId, itemId, refetch }: UseEditItemProps) => {
-  const { itemsListRefetch: refetchList } = useRFQItemsContext();
+  const { refetch: refetchList } = useRFQItemsContext();
 
   const {
     mutate: putItem,

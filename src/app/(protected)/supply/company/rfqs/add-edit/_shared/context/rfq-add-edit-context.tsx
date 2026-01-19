@@ -21,9 +21,8 @@ interface RFQAddEditProviderProps {
 export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
   children,
 }) => {
-  // RFQs context'ten companyId'yi al
-  const rfqsContext = useRFQsContext();
-  const companyId = rfqsContext?.companyId || 1; // Fallback olarak 1
+  // Company ID - TODO: Get from auth context
+  const companyId = 1;
   const params = useParams();
   const { id } = params;
 

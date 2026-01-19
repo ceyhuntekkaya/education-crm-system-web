@@ -11,7 +11,7 @@ import { useRFQsContext } from "../../../_shared/contexts";
  */
 export const useAddRFQ = () => {
   const router = useRouter();
-  const { rfqsListRefetch: refetch } = useRFQsContext();
+  const { refetch } = useRFQsContext();
 
   const {
     mutate: postRFQ,
