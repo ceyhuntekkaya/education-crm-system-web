@@ -31,11 +31,11 @@ const SupplierProductsPage: React.FC = () => {
   // Action buttons'ları da memoize et
   const actionButtons = useMemo(
     () => createProductActionButtons(router),
-    [router]
+    [router],
   );
   const emptyStateAction = useMemo(
     () => createProductEmptyStateAction(router),
-    [router]
+    [router],
   );
 
   return (
@@ -68,6 +68,7 @@ const SupplierProductsPage: React.FC = () => {
             <ProductCard
               product={mapProductDtoToResult(item)}
               showFavorite={false}
+              url={`/supply/supplier/products/detail/${item.id}`}
             />
           ),
           col: 4,

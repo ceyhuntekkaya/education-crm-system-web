@@ -13,11 +13,13 @@ import { AddToFavorite } from "../../../../_shared";
 interface ProductCardProps {
   product: ProductResultDto;
   showFavorite?: boolean;
+  url?: string;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   showFavorite = true,
+  url,
 }) => {
   const router = useRouter();
 
@@ -299,7 +301,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 size="xs"
                 rightIcon="ph-bold ph-eye"
                 onClick={() =>
-                  router.push(`/supply/company/products/detail/${product.id}`)
+                  router.push(
+                    url || `/supply/company/products/detail/${product.id}`,
+                  )
                 }
               >
                 Detay
