@@ -10,7 +10,7 @@ export const ProductBackButton: React.FC = () => {
   const { productId } = useProductDetail();
 
   const handleEdit = () => {
-    router.push(`/supply/supplier/products/edit/${productId}`);
+    router.push(`/supply/supplier/products/add-edit/${productId}`);
   };
 
   return (

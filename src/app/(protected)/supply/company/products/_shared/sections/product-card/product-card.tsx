@@ -185,6 +185,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
+              height: "40px",
+              minHeight: "40px",
             }}
           >
             {product.description || "Açıklama yok"}

@@ -298,6 +298,9 @@ export const API_ENDPOINTS = {
 
     // Products
     PRODUCTS: {
+      BASE: "/supply/products",
+      CREATE: "/supply/products",
+      UPDATE: (id: string | number) => `/supply/products/${id}`,
       SEARCH: "/supply/products/search",
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
@@ -382,7 +385,7 @@ export const API_ENDPOINTS = {
 // Endpoint helper fonksiyonları
 export const createEndpoint = (
   template: string,
-  params: Record<string, string | number>
+  params: Record<string, string | number>,
 ): string => {
   let endpoint = template;
   Object.entries(params).forEach(([key, value]) => {

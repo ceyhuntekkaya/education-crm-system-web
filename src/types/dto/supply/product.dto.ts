@@ -290,3 +290,58 @@ export interface ApiResponsePageProductDto {
   timestamp?: string;
   path?: string;
 }
+
+/**
+ * Ürün oluşturma DTO
+ */
+export interface ProductCreateDto {
+  supplierId: number;
+  categoryId: number;
+  name: string;
+  sku?: string;
+  description?: string;
+  technicalSpecs?: string;
+  status?: ProductDtoStatus;
+  stockTrackingType?: ProductDtoStockTrackingType;
+  stockQuantity?: number;
+  minStockLevel?: number;
+  basePrice: number;
+  currency?: ProductDtoCurrency;
+  taxRate?: number;
+  minOrderQuantity?: number;
+  deliveryDays?: number;
+  mainImageUrl?: string;
+}
+
+/**
+ * Ürün güncelleme DTO
+ */
+export interface ProductUpdateDto {
+  categoryId?: number;
+  name?: string;
+  sku?: string;
+  description?: string;
+  technicalSpecs?: string;
+  status?: ProductDtoStatus;
+  stockTrackingType?: ProductDtoStockTrackingType;
+  stockQuantity?: number;
+  minStockLevel?: number;
+  basePrice?: number;
+  currency?: ProductDtoCurrency;
+  taxRate?: number;
+  minOrderQuantity?: number;
+  deliveryDays?: number;
+  mainImageUrl?: string;
+}
+
+/**
+ * Ürün API response
+ */
+export interface ApiResponseProductDto {
+  success?: boolean;
+  message?: string;
+  data?: ProductDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
