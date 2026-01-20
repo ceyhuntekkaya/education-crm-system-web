@@ -31,3 +31,13 @@ export const currencyOptions = [
   { value: "KWD", label: "KWD - Kuveyt Dinarı" },
   { value: "BHD", label: "BHD - Bahreyn Dinarı" },
 ];
+
+export const discountTypeOptions = [
+  { value: "FIXED_AMOUNT", label: "Sabit Tutar" },
+  { value: "PERCENTAGE", label: "Yüzde" },
+  { value: "FREE_MONTHS", label: "Ücretsiz Ay" },
+  { value: "BUY_X_GET_Y", label: "X Al Y Öde" },
+  { value: "TIERED", label: "Kademeli" },
+  { value: "BUNDLE", label: "Paket" },
+  { value: "NO_DISCOUNT", label: "İndirim Yok" },
+];

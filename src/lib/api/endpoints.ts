@@ -305,11 +305,23 @@ export const API_ENDPOINTS = {
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
         `/supply/products/by-supplier/${supplierId}`,
-      DISCOUNTS: (productId: string | number) =>
-        `/supply/products/${productId}/discounts`,
       IMAGES: (id: string | number) => `/supply/products/${id}/images`,
       VARIANTS: (productId: string | number) =>
         `/supply/products/${productId}/variants`,
+    },
+
+    // Product Discounts
+    PRODUCT_DISCOUNTS: {
+      LIST: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
+      CREATE: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
+      BY_ID: (productId: string | number, discountId: string | number) =>
+        `/supply/products/${productId}/discounts/${discountId}`,
+      UPDATE: (productId: string | number, discountId: string | number) =>
+        `/supply/products/${productId}/discounts/${discountId}`,
+      DELETE: (productId: string | number, discountId: string | number) =>
+        `/supply/products/${productId}/discounts/${discountId}`,
     },
 
     // Suppliers

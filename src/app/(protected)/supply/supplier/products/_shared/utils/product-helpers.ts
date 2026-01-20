@@ -231,32 +231,3 @@ export const formatDateRange = (
   if (end) return `${end} tarihine kadar`;
   return null;
 };
-
-/**
- * İndirim durumunu kontrol et (şu an aktif mi, yakında başlayacak mı?)
- */
-export const getDiscountStatus = (startDate?: string, endDate?: string) => {
-  const now = new Date();
-  const start = startDate ? new Date(startDate) : null;
-  const end = endDate ? new Date(endDate) : null;
-
-  if (start && now < start) {
-    return {
-      isActive: false,
-      label: "Yakında Başlayacak",
-      class: "bg-warning-50 text-warning-600",
-    };
-  }
-  if (end && now > end) {
-    return {
-      isActive: false,
-      label: "Süresi Doldu",
-      class: "bg-neutral-50 text-neutral-600",
-    };
-  }
-  return {
-    isActive: true,
-    label: "Aktif",
-    class: "bg-success-50 text-success-600",
-  };
-};

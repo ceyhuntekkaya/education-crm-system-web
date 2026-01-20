@@ -1,11 +1,12 @@
 import React from "react";
 import { CustomImage } from "@/components/ui";
+import { useProductsContext } from "../../../../../../_shared/contexts";
 import { useProductDetail } from "../../../context";
 import { getRandomPlaceholderImage } from "../../../utils";
 
 export const MainImageSection: React.FC = () => {
+  const { currentProduct: product } = useProductsContext();
   const {
-    product,
     statusInfo,
     isLowStock,
     isOutOfStock,

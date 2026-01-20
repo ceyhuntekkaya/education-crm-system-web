@@ -2,13 +2,32 @@ import React from "react";
 import { Divider } from "@/components";
 import { useScrollToElement } from "@/hooks";
 import { useProductDetail } from "../context";
-import { useProductSections, useSupplierSections } from "../hooks";
+import { useProductsContext } from "../../../../_shared/contexts";
 import { ProcessedSectionItem } from "../types";
+import {
+  createSections,
+  processSupplierConfig,
+} from "../utils/config-processor";
+import { PRODUCT_SECTIONS } from "../config/section-definitions";
+import { supplierInfoConfig } from "../config/supplier-info-config";
 
 export const ProductTabsSection: React.FC = () => {
-  const { product, supplier, activeTab, setActiveTab } = useProductDetail();
-  const allSections = useProductSections(product);
-  const supplierSections = useSupplierSections(supplier);
+  // ProductsContext'ten data al
+  const { currentProduct: product } = useProductsContext();
+
+  // ProductDetail context'ten UI state ve supplier al
+  const { supplier, activeTab, setActiveTab } = useProductDetail();
+  const allSections = createSections(PRODUCT_SECTIONS, product);
+  const supplierSections = supplier
+    ? [
+        {
+          title: "Tedarikçi Bilgileri",
+          titleColor: "text-info-600",
+          titleIcon: "ph-bold ph-buildings",
+          items: processSupplierConfig(supplierInfoConfig, supplier),
+        },
+      ]
+    : [];
   const { ref: tabHeaderRef } = useScrollToElement({
     dependencies: [activeTab],
     skipFirstRender: true,
@@ -81,7 +100,7 @@ export const ProductTabsSection: React.FC = () => {
               <div className="product-detail-page__section-grid mt-32">
                 {allSections.map((section, sectionIndex) => {
                   const filteredItems = section.items.filter(
-                    (item: ProcessedSectionItem) => item.isShowing
+                    (item: ProcessedSectionItem) => item.isShowing,
                   );
                   if (filteredItems.length === 0) return null;
 
@@ -117,7 +136,7 @@ export const ProductTabsSection: React.FC = () => {
                                 {item.value}
                               </div>
                             </div>
-                          )
+                          ),
                         )}
                       </div>
                     </div>
@@ -150,7 +169,7 @@ export const ProductTabsSection: React.FC = () => {
               <div className="row g-3">
                 {supplierSections.map((section, sectionIndex) => {
                   const filteredItems = section.items.filter(
-                    (item: ProcessedSectionItem) => item.isShowing
+                    (item: ProcessedSectionItem) => item.isShowing,
                   );
                   if (filteredItems.length === 0) return null;
 
@@ -181,7 +200,7 @@ export const ProductTabsSection: React.FC = () => {
                                 {item.value}
                               </div>
                             </div>
-                          )
+                          ),
                         )}
                       </div>
                     </div>

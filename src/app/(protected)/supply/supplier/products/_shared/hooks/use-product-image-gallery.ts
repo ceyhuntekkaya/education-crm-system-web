@@ -7,7 +7,6 @@ import {
   RefObject,
 } from "react";
 import { ProductDto, ProductImageDto } from "@/types";
-import { useProductsContext } from "../../../../_shared/contexts";
 
 interface ImageGalleryItem {
   id: number;
@@ -38,12 +37,12 @@ interface UseProductImageGalleryReturn {
 
 /**
  * Product image gallery için özel hook
- * Context'ten currentProduct ve currentProductImages'i alır
  * Görsel galerisi, zoom, lightbox ve navigasyon işlemlerini yönetir
  */
-export const useProductImageGallery = (): UseProductImageGalleryReturn => {
-  const { currentProduct: product, currentProductImages: images } =
-    useProductsContext();
+export const useProductImageGallery = (
+  product: ProductDto | null,
+  images: ProductImageDto[],
+): UseProductImageGalleryReturn => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });

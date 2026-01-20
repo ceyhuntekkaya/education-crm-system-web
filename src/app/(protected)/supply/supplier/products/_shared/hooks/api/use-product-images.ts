@@ -2,23 +2,7 @@
 
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
-
-export interface ProductImageDto {
-  id?: number;
-  productId?: number;
-  imageUrl?: string;
-  displayOrder?: number;
-  createdAt?: string;
-}
-
-export interface ApiResponseListProductImageDto {
-  success?: boolean;
-  message?: string;
-  data?: ProductImageDto[];
-  errors?: string[];
-  timestamp?: string;
-  path?: string;
-}
+import { ProductImageDto, ApiResponseListProductImageDto } from "@/types";
 
 interface UseProductImagesReturn {
   images: ProductImageDto[];
@@ -32,14 +16,14 @@ interface UseProductImagesReturn {
  * @param id - Product ID'si
  * @returns Product images listesi ve yönetim fonksiyonları
  */
-export const useProductImages = (id: number): UseProductImagesReturn => {
+export const useProductImages = (id: number | null): UseProductImagesReturn => {
   const {
     data: imagesResponse,
     loading: isLoading,
     error,
     refetch,
   } = useGet<ApiResponseListProductImageDto>(
-    id ? API_ENDPOINTS.SUPPLY.PRODUCTS.IMAGES(id) : null
+    id ? API_ENDPOINTS.SUPPLY.PRODUCTS.IMAGES(id) : null,
   );
 
   return {

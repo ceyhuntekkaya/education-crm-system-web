@@ -1,19 +1,31 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import { useParams } from "next/navigation";
 import { ProductAddEditContextType } from "../types";
+import { useProductsContext } from "../../../_shared/contexts";
 import {
-  useProductById,
   useAddProduct,
   useEditProduct,
   useCategoryOptions,
-  useProductImages,
   useCreateProductImage,
   useDeleteProductImage,
+  useAddProductDiscount,
+  useEditProductDiscount,
+  useDeleteProductDiscount,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
-import { ProductImageCreateDto } from "@/types";
+import {
+  ProductImageCreateDto,
+  ProductDiscountCreateDto,
+  ProductDiscountUpdateDto,
+} from "@/types";
 
 /**
  * ProductAddEditContext
@@ -34,17 +46,22 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
   const params = useParams();
   const { id } = params;
 
+  // Ana products context'ten sadece gerekli verileri al
+  const { setCurrentProductId } = useProductsContext();
+
   // ID parsing and edit mode determination
   const isEditing = isValidEditId(id);
   const productId = parseEditId(id);
 
-  // Product data hook
-  const {
-    product,
-    isLoading: productLoading,
-    error: productError,
-    refetch,
-  } = useProductById(productId);
+  // Current product ID'yi context'e set et
+  useEffect(() => {
+    setCurrentProductId(productId);
+  }, [productId, setCurrentProductId]);
+
+  // Editing Discount ID state - Form için hangi discount düzenleniyor
+  const [editingDiscountId, setEditingDiscountId] = useState<number | null>(
+    null,
+  );
 
   // Add Product hook
   const {
@@ -53,64 +70,44 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
     error: addError,
   } = useAddProduct();
 
-  // Edit Product hook - refetch'i props olarak geçir
+  // Edit Product hook
   const {
     putProduct,
     isLoading: editLoading,
     error: editError,
-  } = useEditProduct({
-    productId: productId || 0,
-    refetch: isEditing ? refetch : undefined,
-  });
+  } = useEditProduct();
 
   // Category options hook
   const { categoryOptions, isLoading: categoriesLoading } =
     useCategoryOptions();
 
-  // Product Images hooks
-  const {
-    images: productImages,
-    isLoading: productImagesLoading,
-    refetch: refetchProductImages,
-  } = useProductImages(productId);
-
   // Create Product Image hook
   const { createProductImage, isLoading: createProductImageLoading } =
-    useCreateProductImage({
-      productId: productId || 0,
-      onSuccess: () => {
-        refetchProductImages();
-      },
-      onError: (error) => {
-        console.error("❌ Görsel eklenirken hata:", error);
-      },
-    });
+    useCreateProductImage();
 
   // Delete Product Image hook
   const { deleteProductImage, isLoading: deleteProductImageLoading } =
-    useDeleteProductImage({
-      productId: productId || 0,
-      onSuccess: () => {
-        refetchProductImages();
-      },
-      onError: (error) => {
-        console.error("❌ Görsel silinirken hata:", error);
-      },
-    });
+    useDeleteProductImage();
+
+  // Add Product Discount hook
+  const { postProductDiscount, isLoading: addDiscountLoading } =
+    useAddProductDiscount();
+
+  // Edit Product Discount hook
+  const { updateProductDiscount, isLoading: editDiscountLoading } =
+    useEditProductDiscount();
+
+  // Delete Product Discount hook
+  const { deleteProductDiscount, isLoading: deleteDiscountLoading } =
+    useDeleteProductDiscount();
 
   const contextValue: ProductAddEditContextType = {
     // Supplier ID
     supplierId,
 
-    // Current Product data
-    product: product || null,
-    productDetailLoading: productLoading, // Sadece veri çekerken
+    // Loading states
     productSubmitLoading: addLoading || editLoading, // Form submit edilirken
-    productError:
-      productError?.toString() ||
-      addError?.toString() ||
-      editError?.toString() ||
-      null,
+    productError: addError?.toString() || editError?.toString() || null,
 
     // Edit mode state
     isEditing,
@@ -121,22 +118,34 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
     categoriesLoading,
 
     // Actions
-    fetchProduct: refetch,
     postProduct,
     putProduct,
 
-    // Product Images
-    productImages,
-    productImagesLoading,
-    refetchProductImages,
+    // Product Image Actions
     createProductImage: async (data: ProductImageCreateDto) => {
-      await createProductImage(data);
+      const result = await createProductImage(data);
+      return result?.data || null;
     },
     createProductImageLoading,
     deleteProductImage: async (imageId: number) => {
       await deleteProductImage(imageId);
     },
     deleteProductImageLoading,
+
+    // Product Discount Actions
+    addDiscountLoading,
+    editDiscountLoading,
+    deleteDiscountLoading,
+    editingDiscountId,
+    setEditingDiscountId: (id: number | null) => {
+      setEditingDiscountId(id);
+    },
+    postProductDiscount: (data: ProductDiscountCreateDto) =>
+      postProductDiscount(data),
+    putProductDiscount: (discountId: number, data: ProductDiscountUpdateDto) =>
+      updateProductDiscount(discountId, data),
+    deleteProductDiscount: (discountId: number) =>
+      deleteProductDiscount(discountId),
   };
 
   return (

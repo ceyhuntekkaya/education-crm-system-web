@@ -2,22 +2,29 @@
 
 import React from "react";
 import { CustomCard } from "@/components";
+import { useProductsContext } from "../../_shared/contexts";
 import { useProductAddEdit } from "../_shared/context";
-import { ProductForm, ProductImagesForm } from "../_shared/sections";
+import {
+  ProductForm,
+  ProductImagesForm,
+  ProductDiscountsForm,
+} from "../_shared/sections";
 import { usePageTitle } from "@/hooks";
 
 /**
  * Product Add/Edit page
  */
 export default function ProductAddEditPage() {
-  const { product, productDetailLoading, isEditing } = useProductAddEdit();
+  const { currentProduct: product, currentProductLoading } =
+    useProductsContext();
+  const { isEditing } = useProductAddEdit();
 
   const pageTitle = isEditing ? "Ürün Düzenle" : "Yeni Ürün Ekle";
 
   usePageTitle(pageTitle);
 
   return (
-    <>
+    <div className="d-flex flex-column gap-24">
       <CustomCard
         title={pageTitle}
         subtitle={
@@ -26,10 +33,12 @@ export default function ProductAddEditPage() {
             : "Yeni ürün bilgilerini oluşturun"
         }
         isBack
-        mb="mb-24"
-        isLoading={productDetailLoading && isEditing}
+        type="accordion"
+        isLoading={currentProductLoading && isEditing}
       >
-        <ProductForm initialData={isEditing ? product || undefined : undefined} />
+        <ProductForm
+          initialData={isEditing ? product || undefined : undefined}
+        />
       </CustomCard>
 
       {/* Ürün Görselleri Formu - Sadece düzenleme modunda gösterilir */}
@@ -37,11 +46,22 @@ export default function ProductAddEditPage() {
         <CustomCard
           title="Ürün Görselleri"
           subtitle="Ürününüz için görseller yükleyebilirsiniz"
-          mb="mb-24"
+          type="accordion"
         >
           <ProductImagesForm />
         </CustomCard>
       )}
-    </>
+
+      {/* Ürün İndirimleri Formu - Sadece düzenleme modunda gösterilir */}
+      {isEditing && (
+        <CustomCard
+          title="Ürün İndirimleri"
+          subtitle="Ürününüz için indirimler tanımlayabilirsiniz"
+          type="accordion"
+        >
+          <ProductDiscountsForm />
+        </CustomCard>
+      )}
+    </div>
   );
 }

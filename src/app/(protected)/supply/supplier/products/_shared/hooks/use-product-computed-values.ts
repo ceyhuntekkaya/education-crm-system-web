@@ -6,6 +6,7 @@ import {
 } from "@/types";
 import { getStatusInfo, getStockInfo, calculatePriceWithTax } from "../utils";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
+import { useProductsContext } from "../contexts";
 
 interface UseProductComputedValuesReturn {
   statusInfo: StatusInfo;
@@ -18,14 +19,14 @@ interface UseProductComputedValuesReturn {
 
 /**
  * Product için hesaplanan değerleri döndüren hook
+ * Context'ten currentProduct ve currentProductId'yi alır
  */
-export const useProductComputedValues = (
-  product: ProductDto | null,
-  productId: number
-): UseProductComputedValuesReturn => {
+export const useProductComputedValues = (): UseProductComputedValuesReturn => {
+  const { currentProduct: product, currentProductId: productId } =
+    useProductsContext();
   const statusInfo = useMemo(
     () => getStatusInfo(product?.status),
-    [product?.status]
+    [product?.status],
   );
 
   const stockInfo = useMemo(
@@ -33,14 +34,18 @@ export const useProductComputedValues = (
       getStockInfo(
         product?.stockTrackingType,
         product?.stockQuantity,
-        product?.minStockLevel
+        product?.minStockLevel,
       ),
-    [product?.stockTrackingType, product?.stockQuantity, product?.minStockLevel]
+    [
+      product?.stockTrackingType,
+      product?.stockQuantity,
+      product?.minStockLevel,
+    ],
   );
 
   const priceWithTax = useMemo(
     () => calculatePriceWithTax(product?.basePrice, product?.taxRate),
-    [product?.basePrice, product?.taxRate]
+    [product?.basePrice, product?.taxRate],
   );
 
   const isLowStock = useMemo(
@@ -50,14 +55,18 @@ export const useProductComputedValues = (
       product?.minStockLevel !== undefined &&
       product?.stockQuantity <= product?.minStockLevel &&
       product?.stockQuantity > 0,
-    [product?.stockTrackingType, product?.stockQuantity, product?.minStockLevel]
+    [
+      product?.stockTrackingType,
+      product?.stockQuantity,
+      product?.minStockLevel,
+    ],
   );
 
   const isOutOfStock = useMemo(
     () =>
       product?.status === ProductDtoStatus.OUT_OF_STOCK ||
       (product?.stockQuantity !== undefined && product?.stockQuantity === 0),
-    [product?.status, product?.stockQuantity]
+    [product?.status, product?.stockQuantity],
   );
 
   const hasValidId = useMemo(() => !!(productId && productId > 0), [productId]);

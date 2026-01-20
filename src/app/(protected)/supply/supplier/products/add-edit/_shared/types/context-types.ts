@@ -4,19 +4,20 @@ import type {
   ProductUpdateDto,
   ProductImageDto,
   ProductImageCreateDto,
+  ProductDiscountDto,
+  ProductDiscountCreateDto,
+  ProductDiscountUpdateDto,
 } from "@/types";
 
 /**
  * ProductAddEditContext type
- * RFQ yapısı ile aynı mimari
+ * Gereksiz tekrar eden veriler kaldırıldı - useProductsContext'ten alınıyor
  */
 export interface ProductAddEditContextType {
   // Supplier ID
   supplierId: number;
 
-  // Current Product data
-  product: ProductDto | null;
-  productDetailLoading: boolean; // Sadece veri çekerken
+  // Loading and Error States
   productSubmitLoading: boolean; // Form submit edilirken
   productError: string | null;
 
@@ -28,17 +29,30 @@ export interface ProductAddEditContextType {
   categoryOptions: { value: string; label: string }[];
   categoriesLoading: boolean;
 
-  // Actions
-  fetchProduct: (() => void) | undefined;
+  // Product Actions
   postProduct: (data: ProductCreateDto) => Promise<ProductDto | null>;
   putProduct: (data: ProductUpdateDto) => Promise<ProductDto | null>;
 
-  // Product Images
-  productImages: ProductImageDto[];
-  productImagesLoading: boolean;
-  refetchProductImages: () => void;
-  createProductImage: (data: ProductImageCreateDto) => Promise<void>;
+  // Product Image Actions
+  createProductImage: (
+    data: ProductImageCreateDto,
+  ) => Promise<ProductImageDto | null>;
   createProductImageLoading: boolean;
-  deleteProductImage: (imageId: number) => Promise<void>;
+  deleteProductImage: (imageId: number) => Promise<void | null>;
   deleteProductImageLoading: boolean;
+
+  // Product Discount Actions
+  addDiscountLoading: boolean;
+  editDiscountLoading: boolean;
+  deleteDiscountLoading: boolean;
+  editingDiscountId: number | null;
+  setEditingDiscountId: (id: number | null) => void;
+  postProductDiscount: (
+    data: ProductDiscountCreateDto,
+  ) => Promise<ProductDiscountDto | null>;
+  putProductDiscount: (
+    discountId: number,
+    data: ProductDiscountUpdateDto,
+  ) => Promise<ProductDiscountDto | null>;
+  deleteProductDiscount: (discountId: number) => Promise<void | null>;
 }

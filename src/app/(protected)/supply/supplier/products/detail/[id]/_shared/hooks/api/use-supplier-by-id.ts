@@ -3,6 +3,7 @@
 import { useGet } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseSupplierDto, SupplierDto } from "@/types";
+import { useProductsContext } from "../../../../../_shared/contexts";
 
 interface UseSupplierByIdReturn {
   supplier: SupplierDto | null;
@@ -13,17 +14,20 @@ interface UseSupplierByIdReturn {
 
 /**
  * ID'ye göre tek bir supplier verisi getiren hook
- * @param id - Supplier ID'si
+ * Context'ten currentProduct'ın supplierId'sini alır
  * @returns Supplier verisi ve yönetim fonksiyonları
  */
-export const useSupplierById = (id?: number): UseSupplierByIdReturn => {
+export const useSupplierById = (): UseSupplierByIdReturn => {
+  const { currentProduct } = useProductsContext();
+  const supplierId = currentProduct?.supplierId;
+
   const {
     data: supplierResponse,
     loading: isLoading,
     error,
     refetch,
   } = useGet<ApiResponseSupplierDto>(
-    id ? API_ENDPOINTS.SUPPLY.SUPPLIERS.BY_ID(id) : null
+    supplierId ? API_ENDPOINTS.SUPPLY.SUPPLIERS.BY_ID(supplierId) : null,
   );
 
   return {

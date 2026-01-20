@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, ModalBody } from "@/components/ui";
+import { useProductsContext } from "../../../../../../../_shared/contexts";
 import { useProductDetail } from "../../../../context";
 import {
   LightboxImageSection,
@@ -9,7 +10,8 @@ import {
 } from "./sections/index";
 
 export const LightboxModalSection: React.FC = () => {
-  const { product, isLightboxOpen, setIsLightboxOpen } = useProductDetail();
+  const { currentProduct: product } = useProductsContext();
+  const { isLightboxOpen, setIsLightboxOpen } = useProductDetail();
 
   if (!product) return null;
 

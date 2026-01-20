@@ -1,26 +1,13 @@
 import React from "react";
-import { useRouter } from "next/navigation";
 import { formatCurrency } from "../utils";
 import { useProductDetail } from "../context";
+import { useProductsContext } from "../../../../_shared/contexts";
 
 export const ProductInfoSection: React.FC = () => {
-  const router = useRouter();
-  const {
-    product,
-    supplier,
-    productId,
-    statusInfo,
-    stockInfo,
-    priceWithTax,
-    isLowStock,
-    isOutOfStock,
-  } = useProductDetail();
+  const { currentProduct: product } = useProductsContext();
 
-  const handleSupplierClick = () => {
-    if (product?.supplierId) {
-      router.push(`/supply/supplier/suppliers/detail/${product.supplierId}`);
-    }
-  };
+  const { stockInfo, priceWithTax, isLowStock, isOutOfStock } =
+    useProductDetail();
 
   if (!product) return null;
 
@@ -29,11 +16,6 @@ export const ProductInfoSection: React.FC = () => {
       {/* Ürün Başlığı ve Durum */}
       <div className="product-detail-page__title-section">
         <div className="product-detail-page__badges">
-          {/* <span
-            className={`product-detail-page__status-badge ${statusInfo.badgeClass}`}
-          >
-            {statusInfo.label}
-          </span> */}
           {product.categoryName && (
             <span className="product-detail-page__category-badge">
               {product.categoryName}
@@ -49,20 +31,6 @@ export const ProductInfoSection: React.FC = () => {
         <h1 className="product-detail-page__title">
           {product.name || "Ürün Adı"}
         </h1>
-        {/* Açıklama - Zaten Ürün Detayları tabında gösteriliyor */}
-        {/* {product.description && (
-            <p
-              className="text-sm text-neutral-600 line-height-1-5"
-              style={{
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
-              {product.description}
-            </p>
-          )} */}
       </div>
 
       {/* Fiyat Bilgisi */}
@@ -151,66 +119,20 @@ export const ProductInfoSection: React.FC = () => {
       {/* Meta Container */}
       <div className="meta-container soft-card rounded-16">
         {product.categoryName && (
-          <>
-            <div className="meta-item">
-              <div className="meta-content">
-                <p className="meta-label">Kategori</p>
-                <div className="meta-value-wrapper">
-                  <div className="meta-icon-wrapper">
-                    <div className="meta-icon bg-primary-100 text-primary-700">
-                      <i className="ph-bold ph-folder-open"></i>
-                    </div>
-                  </div>
-                  <span className="meta-value">{product.categoryName}</span>
-                </div>
-              </div>
-            </div>
-            {/* {supplier && <div className="meta-item-divider"></div>} */}
-          </>
-        )}
-
-        {/* {supplier && (
           <div className="meta-item">
             <div className="meta-content">
-              <p className="meta-label">Tedarikçi</p>
-              <div
-                className="meta-value-wrapper"
-                onClick={handleSupplierClick}
-                style={{
-                  cursor: product?.supplierId ? "pointer" : "default",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  if (product?.supplierId) {
-                    e.currentTarget.style.transform = "translateY(-1px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 2px 8px rgba(0,0,0,0.1)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (product?.supplierId) {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }
-                }}
-              >
+              <p className="meta-label">Kategori</p>
+              <div className="meta-value-wrapper">
                 <div className="meta-icon-wrapper">
                   <div className="meta-icon bg-primary-100 text-primary-700">
-                    <i className="ph-bold ph-truck"></i>
+                    <i className="ph-bold ph-folder-open"></i>
                   </div>
                 </div>
-                <span className="meta-value">
-                  {product.supplierCompanyName ||
-                    supplier.companyName ||
-                    "Belirtilmemiş"}
-                </span>
-                {product?.supplierId && (
-                  <i className="ph-bold ph-arrow-right text-primary-600 text-sm ml-8"></i>
-                )}
+                <span className="meta-value">{product.categoryName}</span>
               </div>
             </div>
           </div>
-        )} */}
+        )}
       </div>
 
       {/* Teslimat ve Minimum Sipariş */}
