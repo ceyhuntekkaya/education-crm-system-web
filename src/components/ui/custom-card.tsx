@@ -4,7 +4,7 @@ import { ReactNode, useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Icon from "./icon";
 import { Button } from "@/components";
-import { useDelete } from "@/hooks";
+import { useDelete, useScroll } from "@/hooks";
 import { LoadingSpinner } from "./loadings";
 
 interface CustomCardProps {
@@ -177,13 +177,20 @@ export default function CustomCard({
 
   // Delete hook - only initialize if deleteUrl is provided
   const { mutate: deleteItem, loading: deleteLoading } = useDelete(
-    deleteUrl || ""
+    deleteUrl || "",
   );
+
+  // Scroll hook for accordion
+  const { ref: cardRef, scrollToElement } = useScroll<HTMLDivElement>({
+    behavior: "smooth",
+    block: "start",
+  });
 
   // Accordion state
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState<number>(0);
   const contentRef = useRef<HTMLDivElement>(null);
+  const prevOpenRef = useRef(false); // Önceki açık durumunu takip eder
 
   // Combine all spacing classes
   const spacingClasses = [spacing, mt, mb, ms, me, pt, pb, ps, pe]
@@ -393,6 +400,18 @@ export default function CustomCard({
     }
   };
 
+  // Scroll to accordion when opened (only when state changes from closed to open)
+  useEffect(() => {
+    if (type === "accordion" && isAccordionOpen && !prevOpenRef.current) {
+      // Delay scroll to ensure content is rendered
+      setTimeout(() => {
+        scrollToElement({ delay: 100 });
+      }, 100);
+    }
+    // Update previous state
+    prevOpenRef.current = isAccordionOpen;
+  }, [isAccordionOpen, type, scrollToElement]);
+
   // Responsive padding classes
   const responsivePadding = mobilePadding
     ? `${padding} mobile-custom-padding`
@@ -403,6 +422,7 @@ export default function CustomCard({
 
   return (
     <div
+      ref={cardRef}
       className={
         variant === "outline"
           ? ``
@@ -526,7 +546,7 @@ export default function CustomCard({
               {hasHeader && hasContent && showDivider && (
                 <span
                   className={`d-block border border-neutral-30 ${getDividerSpacing(
-                    size
+                    size,
                   )} border-dashed`}
                 />
               )}
@@ -545,8 +565,8 @@ export default function CustomCard({
                           ? size === "xs"
                             ? "mb-12"
                             : size === "sm"
-                            ? "mb-16"
-                            : "mb-24"
+                              ? "mb-16"
+                              : "mb-24"
                           : ""
                       }
                     >
@@ -600,7 +620,7 @@ export default function CustomCard({
                   {multiItems &&
                     multiItems.map((section, sectionIndex) => {
                       const filteredItems = section.items.filter(
-                        (item) => item.isShowing
+                        (item) => item.isShowing,
                       );
 
                       if (filteredItems.length === 0) return null;
@@ -613,8 +633,8 @@ export default function CustomCard({
                               size === "xs"
                                 ? "mb-8"
                                 : size === "sm"
-                                ? "mb-12"
-                                : "mb-16"
+                                  ? "mb-12"
+                                  : "mb-16"
                             } ${section.titleColor || "text-main-600"}`}
                           >
                             {section.titleIcon && (
@@ -624,7 +644,7 @@ export default function CustomCard({
                           </h4>
                           <span
                             className={`d-block border border-neutral-30 ${getDividerSpacing(
-                              size
+                              size,
                             )} border-dashed`}
                           />
 
@@ -635,8 +655,8 @@ export default function CustomCard({
                                 ? size === "xs"
                                   ? "mb-16"
                                   : size === "sm"
-                                  ? "mb-20"
-                                  : "mb-32"
+                                    ? "mb-20"
+                                    : "mb-32"
                                 : ""
                             }`}
                           >
