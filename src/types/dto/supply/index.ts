@@ -5,6 +5,7 @@ export * from "./order.dto";
 export * from "./product.dto";
 export * from "./product-discount.dto";
 export * from "./product-image.dto";
+export * from "./product-variant.dto";
 export * from "./quotation.dto";
 export * from "./rfq.dto";
 export * from "./supplier.dto";

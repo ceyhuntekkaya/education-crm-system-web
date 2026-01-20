@@ -324,6 +324,20 @@ export const API_ENDPOINTS = {
         `/supply/products/${productId}/discounts/${discountId}`,
     },
 
+    // Product Variants
+    PRODUCT_VARIANTS: {
+      LIST: (productId: string | number) =>
+        `/supply/products/${productId}/variants`,
+      CREATE: (productId: string | number) =>
+        `/supply/products/${productId}/variants`,
+      BY_ID: (productId: string | number, variantId: string | number) =>
+        `/supply/products/${productId}/variants/${variantId}`,
+      UPDATE: (productId: string | number, variantId: string | number) =>
+        `/supply/products/${productId}/variants/${variantId}`,
+      DELETE: (productId: string | number, variantId: string | number) =>
+        `/supply/products/${productId}/variants/${variantId}`,
+    },
+
     // Suppliers
     SUPPLIERS: {
       GET_ALL: "/supply/suppliers",

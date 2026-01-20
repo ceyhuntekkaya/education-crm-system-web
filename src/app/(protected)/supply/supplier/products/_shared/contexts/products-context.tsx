@@ -6,8 +6,14 @@ import {
   useProductById,
   useProductImages,
   useProductDiscounts,
+  useProductVariants,
 } from "../hooks/api";
-import type { ProductDto, ProductDiscountDto, ProductImageDto } from "@/types";
+import type {
+  ProductDto,
+  ProductDiscountDto,
+  ProductImageDto,
+  ProductVariantDto,
+} from "@/types";
 
 /**
  * 🔍 PRODUCTS CONTEXT
@@ -42,6 +48,14 @@ interface ProductsContextValue {
   refetchCurrentProductDiscounts: () => void;
   currentProductActiveDiscounts: ProductDiscountDto[];
   currentProductHasActiveDiscount: boolean;
+
+  // Varyant verileri
+  currentProductVariants: ProductVariantDto[];
+  currentProductVariantsLoading: boolean;
+  currentProductVariantsError: string | null;
+  refetchCurrentProductVariants: () => void;
+  currentProductActiveVariants: ProductVariantDto[];
+  currentProductHasActiveVariants: boolean;
 }
 
 interface ProductsProviderProps {
@@ -93,6 +107,16 @@ export function ProductsProvider({
     hasActiveDiscount: currentProductHasActiveDiscount,
   } = useProductDiscounts(currentProductId);
 
+  // 🔄 CURRENT PRODUCT VARIANTS
+  const {
+    variants: currentProductVariants,
+    isLoading: currentProductVariantsLoading,
+    error: currentProductVariantsError,
+    refetch: refetchCurrentProductVariants,
+    activeVariants: currentProductActiveVariants,
+    hasActiveVariants: currentProductHasActiveVariants,
+  } = useProductVariants(currentProductId);
+
   // 🎯 CONTEXT VALUE
   const contextValue: ProductsContextValue = {
     // Liste verileri
@@ -122,6 +146,14 @@ export function ProductsProvider({
     refetchCurrentProductDiscounts,
     currentProductActiveDiscounts,
     currentProductHasActiveDiscount,
+
+    // Varyant verileri
+    currentProductVariants,
+    currentProductVariantsLoading,
+    currentProductVariantsError,
+    refetchCurrentProductVariants,
+    currentProductActiveVariants,
+    currentProductHasActiveVariants,
   };
 
   return (

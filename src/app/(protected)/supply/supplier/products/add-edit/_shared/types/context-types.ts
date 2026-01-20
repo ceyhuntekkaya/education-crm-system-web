@@ -7,6 +7,9 @@ import type {
   ProductDiscountDto,
   ProductDiscountCreateDto,
   ProductDiscountUpdateDto,
+  ProductVariantDto,
+  ProductVariantCreateDto,
+  ProductVariantUpdateDto,
 } from "@/types";
 
 /**
@@ -55,4 +58,19 @@ export interface ProductAddEditContextType {
     data: ProductDiscountUpdateDto,
   ) => Promise<ProductDiscountDto | null>;
   deleteProductDiscount: (discountId: number) => Promise<void | null>;
+
+  // Product Variant Actions
+  addVariantLoading: boolean;
+  editVariantLoading: boolean;
+  deleteVariantLoading: boolean;
+  editingVariantId: number | null;
+  setEditingVariantId: (id: number | null) => void;
+  postProductVariant: (
+    data: ProductVariantCreateDto,
+  ) => Promise<ProductVariantDto | null>;
+  putProductVariant: (
+    variantId: number,
+    data: ProductVariantUpdateDto,
+  ) => Promise<ProductVariantDto | null>;
+  deleteProductVariant: (variantId: number) => Promise<void | null>;
 }

@@ -6,3 +6,6 @@ export * from "./use-delete-product-image";
 export * from "./use-add-product-discount";
 export * from "./use-edit-product-discount";
 export * from "./use-delete-product-discount";
+export * from "./use-add-product-variant";
+export * from "./use-edit-product-variant";
+export * from "./use-delete-product-variant";

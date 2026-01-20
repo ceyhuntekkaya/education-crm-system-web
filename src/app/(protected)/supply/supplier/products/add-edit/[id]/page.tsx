@@ -8,6 +8,7 @@ import {
   ProductForm,
   ProductImagesForm,
   ProductDiscountsForm,
+  ProductVariantsForm,
 } from "../_shared/sections";
 import { usePageTitle } from "@/hooks";
 
@@ -60,6 +61,17 @@ export default function ProductAddEditPage() {
           type="accordion"
         >
           <ProductDiscountsForm />
+        </CustomCard>
+      )}
+
+      {/* Ürün Varyantları Formu - Sadece düzenleme modunda gösterilir */}
+      {isEditing && (
+        <CustomCard
+          title="Ürün Varyantları"
+          subtitle="Ürününüz için varyantlar tanımlayabilirsiniz"
+          type="accordion"
+        >
+          <ProductVariantsForm />
         </CustomCard>
       )}
     </div>

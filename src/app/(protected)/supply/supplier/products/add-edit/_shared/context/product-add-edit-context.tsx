@@ -19,12 +19,17 @@ import {
   useAddProductDiscount,
   useEditProductDiscount,
   useDeleteProductDiscount,
+  useAddProductVariant,
+  useEditProductVariant,
+  useDeleteProductVariant,
 } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 import {
   ProductImageCreateDto,
   ProductDiscountCreateDto,
   ProductDiscountUpdateDto,
+  ProductVariantCreateDto,
+  ProductVariantUpdateDto,
 } from "@/types";
 
 /**
@@ -63,6 +68,9 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
     null,
   );
 
+  // Editing Variant ID state - Form için hangi variant düzenleniyor
+  const [editingVariantId, setEditingVariantId] = useState<number | null>(null);
+
   // Add Product hook
   const {
     postProduct,
@@ -100,6 +108,18 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
   // Delete Product Discount hook
   const { deleteProductDiscount, isLoading: deleteDiscountLoading } =
     useDeleteProductDiscount();
+
+  // Add Product Variant hook
+  const { postProductVariant, isLoading: addVariantLoading } =
+    useAddProductVariant();
+
+  // Edit Product Variant hook
+  const { updateProductVariant, isLoading: editVariantLoading } =
+    useEditProductVariant();
+
+  // Delete Product Variant hook
+  const { deleteProductVariant, isLoading: deleteVariantLoading } =
+    useDeleteProductVariant();
 
   const contextValue: ProductAddEditContextType = {
     // Supplier ID
@@ -146,6 +166,21 @@ export const ProductAddEditProvider: React.FC<ProductAddEditProviderProps> = ({
       updateProductDiscount(discountId, data),
     deleteProductDiscount: (discountId: number) =>
       deleteProductDiscount(discountId),
+
+    // Product Variant Actions
+    addVariantLoading,
+    editVariantLoading,
+    deleteVariantLoading,
+    editingVariantId,
+    setEditingVariantId: (id: number | null) => {
+      setEditingVariantId(id);
+    },
+    postProductVariant: (data: ProductVariantCreateDto) =>
+      postProductVariant(data),
+    putProductVariant: (variantId: number, data: ProductVariantUpdateDto) =>
+      updateProductVariant(variantId, data),
+    deleteProductVariant: (variantId: number) =>
+      deleteProductVariant(variantId),
   };
 
   return (
