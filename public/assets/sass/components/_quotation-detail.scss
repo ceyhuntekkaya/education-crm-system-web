@@ -533,3 +533,76 @@
   }
 }
 
+// Quotation Action Buttons Styles
+// Teklifi Kabul Et, Reddet butonları
+// =============================================
+.quotation-action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  white-space: nowrap;
+
+  i {
+    font-size: 18px;
+    transition: all 0.2s ease;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):active {
+    transform: scale(0.98);
+  }
+
+  // Kabul Et butonu
+  &--accept {
+    color: hsl(var(--success-600));
+    border-color: hsl(var(--success-200));
+
+    &:not(:disabled):hover {
+      color: hsl(var(--success-700));
+      background: hsl(var(--success-50));
+      border-color: hsl(var(--success-300));
+
+      i {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  // Reddet butonu
+  &--reject {
+    color: hsl(var(--error-600));
+    border-color: hsl(var(--error-200));
+
+    &:not(:disabled):hover {
+      color: hsl(var(--error-700));
+      background: hsl(var(--error-50));
+      border-color: hsl(var(--error-300));
+
+      i {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    span {
+      display: none;
+    }
+
+    padding: 8px 10px;
+  }
+}
+
+

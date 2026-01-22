@@ -7,6 +7,7 @@ import {
   formatCurrency,
   formatQuotationDate,
 } from "@/app/(protected)/supply/supplier/quotations/_shared/utils";
+import { QuotationActionButtons } from "../sections/quotation-action-buttons";
 
 // Column render helper functions
 const renderBasicInfo = (quotation: QuotationDto) => {
@@ -47,6 +48,9 @@ const renderBasicInfo = (quotation: QuotationDto) => {
                 v{quotation.versionNumber}
               </Badge>
             )}
+          </div>
+          <div className="d-flex gap-8">
+            <QuotationActionButtons />
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import type { QuotationDto } from "@/types";
+import type { MutationOptions } from "@/hooks/api";
 
 /**
  * Context value type
@@ -12,6 +13,18 @@ export interface QuotationDetailContextValue {
 
   // Actions
   refetch: () => void;
+  acceptQuotation: (
+    data?: any,
+    options?: MutationOptions<any, any>,
+  ) => Promise<any | null>;
+  rejectQuotation: (
+    data?: any,
+    options?: MutationOptions<any, any>,
+  ) => Promise<any | null>;
+
+  // Loading states
+  isAccepting: boolean;
+  isRejecting: boolean;
 }
 
 /**

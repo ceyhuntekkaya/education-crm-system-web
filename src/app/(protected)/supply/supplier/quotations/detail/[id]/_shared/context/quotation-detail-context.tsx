@@ -1,7 +1,11 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useQuotationById } from "../hooks/api";
+import {
+  useQuotationById,
+  useAcceptQuotation,
+  useRejectQuotation,
+} from "../hooks/api";
 import {
   QuotationDetailContextValue,
   QuotationDetailProviderProps,
@@ -17,6 +21,9 @@ export const QuotationDetailProvider: React.FC<
   const { quotation, isLoading, error, refetch } =
     useQuotationById(quotationId);
 
+  const { acceptQuotation, isAccepting } = useAcceptQuotation(quotationId);
+  const { rejectQuotation, isRejecting } = useRejectQuotation(quotationId);
+
   const hasValidId = quotationId > 0;
 
   const contextValue: QuotationDetailContextValue = {
@@ -25,6 +32,10 @@ export const QuotationDetailProvider: React.FC<
     error,
     hasValidId,
     refetch,
+    acceptQuotation,
+    rejectQuotation,
+    isAccepting,
+    isRejecting,
   };
 
   return (
