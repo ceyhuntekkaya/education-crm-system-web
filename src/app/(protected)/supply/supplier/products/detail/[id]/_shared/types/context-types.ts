@@ -1,5 +1,10 @@
 import React, { RefObject } from "react";
-import { ProductDto, SupplierDto, ProductDiscountDto, ProductImageDto } from "@/types";
+import {
+  ProductDto,
+  SupplierDto,
+  ProductDiscountDto,
+  ProductImageDto,
+} from "@/types";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
 import { TabType } from "./page-types";
 
