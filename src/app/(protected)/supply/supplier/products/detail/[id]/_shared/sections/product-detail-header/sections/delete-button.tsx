@@ -1,19 +1,19 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useProductDetail } from "../context";
 import { Modal, Button } from "@/components";
 import { useModal } from "@/hooks";
-import { useDeleteProduct } from "../hooks/api";
 import { useSnackbar } from "@/contexts";
-import { useProductsContext } from "../../../../_shared/contexts";
+import { useProductDetail } from "../../../context";
+import { useDeleteProduct } from "../../../hooks/api";
+import { useProductsContext } from "@/app/(protected)/supply/supplier/products/_shared/contexts";
 
 /**
- * Ürün detay sayfası için minimal geri dön butonu, düzenle butonu ve sil butonu
+ * Sil butonu ve onay modal'ı
  */
-export const ProductBackButton: React.FC = () => {
+const DeleteButton: React.FC = () => {
+  const { isOpen, open: openModal, close: closeModal } = useModal();
   const router = useRouter();
   const { productId } = useProductDetail();
-  const { isOpen, open: openModal, close: closeModal } = useModal();
   const { showSnackbar } = useSnackbar();
   const { refetch: refetchProducts } = useProductsContext();
 
@@ -22,7 +22,7 @@ export const ProductBackButton: React.FC = () => {
     onSuccess: () => {
       showSnackbar("Ürün başarıyla silindi", "success");
       closeModal();
-      refetchProducts(); // Ürün listesini yenile
+      refetchProducts();
       router.push("/supply/supplier/products");
     },
     onError: (error) => {
@@ -31,10 +31,6 @@ export const ProductBackButton: React.FC = () => {
     },
   });
 
-  const handleEdit = () => {
-    router.push(`/supply/supplier/products/add-edit/${productId}`);
-  };
-
   const handleDelete = async () => {
     if (!productId) return;
     await deleteProduct();
@@ -42,37 +38,14 @@ export const ProductBackButton: React.FC = () => {
 
   return (
     <>
-      <div
-        className="d-flex align-items-center justify-content-between mb-24"
-        style={{ width: "100%" }}
+      <button
+        className="product-detail-page__back-button"
+        onClick={openModal}
+        style={{ color: "#dc3545" }}
       >
-        <button
-          className="product-detail-page__back-button"
-          onClick={() => router.push("/supply/supplier/products")}
-        >
-          <i className="ph ph-arrow-left"></i>
-          <span>Geri Dön</span>
-        </button>
-
-        <div className="d-flex align-items-center gap-12">
-          <button
-            className="product-detail-page__back-button"
-            onClick={handleEdit}
-          >
-            <i className="ph ph-pencil-simple"></i>
-            <span>Düzenle</span>
-          </button>
-
-          <button
-            className="product-detail-page__back-button"
-            onClick={openModal}
-            style={{ color: "#dc3545" }}
-          >
-            <i className="ph ph-trash"></i>
-            <span>Sil</span>
-          </button>
-        </div>
-      </div>
+        <i className="ph ph-trash"></i>
+        <span>Sil</span>
+      </button>
 
       <Modal
         isOpen={isOpen}
@@ -138,7 +111,7 @@ export const ProductBackButton: React.FC = () => {
               İptal
             </Button>
             <Button
-              variant="danger"
+              variant="error"
               onClick={handleDelete}
               loading={isDeleting}
               disabled={isDeleting}
@@ -153,3 +126,5 @@ export const ProductBackButton: React.FC = () => {
     </>
   );
 };
+
+export { DeleteButton };

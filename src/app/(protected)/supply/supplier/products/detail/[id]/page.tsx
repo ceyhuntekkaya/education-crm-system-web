@@ -9,7 +9,7 @@ import {
   ProductLoadingState,
   ProductErrorState,
   ProductEmptyState,
-  ProductBackButton,
+  ProductDetailHeader,
   ProductDiscountSection,
   ProductVariantsSection,
 } from "./_shared";
@@ -44,7 +44,7 @@ const ProductDetailPage: React.FC = () => {
   return (
     <div className="product-detail-page">
       <div className="product-detail-page__container">
-        <ProductBackButton />
+        <ProductDetailHeader />
 
         <div className="product-detail-page__main-section">
           <div className="row gx-5">

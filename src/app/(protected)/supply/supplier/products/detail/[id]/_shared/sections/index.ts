@@ -4,6 +4,6 @@ export { ProductTabsSection } from "./product-tabs-section";
 export { ProductLoadingState } from "./product-loading-state";
 export { ProductErrorState } from "./product-error-state";
 export { ProductEmptyState } from "./product-empty-state";
-export { ProductBackButton } from "./product-back-button";
+export { ProductDetailHeader } from "./product-detail-header";
 export { ProductDiscountSection } from "./product-discount-section";
 export { ProductVariantsSection } from "./product-variants-section";

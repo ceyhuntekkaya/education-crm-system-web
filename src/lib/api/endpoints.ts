@@ -301,6 +301,7 @@ export const API_ENDPOINTS = {
       BASE: "/supply/products",
       CREATE: "/supply/products",
       UPDATE: (id: string | number) => `/supply/products/${id}`,
+      DELETE: (id: string | number) => `/supply/products/${id}`,
       SEARCH: "/supply/products/search",
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
