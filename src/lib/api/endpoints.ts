@@ -367,6 +367,7 @@ export const API_ENDPOINTS = {
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
       UPDATE: (id: string | number) => `/supply/quotations/${id}`,
+      SUBMIT: (id: string | number) => `/supply/quotations/${id}/submit`,
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
     },

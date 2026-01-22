@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from "react";
 import {
   useQuotationById,
+  useSubmitQuotation,
   useAcceptQuotation,
   useRejectQuotation,
 } from "../hooks/api";
@@ -21,6 +22,7 @@ export const QuotationDetailProvider: React.FC<
   const { quotation, isLoading, error, refetch } =
     useQuotationById(quotationId);
 
+  const { submitQuotation, isSubmitting } = useSubmitQuotation(quotationId);
   const { acceptQuotation, isAccepting } = useAcceptQuotation(quotationId);
   const { rejectQuotation, isRejecting } = useRejectQuotation(quotationId);
 
@@ -32,8 +34,10 @@ export const QuotationDetailProvider: React.FC<
     error,
     hasValidId,
     refetch,
+    submitQuotation,
     acceptQuotation,
     rejectQuotation,
+    isSubmitting,
     isAccepting,
     isRejecting,
   };

@@ -13,6 +13,10 @@ export interface QuotationDetailContextValue {
 
   // Actions
   refetch: () => void;
+  submitQuotation: (
+    data?: any,
+    options?: MutationOptions<any, any>,
+  ) => Promise<any | null>;
   acceptQuotation: (
     data?: any,
     options?: MutationOptions<any, any>,
@@ -23,6 +27,7 @@ export interface QuotationDetailContextValue {
   ) => Promise<any | null>;
 
   // Loading states
+  isSubmitting: boolean;
   isAccepting: boolean;
   isRejecting: boolean;
 }

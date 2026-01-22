@@ -534,7 +534,7 @@
 }
 
 // Quotation Action Buttons Styles
-// Teklifi Kabul Et, Reddet butonları
+// Teklifi Gönder, Kabul Et, Reddet butonları
 // =============================================
 .quotation-action-button {
   display: inline-flex;
@@ -562,6 +562,22 @@
 
   &:not(:disabled):active {
     transform: scale(0.98);
+  }
+
+  // Gönder butonu
+  &--submit {
+    color: hsl(var(--primary-600));
+    border-color: hsl(var(--primary-200));
+
+    &:not(:disabled):hover {
+      color: hsl(var(--primary-700));
+      background: hsl(var(--primary-50));
+      border-color: hsl(var(--primary-300));
+
+      i {
+        transform: translateX(2px);
+      }
+    }
   }
 
   // Kabul Et butonu
