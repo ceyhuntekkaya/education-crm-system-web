@@ -1,152 +1,123 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { usePageTitle } from "@/hooks";
+import { DataCollectionLayout } from "@/components/layouts/data-collection-layout";
+import { QuotationCard } from "./_shared/sections";
+import {
+  createQuotationColumns,
+  QUOTATION_POPOVER_FILTERS,
+  QUOTATION_SORT_OPTIONS,
+  createQuotationActionButtons,
+  createQuotationEmptyStateAction,
+} from "./_shared/config";
+import { useQuotationsContext } from "./_shared/contexts";
+import type { QuotationDto } from "@/types";
 
 const SupplierQuotationsPage: React.FC = () => {
+  usePageTitle("Teklif Yönetimi");
+  const router = useRouter();
+
+  // Context'ten sadece data al
+  const { quotations, quotationsListLoading } = useQuotationsContext();
+
+  // Config'leri memoize et ki her render'da yeni object oluşmasın
+  const quotationColumns = useMemo(() => createQuotationColumns(), []);
+  const quotationFilters = useMemo(() => QUOTATION_POPOVER_FILTERS, []);
+  const quotationSortOptions = useMemo(() => QUOTATION_SORT_OPTIONS, []);
+
+  // Action buttons'ları da memoize et
+  const actionButtons = useMemo(
+    () => createQuotationActionButtons(router),
+    [router],
+  );
+  const emptyStateAction = useMemo(
+    () => createQuotationEmptyStateAction(router),
+    [router],
+  );
+
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-12">
-          {/* Page Header */}
-          <div className="d-flex justify-content-between align-items-center mb-24">
-            <div>
-              <h4 className="mb-8">Teklif Yönetimi</h4>
-              <p className="text-neutral-600 mb-0">
-                Verdiğiniz teklifleri buradan takip edebilir ve
-                yönetebilirsiniz.
-              </p>
-            </div>
-            <button className="btn btn-main">
-              <i className="ph-bold ph-plus me-8"></i>
-              Yeni Teklif Oluştur
-            </button>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="row g-20 mb-24">
-            <div className="col-md-3">
-              <div className="card p-20 border-neutral-100">
-                <div className="d-flex align-items-center gap-12 mb-8">
-                  <div className="w-40-px h-40-px d-flex align-items-center justify-content-center rounded-circle bg-main-50">
-                    <i className="ph-bold ph-clipboard-text text-main-600"></i>
-                  </div>
-                  <h6 className="mb-0">Toplam Teklif</h6>
-                </div>
-                <h3 className="mb-0">0</h3>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card p-20 border-neutral-100">
-                <div className="d-flex align-items-center gap-12 mb-8">
-                  <div className="w-40-px h-40-px d-flex align-items-center justify-content-center rounded-circle bg-warning-50">
-                    <i className="ph-bold ph-clock text-warning-600"></i>
-                  </div>
-                  <h6 className="mb-0">Bekleyen</h6>
-                </div>
-                <h3 className="mb-0">0</h3>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card p-20 border-neutral-100">
-                <div className="d-flex align-items-center gap-12 mb-8">
-                  <div className="w-40-px h-40-px d-flex align-items-center justify-content-center rounded-circle bg-success-50">
-                    <i className="ph-bold ph-check-circle text-success-600"></i>
-                  </div>
-                  <h6 className="mb-0">Onaylanan</h6>
-                </div>
-                <h3 className="mb-0">0</h3>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card p-20 border-neutral-100">
-                <div className="d-flex align-items-center gap-12 mb-8">
-                  <div className="w-40-px h-40-px d-flex align-items-center justify-content-center rounded-circle bg-danger-50">
-                    <i className="ph-bold ph-x-circle text-danger-600"></i>
-                  </div>
-                  <h6 className="mb-0">Reddedilen</h6>
-                </div>
-                <h3 className="mb-0">0</h3>
-              </div>
-            </div>
-          </div>
-
-          {/* Tabs */}
-          <div className="card">
-            <div className="card-header">
-              <ul className="nav nav-pills mb-0" role="tablist">
-                <li className="nav-item" role="presentation">
-                  <button
-                    className="nav-link active"
-                    data-bs-toggle="pill"
-                    data-bs-target="#all-quotations"
-                    type="button"
-                    role="tab"
-                  >
-                    Tüm Teklifler
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className="nav-link"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pending-quotations"
-                    type="button"
-                    role="tab"
-                  >
-                    Bekleyenler
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className="nav-link"
-                    data-bs-toggle="pill"
-                    data-bs-target="#approved-quotations"
-                    type="button"
-                    role="tab"
-                  >
-                    Onaylananlar
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className="nav-link"
-                    data-bs-toggle="pill"
-                    data-bs-target="#rejected-quotations"
-                    type="button"
-                    role="tab"
-                  >
-                    Reddedilenler
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="card-body">
-              <div className="tab-content">
-                <div
-                  className="tab-pane fade show active"
-                  id="all-quotations"
-                  role="tabpanel"
-                >
-                  <div className="text-center py-32">
-                    <i
-                      className="ph ph-clipboard-text text-neutral-300"
-                      style={{ fontSize: "64px" }}
-                    ></i>
-                    <p className="text-neutral-600 mt-16 mb-0">
-                      Henüz teklif oluşturulmamış. Yeni teklif oluşturmak için
-                      yukarıdaki butonu kullanın.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <DataCollectionLayout<QuotationDto>
+      // ═══════════════════════════════════════════════════════════════════
+      // HEADER - Başlık ve Aksiyon Butonları
+      // ═══════════════════════════════════════════════════════════════════
+      header={{
+        title: "Teklif Yönetimi",
+        subtitle:
+          "Verdiğiniz teklifleri buradan takip edebilir, yeni teklif oluşturabilir ve mevcut tekliflerinizi yönetebilirsiniz",
+        icon: "ph-clipboard-text",
+        actionButtons: actionButtons,
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // DATA - Veri ve Loading State
+      // ═══════════════════════════════════════════════════════════════════
+      data={{
+        data: quotations,
+        loading: quotationsListLoading,
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // VIEW - Görünüm Ayarları
+      // ═══════════════════════════════════════════════════════════════════
+      view={{
+        defaultMode: "grid",
+        enableToggle: true,
+        grid: {
+          renderCard: ({ item }: { item: any }) => (
+            <QuotationCard
+              quotation={item}
+              url={`/supply/supplier/quotations/detail/${item.id}`}
+            />
+          ),
+          col: 4,
+        },
+        list: {
+          columns: quotationColumns,
+        },
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // FILTERS - Filtreleme (logic ListView içinde)
+      // ═══════════════════════════════════════════════════════════════════
+      filters={{
+        enabled: true,
+        options: quotationFilters,
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // SORT - Sıralama
+      // ═══════════════════════════════════════════════════════════════════
+      sort={{
+        enabled: true,
+        options: quotationSortOptions,
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // SEARCH - Arama
+      // ═══════════════════════════════════════════════════════════════════
+      search={{
+        enabled: true,
+        placeholder: "Teklif ara...",
+        fields: ["rfqTitle", "supplierCompanyName", "notes"],
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // STATES - Empty ve Loading State'leri
+      // ═══════════════════════════════════════════════════════════════════
+      states={{
+        empty: {
+          title: "Henüz Teklif Yok",
+          description: "İlk teklifinizi oluşturarak başlayın",
+          icon: "bi-clipboard-check",
+          action: emptyStateAction,
+        },
+        loading: {
+          text: "Teklifler yükleniyor...",
+        },
+      }}
+      // ═══════════════════════════════════════════════════════════════════
+      // PAGINATION - Sayfalama
+      // ═══════════════════════════════════════════════════════════════════
+      pagination={{
+        enabled: true,
+      }}
+    />
   );
 };
 

@@ -1,11 +1,18 @@
 "use client";
 
 import React from "react";
+import { QuotationsProvider } from "./_shared";
 
-const SupplierQuotationsLayout: React.FC<{ children: React.ReactNode }> = ({
+export default function SupplierQuotationsLayout({
   children,
-}) => {
-  return <>{children}</>;
-};
+}: {
+  children: React.ReactNode;
+}) {
+  // TODO: companyId'yi context'ten veya props'tan al
+  // Şimdilik örnek bir değer kullanıyoruz
+  const companyId = 1;
 
-export default SupplierQuotationsLayout;
+  return (
+    <QuotationsProvider companyId={companyId}>{children}</QuotationsProvider>
+  );
+}
