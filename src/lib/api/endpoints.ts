@@ -387,6 +387,8 @@ export const API_ENDPOINTS = {
         `/supply/conversations/by-product/${productId}`,
       BY_COMPANY: (companyId: string | number) =>
         `/supply/conversations/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/conversations/by-supplier/${supplierId}`,
     },
 
     // Messages
