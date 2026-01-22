@@ -31,14 +31,6 @@ const QuotationDetailPage: React.FC = () => {
             href: `/supply/supplier/quotations/items/${id}`,
           },
           {
-            id: "rfq",
-            label: "Alım İlanı",
-            href: quotation?.rfqId
-              ? `/supply/supplier/rfqs/detail/${quotation.rfqId}`
-              : undefined,
-            disabled: !quotation?.rfqId,
-          },
-          {
             id: "edit",
             label: "Düzenle",
             onClick: () =>
