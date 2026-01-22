@@ -138,7 +138,7 @@ export const ProductBackButton: React.FC = () => {
               İptal
             </Button>
             <Button
-              variant="danger"
+              variant="error"
               onClick={handleDelete}
               loading={isDeleting}
               disabled={isDeleting}
