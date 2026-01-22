@@ -370,6 +370,22 @@ export const API_ENDPOINTS = {
       SUBMIT: (id: string | number) => `/supply/quotations/${id}/submit`,
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
+      ITEMS: (quotationId: string | number) =>
+        `/supply/quotations/${quotationId}/items`,
+    },
+
+    // Quotation Items
+    QUOTATION_ITEMS: {
+      GET_ALL: (quotationId: string | number) =>
+        `/supply/quotations/${quotationId}/items`,
+      GET_BY_ID: (quotationId: string | number, itemId: string | number) =>
+        `/supply/quotations/${quotationId}/items/${itemId}`,
+      CREATE: (quotationId: string | number) =>
+        `/supply/quotations/${quotationId}/items`,
+      UPDATE: (quotationId: string | number, itemId: string | number) =>
+        `/supply/quotations/${quotationId}/items/${itemId}`,
+      DELETE: (quotationId: string | number, itemId: string | number) =>
+        `/supply/quotations/${quotationId}/items/${itemId}`,
     },
 
     // Wishlists

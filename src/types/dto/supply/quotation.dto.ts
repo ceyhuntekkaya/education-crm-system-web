@@ -266,3 +266,85 @@ export interface QuotationItemComparisonDto {
   discountAmount?: number;
   totalPrice?: number;
 }
+
+// ================== QUOTATION ITEMS ==================
+
+/**
+ * Quotation Item DTO - Teklif kalemi detayları
+ * API: GET /supply/quotations/{id}/items
+ */
+export interface QuotationItemDto {
+  id?: number;
+  quotationId?: number;
+  rfqItemId?: number;
+  itemName?: string;
+  specifications?: string;
+  quantity?: number;
+  unit?: string;
+  unitPrice?: number;
+  discountAmount?: number;
+  totalPrice?: number;
+  deliveryDays?: number;
+  notes?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+/**
+ * Quotation Item Create DTO - Yeni teklif kalemi oluşturma
+ * API: POST /supply/quotations/{id}/items
+ */
+export interface QuotationItemCreateDto {
+  rfqItemId: number;
+  itemName: string;
+  specifications?: string;
+  quantity: number;
+  unit?: string;
+  unitPrice: number;
+  discountAmount?: number;
+  deliveryDays?: number;
+  notes?: string;
+}
+
+/**
+ * Quotation Item Update DTO - Teklif kalemi güncelleme
+ * API: PUT /supply/quotations/{id}/items/{itemId}
+ */
+export interface QuotationItemUpdateDto {
+  itemName?: string;
+  specifications?: string;
+  quantity?: number;
+  unit?: string;
+  unitPrice?: number;
+  discountAmount?: number;
+  deliveryDays?: number;
+  notes?: string;
+}
+
+/**
+ * API Response Quotation Item DTO
+ * Tek bir Quotation Item için API response
+ */
+export interface ApiResponseQuotationItemDto {
+  success?: boolean;
+  message?: string;
+  data?: QuotationItemDto;
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
+
+/**
+ * API Response List Quotation Item DTO
+ * Quotation Item listesi için API response
+ */
+export interface ApiResponseListQuotationItemDto {
+  success?: boolean;
+  message?: string;
+  data?: QuotationItemDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+  status?: number;
+}
