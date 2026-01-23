@@ -147,7 +147,7 @@ export default function CustomCard({
   isForward,
   variant = "default",
   bgColor = "bg-white",
-  padding = "p-8",
+  padding = "p-8 pb-16",
   border = "border border-neutral-30",
   borderRadius = "rounded-12",
   spacing = "",
