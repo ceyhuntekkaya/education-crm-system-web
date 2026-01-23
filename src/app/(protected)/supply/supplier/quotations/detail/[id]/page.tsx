@@ -35,7 +35,7 @@ const QuotationDetailPage: React.FC = () => {
             label: "Düzenle",
             onClick: () =>
               router.push(`/supply/supplier/quotations/add-edit/${id}`),
-            disabled: quotation?.status !== "DRAFT",
+            // disabled: quotation?.status !== "DRAFT",
           },
         ],
       }}

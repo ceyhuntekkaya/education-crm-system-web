@@ -18,7 +18,14 @@ export const createQuotationActionButtons = (
     label: "Yeni Teklif Oluştur",
     icon: "ph-plus",
     variant: "primary",
-    onClick: () => router.push("/supply/supplier/quotations/add-edit/new"),
+    onClick: () => {
+      // TODO: RFQ seçimi için modal açılacak veya RFQ listesine yönlendirilecek
+      // Şimdilik örnek bir RFQ ID ile yönlendirme yapıyoruz
+      const exampleRfqId = 1; // Gerçek uygulamada bu dinamik olacak
+      router.push(
+        `/supply/supplier/quotations/add-edit/new?rfqId=${exampleRfqId}`,
+      );
+    },
   },
 ];
 
@@ -31,5 +38,12 @@ export const createQuotationEmptyStateAction = (
 ): EmptyStateAction => ({
   label: "İlk Teklifi Oluştur",
   icon: "ph-plus",
-  onClick: () => router.push("/supply/supplier/quotations/add-edit/new"),
+  onClick: () => {
+    // TODO: RFQ seçimi için modal açılacak veya RFQ listesine yönlendirilecek
+    // Şimdilik örnek bir RFQ ID ile yönlendirme yapıyoruz
+    const exampleRfqId = 1; // Gerçek uygulamada bu dinamik olacak
+    router.push(
+      `/supply/supplier/quotations/add-edit/new?rfqId=${exampleRfqId}`,
+    );
+  },
 });

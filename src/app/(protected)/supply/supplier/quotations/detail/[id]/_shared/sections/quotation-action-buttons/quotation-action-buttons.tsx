@@ -3,6 +3,7 @@
 import React from "react";
 import { useModal } from "@/hooks";
 import { useQuotationDetail } from "../../context";
+import { useQuotationsContext } from "../../../../../_shared/contexts";
 import { SubmitButton } from "./sections/submit-button";
 import { AcceptButton } from "./sections/accept-button";
 import { RejectButton } from "./sections/reject-button";
@@ -26,6 +27,9 @@ export const QuotationActionButtons: React.FC = () => {
     isRejecting,
   } = useQuotationDetail();
 
+  // Ana liste için refetch
+  const { refetch: refetchList } = useQuotationsContext();
+
   // Modaller
   const submitModal = useModal();
   const acceptModal = useModal();
@@ -44,6 +48,7 @@ export const QuotationActionButtons: React.FC = () => {
         onSuccess: () => {
           submitModal.close();
           refetch();
+          refetchList();
         },
       },
     );
@@ -57,6 +62,7 @@ export const QuotationActionButtons: React.FC = () => {
         onSuccess: () => {
           acceptModal.close();
           refetch();
+          refetchList();
         },
       },
     );
@@ -70,6 +76,7 @@ export const QuotationActionButtons: React.FC = () => {
         onSuccess: () => {
           rejectModal.close();
           refetch();
+          refetchList();
         },
       },
     );
