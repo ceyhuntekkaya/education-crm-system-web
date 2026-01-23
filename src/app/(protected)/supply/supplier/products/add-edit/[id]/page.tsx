@@ -35,6 +35,7 @@ export default function ProductAddEditPage() {
         }
         isBack
         type="accordion"
+        defaultOpen
         isLoading={currentProductLoading && isEditing}
       >
         <ProductForm

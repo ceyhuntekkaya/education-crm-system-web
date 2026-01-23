@@ -10,6 +10,8 @@ import { LoadingSpinner } from "./loadings";
 interface CustomCardProps {
   /** Card type (default: "card") */
   type?: "card" | "accordion";
+  /** Default open state for accordion type (default: false) */
+  defaultOpen?: boolean;
   /** Card size (default: "xl") */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   /** Card header title */
@@ -124,6 +126,7 @@ interface CustomCardProps {
 
 export default function CustomCard({
   type = "card",
+  defaultOpen = false,
   size = "xl",
   title,
   subtitle,
@@ -187,7 +190,7 @@ export default function CustomCard({
   });
 
   // Accordion state
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(defaultOpen);
   const [contentHeight, setContentHeight] = useState<number>(0);
   const contentRef = useRef<HTMLDivElement>(null);
   const prevOpenRef = useRef(false); // Önceki açık durumunu takip eder
