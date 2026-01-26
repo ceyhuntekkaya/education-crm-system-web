@@ -264,8 +264,11 @@ export const API_ENDPOINTS = {
 
     // RFQs (Request for Quotation)
     RFQS: {
+      LIST: "/supply/rfqs",
       BY_COMPANY: (companyId: string | number) =>
         `/supply/rfqs/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/rfqs/by-supplier/${supplierId}`,
       ACTIVE: "/supply/rfqs/active",
       BY_ID: (id: string | number) => `/supply/rfqs/${id}`,
       ITEMS: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,

@@ -122,6 +122,32 @@ export interface GetRFQsByCompanyParams extends Record<string, unknown> {
 }
 
 /**
+ * Tedarikçi için RFQ listesi parametreleri
+ * API: GET /supply/rfqs/by-supplier/{supplierId}
+ */
+export interface GetRFQsBySupplierParams extends Record<string, unknown> {
+  page?: number;
+  size?: number;
+  sort?: string;
+  status?: RFQStatus;
+  rfqType?: RFQType;
+  search?: string;
+}
+
+/**
+ * Tüm RFQ listesi parametreleri
+ * API: GET /supply/rfqs
+ */
+export interface GetAllRFQsParams extends Record<string, unknown> {
+  page?: number;
+  size?: number;
+  sort?: string;
+  status?: RFQStatus;
+  rfqType?: RFQType;
+  search?: string;
+}
+
+/**
  * RFQ Item DTO - Request for Quotation Item (İlan Kalemi) detayları
  * API: GET /supply/rfqs/{id}/items
  */

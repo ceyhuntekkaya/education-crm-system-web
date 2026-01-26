@@ -7,10 +7,17 @@ export const supplySupplierLayoutNavigation: MenuItem[] = [
     icon: "ph-squares-four",
     requiresSchool: false,
   },
+
   {
     href: "/supply/supplier/products",
     label: "Ürün Yönetimi",
     icon: "ph-package",
+    requiresSchool: false,
+  },
+  {
+    href: "/supply/supplier/rfqs",
+    label: "Alım İlanları",
+    icon: "ph-file-text",
     requiresSchool: false,
   },
   {
