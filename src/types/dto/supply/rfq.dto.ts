@@ -24,6 +24,19 @@ export interface RFQDto {
 }
 
 /**
+ * API Response - RFQ List
+ * API: GET /supply/rfqs/active
+ */
+export interface ApiResponseListRFQDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+/**
  * RFQ Status Enum
  */
 export type RFQStatus = "DRAFT" | "PUBLISHED" | "CLOSED" | "CANCELLED";

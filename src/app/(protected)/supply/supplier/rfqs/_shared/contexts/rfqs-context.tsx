@@ -29,7 +29,7 @@ export function SupplierRFQsProvider({ children }: SupplierRFQsProviderProps) {
   const { data, loading, error, refetch } = useGetAllRFQs();
 
   // Raw API verisini RFQDto[] formatına dönüştür
-  const rfqs: RFQDto[] = data?.data?.content || [];
+  const rfqs: RFQDto[] = data?.data || [];
 
   // 🎯 CONTEXT VALUE
   const contextValue: SupplierRFQsContextValue = {
