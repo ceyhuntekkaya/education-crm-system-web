@@ -43,7 +43,7 @@ const SupplierQuotationsPage: React.FC = () => {
       // HEADER - Başlık ve Aksiyon Butonları
       // ═══════════════════════════════════════════════════════════════════
       header={{
-        title: "Teklif Yönetimi",
+        title: "Tekliflerim",
         subtitle:
           "Verdiğiniz teklifleri buradan takip edebilir, yeni teklif oluşturabilir ve mevcut tekliflerinizi yönetebilirsiniz",
         icon: "ph-clipboard-text",

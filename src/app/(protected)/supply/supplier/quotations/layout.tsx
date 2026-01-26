@@ -8,11 +8,11 @@ export default function SupplierQuotationsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // TODO: companyId'yi context'ten veya props'tan al
+  // TODO: supplierId'yi context'ten veya props'tan al
   // Şimdilik örnek bir değer kullanıyoruz
-  const companyId = 1;
+  const supplierId = 1;
 
   return (
-    <QuotationsProvider companyId={companyId}>{children}</QuotationsProvider>
+    <QuotationsProvider supplierId={supplierId}>{children}</QuotationsProvider>
   );
 }

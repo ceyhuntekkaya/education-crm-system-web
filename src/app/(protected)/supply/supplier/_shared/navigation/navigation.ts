@@ -15,7 +15,7 @@ export const supplySupplierLayoutNavigation: MenuItem[] = [
   },
   {
     href: "/supply/supplier/quotations",
-    label: "Teklif Yönetimi",
+    label: "Tekliflerim",
     icon: "ph-clipboard-text",
     requiresSchool: false,
   },

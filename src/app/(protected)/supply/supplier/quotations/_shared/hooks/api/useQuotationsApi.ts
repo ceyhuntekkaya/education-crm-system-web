@@ -10,24 +10,24 @@ import type {
 // ================== API HOOKS ==================
 
 /**
- * Şirkete ait teklifleri getirir
+ * Tedarikçiye ait teklifleri getirir
  *
- * @param companyId - Şirket ID'si
+ * @param supplierId - Tedarikçi ID'si
  * @param params - Sayfalama parametreleri
  * @returns Teklif listesi
  *
- * API Endpoint: GET /supply/quotations/by-company/{companyId}
+ * API Endpoint: GET /supply/quotations/by-supplier/{supplierId}
  */
-export const useGetQuotationsByCompany = (
-  companyId: number,
+export const useGetQuotationsBySupplier = (
+  supplierId: number,
   params?: GetQuotationsByCompanyParams,
   options?: { enabled?: boolean },
 ) => {
   return useGet<ApiResponsePageQuotationDto>(
-    companyId ? API_ENDPOINTS.SUPPLY.QUOTATIONS.BY_COMPANY(companyId) : null,
+    supplierId ? API_ENDPOINTS.SUPPLY.QUOTATIONS.BY_SUPPLIER(supplierId) : null,
     {
       params: params as Record<string, unknown>,
-      enabled: options?.enabled ?? !!companyId,
+      enabled: options?.enabled ?? !!supplierId,
     },
   );
 };

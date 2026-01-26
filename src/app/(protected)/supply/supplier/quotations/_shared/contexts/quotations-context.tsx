@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useGetQuotationsByCompany } from "../hooks/api";
+import { useGetQuotationsBySupplier } from "../hooks/api";
 import type { QuotationDto } from "@/types";
 
 /**
@@ -19,7 +19,7 @@ interface QuotationsContextValue {
 
 interface QuotationsProviderProps {
   children: React.ReactNode;
-  companyId: number;
+  supplierId: number;
 }
 
 const QuotationsContext = createContext<QuotationsContextValue | undefined>(
@@ -28,11 +28,11 @@ const QuotationsContext = createContext<QuotationsContextValue | undefined>(
 
 export function QuotationsProvider({
   children,
-  companyId,
+  supplierId,
 }: QuotationsProviderProps) {
   // 📊 API DATA - Teklif listesi
   const { data, loading, error, refetch } =
-    useGetQuotationsByCompany(companyId);
+    useGetQuotationsBySupplier(supplierId);
 
   // Raw API verisini QuotationDto[] formatına dönüştür
   const quotations: QuotationDto[] = data?.data?.content || [];
