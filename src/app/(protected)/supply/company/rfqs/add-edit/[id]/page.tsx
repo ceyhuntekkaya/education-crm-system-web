@@ -5,6 +5,7 @@ import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
 import { RFQForm } from "../_shared";
 import { useRFQAddEdit } from "../_shared/context";
+import { RFQHeaderSection } from "../../detail/[id]/_shared";
 
 const RFQAddEditPage: React.FC = () => {
   const { rfq, rfqDetailLoading, isEditing } = useRFQAddEdit();
@@ -14,18 +15,23 @@ const RFQAddEditPage: React.FC = () => {
   usePageTitle(pageTitle);
 
   return (
-    <CustomCard
-      title={pageTitle}
-      subtitle={
-        isEditing
-          ? "Mevcut alım ilanını düzenleyin"
-          : "Yeni bir alım ilanı oluşturun"
-      }
-      isBack
-      isLoading={isEditing && rfqDetailLoading}
-    >
-      <RFQForm initialData={isEditing ? rfq ?? undefined : undefined} />
-    </CustomCard>
+    <>
+      {/* RFQ Header Section */}
+      <RFQHeaderSection />
+
+      <CustomCard
+        title={pageTitle}
+        subtitle={
+          isEditing
+            ? "Mevcut alım ilanını düzenleyin"
+            : "Yeni bir alım ilanı oluşturun"
+        }
+        isBack
+        isLoading={isEditing && rfqDetailLoading}
+      >
+        <RFQForm initialData={isEditing ? (rfq ?? undefined) : undefined} />
+      </CustomCard>
+    </>
   );
 };
 

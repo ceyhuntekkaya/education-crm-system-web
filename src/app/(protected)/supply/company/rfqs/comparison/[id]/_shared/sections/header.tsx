@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import { useComparisonContext } from "../contexts";
 import { Divider } from "@/components";
 
@@ -11,12 +10,7 @@ import { Divider } from "@/components";
  * Karşılaştırma sayfası başlığı
  */
 export const Header: React.FC = () => {
-  const router = useRouter();
-  const { comparisons, rfqId } = useComparisonContext();
-
-  const handleBack = () => {
-    router.push(`/supply/company/rfqs/detail/${rfqId}`);
-  };
+  const { comparisons } = useComparisonContext();
 
   return (
     <div
@@ -28,7 +22,7 @@ export const Header: React.FC = () => {
         padding: "16px",
       }}
     >
-      {/* Row 1: Başlık Bilgisi ve Aksiyon Butonları */}
+      {/* Row 1: Başlık Bilgisi */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-16 mb-16">
         {/* Left Info */}
         <div className="d-flex align-items-center gap-12 flex-grow-1">
@@ -50,19 +44,6 @@ export const Header: React.FC = () => {
               </span>
             </div>
           </div>
-        </div>
-
-        {/* Header Actions */}
-        <div className="d-flex align-items-center gap-8">
-          {/* Geri Dön Butonu */}
-          <button
-            className="rfq-items-header__back-button"
-            onClick={handleBack}
-            aria-label="Detay sayfasına dön"
-          >
-            <i className="ph ph-arrow-left"></i>
-            <span>Geri Dön</span>
-          </button>
         </div>
       </div>
 
