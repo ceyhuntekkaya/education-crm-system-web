@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 /**
  * RFQ Item form validation schema
- * CREATE: itemName ve quantity zorunlu (minLength 1 for itemName)
+ * CREATE: itemName, quantity ve unit zorunlu
  * UPDATE: Tüm alanlar opsiyonel
  *
  * NOT: Form UPDATE modunda da CREATE validasyonunu kullanır
@@ -20,6 +20,11 @@ export const validationSchema = Yup.object({
     .required("* Bu alan zorunludur.")
     .min(1, "Miktar en az 1 olmalıdır")
     .typeError("Miktar sayısal bir değer olmalıdır"),
+
+  // unit - Zorunlu
+  unit: Yup.string()
+    .required("* Bu alan zorunludur.")
+    .max(50, "Birim en fazla 50 karakter olabilir"),
 
   // Optional fields (hem CREATE hem UPDATE için)
   categoryId: Yup.mixed()
@@ -43,9 +48,4 @@ export const validationSchema = Yup.object({
     .nullable()
     .optional()
     .max(2000, "Özellikler en fazla 2000 karakter olabilir"),
-
-  unit: Yup.string()
-    .nullable()
-    .optional()
-    .max(50, "Birim en fazla 50 karakter olabilir"),
 });

@@ -38,4 +38,10 @@ export const validationSchema = Yup.object({
   technicalRequirements: Yup.string()
     .max(1000, "Teknik gereksinimler en fazla 1000 karakter olabilir")
     .optional(),
+
+  categoryId: Yup.string().optional(),
+
+  supplierIds: Yup.array()
+    .of(Yup.string())
+    .optional(),
 });

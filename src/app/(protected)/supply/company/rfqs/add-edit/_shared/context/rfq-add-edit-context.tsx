@@ -1,17 +1,19 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import React, { createContext, useContext, ReactNode, useState } from "react";
 import { useParams } from "next/navigation";
 import { RFQAddEditContextType } from "../types";
 import { useRFQById, useAddRFQ, useEditRFQ } from "../hooks";
+import { useAddRFQItemForAddEdit } from "../hooks/use-add-rfq-item";
 import { isValidEditId, parseEditId } from "../utils";
 import { useRFQsContext } from "../../../_shared/contexts";
+import { useGetCategories } from "../../../items/[id]/add-edit/_shared/hooks";
 
 /**
  * RFQAddEditContext
  */
 const RFQAddEditContext = createContext<RFQAddEditContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface RFQAddEditProviderProps {
@@ -30,10 +32,10 @@ export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
   const isEditing = isValidEditId(id);
   const rfqId = parseEditId(id);
 
-  // Debug: ID parsing kontrolü
-  console.log("🔍 RFQAddEditContext - id:", id);
-  console.log("🔍 RFQAddEditContext - isEditing:", isEditing);
-  console.log("🔍 RFQAddEditContext - rfqId:", rfqId);
+  // Selected category ID state
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null
+  );
 
   // RFQ data hook
   const {
@@ -41,12 +43,7 @@ export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
     isLoading: rfqLoading,
     error: rfqError,
     refetch,
-  } = useRFQById(rfqId);
-
-  // Debug: API response kontrolü
-  console.log("📡 RFQAddEditContext - rfq:", rfq);
-  console.log("⏳ RFQAddEditContext - rfqLoading:", rfqLoading);
-  console.log("❌ RFQAddEditContext - rfqError:", rfqError);
+  } = useRFQById(rfqId ?? 0);
 
   // Add RFQ hook
   const { postRFQ, isLoading: addLoading, error: addError } = useAddRFQ();
@@ -60,6 +57,20 @@ export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
     rfqId: rfqId || 0,
     refetch: isEditing ? refetch : undefined,
   });
+
+  // Add RFQ Item hook
+  const {
+    postRFQItem,
+    isLoading: addItemLoading,
+    error: addItemError,
+  } = useAddRFQItemForAddEdit();
+
+  // RFQs Context'ten suppliers verilerini al
+  const { suppliersData, suppliersLoading } = useRFQsContext();
+
+  // Categories hook
+  const { data: categoriesData, loading: categoriesLoading } =
+    useGetCategories();
 
   const contextValue: RFQAddEditContextType = {
     // Company ID
@@ -83,6 +94,23 @@ export const RFQAddEditProvider: React.FC<RFQAddEditProviderProps> = ({
     fetchRFQ: refetch,
     postRFQ,
     putRFQ,
+
+    // RFQ Item Actions
+    postRFQItem,
+    rfqItemSubmitLoading: addItemLoading,
+    rfqItemSubmitError: addItemError || null,
+
+    // Selected category ID
+    selectedCategoryId,
+    setSelectedCategoryId,
+
+    // Categories data
+    categoriesData,
+    categoriesLoading,
+
+    // Suppliers data
+    suppliersData,
+    suppliersLoading,
   };
 
   return (

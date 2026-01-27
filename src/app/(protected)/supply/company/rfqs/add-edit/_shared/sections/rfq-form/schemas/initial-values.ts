@@ -17,4 +17,6 @@ export const initialValues: RFQFormData = {
   paymentTerms: "",
   evaluationCriteria: "",
   technicalRequirements: "",
+  categoryId: "",
+  supplierIds: [], // Tedarikçiler (multi-select)
 };

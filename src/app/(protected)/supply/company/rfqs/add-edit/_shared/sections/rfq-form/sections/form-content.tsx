@@ -1,33 +1,58 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import {
   Form,
   FormInput,
   FormTextarea,
   FormAutocomplete,
-  FormValues,
 } from "@/components/forms";
-import { Button } from "@/components/ui/button";
-import { Divider } from "@/components";
-import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useRFQAddEdit } from "../../../context";
 import { RFQFormData } from "../types/form-data";
 
+export interface RFQFormHandle {
+  submitForm: () => Promise<number | null>;
+}
+
 /**
  * RFQ form content component
  */
-export const RFQFormContent: React.FC = () => {
-  // Form hook - validation ve error kontrolü için
-  const { hasErrors } = useFormHook();
+export const RFQFormContent = forwardRef<RFQFormHandle, {}>((props, ref) => {
+  // Form hooks
+  const { values, validate, setValue } = useForm();
 
-  // Form reset hook'u
-  const { reset } = useForm();
+  // Context'ten RFQ işlemlerini ve veri listelerini al
+  const {
+    isEditing,
+    postRFQ,
+    putRFQ,
+    rfqError,
+    setSelectedCategoryId,
+    categoriesData,
+    categoriesLoading,
+    suppliersData,
+    suppliersLoading,
+  } = useRFQAddEdit();
 
-  // Context'ten RFQ işlemlerini al
-  const { isEditing, postRFQ, putRFQ, rfqSubmitLoading, rfqError } =
-    useRFQAddEdit();
+  // Sync category ID with context when it changes
+  const formData = values as RFQFormData;
+  const categoryId = formData.categoryId;
+  const rfqType = formData.rfqType;
+  
+  React.useEffect(() => {
+    setSelectedCategoryId(categoryId || null);
+  }, [categoryId, setSelectedCategoryId]);
+
+  // Tedarikçiler sadece davetli tipinde aktif
+  const isSuppliersEnabled = rfqType === "INVITED";
+
+  // RFQ Type değiştiğinde tedarikçileri temizle (Açık seçilirse)
+  React.useEffect(() => {
+    if (rfqType === "OPEN" && formData.supplierIds && formData.supplierIds.length > 0) {
+      setValue("supplierIds", []);
+    }
+  }, [rfqType, setValue, formData.supplierIds]);
 
   // RFQ Type options - CREATE ve UPDATE için aynı
   const rfqTypeOptions = [
@@ -35,67 +60,88 @@ export const RFQFormContent: React.FC = () => {
     { value: "INVITED", label: "Davetli" },
   ];
 
-  const handleSubmit = async (values: any) => {
-    const formData = values as RFQFormData;
+  // Map categories to autocomplete options (veri context'ten geliyor)
+  const categories =
+    categoriesData?.data?.content?.map((cat: any) => ({
+      value: cat.id.toString(),
+      label: cat.name,
+    })) || [];
 
-    try {
-      if (isEditing) {
-        // UPDATE - Sadece RFQUpdateDto'daki alanları gönder, boş stringleri undefined yap
-        const updateData: any = {
-          title: formData.title,
-          description: formData.description || undefined,
-          rfqType: formData.rfqType,
-          submissionDeadline: formData.submissionDeadline,
-          expectedDeliveryDate: formData.expectedDeliveryDate,
-          paymentTerms: formData.paymentTerms || undefined,
-          evaluationCriteria: formData.evaluationCriteria || undefined,
-          technicalRequirements: formData.technicalRequirements || undefined,
-        };
-        // Undefined değerleri temizle
-        Object.keys(updateData).forEach(
-          (key) => updateData[key] === undefined && delete updateData[key]
-        );
-        await putRFQ(updateData);
-      } else {
-        // CREATE - Zorunlu alanlar ve opsiyonel alanlar
-        const createData: any = {
-          companyId:
-            typeof formData.companyId === "string"
-              ? parseInt(formData.companyId)
-              : formData.companyId,
-          title: formData.title,
-          submissionDeadline: formData.submissionDeadline,
-          expectedDeliveryDate: formData.expectedDeliveryDate,
-          description: formData.description || undefined,
-          rfqType: formData.rfqType,
-          paymentTerms: formData.paymentTerms || undefined,
-          evaluationCriteria: formData.evaluationCriteria || undefined,
-          technicalRequirements: formData.technicalRequirements || undefined,
-        };
-        // Undefined değerleri temizle
-        Object.keys(createData).forEach(
-          (key) => createData[key] === undefined && delete createData[key]
-        );
-        await postRFQ(createData);
+  // Map suppliers to autocomplete options (veri context'ten geliyor)
+  const suppliers =
+    suppliersData?.data?.content?.map((supplier: any) => ({
+      value: supplier.id.toString(),
+      label: supplier.companyName || supplier.name,
+    })) || [];
+
+  // Expose submitForm to parent
+  useImperativeHandle(ref, () => ({
+    submitForm: async () => {
+      try {
+        // Validate form first - Bu validasyonu tetikler ve hataları gösterir
+        const isValid = await validate();
+        
+        if (!isValid) {
+          throw new Error("Lütfen form hatalarını düzeltin");
+        }
+
+        const formData = values as RFQFormData;
+        let result = null;
+
+        if (isEditing) {
+          // UPDATE - Sadece RFQUpdateDto'daki alanları gönder, boş stringleri undefined yap
+          const updateData: any = {
+            title: formData.title,
+            description: formData.description || undefined,
+            rfqType: formData.rfqType,
+            submissionDeadline: formData.submissionDeadline,
+            expectedDeliveryDate: formData.expectedDeliveryDate,
+            paymentTerms: formData.paymentTerms || undefined,
+            evaluationCriteria: formData.evaluationCriteria || undefined,
+            technicalRequirements: formData.technicalRequirements || undefined,
+          };
+          // Undefined değerleri temizle
+          Object.keys(updateData).forEach(
+            (key) => updateData[key] === undefined && delete updateData[key],
+          );
+          result = await putRFQ(updateData);
+        } else {
+          // CREATE - Zorunlu alanlar ve opsiyonel alanlar
+          const createData: any = {
+            companyId:
+              typeof formData.companyId === "string"
+                ? parseInt(formData.companyId)
+                : formData.companyId,
+            title: formData.title,
+            submissionDeadline: formData.submissionDeadline,
+            expectedDeliveryDate: formData.expectedDeliveryDate,
+            description: formData.description || undefined,
+            rfqType: formData.rfqType,
+            paymentTerms: formData.paymentTerms || undefined,
+            evaluationCriteria: formData.evaluationCriteria || undefined,
+            technicalRequirements: formData.technicalRequirements || undefined,
+          };
+          // Undefined değerleri temizle
+          Object.keys(createData).forEach(
+            (key) => createData[key] === undefined && delete createData[key],
+          );
+          result = await postRFQ(createData);
+        }
+
+        // Return the RFQ ID
+        return result?.id || null;
+      } catch (error) {
+        console.error("❌ Form submit hatası:", error);
+        throw error;
       }
-    } catch (error) {
-      console.error("❌ Form submit hatası:", error);
-    }
-  };
-
-  const handleCancel = () => {
-    reset();
-  };
+    },
+  }));
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={() => {}}>
       <div className="row row-gap-24">
-        {/* TEMEL BİLGİLER */}
-        <div className="col-12">
-          <h5 className="mb-16">Temel Bilgiler</h5>
-        </div>
-
-        <div className="col-12">
+        {/* Başlık ve Kategori - 2 columns */}
+        <div className="col-6">
           <FormInput
             name="title"
             label="Başlık"
@@ -105,15 +151,17 @@ export const RFQFormContent: React.FC = () => {
           />
         </div>
 
-        <div className="col-12">
-          <FormTextarea
-            name="description"
-            label="Açıklama"
-            placeholder="Alım ilanı açıklamasını giriniz..."
-            rows={4}
+        <div className="col-6">
+          <FormAutocomplete
+            name="categoryId"
+            label="Kategori"
+            options={categories}
+            isLoading={categoriesLoading}
+            placeholder="Kategori seçiniz..."
           />
         </div>
 
+        {/* Teklif Türü ve Tedarikçiler - 2 columns */}
         <div className="col-6">
           <FormAutocomplete
             name="rfqType"
@@ -123,13 +171,28 @@ export const RFQFormContent: React.FC = () => {
           />
         </div>
 
-        <Divider />
-
-        {/* TARİHLER VE SÜRELER */}
-        <div className="col-12">
-          <h5 className="mb-16">Tarihler ve Süreler</h5>
+        <div className="col-6">
+          <FormAutocomplete
+            name="supplierIds"
+            label="Tedarikçiler"
+            options={suppliers}
+            isLoading={suppliersLoading}
+            placeholder={
+              isSuppliersEnabled
+                ? "Tedarikçi seçiniz..."
+                : "Önce teklif türünü 'Davetli' olarak seçiniz"
+            }
+            disabled={!isSuppliersEnabled}
+            multiple
+            helperText={
+              !isSuppliersEnabled
+                ? "Not: Tedarikçiler sadece 'Davetli' teklif türünde seçilebilir"
+                : undefined
+            }
+          />
         </div>
 
+        {/* Tarihler - 2 columns */}
         <div className="col-6">
           <FormInput
             name="submissionDeadline"
@@ -150,14 +213,18 @@ export const RFQFormContent: React.FC = () => {
           />
         </div>
 
-        <Divider />
-
-        {/* KOŞULLAR VE KRİTERLER */}
-        <div className="col-12">
-          <h5 className="mb-16">Koşullar ve Kriterler</h5>
+        {/* Açıklama - 1/2 width */}
+        <div className="col-6">
+          <FormTextarea
+            name="description"
+            label="Açıklama"
+            placeholder="Alım ilanı açıklamasını giriniz..."
+            rows={4}
+          />
         </div>
 
-        <div className="col-12">
+        {/* Ödeme Koşulları - 1/2 width */}
+        <div className="col-6">
           <FormTextarea
             name="paymentTerms"
             label="Ödeme Koşulları"
@@ -166,7 +233,8 @@ export const RFQFormContent: React.FC = () => {
           />
         </div>
 
-        <div className="col-12">
+        {/* Değerlendirme Kriterleri - 1/2 width */}
+        <div className="col-6">
           <FormTextarea
             name="evaluationCriteria"
             label="Değerlendirme Kriterleri"
@@ -175,12 +243,13 @@ export const RFQFormContent: React.FC = () => {
           />
         </div>
 
-        <div className="col-12">
+        {/* Teknik Gereksinimler - 1/2 width */}
+        <div className="col-6">
           <FormTextarea
             name="technicalRequirements"
             label="Teknik Gereksinimler"
             placeholder="Teknik gereksinimleri giriniz..."
-            rows={6}
+            rows={4}
           />
         </div>
 
@@ -192,31 +261,9 @@ export const RFQFormContent: React.FC = () => {
             </div>
           </div>
         )}
-
-        <Divider />
-
-        {/* BUTONLAR */}
-        <div className="col-12">
-          <div className="d-flex gap-12 justify-content-end me-32">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={rfqSubmitLoading}
-            >
-              Temizle
-            </Button>
-            <Button
-              type="submit"
-              variant="inline"
-              disabled={hasErrors || rfqSubmitLoading}
-              loading={rfqSubmitLoading}
-            >
-              {isEditing ? "Güncelle" : "Taslak Olarak Kaydet"}
-            </Button>
-          </div>
-        </div>
       </div>
     </Form>
   );
-};
+});
+
+RFQFormContent.displayName = "RFQFormContent";

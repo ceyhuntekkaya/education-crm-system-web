@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useGetRFQsByCompany } from "../hooks/api";
+import { useGetRFQsByCompany, useGetSuppliers } from "../hooks/api";
 import type { RFQDto } from "@/types";
 
 /**
@@ -14,6 +14,9 @@ interface RFQsContextValue {
   rfqsListLoading: boolean;
   rfqsListError: any;
   refetch: () => void;
+  // Suppliers data
+  suppliersData: any;
+  suppliersLoading: boolean;
 }
 
 interface RFQsProviderProps {
@@ -27,6 +30,9 @@ export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
   // 📊 API DATA - Sadece ham veriyi al
   const { data, loading, error, refetch } = useGetRFQsByCompany(companyId);
 
+  // Suppliers data
+  const { data: suppliersData, loading: suppliersLoading } = useGetSuppliers();
+
   // Raw API verisini RFQDto[] formatına dönüştür
   const rfqs: RFQDto[] = data?.data?.content || [];
 
@@ -36,6 +42,9 @@ export function RFQsProvider({ children, companyId }: RFQsProviderProps) {
     rfqsListLoading: loading,
     rfqsListError: error,
     refetch,
+    // Suppliers
+    suppliersData,
+    suppliersLoading,
   };
 
   return (
