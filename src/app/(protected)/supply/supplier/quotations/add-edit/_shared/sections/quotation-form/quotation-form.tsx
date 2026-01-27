@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import { FormProvider } from "@/contexts/form-context";
-import { QuotationFormContent } from "./sections";
+import { QuotationFormContent, QuotationFormHandle } from "./sections";
 import {
   validationSchema as quotationValidationSchema,
   initialValues as quotationInitialValues,
@@ -13,10 +13,10 @@ import { useQuotationAddEdit } from "../../context";
 /**
  * Quotation form component
  */
-export const QuotationForm: React.FC<QuotationFormProps> = ({
-  className,
-  initialData,
-}) => {
+export const QuotationForm = forwardRef<
+  QuotationFormHandle,
+  QuotationFormProps
+>(({ className, initialData }, ref) => {
   // Context'ten rfqId ve supplierId'yi al
   const { rfqId, supplierId } = useQuotationAddEdit();
 
@@ -31,8 +31,10 @@ export const QuotationForm: React.FC<QuotationFormProps> = ({
         initialValues={formInitialValues}
         validationSchema={quotationValidationSchema}
       >
-        <QuotationFormContent />
+        <QuotationFormContent ref={ref} />
       </FormProvider>
     </div>
   );
-};
+});
+
+QuotationForm.displayName = "QuotationForm";

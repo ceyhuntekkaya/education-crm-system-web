@@ -1,11 +1,25 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useMemo,
+  useState,
+} from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { QuotationAddEditContextType } from "../types";
-import { useQuotationById, useAddQuotation, useEditQuotation } from "../hooks";
+import {
+  useQuotationById,
+  useAddQuotation,
+  useEditQuotation,
+  useQuotationItems,
+  useAddQuotationItem,
+  useEditQuotationItem,
+} from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
 import { useQuotationsContext } from "../../../_shared/contexts";
+import { useRfqItems } from "../../../items/[id]/add-edit/_shared/hooks";
 
 /**
  * QuotationAddEditContext
@@ -21,6 +35,11 @@ interface QuotationAddEditProviderProps {
 export const QuotationAddEditProvider: React.FC<
   QuotationAddEditProviderProps
 > = ({ children }) => {
+  // Item totals state - Her item form'daki toplam fiyatları takip eder
+  const [itemTotals, setItemTotals] = useState<Map<number | string, number>>(
+    new Map(),
+  );
+
   // Supplier ID - TODO: Get from auth context
   const supplierId = 1;
 
@@ -36,12 +55,6 @@ export const QuotationAddEditProvider: React.FC<
   const isEditing = isValidEditId(id);
   const quotationId = parseEditId(id);
 
-  // Debug: ID parsing kontrolü
-  console.log("🔍 QuotationAddEditContext - id:", id);
-  console.log("🔍 QuotationAddEditContext - isEditing:", isEditing);
-  console.log("🔍 QuotationAddEditContext - quotationId:", quotationId);
-  console.log("🔍 QuotationAddEditContext - rfqId:", rfqId);
-
   // Quotation data hook
   const {
     quotation,
@@ -49,14 +62,6 @@ export const QuotationAddEditProvider: React.FC<
     error: quotationError,
     refetch,
   } = useQuotationById(quotationId);
-
-  // Debug: API response kontrolü
-  console.log("📡 QuotationAddEditContext - quotation:", quotation);
-  console.log(
-    "⏳ QuotationAddEditContext - quotationLoading:",
-    quotationLoading,
-  );
-  console.log("❌ QuotationAddEditContext - quotationError:", quotationError);
 
   // Add Quotation hook
   const {
@@ -75,6 +80,70 @@ export const QuotationAddEditProvider: React.FC<
     refetch: isEditing ? refetch : undefined,
   });
 
+  // RFQ Items hook - Quotation'a ait RFQ itemlarını getir
+  const {
+    rfqItems,
+    loading: rfqItemsLoading,
+    error: rfqItemsError,
+  } = useRfqItems({
+    rfqId: rfqId || quotation?.rfqId || undefined,
+    enabled: !!(rfqId || quotation?.rfqId),
+  });
+
+  // Quotation Items hook - Quotation'a ait quotation itemlarını getir (düzenleme modunda)
+  const {
+    quotationItems,
+    loading: quotationItemsLoading,
+    error: quotationItemsError,
+    refetch: refetchQuotationItems,
+  } = useQuotationItems({
+    quotationId: quotationId,
+    enabled: isEditing && !!quotationId,
+  });
+
+  // Add Quotation Item hook - Context'ten item ekleme fonksiyonu sağla
+  const {
+    postItem,
+    isLoading: addItemLoading,
+    error: addItemError,
+  } = useAddQuotationItem({
+    onSuccess: () => {
+      // Not: Teklif verildikten sonra /supply/supplier/quotations'a yönlendirildiği için
+      // burada refetch yapmaya gerek yok. Liste sayfası kendi refetch'ini yapacak.
+      // refetchQuotationItems();
+    },
+  });
+
+  // Edit Quotation Item hook - Context'ten item güncelleme fonksiyonu sağla
+  const {
+    putItem: putQuotationItem,
+    isLoading: editItemLoading,
+    error: editItemError,
+  } = useEditQuotationItem({
+    quotationId: quotationId,
+    onSuccess: () => {
+      refetchQuotationItems();
+    },
+  });
+
+  // Item total güncelleme fonksiyonu - Her item form'dan çağrılır
+  const updateItemTotal = (itemKey: number | string, totalPrice: number) => {
+    setItemTotals((prev) => {
+      const newMap = new Map(prev);
+      newMap.set(itemKey, totalPrice);
+      return newMap;
+    });
+  };
+
+  // Tüm item formlarındaki toplam fiyatları topla
+  const totalItemsAmount = useMemo(() => {
+    let total = 0;
+    itemTotals.forEach((price) => {
+      total += price;
+    });
+    return total;
+  }, [itemTotals]);
+
   const contextValue: QuotationAddEditContextType = {
     // RFQ ID
     rfqId,
@@ -92,6 +161,20 @@ export const QuotationAddEditProvider: React.FC<
       editError?.toString() ||
       null,
 
+    // RFQ Items data
+    rfqItems: rfqItems || [],
+    rfqItemsLoading,
+    rfqItemsError: rfqItemsError?.toString() || null,
+
+    // Quotation Items data
+    quotationItems: quotationItems || [],
+    quotationItemsLoading,
+    quotationItemsError: quotationItemsError?.toString() || null,
+    quotationItemSubmitLoading: addItemLoading || editItemLoading,
+    quotationItemSubmitError:
+      addItemError?.toString() || editItemError?.toString() || null,
+    totalItemsAmount, // Tüm itemların toplam fiyatı
+
     // Edit mode state
     isEditing,
     quotationId: quotationId?.toString() || null,
@@ -100,6 +183,10 @@ export const QuotationAddEditProvider: React.FC<
     fetchQuotation: refetch,
     postQuotation,
     putQuotation,
+    refetchQuotationItems,
+    postQuotationItem: postItem,
+    putQuotationItem,
+    updateItemTotal, // Item form'lardan toplam fiyat güncellemek için
   };
 
   return (

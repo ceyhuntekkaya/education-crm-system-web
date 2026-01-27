@@ -1,17 +1,91 @@
+// Format string'ini Intl.DateTimeFormatOptions'a çeviren yardımcı fonksiyon
+function parseFormatString(format: string): {
+  locale: string;
+  options: Intl.DateTimeFormatOptions;
+} {
+  const locale = "tr-TR";
+  const options: Intl.DateTimeFormatOptions = {};
+
+  // Tarih parçalarını kontrol et
+  if (format.includes("DD")) {
+    options.day = "2-digit";
+  } else if (format.includes("D")) {
+    options.day = "numeric";
+  }
+
+  if (format.includes("MMMM")) {
+    options.month = "long";
+  } else if (format.includes("MMM")) {
+    options.month = "short";
+  } else if (format.includes("MM")) {
+    options.month = "2-digit";
+  } else if (format.includes("M")) {
+    options.month = "numeric";
+  }
+
+  if (format.includes("YYYY")) {
+    options.year = "numeric";
+  } else if (format.includes("YY")) {
+    options.year = "2-digit";
+  }
+
+  // Saat parçalarını kontrol et
+  if (format.includes("HH")) {
+    options.hour = "2-digit";
+    options.hourCycle = "h23";
+  } else if (format.includes("H")) {
+    options.hour = "numeric";
+    options.hourCycle = "h23";
+  }
+
+  if (format.includes("mm")) {
+    options.minute = "2-digit";
+  } else if (format.includes("m") && format.includes("H")) {
+    options.minute = "numeric";
+  }
+
+  if (format.includes("ss")) {
+    options.second = "2-digit";
+  } else if (format.includes("s") && format.includes("H")) {
+    options.second = "numeric";
+  }
+
+  return { locale, options };
+}
+
+// Format pattern'i kontrol eden yardımcı fonksiyon
+function isFormatPattern(str: string): boolean {
+  return (
+    str.includes("DD") ||
+    str.includes("MM") ||
+    str.includes("YYYY") ||
+    str.includes("HH") ||
+    str.includes("mm")
+  );
+}
+
 // Tarih formatlama fonksiyonu
 export function formatDate(
   date: Date | string,
-  locale: string = "tr-TR",
-  options?: Intl.DateTimeFormatOptions
+  formatOrLocale: string = "tr-TR",
+  options?: Intl.DateTimeFormatOptions,
 ): string {
   const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString(locale, options);
+
+  // Eğer formatOrLocale bir format pattern ise (DD, MM, YYYY, HH, mm içeriyorsa)
+  if (isFormatPattern(formatOrLocale)) {
+    const parsed = parseFormatString(formatOrLocale);
+    return d.toLocaleString(parsed.locale, parsed.options);
+  }
+
+  // Aksi takdirde locale olarak kullan (ESKİ KULLANIM - BOZULMAZ)
+  return d.toLocaleDateString(formatOrLocale, options);
 }
 
 // Tarih ve saat formatlama fonksiyonu
 export function formatDateTime(
   date: Date | string,
-  locale: string = "tr-TR"
+  locale: string = "tr-TR",
 ): string {
   const d = typeof date === "string" ? new Date(date) : date;
 

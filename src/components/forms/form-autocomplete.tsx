@@ -10,8 +10,10 @@ interface AutocompleteOption {
   label: string;
 }
 
-interface FormAutocompleteProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+interface FormAutocompleteProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> {
   name: string;
   label?: string;
   variant?: FormAutocompleteVariant;
@@ -23,7 +25,7 @@ interface FormAutocompleteProps
   iconRight?: string;
   filterFunction?: (
     options: AutocompleteOption[],
-    searchTerm: string
+    searchTerm: string,
   ) => AutocompleteOption[];
   maxResults?: number;
   noOptionsText?: string;
@@ -60,7 +62,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [filteredOptions, setFilteredOptions] = useState<AutocompleteOption[]>(
-    []
+    [],
   );
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -115,7 +117,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
         })
         .slice(0, maxResults);
     },
-    [maxResults, normalizeTurkish]
+    [maxResults, normalizeTurkish],
   );
 
   // Filter options based on search term
@@ -173,7 +175,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     // Sadece valid seçeneklerden birini yazdıysa value'yu set et
     // Aksi halde value'yu boş bırak (select mantığı)
     const exactMatch = options.find(
-      (opt) => opt.label.toLowerCase() === newValue.toLowerCase()
+      (opt) => opt.label.toLowerCase() === newValue.toLowerCase(),
     );
     if (exactMatch) {
       onChange(exactMatch.value);
@@ -201,7 +203,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
     // Dropdown kapandığında, eğer yazılan metin geçerli bir seçenek değilse temizle
     if (searchTerm) {
       const exactMatch = options.find(
-        (opt) => opt.label.toLowerCase() === searchTerm.toLowerCase()
+        (opt) => opt.label.toLowerCase() === searchTerm.toLowerCase(),
       );
       if (!exactMatch) {
         // Geçersiz metin yazılmış, temizle
@@ -276,7 +278,7 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
       case "ArrowDown":
         e.preventDefault();
         setHighlightedIndex((prev) =>
-          prev < filteredOptions.length - 1 ? prev + 1 : prev
+          prev < filteredOptions.length - 1 ? prev + 1 : prev,
         );
         break;
       case "ArrowUp":
@@ -355,8 +357,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
           disabled || isLoading
             ? ""
             : error
-            ? `${errorBorderClass} ${errorTextClass}`
-            : "border-neutral-30"
+              ? `${errorBorderClass} ${errorTextClass}`
+              : "border-neutral-30"
         }`;
       case "outline":
         return `${baseClasses} ${
@@ -365,8 +367,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
           disabled || isLoading
             ? ""
             : error
-            ? `${errorBorderClass} ${errorTextClass}`
-            : "border-transparent focus-border-main-600"
+              ? `${errorBorderClass} ${errorTextClass}`
+              : "border-transparent focus-border-main-600"
         } ${leftPadding} ${rightPadding}`;
       default:
         return `${baseClasses} common-input border ${iconLeft ? "ps-48" : ""} ${
@@ -375,8 +377,8 @@ export const FormAutocomplete: React.FC<FormAutocompleteProps> = ({
           disabled || isLoading
             ? disabledClasses
             : error
-            ? `${errorBorderClass} ${errorTextClass}`
-            : "border-transparent focus-border-main-600"
+              ? `${errorBorderClass} ${errorTextClass}`
+              : "border-transparent focus-border-main-600"
         }`;
     }
   };

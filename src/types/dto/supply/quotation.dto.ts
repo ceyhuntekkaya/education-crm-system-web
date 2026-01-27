@@ -295,15 +295,12 @@ export interface QuotationItemDto {
  * API: POST /supply/quotations/{id}/items
  */
 export interface QuotationItemCreateDto {
-  rfqItemId: number;
+  rfqItemId?: number;
+  productId?: number;
   itemName: string;
-  specifications?: string;
   quantity: number;
-  unit?: string;
   unitPrice: number;
   discountAmount?: number;
-  deliveryDays?: number;
-  notes?: string;
 }
 
 /**
