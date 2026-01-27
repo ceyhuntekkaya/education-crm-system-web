@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, usePathname } from "next/navigation";
 import { useSnackbar } from "@/contexts";
 import { useRFQById } from "../../../../_shared/hooks/api";
 import {
@@ -13,17 +13,28 @@ import {
  * RFQ Header Section
  * Tüm RFQ sayfalarında ortak kullanılacak header bölümü
  * - DetailLayout'un Header component'lerini kullanır
- * - Geri Dön butonu (detail sayfasına gider)
+ * - Geri Dön butonu (sayfa durumuna göre dinamik yönlendirme)
  * - RFQ detayına özel action buttons (İhtiyaç Listesi, Teklifler, Karşılaştırma, vb.)
  */
 export const RFQHeaderSection: React.FC = () => {
   const router = useRouter();
   const { showSnackbar } = useSnackbar();
   const params = useParams();
+  const pathname = usePathname();
   const rfqId = params.id as string;
 
   // RFQ verisini içerde çek
   const { rfq } = useRFQById(parseInt(rfqId));
+
+  // Hangi sayfada olduğumuzu tespit et ve geri buton linkini belirle
+  const getBackButtonHref = () => {
+    // Detail sayfasındaysak liste sayfasına git
+    if (pathname?.includes(`/supply/company/rfqs/detail/${rfqId}`)) {
+      return "/supply/company/rfqs";
+    }
+    // Diğer tüm iç sayfalarda (items, quotations, comparison, invited-suppliers) detail sayfasına git
+    return `/supply/company/rfqs/detail/${rfqId}`;
+  };
 
   // Custom handlers
   const handleEdit = () => {
@@ -96,7 +107,7 @@ export const RFQHeaderSection: React.FC = () => {
         <BackButton
           config={{
             label: "Geri Dön",
-            href: `/supply/company/rfqs/detail/${rfqId}`,
+            href: getBackButtonHref(),
           }}
         />
       </div>

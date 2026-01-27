@@ -5,7 +5,6 @@ import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
 import { RFQForm } from "../_shared";
 import { useRFQAddEdit } from "../_shared/context";
-import { RFQHeaderSection } from "../../detail/[id]/_shared";
 
 const RFQAddEditPage: React.FC = () => {
   const { rfq, rfqDetailLoading, isEditing } = useRFQAddEdit();
@@ -16,9 +15,6 @@ const RFQAddEditPage: React.FC = () => {
 
   return (
     <>
-      {/* RFQ Header Section */}
-      <RFQHeaderSection />
-
       <CustomCard
         title={pageTitle}
         subtitle={

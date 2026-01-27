@@ -5,14 +5,14 @@ import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.
  */
 export const createItemActionButtons = (
   router: AppRouterInstance,
-  rfqId: number
+  rfqId: number,
 ) => [
-  {
-    label: "Geri",
-    icon: "ph-arrow-left",
-    onClick: () => router.push(`/supply/company/rfqs/detail/${rfqId}`),
-    variant: "secondary" as const,
-  },
+  // {
+  //   label: "Geri",
+  //   icon: "ph-arrow-left",
+  //   onClick: () => router.push(`/supply/company/rfqs/detail/${rfqId}`),
+  //   variant: "secondary" as const,
+  // },
   {
     label: "Yeni Kalem Ekle",
     icon: "ph-plus-circle",
@@ -27,7 +27,7 @@ export const createItemActionButtons = (
  */
 export const createItemEmptyStateAction = (
   router: AppRouterInstance,
-  rfqId: number
+  rfqId: number,
 ) => ({
   label: "İlk Kalemi Ekle",
   onClick: () =>
