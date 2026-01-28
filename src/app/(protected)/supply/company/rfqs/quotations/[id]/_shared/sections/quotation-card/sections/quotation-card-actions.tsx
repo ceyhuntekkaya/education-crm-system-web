@@ -5,7 +5,7 @@ import {
 } from "@/types/dto/supply/quotation.dto";
 import { canAcceptQuotation, generateQuotationPDF } from "../../../utils";
 import { useSnackbar, useAuth } from "@/contexts";
-import { useRFQQuotationsContext } from "../../../contexts";
+import { useRFQsContext } from "../../../../../../_shared/contexts";
 
 interface QuotationCardActionsProps {
   quotationId?: number;
@@ -23,8 +23,8 @@ export const QuotationCardActions: React.FC<QuotationCardActionsProps> = ({
   const { showSnackbar } = useSnackbar();
   const { user } = useAuth();
 
-  // RFQ verisini context'ten al
-  const { rfq } = useRFQQuotationsContext();
+  // RFQ verisini parent RFQsContext'ten al
+  const { rfq } = useRFQsContext();
 
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const isAcceptable = canAcceptQuotation(status);
