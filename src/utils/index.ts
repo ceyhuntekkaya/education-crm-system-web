@@ -9,3 +9,4 @@ export * from "./rating-utils";
 export * from "./filter-utils";
 export * from "./enum-labels";
 export * from "./scroll-utils";
+export * from "./fonts";

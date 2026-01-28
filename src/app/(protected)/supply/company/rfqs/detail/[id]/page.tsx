@@ -4,11 +4,8 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { usePageTitle } from "@/hooks";
 import { DetailLayout } from "@/components/layouts";
-import {
-  useRFQDetail,
-  createRFQDetailColumns,
-  RFQHeaderSection,
-} from "./_shared";
+import { useRFQDetail, createRFQDetailColumns } from "./_shared";
+import { RFQHeaderSection } from "../../_shared";
 
 /**
  * Modern RFQ detay sayfası - DetailLayout kullanarak

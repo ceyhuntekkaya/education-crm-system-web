@@ -1,4 +1,5 @@
 import { QuotationComparisonDto } from "@/types/dto/supply/quotation.dto";
+import type { RFQDto } from "@/types";
 import type {
   QuotationSortBy,
   SortOrder,
@@ -10,6 +11,7 @@ export interface RFQQuotationsContextValue {
   // Data
   quotations: QuotationComparisonDto[];
   filteredQuotations: QuotationComparisonDto[];
+  rfq: RFQDto | null;
   isLoading: boolean;
   error: Error | null;
   rfqId: string;

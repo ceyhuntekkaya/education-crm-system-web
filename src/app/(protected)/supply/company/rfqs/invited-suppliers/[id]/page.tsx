@@ -3,7 +3,7 @@
 import React from "react";
 import { usePageTitle } from "@/hooks";
 import { Header, Results } from "./_shared";
-import { RFQHeaderSection } from "../../detail/[id]/_shared";
+import { RFQHeaderSection } from "../../_shared";
 
 const RFQInvitedSuppliersPage: React.FC = () => {
   usePageTitle("Davet Edilen Tedarikçiler");

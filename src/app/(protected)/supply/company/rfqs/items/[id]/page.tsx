@@ -13,7 +13,7 @@ import {
   createCategoryFilter,
 } from "./_shared/config";
 import { useRFQItemsContext } from "./_shared/contexts";
-import { RFQHeaderSection } from "../../detail/[id]/_shared";
+import { RFQHeaderSection } from "../../_shared";
 import type { RFQItemDto } from "@/types";
 
 const RFQItemsPage: React.FC = () => {

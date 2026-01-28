@@ -8,6 +8,7 @@ import {
   useQuotationsFilter,
   useProcessedQuotations,
 } from "../hooks";
+import { useRFQById } from "../../../../_shared/hooks/api";
 
 const RFQQuotationsContext = createContext<
   RFQQuotationsContextValue | undefined
@@ -17,7 +18,7 @@ export const useRFQQuotationsContext = () => {
   const context = useContext(RFQQuotationsContext);
   if (!context) {
     throw new Error(
-      "useRFQQuotationsContext must be used within RFQQuotationsProvider"
+      "useRFQQuotationsContext must be used within RFQQuotationsProvider",
     );
   }
   return context;
@@ -54,6 +55,9 @@ export const RFQQuotationsProvider: React.FC<RFQQuotationsProviderProps> = ({
   const { quotations, isLoading, error, refetch, rfqId } =
     useRFQQuotationsApi();
 
+  // RFQ verisini context'te tut
+  const { rfq, isLoading: rfqLoading } = useRFQById(rfqId);
+
   // 🔄 PROCESSED DATA
   const processedQuotations = useProcessedQuotations({
     quotations,
@@ -67,7 +71,8 @@ export const RFQQuotationsProvider: React.FC<RFQQuotationsProviderProps> = ({
     // Data
     quotations,
     filteredQuotations: processedQuotations,
-    isLoading,
+    rfq,
+    isLoading: isLoading || rfqLoading,
     error,
     rfqId: String(rfqId),
 

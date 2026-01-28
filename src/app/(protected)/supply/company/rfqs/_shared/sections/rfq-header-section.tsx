@@ -3,11 +3,8 @@
 import React from "react";
 import { useRouter, useParams, usePathname } from "next/navigation";
 import { useSnackbar } from "@/contexts";
-import { useRFQById } from "../../../../_shared/hooks/api";
-import {
-  BackButton,
-  ActionButton,
-} from "@/components/layouts/detail-layout/components";
+import { useRFQsContext } from "../contexts";
+import { ActionButton } from "@/components/layouts/detail-layout/components";
 
 /**
  * RFQ Header Section
@@ -15,7 +12,7 @@ import {
  * - DetailLayout'un Header component'lerini kullanır
  * - Geri Dön butonu (sayfa durumuna göre dinamik yönlendirme)
  * - RFQ detayına özel action buttons (İhtiyaç Listesi, Teklifler, Karşılaştırma, vb.)
- * - useRFQById hook'u ile RFQ verisini alır (tüm sayfalarda çalışır)
+ * - RFQ verisini RFQsContext'ten alır (tüm sayfalarda çalışır)
  */
 export const RFQHeaderSection: React.FC = () => {
   const router = useRouter();
@@ -24,8 +21,8 @@ export const RFQHeaderSection: React.FC = () => {
   const pathname = usePathname();
   const rfqId = params.id as string;
 
-  // RFQ verisini useRFQById hook'u ile al
-  const { rfq } = useRFQById(parseInt(rfqId));
+  // RFQ verisini context'ten al
+  const { rfq } = useRFQsContext();
 
   // Hangi sayfada olduğumuzu tespit et ve geri buton linkini belirle
   const getBackButtonHref = () => {
@@ -49,8 +46,13 @@ export const RFQHeaderSection: React.FC = () => {
     router.push(`/supply/company/rfqs/add-edit/${rfqId}`);
   };
 
-  // Default action buttons
+  // Default action buttons - BackButton dahil
   const actionButtons = [
+    {
+      id: "back",
+      label: "Geri Dön",
+      href: getBackButtonHref(),
+    },
     {
       id: "detail",
       label: "Detay",
@@ -97,20 +99,17 @@ export const RFQHeaderSection: React.FC = () => {
                   label: button.label,
                   href: button.href,
                   onClick: button.onClick,
-                  variant: button.id === "edit" ? "primary" : "secondary",
+                  variant:
+                    button.id === "back"
+                      ? "outline"
+                      : button.id === "edit"
+                        ? "primary"
+                        : "secondary",
                 }}
               />
             ))}
           </div>
         )}
-
-        {/* Back Button */}
-        <BackButton
-          config={{
-            label: "Geri Dön",
-            href: getBackButtonHref(),
-          }}
-        />
       </div>
     </div>
   );

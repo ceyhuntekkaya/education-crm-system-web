@@ -23,50 +23,23 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     icon,
     onClick,
     href,
-    variant = "primary",
-    size = "sm",
     disabled = false,
     loading = false,
-    className: configClassName = "",
   } = config;
 
-  const getVariantClass = () => {
-    switch (variant) {
-      case "primary":
-        return "btn-primary";
-      case "secondary":
-        return "btn-secondary";
-      case "outline":
-        return "btn-outline-primary";
-      case "danger":
-        return "btn-danger";
-      default:
-        return "btn-primary";
-    }
-  };
-
-  const getSizeClass = () => {
-    switch (size) {
-      case "sm":
-        return "btn-sm";
-      case "lg":
-        return "btn-lg";
-      default:
-        return "";
-    }
-  };
-
   const getButtonClassName = () => {
-    // Düzenle butonu için farklı class
     if (config.id === "edit") {
       return `rfq-detail-page__edit-button ${className}`.trim();
     }
-    // Diğer butonlar için
     return `rfq-detail-page__items-button ${className}`.trim();
   };
 
   const getIconClassName = () => {
     switch (config.id) {
+      case "back":
+        return "ph ph-arrow-left";
+      case "detail":
+        return "ph ph-info";
       case "items":
         return "ph ph-list-bullets";
       case "quotations":
@@ -108,7 +81,6 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     </>
   );
 
-  // Link kullan eğer href var ve onClick yok ise
   if (href && !onClick && !disabled && !loading) {
     return (
       <Link href={href} className={buttonClassName}>
@@ -117,7 +89,6 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     );
   }
 
-  // Normal button
   return (
     <button
       type="button"

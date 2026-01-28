@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils";
 import { Badge } from "@/components";
 import { useRFQDetail } from "../context";
-import { SendSupplierMessageSection } from "./send-supplier-message-section/send-supplier-message-section";
 import {
   isRFQExpired,
   calculateDaysUntilDeadline,
@@ -78,11 +77,6 @@ export const RFQInfoSection: React.FC = () => {
           <h1 className="rfq-detail-page__title mb-0">
             {rfq.title || "Alım İlanı Başlığı"}
           </h1>
-
-          {/* Tedarikçiye Mesaj Gönder */}
-          <div style={{ flexShrink: 0 }}>
-            <SendSupplierMessageSection variant="card" />
-          </div>
         </div>
       </div>
 
@@ -150,7 +144,7 @@ export const RFQInfoSection: React.FC = () => {
               onClick={() => {
                 if (rfq.invitationCount && rfq.invitationCount > 0) {
                   router.push(
-                    `/supply/company/rfqs/invited-suppliers/${rfq.id}`
+                    `/supply/company/rfqs/invited-suppliers/${rfq.id}`,
                   );
                 }
               }}
@@ -204,7 +198,7 @@ export const RFQInfoSection: React.FC = () => {
           <div className="d-flex align-items-center gap-12 p-12">
             <div
               className={`status-icon ${getDeadlineIconBoxColor(
-                rfq.submissionDeadline
+                rfq.submissionDeadline,
               )}`}
               style={{
                 width: "30px",
@@ -223,7 +217,7 @@ export const RFQInfoSection: React.FC = () => {
               <p className="meta-label mb-1">Son Başvuru Tarihi</p>
               <span
                 className={`fw-bold ${getDeadlineColorClass(
-                  rfq.submissionDeadline
+                  rfq.submissionDeadline,
                 )} status-value`}
                 style={{ fontSize: "1rem" }}
               >
@@ -236,8 +230,8 @@ export const RFQInfoSection: React.FC = () => {
                 {isExpired
                   ? "Süresi Doldu"
                   : isApproaching
-                  ? `${daysUntilDeadline} gün kaldı`
-                  : "Aktif"}
+                    ? `${daysUntilDeadline} gün kaldı`
+                    : "Aktif"}
               </span>
             </div>
           </div>
