@@ -2,16 +2,12 @@
 
 import React, { createContext, useContext, useMemo } from "react";
 import type { QuotationItemDto } from "@/types";
-import { useGetQuotationItems } from "../hooks/api";
-import { useGet } from "@/hooks";
-import { API_ENDPOINTS } from "@/lib";
-import type { ApiResponseDto } from "@/types";
-import type { QuotationDto } from "@/types";
 import type { QuotationItemsContextValue } from "../types";
+import { useQuotationsContext } from "../../../../_shared";
 
 /**
  * 🔍 QUOTATION ITEMS CONTEXT
- * Basitleştirilmiş context - sadece API verileri
+ * Basitleştirilmiş context - ana context'ten veri alır
  * Filter, Sort, Search işlemleri DataCollectionLayout tarafından yönetilir
  */
 
@@ -28,33 +24,31 @@ export function QuotationItemsProvider({
   children,
   quotationId,
 }: QuotationItemsProviderProps) {
-  // 📊 Quotation Detail API - rfqId almak için
-  const { data: quotationResponse } = useGet<ApiResponseDto<QuotationDto>>(
-    quotationId ? API_ENDPOINTS.SUPPLY.QUOTATIONS.BY_ID(quotationId) : null,
-    {
-      enabled: !!quotationId,
-    },
-  );
+  // 📊 Ana context'ten quotation ve items verilerini al (tekrar API çağrısı yapmamak için)
+  const {
+    quotation,
+    quotationItems,
+    quotationItemsLoading,
+    quotationItemsError,
+    refetchQuotationItems,
+  } = useQuotationsContext();
 
-  const rfqId = quotationResponse?.data?.rfqId || null;
-
-  // 📊 API DATA - Sadece ham veriyi al
-  const { data, loading, error, refetch } = useGetQuotationItems(quotationId);
+  const rfqId = quotation?.rfqId || null;
 
   // Raw API verisini QuotationItemDto[] formatına dönüştür
   const items: QuotationItemDto[] = useMemo(() => {
-    if (!data?.data || !Array.isArray(data.data)) return [];
-    return data.data.filter((item) => item && typeof item === "object");
-  }, [data]);
+    if (!quotationItems || !Array.isArray(quotationItems)) return [];
+    return quotationItems.filter((item) => item && typeof item === "object");
+  }, [quotationItems]);
 
   // 🎯 CONTEXT VALUE
   const contextValue: QuotationItemsContextValue = {
     quotationId,
     rfqId,
     items,
-    itemsListLoading: loading,
-    itemsListError: error,
-    refetch,
+    itemsListLoading: quotationItemsLoading,
+    itemsListError: quotationItemsError,
+    refetch: refetchQuotationItems,
   };
 
   return (

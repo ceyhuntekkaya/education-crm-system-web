@@ -57,3 +57,27 @@ export function calculateDiscountPercentage(
   if (!unitPrice || !discountAmount) return 0;
   return Math.round((discountAmount / unitPrice) * 100);
 }
+
+/**
+ * Item adından dinamik renk döndürür (RFQ ile aynı mantık)
+ */
+export function getItemColor(itemName?: string): string {
+  if (!itemName) return "#6B7280"; // neutral-500
+
+  // Simple hash function to generate consistent colors
+  const hash = itemName.split("").reduce((acc, char) => {
+    return char.charCodeAt(0) + ((acc << 5) - acc);
+  }, 0);
+
+  const colors = [
+    "#3B82F6", // blue
+    "#10B981", // green
+    "#F59E0B", // amber
+    "#EF4444", // red
+    "#8B5CF6", // violet
+    "#EC4899", // pink
+    "#06B6D4", // cyan
+  ];
+
+  return colors[Math.abs(hash) % colors.length];
+}

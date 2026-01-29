@@ -12,6 +12,7 @@ import {
   createItemEmptyStateAction,
 } from "./_shared/config";
 import { useQuotationItemsContext } from "./_shared/contexts";
+import { QuotationHeaderSection } from "../../_shared";
 import type { QuotationItemDto } from "@/types";
 
 const QuotationItemsPage: React.FC = () => {
@@ -36,76 +37,79 @@ const QuotationItemsPage: React.FC = () => {
   );
 
   return (
-    <DataCollectionLayout<QuotationItemDto>
-      // ═══════════════════════════════════════════════════════════════════
-      // HEADER - Başlık ve Aksiyon Butonları
-      // ═══════════════════════════════════════════════════════════════════
-      header={{
-        title: "Teklif Kalemleri",
-        subtitle: "Teklif için tüm kalemleri ekleyin ve yönetin",
-        icon: "ph-package",
-        actionButtons: actionButtons,
-      }}
-      // ═══════════════════════════════════════════════════════════════════
-      // DATA - Veri ve Loading State
-      // ═══════════════════════════════════════════════════════════════════
-      data={{
-        data: items,
-        loading: itemsListLoading,
-      }}
-      // ═══════════════════════════════════════════════════════════════════
-      // VIEW - Görünüm Ayarları
-      // ═══════════════════════════════════════════════════════════════════
-      view={{
-        defaultMode: "grid",
-        enableToggle: true,
-        grid: {
-          renderCard: ({ item }: { item: QuotationItemDto }) => (
-            <ItemCard item={item} />
-          ),
-          col: 4,
-        },
-        list: {
-          columns: itemColumns,
-        },
-      }}
-      // ═══════════════════════════════════════════════════════════════════
-      // SORT - Sıralama
-      // ═══════════════════════════════════════════════════════════════════
-      sort={{
-        enabled: true,
-        options: itemSortOptions,
-      }}
-      // ═══════════════════════════════════════════════════════════════════
-      // SEARCH - Arama
-      // ═══════════════════════════════════════════════════════════════════
-      search={{
-        enabled: true,
-        placeholder: "Kalem ara...",
-        fields: ["itemName", "specifications"],
-      }}
-      // ═══════════════════════════════════════════════════════════════════
-      // STATES - Empty ve Loading State'leri
-      // ═══════════════════════════════════════════════════════════════════
-      states={{
-        empty: {
-          title: "Henüz Kalem Yok",
-          description:
-            "İlk kaleminizi ekleyerek teklif listesini oluşturmaya başlayın",
-          icon: "bi-clipboard-x",
-          action: emptyStateAction,
-        },
-        loading: {
-          text: "Kalemler yükleniyor...",
-        },
-      }}
-      // ═══════════════════════════════════════════════════════════════════
-      // PAGINATION - Sayfalama
-      // ═══════════════════════════════════════════════════════════════════
-      pagination={{
-        enabled: true,
-      }}
-    />
+    <>
+      <QuotationHeaderSection />
+      <DataCollectionLayout<QuotationItemDto>
+        // ═══════════════════════════════════════════════════════════════════
+        // HEADER - Başlık ve Aksiyon Butonları
+        // ═══════════════════════════════════════════════════════════════════
+        header={{
+          title: "Teklif Kalemleri",
+          subtitle: "Teklif için tüm kalemleri ekleyin ve yönetin",
+          icon: "ph-package",
+          actionButtons: actionButtons,
+        }}
+        // ═══════════════════════════════════════════════════════════════════
+        // DATA - Veri ve Loading State
+        // ═══════════════════════════════════════════════════════════════════
+        data={{
+          data: items,
+          loading: itemsListLoading,
+        }}
+        // ═══════════════════════════════════════════════════════════════════
+        // VIEW - Görünüm Ayarları
+        // ═══════════════════════════════════════════════════════════════════
+        view={{
+          defaultMode: "grid",
+          enableToggle: true,
+          grid: {
+            renderCard: ({ item }: { item: QuotationItemDto }) => (
+              <ItemCard item={item} />
+            ),
+            col: 4,
+          },
+          list: {
+            columns: itemColumns,
+          },
+        }}
+        // ═══════════════════════════════════════════════════════════════════
+        // SORT - Sıralama
+        // ═══════════════════════════════════════════════════════════════════
+        sort={{
+          enabled: true,
+          options: itemSortOptions,
+        }}
+        // ═══════════════════════════════════════════════════════════════════
+        // SEARCH - Arama
+        // ═══════════════════════════════════════════════════════════════════
+        search={{
+          enabled: true,
+          placeholder: "Kalem ara...",
+          fields: ["itemName", "specifications"],
+        }}
+        // ═══════════════════════════════════════════════════════════════════
+        // STATES - Empty ve Loading State'leri
+        // ═══════════════════════════════════════════════════════════════════
+        states={{
+          empty: {
+            title: "Henüz Kalem Yok",
+            description:
+              "İlk kaleminizi ekleyerek teklif listesini oluşturmaya başlayın",
+            icon: "bi-clipboard-x",
+            action: emptyStateAction,
+          },
+          loading: {
+            text: "Kalemler yükleniyor...",
+          },
+        }}
+        // ═══════════════════════════════════════════════════════════════════
+        // PAGINATION - Sayfalama
+        // ═══════════════════════════════════════════════════════════════════
+        pagination={{
+          enabled: true,
+        }}
+      />
+    </>
   );
 };
 

@@ -8,7 +8,6 @@ import {
   FormAutocomplete,
 } from "@/components/forms";
 import { Button } from "@/components/ui/button";
-import { Divider } from "@/components";
 import { useFormHook } from "@/hooks";
 import { useForm } from "@/contexts/form-context";
 import { useQuotationItemAddEdit } from "../../../context";
@@ -40,18 +39,22 @@ export const ItemFormContent: React.FC = () => {
     { value: "KUTU", label: "Kutu" },
   ];
 
+  // Form değerlerini ayrı değişkenlere çıkar
+  const formValues = values as QuotationItemFormData;
+  const quantity = formValues.quantity || 0;
+  const unitPrice = formValues.unitPrice || 0;
+  const discountAmount = formValues.discountAmount || 0;
+
   // Quantity, unitPrice ve discountAmount değiştiğinde totalPrice'ı hesapla
   useEffect(() => {
-    const formValues = values as QuotationItemFormData;
-    const quantity = formValues.quantity || 0;
-    const unitPrice = formValues.unitPrice || 0;
-    const discountAmount = formValues.discountAmount || 0;
-
     const subtotal = quantity * unitPrice;
     const total = Math.max(0, subtotal - discountAmount);
 
-    setValue("totalPrice", total);
-  }, [values, setValue]);
+    // Sadece değer değiştiyse güncelle (sonsuz döngüyü önlemek için)
+    if (formValues.totalPrice !== total) {
+      setValue("totalPrice", total);
+    }
+  }, [quantity, unitPrice, discountAmount, formValues.totalPrice, setValue]);
 
   const handleSubmit = async (values: any) => {
     const formData = values as QuotationItemFormData;
@@ -178,93 +181,96 @@ export const ItemFormContent: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div className="row row-gap-24">
-        {/* KALEM BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16">Kalem Bilgileri</h5>
-        </div>
-
-        <div className="col-12">
-          <FormInput
-            name="itemName"
-            label="Kalem Adı"
-            type="text"
-            placeholder="Kalem adını giriniz..."
-            isRequired
-          />
-        </div>
-
+      <div className="row row-gap-24 pt-16">
+        {/* Sol Kolon: Kalem Adı, Miktar, Birim */}
         <div className="col-6">
-          <FormInput
-            name="quantity"
-            label="Miktar"
-            type="number"
-            placeholder="Miktar giriniz..."
-            isRequired
-          />
+          <div className="row row-gap-24">
+            <div className="col-12">
+              <FormInput
+                name="itemName"
+                label="Kalem Adı"
+                type="text"
+                placeholder="Örn: Masa, Sandalye, Bilgisayar..."
+                isRequired
+                helperText="Ürün veya hizmetin adı"
+              />
+            </div>
+
+            <div className="col-6">
+              <FormInput
+                name="quantity"
+                label="Miktar"
+                type="number"
+                placeholder="0"
+                min="1"
+                isRequired
+                helperText="Kaç adet/birim"
+              />
+            </div>
+
+            <div className="col-6">
+              <FormAutocomplete
+                name="unit"
+                label="Birim"
+                options={unitOptions}
+                placeholder="Seçiniz..."
+                helperText="Ölçü birimi"
+              />
+            </div>
+          </div>
         </div>
 
+        {/* Sağ Kolon: Özellikler */}
         <div className="col-6">
-          <FormAutocomplete
-            name="unit"
-            label="Birim"
-            options={unitOptions}
-            placeholder="Birim seçiniz..."
-          />
-        </div>
-
-        <div className="col-12">
           <FormTextarea
             name="specifications"
             label="Özellikler"
-            placeholder="Kalem özelliklerini giriniz..."
-            rows={3}
+            placeholder="Ürün özellikleri, teknik detaylar, boyutlar vb..."
+            rows={5}
+            helperText="Ürün veya hizmetin detaylı açıklaması"
           />
         </div>
 
-        <Divider />
-
-        {/* FİYAT BİLGİLERİ */}
-        <div className="col-12">
-          <h5 className="mb-16">Fiyat Bilgileri</h5>
-        </div>
-
-        <div className="col-6">
+        <div className="col-4">
           <FormInput
             name="unitPrice"
             label="Birim Fiyat (₺)"
             type="number"
-            placeholder="Birim fiyatı giriniz..."
+            placeholder="0,00"
             step="0.01"
+            min="0"
             isRequired
+            helperText="Tek birim için fiyat"
           />
         </div>
 
-        <div className="col-6">
+        <div className="col-4">
           <FormInput
             name="discountAmount"
             label="İndirim Tutarı (₺)"
             type="number"
-            placeholder="İndirim tutarını giriniz..."
+            placeholder="0,00"
             step="0.01"
+            min="0"
+            helperText="Toplam tutar üzerinden indirim"
           />
         </div>
 
-        <div className="col-12">
+        <div className="col-4">
           <FormInput
             name="totalPrice"
             label="Toplam Fiyat (₺)"
             type="number"
-            placeholder="Toplam fiyat"
+            placeholder="Otomatik hesaplanıyor..."
             step="0.01"
-            isRequired
-            disabled
+            min="0"
+            disabled={true}
+            helperText="(Miktar × Birim Fiyat) - İndirim"
           />
         </div>
 
-        <Divider />
-
-        {/* TESLIMAT VE NOTLAR */}
+        {/* TESLIMAT VE NOTLAR - Yorum satırına alındı */}
+        {/*
         <div className="col-12">
           <h5 className="mb-16">Teslimat ve Notlar</h5>
         </div>
@@ -288,6 +294,7 @@ export const ItemFormContent: React.FC = () => {
         </div>
 
         <Divider />
+        */}
 
         {/* FORM ACTIONS */}
         <div className="col-12">

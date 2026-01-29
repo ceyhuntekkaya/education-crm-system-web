@@ -2,14 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Badge } from "@/components";
 import type { QuotationItemDto } from "@/types";
-import {
-  getItemCardSummary,
-  formatQuantity,
-  formatPrice,
-  formatDeliveryDays,
-} from "../utils";
+import { getItemCardSummary, formatPrice, getItemColor } from "../utils";
 
 interface ItemCardProps {
   item: QuotationItemDto;
@@ -18,7 +12,7 @@ interface ItemCardProps {
 export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   const router = useRouter();
   const summary = getItemCardSummary(item);
-  const categoryColor = "hsl(var(--primary-600))";
+  const itemColor = getItemColor(summary.itemName);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showExpandButton, setShowExpandButton] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -34,7 +28,6 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   useEffect(() => {
     // Check if text is overflowing
     if (textRef.current) {
-      // Use scrollHeight > clientHeight to detect overflow
       const isOverflowing =
         textRef.current.scrollHeight > textRef.current.clientHeight;
       setShowExpandButton(isOverflowing);
@@ -61,7 +54,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
         <div
           className="w-100 h-100 d-flex align-items-center justify-content-center"
           style={{
-            background: `linear-gradient(135deg, ${categoryColor}15 0%, ${categoryColor}30 100%)`,
+            background: `linear-gradient(135deg, ${itemColor}15 0%, ${itemColor}30 100%)`,
           }}
         >
           <i
@@ -69,32 +62,27 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
             style={{
               fontSize: "56px",
               opacity: 0.4,
-              color: categoryColor,
+              color: itemColor,
             }}
           ></i>
         </div>
 
-        {/* RFQ Item Badge - Top Right */}
-        {item.rfqItemId && (
-          <div
-            className="position-absolute"
-            style={{ top: "12px", right: "12px", zIndex: 2 }}
+        {/* Unit Badge - Top Right */}
+        <div
+          className="position-absolute"
+          style={{ top: "12px", right: "12px", zIndex: 2 }}
+        >
+          <span
+            className="d-inline-flex align-items-center gap-6 px-12 py-6 rounded-8 text-xs fw-semibold bg-white"
+            style={{
+              color: itemColor,
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+            }}
           >
-            <span
-              className="d-inline-flex align-items-center gap-6 px-12 py-6 rounded-8 text-xs fw-semibold bg-white"
-              style={{
-                color: categoryColor,
-                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-              }}
-            >
-              <i
-                className="ph-bold ph-file-text"
-                style={{ fontSize: "12px" }}
-              ></i>
-              RFQ #{item.rfqItemId}
-            </span>
-          </div>
-        )}
+            <i className="ph-bold ph-tag" style={{ fontSize: "12px" }}></i>
+            {summary.unit}
+          </span>
+        </div>
 
         {/* Item ID Badge */}
         {item.id && (
@@ -129,35 +117,26 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
               height: "36px",
               backgroundColor: "rgba(255, 255, 255, 0.95)",
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+              color: itemColor,
               cursor: "pointer",
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = categoryColor;
+              e.currentTarget.style.backgroundColor = itemColor;
+              e.currentTarget.style.color = "white";
               e.currentTarget.style.transform = "scale(1.1)";
-              const icon = e.currentTarget.querySelector("i");
-              if (icon) {
-                (icon as HTMLElement).style.color = "white";
-              }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor =
                 "rgba(255, 255, 255, 0.95)";
+              e.currentTarget.style.color = itemColor;
               e.currentTarget.style.transform = "scale(1)";
-              const icon = e.currentTarget.querySelector("i");
-              if (icon) {
-                (icon as HTMLElement).style.color = categoryColor;
-              }
             }}
             aria-label="Kalemi düzenle"
           >
             <i
               className="ph-bold ph-pencil-simple"
-              style={{
-                fontSize: "16px",
-                color: categoryColor,
-                transition: "color 0.3s ease",
-              }}
+              style={{ fontSize: "16px" }}
             ></i>
           </button>
         </div>
@@ -198,27 +177,27 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
               onClick={() => setIsExpanded(!isExpanded)}
               className="mt-10 d-inline-flex align-items-center gap-8 px-14 py-8 rounded-10 text-xs fw-medium border-0"
               style={{
-                color: categoryColor,
-                backgroundColor: `${categoryColor}10`,
+                color: itemColor,
+                backgroundColor: `${itemColor}10`,
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 cursor: "pointer",
                 boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
-                border: `1px solid ${categoryColor}20`,
+                border: `1px solid ${itemColor}20`,
                 alignSelf: "flex-start",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = `${categoryColor}20`;
+                e.currentTarget.style.backgroundColor = `${itemColor}20`;
                 e.currentTarget.style.transform = "translateY(-2px)";
                 e.currentTarget.style.boxShadow =
                   "0 4px 12px rgba(0, 0, 0, 0.1)";
-                e.currentTarget.style.borderColor = `${categoryColor}30`;
+                e.currentTarget.style.borderColor = `${itemColor}30`;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = `${categoryColor}10`;
+                e.currentTarget.style.backgroundColor = `${itemColor}10`;
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.boxShadow =
                   "0 1px 3px rgba(0, 0, 0, 0.05)";
-                e.currentTarget.style.borderColor = `${categoryColor}20`;
+                e.currentTarget.style.borderColor = `${itemColor}20`;
               }}
             >
               <i
@@ -239,141 +218,147 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
         </div>
 
         {/* Price & Quantity Info Container */}
-        <div className="soft-card rounded-16 mb-0 mt-auto">
-          <div className="meta-container">
+        <div
+          className="rounded-12 mt-auto"
+          style={{
+            backgroundColor: "hsl(var(--neutral-25))",
+            padding: "12px",
+          }}
+        >
+          {/* Row 1: Miktar & Birim Fiyat */}
+          <div className="d-flex justify-content-between gap-12 mb-10">
             {/* Quantity */}
-            <div className="meta-item">
-              <div className="meta-content">
-                <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
+            <div className="d-flex align-items-center gap-8 flex-1">
+              <div
+                className="d-flex align-items-center justify-content-center rounded-8"
+                style={{
+                  width: "28px",
+                  height: "28px",
+                  backgroundColor: itemColor,
+                  flexShrink: 0,
+                }}
+              >
+                <i
+                  className="ph-bold ph-cube text-white"
+                  style={{ fontSize: "14px" }}
+                ></i>
+              </div>
+              <div className="d-flex flex-column" style={{ minWidth: 0 }}>
+                <span
+                  className="text-neutral-500"
+                  style={{ fontSize: "10px", lineHeight: 1.2 }}
+                >
                   Miktar
-                </p>
-                <div className="meta-value-wrapper">
-                  <div className="meta-icon-wrapper">
-                    <div
-                      className="meta-icon text-white"
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        backgroundColor: categoryColor,
-                      }}
-                    >
-                      <i
-                        className="ph-bold ph-number-square-one"
-                        style={{ fontSize: "16px" }}
-                      ></i>
-                    </div>
-                  </div>
-                  <span
-                    className="meta-value fw-bold"
-                    style={{ fontSize: "1rem", color: categoryColor }}
-                  >
-                    {formatQuantity(summary.quantity, summary.unit)}
-                  </span>
-                </div>
+                </span>
+                <span
+                  className="fw-semibold text-neutral-800"
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: 1.3,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {summary.quantity}{" "}
+                  {summary.unit !== "Birim Yok" && summary.unit}
+                </span>
               </div>
             </div>
 
             {/* Unit Price */}
-            <div className="meta-item">
-              <div className="meta-content">
-                <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
+            <div className="d-flex align-items-center gap-8 flex-1">
+              <div
+                className="d-flex align-items-center justify-content-center rounded-8"
+                style={{
+                  width: "28px",
+                  height: "28px",
+                  backgroundColor: "hsl(var(--success-600))",
+                  flexShrink: 0,
+                }}
+              >
+                <i
+                  className="ph-bold ph-tag text-white"
+                  style={{ fontSize: "14px" }}
+                ></i>
+              </div>
+              <div className="d-flex flex-column" style={{ minWidth: 0 }}>
+                <span
+                  className="text-neutral-500"
+                  style={{ fontSize: "10px", lineHeight: 1.2 }}
+                >
                   Birim Fiyat
-                </p>
-                <div className="meta-value-wrapper">
-                  <div className="meta-icon-wrapper">
-                    <div
-                      className="meta-icon text-white"
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        backgroundColor: "hsl(var(--success-600))",
-                      }}
-                    >
-                      <i
-                        className="ph-bold ph-currency-circle-dollar"
-                        style={{ fontSize: "16px" }}
-                      ></i>
-                    </div>
-                  </div>
-                  <span
-                    className="meta-value fw-bold"
-                    style={{
-                      fontSize: "1rem",
-                      color: "hsl(var(--success-600))",
-                    }}
-                  >
-                    {formatPrice(summary.unitPrice)}
-                  </span>
-                </div>
+                </span>
+                <span
+                  className="fw-semibold"
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: 1.3,
+                    color: "hsl(var(--success-600))",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {formatPrice(summary.unitPrice)}
+                </span>
               </div>
             </div>
+          </div>
 
-            {/* Total Price - Highlighted */}
-            <div className="meta-item meta-item--highlighted">
-              <div className="meta-content">
-                <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
-                  Toplam Fiyat
-                </p>
-                <div className="meta-value-wrapper">
-                  <div className="meta-icon-wrapper">
-                    <div
-                      className="meta-icon text-white"
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        backgroundColor: categoryColor,
-                      }}
-                    >
-                      <i
-                        className="ph-bold ph-coins"
-                        style={{ fontSize: "16px" }}
-                      ></i>
-                    </div>
-                  </div>
-                  <span
-                    className="meta-value fw-bold"
-                    style={{ fontSize: "1.125rem", color: categoryColor }}
-                  >
-                    {formatPrice(summary.totalPrice)}
-                  </span>
-                </div>
+          {/* Row 2: Toplam Fiyat & Teslimat */}
+          <div
+            className="d-flex justify-content-between align-items-center pt-10"
+            style={{ borderTop: "1px solid hsl(var(--neutral-100))" }}
+          >
+            {/* Total Price */}
+            <div className="d-flex align-items-center gap-8">
+              <div
+                className="d-flex align-items-center justify-content-center rounded-8"
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  backgroundColor: itemColor,
+                  flexShrink: 0,
+                }}
+              >
+                <i
+                  className="ph-bold ph-coins text-white"
+                  style={{ fontSize: "16px" }}
+                ></i>
+              </div>
+              <div className="d-flex flex-column">
+                <span
+                  className="text-neutral-500"
+                  style={{ fontSize: "10px", lineHeight: 1.2 }}
+                >
+                  Toplam
+                </span>
+                <span
+                  className="fw-bold"
+                  style={{
+                    fontSize: "15px",
+                    lineHeight: 1.3,
+                    color: itemColor,
+                  }}
+                >
+                  {formatPrice(summary.totalPrice)}
+                </span>
               </div>
             </div>
 
             {/* Delivery Days */}
             {summary.deliveryDays > 0 && (
-              <div className="meta-item">
-                <div className="meta-content">
-                  <p className="meta-label" style={{ fontSize: "0.6875rem" }}>
-                    Teslimat Süresi
-                  </p>
-                  <div className="meta-value-wrapper">
-                    <div className="meta-icon-wrapper">
-                      <div
-                        className="meta-icon text-white"
-                        style={{
-                          width: "32px",
-                          height: "32px",
-                          backgroundColor: "hsl(var(--info-600))",
-                        }}
-                      >
-                        <i
-                          className="ph-bold ph-truck"
-                          style={{ fontSize: "16px" }}
-                        ></i>
-                      </div>
-                    </div>
-                    <span
-                      className="meta-value fw-bold"
-                      style={{
-                        fontSize: "1rem",
-                        color: "hsl(var(--info-600))",
-                      }}
-                    >
-                      {formatDeliveryDays(summary.deliveryDays)}
-                    </span>
-                  </div>
-                </div>
+              <div
+                className="d-flex align-items-center gap-6 px-10 py-6 rounded-8"
+                style={{ backgroundColor: "hsl(var(--info-50))" }}
+              >
+                <i
+                  className="ph-bold ph-truck"
+                  style={{ fontSize: "14px", color: "hsl(var(--info-600))" }}
+                ></i>
+                <span
+                  className="fw-medium"
+                  style={{ fontSize: "12px", color: "hsl(var(--info-600))" }}
+                >
+                  {summary.deliveryDays} gün
+                </span>
               </div>
             )}
           </div>

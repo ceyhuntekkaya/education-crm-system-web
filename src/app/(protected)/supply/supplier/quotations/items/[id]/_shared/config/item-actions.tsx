@@ -8,13 +8,6 @@ export const createItemActionButtons = (
   quotationId: number,
 ) => [
   {
-    label: "Geri",
-    icon: "ph-arrow-left",
-    onClick: () =>
-      router.push(`/supply/supplier/quotations/detail/${quotationId}`),
-    variant: "secondary" as const,
-  },
-  {
     label: "Yeni Kalem Ekle",
     icon: "ph-plus-circle",
     onClick: () =>

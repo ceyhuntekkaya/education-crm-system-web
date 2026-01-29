@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext } from "react";
 import {
-  useQuotationById,
   useSubmitQuotation,
   useAcceptQuotation,
   useRejectQuotation,
@@ -11,6 +10,7 @@ import {
   QuotationDetailContextValue,
   QuotationDetailProviderProps,
 } from "../types";
+import { useQuotationsContext } from "../../../../_shared";
 
 const QuotationDetailContext = createContext<
   QuotationDetailContextValue | undefined
@@ -19,8 +19,13 @@ const QuotationDetailContext = createContext<
 export const QuotationDetailProvider: React.FC<
   QuotationDetailProviderProps
 > = ({ children, quotationId }) => {
-  const { quotation, isLoading, error, refetch } =
-    useQuotationById(quotationId);
+  // Üst seviye context'ten quotation verisini al (tekrar API çağrısı yapmamak için)
+  const {
+    quotation,
+    quotationLoading: isLoading,
+    quotationError: error,
+    refetchQuotation: refetch,
+  } = useQuotationsContext();
 
   const { submitQuotation, isSubmitting } = useSubmitQuotation(quotationId);
   const { acceptQuotation, isAccepting } = useAcceptQuotation(quotationId);

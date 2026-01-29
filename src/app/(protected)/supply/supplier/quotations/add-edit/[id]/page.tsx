@@ -5,7 +5,7 @@ import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
 import { QuotationForm, QuotationItemsForms, StickyFooter } from "../_shared";
 import { useQuotationAddEdit } from "../_shared/context";
-import { useQuotationsContext } from "../../_shared/contexts";
+import { useQuotationsContext, QuotationHeaderSection } from "../../_shared";
 import { useRouter } from "next/navigation";
 import type { QuotationFormHandle } from "../_shared/sections/quotation-form/sections/form-content";
 import type { QuotationItemsFormsHandle } from "../_shared/sections/quotation-items-forms/quotation-items-forms";
@@ -79,6 +79,9 @@ const QuotationAddEditPage: React.FC = () => {
 
   return (
     <>
+      {/* Ortak Header - sadece düzenleme modunda göster */}
+      {isEditing && <QuotationHeaderSection />}
+
       <div
         className="d-flex flex-column gap-24"
         style={{ paddingBottom: "60px" }}

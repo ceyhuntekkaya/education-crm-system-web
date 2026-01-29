@@ -5,6 +5,7 @@ import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
 import { ItemForm } from "../_shared";
 import { useQuotationItemAddEdit } from "../_shared/context";
+import { QuotationHeaderSection } from "../../../../_shared";
 
 const QuotationItemAddEditPage: React.FC = () => {
   const { item, itemDetailLoading, isEditing } = useQuotationItemAddEdit();
@@ -14,18 +15,20 @@ const QuotationItemAddEditPage: React.FC = () => {
   usePageTitle(pageTitle);
 
   return (
-    <CustomCard
-      title={pageTitle}
-      subtitle={
-        isEditing
-          ? "Mevcut kalemi düzenleyin"
-          : "Teklife yeni bir kalem ekleyin"
-      }
-      isBack
-      isLoading={isEditing && itemDetailLoading}
-    >
-      <ItemForm initialData={isEditing ? (item ?? undefined) : undefined} />
-    </CustomCard>
+    <>
+      <QuotationHeaderSection />
+      <CustomCard
+        title={pageTitle}
+        subtitle={
+          isEditing
+            ? "Mevcut kalemi düzenleyin"
+            : "Teklife yeni bir kalem ekleyin"
+        }
+        isLoading={isEditing && itemDetailLoading}
+      >
+        <ItemForm initialData={isEditing ? (item ?? undefined) : undefined} />
+      </CustomCard>
+    </>
   );
 };
 
