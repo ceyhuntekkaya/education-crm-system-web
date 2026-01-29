@@ -37,7 +37,7 @@ export const QuotationFormContent = forwardRef<QuotationFormHandle, {}>(
           setValue("totalAmount", totalItemsAmount);
         }
       }
-    }, [totalItemsAmount, setValue]);
+    }, [totalItemsAmount, setValue, values?.totalAmount]);
 
     const handleSubmit = async (values: any): Promise<number | null> => {
       const formData = values as QuotationFormData;
