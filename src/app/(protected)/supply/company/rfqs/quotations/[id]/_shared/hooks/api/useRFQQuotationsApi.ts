@@ -12,25 +12,31 @@ import type { ApiResponseListQuotationComparisonDto } from "@/types/dto/supply/q
  * @returns RFQ teklifleri listesi
  *
  * API Endpoint: GET /supply/rfqs/{id}/quotations
+ * NOT: RFQ verisi için useRFQsContext kullanın
  */
 export const useRFQQuotationsApi = () => {
   const params = useParams();
   const rfqId = params?.id ? Number(params.id) : 0;
 
-  const { data, loading, error, refetch } =
-    useGet<ApiResponseListQuotationComparisonDto>(
-      rfqId ? API_ENDPOINTS.SUPPLY.RFQS.QUOTATIONS(rfqId) : null,
-      {
-        enabled: !!rfqId,
-      }
-    );
+  // Quotations
+  const {
+    data: quotationsData,
+    loading: quotationsLoading,
+    error: quotationsError,
+    refetch,
+  } = useGet<ApiResponseListQuotationComparisonDto>(
+    rfqId ? API_ENDPOINTS.SUPPLY.RFQS.QUOTATIONS(rfqId) : null,
+    {
+      enabled: !!rfqId,
+    },
+  );
 
   return {
-    quotations: data?.data || [],
-    isLoading: loading,
-    error: error ? new Error(error) : null,
+    quotations: quotationsData?.data || [],
+    isLoading: quotationsLoading,
+    error: quotationsError ? new Error(quotationsError) : null,
     refetch,
-    isRefetching: loading,
+    isRefetching: quotationsLoading,
     rfqId,
   };
 };

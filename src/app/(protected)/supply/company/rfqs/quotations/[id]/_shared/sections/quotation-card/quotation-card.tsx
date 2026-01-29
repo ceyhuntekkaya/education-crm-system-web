@@ -21,6 +21,12 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({
   onAccept,
 }) => {
   const itemsModal = useModal();
+  
+  // Guard: quotation yoksa early return
+  if (!quotation) {
+    return null;
+  }
+  
   const statusConfig = getStatusColor(quotation.status);
   const statusColor = statusConfig.color || "#10b981";
   const hasItems =
@@ -77,6 +83,7 @@ export const QuotationCard: React.FC<QuotationCardProps> = ({
           <QuotationCardActions
             quotationId={quotation.quotationId}
             status={quotation.status}
+            quotation={quotation}
             onAccept={handleAccept}
           />
         </div>

@@ -4,7 +4,6 @@ import { formatDate } from "@/utils";
 import { RFQDto } from "@/types/dto/supply/rfq.dto";
 import { DetailColumn } from "@/components/layouts/detail-layout/types";
 import { RFQActionButtons } from "../sections/rfq-action-buttons";
-import { SendSupplierMessageSection } from "../sections/send-supplier-message-section/send-supplier-message-section";
 import {
   getRFQStatusBadgeVariant,
   getRFQStatusConfig,
@@ -50,11 +49,6 @@ const renderBasicInfo = (rfq: RFQDto) => (
         <h1 className="rfq-detail-page__title mb-0">
           {rfq.title || "Alım İlanı Başlığı"}
         </h1>
-
-        {/* Tedarikçiye Mesaj Gönder */}
-        <div style={{ flexShrink: 0 }}>
-          <SendSupplierMessageSection variant="card" />
-        </div>
       </div>
     </div>
   </div>
@@ -180,7 +174,7 @@ export const createRFQDetailColumns = (): DetailColumn<RFQDto>[] => [
 // Helper function to get filtered columns based on RFQ data and section
 export const getFilteredColumns = (
   rfq: RFQDto,
-  section?: DetailColumn<RFQDto>["section"]
+  section?: DetailColumn<RFQDto>["section"],
 ): DetailColumn<RFQDto>[] => {
   const allColumns = createRFQDetailColumns();
 
@@ -202,7 +196,7 @@ export const getSections = (rfq: RFQDto) => {
   const sections = new Set(
     allColumns
       .filter((column) => !column.condition || column.condition(rfq))
-      .map((column) => column.section)
+      .map((column) => column.section),
   );
 
   return Array.from(sections);

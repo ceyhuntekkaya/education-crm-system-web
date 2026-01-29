@@ -5,26 +5,22 @@ import { API_ENDPOINTS } from "@/lib";
 import { ProductDto, ProductUpdateDto } from "@/types";
 import { useProductsContext } from "../../../../_shared/contexts";
 
-interface UseEditProductParams {
-  productId: number;
-  refetch?: () => void;
-}
-
 /**
  * Product güncelleme hook'u
  */
-export const useEditProduct = ({
-  productId,
-  refetch,
-}: UseEditProductParams) => {
-  const { refetch: refetchProductsList } = useProductsContext();
+export const useEditProduct = () => {
+  const {
+    currentProductId: productId,
+    refetchCurrentProduct: refetch,
+    refetch: refetchProductsList,
+  } = useProductsContext();
 
   const {
     mutate: putProduct,
     loading: isLoading,
     error,
   } = usePut<ProductDto, ProductUpdateDto>(
-    API_ENDPOINTS.SUPPLY.PRODUCTS.BY_ID(productId),
+    API_ENDPOINTS.SUPPLY.PRODUCTS.BY_ID(productId || 0),
     {
       onSuccess: (data) => {
         // Ana liste API'sine tekrar istek at

@@ -17,6 +17,8 @@ export interface RFQFormData {
   paymentTerms?: string;
   evaluationCriteria?: string;
   technicalRequirements?: string;
+  categoryId?: string;
+  supplierIds?: string[]; // Tedarikçi ID'leri (multi-select için)
 }
 
 /**

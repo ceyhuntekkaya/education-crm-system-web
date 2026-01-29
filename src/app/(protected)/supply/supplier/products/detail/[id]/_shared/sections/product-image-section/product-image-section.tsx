@@ -1,5 +1,6 @@
 import React from "react";
 import { useProductDetail } from "../../context";
+import { useProductsContext } from "../../../../../_shared/contexts";
 import {
   MainImageSection,
   ThumbnailGallerySection,
@@ -7,7 +8,11 @@ import {
 } from "./sections/index";
 
 export const ProductImageSection: React.FC = () => {
-  const { product, allImages } = useProductDetail();
+  // ProductsContext'ten data al
+  const { currentProduct: product } = useProductsContext();
+
+  // ProductDetail context'ten gallery state al
+  const { allImages } = useProductDetail();
 
   if (!product) return null;
 

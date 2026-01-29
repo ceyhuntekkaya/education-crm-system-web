@@ -1,8 +1,8 @@
 import React from "react";
-import { useProductDetail } from "../../../../../context";
+import { useProductsContext } from "../../../../../../../../_shared/contexts";
 
 export const LightboxInfoSection: React.FC = () => {
-  const { product } = useProductDetail();
+  const { currentProduct: product } = useProductsContext();
 
   if (!product) return null;
 

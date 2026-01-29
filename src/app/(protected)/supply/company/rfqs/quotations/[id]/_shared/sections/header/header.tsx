@@ -8,7 +8,6 @@ import {
   SortDropdown,
   StatusFilter,
   DateFilter,
-  HeaderActions,
 } from "./sections";
 import { ResetFiltersButton } from "./components/reset-filters-button";
 import { useRFQQuotationsContext } from "../../contexts";
@@ -31,10 +30,9 @@ export const Header: React.FC = () => {
         padding: "16px",
       }}
     >
-      {/* Row 1: Başlık Bilgisi & Geri Dön */}
+      {/* Row 1: Başlık Bilgisi */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-16 mb-16">
         <LeftInfo />
-        <HeaderActions />
       </div>
 
       {/* Divider */}

@@ -46,7 +46,12 @@ export const useApi = <T>() => {
         setError(null);
 
         const response = await requestFn();
-        const result = response.data;
+        let result = response.data as any;
+
+        // Backend'in { success: true, data: {...} } formatını handle et
+        if (result && typeof result === 'object' && 'data' in result && 'success' in result) {
+          result = result.data;
+        }
 
         setData(result as unknown as T);
         options?.onSuccess?.(result);
@@ -78,7 +83,12 @@ export const useApi = <T>() => {
         setError(null);
 
         const response = await requestFn(variables);
-        const result = response.data;
+        let result = response.data as any;
+
+        // Backend'in { success: true, data: {...} } formatını handle et
+        if (result && typeof result === 'object' && 'data' in result && 'success' in result) {
+          result = result.data;
+        }
 
         // Response kontrolü
         if (result === undefined || result === null) {

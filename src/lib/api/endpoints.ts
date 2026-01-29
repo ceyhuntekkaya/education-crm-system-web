@@ -264,8 +264,11 @@ export const API_ENDPOINTS = {
 
     // RFQs (Request for Quotation)
     RFQS: {
+      LIST: "/supply/rfqs",
       BY_COMPANY: (companyId: string | number) =>
         `/supply/rfqs/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/rfqs/by-supplier/${supplierId}`,
       ACTIVE: "/supply/rfqs/active",
       BY_ID: (id: string | number) => `/supply/rfqs/${id}`,
       ITEMS: (rfqId: string | number) => `/supply/rfqs/${rfqId}/items`,
@@ -301,15 +304,44 @@ export const API_ENDPOINTS = {
       BASE: "/supply/products",
       CREATE: "/supply/products",
       UPDATE: (id: string | number) => `/supply/products/${id}`,
+      DELETE: (id: string | number) => `/supply/products/${id}`,
       SEARCH: "/supply/products/search",
       BY_ID: (id: string | number) => `/supply/products/${id}`,
       BY_SUPPLIER: (supplierId: string | number) =>
         `/supply/products/by-supplier/${supplierId}`,
-      DISCOUNTS: (productId: string | number) =>
-        `/supply/products/${productId}/discounts`,
       IMAGES: (id: string | number) => `/supply/products/${id}/images`,
       VARIANTS: (productId: string | number) =>
         `/supply/products/${productId}/variants`,
+      DISCOUNTS: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
+    },
+
+    // Product Discounts
+    PRODUCT_DISCOUNTS: {
+      LIST: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
+      CREATE: (productId: string | number) =>
+        `/supply/products/${productId}/discounts`,
+      BY_ID: (productId: string | number, discountId: string | number) =>
+        `/supply/products/${productId}/discounts/${discountId}`,
+      UPDATE: (productId: string | number, discountId: string | number) =>
+        `/supply/products/${productId}/discounts/${discountId}`,
+      DELETE: (productId: string | number, discountId: string | number) =>
+        `/supply/products/${productId}/discounts/${discountId}`,
+    },
+
+    // Product Variants
+    PRODUCT_VARIANTS: {
+      LIST: (productId: string | number) =>
+        `/supply/products/${productId}/variants`,
+      CREATE: (productId: string | number) =>
+        `/supply/products/${productId}/variants`,
+      BY_ID: (productId: string | number, variantId: string | number) =>
+        `/supply/products/${productId}/variants/${variantId}`,
+      UPDATE: (productId: string | number, variantId: string | number) =>
+        `/supply/products/${productId}/variants/${variantId}`,
+      DELETE: (productId: string | number, variantId: string | number) =>
+        `/supply/products/${productId}/variants/${variantId}`,
     },
 
     // Suppliers
@@ -338,8 +370,25 @@ export const API_ENDPOINTS = {
       BY_ID: (id: string | number) => `/supply/quotations/${id}`,
       CREATE: "/supply/quotations",
       UPDATE: (id: string | number) => `/supply/quotations/${id}`,
+      SUBMIT: (id: string | number) => `/supply/quotations/${id}/submit`,
       ACCEPT: (id: string | number) => `/supply/quotations/${id}/accept`,
       REJECT: (id: string | number) => `/supply/quotations/${id}/reject`,
+      ITEMS: (quotationId: string | number) =>
+        `/supply/quotations/${quotationId}/items`,
+    },
+
+    // Quotation Items
+    QUOTATION_ITEMS: {
+      GET_ALL: (quotationId: string | number) =>
+        `/supply/quotations/${quotationId}/items`,
+      GET_BY_ID: (quotationId: string | number, itemId: string | number) =>
+        `/supply/quotations/${quotationId}/items/${itemId}`,
+      CREATE: (quotationId: string | number) =>
+        `/supply/quotations/${quotationId}/items`,
+      UPDATE: (quotationId: string | number, itemId: string | number) =>
+        `/supply/quotations/${quotationId}/items/${itemId}`,
+      DELETE: (quotationId: string | number, itemId: string | number) =>
+        `/supply/quotations/${quotationId}/items/${itemId}`,
     },
 
     // Wishlists
@@ -360,6 +409,8 @@ export const API_ENDPOINTS = {
         `/supply/conversations/by-product/${productId}`,
       BY_COMPANY: (companyId: string | number) =>
         `/supply/conversations/by-company/${companyId}`,
+      BY_SUPPLIER: (supplierId: string | number) =>
+        `/supply/conversations/by-supplier/${supplierId}`,
     },
 
     // Messages

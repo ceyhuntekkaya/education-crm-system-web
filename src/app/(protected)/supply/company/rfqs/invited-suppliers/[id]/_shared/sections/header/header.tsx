@@ -5,7 +5,6 @@ import { LeftInfo } from "./sections/left-info";
 import { ViewModeToggle } from "./sections/view-mode-toggle";
 import { SortDropdown } from "./sections/sort-dropdown";
 import { SearchInput } from "./sections/search-input";
-import { BackButton } from "./sections/back-button";
 import { ResetFiltersButton } from "./components/reset-filters-button";
 import { useRFQInvitationsContext } from "../../contexts";
 import { Divider } from "@/components";
@@ -30,7 +29,6 @@ export const Header: React.FC = () => {
       {/* Row 1: Başlık Bilgisi */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-16 mb-16">
         <LeftInfo />
-        <BackButton />
       </div>
 
       {/* Divider */}

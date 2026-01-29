@@ -60,3 +60,31 @@ export interface ApiResponseProductDiscountDto {
   timestamp?: string;
   path?: string;
 }
+
+/**
+ * Ürün indirim oluşturma DTO
+ */
+export interface ProductDiscountCreateDto {
+  discountName: string;
+  discountType: ProductDiscountDtoDiscountType;
+  discountValue?: number;
+  minQuantity?: number;
+  maxQuantity?: number;
+  startDate?: string;
+  endDate?: string;
+  isActive?: boolean;
+}
+
+/**
+ * Ürün indirim güncelleme DTO
+ */
+export interface ProductDiscountUpdateDto {
+  discountName?: string;
+  discountType?: ProductDiscountDtoDiscountType;
+  discountValue?: number;
+  minQuantity?: number;
+  maxQuantity?: number;
+  startDate?: string;
+  endDate?: string;
+  isActive?: boolean;
+}

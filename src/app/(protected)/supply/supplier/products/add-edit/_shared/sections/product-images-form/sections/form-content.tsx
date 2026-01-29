@@ -4,27 +4,31 @@ import React, { useEffect, useRef } from "react";
 import { FileInput } from "@/components/file-input";
 import { useFormField, useForm } from "@/contexts/form-context";
 import { useProductAddEdit } from "../../../context";
+import { useProductsContext } from "../../../../../_shared/contexts";
 import { CustomImage } from "@/components/ui";
 
 /**
  * Product Images Form Content Component
  */
 export const ProductImagesFormContent: React.FC = () => {
-  // Context'ten tüm hook'ları al
+  // Product Add/Edit context'ten sadece action'ları al
   const {
     productId,
-    productImages: images,
-    productImagesLoading: imagesLoading,
-    refetchProductImages: refetchImages,
     createProductImage,
     createProductImageLoading: createLoading,
     deleteProductImage,
     deleteProductImageLoading: deleteLoading,
   } = useProductAddEdit();
-  
+
+  // Products context'ten veri al
+  const {
+    currentProductImages: images,
+    currentProductImagesLoading: imagesLoading,
+  } = useProductsContext();
+
   // Form context
   const { reset } = useForm();
-  
+
   // Form field'ı izle - değişiklikleri otomatik yakalar
   const { value: productImageValue } = useFormField("productImage");
   const lastProcessedUrlRef = useRef<string | null>(null);
@@ -34,7 +38,7 @@ export const ProductImagesFormContent: React.FC = () => {
   // Görsel silme handler
   const handleDeleteImage = async (
     imageId: number | undefined,
-    e: React.MouseEvent
+    e: React.MouseEvent,
   ) => {
     e.stopPropagation(); // Overlay click'i engelle
     if (!imageId) return;
@@ -67,9 +71,10 @@ export const ProductImagesFormContent: React.FC = () => {
       lastProcessedUrlRef.current = imageUrl;
 
       // Dinamik displayOrder hesapla - mevcut görsellerin en yüksek displayOrder'ına +1 ekle
-      const maxDisplayOrder = images.length > 0
-        ? Math.max(...images.map(img => img.displayOrder || 0), 0)
-        : 0;
+      const maxDisplayOrder =
+        images.length > 0
+          ? Math.max(...images.map((img) => img.displayOrder || 0), 0)
+          : 0;
       const nextDisplayOrder = maxDisplayOrder + 1;
 
       // Product image oluştur
@@ -94,19 +99,19 @@ export const ProductImagesFormContent: React.FC = () => {
 
   return (
     <div className="d-flex flex-column gap-24">
-        {/* File Input */}
-        <FileInput
-          label="Görsel Yükle"
-          type="img"
-          variant="outline"
-          multiple={false}
-          placeholder="Görsel yüklemek için tıklayın veya sürükleyin"
-          maxSize={10}
-          name="productImage"
-          isAutoUpload={true}
-          loading={createLoading}
-          disabled={createLoading}
-        />
+      {/* File Input */}
+      <FileInput
+        label="Görsel Yükle"
+        type="img"
+        variant="outline"
+        multiple={false}
+        placeholder="Görsel yüklemek için tıklayın veya sürükleyin"
+        maxSize={10}
+        name="productImage"
+        isAutoUpload={true}
+        loading={createLoading}
+        disabled={createLoading}
+      />
 
       {/* Mevcut Görseller Listesi */}
       {imagesLoading ? (
@@ -150,8 +155,13 @@ export const ProductImagesFormContent: React.FC = () => {
                       {/* Display Order Badge */}
                       <div className="product-image-card__badge position-absolute top-0 start-0 m-12">
                         <span className="badge bg-dark bg-opacity-75 px-8 py-4 d-flex align-items-center gap-4">
-                          <i className="ph ph-list-numbers" style={{ fontSize: "14px" }}></i>
-                          <span className="fw-medium">{image.displayOrder || "-"}</span>
+                          <i
+                            className="ph ph-list-numbers"
+                            style={{ fontSize: "14px" }}
+                          ></i>
+                          <span className="fw-medium">
+                            {image.displayOrder || "-"}
+                          </span>
                         </span>
                       </div>
                       {/* Delete Button */}
@@ -171,15 +181,23 @@ export const ProductImagesFormContent: React.FC = () => {
                               aria-hidden="true"
                             ></span>
                           ) : (
-                            <i className="ph ph-trash" style={{ fontSize: "16px" }}></i>
+                            <i
+                              className="ph ph-trash"
+                              style={{ fontSize: "16px" }}
+                            ></i>
                           )}
                         </button>
                       </div>
                       {/* Hover Overlay */}
                       <div className="product-image-card__overlay position-absolute inset-0 bg-dark bg-opacity-0 transition-all d-flex align-items-center justify-content-center">
                         <div className="text-white text-center opacity-0 transition-all">
-                          <i className="ph ph-eye" style={{ fontSize: "24px" }}></i>
-                          <p className="text-sm mt-8 mb-0 fw-medium">Görüntüle</p>
+                          <i
+                            className="ph ph-eye"
+                            style={{ fontSize: "24px" }}
+                          ></i>
+                          <p className="text-sm mt-8 mb-0 fw-medium">
+                            Görüntüle
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -190,8 +208,14 @@ export const ProductImagesFormContent: React.FC = () => {
         </div>
       ) : (
         <div className="text-center py-48">
-          <div className="d-inline-flex align-items-center justify-content-center bg-neutral-100 rounded-circle mb-16" style={{ width: "64px", height: "64px" }}>
-            <i className="ph ph-image text-neutral-400" style={{ fontSize: "32px" }}></i>
+          <div
+            className="d-inline-flex align-items-center justify-content-center bg-neutral-100 rounded-circle mb-16"
+            style={{ width: "64px", height: "64px" }}
+          >
+            <i
+              className="ph ph-image text-neutral-400"
+              style={{ fontSize: "32px" }}
+            ></i>
           </div>
           <h6 className="mb-8 fw-medium">Henüz görsel eklenmemiş</h6>
           <p className="text-neutral-600 mb-0 text-sm">

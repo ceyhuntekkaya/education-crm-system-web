@@ -6,8 +6,8 @@ import {
   useCallback,
   RefObject,
 } from "react";
-import { ProductDto } from "@/types";
-import { ProductImageDto } from "./api";
+import { ProductDto, ProductImageDto } from "@/types";
+import { useProductsContext } from "../../../../_shared/contexts";
 
 interface ImageGalleryItem {
   id: number;
@@ -32,18 +32,18 @@ interface UseProductImageGalleryReturn {
   handlePreviousImage: () => void;
   handleImageMouseMove: (
     e: React.MouseEvent<HTMLDivElement>,
-    isLightbox?: boolean
+    isLightbox?: boolean,
   ) => void;
 }
 
 /**
  * Product image gallery için özel hook
+ * Context'ten currentProduct ve currentProductImages'i alır
  * Görsel galerisi, zoom, lightbox ve navigasyon işlemlerini yönetir
  */
-export const useProductImageGallery = (
-  product: ProductDto | null,
-  images: ProductImageDto[]
-): UseProductImageGalleryReturn => {
+export const useProductImageGallery = (): UseProductImageGalleryReturn => {
+  const { currentProduct: product, currentProductImages: images } =
+    useProductsContext();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
@@ -68,7 +68,7 @@ export const useProductImageGallery = (
     // Ek görselleri ekle (displayOrder'a göre sıralı)
     if (images && images.length > 0) {
       const sortedImages = [...images].sort(
-        (a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)
+        (a, b) => (a.displayOrder || 0) - (b.displayOrder || 0),
       );
       imagesList.push(
         ...sortedImages.map((img) => ({
@@ -76,7 +76,7 @@ export const useProductImageGallery = (
           imageUrl: img.imageUrl || "",
           displayOrder: img.displayOrder || 0,
           isMain: false,
-        }))
+        })),
       );
     }
 
@@ -87,13 +87,13 @@ export const useProductImageGallery = (
 
   const handleNextImage = useCallback(() => {
     setSelectedImageIndex((prev) =>
-      prev < allImages.length - 1 ? prev + 1 : 0
+      prev < allImages.length - 1 ? prev + 1 : 0,
     );
   }, [allImages.length]);
 
   const handlePreviousImage = useCallback(() => {
     setSelectedImageIndex((prev) =>
-      prev > 0 ? prev - 1 : allImages.length - 1
+      prev > 0 ? prev - 1 : allImages.length - 1,
     );
   }, [allImages.length]);
 
@@ -113,7 +113,7 @@ export const useProductImageGallery = (
         y: Math.max(0, Math.min(100, y)),
       });
     },
-    []
+    [],
   );
 
   // Klavye navigasyonu

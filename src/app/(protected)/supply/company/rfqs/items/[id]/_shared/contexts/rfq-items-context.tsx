@@ -25,7 +25,7 @@ interface RFQItemsProviderProps {
 }
 
 const RFQItemsContext = createContext<RFQItemsContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 export function RFQItemsProvider({ children, rfqId }: RFQItemsProviderProps) {
@@ -72,7 +72,7 @@ export function useRFQItemsContext() {
   const context = useContext(RFQItemsContext);
   if (context === undefined) {
     throw new Error(
-      "useRFQItemsContext must be used within a RFQItemsProvider"
+      "useRFQItemsContext must be used within a RFQItemsProvider",
     );
   }
   return context;

@@ -1,11 +1,16 @@
 "use client";
 
 import React from "react";
+import { MessagesProvider } from "./_shared";
 
-const SupplierMessagesLayout: React.FC<{ children: React.ReactNode }> = ({
+/**
+ * Messages Layout
+ * Wraps the messages page with MessagesProvider context
+ */
+export default function MessagesLayout({
   children,
-}) => {
-  return <>{children}</>;
-};
-
-export default SupplierMessagesLayout;
+}: {
+  children: React.ReactNode;
+}) {
+  return <MessagesProvider>{children}</MessagesProvider>;
+}

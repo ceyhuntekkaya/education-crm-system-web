@@ -3,9 +3,9 @@
 import { useDelete } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { ApiResponseDto } from "@/types";
+import { useProductsContext } from "../../../../_shared/contexts";
 
 interface UseDeleteProductImageOptions {
-  productId: number;
   onSuccess?: () => void;
   onError?: (error: string) => void;
 }
@@ -14,20 +14,22 @@ interface UseDeleteProductImageOptions {
  * Product görseli silme hook'u
  */
 export const useDeleteProductImage = ({
-  productId,
   onSuccess,
   onError,
-}: UseDeleteProductImageOptions) => {
+}: UseDeleteProductImageOptions = {}) => {
+  const { currentProductId: productId, refetchCurrentProductImages } =
+    useProductsContext();
   const {
     mutate: deleteProductImage,
     loading: isLoading,
     error,
   } = useDelete<ApiResponseDto<void>, number>(
     (imageId: number) => {
-      return `${API_ENDPOINTS.SUPPLY.PRODUCTS.IMAGES(productId)}/${imageId}`;
+      return `${API_ENDPOINTS.SUPPLY.PRODUCTS.IMAGES(productId || 0)}/${imageId}`;
     },
     {
       onSuccess: () => {
+        refetchCurrentProductImages();
         onSuccess?.();
       },
       onError: (error) => {

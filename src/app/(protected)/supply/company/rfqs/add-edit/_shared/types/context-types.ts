@@ -1,4 +1,10 @@
-import type { RFQDto, RFQCreateDto, RFQUpdateDto } from "@/types";
+import type {
+  RFQDto,
+  RFQCreateDto,
+  RFQUpdateDto,
+  RFQItemCreateDto,
+  RFQItemDto,
+} from "@/types";
 
 /**
  * RFQAddEditContext type
@@ -22,4 +28,21 @@ export interface RFQAddEditContextType {
   fetchRFQ: (() => void) | undefined;
   postRFQ: (data: RFQCreateDto) => Promise<RFQDto | null>;
   putRFQ: (data: RFQUpdateDto) => Promise<RFQDto | null>;
+
+  // RFQ Item Actions
+  postRFQItem: (rfqId: number, data: RFQItemCreateDto) => Promise<any>;
+  rfqItemSubmitLoading: boolean;
+  rfqItemSubmitError: string | null;
+
+  // Selected category ID from main form
+  selectedCategoryId: string | null;
+  setSelectedCategoryId: (categoryId: string | null) => void;
+
+  // Categories data
+  categoriesData: any;
+  categoriesLoading: boolean;
+
+  // Suppliers data
+  suppliersData: any;
+  suppliersLoading: boolean;
 }

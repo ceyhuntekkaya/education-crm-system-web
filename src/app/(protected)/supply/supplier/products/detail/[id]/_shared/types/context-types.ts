@@ -1,8 +1,12 @@
 import React, { RefObject } from "react";
-import { ProductDto, SupplierDto, ProductDiscountDto } from "@/types";
+import {
+  ProductDto,
+  SupplierDto,
+  ProductDiscountDto,
+  ProductImageDto,
+} from "@/types";
 import { StatusInfo, StockInfo } from "../utils/product-helpers";
 import { TabType } from "./page-types";
-import { ProductImageDto } from "../hooks/api";
 
 interface ImageGalleryItem {
   id: number;
@@ -13,16 +17,13 @@ interface ImageGalleryItem {
 
 /**
  * Product detail context için interface'ler
+ * Gereksiz tekrar eden veriler kaldırıldı - useProductsContext'ten alınıyor
  */
 export interface ProductDetailContextValue {
   productId: number;
-  product: ProductDto | null;
   supplier: SupplierDto | null;
-  isLoading: boolean;
   isLoadingSupplier: boolean;
-  error: string | null;
   supplierError: string | null;
-  refetch: () => void;
   refetchSupplier: () => void;
   // Helper değerler
   statusInfo: StatusInfo;
@@ -34,18 +35,6 @@ export interface ProductDetailContextValue {
   // UI State
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
-  // Discounts
-  discounts: ProductDiscountDto[];
-  activeDiscounts: ProductDiscountDto[];
-  hasActiveDiscount: boolean;
-  isLoadingDiscounts: boolean;
-  discountsError: string | null;
-  refetchDiscounts: () => void;
-  // Images
-  images: ProductImageDto[];
-  isLoadingImages: boolean;
-  imagesError: string | null;
-  refetchImages: () => void;
   // Image Gallery
   selectedImageIndex: number;
   setSelectedImageIndex: (index: number) => void;
@@ -62,7 +51,7 @@ export interface ProductDetailContextValue {
   handlePreviousImage: () => void;
   handleImageMouseMove: (
     e: React.MouseEvent<HTMLDivElement>,
-    isLightbox?: boolean
+    isLightbox?: boolean,
   ) => void;
 }
 

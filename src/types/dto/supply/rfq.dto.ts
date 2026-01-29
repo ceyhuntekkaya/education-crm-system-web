@@ -24,6 +24,19 @@ export interface RFQDto {
 }
 
 /**
+ * API Response - RFQ List
+ * API: GET /supply/rfqs/active
+ */
+export interface ApiResponseListRFQDto {
+  success?: boolean;
+  message?: string;
+  data?: RFQDto[];
+  errors?: string[];
+  timestamp?: string;
+  path?: string;
+}
+
+/**
  * RFQ Status Enum
  */
 export type RFQStatus = "DRAFT" | "PUBLISHED" | "CLOSED" | "CANCELLED";
@@ -113,6 +126,32 @@ export interface ApiResponsePageRFQDto {
  * Şirkete ait ilanları getirmek için parametreler
  */
 export interface GetRFQsByCompanyParams extends Record<string, unknown> {
+  page?: number;
+  size?: number;
+  sort?: string;
+  status?: RFQStatus;
+  rfqType?: RFQType;
+  search?: string;
+}
+
+/**
+ * Tedarikçi için RFQ listesi parametreleri
+ * API: GET /supply/rfqs/by-supplier/{supplierId}
+ */
+export interface GetRFQsBySupplierParams extends Record<string, unknown> {
+  page?: number;
+  size?: number;
+  sort?: string;
+  status?: RFQStatus;
+  rfqType?: RFQType;
+  search?: string;
+}
+
+/**
+ * Tüm RFQ listesi parametreleri
+ * API: GET /supply/rfqs
+ */
+export interface GetAllRFQsParams extends Record<string, unknown> {
   page?: number;
   size?: number;
   sort?: string;

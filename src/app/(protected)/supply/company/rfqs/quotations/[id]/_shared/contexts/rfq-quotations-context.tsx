@@ -17,7 +17,7 @@ export const useRFQQuotationsContext = () => {
   const context = useContext(RFQQuotationsContext);
   if (!context) {
     throw new Error(
-      "useRFQQuotationsContext must be used within RFQQuotationsProvider"
+      "useRFQQuotationsContext must be used within RFQQuotationsProvider",
     );
   }
   return context;

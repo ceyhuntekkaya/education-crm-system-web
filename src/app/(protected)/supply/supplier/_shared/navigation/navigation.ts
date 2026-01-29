@@ -7,6 +7,7 @@ export const supplySupplierLayoutNavigation: MenuItem[] = [
     icon: "ph-squares-four",
     requiresSchool: false,
   },
+
   {
     href: "/supply/supplier/products",
     label: "Ürün Yönetimi",
@@ -14,8 +15,14 @@ export const supplySupplierLayoutNavigation: MenuItem[] = [
     requiresSchool: false,
   },
   {
+    href: "/supply/supplier/rfqs",
+    label: "Alım İlanları",
+    icon: "ph-file-text",
+    requiresSchool: false,
+  },
+  {
     href: "/supply/supplier/quotations",
-    label: "Teklif Yönetimi",
+    label: "Tekliflerim",
     icon: "ph-clipboard-text",
     requiresSchool: false,
   },

@@ -7,9 +7,9 @@ import {
   ProductImageCreateDto,
   ApiResponseProductImageDto,
 } from "@/types";
+import { useProductsContext } from "../../../../_shared/contexts";
 
 interface UseCreateProductImageOptions {
-  productId: number;
   onSuccess?: (data: ProductImageDto) => void;
   onError?: (error: string) => void;
 }
@@ -18,19 +18,21 @@ interface UseCreateProductImageOptions {
  * Product görseli ekleme hook'u
  */
 export const useCreateProductImage = ({
-  productId,
   onSuccess,
   onError,
-}: UseCreateProductImageOptions) => {
+}: UseCreateProductImageOptions = {}) => {
+  const { currentProductId: productId, refetchCurrentProductImages } =
+    useProductsContext();
   const {
     mutate: createProductImage,
     loading: isLoading,
     error,
   } = usePost<ApiResponseProductImageDto, ProductImageCreateDto>(
-    API_ENDPOINTS.SUPPLY.PRODUCTS.IMAGES(productId),
+    API_ENDPOINTS.SUPPLY.PRODUCTS.IMAGES(productId || 0),
     {
       onSuccess: (data) => {
         if (data?.data) {
+          refetchCurrentProductImages();
           onSuccess?.(data.data);
         }
       },

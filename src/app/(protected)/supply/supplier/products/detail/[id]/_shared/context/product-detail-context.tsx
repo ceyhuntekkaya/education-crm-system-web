@@ -1,17 +1,15 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
-import { useProductById } from "../hooks/api/use-product-by-id";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useProductsContext } from "../../../../_shared/contexts";
 import { useSupplierById } from "../hooks/api/use-supplier-by-id";
-import { useProductDiscounts } from "../hooks/api/use-product-discounts";
-import { useProductImages } from "../hooks/api/use-product-images";
-import { useProductComputedValues, useProductImageGallery } from "../hooks";
+import { useProductComputedValues } from "../../../../_shared/hooks/use-product-computed-values";
+import { useProductImageGallery } from "../hooks";
 import {
   ProductDetailContextValue,
   ProductDetailProviderProps,
 } from "../types";
 import { TabType } from "../types";
-import { useAuth } from "@/contexts";
 
 const ProductDetailContext = createContext<
   ProductDetailContextValue | undefined
@@ -21,22 +19,27 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
   children,
   productId,
 }) => {
-  const { user } = useAuth();
+  // Ana products context'ten sadece setCurrentProductId'yi al
+  // Diğer veriler hook'lar tarafından direkt context'ten alınıyor
+  const { setCurrentProductId } = useProductsContext();
 
-  const { product, isLoading, error, refetch } = useProductById(productId);
+  // Current product ID'yi context'e set et
+  useEffect(() => {
+    setCurrentProductId(productId);
+  }, [productId, setCurrentProductId]);
 
-  // Product yüklendikten sonra supplierId ile supplier bilgisini çek
+  // Supplier bilgisini çek (context'ten product.supplierId alır)
   const {
     supplier,
     isLoading: isLoadingSupplier,
     error: supplierError,
     refetch: refetchSupplier,
-  } = useSupplierById(product?.supplierId);
+  } = useSupplierById();
 
   // UI State
   const [activeTab, setActiveTab] = useState<TabType>("details");
 
-  // Helper değerleri hesapla
+  // Helper değerleri hesapla (context'ten product ve productId alır)
   const {
     statusInfo,
     stockInfo,
@@ -44,27 +47,9 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     isLowStock,
     isOutOfStock,
     hasValidId,
-  } = useProductComputedValues(product, productId);
+  } = useProductComputedValues();
 
-  // Product discounts
-  const {
-    discounts,
-    activeDiscounts,
-    hasActiveDiscount,
-    isLoading: isLoadingDiscounts,
-    error: discountsError,
-    refetch: refetchDiscounts,
-  } = useProductDiscounts(productId);
-
-  // Product images
-  const {
-    images,
-    isLoading: isLoadingImages,
-    error: imagesError,
-    refetch: refetchImages,
-  } = useProductImages(productId);
-
-  // Image gallery
+  // Image gallery (context'ten product ve images alır)
   const {
     selectedImageIndex,
     setSelectedImageIndex,
@@ -80,17 +65,13 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     handleNextImage,
     handlePreviousImage,
     handleImageMouseMove,
-  } = useProductImageGallery(product, images);
+  } = useProductImageGallery();
 
   const contextValue: ProductDetailContextValue = {
     productId,
-    product,
     supplier,
-    isLoading,
     isLoadingSupplier,
-    error,
     supplierError,
-    refetch,
     refetchSupplier,
     statusInfo,
     stockInfo,
@@ -100,18 +81,6 @@ export const ProductDetailProvider: React.FC<ProductDetailProviderProps> = ({
     hasValidId,
     activeTab,
     setActiveTab,
-    // Discounts
-    discounts,
-    activeDiscounts,
-    hasActiveDiscount,
-    isLoadingDiscounts,
-    discountsError,
-    refetchDiscounts,
-    // Images
-    images,
-    isLoadingImages,
-    imagesError,
-    refetchImages,
     // Image Gallery
     selectedImageIndex,
     setSelectedImageIndex,
@@ -143,7 +112,7 @@ export const useProductDetail = (): ProductDetailContextValue => {
   const context = useContext(ProductDetailContext);
   if (context === undefined) {
     throw new Error(
-      "useProductDetail must be used within a ProductDetailProvider"
+      "useProductDetail must be used within a ProductDetailProvider",
     );
   }
   return context;

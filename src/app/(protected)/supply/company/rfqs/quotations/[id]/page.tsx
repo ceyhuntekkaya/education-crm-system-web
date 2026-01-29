@@ -2,13 +2,19 @@
 
 import React from "react";
 import { Header, Results } from "./_shared";
+import { RFQHeaderSection } from "../../_shared";
 
 const QuotationsPage: React.FC = () => {
   return (
-    <div className="d-flex flex-column gap-24">
-      <Header />
-      <Results />
-    </div>
+    <>
+      {/* RFQ Header Section - RFQ verisini parent RFQsContext'ten alır */}
+      <RFQHeaderSection />
+
+      <div className="d-flex flex-column gap-24">
+        <Header />
+        <Results />
+      </div>
+    </>
   );
 };
 
