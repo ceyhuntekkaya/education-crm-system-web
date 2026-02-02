@@ -3,12 +3,18 @@
 import React, { useRef, useState } from "react";
 import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
-import { RFQForm, RFQItemsForms, StickyFooter } from "../_shared";
+import {
+  RFQForm,
+  RFQItemsForms,
+  RFQFileUploadForm,
+  StickyFooter,
+} from "../_shared";
 import { useRFQAddEdit } from "../_shared/context";
 import { useRFQsContext } from "../../_shared/contexts";
 import { useRouter } from "next/navigation";
 import type { RFQFormHandle } from "../_shared/sections/rfq-form/sections/form-content";
 import type { RFQItemsFormsHandle } from "../_shared/sections/rfq-items-forms";
+import type { RFQFileUploadFormHandle } from "../_shared/sections/rfq-file-upload-form";
 
 const RFQAddEditPage: React.FC = () => {
   const router = useRouter();
@@ -22,6 +28,7 @@ const RFQAddEditPage: React.FC = () => {
 
   const rfqFormRef = useRef<RFQFormHandle>(null);
   const rfqItemsFormsRef = useRef<RFQItemsFormsHandle>(null);
+  const rfqFileUploadFormRef = useRef<RFQFileUploadFormHandle>(null);
 
   usePageTitle(pageTitle);
 
@@ -50,6 +57,11 @@ const RFQAddEditPage: React.FC = () => {
       // 2. Submit all item forms with the RFQ ID
       if (rfqItemsFormsRef.current) {
         await rfqItemsFormsRef.current.submitAllForms(rfqId);
+      }
+
+      // 3. Submit files
+      if (rfqFileUploadFormRef.current) {
+        await rfqFileUploadFormRef.current.submitFiles();
       }
 
       // Success - Tüm API istekleri başarılı olduğunda önce refetch, sonra yönlendir
@@ -85,9 +97,12 @@ const RFQAddEditPage: React.FC = () => {
         >
           <RFQForm
             ref={rfqFormRef}
-            initialData={isEditing ? (rfq ?? undefined) : undefined}
+            initialData={isEditing ? rfq ?? undefined : undefined}
           />
         </CustomCard>
+
+        {/* Dosya Yükleme Formu - CustomCard içinde değil, kendi kartlarını kullanıyor */}
+        <RFQFileUploadForm ref={rfqFileUploadFormRef} />
 
         {/* RFQ Items Forms - Yeni Alım İlanı oluştururken */}
         {!isEditing && <RFQItemsForms ref={rfqItemsFormsRef} />}
