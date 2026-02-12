@@ -27,35 +27,13 @@ export const personalInfoSchema = Yup.object({
     .min(2, "Soyad en az 2 karakter olmalıdır")
     .max(50, "Soyad en fazla 50 karakter olabilir")
     .required("Soyad gereklidir"),
-  email: Yup.string()
-    .email("Geçerli bir e-posta adresi giriniz")
-    .required("E-posta gereklidir"),
   phone: Yup.string().required("Telefon numarası gereklidir"),
-});
-
-/**
- * Step 3: Verification Code Validation
- */
-export const verificationCodeSchema = Yup.object({
-  code1: Yup.string()
-    .matches(/^[0-9]$/, "Sadece rakam giriniz")
-    .required("Gerekli"),
-  code2: Yup.string()
-    .matches(/^[0-9]$/, "Sadece rakam giriniz")
-    .required("Gerekli"),
-  code3: Yup.string()
-    .matches(/^[0-9]$/, "Sadece rakam giriniz")
-    .required("Gerekli"),
-  code4: Yup.string()
-    .matches(/^[0-9]$/, "Sadece rakam giriniz")
-    .required("Gerekli"),
 });
 
 /**
  * Tüm formun validation schema'sı
  */
-export const userRegisterValidationSchema = Yup.object({
+export const teacherRegisterValidationSchema = Yup.object({
   loginCredentials: loginCredentialsSchema,
   personalInfo: personalInfoSchema,
-  verificationCode: verificationCodeSchema,
 });

@@ -13,6 +13,7 @@ export interface UserRoleDto {
     | "COMPANY"
     | "SUPPLY"
     | "INSTRUCTOR"
+    | "TEACHER"
     | "PARTICIPANT";
   departments?: (
     | "AUTHOR"

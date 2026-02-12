@@ -8,13 +8,13 @@ import { useUserRegisterFinal } from "./use-user-register-final";
 /**
  * User Submit Step 3 Handler Hook
  * Doğrulama kodunu kontrol eder ve tüm kayıt verilerini tek seferde gönderir
- * https://api.egitimiste.com/api/register/user
+ * Parent kayıt için kullanılır: https://api.egitimiste.com/api/register/user
  */
 export const useSubmitStep3 = (
   userId: number | null,
   setUserId: (id: number) => void,
   nextStep: () => void,
-  fullCode: string
+  fullCode: string,
 ) => {
   const { values } = useForm();
   const { showSnackbar } = useSnackbar();
@@ -70,7 +70,7 @@ export const useSubmitStep3 = (
     } else {
       showSnackbar(
         finalResponse?.message || "Kayıt işlemi devam ediyor",
-        "info"
+        "info",
       );
     }
 

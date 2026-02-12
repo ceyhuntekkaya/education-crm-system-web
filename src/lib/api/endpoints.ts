@@ -197,6 +197,8 @@ export const API_ENDPOINTS = {
   USERS: {
     REGISTER: "/users/register",
     REGISTER_INSTITUTION: "/users/register/institution",
+    REGISTER_TEACHER: "/users/register/teacher",
+    REGISTER_INSTRUCTOR: "/users/register/instructor",
     BY_CAMPUS: (campusId: string | number) => `/users/campus/${campusId}`,
     BY_ID: (userId: string | number) => `/users/${userId}`,
     PROFILE: (userId: string | number) => `/users/${userId}/profile`,

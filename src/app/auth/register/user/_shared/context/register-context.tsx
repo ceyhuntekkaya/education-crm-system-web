@@ -10,29 +10,24 @@ import {
 } from "../hooks";
 import { useSubmitStep3 } from "../hooks/use-submit-step-3";
 import { useForm } from "@/contexts/form-context";
-import { UserType } from "@/enums/UserType";
-
-type RegistrationType = UserType;
 
 const UserRegisterContext = createContext<UserRegisterContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface UserRegisterProviderProps {
   children: React.ReactNode;
-  registrationType?: RegistrationType;
 }
 
 export const UserRegisterProvider: React.FC<UserRegisterProviderProps> = ({
   children,
-  registrationType = UserType.PARENT,
 }) => {
   const [userId, setUserId] = useState<number | null>(null);
 
   const { values } = useForm();
 
   const { currentStep, setCurrentStep, nextStep, previousStep, goToStep } =
-    useRegisterSteps(registrationType);
+    useRegisterSteps();
 
   const { isStepCompleted, canProceedToNextStep } = useStepValidation();
 
@@ -56,12 +51,12 @@ export const UserRegisterProvider: React.FC<UserRegisterProviderProps> = ({
 
   const { isLoading } = useRegisterApiSteps();
 
-  // Sadece step 3 submit handler - tüm verileri tek seferde gönderir
+  // Sadece step 3 submit handler - tüm verileri tek seferde gönderir (Parent kayıt için)
   const { handleSubmitStep3 } = useSubmitStep3(
     userId,
     setUserId,
     nextStep,
-    fullCode
+    fullCode,
   );
 
   const contextValue: UserRegisterContextType = {

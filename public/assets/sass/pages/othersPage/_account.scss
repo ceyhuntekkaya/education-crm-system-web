@@ -5,4 +5,183 @@
         inset-inline-start: 13%;
     }
 }
+
+/* Register Cards */
+.account {
+    /* Kartlar eşit yükseklik, butonlar en altta aynı hizada */
+    .register-option-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .accordion-content,
+        .accordion-content > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+    }
+
+    .register-card-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 0;
+        flex: 1;
+        min-height: 0;
+
+        // Header section mobile optimization
+        > div:first-of-type {
+            @media (max-width: 991px) {
+                padding-top: 16px !important;
+                padding-bottom: 12px !important;
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+            }
+
+            @media (max-width: 767px) {
+                padding-top: 16px !important;
+                padding-bottom: 12px !important;
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+
+                // Icon circle
+                > div:first-child {
+                    margin-bottom: 10px !important;
+                    width: 48px !important;
+                    height: 48px !important;
+
+                    i {
+                        font-size: 24px !important;
+                    }
+                }
+
+                // Title
+                h3 {
+                    margin-bottom: 6px !important;
+                    font-size: 1rem !important;
+                }
+            }
+        }
+    }
+
+    .register-card-description {
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        line-height: 1.4;
+        
+        @media (max-width: 991px) {
+            min-height: 32px;
+            padding: 0 8px;
+        }
+
+        @media (max-width: 767px) {
+            min-height: auto;
+            padding: 0;
+        }
+    }
+
+    .register-card-features {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        
+        @media (max-width: 991px) {
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+        }
+
+        @media (max-width: 767px) {
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+    }
+
+    .register-card-button-wrapper {
+        margin-top: auto;
+        
+        @media (max-width: 991px) {
+            padding-top: 12px !important;
+            padding-bottom: 16px !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+        }
+
+        @media (max-width: 767px) {
+            padding-top: 12px !important;
+            padding-bottom: 16px !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+    }
+
+    // Page section spacing
+    .py-32 {
+        @media (max-width: 991px) {
+            padding-top: 24px !important;
+            padding-bottom: 24px !important;
+        }
+
+        @media (max-width: 767px) {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+        }
+    }
+
+    .mb-32 {
+        @media (max-width: 991px) {
+            margin-bottom: 24px !important;
+        }
+
+        @media (max-width: 767px) {
+            margin-bottom: 20px !important;
+        }
+    }
+
+    // Row gap adjustment for better spacing
+    .register-cards-row {
+        margin-bottom: 32px;
+        
+        @media (max-width: 991px) {
+            margin-bottom: 24px;
+            gap: 16px 0 !important;
+        }
+
+        @media (max-width: 767px) {
+            margin-bottom: 20px;
+            gap: 12px 0 !important;
+        }
+    }
+
+    // Card hover effect for better UX
+    .custom-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        
+        &:hover:not(.disabled) {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 767px) {
+            &:hover:not(.disabled) {
+                transform: none;
+            }
+        }
+    }
+}
 /* ============================ Account Css End ========================= */

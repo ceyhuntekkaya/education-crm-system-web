@@ -34,7 +34,7 @@ export const usePostLoginRedirect = () => {
 
     // SUPPLY rolü için direkt ana sayfaya yönlendir
     const userRole = user.userRoles?.[0]?.role;
-    if (userRole === Role.SUPPLY) {
+    if (userRole === Role.SUPPLY || userRole === Role.TEACHER || userRole === Role.INSTRUCTOR) {
       setTimeout(() => {
         router.push("/");
       }, 100);

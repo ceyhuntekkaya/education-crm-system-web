@@ -7,6 +7,7 @@ export enum Role {
   COMPANY = "COMPANY",
   SUPPLY = "SUPPLY",
   INSTRUCTOR = "INSTRUCTOR",
+  TEACHER = "TEACHER",
   PARTICIPANT = "PARTICIPANT",
 }
 
@@ -17,5 +18,6 @@ export const RolePermissions: Record<Role, Permission[]> = {
   COMPANY: [Permission.GENERAL],
   SUPPLY: [Permission.GENERAL],
   INSTRUCTOR: [Permission.GENERAL],
+  TEACHER: [Permission.GENERAL],
   PARTICIPANT: [Permission.GENERAL],
 };

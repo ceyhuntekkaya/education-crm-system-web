@@ -4,13 +4,13 @@ import React, { Suspense } from "react";
 import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { RegisterForm } from "./_shared";
+import { RegisterForm } from "../teacher/_shared";
 import { UserType } from "@/enums/UserType";
 
 /**
- * Teacher Register Page Content
+ * Instructor Register Page Content
  */
-const TeacherRegisterPageContent: React.FC = () => {
+const InstructorRegisterPageContent: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -20,20 +20,20 @@ const TeacherRegisterPageContent: React.FC = () => {
         <div className="text-center mb-40 mt-24">
           <div className="d-flex align-items-center justify-content-center gap-12 mb-16">
             <Icon
-              icon="ph-chalkboard-teacher"
+              icon="ph-presentation"
               className="text-info-600"
               style={{ fontSize: "32px" }}
             />
-            <h2 className="mb-0">Öğretmen Kaydı</h2>
+            <h2 className="mb-0">Eğitmen Kaydı</h2>
           </div>
           <p className="text-neutral-600 mb-0">
-            Hızlı kayıt ile hesabınızı oluşturun ve öğrencilerinizi yönetmeye
+            Hızlı kayıt ile hesabınızı oluşturun ve kurslarınızı yönetmeye
             başlayın
           </p>
         </div>
 
         {/* Register Form */}
-        <RegisterForm registrationType={UserType.TEACHER} />
+        <RegisterForm registrationType={UserType.INSTRUCTOR} />
 
         {/* Footer Links */}
         <div className="text-center mt-32 pt-24 border-top">
@@ -60,14 +60,14 @@ const TeacherRegisterPageContent: React.FC = () => {
 };
 
 /**
- * Teacher Register Page
+ * Instructor Register Page
  */
-const TeacherRegisterPage: React.FC = () => {
+const InstructorRegisterPage: React.FC = () => {
   return (
     <Suspense fallback={<div>Yükleniyor...</div>}>
-      <TeacherRegisterPageContent />
+      <InstructorRegisterPageContent />
     </Suspense>
   );
 };
 
-export default TeacherRegisterPage;
+export default InstructorRegisterPage;
