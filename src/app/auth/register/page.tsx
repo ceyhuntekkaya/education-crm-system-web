@@ -17,8 +17,8 @@ const RegisterPage: React.FC = () => {
     router.push("/auth/register/institution");
   };
 
-  const handleUserRegister = () => {
-    router.push("/auth/register/user");
+  const handleTeacherRegister = () => {
+    router.push("/auth/register/teacher");
   };
 
   return (
@@ -49,7 +49,7 @@ const RegisterPage: React.FC = () => {
             {/* Seçim Kartları */}
             <div className="row row-gap-24 mb-40">
               {/* Kurum Kaydı */}
-              <div className="col-12 col-md-6">
+              <div className="col-4">
                 <CustomCard className="h-100">
                   <div className="d-flex flex-column h-100 p-24">
                     <div className="text-center mb-24">
@@ -127,7 +127,7 @@ const RegisterPage: React.FC = () => {
               </div>
 
               {/* Veli Kaydı - Yakında Açılacak */}
-              <div className="col-12 col-md-6">
+              <div className="col-4">
                 <CustomCard className="h-100 position-relative overflow-hidden">
                   <div className="d-flex flex-column h-100 p-24">
                     {/* Yakında Açılacak Badge */}
@@ -216,27 +216,30 @@ const RegisterPage: React.FC = () => {
                 </CustomCard>
               </div>
 
-              {/* TODO: Veli Kaydı aktif versiyonu - ileride açılacak */}
-              {/* <div className="col-12 col-md-6">
+              {/* Öğretmen Kaydı */}
+              <div className="col-4">
                 <CustomCard className="h-100">
                   <div className="d-flex flex-column h-100 p-24">
                     <div className="text-center mb-24">
                       <div
-                        className="d-inline-flex align-items-center justify-content-center bg-success-600 text-white rounded-circle mb-20"
+                        className="d-inline-flex align-items-center justify-content-center bg-info-600 text-white rounded-circle mb-20"
                         style={{ width: "80px", height: "80px" }}
                       >
                         <i
-                          className="ph-fill ph-user-circle"
+                          className="ph-fill ph-chalkboard-teacher"
                           style={{ fontSize: "40px" }}
                         ></i>
                       </div>
-                      <h3 className="h5 text-neutral-900 mb-12">Veli Kaydı</h3>
+                      <h3 className="h5 text-neutral-900 mb-12">
+                        Öğretmen Kaydı
+                      </h3>
                       <p className="text-sm text-neutral-600">
-                        Çocuğunuzun eğitim sürecini takip edin ve öğretmenlerle
-                        iletişime geçin
+                        Öğrencilerinizi yönetin, velilerle iletişime geçin ve
+                        eğitim sürecini takip edin
                       </p>
                     </div>
 
+                    {/* Özellikler */}
                     <div className="flex-grow-1 mb-24">
                       <div className="d-flex flex-column gap-12 align-items-center">
                         <div className="d-flex align-items-center gap-8">
@@ -245,7 +248,7 @@ const RegisterPage: React.FC = () => {
                             style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
-                            Hızlı kayıt
+                            Sınıf yönetimi
                           </span>
                         </div>
                         <div className="d-flex align-items-center gap-8">
@@ -263,7 +266,7 @@ const RegisterPage: React.FC = () => {
                             style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
-                            Kolay iletişim
+                            Veli iletişimi
                           </span>
                         </div>
                         <div className="d-flex align-items-center gap-8">
@@ -272,7 +275,7 @@ const RegisterPage: React.FC = () => {
                             style={{ fontSize: "18px" }}
                           ></i>
                           <span className="text-sm text-neutral-700">
-                            Anında bildirimler
+                            Performans raporları
                           </span>
                         </div>
                       </div>
@@ -280,16 +283,17 @@ const RegisterPage: React.FC = () => {
 
                     <Button
                       type="button"
-                      variant="success"
+                      variant="inline"
                       fullWidth
                       rightIcon="ph-arrow-right"
-                      onClick={handleUserRegister}
+                      onClick={handleTeacherRegister}
+                      className="btn-info"
                     >
-                      Veli Kaydına Başla
+                      Öğretmen Kaydına Başla
                     </Button>
                   </div>
                 </CustomCard>
-              </div> */}
+              </div>
             </div>
 
             {/* Alt Bilgi */}
