@@ -11,7 +11,7 @@ import { useRegisterStep1 } from "./use-register-step-1";
  */
 export const useSubmitStep1 = (
   setUserId: (id: number) => void,
-  nextStep: () => void
+  nextStep: () => void,
 ) => {
   const { values } = useForm();
   const { showSnackbar } = useSnackbar();
@@ -28,8 +28,8 @@ export const useSubmitStep1 = (
     };
 
     const response = await submitCredential(payload);
-    if (response?.data?.id) {
-      setUserId(response.data.id);
+    if (response?.id) {
+      setUserId(response.id);
       // Email'i personalInfo'ya da kaydet (Step 2'de email backend'e gönderiliyor)
       if (values.loginCredentials.email && values.personalInfo) {
         values.personalInfo.email = values.loginCredentials.email;

@@ -14,7 +14,7 @@ export const useSubmitStep3 = (
   userId: number | null,
   setUserId: (id: number) => void,
   nextStep: () => void,
-  fullCode: string
+  fullCode: string,
 ) => {
   const { values } = useForm();
   const { showSnackbar } = useSnackbar();
@@ -87,7 +87,7 @@ export const useSubmitStep3 = (
     const response = await submitConfirm(payload);
     // console.log("📥 Step 3 API response:", response);
 
-    if (response?.success) {
+    if (response !== null) {
       // userId'yi set et (eğer yoksa)
       if (!userId && effectiveUserId) {
         setUserId(effectiveUserId);

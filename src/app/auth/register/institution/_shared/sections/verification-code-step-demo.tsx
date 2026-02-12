@@ -44,7 +44,7 @@ export const VerificationCodeStepDemo: React.FC = () => {
 
             const response = await submitConfirm(payload);
 
-            if (response?.success) {
+            if (response !== null) {
               // userId'yi set et (eğer yoksa)
               if (!userId && effectiveUserId) {
                 setUserId(effectiveUserId);
