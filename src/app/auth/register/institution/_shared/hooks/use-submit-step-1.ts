@@ -28,7 +28,7 @@ export const useSubmitStep1 = (
     };
 
     const response = await submitCredential(payload);
-    if (response?.id) {
+    if (response?.id != null) {
       setUserId(response.id);
       // Email'i personalInfo'ya da kaydet (Step 2'de email backend'e gönderiliyor)
       if (values.loginCredentials.email && values.personalInfo) {

@@ -12,7 +12,7 @@ import { API_ENDPOINTS } from "@/lib/api/endpoints";
  *
  * @returns {object} Hook functions and states
  */
-export const useTeacherRegister = () => {
+export const useTeacherRegisterApi = () => {
   const {
     mutate: registerTeacher,
     loading,

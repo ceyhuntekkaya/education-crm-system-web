@@ -5,7 +5,6 @@ import { Icon, Button } from "@/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RegisterForm } from "./_shared";
-import { UserType } from "@/enums/UserType";
 
 /**
  * User (Veli) Register Page Content
@@ -32,7 +31,7 @@ const UserRegisterPageContent: React.FC = () => {
         </div>
 
         {/* Register Form */}
-        <RegisterForm registrationType={UserType.PARENT} />
+        <RegisterForm />
 
         {/* Footer Links */}
         <div className="text-center mt-32 pt-24 border-top">
