@@ -15,3 +15,18 @@ export interface PageableObject {
   /** Format: int32 */
   pageSize?: number;
 }
+
+// Generic Page interface for paginated responses
+export interface Page<T> {
+  totalElements?: number;
+  totalPages?: number;
+  sort?: SortObject;
+  first?: boolean;
+  last?: boolean;
+  numberOfElements?: number;
+  pageable?: PageableObject;
+  size?: number;
+  content?: T[];
+  number?: number;
+  empty?: boolean;
+}

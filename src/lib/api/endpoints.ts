@@ -424,6 +424,60 @@ export const API_ENDPOINTS = {
     },
   },
 
+  // HR Management endpoints
+  HR: {
+    // Job Postings
+    JOB_POSTINGS: {
+      LIST: "/hr/job-postings",
+      BY_ID: (id: string | number) => `/hr/job-postings/${id}`,
+      BY_SCHOOL: (schoolId: string | number) =>
+        `/hr/job-postings/by-school/${schoolId}`,
+      CREATE: "/hr/job-postings",
+      UPDATE: (id: string | number) => `/hr/job-postings/${id}`,
+      DELETE: (id: string | number) => `/hr/job-postings/${id}`,
+    },
+
+    // Teacher Profiles
+    TEACHER_PROFILES: {
+      LIST: "/hr/teacher-profiles",
+      BY_ID: (id: string | number) => `/hr/teacher-profiles/${id}`,
+      BY_USER: (userId: string | number) =>
+        `/hr/teacher-profiles/by-user/${userId}`,
+      CREATE: "/hr/teacher-profiles",
+      UPDATE: (id: string | number) => `/hr/teacher-profiles/${id}`,
+      DELETE: (id: string | number) => `/hr/teacher-profiles/${id}`,
+    },
+
+    // Applications
+    APPLICATIONS: {
+      LIST: "/hr/applications",
+      BY_ID: (id: string | number) => `/hr/applications/${id}`,
+      BY_JOB_POSTING: (jobPostingId: string | number) =>
+        `/hr/applications/by-job-posting/${jobPostingId}`,
+      BY_TEACHER: (teacherId: string | number) =>
+        `/hr/applications/by-teacher/${teacherId}`,
+      BY_CAMPUS: (campusId: string | number) =>
+        `/hr/applications/by-campus/${campusId}`,
+      CREATE: "/hr/applications",
+      UPDATE_STATUS: (id: string | number) => `/hr/applications/${id}/status`,
+      WITHDRAW: (id: string | number) => `/hr/applications/${id}/withdraw`,
+      NOTES: (id: string | number) => `/hr/applications/${id}/notes`,
+      ADD_NOTE: (id: string | number) => `/hr/applications/${id}/notes`,
+      DOCUMENTS: (id: string | number) => `/hr/applications/${id}/documents`,
+      ADD_DOCUMENT: (id: string | number) => `/hr/applications/${id}/documents`,
+      DELETE_DOCUMENT: (id: string | number, documentId: string | number) =>
+        `/hr/applications/${id}/documents/${documentId}`,
+    },
+
+    // Notifications
+    NOTIFICATIONS: {
+      LIST: "/hr/notifications",
+      UNREAD_COUNT: "/hr/notifications/unread-count",
+      MARK_AS_READ: (id: string | number) => `/hr/notifications/${id}/read`,
+      MARK_ALL_READ: "/hr/notifications/mark-all-read",
+    },
+  },
+
   // // Todos
   // TODOS: {
   //   LIST: '/todos',

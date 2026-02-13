@@ -40,17 +40,33 @@ const IndividualHeader = () => {
       case Role.TEACHER:
         return [
           { href: "/individual/teacher", label: "Ana Sayfa", icon: "ph-house" },
-          { href: "/individual/teacher/lessons", label: "Derslerim", icon: "ph-book-open" },
+          {
+            href: "/individual/teacher/lessons",
+            label: "Derslerim",
+            icon: "ph-book-open",
+          },
         ];
       case Role.COMPANY:
         return [
           { href: "/individual/company", label: "Ana Sayfa", icon: "ph-house" },
-          { href: "/individual/company/projects", label: "Projeler", icon: "ph-folder-open" },
+          {
+            href: "/individual/company/job-postings",
+            label: "İlanlarım",
+            icon: "ph-briefcase",
+          },
         ];
       case Role.INSTRUCTOR:
         return [
-          { href: "/individual/instructor", label: "Ana Sayfa", icon: "ph-house" },
-          { href: "/individual/instructor/lessons", label: "Derslerim", icon: "ph-book-open" },
+          {
+            href: "/individual/instructor",
+            label: "Ana Sayfa",
+            icon: "ph-house",
+          },
+          {
+            href: "/individual/instructor/lessons",
+            label: "Derslerim",
+            icon: "ph-book-open",
+          },
         ];
       default:
         return [];
@@ -88,8 +104,13 @@ const IndividualHeader = () => {
 
             <div className="header-right flex-align">
               <div className="d-none d-lg-flex flex-align gap-8 bg-main-25 rounded-8 px-12 py-6 me-12">
-                <i className={`ph ${panelInfo.icon} text-main-600`} style={{ fontSize: "18px" }} />
-                <span className="text-sm fw-medium text-neutral-700">{panelInfo.name}</span>
+                <i
+                  className={`ph ${panelInfo.icon} text-main-600`}
+                  style={{ fontSize: "18px" }}
+                />
+                <span className="text-sm fw-medium text-neutral-700">
+                  {panelInfo.name}
+                </span>
               </div>
 
               {user && (
@@ -101,8 +122,12 @@ const IndividualHeader = () => {
                       content={
                         <div className="p-8" style={{ minWidth: "220px" }}>
                           <div className="p-10 mb-4">
-                            <div className="fw-semibold text-neutral-900 text-sm mb-2">{user.fullName}</div>
-                            <div className="text-neutral-500 text-xs mb-8">{user.email}</div>
+                            <div className="fw-semibold text-neutral-900 text-sm mb-2">
+                              {user.fullName}
+                            </div>
+                            <div className="text-neutral-500 text-xs mb-8">
+                              {user.email}
+                            </div>
                             <span className="d-inline-block px-6 py-2 text-xs fw-semibold bg-main-50 text-main-700 rounded-4 text-uppercase">
                               {String(currentRole)}
                             </span>
@@ -119,7 +144,14 @@ const IndividualHeader = () => {
                             >
                               Ana Sayfaya Dön
                             </Button>
-                            <Button onClick={logout} variant="error" size="xs" leftIcon="ph ph-sign-out" fullWidth className="justify-content-start">
+                            <Button
+                              onClick={logout}
+                              variant="error"
+                              size="xs"
+                              leftIcon="ph ph-sign-out"
+                              fullWidth
+                              className="justify-content-start"
+                            >
                               Çıkış Yap
                             </Button>
                           </div>
@@ -178,8 +210,13 @@ const IndividualHeader = () => {
           </div>
           <div className="mobile-menu__content">
             <div className="d-flex flex-align gap-8 bg-main-25 rounded-8 px-16 py-12 mx-16 mb-12">
-              <i className={`ph ${panelInfo.icon} text-main-600`} style={{ fontSize: "20px" }} />
-              <span className="text-sm fw-semibold text-neutral-700">{panelInfo.name}</span>
+              <i
+                className={`ph ${panelInfo.icon} text-main-600`}
+                style={{ fontSize: "20px" }}
+              />
+              <span className="text-sm fw-semibold text-neutral-700">
+                {panelInfo.name}
+              </span>
             </div>
             <ul className="mobile-menu__list">
               {navigationItems.map((item, index) => (

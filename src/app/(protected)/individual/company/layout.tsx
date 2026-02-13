@@ -8,9 +8,9 @@ const IndividualCompanyLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <div className="individual-company-layout d-flex flex-column min-vh-100">
+    <div className="individual-company-layout d-flex flex-column min-vh-100 gap-24">
       <IndividualHeader />
-      <main className="main-content flex-fill">
+      <main className="container mx-auto main-content flex-fill">
         {children}
       </main>
       <Footer />

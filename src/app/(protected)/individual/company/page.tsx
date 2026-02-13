@@ -22,41 +22,16 @@ const IndividualCompanyPage = () => {
                   Hoş geldiniz, {user?.fullName || "Şirket"}
                 </h1>
                 <p className="text-neutral-600 mb-0">
-                  Bireysel şirket panelinizden projelerinizi ve özet bilgileri
-                  takip edebilirsiniz.
+                  Bireysel şirket panelinizden özet bilgileri takip
+                  edebilirsiniz.
                 </p>
               </div>
-              <Button
-                variant="inline"
-                size="xxs"
-                leftIcon="ph-folder-open"
-                href="/individual/company/projects"
-              >
-                Projelere git
-              </Button>
             </div>
           </div>
         </div>
 
         {/* Özet kartlar */}
-        <div className="col-12 col-sm-6">
-          <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100 flex-align gap-4">
-            <div className="rounded-12 p-16 flex-shrink-0 bg-main-25">
-              <i
-                className="ph ph-folder-open text-main-600"
-                style={{ fontSize: "28px" }}
-              />
-            </div>
-            <div>
-              <p className="text-neutral-600 text-sm mb-4">Aktif Projeler</p>
-              <h3 className="text-neutral-700 fw-semibold mb-4">8</h3>
-              <span className="text-success-600 text-sm">
-                <i className="ph ph-trend-up" /> %20 artış
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="col-12 col-sm-6">
+        <div className="col-12 col-sm-6 col-lg-6">
           <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100 flex-align gap-4">
             <div className="rounded-12 p-16 flex-shrink-0 bg-main-25">
               <i
@@ -73,20 +48,38 @@ const IndividualCompanyPage = () => {
             </div>
           </div>
         </div>
+        <div className="col-12 col-sm-6 col-lg-6">
+          <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100 flex-align gap-4">
+            <div className="rounded-12 p-16 flex-shrink-0 bg-primary-25">
+              <i
+                className="ph ph-briefcase text-primary-600"
+                style={{ fontSize: "28px" }}
+              />
+            </div>
+            <div>
+              <p className="text-neutral-600 text-sm mb-4">İş İlanları</p>
+              <h3 className="text-neutral-700 fw-semibold mb-4">5</h3>
+              <Link
+                href="/individual/company/job-postings"
+                className="text-primary-600 text-sm"
+              >
+                <i className="ph ph-arrow-right" /> İlanları Görüntüle
+              </Link>
+            </div>
+          </div>
+        </div>
 
         <div className="col-12">
           <div className="border border-neutral-30 rounded-12 bg-white p-32">
             <h5 className="text-neutral-700 fw-semibold mb-16">Hızlı erişim</h5>
-            <p className="text-neutral-600 text-sm mb-0">
-              Tüm projelerinizi ve ilerleme durumlarını yönetmek için{" "}
+            <div className="d-flex flex-wrap gap-3">
               <Link
-                href="/individual/company/projects"
-                className="fw-medium text-main-600"
+                href="/individual/company/job-postings"
+                className="fw-medium text-primary-600"
               >
-                Projeler
-              </Link>{" "}
-              sayfasını kullanın.
-            </p>
+                <i className="ph ph-briefcase" /> İş İlanları
+              </Link>
+            </div>
           </div>
         </div>
       </div>

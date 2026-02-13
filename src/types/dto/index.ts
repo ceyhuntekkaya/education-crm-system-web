@@ -2,6 +2,7 @@ export * from "./analytics";
 export * from "./appointment";
 export * from "./campaign";
 export * from "./content";
+export * from "./hr";
 export * from "./institution";
 export * from "./location";
 export * from "./parent";
