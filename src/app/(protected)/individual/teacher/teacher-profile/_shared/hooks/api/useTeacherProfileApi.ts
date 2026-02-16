@@ -7,6 +7,7 @@ import type {
   ApiResponseTeacherProfileDto,
   GetTeacherProfilesParams,
   TeacherProfileCreateDto,
+  TeacherProfileDto,
   TeacherProfileUpdateDto,
 } from "@/types";
 
@@ -80,7 +81,6 @@ export const useGetTeacherProfileByUserId = (
     userId ? API_ENDPOINTS.HR.TEACHER_PROFILES.BY_USER(userId) : null,
     {
       enabled: options?.enabled ?? !!userId,
-      suppressErrorStatus: [404], // 404 hatalarını sessizce handle et
     },
   );
 };
