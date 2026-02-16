@@ -189,8 +189,8 @@ export const TeacherProfileFormContent = forwardRef<
         </h5>
       </div>
 
-      <div className="col-md-6">
-        {/* <FileInput
+      <div className="col-md-4">
+        <FileInput
           label="Profil Fotoğrafı"
           type="img"
           variant="outline"
@@ -198,16 +198,16 @@ export const TeacherProfileFormContent = forwardRef<
           maxSize={5}
           name="profilePhotoUrl"
           isAutoUpload={true}
-        /> */}
-        <FormInput
+        />
+        {/* <FormInput
           label="Profil Fotoğrafı URL"
           name="profilePhotoUrl"
           placeholder="Profil fotoğrafı URL'si girin"
-        />
+        /> */}
       </div>
 
-      <div className="col-md-6">
-        {/* <FileInput
+      <div className="col-md-4">
+        <FileInput
           label="Tanıtım Videosu"
           type="video"
           variant="outline"
@@ -215,16 +215,16 @@ export const TeacherProfileFormContent = forwardRef<
           maxSize={50}
           name="videoUrl"
           isAutoUpload={true}
-        /> */}
-        <FormInput
+        />
+        {/* <FormInput
           label="Tanıtım Videosu URL"
           name="videoUrl"
           placeholder="Video URL'si girin"
-        />
+        /> */}
       </div>
 
-      <div className="col-md-6">
-        {/* <FileInput
+      <div className="col-md-4">
+        <FileInput
           label="CV Dosyası"
           type="all"
           variant="outline"
@@ -232,12 +232,12 @@ export const TeacherProfileFormContent = forwardRef<
           maxSize={10}
           name="cvUrl"
           isAutoUpload={true}
-        /> */}
-        <FormInput
+        />
+        {/* <FormInput
           label="CV Dosyası URL"
           name="cvUrl"
           placeholder="CV URL'si girin"
-        />
+        /> */}
       </div>
 
       {/* Divider */}

@@ -63,7 +63,7 @@ const TeacherProfilePage: React.FC = () => {
       header={{
         backButton: {
           label: "Geri Dön",
-          href: "/individual/teacher/dashboard",
+          href: "/individual/teacher",
         },
         actionButtons: [
           {
