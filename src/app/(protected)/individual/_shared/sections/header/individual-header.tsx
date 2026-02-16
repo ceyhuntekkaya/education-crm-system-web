@@ -41,6 +41,11 @@ const IndividualHeader = () => {
         return [
           { href: "/individual/teacher", label: "Ana Sayfa", icon: "ph-house" },
           {
+            href: "/individual/teacher/teacher-profile",
+            label: "Profilim",
+            icon: "ph-user-circle",
+          },
+          {
             href: "/individual/teacher/applications",
             label: "Başvurularım",
             icon: "ph-file-text",
