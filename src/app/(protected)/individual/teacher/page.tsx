@@ -22,17 +22,17 @@ const TeacherPage = () => {
                   Hoş geldiniz, {user?.fullName || "Öğretmen"}
                 </h1>
                 <p className="text-neutral-600 mb-0">
-                  Öğretmen panelinizden derslerinizi ve özet bilgileri takip
+                  Öğretmen panelinizden başvurularınızı ve iş ilanlarını takip
                   edebilirsiniz.
                 </p>
               </div>
               <Button
                 variant="inline"
                 size="xxs"
-                leftIcon="ph-book-open"
-                href="/individual/teacher/lessons"
+                leftIcon="ph-file-text"
+                href="/individual/teacher/applications"
               >
-                Derslerime git
+                Başvurularım
               </Button>
             </div>
           </div>
@@ -42,15 +42,15 @@ const TeacherPage = () => {
           <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100 flex-align gap-4">
             <div className="rounded-12 p-16 flex-shrink-0 bg-main-25">
               <i
-                className="ph ph-book-open text-main-600"
+                className="ph ph-file-text text-main-600"
                 style={{ fontSize: "28px" }}
               />
             </div>
             <div>
-              <p className="text-neutral-600 text-sm mb-4">Aktif Dersler</p>
-              <h3 className="text-neutral-700 fw-semibold mb-4">12</h3>
+              <p className="text-neutral-600 text-sm mb-4">Toplam Başvuru</p>
+              <h3 className="text-neutral-700 fw-semibold mb-4">8</h3>
               <span className="text-success-600 text-sm">
-                <i className="ph ph-trend-up" /> %15 artış
+                <i className="ph ph-trend-up" /> 3 yeni
               </span>
             </div>
           </div>
@@ -59,15 +59,15 @@ const TeacherPage = () => {
           <div className="border border-neutral-30 rounded-12 bg-white p-32 h-100 flex-align gap-4">
             <div className="rounded-12 p-16 flex-shrink-0 bg-main-25">
               <i
-                className="ph ph-users text-main-600"
+                className="ph ph-briefcase text-main-600"
                 style={{ fontSize: "28px" }}
               />
             </div>
             <div>
-              <p className="text-neutral-600 text-sm mb-4">Öğrenciler</p>
-              <h3 className="text-neutral-700 fw-semibold mb-4">156</h3>
-              <span className="text-success-600 text-sm">
-                <i className="ph ph-trend-up" /> %8 artış
+              <p className="text-neutral-600 text-sm mb-4">Aktif İlanlar</p>
+              <h3 className="text-neutral-700 fw-semibold mb-4">42</h3>
+              <span className="text-info-600 text-sm">
+                <i className="ph ph-clock" /> 15 yeni ilan
               </span>
             </div>
           </div>
@@ -77,12 +77,19 @@ const TeacherPage = () => {
           <div className="border border-neutral-30 rounded-12 bg-white p-32">
             <h5 className="text-neutral-700 fw-semibold mb-16">Hızlı erişim</h5>
             <p className="text-neutral-600 text-sm mb-0">
-              Derslerinizi ve programınızı yönetmek için{" "}
+              İş ilanlarını incelemek için{" "}
               <Link
-                href="/individual/teacher/lessons"
+                href="/individual/teacher/job-postings"
                 className="fw-medium text-main-600"
               >
-                Derslerim
+                İş İlanları
+              </Link>{" "}
+              sayfasını, başvurularınızı takip etmek için{" "}
+              <Link
+                href="/individual/teacher/applications"
+                className="fw-medium text-main-600"
+              >
+                Başvurularım
               </Link>{" "}
               sayfasını kullanın.
             </p>

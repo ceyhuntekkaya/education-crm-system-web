@@ -10,16 +10,14 @@ import type {
 // ================== API HOOKS ==================
 
 /**
- * Okula ait iş ilanlarını getirir
+ * Tüm iş ilanlarını getirir (Teacher için)
  *
- * @param schoolId - Okul ID'si
  * @param params - Sayfalama ve filtreleme parametreleri
  * @returns İlan listesi
  *
- * API Endpoint: GET /hr/job-postings/by-school/{schoolId}
+ * API Endpoint: GET /hr/job-postings
  */
-export const useGetJobPostingsBySchool = (
-  schoolId: number,
+export const useGetAllJobPostings = (
   params?: GetJobPostingsParams,
   options?: { enabled?: boolean },
 ) => {
@@ -33,10 +31,10 @@ export const useGetJobPostingsBySchool = (
   };
 
   return useGet<ApiResponsePageJobPostingDto>(
-    schoolId ? API_ENDPOINTS.HR.JOB_POSTINGS.BY_SCHOOL(schoolId) : null,
+    API_ENDPOINTS.HR.JOB_POSTINGS.LIST,
     {
       params: queryParams as Record<string, unknown>,
-      enabled: options?.enabled ?? !!schoolId,
+      enabled: options?.enabled ?? true,
     },
   );
 };

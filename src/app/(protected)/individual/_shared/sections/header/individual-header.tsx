@@ -41,9 +41,14 @@ const IndividualHeader = () => {
         return [
           { href: "/individual/teacher", label: "Ana Sayfa", icon: "ph-house" },
           {
-            href: "/individual/teacher/lessons",
-            label: "Derslerim",
-            icon: "ph-book-open",
+            href: "/individual/teacher/applications",
+            label: "Başvurularım",
+            icon: "ph-file-text",
+          },
+          {
+            href: "/individual/teacher/job-postings",
+            label: "İş İlanları",
+            icon: "ph-briefcase",
           },
         ];
       case Role.COMPANY:
