@@ -11,7 +11,8 @@ export const useAddTeacherProfile = () => {
 
   const createProfile = async (data: TeacherProfileCreateDto) => {
     const response = await post(data);
-    return response?.data || null;
+    // post already returns the inner data object, so no need to access .data again
+    return response || null;
   };
 
   return {

@@ -1,3 +1,2 @@
-// Config exports - empty for now
-// Profilim mantığında config dosyaları gereksiz
-
+// Config exports
+export * from "./teacher-profile-columns";

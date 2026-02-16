@@ -1,3 +1,2 @@
 // Sections exports
-// Profilim mantığında card component gereksiz
-
+export * from "./teacher-profile-header-section";

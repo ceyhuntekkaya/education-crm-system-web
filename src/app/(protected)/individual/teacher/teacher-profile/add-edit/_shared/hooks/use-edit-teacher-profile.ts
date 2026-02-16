@@ -11,8 +11,11 @@ export const useEditTeacherProfile = (profileId: number) => {
   const { mutate, loading, error } = useUpdateTeacherProfile(profileId);
 
   const updateProfile = async (data: TeacherProfileUpdateDto) => {
+    console.log("useEditTeacherProfile - Sending data:", data);
     const response = await mutate(data);
-    return response?.data || null;
+    console.log("useEditTeacherProfile - Response:", response);
+    // mutate already returns the inner data object, so no need to access .data again
+    return response || null;
   };
 
   return {

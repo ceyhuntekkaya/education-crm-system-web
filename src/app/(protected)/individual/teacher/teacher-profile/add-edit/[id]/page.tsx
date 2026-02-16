@@ -60,10 +60,12 @@ const TeacherProfileAddEditPage: React.FC = () => {
 
       if (formRef.current) {
         profileId = await formRef.current.submit();
+        console.log("Form submit result - profileId:", profileId);
       }
 
       // Check if profile was created/updated successfully
       if (!profileId) {
+        console.error("Profile ID is null or undefined after submit");
         throw new Error("Profil kaydedilemedi. Lütfen formu kontrol edin.");
       }
 
@@ -73,6 +75,7 @@ const TeacherProfileAddEditPage: React.FC = () => {
       // Profil sayfasına yönlendir
       router.push("/individual/teacher/teacher-profile");
     } catch (error) {
+      console.error("Submit error:", error);
       const errorMessage =
         error instanceof Error
           ? error.message
