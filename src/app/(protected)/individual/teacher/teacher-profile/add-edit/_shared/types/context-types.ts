@@ -4,19 +4,28 @@ import type {
   TeacherProfileUpdateDto,
 } from "@/types";
 
-export interface TeacherProfileAddEditContextValue {
-  // Mod
-  isEditMode: boolean;
-  profileId: number;
+export interface SelectOption {
+  value: string;
+  label: string;
+}
 
-  // Data
+export interface TeacherProfileAddEditContextValue {
+  // Current profile data
   teacherProfile: TeacherProfileDto | null;
-  isLoading: boolean;
-  error: any;
+  profileDetailLoading: boolean; // Veri çekerken gösterilecek loading
+  profileSubmitLoading: boolean; // Form submit edilirken button loading
+  profileError: string | null;
+
+  // Edit mode state
+  isEditMode: boolean;
+  profileId: string | null;
+
+  // Location options
+  cityOptions: SelectOption[];
+  provinceOptions: SelectOption[];
+  provincesLoading: boolean;
 
   // Actions
-  isSaving: boolean;
-  handleSubmit: () => Promise<void>;
   postProfile: (
     data: TeacherProfileCreateDto,
   ) => Promise<TeacherProfileDto | null>;

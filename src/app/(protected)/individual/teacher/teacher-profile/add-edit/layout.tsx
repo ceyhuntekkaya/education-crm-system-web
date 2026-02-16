@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { TeacherProfileAddEditProvider } from "./_shared/context";
+import { TeacherProfileAddEditProvider } from "./_shared";
 
 interface TeacherProfileAddEditLayoutProps {
   children: React.ReactNode;

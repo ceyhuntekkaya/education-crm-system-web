@@ -9,9 +9,11 @@ import type { TeacherProfileCreateDto, TeacherProfileDto } from "@/types";
 export const useAddTeacherProfile = () => {
   const { post, loading, error } = useCreateTeacherProfile();
 
-  const createProfile = async (data: TeacherProfileCreateDto) => {
+  // executeMutation zaten unwrap ediyor, tekrar .data yapmaya gerek yok
+  const createProfile = async (
+    data: TeacherProfileCreateDto,
+  ): Promise<TeacherProfileDto | null> => {
     const response = await post(data);
-    // post already returns the inner data object, so no need to access .data again
     return response || null;
   };
 

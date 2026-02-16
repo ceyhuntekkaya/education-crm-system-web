@@ -1,69 +1,65 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { useSnackbar } from "@/contexts";
-import { useAddTeacherProfile, useEditTeacherProfile } from "../hooks";
-import { useTeacherProfileContext } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/contexts";
+import React, { createContext, useContext, ReactNode } from "react";
+import { useParams } from "next/navigation";
 import type { TeacherProfileAddEditContextValue } from "../types";
-import type {
-  TeacherProfileCreateDto,
-  TeacherProfileUpdateDto,
-  TeacherProfileDto,
-} from "@/types";
+import {
+  useAddTeacherProfile,
+  useEditTeacherProfile,
+  useProvincesData,
+} from "../hooks";
+import { useTeacherProfileContext } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/contexts";
+import { isValidEditId, parseEditId } from "../utils";
 
 const TeacherProfileAddEditContext = createContext<
   TeacherProfileAddEditContextValue | undefined
 >(undefined);
 
 interface TeacherProfileAddEditProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function TeacherProfileAddEditProvider({
   children,
 }: TeacherProfileAddEditProviderProps) {
   const params = useParams();
-  const router = useRouter();
-  const { showSnackbar } = useSnackbar();
-  const { myProfile } = useTeacherProfileContext();
+  const { myProfile, profileLoading } = useTeacherProfileContext();
 
-  // URL'den id'yi al
-  const profileId = params?.id === "new" ? 0 : Number(params?.id) || 0;
-  const isEditMode = profileId > 0;
+  // ID parsing and edit mode determination
+  const { id } = params;
+  const isEditMode = isValidEditId(id);
+  const profileId = parseEditId(id);
 
-  // State
-  const [isSaving, setIsSaving] = useState(false);
-
-  // Düzenleme modunda myProfile kullan
+  // Teacher profile data - use myProfile when editing
   const teacherProfile = isEditMode ? myProfile : null;
 
   // API Hooks
-  const { createProfile, isCreating } = useAddTeacherProfile();
-  const { updateProfile, isUpdating } = useEditTeacherProfile(profileId);
+  const { createProfile, isCreating, createError } = useAddTeacherProfile();
 
-  // Submit handler - Artık kullanılmayacak, form'dan direkt create/update çağrılacak
-  const handleSubmit = useCallback(async (): Promise<void> => {
-    setIsSaving(true);
-    try {
-      // Bu metod artık kullanılmıyor
-      // Form'dan direkt postProfile/putProfile çağrılacak
-    } catch (error: any) {
-      console.error("Submit error:", error);
-      showSnackbar(error?.message || "Bir hata oluştu", "error");
-    } finally {
-      setIsSaving(false);
-    }
-  }, [showSnackbar]);
+  const { updateProfile, isUpdating, updateError } = useEditTeacherProfile(
+    profileId || 0,
+  );
+
+  // Location data hooks
+  const { cityOptions, provinceOptions, provincesLoading } = useProvincesData();
 
   const contextValue: TeacherProfileAddEditContextValue = {
-    isEditMode,
-    profileId,
+    // Current profile data
     teacherProfile,
-    isLoading: false, // Profilim mantığında loading yok
-    error: null,
-    handleSubmit,
-    isSaving: isSaving || isCreating || isUpdating,
+    profileDetailLoading: isEditMode ? profileLoading : false, // Edit modunda profile yüklenirken
+    profileSubmitLoading: isCreating || isUpdating, // Form submit edilirken
+    profileError: createError || updateError,
+
+    // Edit mode state
+    isEditMode,
+    profileId: profileId?.toString() || null,
+
+    // Location options
+    cityOptions,
+    provinceOptions,
+    provincesLoading,
+
+    // Actions
     postProfile: createProfile,
     putProfile: updateProfile,
   };

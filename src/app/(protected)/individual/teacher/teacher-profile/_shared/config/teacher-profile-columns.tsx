@@ -101,42 +101,13 @@ const renderProvinces = (profile: TeacherProfileDto) => {
   }
 
   return (
-    <div
-      className="bg-white rounded-12 p-16"
-      style={{
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
-        border: "1px solid rgba(17, 24, 39, 0.06)",
-      }}
-    >
-      <div className="d-flex align-items-center gap-8 mb-12">
-        <div
-          className="d-flex align-items-center justify-content-center bg-info-100"
-          style={{
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
-          }}
-        >
-          <i
-            className="ph-bold ph-map-pin text-info-700"
-            style={{ fontSize: "1.125rem" }}
-          ></i>
-        </div>
-        <h5
-          className="mb-0 fw-semibold text-neutral-900"
-          style={{ fontSize: "1rem" }}
-        >
-          Çalışmak İstediğim İller
-        </h5>
-      </div>
-      <div className="d-flex flex-wrap gap-8">
-        {profile.provinces.map((province) => (
-          <Badge key={province.id} variant="info" size="sm">
-            <i className="ph ph-map-pin me-1"></i>
-            {province.name}
-          </Badge>
-        ))}
-      </div>
+    <div className="d-flex flex-wrap gap-8">
+      {profile.provinces.map((province) => (
+        <Badge key={province.id} variant="info" size="sm">
+          <i className="ph ph-map-pin me-1"></i>
+          {province.name}
+        </Badge>
+      ))}
     </div>
   );
 };

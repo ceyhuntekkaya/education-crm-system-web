@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from "react";
 import { useAuth } from "@/contexts";
 import { useGetTeacherProfileByUserId } from "../hooks/api";
+import { useDeleteMyTeacherProfile } from "../hooks/use-delete-teacher-profile";
 import type { TeacherProfileDto } from "@/types";
 
 /**
@@ -17,7 +18,11 @@ interface TeacherProfileContextValue {
   myProfile: TeacherProfileDto | null;
   profileLoading: boolean;
   profileError: any;
-  refetch: () => void;
+  refetch: () => Promise<any>;
+  // Silme işlemi
+  deleteProfile: () => Promise<boolean>;
+  isDeleting: boolean;
+  deleteError: any;
 }
 
 interface TeacherProfileProviderProps {
@@ -40,8 +45,25 @@ export function TeacherProfileProvider({
     { enabled: !!user?.id },
   );
 
-  // Raw API verisini TeacherProfileDto formatına dönüştür
+  // Backend ApiResponse formatından data'yı çıkar
   const myProfile: TeacherProfileDto | null = data?.data || null;
+
+  // 🗑️ DELETE HOOK - Profil silme
+  const {
+    deleteProfile: deleteProfileFn,
+    isDeleting,
+    deleteError,
+  } = useDeleteMyTeacherProfile(myProfile?.id || 0);
+
+  // Profil silme işlemi
+  const handleDeleteProfile = async (): Promise<boolean> => {
+    const success = await deleteProfileFn();
+    if (success) {
+      // Silme başarılı olduğunda context'i güncelle
+      await refetch();
+    }
+    return success;
+  };
 
   // 🎯 CONTEXT VALUE
   const contextValue: TeacherProfileContextValue = {
@@ -50,6 +72,10 @@ export function TeacherProfileProvider({
     profileLoading: loading,
     profileError: error,
     refetch,
+    // Silme işlemi
+    deleteProfile: handleDeleteProfile,
+    isDeleting,
+    deleteError,
   };
 
   return (

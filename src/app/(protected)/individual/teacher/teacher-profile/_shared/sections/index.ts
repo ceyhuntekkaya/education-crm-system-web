@@ -1,2 +1,3 @@
 // Sections exports
-export * from "./teacher-profile-header-section";
+export * from "./delete-profile-modal";
+export * from "./empty-profile-state";

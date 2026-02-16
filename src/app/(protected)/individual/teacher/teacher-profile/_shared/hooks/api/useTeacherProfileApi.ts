@@ -80,6 +80,7 @@ export const useGetTeacherProfileByUserId = (
     userId ? API_ENDPOINTS.HR.TEACHER_PROFILES.BY_USER(userId) : null,
     {
       enabled: options?.enabled ?? !!userId,
+      suppressErrorStatus: [404], // 404 hatalarını sessizce handle et
     },
   );
 };
@@ -90,7 +91,7 @@ export const useGetTeacherProfileByUserId = (
  * API Endpoint: POST /hr/teacher-profiles
  */
 export const useCreateTeacherProfile = () => {
-  return usePost<ApiResponseTeacherProfileDto, TeacherProfileCreateDto>(
+  return usePost<TeacherProfileDto, TeacherProfileCreateDto>(
     API_ENDPOINTS.HR.TEACHER_PROFILES.CREATE,
   );
 };
@@ -103,7 +104,7 @@ export const useCreateTeacherProfile = () => {
  * API Endpoint: PUT /hr/teacher-profiles/{id}
  */
 export const useUpdateTeacherProfile = (teacherProfileId: number) => {
-  return usePut<ApiResponseTeacherProfileDto, TeacherProfileUpdateDto>(
+  return usePut<TeacherProfileDto, TeacherProfileUpdateDto>(
     teacherProfileId
       ? API_ENDPOINTS.HR.TEACHER_PROFILES.UPDATE(teacherProfileId)
       : "",
