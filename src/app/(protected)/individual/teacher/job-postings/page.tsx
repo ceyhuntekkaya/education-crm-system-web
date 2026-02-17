@@ -11,19 +11,17 @@ import { useJobPostingsContext } from "./_shared/contexts";
 import type { JobPostingDto } from "@/types";
 
 /**
- * ================================================================================
  * TEACHER JOB POSTINGS PAGE
- * ================================================================================
  * Öğretmen için iş ilanlarını listeleyen sayfa
  * - TÜM okulların yayında olan ilanları gösterilir (PUBLISHED status)
  * - Öğretmen ilan ekleyemez/düzenleyemez
- * - İlanlara başvuru yapabilir (TODO: İleride eklenecek)
+ * - İlanlara başvuru yapabilir
  */
 
 const TeacherJobPostingsPage: React.FC = () => {
   usePageTitle("İş İlanları");
 
-  // Context'ten sadece data al
+  // Context'ten tüm verileri al
   const { jobPostings, jobPostingsListLoading } = useJobPostingsContext();
 
   // Config'leri memoize et ki her render'da yeni object oluşmasın
@@ -58,11 +56,7 @@ const TeacherJobPostingsPage: React.FC = () => {
         enableToggle: true,
         grid: {
           renderCard: ({ item }: { item: JobPostingDto }) => (
-            <JobPostingCard
-              jobPosting={item}
-              // TODO: İleride detail sayfası eklenebilir
-              // url={`/individual/teacher/job-postings/detail/${item.id}`}
-            />
+            <JobPostingCard jobPosting={item} />
           ),
           col: 4,
         },

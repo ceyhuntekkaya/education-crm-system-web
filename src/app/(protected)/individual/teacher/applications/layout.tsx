@@ -2,6 +2,10 @@
 
 import React from "react";
 import { ApplicationsProvider } from "./_shared/contexts";
+import {
+  TeacherProfileProvider,
+  useTeacherProfileContext,
+} from "../teacher-profile/_shared/contexts";
 
 /**
  * ================================================================================
@@ -15,16 +19,23 @@ interface ApplicationsLayoutProps {
   children: React.ReactNode;
 }
 
-export default function ApplicationsLayout({
-  children,
-}: ApplicationsLayoutProps) {
-  // TODO: Get teacherId from auth context or user profile
-  // For now, using a mock teacherId
-  const teacherId = 1; // Bu değer gerçek teacher ID ile değiştirilecek
+function ApplicationsLayoutContent({ children }: ApplicationsLayoutProps) {
+  const { myProfile } = useTeacherProfileContext();
+  const teacherId = myProfile?.id || 0;
 
   return (
     <ApplicationsProvider teacherId={teacherId}>
       {children}
     </ApplicationsProvider>
+  );
+}
+
+export default function ApplicationsLayout({
+  children,
+}: ApplicationsLayoutProps) {
+  return (
+    <TeacherProfileProvider>
+      <ApplicationsLayoutContent>{children}</ApplicationsLayoutContent>
+    </TeacherProfileProvider>
   );
 }

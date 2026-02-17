@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { usePageTitle, useModal } from "@/hooks";
-import { Button } from "@/components";
 import { DetailLayout } from "@/components/layouts";
 import { useTeacherProfileContext } from "./_shared/contexts";
 import { createTeacherProfileDetailColumns } from "./_shared";

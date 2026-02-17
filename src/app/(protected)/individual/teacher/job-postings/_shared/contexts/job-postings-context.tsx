@@ -29,7 +29,9 @@ const JobPostingsContext = createContext<JobPostingsContextValue | undefined>(
 
 export function JobPostingsProvider({ children }: JobPostingsProviderProps) {
   // 📊 API DATA - TÜM okulların PUBLISHED ilanlarını getir
-  const { data, loading, error, refetch } = useGetAllJobPostings();
+  const { data, loading, error, refetch } = useGetAllJobPostings({
+    status: "PUBLISHED", // Sadece yayında olan ilanları göster
+  });
 
   // Raw API verisini JobPostingDto[] formatına dönüştür
   const jobPostings: JobPostingDto[] = data?.data?.content || [];

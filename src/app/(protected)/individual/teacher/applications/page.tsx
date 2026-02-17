@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { usePageTitle } from "@/hooks";
 import { DataCollectionLayout } from "@/components/layouts/data-collection-layout";
@@ -23,7 +23,6 @@ import type { ApplicationDto } from "./_shared/types";
  * - Başvuru kartları (grid/list view)
  * - Filtreleme ve sıralama
  * - Detay görüntüleme
- * - Geri çekme işlemi
  */
 
 const TeacherApplicationsPage: React.FC = () => {
@@ -31,32 +30,7 @@ const TeacherApplicationsPage: React.FC = () => {
   const router = useRouter();
 
   // Context'ten data al
-  const { applications, applicationsListLoading, refetch } =
-    useApplicationsContext();
-
-  // Geri çekme handler
-  const handleWithdraw = useCallback(
-    async (applicationId: number) => {
-      if (
-        !confirm(
-          "Bu başvuruyu geri çekmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
-        )
-      ) {
-        return;
-      }
-
-      try {
-        // TODO: Implement withdraw API call with applicationId
-        console.log("Withdraw application:", applicationId);
-        refetch(); // Liste yenilenir
-        // TODO: Add success toast
-      } catch (error) {
-        console.error("Başvuru geri çekme hatası:", error);
-        // TODO: Add error toast
-      }
-    },
-    [refetch],
-  );
+  const { applications, applicationsListLoading } = useApplicationsContext();
 
   // Config'leri memoize et
   const applicationColumns = useMemo(() => createApplicationColumns(), []);

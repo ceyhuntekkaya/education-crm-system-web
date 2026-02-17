@@ -31,7 +31,6 @@ export const ApplicationHeaderSection: React.FC = () => {
     }
 
     // TODO: Implement withdraw API call
-    console.log("Withdraw application:", application.id);
   };
 
   const showWithdrawButton = application && canWithdrawApplication(application);

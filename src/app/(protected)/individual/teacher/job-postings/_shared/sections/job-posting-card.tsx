@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Badge } from "@/components";
+import { Badge, Button } from "@/components";
 import type { JobPostingDto } from "@/types";
 import {
   getStatusBadgeVariant,
@@ -13,14 +13,24 @@ import { formatDate } from "@/utils";
 interface JobPostingCardProps {
   jobPosting: JobPostingDto;
   url?: string;
+  hasApplied?: boolean;
+  loading?: boolean;
 }
 
 export const JobPostingCard: React.FC<JobPostingCardProps> = ({
   jobPosting,
   url,
+  hasApplied = false,
+  loading = false,
 }) => {
   const router = useRouter();
   const statusBadgeVariant = getStatusBadgeVariant(jobPosting.status);
+
+  // Başvuru butonu click handler
+  const handleApplyClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Kartın onClick'ini tetiklemesin
+    router.push(`/individual/teacher/job-postings/apply/${jobPosting.id}`);
+  };
 
   const content = (
     <div
@@ -138,12 +148,28 @@ export const JobPostingCard: React.FC<JobPostingCardProps> = ({
         {/* Spacer */}
         <div className="flex-grow-1"></div>
 
+        {/* Başvuru Butonu */}
+        <div className="mt-16">
+          <Button
+            variant={hasApplied ? "outline" : "inline"}
+            size="sm"
+            fullWidth
+            onClick={handleApplyClick}
+            disabled={
+              hasApplied || loading || jobPosting.status !== "PUBLISHED"
+            }
+            leftIcon={hasApplied ? "ph-check-circle" : "ph-paper-plane-tilt"}
+          >
+            {hasApplied ? "Başvuruldu" : "Başvur"}
+          </Button>
+        </div>
+
         {/* Footer - Created Date */}
         <div className="d-flex align-items-center justify-content-between pt-12 mt-12 border-top">
           <span className="text-xs text-neutral-400">
             {formatDate(jobPosting.createdAt)}
           </span>
-          <i className="ph-bold ph-arrow-right text-primary-600"></i>
+          {url && <i className="ph-bold ph-arrow-right text-primary-600"></i>}
         </div>
       </div>
     </div>
