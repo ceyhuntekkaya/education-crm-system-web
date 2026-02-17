@@ -6,7 +6,7 @@ import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
 import { ApplicationForm } from "../_shared/sections/application-form/application-form";
 import { useApplicationAdd } from "../_shared/context";
-import { NoProfileAlert } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/sections";
+import { EmptyProfileState } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/sections";
 
 /**
  * İş ilanına başvuru sayfası
@@ -22,13 +22,7 @@ const ApplicationAddPage: React.FC = () => {
   // No teacher profile - Early return
   if (!jobPostingLoading && !teacherProfileId) {
     return (
-      <CustomCard
-        title="Profil Gerekli"
-        subtitle="Başvuru yapmak için önce öğretmen profilinizi oluşturmalısınız"
-        isBack
-      >
-        <NoProfileAlert />
-      </CustomCard>
+      <EmptyProfileState onCreateProfile={() => router.push("/individual/teacher/teacher-profile/create")} />
     );
   }
 
