@@ -67,6 +67,24 @@ export const getApplicationStatusIcon = (status: string): string => {
   return iconMap[status] || "ph-file-text";
 };
 
+/**
+ * İstihdam tipini Türkçe'ye çevirir
+ */
+export const getEmploymentTypeDisplay = (employmentType: string): string => {
+  switch (employmentType) {
+    case "FULL_TIME":
+      return "Tam Zamanlı";
+    case "PART_TIME":
+      return "Yarı Zamanlı";
+    case "CONTRACT":
+      return "Sözleşmeli";
+    case "INTERNSHIP":
+      return "Stajyer";
+    default:
+      return employmentType;
+  }
+};
+
 // ============ DATA FORMATTERS ============
 
 /**

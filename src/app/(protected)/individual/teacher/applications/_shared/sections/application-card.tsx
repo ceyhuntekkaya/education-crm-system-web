@@ -6,7 +6,7 @@ import type { ApplicationDto } from "../types";
 import {
   getApplicationStatusBadgeVariant,
   getApplicationStatusDisplay,
-  getApplicationStatusIcon,
+  getEmploymentTypeDisplay,
 } from "../utils";
 
 interface ApplicationCardProps {
@@ -35,17 +35,16 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
         border: "1.5px solid hsl(var(--neutral-40))",
         position: "relative",
         zIndex: 1,
-        opacity: isWithdrawn ? 0.7 : 1,
       }}
     >
       {/* Header Image */}
       <div
         className="position-relative overflow-hidden"
-        style={{ height: "180px" }}
+        style={{ height: "200px" }}
       >
-        <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-primary-25">
+        <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-main-25">
           <i
-            className="ph-duotone ph-file-text text-primary-600"
+            className="ph-duotone ph-file-text text-main-600"
             style={{ fontSize: "64px", opacity: 0.3 }}
           ></i>
         </div>
@@ -57,40 +56,36 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
         >
           {isWithdrawn ? (
             <Badge variant="secondary" size="md">
-              <i className="ph ph-arrow-u-up-left me-1"></i>
               Geri Çekildi
             </Badge>
           ) : (
             <Badge variant={statusBadgeVariant} size="md">
-              <i
-                className={`${getApplicationStatusIcon(application.status)} me-1`}
-              ></i>
               {getApplicationStatusDisplay(application.status)}
             </Badge>
           )}
         </div>
 
-        {/* Rejected/Accepted Overlay */}
-        {(isRejected || isAccepted) && !isWithdrawn && (
+        {/* Withdrawn/Rejected/Accepted Overlay */}
+        {(isWithdrawn || isRejected || isAccepted) && (
           <div
             className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
             style={{
-              backgroundColor: isAccepted
-                ? "rgba(34, 197, 94, 0.9)"
-                : "rgba(239, 68, 68, 0.9)",
+              backgroundColor: isWithdrawn
+                ? "rgba(108, 117, 125, 0.9)"
+                : isAccepted
+                  ? "rgba(34, 197, 94, 0.9)"
+                  : "rgba(239, 68, 68, 0.9)",
               backdropFilter: "blur(2px)",
               zIndex: 3,
             }}
           >
-            <div className="text-center text-white">
-              <i
-                className={`ph-bold ${isAccepted ? "ph-check-circle" : "ph-x-circle"} mb-2`}
-                style={{ fontSize: "32px" }}
-              ></i>
-              <div className="fw-bold fs-6">
-                {isAccepted ? "Kabul Edildi" : "Reddedildi"}
-              </div>
-            </div>
+            <span className="text-white fw-bold fs-5">
+              {isWithdrawn
+                ? "Geri Çekildi"
+                : isAccepted
+                  ? "Kabul Edildi"
+                  : "Reddedildi"}
+            </span>
           </div>
         )}
       </div>
@@ -104,7 +99,7 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
 
         {/* Okul Bilgisi */}
         {application.jobPosting?.campus && (
-          <div className="d-flex align-items-center gap-6 text-sm text-neutral-600 mb-8">
+          <div className="d-flex align-items-center gap-6 text-sm text-neutral-600 mb-12">
             <i className="ph-bold ph-buildings"></i>
             <span>{application.jobPosting.campus.name}</span>
           </div>
@@ -113,81 +108,102 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
         {/* Branş */}
         {application.jobPosting?.branch && (
           <div className="d-flex align-items-center gap-6 text-sm text-neutral-600 mb-12">
-            <i className="ph-bold ph-briefcase"></i>
+            <i className="ph-bold ph-books"></i>
             <span>{application.jobPosting.branch}</span>
           </div>
         )}
 
-        {/* Meta Information */}
-        <div className="soft-card rounded-12 mb-12">
-          <div className="p-12">
-            <div className="d-flex align-items-center justify-content-between mb-8">
-              <span className="text-xs text-neutral-600">Başvuru Tarihi</span>
-              <span className="text-xs fw-semibold text-neutral-900">
+        {/* Başvuru Tarihi */}
+        <div className="soft-card rounded-12 mb-12 p-12">
+          <div className="d-flex align-items-center gap-8">
+            <i className="ph-bold ph-calendar text-info-600"></i>
+            <div className="d-flex flex-column">
+              <span className="text-xs text-neutral-500">Başvuru Tarihi</span>
+              <span className="text-sm fw-medium text-neutral-700">
                 {formatDate(application.createdAt)}
               </span>
             </div>
-            {application.updatedAt !== application.createdAt && (
-              <div className="d-flex align-items-center justify-content-between">
-                <span className="text-xs text-neutral-600">Son Güncelleme</span>
-                <span className="text-xs fw-semibold text-neutral-900">
-                  {formatDate(application.updatedAt)}
-                </span>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Document & Notes Count */}
-        <div className="d-flex gap-8 mb-16">
-          {application.documents && application.documents.length > 0 && (
-            <div className="flex-grow-1 soft-card rounded-12 p-12 text-center">
-              <i className="ph-bold ph-paperclip text-primary-600 mb-4"></i>
-              <div className="text-xs text-neutral-600">
-                {application.documents.length} Belge
-              </div>
-            </div>
-          )}
-          {application.notes && application.notes.length > 0 && (
-            <div className="flex-grow-1 soft-card rounded-12 p-12 text-center">
-              <i className="ph-bold ph-note text-warning-600 mb-4"></i>
-              <div className="text-xs text-neutral-600">
-                {application.notes.length} Not
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Employment Type */}
+        {/* İstihdam Tipi ve Durum */}
         {application.jobPosting?.employmentType && (
-          <div className="mt-auto pt-12 border-top border-neutral-200">
-            <div className="text-xs text-neutral-600 mb-4">İstihdam Tipi</div>
-            <div className="text-sm fw-semibold text-neutral-900">
-              {application.jobPosting.employmentType}
+          <div className="d-flex gap-8 mb-12 flex-wrap">
+            <div className="soft-card rounded-12 flex-fill p-8">
+              <div className="d-flex align-items-center gap-6">
+                <i className="ph-bold ph-clock text-info-600"></i>
+                <span className="text-xs text-neutral-700">
+                  {getEmploymentTypeDisplay(application.jobPosting.employmentType)}
+                </span>
+              </div>
             </div>
           </div>
         )}
+
+        {/* Document & Notes Count */}
+        {((application.documents && application.documents.length > 0) ||
+          (application.notes && application.notes.length > 0)) && (
+          <div className="d-flex gap-8 mb-12">
+            {application.documents && application.documents.length > 0 && (
+              <div className="soft-card rounded-12 flex-fill p-8">
+                <div className="d-flex align-items-center gap-6">
+                  <i className="ph-bold ph-paperclip text-primary-600"></i>
+                  <span className="text-xs text-neutral-700">
+                    {application.documents.length} Belge
+                  </span>
+                </div>
+              </div>
+            )}
+            {application.notes && application.notes.length > 0 && (
+              <div className="soft-card rounded-12 flex-fill p-8">
+                <div className="d-flex align-items-center gap-6">
+                  <i className="ph-bold ph-note text-warning-600"></i>
+                  <span className="text-xs text-neutral-700">
+                    {application.notes.length} Not
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Spacer */}
+        <div className="flex-grow-1"></div>
+
+        {/* Footer - Updated Date */}
+        <div className="d-flex align-items-center justify-content-between pt-12 mt-12 border-top">
+          <span className="text-xs text-neutral-400">
+            {application.updatedAt !== application.createdAt
+              ? `Güncellendi: ${formatDate(application.updatedAt)}`
+              : formatDate(application.createdAt)}
+          </span>
+          <i className="ph-bold ph-arrow-right text-primary-600"></i>
+        </div>
       </div>
     </div>
   );
 
-  if (url) {
-    return (
-      <div
-        className="cursor-pointer"
-        onClick={() => router.push(url)}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            router.push(url);
-          }
-        }}
-      >
-        {content}
-      </div>
-    );
+  if (!url) {
+    return content;
   }
 
-  return content;
+  return (
+    <div
+      className="cursor-pointer h-100"
+      onClick={() => router.push(url)}
+      role="button"
+      tabIndex={0}
+      style={{
+        transition: "transform 0.2s ease-in-out",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-4px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+      }}
+    >
+      {content}
+    </div>
+  );
 };
