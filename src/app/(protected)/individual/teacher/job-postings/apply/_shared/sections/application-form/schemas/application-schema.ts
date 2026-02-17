@@ -9,10 +9,10 @@ export const applicationSchema = yup.object().shape({
     .transform((value) => (value ? value.trim() : ""))
     .test(
       "min-length-if-provided",
-      "Ön yazı en az 50 karakter olmalıdır",
+      "Ön yazınız en az 50 karakter içermelidir. İyi bir ön yazı başvurunuzun değerlendirilmesine yardımcı olur.",
       (value) => !value || value.length >= 50,
     )
-    .max(2000, "Ön yazı en fazla 2000 karakter olabilir"),
+    .max(2000, "Ön yazınız en fazla 2000 karakter olabilir"),
 });
 
 export type ApplicationFormValues = yup.InferType<typeof applicationSchema>;

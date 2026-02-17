@@ -6,6 +6,7 @@ import { usePageTitle } from "@/hooks";
 import { CustomCard } from "@/components";
 import { ApplicationForm } from "../_shared/sections/application-form/application-form";
 import { useApplicationAdd } from "../_shared/context";
+import { NoProfileAlert } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/sections";
 
 /**
  * İş ilanına başvuru sayfası
@@ -26,25 +27,7 @@ const ApplicationAddPage: React.FC = () => {
         subtitle="Başvuru yapmak için önce öğretmen profilinizi oluşturmalısınız"
         isBack
       >
-        <div className="text-center py-32">
-          <i
-            className="ph-duotone ph-user-circle text-warning-600 mb-16"
-            style={{ fontSize: "64px" }}
-          ></i>
-          <p className="text-neutral-600 mb-24">
-            İş ilanlarına başvuru yapabilmek için önce profilinizi oluşturmanız
-            gerekmektedir.
-          </p>
-          <button
-            className="btn btn-primary"
-            onClick={() =>
-              router.push("/individual/teacher/teacher-profile/add-edit/new")
-            }
-          >
-            <i className="ph-bold ph-user-plus me-2"></i>
-            Profil Oluştur
-          </button>
-        </div>
+        <NoProfileAlert />
       </CustomCard>
     );
   }
@@ -57,19 +40,24 @@ const ApplicationAddPage: React.FC = () => {
         subtitle="Aradığınız ilan artık mevcut değil"
         isBack
       >
-        <div className="text-center py-32">
+        <div className="text-center py-48">
           <i
-            className="ph-duotone ph-warning-circle text-warning-600 mb-16"
-            style={{ fontSize: "64px" }}
+            className="ph-duotone ph-warning-circle text-warning-600 mb-24"
+            style={{ fontSize: "80px" }}
           ></i>
-          <p className="text-neutral-600 mb-24">
+          <h5 className="mb-12 text-neutral-900">İlan Bulunamadı</h5>
+          <p
+            className="text-neutral-600 mb-32 mx-auto"
+            style={{ maxWidth: "500px" }}
+          >
             Görüntülemeye çalıştığınız ilan bulunamadı veya artık yayında değil.
+            Diğer ilanları incelemek için ilanlar sayfasına dönebilirsiniz.
           </p>
           <button
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary btn-lg"
             onClick={() => router.push("/individual/teacher/job-postings")}
           >
-            <i className="ph-bold ph-arrow-left me-2"></i>
+            <i className="ph-bold ph-arrow-left me-8"></i>
             İlanlara Dön
           </button>
         </div>
@@ -80,7 +68,7 @@ const ApplicationAddPage: React.FC = () => {
   return (
     <CustomCard
       title={pageTitle}
-      subtitle="Başvuru formunu doldurun ve başvurunuzu gönderin"
+      subtitle="İlan detaylarını inceleyin ve başvurunuzu tamamlayın"
       isBack
       isLoading={jobPostingLoading}
     >
