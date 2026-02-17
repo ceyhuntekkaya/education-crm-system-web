@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Form } from "@/components/forms";
+import { Form, FormValues } from "@/components/forms";
 import { useApplicationAdd } from "../../../context";
 import type { ApplicationCreateDto } from "@/types";
 import {
@@ -28,11 +28,46 @@ export const ApplicationFormContent: React.FC = () => {
       return;
     }
 
+    // Documents array'ini backend formatına dönüştür
+    let documents = undefined;
+
+    if (values.documents) {
+      // String ise (tek eleman), array'e çevir
+      const docsArray = Array.isArray(values.documents)
+        ? values.documents
+        : [values.documents];
+
+      // Array'i backend formatına dönüştür
+      if (docsArray.length > 0) {
+        documents = docsArray
+          .map((doc: any) => {
+            // String ise (URL), basit document objesi oluştur
+            if (typeof doc === "string") {
+              const fileName = doc.split("/").pop() || "document";
+              return {
+                documentName: fileName,
+                documentUrl: doc,
+                documentType: "DOCUMENT",
+              };
+            }
+
+            // Object ise, field mapping yap
+            return {
+              documentName: doc.fileName || doc.documentName,
+              documentUrl: doc.fileUrl || doc.documentUrl,
+              documentType: doc.itemType || doc.documentType,
+              fileSize: doc.fileSize,
+            };
+          })
+          .filter((doc: any) => doc.documentUrl); // Boş olanları filtrele
+      }
+    }
+
     const applicationData: ApplicationCreateDto = {
       jobPostingId: jobPosting.id,
       teacherProfileId,
       coverLetter: values.coverLetter?.trim() || undefined,
-      documents: values.documents || [],
+      ...(documents && documents.length > 0 ? { documents } : {}),
     };
 
     const success = await submitApplication(applicationData);
@@ -40,10 +75,6 @@ export const ApplicationFormContent: React.FC = () => {
     if (success) {
       setShowSuccess(true);
       // 2 saniye sonra yönlendir
-      setTimeout(() => {
-        router.push("/individual/teacher/job-postings/applications");
-        router.refresh();
-      }, 2000);
     }
   };
 
@@ -65,6 +96,7 @@ export const ApplicationFormContent: React.FC = () => {
 
         <div className="col-lg-7">
           {/* Profil Özet Kartı */}
+          <FormValues className="mb-24" />
           <TeacherProfileSummaryCard />
 
           {/* Başvuru Formu */}
