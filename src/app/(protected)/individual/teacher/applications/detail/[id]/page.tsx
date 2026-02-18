@@ -33,6 +33,8 @@ const ApplicationDetailPage: React.FC = () => {
     applicationId,
     withdrawApplication,
     isWithdrawing,
+    documents,
+    notes,
   } = useApplicationDetailContext();
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
 
@@ -95,7 +97,10 @@ const ApplicationDetailPage: React.FC = () => {
           application
             ? {
                 data: application,
-                columns: createApplicationDetailColumns(),
+                columns: createApplicationDetailColumns(
+                  documents?.length,
+                  notes?.length,
+                ),
               }
             : undefined
         }
