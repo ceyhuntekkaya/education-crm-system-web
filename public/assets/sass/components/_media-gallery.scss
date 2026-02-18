@@ -317,6 +317,54 @@
     backdrop-filter: blur(8px);
   }
 
+  // Delete button
+  .delete-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(239, 68, 68, 0.95);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+
+    &:hover:not(:disabled) {
+      background: rgba(220, 38, 38, 1);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    i {
+      font-size: 20px;
+      color: white;
+
+      &.spin {
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   // Thumbnail strip
   .thumbnail-strip {
     flex-shrink: 0;

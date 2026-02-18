@@ -26,6 +26,10 @@ interface MediaGalleryProps {
   showCounter?: boolean;
   initialIndex?: number;
   onIndexChange?: (index: number) => void;
+  onDelete?: (item: MediaGalleryItem, index: number) => void | Promise<void>;
+  onDeleteStart?: (item: MediaGalleryItem, index: number) => void;
+  onDeleteComplete?: (item: MediaGalleryItem, index: number) => void;
+  isDeleting?: boolean;
 }
 
 export const MediaGallery: React.FC<MediaGalleryProps> = ({
@@ -36,6 +40,10 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
   showCounter = true,
   initialIndex = 0,
   onIndexChange,
+  onDelete,
+  onDeleteStart,
+  onDeleteComplete,
+  isDeleting = false,
 }) => {
   // Medya öğelerini sırala: önce resimler, sonra videolar, ardından dökümanlar
   const sortedItems = useMemo(() => {
@@ -53,6 +61,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
   }, [items]);
 
   const [currentItemIndex, setCurrentItemIndex] = useState(initialIndex);
+  const [deletingIndex, setDeletingIndex] = useState<number | null>(null);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -89,7 +98,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         scrollThumbnailIntoView(index);
       }, 50);
     },
-    [onIndexChange, scrollThumbnailIntoView]
+    [onIndexChange, scrollThumbnailIntoView],
   );
 
   // URL helper - eğer tam URL değilse serve prefix ekle
@@ -118,6 +127,32 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
   const goToImage = (index: number) => {
     handleIndexChange(index);
+  };
+
+  // Handle delete action
+  const handleDelete = async (item: MediaGalleryItem, index: number) => {
+    if (!onDelete || isDeleting || deletingIndex !== null) return;
+
+    setDeletingIndex(index);
+    onDeleteStart?.(item, index);
+
+    try {
+      await onDelete(item, index);
+      onDeleteComplete?.(item, index);
+
+      // Silinen item'dan sonra başka item varsa index'i ayarla
+      if (currentItemIndex === index && sortedItems.length > 1) {
+        if (index === sortedItems.length - 1) {
+          // Son item siliniyorsa bir öncekine git
+          handleIndexChange(Math.max(0, index - 1));
+        }
+        // Diğer durumlarda aynı index'te kal (sonraki item gelecek)
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+    } finally {
+      setDeletingIndex(null);
+    }
   };
 
   // Medya tipine göre içerik render etme
@@ -263,6 +298,23 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   {currentItemIndex + 1} / {sortedItems.length}
                 </span>
               </div>
+            )}
+
+            {/* Delete Button */}
+            {onDelete && currentItem && (
+              <button
+                onClick={() => handleDelete(currentItem, currentItemIndex)}
+                disabled={isDeleting || deletingIndex !== null}
+                className="delete-button"
+                aria-label="Medyayı sil"
+                title="Sil"
+              >
+                {isDeleting || deletingIndex === currentItemIndex ? (
+                  <i className="ph ph-spinner spin"></i>
+                ) : (
+                  <i className="ph ph-trash"></i>
+                )}
+              </button>
             )}
           </div>
         )}

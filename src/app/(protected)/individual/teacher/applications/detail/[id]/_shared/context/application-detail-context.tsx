@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useParams } from "next/navigation";
 import { useSnackbar } from "@/contexts";
 import {
@@ -11,9 +11,9 @@ import {
   useWithdrawApplication,
   useAddApplicationNote,
   useAddApplicationDocument,
+  useDeleteApplicationDocument,
 } from "../../../../_shared/hooks/api";
 import type { ApplicationDetailContextValue } from "../types";
-import { API_ENDPOINTS } from "@/lib";
 
 /**
  * ================================================================================
@@ -72,6 +72,9 @@ export function ApplicationDetailProvider({
   const { mutate: addDocumentMutate, loading: isAddingDocument } =
     useAddApplicationDocument(applicationId);
 
+  const { mutate: deleteDocumentMutate, loading: isDeletingDocument } =
+    useDeleteApplicationDocument(applicationId);
+
   const application = data?.data || null;
   const notes = notesData?.data || [];
   const documents = documentsData?.data || [];
@@ -120,35 +123,9 @@ export function ApplicationDetailProvider({
 
   // Delete Document Handler
   const deleteDocument = async (documentId: number) => {
-    try {
-      // Dynamic endpoint oluştur
-      const endpoint = API_ENDPOINTS.HR.APPLICATIONS.DELETE_DOCUMENT(
-        applicationId,
-        documentId,
-      );
-
-      // Fetch ile silme işlemi
-      const response = await fetch(endpoint, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const result = await response.json();
-
-      if (result?.success || response.ok) {
-        showSnackbar("Belge silindi", "success");
-        refetchDocuments();
-      } else {
-        showSnackbar(
-          result?.message || "Belge silinirken hata oluştu",
-          "error",
-        );
-      }
-    } catch (error) {
-      showSnackbar("Belge silinirken hata oluştu", "error");
-    }
+    await deleteDocumentMutate(documentId);
+    showSnackbar("Belge silindi", "success");
+    refetchDocuments();
   };
 
   const contextValue: ApplicationDetailContextValue = {
@@ -180,7 +157,7 @@ export function ApplicationDetailProvider({
     addDocument,
     deleteDocument,
     isAddingDocument,
-    isDeletingDocument: false, // fetch ile sildiğimiz için loading state yok
+    isDeletingDocument,
     refetchDocuments,
   };
 

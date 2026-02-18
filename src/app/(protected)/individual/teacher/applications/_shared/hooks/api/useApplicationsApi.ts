@@ -172,13 +172,13 @@ export const useUpdateApplicationStatus = (applicationId: number) => {
 /**
  * Başvuru belgesini siler
  *
+ * @param applicationId - Başvuru ID'si
+ * @returns Delete hook - mutate fonksiyonuna documentId gönderilir
+ *
  * API Endpoint: DELETE /hr/applications/{id}/documents/{documentId}
  */
-export const useDeleteApplicationDocument = (
-  applicationId: number,
-  documentId: number,
-) => {
-  return useDelete<ApiResponseApplicationDto>(
+export const useDeleteApplicationDocument = (applicationId: number) => {
+  return useDelete<ApiResponseApplicationDto, number>((documentId: number) =>
     API_ENDPOINTS.HR.APPLICATIONS.DELETE_DOCUMENT(applicationId, documentId),
   );
 };

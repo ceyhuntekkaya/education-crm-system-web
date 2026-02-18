@@ -36,11 +36,20 @@ export const ApplicationDocumentsSection: React.FC = () => {
   }, [documents]);
 
   const handleSuccess = () => {
-    setShowForm(false);
+    // Form açık kalsın, kullanıcı buttonla kapatabilir
   };
 
   const handleCancel = () => {
     setShowForm(false);
+  };
+
+  const handleDelete = async (item: MediaGalleryItem) => {
+    if (!item.id) {
+      console.error("Item ID is required for deletion");
+      return;
+    }
+
+    await deleteDocument(item.id);
   };
 
   // Loading State
@@ -154,6 +163,8 @@ export const ApplicationDocumentsSection: React.FC = () => {
               showThumbnails={true}
               showNavigation={true}
               showCounter={true}
+              onDelete={handleDelete}
+              isDeleting={isDeletingDocument}
             />
           </div>
         </div>
