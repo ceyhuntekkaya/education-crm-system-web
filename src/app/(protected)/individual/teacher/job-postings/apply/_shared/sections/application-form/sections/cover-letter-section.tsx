@@ -52,10 +52,10 @@ export const CoverLetterSection: React.FC = () => {
                   <li className="mb-4">
                     Deneyimlerinizi ve güçlü yönlerinizi vurgulayın
                   </li>
-                  <li className="mb-4">
-                    İlanla ilgili detayları dikkate alın
+                  <li className="mb-4">İlanla ilgili detayları dikkate alın</li>
+                  <li className="mb-0">
+                    Profesyonel ve içten bir dil kullanın
                   </li>
-                  <li className="mb-0">Profesyonel ve içten bir dil kullanın</li>
                 </ul>
               </div>
             </div>
