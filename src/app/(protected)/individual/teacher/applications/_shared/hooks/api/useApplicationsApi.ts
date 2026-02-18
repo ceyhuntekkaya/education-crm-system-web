@@ -117,7 +117,7 @@ export const useGetApplicationDocuments = (
  * API Endpoint: POST /hr/applications
  */
 export const useCreateApplication = () => {
-  return usePost<ApplicationCreateDto, ApiResponseApplicationDto>(
+  return usePost<ApiResponseApplicationDto, ApplicationCreateDto>(
     API_ENDPOINTS.HR.APPLICATIONS.CREATE,
   );
 };
@@ -128,7 +128,7 @@ export const useCreateApplication = () => {
  * API Endpoint: POST /hr/applications/{id}/notes
  */
 export const useAddApplicationNote = (applicationId: number) => {
-  return usePost<{ noteText: string }, ApiResponseApplicationNoteDto>(
+  return usePost<ApiResponseApplicationNoteDto, { noteText: string }>(
     API_ENDPOINTS.HR.APPLICATIONS.ADD_NOTE(applicationId),
   );
 };
@@ -140,8 +140,8 @@ export const useAddApplicationNote = (applicationId: number) => {
  */
 export const useAddApplicationDocument = (applicationId: number) => {
   return usePost<
-    ApplicationDocumentCreateDto,
-    ApiResponseApplicationDocumentDto
+    ApiResponseApplicationDocumentDto,
+    ApplicationDocumentCreateDto
   >(API_ENDPOINTS.HR.APPLICATIONS.ADD_DOCUMENT(applicationId));
 };
 
@@ -151,8 +151,19 @@ export const useAddApplicationDocument = (applicationId: number) => {
  * API Endpoint: POST /hr/applications/{id}/withdraw
  */
 export const useWithdrawApplication = (applicationId: number) => {
-  return usePost<void, ApiResponseApplicationDto>(
+  return usePost<ApiResponseApplicationDto, void>(
     API_ENDPOINTS.HR.APPLICATIONS.WITHDRAW(applicationId),
+  );
+};
+
+/**
+ * Başvuru durumunu günceller
+ *
+ * API Endpoint: PATCH /hr/applications/{id}/status
+ */
+export const useUpdateApplicationStatus = (applicationId: number) => {
+  return usePatch<ApiResponseApplicationDto, { status: string }>(
+    API_ENDPOINTS.HR.APPLICATIONS.UPDATE_STATUS(applicationId),
   );
 };
 
