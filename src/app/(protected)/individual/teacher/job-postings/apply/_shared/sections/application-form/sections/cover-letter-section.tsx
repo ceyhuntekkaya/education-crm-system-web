@@ -88,7 +88,7 @@ export const CoverLetterSection: React.FC = () => {
         <div className="p-20">
           <FileInput
             label=""
-            type="file"
+            type="all"
             variant="outline"
             placeholder="Belgeleri yüklemek için tıklayın veya sürükleyip bırakın&#10;&#10;Desteklenen formatlar: PDF, DOC, DOCX, JPG, PNG&#10;Maksimum dosya boyutu: 10MB"
             maxSize={10}

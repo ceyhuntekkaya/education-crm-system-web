@@ -11,7 +11,7 @@ export const ApplicationSuccessMessage: React.FC = () => {
   const router = useRouter();
 
   const handleGoToApplications = () => {
-    router.push("/individual/teacher/job-postings/applications");
+    router.push("/individual/teacher/applications");
   };
 
   return (

@@ -26,7 +26,7 @@ export const ApplicationNoteFormContent: React.FC<
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div className="row g-16">
+      <div className="row g-16 pb-16">
         {/* Not Metni */}
         <div className="col-12">
           <FormTextarea

@@ -13,6 +13,7 @@ import {
   useAddApplicationDocument,
   useDeleteApplicationDocument,
 } from "../../../../_shared/hooks/api";
+import { useApplicationsContext } from "../../../../_shared/contexts";
 import type { ApplicationDetailContextValue } from "../types";
 
 /**
@@ -36,6 +37,9 @@ export function ApplicationDetailProvider({
   const params = useParams();
   const { showSnackbar } = useSnackbar();
   const applicationId = Number(params?.id) || 0;
+
+  // Ana liste context'ine erişim - liste güncelleme için
+  const { refetch: refetchApplicationsList } = useApplicationsContext();
 
   // API Hooks - Application
   const {
@@ -85,6 +89,8 @@ export function ApplicationDetailProvider({
     if (result) {
       showSnackbar("Başvuru durumu güncellendi", "success");
       refetch();
+      // Ana liste sayfasındaki listeyi de güncelle
+      refetchApplicationsList();
     }
   };
 
@@ -95,6 +101,8 @@ export function ApplicationDetailProvider({
     if (result) {
       showSnackbar("Başvuru geri çekildi", "success");
       refetch();
+      // Ana liste sayfasındaki listeyi de güncelle
+      refetchApplicationsList();
     }
   };
 

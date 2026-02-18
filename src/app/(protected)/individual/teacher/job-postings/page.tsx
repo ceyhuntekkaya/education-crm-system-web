@@ -8,6 +8,7 @@ import { createJobPostingColumns } from "./_shared/config/job-posting-columns";
 import { JOB_POSTING_POPOVER_FILTERS } from "./_shared/config/job-posting-filters";
 import { JOB_POSTING_SORT_OPTIONS } from "./_shared/config/job-posting-sort-options";
 import { useJobPostingsContext } from "./_shared/contexts";
+import { useApplicationsContext } from "../applications/_shared/contexts";
 import type { JobPostingDto } from "@/types";
 
 /**
@@ -16,6 +17,7 @@ import type { JobPostingDto } from "@/types";
  * - TÜM okulların yayında olan ilanları gösterilir (PUBLISHED status)
  * - Öğretmen ilan ekleyemez/düzenleyemez
  * - İlanlara başvuru yapabilir
+ * - Zaten başvurulmuş ilanlar filtrelenir
  */
 
 const TeacherJobPostingsPage: React.FC = () => {
@@ -23,6 +25,23 @@ const TeacherJobPostingsPage: React.FC = () => {
 
   // Context'ten tüm verileri al
   const { jobPostings, jobPostingsListLoading } = useJobPostingsContext();
+  const { applications } = useApplicationsContext();
+
+  // Başvuru yapılmış iş ilanı ID'lerini bul
+  const appliedJobPostingIds = useMemo(() => {
+    return new Set(
+      applications
+        .filter((app) => app.jobPosting?.id) // jobPosting.id olan başvuruları al
+        .map((app) => app.jobPosting!.id), // ID'leri çıkar
+    );
+  }, [applications]);
+
+  // Başvuru yapılmamış ilanları filtrele
+  const filteredJobPostings = useMemo(() => {
+    return jobPostings.filter(
+      (jobPosting) => !appliedJobPostingIds.has(jobPosting.id),
+    );
+  }, [jobPostings, appliedJobPostingIds]);
 
   // Config'leri memoize et ki her render'da yeni object oluşmasın
   const jobPostingColumns = useMemo(() => createJobPostingColumns(), []);
@@ -37,7 +56,7 @@ const TeacherJobPostingsPage: React.FC = () => {
       header={{
         title: "İş İlanları",
         subtitle:
-          "Tüm okulların aktif iş ilanlarını buradan görüntüleyebilir ve başvuru yapabilirsiniz.",
+          "Tüm okulların aktif iş ilanlarını buradan görüntüleyebilir ve başvuru yapabilirsiniz. Başvuru yaptığınız ilanlar bu listede görünmez.",
         icon: "ph-briefcase",
         // Öğretmen için action buttons yok (ilan ekleyemez)
       }}
@@ -45,7 +64,7 @@ const TeacherJobPostingsPage: React.FC = () => {
       // DATA - Veri ve Loading State
       // ═══════════════════════════════════════════════════════════════════
       data={{
-        data: jobPostings,
+        data: filteredJobPostings,
         loading: jobPostingsListLoading,
       }}
       // ═══════════════════════════════════════════════════════════════════

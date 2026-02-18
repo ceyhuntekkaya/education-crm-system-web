@@ -44,28 +44,17 @@ export const ApplicationNotesSection: React.FC = () => {
   if (!notes || notes.length === 0) {
     return (
       <CustomCard title="Notlar" subtitle="Not bulunamadı" className="mb-24">
-        <div className="row g-24">
+        <div className="row g-24 mt-16">
           {/* Sol: Form */}
-          <div className="col-12 col-lg-6">
-            <div
-              className="card border-0 shadow-sm"
-              style={{ borderRadius: "12px" }}
-            >
-              <div className="card-body p-20">
-                <h6 className="mb-16 fw-semibold text-dark">
-                  <i className="ph-plus-circle me-2"></i>
-                  Not Ekle
-                </h6>
-                <ApplicationNoteForm
-                  onSuccess={handleSuccess}
-                  onCancel={handleCancel}
-                />
-              </div>
-            </div>
+          <div className="col-6">
+            <ApplicationNoteForm
+              onSuccess={handleSuccess}
+              onCancel={handleCancel}
+            />
           </div>
 
           {/* Sağ: Empty State */}
-          <div className="col-12 col-lg-6">
+          <div className="col-6">
             <div className="text-center py-48">
               <div className="mb-16">
                 <i
@@ -109,15 +98,11 @@ export const ApplicationNotesSection: React.FC = () => {
         </Button>
       }
     >
-      <div className="row g-20">
+      <div className="row g-20 mt-16">
         {/* Form - showForm true ise göster */}
         {showForm && (
           <div className="col-6">
-            <div>
-              <h6 className="pb-16 fw-semibold text-dark">
-                <i className="ph-plus-circle me-2"></i>
-                Yeni Not Ekle
-              </h6>
+            <div className="">
               <ApplicationNoteForm
                 onSuccess={handleSuccess}
                 onCancel={handleCancel}
