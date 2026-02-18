@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Badge } from "@/components";
 import { JobPostingDto } from "@/types";
 import { DetailColumn } from "@/components/layouts/detail-layout/types";
@@ -98,7 +99,7 @@ export const createJobPostingDetailColumns =
         const count = jobPosting.applicationCount || 0;
         const hasApplications = count > 0;
 
-        return (
+        const cardContent = (
           <div className="d-flex align-items-center gap-12">
             <div
               className={`d-flex align-items-center justify-content-center ${hasApplications ? "bg-primary-100" : "bg-neutral-100"}`}
@@ -114,7 +115,7 @@ export const createJobPostingDetailColumns =
                 style={{ fontSize: "1.75rem" }}
               ></i>
             </div>
-            <div>
+            <div className="flex-grow-1">
               <p
                 className="mb-2 text-neutral-600 fw-medium"
                 style={{
@@ -134,6 +135,31 @@ export const createJobPostingDetailColumns =
             </div>
           </div>
         );
+
+        if (hasApplications) {
+          return (
+            <Link
+              href={`/individual/company/job-postings/detail/${jobPosting.id}/applications`}
+              className="d-block text-decoration-none"
+              style={{
+                cursor: "pointer",
+                transition: "transform 0.2s ease, opacity 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.02)";
+                e.currentTarget.style.opacity = "0.85";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.opacity = "1";
+              }}
+            >
+              {cardContent}
+            </Link>
+          );
+        }
+
+        return cardContent;
       },
     },
 

@@ -1,0 +1,1 @@
+export { useGetApplicationsByJobPosting } from "./useApplicationsByJobPosting";

@@ -49,12 +49,30 @@ export const JobPostingHeaderSection: React.FC = () => {
     router.push(`/individual/company/job-postings/add-edit/${jobPostingId}`);
   };
 
+  // Başvurular sayfasına yönlendir
+  const handleViewApplications = () => {
+    router.push(
+      `/individual/company/job-postings/detail/${jobPostingId}/applications`,
+    );
+  };
+
+  // Başvuru sayısı
+  const applicationCount = jobPosting?.applicationCount || 0;
+  const hasApplications = applicationCount > 0;
+
   // Action buttons
   const actionButtons = [
     {
       id: "back",
       label: "Geri Dön",
       href: getBackButtonHref(),
+    },
+    {
+      id: "applications",
+      label: `Başvurular (${applicationCount})`,
+      onClick: handleViewApplications,
+      disabled: isLoading || !jobPosting,
+      icon: "ph-users",
     },
     {
       id: "edit",
@@ -82,12 +100,15 @@ export const JobPostingHeaderSection: React.FC = () => {
                   href: button.href,
                   onClick: button.onClick,
                   disabled: button.disabled,
+                  icon: button.icon,
                   variant:
                     button.id === "back"
                       ? "outline"
-                      : button.id === "edit"
-                        ? "primary"
-                        : "secondary",
+                      : button.id === "applications"
+                        ? "secondary"
+                        : button.id === "edit"
+                          ? "primary"
+                          : "secondary",
                 }}
               />
             ))}
