@@ -43,42 +43,43 @@ export const ApplicationNotesSection: React.FC = () => {
   // Empty State
   if (!notes || notes.length === 0) {
     return (
-      <CustomCard
-        title="Notlar"
-        subtitle="Not bulunamadı"
-        className="mb-24"
-        headerAction={
-          !showForm ? (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowForm(true)}
+      <CustomCard title="Notlar" subtitle="Not bulunamadı" className="mb-24">
+        <div className="row g-24">
+          {/* Sol: Form */}
+          <div className="col-12 col-lg-6">
+            <div
+              className="card border-0 shadow-sm"
+              style={{ borderRadius: "12px" }}
             >
-              <i className="ph-plus me-2"></i>
-              Not Ekle
-            </Button>
-          ) : undefined
-        }
-      >
-        {showForm ? (
-          <ApplicationNoteForm
-            onSuccess={handleSuccess}
-            onCancel={handleCancel}
-          />
-        ) : (
-          <div className="text-center py-32">
-            <div className="mb-12">
-              <i
-                className="ph-note-blank text-muted"
-                style={{ fontSize: "3rem" }}
-              ></i>
+              <div className="card-body p-20">
+                <h6 className="mb-16 fw-semibold text-dark">
+                  <i className="ph-plus-circle me-2"></i>
+                  Not Ekle
+                </h6>
+                <ApplicationNoteForm
+                  onSuccess={handleSuccess}
+                  onCancel={handleCancel}
+                />
+              </div>
             </div>
-            <h6 className="text-muted mb-8">Henüz Not Eklenmemiş</h6>
-            <p className="text-muted small mb-0">
-              Bu başvuru için henüz hiç not eklenmemiş.
-            </p>
           </div>
-        )}
+
+          {/* Sağ: Empty State */}
+          <div className="col-12 col-lg-6">
+            <div className="text-center py-48">
+              <div className="mb-16">
+                <i
+                  className="ph-note-blank text-muted"
+                  style={{ fontSize: "3.5rem" }}
+                ></i>
+              </div>
+              <h6 className="text-dark mb-8">Henüz Not Eklenmemiş</h6>
+              <p className="text-muted mb-0" style={{ fontSize: "14px" }}>
+                Bu başvuru için henüz hiç not eklenmemiş.
+              </p>
+            </div>
+          </div>
+        </div>
       </CustomCard>
     );
   }
@@ -89,29 +90,61 @@ export const ApplicationNotesSection: React.FC = () => {
       subtitle={`Toplam ${notes.length} adet not`}
       className="mb-24"
       headerAction={
-        !showForm ? (
-          <Button variant="outline" size="sm" onClick={() => setShowForm(true)}>
-            <i className="ph-plus me-2"></i>
-            Not Ekle
-          </Button>
-        ) : undefined
+        <Button
+          variant={showForm ? "outline" : "inline"}
+          size="sm"
+          onClick={() => setShowForm(!showForm)}
+        >
+          {showForm ? (
+            <>
+              <i className="ph-x me-2"></i>
+              Formu Kapat
+            </>
+          ) : (
+            <>
+              <i className="ph-plus me-2"></i>
+              Not Ekle
+            </>
+          )}
+        </Button>
       }
     >
-      {showForm && (
-        <div className="mb-20 pb-20 border-bottom">
-          <ApplicationNoteForm
-            onSuccess={handleSuccess}
-            onCancel={handleCancel}
-          />
-        </div>
-      )}
-
-      <div className="row g-16">
-        {notes.map((note) => (
-          <div key={note.id} className="col-12">
-            <ApplicationNoteItem note={note} />
+      <div className="row g-20">
+        {/* Form - showForm true ise göster */}
+        {showForm && (
+          <div className="col-6">
+            <div>
+              <h6 className="pb-16 fw-semibold text-dark">
+                <i className="ph-plus-circle me-2"></i>
+                Yeni Not Ekle
+              </h6>
+              <ApplicationNoteForm
+                onSuccess={handleSuccess}
+                onCancel={handleCancel}
+              />
+            </div>
           </div>
-        ))}
+        )}
+
+        {/* Not Listesi - Form açıksa col-6, kapalıysa col-12 */}
+        <div className={showForm ? "col-6" : "col-12"}>
+          <div>
+            <h6 className="pb-16 fw-semibold text-dark">
+              <i className="ph-note-blank me-2"></i>
+              Not Listesi
+            </h6>
+            <div className="row">
+              {notes.map((note) => (
+                <div
+                  className={showForm ? "col-12 mb-16" : "col-6 mb-16"}
+                  key={note.id}
+                >
+                  <ApplicationNoteItem note={note} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </CustomCard>
   );

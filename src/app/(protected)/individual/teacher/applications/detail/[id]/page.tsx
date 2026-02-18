@@ -101,11 +101,11 @@ const ApplicationDetailPage: React.FC = () => {
         }
       />
 
-      {/* Notes Section */}
-      {application && <ApplicationNotesSection />}
-
       {/* Documents Section */}
       {application && <ApplicationDocumentsSection />}
+
+      {/* Notes Section */}
+      {application && <ApplicationNotesSection />}
 
       {/* Geri Çekme Onay Modal'ı */}
       <Modal
