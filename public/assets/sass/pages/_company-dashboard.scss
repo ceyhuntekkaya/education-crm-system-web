@@ -1,410 +1,364 @@
-// Company Dashboard Page Styles
-.company-dashboard {
-  &__hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-    padding: 80px 0;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.1);
-      z-index: 1;
-    }
-    
-    &-pattern {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
-        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 2px, transparent 2px);
-      background-size: 40px 40px;
-      animation: float 20s ease-in-out infinite;
-    }
-  }
+// ============================================================
+// Company Dashboard Page — SCSS
+// Mevcut utility sınıflarını kullanarak yalnızca compound
+// ve component-specific stiller burada tanımlanır.
+// ============================================================
 
-  &__welcome {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    margin-bottom: 60px;
+// ─── Stat Card ───────────────────────────────────────────────
+.stat-card-inner {
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--neutral-40);
+}
 
-    &-icon {
-      width: 100px;
-      height: 100px;
-      background: white;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-      animation: bounce 2s infinite;
-      
-      i {
-        font-size: 48px;
-        color: #667eea;
-      }
+.stat-card__icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+
+  i { font-size: 22px; }
+}
+
+.stat-card-arrow {
+  font-size: 16px;
+  color: var(--neutral-400);
+}
+
+.stat-card__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-card__value {
+  font-size: 2rem;
+}
+
+.stat-card__sub-icon {
+  font-size: 12px;
+}
+
+// Compound hover: link sarmalayıcı hovered → child card etkilenir
+.stat-card-link {
+  &:hover {
+    .stat-card-inner {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+      border-color: var(--neutral-50) !important;
+      transform: translateY(-2px);
     }
 
-    &-title {
-      font-size: 3rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 15px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    &-subtitle {
-      font-size: 1.25rem;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 40px;
-    }
-  }
-
-  &__stats {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 60px;
-
-    &-card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-      
-      &:hover {
-        transform: translateY(-5px);
-        background: rgba(255,255,255,0.2);
-      }
-
-      i {
-        font-size: 2rem;
-        color: white;
-        margin-bottom: 15px;
-        display: block;
-      }
-
-      &-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 5px;
-      }
-
-      &-label {
-        color: rgba(255,255,255,0.8);
-        font-size: 0.9rem;
-      }
-    }
-  }
-
-  &__modules {
-    position: relative;
-    z-index: 2;
-    background: white;
-    border-radius: 30px;
-    padding: 50px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-
-    &-header {
-      text-align: center;
-      margin-bottom: 50px;
-
-      h3 {
-        font-size: 2.25rem;
-        font-weight: 700;
-        color: #2d3748;
-        margin-bottom: 15px;
-      }
-
-      p {
-        color: #718096;
-        font-size: 1.1rem;
-      }
-    }
-
-    &-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-  }
-
-  &__card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    border: 2px solid #f7fafc;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-
-    &:hover {
-      border-color: var(--card-color);
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      text-decoration: none;
-      color: inherit;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--card-color);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    &:hover::before {
-      transform: scaleX(1);
-    }
-
-    &-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      
-      i {
-        font-size: 1.5rem;
-        color: var(--card-color);
-      }
-    }
-
-    &-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 10px;
-    }
-
-    &-description {
-      color: #718096;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-    &-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 20px;
-      border-top: 1px solid #f1f5f9;
-      
-      &-text {
-        font-size: 0.9rem;
-        color: #94a3b8;
-           display: flex;
-      align-items: center;
-      }
-
-      i {
-        color: var(--card-color);
-        transition: transform 0.3s ease;
-        
-      }
-    }
-
-    &:hover &-footer i {
-      transform: translateX(5px);
-    }
-
-    // Color variants
-    &--primary {
-      --card-color: #667eea;
-      
-      .company-dashboard__card-icon {
-        background: rgba(102, 126, 234, 0.1);
-      }
-    }
-
-    &--success {
-      --card-color: #48bb78;
-      
-      .company-dashboard__card-icon {
-        background: rgba(72, 187, 120, 0.1);
-      }
-    }
-
-    &--warning {
-      --card-color: #ed8936;
-      
-      .company-dashboard__card-icon {
-        background: rgba(237, 137, 54, 0.1);
-      }
-    }
-
-    &--info {
-      --card-color: #4299e1;
-      
-      .company-dashboard__card-icon {
-        background: rgba(66, 153, 225, 0.1);
-      }
-    }
-
-    &--purple {
-      --card-color: #9f7aea;
-      
-      .company-dashboard__card-icon {
-        background: rgba(159, 122, 234, 0.1);
-      }
-    }
-
-    &--pink {
-      --card-color: #ed64a6;
-      
-      .company-dashboard__card-icon {
-        background: rgba(237, 100, 166, 0.1);
-      }
-    }
-
-    &--teal {
-      --card-color: #38b2ac;
-      
-      .company-dashboard__card-icon {
-        background: rgba(56, 178, 172, 0.1);
-      }
-    }
-
-    &--orange {
-      --card-color: #f6ad55;
-      
-      .company-dashboard__card-icon {
-        background: rgba(246, 173, 85, 0.1);
-      }
-    }
-  }
-
-  &__help {
-    text-align: center;
-    margin-top: 50px;
-    padding-top: 40px;
-    border-top: 1px solid #e2e8f0;
-
-    &-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #f8fafc;
-      border-radius: 25px;
-      padding: 12px 20px;
-      color: #718096;
-      text-decoration: none;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: #edf2f7;
-        transform: translateY(-2px);
-        text-decoration: none;
-        color: #4a5568;
-      }
-
-      i {
-        color: #4299e1;
-      }
-
-      a {
-        color: #667eea;
-        text-decoration: none;
-        font-weight: 500;
-        margin-left: 5px;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
+    .stat-card-arrow {
+      color: var(--main-600) !important;
     }
   }
 }
 
-// Animations
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
+// ─── Recent Posting Table Row ─────────────────────────────────
+.posting-row {
+  transition: background 0.15s ease;
+  cursor: pointer;
 
-@keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    transform: translate3d(0,0,0);
-  }
-  40%, 43% {
-    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-    transform: translate3d(0, -10px, 0);
-  }
-  70% {
-    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-    transform: translate3d(0, -5px, 0);
-  }
-  90% {
-    transform: translate3d(0,-2px,0);
-  }
-}
+  &:hover {
+    background: var(--neutral-20) !important;
 
-// Responsive Design
-@media (max-width: 768px) {
-  .company-dashboard {
-    &__welcome {
-      &-title {
-        font-size: 2rem;
-      }
-      
-      &-subtitle {
-        font-size: 1rem;
-      }
-    }
-
-    &__modules {
-      padding: 30px 20px;
-      border-radius: 20px;
-
-      &-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-    }
-
-    &__card {
-      padding: 25px;
+    .row-arrow {
+      color: var(--main-600) !important;
     }
   }
 }
 
-@media (max-width: 576px) {
-  .company-dashboard {
-    &__hero {
-      padding: 60px 0;
+// ─── Quick Action Link ────────────────────────────────────────
+.quick-action-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--neutral-40);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover {
+    background: var(--neutral-20);
+    border-color: var(--neutral-50);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+    background: var(--neutral-30);
+    transform: scale(0.99);
+  }
+}
+
+// ─── Hero Buttons ─────────────────────────────────────────────
+// (Bootstrap btn-light / btn-outline-light tasarımla uyumsuz
+//  olduğu için bileşene özel button stili kullanılır.)
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--main-600);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+
+  &:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.65);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ─── Dashboard Panel Card ─────────────────────────────────────
+// Sayfadaki tüm kart paneller için ortak container stili
+.dash-panel {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--neutral-40);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.dash-panel-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--neutral-30);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+// ─── View-All Link ────────────────────────────────────────────
+.view-all-link {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--main-600);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.15s ease, opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.75;
+    gap: 7px;
+  }
+}
+
+// ─── Dashboard Table ──────────────────────────────────────────
+.dash-table {
+  thead th {
+    background: var(--neutral-20) !important;
+    border-bottom: 1px solid var(--neutral-40) !important;
+    padding: 10px 16px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  tbody {
+    td {
+      border-bottom: 1px solid var(--neutral-30) !important;
     }
 
-    &__stats {
-      margin-bottom: 40px;
+    tr:last-child td {
+      border-bottom: none !important;
+    }
+  }
+}
+// ─── Hero Section ─────────────────────────────────────────────
+.dash-hero {
+  background: linear-gradient(135deg, var(--main-600) 0%, var(--primary-700) 100%);
+  min-height: 172px;
+
+  &__pattern {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  &__decor {
+    opacity: 0.07;
+    pointer-events: none;
+    padding-right: 40px;
+
+    i { font-size: 200px; color: #fff; }
+  }
+
+  &__campus-badge {
+    background: rgba(255, 255, 255, 0.15);
+
+    i {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
     }
 
-    &__modules {
-      margin: 0 15px;
+    span {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.8125rem;
+      font-weight: 500;
     }
+  }
+
+  &__title {
+    font-size: 1.65rem;
+    line-height: 1.25;
+  }
+
+  &__subtitle {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.9rem;
+  }
+
+  &__btn-icon {
+    font-size: 14px;
+  }
+}
+
+// ─── Panel Header Icon & Title ────────────────────────────────
+.dash-panel-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  i { font-size: 18px; }
+}
+
+.dash-panel-title {
+  font-size: 0.9375rem;
+}
+
+// ─── Recent Postings ──────────────────────────────────────────
+.posting__icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  i { font-size: 16px; }
+}
+
+.posting__app-icon {
+  font-size: 11px;
+}
+
+.posting__type-badge {
+  background: var(--neutral-20);
+  border: 1px solid var(--neutral-30);
+}
+
+.row-arrow {
+  font-size: 15px;
+  color: var(--neutral-300);
+}
+
+// View All link chevron
+.view-all-link i {
+  font-size: 14px;
+}
+
+// ─── Quick Actions ─────────────────────────────────────────────
+.quick-action__icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  i { font-size: 19px; }
+}
+
+.quick-action__arrow {
+  flex-shrink: 0;
+  font-size: 15px;
+  color: var(--neutral-300);
+}
+
+// ─── Status Breakdown ─────────────────────────────────────────
+.status-bar__icon {
+  font-size: 12px;
+}
+
+.status-bar__count-badge {
+  min-width: 34px;
+  text-align: center;
+}
+
+.status-bar__track {
+  height: 7px;
+}
+
+.status-bar__fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ─── Empty State ──────────────────────────────────────────────
+.dash-empty__icon-wrap {
+  width: 64px;
+  height: 64px;
+
+  i { font-size: 32px; }
+}
+
+.dash-empty__chart-icon {
+  font-size: 32px;
+}
+
+// ─── Summary Row ──────────────────────────────────────────────
+.dash-summary-row {
+  background: var(--neutral-20);
+  border: 1px solid var(--neutral-30);
+}
+
+// hero-btn-primary filled variant (beyaz arka plan üzerinde kullanılır)
+.hero-btn-primary--filled {
+  background: var(--main-600) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    background: var(--main-700) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.20);
+    transform: translateY(-1px);
   }
 }
