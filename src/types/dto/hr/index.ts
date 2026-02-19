@@ -8,6 +8,5 @@ export * from "./TeacherProfileUpdateDto";
 export * from "./TeacherProfileSummaryDto";
 export * from "./ApplicationDto";
 export * from "./ApplicationCreateDto";
-export * from "./ApplicationDocumentCreateDto";
 export * from "./HrNotificationDto";
 export * from "./hr-response.types";
