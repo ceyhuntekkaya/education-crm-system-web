@@ -84,8 +84,7 @@ const JobPostingApplicationsPage: React.FC = () => {
           renderCard: ({ item }: { item: ApplicationDto }) => (
             <ApplicationCard
               application={item}
-              // Detay sayfası şu an yok, ileride eklenebilir
-              // url={`/individual/company/job-postings/detail/${jobPostingId}/applications/${item.id}`}
+              url={`/individual/company/job-postings/detail/${jobPostingId}/applications/detail/${item.id}`}
             />
           ),
           col: 4,

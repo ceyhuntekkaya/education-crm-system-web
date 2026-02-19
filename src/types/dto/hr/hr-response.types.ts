@@ -1,5 +1,9 @@
 import type { JobPostingDto } from "./JobPostingDto";
-import type { ApplicationDto } from "./ApplicationDto";
+import type {
+  ApplicationDto,
+  ApplicationNoteDto,
+  ApplicationDocumentDto,
+} from "./ApplicationDto";
 import type { TeacherProfileDto } from "./TeacherProfileDto";
 import type { Page } from "../../api/api-general.types";
 
@@ -62,6 +66,43 @@ export interface GetApplicationsParams {
   size?: number;
   sortBy?: string;
   sortDir?: "ASC" | "DESC";
+}
+
+// Application Notes & Documents Response Types
+export interface ApiResponseApplicationNoteDto {
+  success: boolean;
+  message: string;
+  data: ApplicationNoteDto;
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
+}
+
+export interface ApiResponseApplicationNotesArray {
+  success: boolean;
+  message: string;
+  data: ApplicationNoteDto[];
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
+}
+
+export interface ApiResponseApplicationDocumentDto {
+  success: boolean;
+  message: string;
+  data: ApplicationDocumentDto;
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
+}
+
+export interface ApiResponseApplicationDocumentsArray {
+  success: boolean;
+  message: string;
+  data: ApplicationDocumentDto[];
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
 }
 
 // ==================== TEACHER PROFILES ====================

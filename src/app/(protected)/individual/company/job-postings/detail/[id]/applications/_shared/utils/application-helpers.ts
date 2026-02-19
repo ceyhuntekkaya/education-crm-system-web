@@ -87,3 +87,23 @@ export const getApplicationSummary = (
     status: application.status || "",
   };
 };
+
+/**
+ * İstihdam tipi için Türkçe metin döndürür
+ */
+export const getEmploymentTypeDisplay = (
+  employmentType: string | undefined,
+): string => {
+  if (!employmentType) return "Belirtilmemiş";
+
+  const typeMap: Record<string, string> = {
+    FULL_TIME: "Tam Zamanlı",
+    PART_TIME: "Yarı Zamanlı",
+    CONTRACT: "Sözleşmeli",
+    TEMPORARY: "Geçici",
+    INTERNSHIP: "Staj",
+    FREELANCE: "Serbest",
+  };
+
+  return typeMap[employmentType] || employmentType;
+};

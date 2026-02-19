@@ -5,10 +5,12 @@ export type {
   ApplicationDocumentDto,
   TeacherProfileSummaryDto,
   JobPostingSummaryDto,
-} from "@/types/dto";
-
-export type {
+  ApplicationDocumentCreateDto,
   ApiResponseApplicationDto,
   ApiResponsePageApplicationDto,
+  ApiResponseApplicationNoteDto,
+  ApiResponseApplicationNotesArray,
+  ApiResponseApplicationDocumentDto,
+  ApiResponseApplicationDocumentsArray,
   GetApplicationsParams,
-} from "../../../../../_shared/types/api-response.types";
+} from "@/types/dto/hr";
