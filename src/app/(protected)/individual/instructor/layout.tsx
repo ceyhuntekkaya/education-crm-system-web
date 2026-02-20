@@ -8,9 +8,9 @@ const InstructorLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <div className="instructor-layout d-flex flex-column min-vh-100">
+    <div className="instructor-layout d-flex flex-column min-vh-100 gap-24">
       <IndividualHeader />
-      <main className="main-content flex-fill">
+      <main className="container mx-auto main-content flex-fill">
         {children}
       </main>
       <Footer />

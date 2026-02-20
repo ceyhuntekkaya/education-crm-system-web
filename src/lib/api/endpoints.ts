@@ -425,6 +425,47 @@ export const API_ENDPOINTS = {
   },
 
   // HR Management endpoints
+  WEBINAR: {
+    // Event Organizers
+    ORGANIZERS: {
+      LIST: "/webinar/organizers",
+      ACTIVE: "/webinar/organizers/active",
+      BY_ID: (id: string | number) => `/webinar/organizers/${id}`,
+      BY_SLUG: (slug: string) => `/webinar/organizers/by-slug/${slug}`,
+      CREATE: "/webinar/organizers",
+      UPDATE: (id: string | number) => `/webinar/organizers/${id}`,
+      DELETE: (id: string | number) => `/webinar/organizers/${id}`,
+    },
+
+    // Events
+    EVENTS: {
+      LIST: "/webinar/events",
+      PUBLISHED: "/webinar/events/published",
+      BY_ID: (id: string | number) => `/webinar/events/${id}`,
+      BY_ORGANIZER: (organizerId: string | number) =>
+        `/webinar/events/by-organizer/${organizerId}`,
+      CREATE: "/webinar/events",
+      UPDATE: (id: string | number) => `/webinar/events/${id}`,
+      DELETE: (id: string | number) => `/webinar/events/${id}`,
+    },
+
+    // Registrations
+    REGISTRATIONS: {
+      LIST: "/webinar/registrations",
+      BY_ID: (id: string | number) => `/webinar/registrations/${id}`,
+      BY_EVENT: (eventId: string | number) =>
+        `/webinar/registrations/by-event/${eventId}`,
+      BY_TEACHER: (teacherId: string | number) =>
+        `/webinar/registrations/by-teacher/${teacherId}`,
+      CREATE: "/webinar/registrations",
+      UPDATE_STATUS: (id: string | number) =>
+        `/webinar/registrations/${id}/status`,
+      MARK_ATTENDANCE: (id: string | number) =>
+        `/webinar/registrations/${id}/attendance`,
+      DELETE: (id: string | number) => `/webinar/registrations/${id}`,
+    },
+  },
+
   HR: {
     // Job Postings
     JOB_POSTINGS: {

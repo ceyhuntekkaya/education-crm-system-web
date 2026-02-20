@@ -73,9 +73,9 @@ const IndividualHeader = () => {
             icon: "ph-house",
           },
           {
-            href: "/individual/instructor/lessons",
-            label: "Derslerim",
-            icon: "ph-book-open",
+            href: "/individual/instructor/organizers",
+            label: "Organizatörler",
+            icon: "ph-buildings",
           },
         ];
       default:

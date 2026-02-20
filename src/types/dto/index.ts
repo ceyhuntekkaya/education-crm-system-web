@@ -12,3 +12,4 @@ export * from "./subscription";
 export * from "./supply";
 export * from "./survey";
 export * from "./user";
+export * from "./webinar";
