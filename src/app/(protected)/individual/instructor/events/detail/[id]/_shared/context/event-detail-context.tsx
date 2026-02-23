@@ -1,8 +1,9 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useParams } from "next/navigation";
 import { useEventDetail } from "../hooks/api/use-event-detail";
+import { useGetRegistrationsByEvent } from "../hooks/api/use-event-registrations-api";
 import { useDeleteEvent } from "../../../../_shared/hooks/api/useEventsApi";
 import type { EventDetailContextValue } from "../types/context-types";
 
@@ -21,6 +22,22 @@ export function EventDetailProvider({ children }: EventDetailProviderProps) {
   const { data, loading, error, refetch } = useEventDetail(eventId);
 
   const event = data?.data ?? null;
+
+  // Registrations pagination state
+  const [registrationsPage, setRegistrationsPage] = useState(0);
+
+  // Registrations data
+  const {
+    data: registrationsData,
+    loading: isLoadingRegistrations,
+    refetch: refetchRegistrations,
+  } = useGetRegistrationsByEvent(
+    eventId,
+    { page: registrationsPage, size: 20 },
+    { enabled: eventId > 0 },
+  );
+
+  const registrations = registrationsData?.data ?? null;
 
   // 🗑️ DELETE HOOK
   const { mutate: deleteMutate, loading: isDeleting } = useDeleteEvent(eventId);
@@ -50,6 +67,11 @@ export function EventDetailProvider({ children }: EventDetailProviderProps) {
     refetch,
     deleteEvent,
     isDeleting,
+    registrations,
+    isLoadingRegistrations,
+    registrationsPage,
+    setRegistrationsPage,
+    refetchRegistrations,
   };
 
   return (

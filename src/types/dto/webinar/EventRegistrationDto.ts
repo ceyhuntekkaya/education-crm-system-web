@@ -18,9 +18,15 @@ export interface EventRegistrationDto {
   eventId: number;
   event: EventSummaryDto;
   teacherId: number;
-  status: RegistrationStatus;
+  teacherEmail?: string;
+  teacherName?: string;
   registrationNote?: string;
+  status: RegistrationStatus;
   attended?: boolean;
+  attendanceMarkedAt?: string;
+  attendanceMarkedByUserId?: number;
+  certificateUrl?: string;
+  certificateGeneratedAt?: string;
   createdAt: string;
   updatedAt: string;
 }

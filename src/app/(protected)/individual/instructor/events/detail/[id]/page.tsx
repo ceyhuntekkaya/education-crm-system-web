@@ -59,6 +59,16 @@ const EventDetailPage: React.FC = () => {
           },
           actionButtons: [
             {
+              id: "registrations",
+              label: "Kayıtlar",
+              icon: "ph ph-users",
+              variant: "secondary",
+              disabled: !event || isLoading,
+              href: event
+                ? `/individual/instructor/events/detail/${eventId}/registrations`
+                : undefined,
+            },
+            {
               id: "edit",
               label: "Düzenle",
               icon: "ph ph-pencil-simple",

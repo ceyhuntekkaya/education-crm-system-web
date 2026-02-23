@@ -370,6 +370,8 @@ export const createEventDetailColumns = (): DetailColumn<EventDto>[] => [
     icon: "ph-bold ph-users",
     iconColor: "text-primary-700",
     order: 10,
+    url: (e: EventDto) =>
+      `/individual/instructor/events/detail/${e.id}/registrations`,
   },
   {
     field: "maxCapacity",
