@@ -80,12 +80,12 @@ export const OrganizerFormContent: React.FC = () => {
     }
 
     if (success) {
+      // Önce yönlendir, arka planda listeyi yenile
+      router.push("/individual/instructor/organizers");
       try {
         await refetch();
-        router.push("/individual/instructor/organizers");
-        router.refresh();
       } catch (error) {
-        console.error("Error during refetch/redirect:", error);
+        console.error("Error during refetch:", error);
       }
     }
   };

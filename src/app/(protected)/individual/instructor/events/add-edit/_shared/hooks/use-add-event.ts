@@ -12,8 +12,11 @@ export const useAddEvent = () => {
   const createEvent = async (
     data: EventCreateDto,
   ): Promise<EventDto | null> => {
+    // executeMutation, backend'in { success, data } wrapper'ını soyarak
+    // doğrudan EventDto döndürür (use-api.ts satır 89-91).
+    // TypeScript bu runtime davranışını bilmediği için cast gerekli.
     const response = await mutate(data);
-    return response?.data ?? null;
+    return (response as unknown as EventDto) ?? null;
   };
 
   return {

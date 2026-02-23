@@ -102,12 +102,12 @@ export const EventFormContent: React.FC = () => {
     }
 
     if (success) {
+      // Önce yönlendir, arka planda listeyi yenile
+      router.push("/individual/instructor/events");
       try {
         await refetch();
-        router.push("/individual/instructor/events");
-        router.refresh();
       } catch (error) {
-        console.error("Error during refetch/redirect:", error);
+        console.error("Error during refetch:", error);
       }
     }
   };
