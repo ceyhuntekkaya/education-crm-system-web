@@ -9,4 +9,8 @@ export interface OrganizerDetailContextValue {
 
   // Actions
   refetch: () => void;
+
+  // Delete
+  deleteOrganizer: () => Promise<boolean>;
+  isDeleting: boolean;
 }
