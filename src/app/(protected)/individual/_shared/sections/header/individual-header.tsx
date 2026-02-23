@@ -77,6 +77,11 @@ const IndividualHeader = () => {
             label: "Organizatörler",
             icon: "ph-buildings",
           },
+          {
+            href: "/individual/instructor/events",
+            label: "Etkinlikler",
+            icon: "ph-calendar",
+          },
         ];
       default:
         return [];
