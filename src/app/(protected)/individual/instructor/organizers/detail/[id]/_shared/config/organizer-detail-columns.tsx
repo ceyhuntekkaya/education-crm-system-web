@@ -496,6 +496,8 @@ export const createOrganizerDetailColumns =
       icon: "ph-bold ph-calendar-dots",
       iconColor: "text-primary-700",
       order: 10,
+      url: (organizer) =>
+        `/individual/instructor/organizers/detail/${organizer.id}/events`,
     },
     {
       field: "isActive",

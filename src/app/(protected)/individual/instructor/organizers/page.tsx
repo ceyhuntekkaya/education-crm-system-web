@@ -94,7 +94,7 @@ const CompanyOrganizersPage: React.FC = () => {
       // ═══════════════════════════════════════════════════════════════════
       search={{
         enabled: true,
-        placeholder: "Düzenleyen ara...",
+        placeholder: "Organizatör ara...",
         fields: ["name", "city", "email", "description"],
       }}
       // ═══════════════════════════════════════════════════════════════════

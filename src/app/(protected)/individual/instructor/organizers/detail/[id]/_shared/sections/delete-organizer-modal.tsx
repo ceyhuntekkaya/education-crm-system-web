@@ -41,7 +41,7 @@ export const DeleteOrganizerModal: React.FC<DeleteOrganizerModalProps> = ({
               style={{ fontSize: "20px" }}
             ></i>
           </div>
-          <h5 className="mb-0 fw-semibold text-heading">Düzenleyeni Sil</h5>
+          <h5 className="mb-0 fw-semibold text-heading">Organizatörü Sil</h5>
         </div>
       </Modal.Header>
 
@@ -50,21 +50,24 @@ export const DeleteOrganizerModal: React.FC<DeleteOrganizerModalProps> = ({
           <p className="text-body mb-0">
             {organizerName ? (
               <>
-                <strong>{organizerName}</strong> adlı düzenleyeni silmek
+                <strong>{organizerName}</strong> adlı organizatörü silmek
                 istediğinize emin misiniz? Bu işlem geri alınamaz ve tüm
-                düzenleyen bilgileri kalıcı olarak silinecektir.
+                organizatör bilgileri kalıcı olarak silinecektir.
               </>
             ) : (
               <>
-                Bu düzenleyeni silmek istediğinize emin misiniz? Bu işlem geri
-                alınamaz ve tüm düzenleyen bilgileri kalıcı olarak silinecektir.
+                Bu organizatörü silmek istediğinize emin misiniz? Bu işlem geri
+                alınamaz ve tüm organizatör bilgileri kalıcı olarak
+                silinecektir.
               </>
             )}
           </p>
 
           <div className="bg-danger-25 rounded-8 p-16">
             <ul className="mb-0 ps-20">
-              <li className="text-danger-600 mb-8">Tüm düzenleyen bilgileri</li>
+              <li className="text-danger-600 mb-8">
+                Tüm organizatör bilgileri
+              </li>
               <li className="text-danger-600 mb-8">İletişim bilgileri</li>
               <li className="text-danger-600 mb-8">Sosyal medya bilgileri</li>
               <li className="text-danger-600">Logo ve görsel dosyalar</li>
@@ -76,7 +79,7 @@ export const DeleteOrganizerModal: React.FC<DeleteOrganizerModalProps> = ({
               <i className="ph ph-warning text-warning-600 flex-shrink-0 mt-4"></i>
               <p className="text-warning-700 mb-0 text-sm">
                 <strong>Dikkat:</strong> Bu işlem geri alınamaz. Silindikten
-                sonra düzenleyen verileri kurtarılamaz.
+                sonra organizatör verileri kurtarılamaz.
               </p>
             </div>
           </div>
@@ -95,7 +98,7 @@ export const DeleteOrganizerModal: React.FC<DeleteOrganizerModalProps> = ({
             disabled={isDeleting}
             leftIcon="ph ph-trash"
           >
-            Evet, Düzenleyeni Sil
+            Evet, Organizatörü Sil
           </Button>
         </div>
       </Modal.Footer>

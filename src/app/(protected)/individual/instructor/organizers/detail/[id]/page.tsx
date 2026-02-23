@@ -34,16 +34,22 @@ const OrganizerDetailPage: React.FC = () => {
     router.push(`/individual/instructor/organizers/add-edit/${organizerId}`);
   };
 
+  const handleViewEvents = () => {
+    router.push(
+      `/individual/instructor/organizers/detail/${organizerId}/events`,
+    );
+  };
+
   const handleDelete = async () => {
     if (!organizerId) return;
     const success = await deleteOrganizer();
     if (success) {
-      showSnackbar("Düzenleyen başarıyla silindi", "success");
+      showSnackbar("Organizatör başarıyla silindi", "success");
       closeDeleteModal();
       refetchOrganizers();
       router.push("/individual/instructor/organizers");
     } else {
-      showSnackbar("Düzenleyen silinirken bir hata oluştu", "error");
+      showSnackbar("Organizatör silinirken bir hata oluştu", "error");
     }
   };
 
@@ -59,6 +65,14 @@ const OrganizerDetailPage: React.FC = () => {
           },
           actionButtons: [
             {
+              id: "events",
+              label: "Etkinlikler",
+              icon: "ph ph-calendar-dots",
+              variant: "secondary",
+              disabled: !organizer || isLoading,
+              onClick: handleViewEvents,
+            },
+            {
               id: "edit",
               label: "Düzenle",
               icon: "ph ph-pencil-simple",
@@ -68,7 +82,7 @@ const OrganizerDetailPage: React.FC = () => {
             },
             {
               id: "delete",
-              label: "Düzenleyeni Sil",
+              label: "Organizatörü Sil",
               icon: "ph ph-trash",
               variant: "danger",
               disabled: !organizer || isLoading || isDeleting,
