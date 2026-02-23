@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from "react";
 import { useParams } from "next/navigation";
 import { useEventDetail } from "../hooks/api/use-event-detail";
+import { useDeleteEvent } from "../../../../_shared/hooks/api/useEventsApi";
 import type { EventDetailContextValue } from "../types/context-types";
 
 const EventDetailContext = createContext<EventDetailContextValue | undefined>(
@@ -21,12 +22,34 @@ export function EventDetailProvider({ children }: EventDetailProviderProps) {
 
   const event = data?.data ?? null;
 
+  // 🗑️ DELETE HOOK
+  const { mutate: deleteMutate, loading: isDeleting } = useDeleteEvent(eventId);
+
+  const deleteEvent = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      deleteMutate(undefined, {
+        onSuccess: () => resolve(true),
+        onError: (error) => {
+          // Backend DELETE, data: null döner — executeMutation bunu hata olarak fırlatır.
+          // Gerçek bir ağ hatası değilse başarılı say.
+          if (error === "API response is empty or null") {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        },
+      });
+    });
+  };
+
   const contextValue: EventDetailContextValue = {
     event,
     isLoading: loading,
     error,
     eventId,
     refetch,
+    deleteEvent,
+    isDeleting,
   };
 
   return (

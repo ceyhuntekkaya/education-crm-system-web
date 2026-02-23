@@ -1,31 +1,81 @@
 "use client";
 
 import React from "react";
-import { usePageTitle } from "@/hooks";
+import { useRouter } from "next/navigation";
+import { usePageTitle, useModal } from "@/hooks";
 import { DetailLayout } from "@/components/layouts";
+import { useSnackbar } from "@/contexts";
 import { useEventDetailContext } from "./_shared/context/event-detail-context";
+import { useEventsContext } from "../../_shared/contexts/events-context";
 import { createEventDetailColumns } from "./_shared/config/event-detail-columns";
-import { EventDetailHeaderSection } from "./_shared/sections/event-detail-header-section";
+import { DeleteEventModal } from "./_shared/sections";
 
 /**
  * Etkinlik detay sayfası - DetailLayout kullanarak
  * Etkinlik bilgilerini görüntüler
+ * 2.7 Etkinlik Sil özelliği dahildir.
  */
 const EventDetailPage: React.FC = () => {
-  const { event, isLoading, eventId } = useEventDetailContext();
+  const router = useRouter();
+  const { showSnackbar } = useSnackbar();
+  const { isOpen, open: openDeleteModal, close: closeDeleteModal } = useModal();
+
+  const { event, isLoading, eventId, deleteEvent, isDeleting } =
+    useEventDetailContext();
+  const { setSelectedEvent, refetch: refetchEvents } = useEventsContext();
 
   usePageTitle(event?.title || "Etkinlik Detayı");
 
   const hasValidId = eventId > 0;
 
+  const handleEdit = () => {
+    if (!event) return;
+    setSelectedEvent(event);
+    router.push(`/individual/instructor/events/add-edit/${eventId}`);
+  };
+
+  const handleDelete = async () => {
+    if (!eventId) return;
+    const success = await deleteEvent();
+    if (success) {
+      showSnackbar("Etkinlik başarıyla silindi", "success");
+      closeDeleteModal();
+      refetchEvents();
+      router.push("/individual/instructor/events");
+    } else {
+      showSnackbar("Etkinlik silinirken bir hata oluştu", "error");
+    }
+  };
+
   return (
     <>
-      {/* Header: Geri Dön ve Düzenle butonları */}
-      <EventDetailHeaderSection />
-
       <DetailLayout
         containerClass="event-detail-page"
         spacing="lg"
+        header={{
+          backButton: {
+            label: "Geri Dön",
+            href: "/individual/instructor/events",
+          },
+          actionButtons: [
+            {
+              id: "edit",
+              label: "Düzenle",
+              icon: "ph ph-pencil-simple",
+              variant: "primary",
+              disabled: !event || isLoading,
+              onClick: handleEdit,
+            },
+            {
+              id: "delete",
+              label: "Etkinliği Sil",
+              icon: "ph ph-trash",
+              variant: "danger",
+              disabled: !event || isLoading || isDeleting,
+              onClick: openDeleteModal,
+            },
+          ],
+        }}
         loading={{
           isLoading: isLoading && hasValidId,
         }}
@@ -45,6 +95,12 @@ const EventDetailPage: React.FC = () => {
               }
             : undefined
         }
+      />
+
+      <DeleteEventModal
+        isOpen={isOpen}
+        onClose={closeDeleteModal}
+        onConfirm={handleDelete}
       />
     </>
   );

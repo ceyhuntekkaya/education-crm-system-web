@@ -6,14 +6,21 @@ import { useEventDetailContext } from "../context/event-detail-context";
 import { useEventsContext } from "../../../../_shared/contexts/events-context";
 import { ActionButton } from "@/components/layouts/detail-layout/components";
 
+interface EventDetailHeaderSectionProps {
+  onDeleteClick?: () => void;
+}
+
 /**
  * Event Detail Header Section
  * - Geri Dön butonu (liste sayfasına)
  * - Düzenle butonu (add-edit sayfasına)
+ * - Sil butonu (2.7 Etkinlik Sil)
  */
-export const EventDetailHeaderSection: React.FC = () => {
+export const EventDetailHeaderSection: React.FC<
+  EventDetailHeaderSectionProps
+> = ({ onDeleteClick }) => {
   const router = useRouter();
-  const { event, isLoading, eventId } = useEventDetailContext();
+  const { event, isLoading, eventId, isDeleting } = useEventDetailContext();
   const { setSelectedEvent } = useEventsContext();
 
   const handleEdit = () => {
@@ -34,6 +41,13 @@ export const EventDetailHeaderSection: React.FC = () => {
       onClick: handleEdit,
       disabled: isLoading || !event,
       icon: "ph-pencil",
+    },
+    {
+      id: "delete",
+      label: "Sil",
+      onClick: onDeleteClick,
+      disabled: isLoading || !event || isDeleting,
+      icon: "ph-trash",
     },
   ];
 
@@ -57,7 +71,9 @@ export const EventDetailHeaderSection: React.FC = () => {
                       ? "outline"
                       : button.id === "edit"
                         ? "primary"
-                        : "secondary",
+                        : button.id === "delete"
+                          ? "danger"
+                          : "secondary",
                 }}
               />
             ))}

@@ -6,4 +6,6 @@ export interface EventDetailContextValue {
   error: unknown;
   eventId: number;
   refetch: () => void;
+  deleteEvent: () => Promise<boolean>;
+  isDeleting: boolean;
 }

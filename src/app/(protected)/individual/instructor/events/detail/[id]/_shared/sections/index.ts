@@ -1,1 +1,1 @@
-export * from "./event-detail-header-section";
+export * from "./delete-event-modal";
