@@ -145,7 +145,7 @@ export const OrganizerFormContent: React.FC = () => {
                 name="city"
                 placeholder="Şehir seçiniz..."
                 options={cityOptions}
-                loading={provincesLoading}
+                isLoading={provincesLoading}
               />
             </div>
           </div>
