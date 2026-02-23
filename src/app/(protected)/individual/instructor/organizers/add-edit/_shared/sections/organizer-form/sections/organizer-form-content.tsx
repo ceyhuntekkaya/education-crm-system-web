@@ -123,6 +123,7 @@ export const OrganizerFormContent: React.FC = () => {
             variant="outline"
             placeholder="Logo seçin veya sürükleyin"
             maxSize={2}
+            isAutoUpload
           />
         </div>
 

@@ -29,17 +29,20 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
   filteredColumns.sort((a, b) => (a.order || 0) - (b.order || 0));
 
   // Group by section
-  const sections = filteredColumns.reduce((acc, column) => {
-    if (!acc[column.section]) {
-      acc[column.section] = [];
-    }
-    acc[column.section].push(column);
-    return acc;
-  }, {} as Record<string, DetailColumn[]>);
+  const sections = filteredColumns.reduce(
+    (acc, column) => {
+      if (!acc[column.section]) {
+        acc[column.section] = [];
+      }
+      acc[column.section].push(column);
+      return acc;
+    },
+    {} as Record<string, DetailColumn[]>,
+  );
 
   const renderSection = (
     sectionType: keyof typeof sections,
-    sectionColumns: DetailColumn[]
+    sectionColumns: DetailColumn[],
   ) => {
     // Meta section için özel render
     if (sectionType === "meta") {
@@ -107,7 +110,7 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
                   <div className="meta-icon-wrapper">
                     <div
                       className={`meta-icon bg-${getColorPrefix(
-                        column.iconColor
+                        column.iconColor,
                       )}-100 ${column.iconColor || "text-primary-700"}`}
                     >
                       <i className={column.icon}></i>
@@ -124,7 +127,9 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
                       className="meta-value fw-bold"
                       style={{ fontSize: "1.25rem" }}
                     >
-                      {(data as any)[column.field] || 0}
+                      {column.valueGetter
+                        ? column.valueGetter(data)
+                        : ((data as any)[column.field] ?? 0)}
                     </span>
                   </div>
                 </div>
@@ -174,7 +179,7 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
               const isExpired = deadline < now;
               const diffTime = deadline.getTime() - now.getTime();
               const daysUntilDeadline = Math.ceil(
-                diffTime / (1000 * 60 * 60 * 24)
+                diffTime / (1000 * 60 * 60 * 24),
               );
               const isApproaching =
                 !isExpired && daysUntilDeadline > 0 && daysUntilDeadline <= 7;
@@ -216,7 +221,7 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
                     <div className="d-flex align-items-center gap-8 mb-8">
                       <div
                         className={`d-flex align-items-center justify-content-center bg-${getColorPrefix(
-                          column.iconColor
+                          column.iconColor,
                         )}-100 ${column.iconColor || "text-primary-700"}`}
                         style={{
                           width: "28px",
@@ -281,7 +286,7 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
                   <div className="d-flex align-items-center gap-8 mb-8">
                     <div
                       className={`d-flex align-items-center justify-content-center bg-${getColorPrefix(
-                        column.iconColor
+                        column.iconColor,
                       )}-100 ${column.iconColor || "text-primary-700"}`}
                       style={{
                         width: "28px",
@@ -378,7 +383,7 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
                   <div className="d-flex align-items-center gap-8 mb-8">
                     <div
                       className={`d-flex align-items-center justify-content-center bg-${getColorPrefix(
-                        column.iconColor
+                        column.iconColor,
                       )}-100 ${column.iconColor || "text-warning-700"}`}
                       style={{
                         width: "28px",
@@ -463,7 +468,7 @@ export const ColumnRenderer: React.FC<ColumnRendererProps> = ({
                 <div className="d-flex align-items-center gap-8 mb-8">
                   <div
                     className={`d-flex align-items-center justify-content-center bg-${getColorPrefix(
-                      column.iconColor
+                      column.iconColor,
                     )}-100 ${column.iconColor || "text-primary-700"}`}
                     style={{
                       width: "28px",

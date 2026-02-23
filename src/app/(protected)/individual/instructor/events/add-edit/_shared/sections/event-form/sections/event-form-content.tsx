@@ -156,6 +156,7 @@ export const EventFormContent: React.FC = () => {
             variant="outline"
             placeholder="Görsel seçin veya sürükleyin"
             maxSize={5}
+            isAutoUpload
           />
         </div>
 

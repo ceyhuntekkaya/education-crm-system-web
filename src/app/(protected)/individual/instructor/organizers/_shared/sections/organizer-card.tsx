@@ -8,7 +8,7 @@ import {
   getOrganizerTypeDisplay,
   getOrganizerTypeIcon,
 } from "../utils/organizer-helpers";
-import { formatDate } from "@/utils";
+import { formatDate, formatPhoneNumber } from "@/utils";
 
 interface OrganizerCardProps {
   organizer: EventOrganizerDto;
@@ -39,33 +39,28 @@ export const OrganizerCard: React.FC<OrganizerCardProps> = ({
         className="position-relative overflow-hidden"
         style={{ height: "160px" }}
       >
-        {/* Background gradient */}
-        <div
-          className="w-100 h-100 d-flex align-items-center justify-content-center"
-          style={{
-            background:
-              "linear-gradient(135deg, hsl(var(--main-50)) 0%, hsl(var(--main-100)) 100%)",
-          }}
-        >
-          {/* Logo or Icon */}
-          {organizer.logoUrl ? (
-            <Image
-              src={organizer.logoUrl}
-              alt={organizer.name}
-              width={80}
-              height={80}
-              style={{
-                objectFit: "contain",
-                borderRadius: "12px",
-              }}
-            />
-          ) : (
+        {/* Background gradient or full cover image */}
+        {organizer.logoUrl ? (
+          <Image
+            src={organizer.logoUrl}
+            alt={organizer.name}
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        ) : (
+          <div
+            className="w-100 h-100 d-flex align-items-center justify-content-center"
+            style={{
+              background:
+                "linear-gradient(135deg, hsl(var(--main-50)) 0%, hsl(var(--main-100)) 100%)",
+            }}
+          >
             <i
               className={`ph-duotone ${typeIcon} text-main-600`}
               style={{ fontSize: "64px", opacity: 0.4 }}
             ></i>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Type Badge - Overlay */}
         <div
@@ -113,15 +108,15 @@ export const OrganizerCard: React.FC<OrganizerCardProps> = ({
         </h5>
 
         {/* Slug */}
-        <div className="text-xs text-neutral-400 mb-12">
-          @{organizer.slug}
-        </div>
+        <div className="text-xs text-neutral-400 mb-12">@{organizer.slug}</div>
 
-        {/* City */}
-        {organizer.city && (
-          <div className="d-flex align-items-center gap-6 text-sm text-neutral-600 mb-12">
-            <i className="ph-bold ph-map-pin"></i>
-            <span>{organizer.city}</span>
+        {/* City + Address */}
+        {(organizer.city || organizer.address) && (
+          <div className="d-flex align-items-start gap-6 text-sm text-neutral-600 mb-12">
+            <i className="ph-bold ph-map-pin mt-1 flex-shrink-0"></i>
+            <span className="text-truncate">
+              {[organizer.city, organizer.address].filter(Boolean).join(" — ")}
+            </span>
           </div>
         )}
 
@@ -161,31 +156,67 @@ export const OrganizerCard: React.FC<OrganizerCardProps> = ({
         </div>
 
         {/* Contact Info */}
-        <div className="d-flex gap-8 mb-12 flex-wrap">
-          {organizer.email && (
-            <div className="soft-card rounded-12 flex-fill p-8">
-              <div className="d-flex align-items-center gap-6">
-                <i className="ph-bold ph-envelope text-info-600"></i>
-                <span
-                  className="text-xs text-neutral-700 text-truncate"
-                  style={{ maxWidth: "120px" }}
-                  title={organizer.email}
-                >
-                  {organizer.email}
-                </span>
+        {(organizer.email || organizer.phone || organizer.website) && (
+          <div className="d-flex gap-6 mb-12 flex-wrap">
+            {organizer.email && (
+              <div
+                className="soft-card rounded-10 flex-fill p-8"
+                style={{ minWidth: 0 }}
+              >
+                <div className="d-flex align-items-center gap-6 min-w-0">
+                  <i
+                    className="ph-bold ph-envelope text-info-600 flex-shrink-0"
+                    style={{ fontSize: "0.8125rem" }}
+                  ></i>
+                  <span
+                    className="text-xs text-neutral-700 text-truncate"
+                    title={organizer.email}
+                  >
+                    {organizer.email}
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
-
-          {organizer.website && (
-            <div className="soft-card rounded-12 flex-fill p-8">
-              <div className="d-flex align-items-center gap-6">
-                <i className="ph-bold ph-globe text-success-600"></i>
-                <span className="text-xs text-neutral-700">Web Sitesi</span>
+            )}
+            {organizer.phone && (
+              <div
+                className="soft-card rounded-10 flex-fill p-8"
+                style={{ minWidth: 0 }}
+              >
+                <div className="d-flex align-items-center gap-6 min-w-0">
+                  <i
+                    className="ph-bold ph-phone text-warning-600 flex-shrink-0"
+                    style={{ fontSize: "0.8125rem" }}
+                  ></i>
+                  <span
+                    className="text-xs text-neutral-700 text-truncate"
+                    title={organizer.phone}
+                  >
+                    {formatPhoneNumber(organizer.phone)}
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+            {organizer.website && (
+              <div
+                className="soft-card rounded-10 flex-fill p-8"
+                style={{ minWidth: 0 }}
+              >
+                <div className="d-flex align-items-center gap-6 min-w-0">
+                  <i
+                    className="ph-bold ph-globe text-success-600 flex-shrink-0"
+                    style={{ fontSize: "0.8125rem" }}
+                  ></i>
+                  <span
+                    className="text-xs text-neutral-700 text-truncate"
+                    title={organizer.website}
+                  >
+                    {organizer.website.replace(/^https?:\/\//, "")}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Description */}
         {organizer.description && (
