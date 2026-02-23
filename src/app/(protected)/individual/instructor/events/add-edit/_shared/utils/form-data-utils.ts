@@ -9,7 +9,7 @@ export const transformEventToFormData = (
   if (!event) return null;
 
   return {
-    organizerId: event.organizerId || "",
+    organizerId: event.organizerId ? String(event.organizerId) : "",
     title: event.title || "",
     description: event.description || "",
     eventType: event.eventType || "",

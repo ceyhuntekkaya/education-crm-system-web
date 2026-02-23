@@ -35,8 +35,13 @@ export const OrganizerFormContent: React.FC = () => {
   const router = useRouter();
   const { refetch } = useOrganizersContext();
   const { cityOptions, provincesLoading } = useProvincesData();
-  const { isEditMode, postOrganizer, putOrganizer, organizerSubmitLoading } =
-    useOrganizerAddEdit();
+  const {
+    isEditMode,
+    organizerId,
+    postOrganizer,
+    putOrganizer,
+    organizerSubmitLoading,
+  } = useOrganizerAddEdit();
 
   const handleSubmit = async (values: any) => {
     let success = false;
@@ -80,8 +85,11 @@ export const OrganizerFormContent: React.FC = () => {
     }
 
     if (success) {
-      // Önce yönlendir, arka planda listeyi yenile
-      router.push("/individual/instructor/organizers");
+      const destination =
+        isEditMode && organizerId
+          ? `/individual/instructor/organizers/detail/${organizerId}`
+          : "/individual/instructor/organizers";
+      router.push(destination);
       try {
         await refetch();
       } catch (error) {

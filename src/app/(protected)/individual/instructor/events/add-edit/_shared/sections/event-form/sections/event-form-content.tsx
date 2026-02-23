@@ -16,6 +16,7 @@ import { useFormHook } from "@/hooks";
 import { useEventAddEdit } from "../../../context/event-add-edit-context";
 import { useRouter } from "next/navigation";
 import { useEventsContext } from "@/app/(protected)/individual/instructor/events/_shared/contexts";
+import { useGetOrganizers } from "@/app/(protected)/individual/instructor/organizers/_shared/hooks/api";
 import type { EventCreateDto, EventUpdateDto } from "@/types";
 
 const EVENT_TYPE_OPTIONS = [
@@ -43,15 +44,30 @@ export const EventFormContent: React.FC = () => {
   const { reset } = useForm();
   const router = useRouter();
   const { refetch } = useEventsContext();
-  const { isEditMode, postEvent, putEvent, eventSubmitLoading } =
+  const { isEditMode, eventId, postEvent, putEvent, eventSubmitLoading } =
     useEventAddEdit();
+
+  // Organizatör listesini API'den çek
+  const { data: organizersData, loading: organizersLoading } = useGetOrganizers(
+    { page: 0, size: 100 },
+  );
+  const organizerOptions = React.useMemo(
+    () =>
+      (organizersData?.data?.content ?? []).map((org) => ({
+        value: String(org.id),
+        label: org.name,
+      })),
+    [organizersData],
+  );
 
   const handleSubmit = async (values: any) => {
     let success = false;
 
     if (isEditMode) {
       const updateData: EventUpdateDto = {
-        organizerId: values.organizerId || undefined,
+        organizerId: values.organizerId
+          ? Number(values.organizerId)
+          : undefined,
         title: values.title || undefined,
         description: values.description || undefined,
         eventType: values.eventType || undefined,
@@ -102,8 +118,11 @@ export const EventFormContent: React.FC = () => {
     }
 
     if (success) {
-      // Önce yönlendir, arka planda listeyi yenile
-      router.push("/individual/instructor/events");
+      const destination =
+        isEditMode && eventId
+          ? `/individual/instructor/events/detail/${eventId}`
+          : "/individual/instructor/events";
+      router.push(destination);
       try {
         await refetch();
       } catch (error) {
@@ -195,12 +214,14 @@ export const EventFormContent: React.FC = () => {
         </div>
 
         <div className="col-md-6">
-          <FormInput
-            label="Organizatör ID"
+          <FormAutocomplete
+            label="Organizatör"
             name="organizerId"
-            type="number"
             isRequired
-            placeholder="Organizatör ID giriniz"
+            placeholder="Organizatör seçiniz..."
+            options={organizerOptions}
+            isLoading={organizersLoading}
+            noOptionsText="Organizatör bulunamadı"
           />
         </div>
 
