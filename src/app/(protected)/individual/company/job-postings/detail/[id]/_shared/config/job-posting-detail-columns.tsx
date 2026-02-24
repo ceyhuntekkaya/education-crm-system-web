@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Badge } from "@/components";
 import { JobPostingDto } from "@/types";
 import { DetailColumn } from "@/components/layouts/detail-layout/types";
-import { formatDate } from "@/utils";
+import { formatDate, renderHtml } from "@/utils";
 import {
   getStatusBadgeVariant,
   getStatusDisplay,
@@ -398,16 +398,14 @@ export const createJobPostingDetailColumns =
       condition: (jobPosting) => !!jobPosting.description,
       renderCell: (jobPosting) => (
         <div
-          className="text-neutral-700"
+          className="text-neutral-700 tiptap-content"
           style={{
-            whiteSpace: "pre-wrap",
             fontSize: "0.9375rem",
             lineHeight: "1.7",
             letterSpacing: "0.01em",
           }}
-        >
-          {jobPosting.description}
-        </div>
+          {...renderHtml(jobPosting.description || "")}
+        />
       ),
     },
 

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Badge } from "@/components";
+import { renderHtml } from "@/utils";
 import { useEventRegistrationAdd } from "../../../context";
 import {
   getEventTypeBadgeVariant,
@@ -351,17 +352,16 @@ export const EventSummaryCard: React.FC = () => {
             style={{ borderTop: "1px solid hsl(var(--neutral-40))" }}
           >
             <p className="mb-0 text-xs text-neutral-500 mb-6">Açıklama</p>
-            <p
-              className="mb-0 text-sm text-neutral-700"
+            <div
+              className="mb-0 text-sm text-neutral-700 tiptap-content"
               style={{
                 display: "-webkit-box",
                 WebkitLineClamp: 5,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
               }}
-            >
-              {event.description}
-            </p>
+              {...renderHtml(event.description)}
+            />
           </div>
         )}
       </div>

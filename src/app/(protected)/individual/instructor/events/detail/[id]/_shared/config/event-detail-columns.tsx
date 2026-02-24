@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Badge } from "@/components";
+import { renderHtml } from "@/utils";
 import type { EventDto } from "@/types";
 import type { DetailColumn } from "@/components/layouts/detail-layout/types";
 import {
@@ -237,12 +238,11 @@ const renderSpeakerInfo = (event: EventDto) => {
           {event.speakerName}
         </p>
         {event.speakerBio && (
-          <p
-            className="mb-0 text-neutral-500"
+          <div
+            className="mb-0 text-neutral-500 tiptap-content"
             style={{ fontSize: "0.8125rem", marginTop: 4, lineHeight: 1.5 }}
-          >
-            {event.speakerBio}
-          </p>
+            {...renderHtml(event.speakerBio)}
+          />
         )}
       </div>
     </div>
@@ -460,7 +460,6 @@ export const createEventDetailColumns = (): DetailColumn<EventDto>[] => [
   },
 
   // ─── DETAILS ─────────────────────────────────────────────────────────────
-  // description: native — details renderer data.description metnini gösterir
   {
     field: "description",
     headerName: "Açıklama",
@@ -470,6 +469,13 @@ export const createEventDetailColumns = (): DetailColumn<EventDto>[] => [
     grid: 12,
     order: 10,
     condition: (e) => !!e.description,
+    renderCell: (e) => (
+      <div
+        className="text-neutral-700 tiptap-content"
+        style={{ fontSize: "0.9375rem", lineHeight: "1.7" }}
+        {...renderHtml(e.description || "")}
+      />
+    ),
   },
   {
     field: "deliveryFormat",

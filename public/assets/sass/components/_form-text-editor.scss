@@ -1,0 +1,350 @@
+/* ================================= Form Text Editor Start =========================== */
+
+.form-text-editor {
+  &__wrapper {
+    border: 1px solid var(--neutral-30);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+    background-color: hsl(var(--white));
+
+    &:focus-within {
+      border-color: hsl(var(--main)) !important;
+      box-shadow: none;
+    }
+
+    &--error {
+      border-color: var(--danger-600) !important;
+    }
+
+    &--disabled {
+      background-color: hsl(var(--black) / 0.2) !important;
+      cursor: not-allowed !important;
+      opacity: 1 !important;
+      border: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* Variant: inline */
+  &--inline &__wrapper {
+    background-color: var(--main-25, #f0f4ff);
+    border-color: var(--neutral-30);
+  }
+
+  /* Variant: outline */
+  &--outline &__wrapper {
+    background-color: hsl(var(--white));
+    border-color: transparent;
+
+    &:focus-within {
+      border-color: hsl(var(--main)) !important;
+    }
+  }
+
+  /* Variant: minimal */
+  &--minimal &__wrapper {
+    border: none;
+    border-bottom: 2px solid var(--neutral-30);
+    border-radius: 0;
+
+    &:focus-within {
+      border-bottom-color: hsl(var(--main)) !important;
+    }
+  }
+
+  /* ===== Toolbar ===== */
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    padding: 10px 16px;
+    background-color: hsl(var(--white));
+    border-bottom: 1px solid var(--neutral-30);
+    user-select: none;
+  }
+
+  &__toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--neutral-30);
+    margin: 0 6px;
+  }
+
+  &__toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: hsl(var(--black));
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.15s ease;
+    padding: 0;
+
+    &:hover {
+      background-color: var(--main-25, rgba(0, 0, 0, 0.06));
+      color: hsl(var(--main));
+    }
+
+    &--active {
+      background-color: hsl(var(--main)) !important;
+      color: hsl(var(--white)) !important;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    i {
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+
+  &__toolbar-select {
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--neutral-30);
+    border-radius: 8px;
+    background: transparent;
+    color: hsl(var(--black));
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+
+    &:focus {
+      border-color: hsl(var(--main));
+    }
+  }
+
+  &__toolbar-color {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 2px solid var(--neutral-30);
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    overflow: hidden;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 2px;
+    }
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 4px;
+    }
+    &::-moz-color-swatch {
+      border: none;
+      border-radius: 4px;
+    }
+  }
+
+  /* ===== Editor Content ===== */
+  &__content {
+    .tiptap {
+      padding: 12px 16px;
+      min-height: 150px;
+      outline: none;
+      font-size: rem(17px);
+      line-height: 1.6;
+      color: hsl(var(--black));
+      font-weight: 400;
+
+      &.is-editor-empty::before {
+        content: attr(data-placeholder);
+        float: left;
+        color: var(--neutral-300);
+        color: hsl(var(--light));
+        pointer-events: none;
+        height: 0;
+        font-weight: 400;
+      }
+
+      /* Headings */
+      h1 {
+        font-size: 2em;
+        font-weight: 700;
+        margin: 0.6em 0 0.3em;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 1.5em;
+        font-weight: 600;
+        margin: 0.5em 0 0.25em;
+        line-height: 1.3;
+      }
+      h3 {
+        font-size: 1.25em;
+        font-weight: 600;
+        margin: 0.4em 0 0.2em;
+        line-height: 1.4;
+      }
+
+      /* Paragraphs */
+      p {
+        margin: 0.4em 0;
+      }
+
+      /* Lists */
+      ul,
+      ol {
+        padding-left: 1.5em;
+        margin: 0.4em 0;
+
+        li {
+          margin: 0.15em 0;
+        }
+      }
+
+      ul {
+        list-style: disc;
+      }
+      ol {
+        list-style: decimal;
+      }
+
+      /* Blockquote */
+      blockquote {
+        border-left: 4px solid hsl(var(--main));
+        margin: 0.6em 0;
+        font-style: italic;
+        color: hsl(var(--black) / 0.7);
+        background-color: hsl(var(--main) / 0.04);
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+      }
+
+      /* Code */
+      code {
+        background-color: rgba(0, 0, 0, 0.06);
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-size: 0.9em;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      pre {
+        background-color: #1e1e2e;
+        color: #cdd6f4;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 0.6em 0;
+        overflow-x: auto;
+
+        code {
+          background: none;
+          padding: 0;
+          color: inherit;
+          font-size: 0.85em;
+        }
+      }
+
+      /* Horizontal Rule */
+      hr {
+        border: none;
+        border-top: 2px solid var(--neutral-30);
+        margin: 1em 0;
+      }
+
+      /* Links */
+      a {
+        color: hsl(var(--main));
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      /* Images */
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 0.5em 0;
+      }
+
+      /* Highlight */
+      mark {
+        background-color: #fef08a;
+        padding: 2px 4px;
+        border-radius: 2px;
+      }
+
+      /* Text alignment */
+      .text-align-left {
+        text-align: left;
+      }
+      .text-align-center {
+        text-align: center;
+      }
+      .text-align-right {
+        text-align: right;
+      }
+      .text-align-justify {
+        text-align: justify;
+      }
+    }
+  }
+
+  /* ===== Size Variants ===== */
+  &--sm &__content .tiptap {
+    min-height: 100px;
+    padding: 8px 12px;
+    font-size: rem(14px);
+    line-height: 1.2;
+  }
+  &--sm &__toolbar {
+    padding: 6px 12px;
+  }
+  &--sm &__toolbar-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+
+    i {
+      font-size: 14px;
+    }
+  }
+  &--sm &__wrapper {
+    border-radius: 16px;
+  }
+
+  &--lg &__content .tiptap {
+    min-height: 300px;
+    padding: 23px 24px;
+    font-size: rem(17px);
+  }
+
+  /* ===== Footer (word count, etc.) ===== */
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 6px 16px;
+    border-top: 1px solid var(--neutral-30);
+    background-color: hsl(var(--white));
+
+    &-info {
+      font-size: 12px;
+      color: var(--neutral-300, #9ca3af);
+    }
+  }
+}
+
+/* ================================= Form Text Editor End =========================== */

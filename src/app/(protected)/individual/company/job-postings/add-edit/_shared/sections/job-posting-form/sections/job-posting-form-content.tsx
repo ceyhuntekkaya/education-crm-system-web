@@ -7,6 +7,8 @@ import {
   FormTextarea,
   FormAutocomplete,
   FormCheckbox,
+  FormTextEditor,
+  FormValues,
 } from "@/components/forms";
 import { useJobPostingAddEdit } from "../../../context";
 import type { JobPostingFormHandle } from "../types";
@@ -95,6 +97,7 @@ export const JobPostingFormContent = forwardRef<JobPostingFormHandle, {}>(
 
     return (
       <div className="row row-gap-24">
+        {/* <FormValues /> */}
         <div className="col-12">
           <FormInput
             label="Pozisyon Başlığı"
@@ -164,7 +167,11 @@ export const JobPostingFormContent = forwardRef<JobPostingFormHandle, {}>(
         </div>
 
         <div className="col-12">
-          <FormCheckbox label="Maaş bilgisini göster" name="showSalary" />
+          <FormCheckbox
+            label="Maaş bilgisini göster"
+            name="showSalary"
+            variant="outlined"
+          />
         </div>
 
         <div className="col-md-6">
@@ -173,6 +180,7 @@ export const JobPostingFormContent = forwardRef<JobPostingFormHandle, {}>(
             name="salaryMin"
             type="number"
             placeholder="Örn: 15000"
+            disabled={!values.showSalary}
           />
         </div>
 
@@ -182,14 +190,19 @@ export const JobPostingFormContent = forwardRef<JobPostingFormHandle, {}>(
             name="salaryMax"
             type="number"
             placeholder="Örn: 25000"
+            disabled={!values.showSalary}
           />
         </div>
 
         <div className="col-12">
-          <FormTextarea
-            label="İlan Açıklaması"
+          <FormTextEditor
             name="description"
-            rows={6}
+            label="İlan Açıklaması"
+            variant="outline"
+            toolbar="full"
+            size="lg"
+            showWordCount
+            showCharCount
             placeholder="İş ilanının detaylı açıklamasını buraya yazın..."
           />
         </div>
@@ -217,7 +230,11 @@ export const JobPostingFormContent = forwardRef<JobPostingFormHandle, {}>(
         </div>
 
         <div className="col-12">
-          <FormCheckbox label="İlanı herkese açık yap" name="isPublic" />
+          <FormCheckbox
+            label="İlanı herkese açık yap"
+            name="isPublic"
+            variant="outlined"
+          />
         </div>
       </div>
     );

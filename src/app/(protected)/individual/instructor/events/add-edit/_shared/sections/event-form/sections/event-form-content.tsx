@@ -8,6 +8,7 @@ import {
   FormTextarea,
   FormAutocomplete,
   FormCheckbox,
+  FormTextEditor,
 } from "@/components/forms";
 import { FileInput } from "@/components/file-input";
 import { Button } from "@/components/ui/button";
@@ -190,43 +191,40 @@ export const EventFormContent: React.FC = () => {
                 options={DELIVERY_FORMAT_OPTIONS}
               />
             </div>
+
+            <div className="col-md-6">
+              <FormAutocomplete
+                label="Organizatör"
+                name="organizerId"
+                isRequired
+                placeholder="Organizatör seçiniz..."
+                options={organizerOptions}
+                isLoading={organizersLoading}
+                noOptionsText="Organizatör bulunamadı"
+              />
+            </div>
+
+            <div className="col-md-6">
+              <FormAutocomplete
+                label="Etkinlik Durumu"
+                name="status"
+                placeholder="Durum seçiniz..."
+                options={STATUS_OPTIONS}
+              />
+            </div>
           </div>
         </div>
 
         <div className="col-12">
-          <FormTextarea
+          <FormTextEditor
             label="Açıklama"
             name="description"
-            rows={3}
+            toolbar="full"
             placeholder="Etkinlik hakkında kısa bir açıklama yazın..."
           />
         </div>
 
-        {/* ─────────────── Organizatör ─────────────── */}
-        <div className="col-12">
-          <Divider size="xxs" />
-        </div>
-
-        <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-buildings me-2"></i>
-            Organizatör
-          </h5>
-        </div>
-
-        <div className="col-md-6">
-          <FormAutocomplete
-            label="Organizatör"
-            name="organizerId"
-            isRequired
-            placeholder="Organizatör seçiniz..."
-            options={organizerOptions}
-            isLoading={organizersLoading}
-            noOptionsText="Organizatör bulunamadı"
-          />
-        </div>
-
-        {/* ─────────────── Tarih & Saat ─────────────── */}
+        {/* ─────────────── Tarih & Konum ─────────────── */}
         <div className="col-12">
           <Divider size="xxs" />
         </div>
@@ -234,11 +232,11 @@ export const EventFormContent: React.FC = () => {
         <div className="col-12">
           <h5 className="mb-3">
             <i className="ph ph-clock me-2"></i>
-            Tarih & Saat
+            Tarih & Konum
           </h5>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-4">
           <FormInput
             label="Başlangıç Tarihi & Saati"
             name="startDateTime"
@@ -247,7 +245,7 @@ export const EventFormContent: React.FC = () => {
           />
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-4">
           <FormInput
             label="Bitiş Tarihi & Saati"
             name="endDateTime"
@@ -256,24 +254,12 @@ export const EventFormContent: React.FC = () => {
           />
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-4">
           <FormInput
             label="Kayıt Son Tarihi"
             name="registrationDeadline"
             type="datetime-local"
           />
-        </div>
-
-        {/* ─────────────── Konum & Bağlantı ─────────────── */}
-        <div className="col-12">
-          <Divider size="xxs" />
-        </div>
-
-        <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-map-pin me-2"></i>
-            Konum & Bağlantı
-          </h5>
         </div>
 
         <div className="col-md-6">
@@ -292,36 +278,7 @@ export const EventFormContent: React.FC = () => {
           />
         </div>
 
-        {/* ─────────────── Kontenjan ─────────────── */}
-        <div className="col-12">
-          <Divider size="xxs" />
-        </div>
-
-        <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-ticket me-2"></i>
-            Kontenjan & Hedef Kitle
-          </h5>
-        </div>
-
-        <div className="col-md-6">
-          <FormInput
-            label="Maksimum Kontenjan"
-            name="maxCapacity"
-            type="number"
-            placeholder="Boş bırakırsanız sınırsız olur"
-          />
-        </div>
-
-        <div className="col-md-6">
-          <FormInput
-            label="Hedef Kitle"
-            name="targetAudience"
-            placeholder="Örn: Matematik öğretmenleri, Lise öğrencileri"
-          />
-        </div>
-
-        {/* ─────────────── Konuşmacı ─────────────── */}
+        {/* ─────────────── Konuşmacı & Katılımcılar ─────────────── */}
         <div className="col-12">
           <Divider size="xxs" />
         </div>
@@ -329,11 +286,11 @@ export const EventFormContent: React.FC = () => {
         <div className="col-12">
           <h5 className="mb-3">
             <i className="ph ph-microphone me-2"></i>
-            Konuşmacı
+            Konuşmacı & Katılımcılar
           </h5>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-4">
           <FormInput
             label="Konuşmacı Adı"
             name="speakerName"
@@ -341,16 +298,33 @@ export const EventFormContent: React.FC = () => {
           />
         </div>
 
+        <div className="col-md-4">
+          <FormInput
+            label="Hedef Kitle"
+            name="targetAudience"
+            placeholder="Örn: Matematik öğretmenleri"
+          />
+        </div>
+
+        <div className="col-md-4">
+          <FormInput
+            label="Maksimum Kontenjan"
+            name="maxCapacity"
+            type="number"
+            placeholder="Boş = sınırsız"
+          />
+        </div>
+
         <div className="col-12">
-          <FormTextarea
+          <FormTextEditor
             label="Konuşmacı Biyografisi"
             name="speakerBio"
-            rows={3}
+            toolbar="full"
             placeholder="Konuşmacı hakkında kısa bilgi..."
           />
         </div>
 
-        {/* ─────────────── Durum & Ayarlar ─────────────── */}
+        {/* ─────────────── Ayarlar ─────────────── */}
         <div className="col-12">
           <Divider size="xxs" />
         </div>
@@ -358,41 +332,30 @@ export const EventFormContent: React.FC = () => {
         <div className="col-12">
           <h5 className="mb-3">
             <i className="ph ph-toggles me-2"></i>
-            Durum & Ayarlar
+            Ayarlar
           </h5>
         </div>
 
         <div className="col-md-6">
-          <FormAutocomplete
-            label="Etkinlik Durumu"
-            name="status"
-            placeholder="Durum seçiniz..."
-            options={STATUS_OPTIONS}
+          <FormCheckbox
+            label="Otomatik Kayıt Onayı"
+            name="autoApproveRegistration"
+            variant="outlined"
           />
+          <small className="text-muted">
+            Aktif ise kayıtlar otomatik onaylanır
+          </small>
         </div>
 
-        <div className="col-md-6 d-flex flex-column gap-16">
-          <div>
-            <FormCheckbox
-              label="Otomatik Kayıt Onayı"
-              name="autoApproveRegistration"
-              variant="outlined"
-            />
-            <small className="text-muted">
-              Aktif ise kayıtlar otomatik onaylanır
-            </small>
-          </div>
-
-          <div>
-            <FormCheckbox
-              label="Sertifika Verilsin"
-              name="certificateEnabled"
-              variant="outlined"
-            />
-            <small className="text-muted">
-              Katılımcılara tamamlama sertifikası verilir
-            </small>
-          </div>
+        <div className="col-md-6">
+          <FormCheckbox
+            label="Sertifika Verilsin"
+            name="certificateEnabled"
+            variant="outlined"
+          />
+          <small className="text-muted">
+            Katılımcılara tamamlama sertifikası verilir
+          </small>
         </div>
 
         {/* Form Actions */}

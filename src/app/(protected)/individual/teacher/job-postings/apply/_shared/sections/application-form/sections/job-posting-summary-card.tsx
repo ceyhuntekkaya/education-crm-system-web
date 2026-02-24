@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useApplicationAdd } from "../../../context";
-import { formatDate } from "@/utils";
+import { formatDate, renderHtml } from "@/utils";
 
 /**
  * İlan özet kartı - Başvuru yapılacak ilanın detaylarını gösterir
@@ -217,9 +217,10 @@ export const JobPostingSummaryCard: React.FC = () => {
               <p className="mb-8 text-xs text-neutral-500 fw-medium">
                 İlan Açıklaması
               </p>
-              <p className="mb-0 text-sm text-neutral-700 lh-base">
-                {jobPosting.description}
-              </p>
+              <div
+                className="mb-0 text-sm text-neutral-700 lh-base tiptap-content"
+                {...renderHtml(jobPosting.description)}
+              />
             </div>
           )}
 
