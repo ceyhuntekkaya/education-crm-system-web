@@ -55,6 +55,11 @@ const IndividualHeader = () => {
             label: "İş İlanları",
             icon: "ph-briefcase",
           },
+          {
+            href: "/individual/teacher/events",
+            label: "Etkinlikler",
+            icon: "ph-calendar",
+          },
         ];
       case Role.COMPANY:
         return [
