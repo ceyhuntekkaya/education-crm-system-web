@@ -34,7 +34,7 @@ export interface UserRegisterContextType {
   handleInputChange: (index: number, value: string) => void;
   handleKeyDown: (
     index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLInputElement>,
   ) => void;
   handlePaste: (e: React.ClipboardEvent<HTMLInputElement>) => void;
   getCodeValue: (index: number) => string;

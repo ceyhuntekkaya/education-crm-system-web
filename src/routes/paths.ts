@@ -38,6 +38,19 @@ export const PATHS = {
         HOME: "/supply/supplier",
       },
     },
+
+    INDIVIDUAL: {
+      HOME: "/individual",
+      TEACHER: {
+        HOME: "/individual/teacher",
+      },
+      COMPANY: {
+        HOME: "/individual/company",
+      },
+      INSTRUCTOR: {
+        HOME: "/individual/instructor",
+      },
+    },
   },
 
   UNAUTHORIZED: "/unauthorized",

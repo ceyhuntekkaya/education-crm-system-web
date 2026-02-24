@@ -56,7 +56,7 @@ const toDistrictSummary = (district: DistrictDto): DistrictSummaryDto => ({
  * NeighborhoodDto'yu NeighborhoodSummaryDto'ya dönüştürür
  */
 const toNeighborhoodSummary = (
-  neighborhood: NeighborhoodDto
+  neighborhood: NeighborhoodDto,
 ): NeighborhoodSummaryDto => ({
   id: neighborhood.id,
   name: neighborhood.name,
@@ -69,7 +69,7 @@ const toNeighborhoodSummary = (
  * API'den gelen lokasyon verilerini autocomplete için uygun formata dönüştürür
  */
 const transformLocationData = <T extends { id?: number; name?: string }>(
-  data: T[] | undefined
+  data: T[] | undefined,
 ) =>
   data?.map((item) => ({
     value: item.id?.toString() || "",
@@ -113,7 +113,7 @@ export function useCampusLocationData(values?: any) {
     loading: provincesLoading,
     error: provincesError,
   } = useGet<ApiResponseDto<ProvinceDto[]>>(
-    countryId ? API_ENDPOINTS.LOCATION.PROVINCES(countryId) : null
+    countryId ? API_ENDPOINTS.LOCATION.PROVINCES(countryId) : null,
   );
 
   // İlçeleri getir - il seçilmişse
@@ -122,7 +122,7 @@ export function useCampusLocationData(values?: any) {
     loading: districtsLoading,
     error: districtsError,
   } = useGet<ApiResponseDto<DistrictDto[]>>(
-    provinceId ? API_ENDPOINTS.LOCATION.DISTRICTS(provinceId) : null
+    provinceId ? API_ENDPOINTS.LOCATION.DISTRICTS(provinceId) : null,
   );
 
   // Mahalleleri getir - ilçe seçilmişse
@@ -131,7 +131,7 @@ export function useCampusLocationData(values?: any) {
     loading: neighborhoodsLoading,
     error: neighborhoodsError,
   } = useGet<ApiResponseDto<NeighborhoodDto[]>>(
-    districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(districtId) : null
+    districtId ? API_ENDPOINTS.LOCATION.NEIGHBORHOODS(districtId) : null,
   );
 
   // Ülke değiştiğinde il, ilçe ve mahalleyi sıfırla

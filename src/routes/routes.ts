@@ -119,4 +119,30 @@ export const ROUTES = [
       },
     ],
   },
+  {
+    title: "Individual",
+    path: PATHS.PROTECTED.INDIVIDUAL.HOME,
+    roles: [Role.TEACHER, Role.INSTRUCTOR, Role.COMPANY, Role.ADMIN],
+    children: [
+      {
+        title: "Individual Home",
+        index: true,
+      },
+      {
+        title: "Teacher",
+        path: PATHS.PROTECTED.INDIVIDUAL.TEACHER.HOME,
+        roles: [Role.TEACHER, Role.ADMIN],
+      },
+      {
+        title: "Individual Company",
+        path: PATHS.PROTECTED.INDIVIDUAL.COMPANY.HOME,
+        roles: [Role.COMPANY, Role.ADMIN],
+      },
+      {
+        title: "Instructor",
+        path: PATHS.PROTECTED.INDIVIDUAL.INSTRUCTOR.HOME,
+        roles: [Role.INSTRUCTOR, Role.ADMIN],
+      },
+    ],
+  },
 ];

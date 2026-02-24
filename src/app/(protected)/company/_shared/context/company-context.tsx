@@ -49,10 +49,16 @@ export const CompanyProvider: React.FC<CompanyProviderProps> = ({
 };
 
 // Custom hook for using company context
-export const useCompany = (): CompanyContextType => {
+export const useCompany = () => {
   const context = useContext(CompanyContext);
+  // Context yoksa hata fırlatma, boş değerler döndür
   if (!context) {
-    throw new Error("useCompany must be used within a CompanyProvider");
+    return {
+      schools: [],
+      selectedSchool: null,
+      isInitialized: false,
+      setSelectedSchool: () => {},
+    };
   }
   return context;
 };

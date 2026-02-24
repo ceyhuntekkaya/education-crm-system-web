@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { usePostForm } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import {
-  ApiResponseDto,
+  PageSchoolSearchResultDto,
   SchoolSearchDto,
   SchoolSearchResultDto,
 } from "@/types";
@@ -78,30 +78,28 @@ export function useSearch(params?: UseSearchParams): UseSearchReturn {
     submitForm: executeSearch,
     loading: searchLoading,
     error: searchError,
-  } = usePostForm<SchoolSearchDto, ApiResponseDto<any>>(
+  } = usePostForm<SchoolSearchDto, PageSchoolSearchResultDto>(
     API_ENDPOINTS.INSTITUTIONS.SCHOOLS_SEARCH,
     {
       onSuccess: (response) => {
-        // console.log(
-        //   "✅ Arama başarılı:",
-        //   response?.data?.content?.length || 0,
-        //   "sonuç"
-        // );
-        if (response?.success && response?.data?.content) {
-          setInstitutions(response.data.content);
-          setTotalElements(response.data.totalElements || 0);
+        // useApi.executeMutation backend { success, data } yanıtını unwrap eder;
+        // onSuccess'e sadece data objesi (content, totalElements, number, size, totalPages) gelir
+        const content = Array.isArray(response?.content) ? response.content : undefined;
+        if (content) {
+          setInstitutions(content);
+          setTotalElements(response?.totalElements ?? 0);
           setHasSearched(true);
 
           // Pagination bilgilerini güncelle
           const paginationResponse: PaginationResponse = {
-            page: response.data.number ?? response.data.page ?? 0,
-            size: response.data.size ?? PAGINATION_DEFAULTS.size,
-            totalElements: response.data.totalElements ?? 0,
-            totalPages: response.data.totalPages ?? 0,
+            page: response?.number ?? 0,
+            size: response?.size ?? PAGINATION_DEFAULTS.size,
+            totalElements: response?.totalElements ?? 0,
+            totalPages: response?.totalPages ?? 0,
           };
           paginationHook.updatePaginationFromResponse(paginationResponse);
 
-          params?.onSearchSuccess?.(response.data);
+          params?.onSearchSuccess?.(response);
 
           // 📜 Sayfa başına scroll
           scrollToTop();

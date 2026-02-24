@@ -10,4 +10,11 @@ export { FormRange } from "./form-range";
 export { FormStarIcon } from "./form-star-icon";
 export { FormDateCalendar } from "./form-multi-date-calendar";
 export { FormTimeSlotPicker } from "./form-time-slot-picker";
+export { FormTextEditor } from "./form-text-editor";
+export type {
+  FormTextEditorProps,
+  FormTextEditorVariant,
+  FormTextEditorSize,
+  FormTextEditorToolbarPreset,
+} from "./form-text-editor";
 export { default as FormValues } from "./form-values";

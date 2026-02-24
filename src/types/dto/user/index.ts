@@ -15,7 +15,7 @@ export * from "./UserInstitutionAccessGrantDto";
 export * from "./UserListDto";
 export * from "./UserLoginDto";
 export * from "./UserProfileDto";
-export * from "./UserRegistrationDto";
+// UserRegistrationDto register modülünden export ediliyor (çakışmayı önlemek için)
 export * from "./UserRoleAssignDto";
 export * from "./UserSearchDto";
 export * from "./UserStatisticsDto";

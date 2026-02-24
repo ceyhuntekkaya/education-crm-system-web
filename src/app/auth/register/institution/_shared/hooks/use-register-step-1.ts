@@ -1,19 +1,20 @@
 "use client";
 
 import { usePost } from "@/hooks/api";
-import { RegisterCredentialDto, UserDto, ApiResponseDto } from "@/types";
+import { RegisterCredentialDto, UserDto } from "@/types";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
 
 /**
  * Register Step 1: Credential Hook
- * Email ve şifre bilgilerini gönderir
+ * Email ve şifre bilgilerini gönderir.
+ * API { success, data } cevabı use-api tarafından açıldığı için mutate UserDto döner.
  */
 export const useRegisterStep1 = () => {
   const {
     mutate: submitCredential,
     loading,
     error,
-  } = usePost<ApiResponseDto<UserDto>, RegisterCredentialDto>(
+  } = usePost<UserDto, RegisterCredentialDto>(
     API_ENDPOINTS.REGISTER.STEP_1_CREDENTIAL,
     {
       onSuccess: (data) => {

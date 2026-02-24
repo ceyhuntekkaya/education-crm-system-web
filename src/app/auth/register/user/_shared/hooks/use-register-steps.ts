@@ -1,23 +1,19 @@
 import { useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { getTotalSteps } from "../constants";
-import { UserType } from "@/enums/UserType";
-
-type RegistrationType = UserType;
 
 /**
- * User register için step navigation
+ * Parent register için step navigation
  * 4 adımlı kayıt: Giriş, Kişisel Bilgiler, Doğrulama, Success
  */
-export const useRegisterSteps = (registrationType: RegistrationType) => {
+export const useRegisterSteps = () => {
   const searchParams = useSearchParams();
   const stepIdParam = searchParams.get("stepId");
+  const totalSteps = 4; // Parent registration always has 4 steps
 
   // URL'den gelen stepId parametresini parse et
   const initialStep = (() => {
     if (stepIdParam) {
       const parsedStep = parseInt(stepIdParam, 10);
-      const totalSteps = getTotalSteps(registrationType);
 
       // Success step'e direkt geçiş yasak
       if (parsedStep === 4) {
@@ -32,7 +28,6 @@ export const useRegisterSteps = (registrationType: RegistrationType) => {
   })();
 
   const [currentStep, setCurrentStep] = useState(initialStep);
-  const totalSteps = getTotalSteps(registrationType);
 
   useEffect(() => {
     if (stepIdParam) {
@@ -80,7 +75,7 @@ export const useRegisterSteps = (registrationType: RegistrationType) => {
         setCurrentStep(step);
       }
     },
-    [totalSteps]
+    [totalSteps],
   );
 
   // Scroll to top when success page (step 4) is reached

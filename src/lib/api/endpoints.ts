@@ -197,6 +197,8 @@ export const API_ENDPOINTS = {
   USERS: {
     REGISTER: "/users/register",
     REGISTER_INSTITUTION: "/users/register/institution",
+    REGISTER_TEACHER: "/users/register/teacher",
+    REGISTER_INSTRUCTOR: "/users/register/instructor",
     BY_CAMPUS: (campusId: string | number) => `/users/campus/${campusId}`,
     BY_ID: (userId: string | number) => `/users/${userId}`,
     PROFILE: (userId: string | number) => `/users/${userId}/profile`,
@@ -419,6 +421,101 @@ export const API_ENDPOINTS = {
         `/supply/conversations/${conversationId}/messages`,
       BY_CONVERSATION: (conversationId: string | number) =>
         `/supply/conversations/${conversationId}/messages`,
+    },
+  },
+
+  // HR Management endpoints
+  WEBINAR: {
+    // Event Organizers
+    ORGANIZERS: {
+      LIST: "/webinar/organizers",
+      ACTIVE: "/webinar/organizers/active",
+      BY_ID: (id: string | number) => `/webinar/organizers/${id}`,
+      BY_SLUG: (slug: string) => `/webinar/organizers/by-slug/${slug}`,
+      CREATE: "/webinar/organizers",
+      UPDATE: (id: string | number) => `/webinar/organizers/${id}`,
+      DELETE: (id: string | number) => `/webinar/organizers/${id}`,
+    },
+
+    // Events
+    EVENTS: {
+      LIST: "/webinar/events",
+      PUBLISHED: "/webinar/events/published",
+      BY_ID: (id: string | number) => `/webinar/events/${id}`,
+      BY_ORGANIZER: (organizerId: string | number) =>
+        `/webinar/events/by-organizer/${organizerId}`,
+      CREATE: "/webinar/events",
+      UPDATE: (id: string | number) => `/webinar/events/${id}`,
+      DELETE: (id: string | number) => `/webinar/events/${id}`,
+    },
+
+    // Registrations
+    REGISTRATIONS: {
+      LIST: "/webinar/registrations",
+      BY_ID: (id: string | number) => `/webinar/registrations/${id}`,
+      BY_EVENT: (eventId: string | number) =>
+        `/webinar/registrations/by-event/${eventId}`,
+      BY_TEACHER: (teacherId: string | number) =>
+        `/webinar/registrations/by-teacher/${teacherId}`,
+      CREATE: "/webinar/registrations",
+      UPDATE_STATUS: (id: string | number) =>
+        `/webinar/registrations/${id}/status`,
+      MARK_ATTENDANCE: (id: string | number) =>
+        `/webinar/registrations/${id}/attendance`,
+      DELETE: (id: string | number) => `/webinar/registrations/${id}`,
+    },
+  },
+
+  HR: {
+    // Job Postings
+    JOB_POSTINGS: {
+      LIST: "/hr/job-postings",
+      BY_ID: (id: string | number) => `/hr/job-postings/${id}`,
+      BY_SCHOOL: (schoolId: string | number) =>
+        `/hr/job-postings/by-school/${schoolId}`,
+      CREATE: "/hr/job-postings",
+      UPDATE: (id: string | number) => `/hr/job-postings/${id}`,
+      DELETE: (id: string | number) => `/hr/job-postings/${id}`,
+    },
+
+    // Teacher Profiles
+    TEACHER_PROFILES: {
+      LIST: "/hr/teacher-profiles",
+      BY_ID: (id: string | number) => `/hr/teacher-profiles/${id}`,
+      BY_USER: (userId: string | number) =>
+        `/hr/teacher-profiles/by-user/${userId}`,
+      CREATE: "/hr/teacher-profiles",
+      UPDATE: (id: string | number) => `/hr/teacher-profiles/${id}`,
+      DELETE: (id: string | number) => `/hr/teacher-profiles/${id}`,
+    },
+
+    // Applications
+    APPLICATIONS: {
+      LIST: "/hr/applications",
+      BY_ID: (id: string | number) => `/hr/applications/${id}`,
+      BY_JOB_POSTING: (jobPostingId: string | number) =>
+        `/hr/applications/by-job-posting/${jobPostingId}`,
+      BY_TEACHER: (teacherId: string | number) =>
+        `/hr/applications/by-teacher/${teacherId}`,
+      BY_CAMPUS: (campusId: string | number) =>
+        `/hr/applications/by-campus/${campusId}`,
+      CREATE: "/hr/applications",
+      UPDATE_STATUS: (id: string | number) => `/hr/applications/${id}/status`,
+      WITHDRAW: (id: string | number) => `/hr/applications/${id}/withdraw`,
+      NOTES: (id: string | number) => `/hr/applications/${id}/notes`,
+      ADD_NOTE: (id: string | number) => `/hr/applications/${id}/notes`,
+      DOCUMENTS: (id: string | number) => `/hr/applications/${id}/documents`,
+      ADD_DOCUMENT: (id: string | number) => `/hr/applications/${id}/documents`,
+      DELETE_DOCUMENT: (id: string | number, documentId: string | number) =>
+        `/hr/applications/${id}/documents/${documentId}`,
+    },
+
+    // Notifications
+    NOTIFICATIONS: {
+      LIST: "/hr/notifications",
+      UNREAD_COUNT: "/hr/notifications/unread-count",
+      MARK_AS_READ: (id: string | number) => `/hr/notifications/${id}/read`,
+      MARK_ALL_READ: "/hr/notifications/mark-all-read",
     },
   },
 

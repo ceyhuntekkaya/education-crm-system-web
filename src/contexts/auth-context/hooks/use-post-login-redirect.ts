@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import type { UserDto } from "@/types/dto/user/UserDto";
 import { Role } from "@/enums/Role";
+import { PATHS } from "@/routes/paths";
 
 /**
  * Login sonrası kullanıcı bilgilerine göre yönlendirme yapar
@@ -32,12 +33,16 @@ export const usePostLoginRedirect = () => {
       return false;
     }
 
-    // SUPPLY rolü için direkt ana sayfaya yönlendir
+    // Teacher / Instructor → bireysel panele; Supply → tedarik paneline yönlendir
     const userRole = user.userRoles?.[0]?.role;
-    if (userRole === Role.SUPPLY) {
-      setTimeout(() => {
-        router.push("/");
-      }, 100);
+    const roleRedirectPaths: Partial<Record<Role, string>> = {
+      [Role.TEACHER]: PATHS.PROTECTED.INDIVIDUAL.TEACHER.HOME,
+      [Role.INSTRUCTOR]: PATHS.PROTECTED.INDIVIDUAL.INSTRUCTOR.HOME,
+      [Role.SUPPLY]: PATHS.PROTECTED.SUPPLY.SUPPLIER.HOME,
+    };
+    const path = roleRedirectPaths[userRole as Role];
+    if (path) {
+      setTimeout(() => router.push(path), 100);
       return true;
     }
 

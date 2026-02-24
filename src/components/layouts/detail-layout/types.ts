@@ -43,6 +43,7 @@ export interface DetailColumn<T = any> {
   grid?: number; // Bootstrap grid column değeri (örn: 6, 12)
   order?: number;
   renderCell?: (data: T) => ReactNode; // Meta section için artık opsiyonel
+  valueGetter?: (data: T) => ReactNode; // Ham field değerini dönüştürmek için (renderCell gerekmez)
   condition?: (data: T) => boolean;
   // Meta section için özellikler
   url?: string | ((data: T) => string | null); // URL routing için (basit string veya fonksiyon)

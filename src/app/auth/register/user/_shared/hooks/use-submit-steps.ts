@@ -6,13 +6,13 @@ import { useSubmitStep3 } from "./use-submit-step-3";
 
 /**
  * Submit Steps Handler Hook
- * Tüm step submit handler'larını toplar
+ * Tüm step submit handler'larını toplar (Parent kayıt için)
  */
 export const useSubmitSteps = (
   userId: number | null,
   setUserId: (id: number) => void,
   nextStep: () => void,
-  fullCode: string
+  fullCode: string,
 ) => {
   const { handleSubmitStep1 } = useSubmitStep1(setUserId, nextStep);
   const { handleSubmitStep2 } = useSubmitStep2(userId, setUserId, nextStep);
@@ -20,7 +20,7 @@ export const useSubmitSteps = (
     userId,
     setUserId,
     nextStep,
-    fullCode
+    fullCode,
   );
 
   const handleSubmitStep4 = async () => {

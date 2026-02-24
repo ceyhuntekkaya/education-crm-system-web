@@ -8,7 +8,7 @@ export const loginCredentialsSchema = Yup.object({
     .email("Geçerli bir e-posta adresi giriniz")
     .required("E-posta gereklidir"),
   password: Yup.string()
-    .min(8, "Şifre en az 8 karakter olmalıdır")
+    .min(6, "Şifre en az 6 karakter olmalıdır")
     .required("Şifre gereklidir"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Şifreler eşleşmiyor")

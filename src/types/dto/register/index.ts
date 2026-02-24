@@ -5,4 +5,4 @@ export * from "./RegisterCampusDto";
 export * from "./RegisterSubscriptionDto";
 export * from "./RegisterPaymentDto";
 export * from "./RegisterVerificationDto";
-
+export * from "./UserRegistrationDto";

@@ -13,7 +13,7 @@ import { useRegisterStep6 } from "./use-register-step-6";
 export const useSubmitStep6 = (
   userId: number | null,
   setUserId: (id: number) => void,
-  nextStep: () => void
+  nextStep: () => void,
 ) => {
   const { values } = useForm();
   const { showSnackbar } = useSnackbar();
@@ -55,7 +55,7 @@ export const useSubmitStep6 = (
     const response = await submitPayment(payload);
     // console.log("📥 Step 6 API response:", response);
 
-    if (response?.success) {
+    if (response !== null) {
       // userId'yi set et (eğer yoksa)
       if (!userId && effectiveUserId) {
         setUserId(effectiveUserId);

@@ -9,6 +9,7 @@ export interface CampusSummaryDto {
   name?: string;
   slug?: string;
   logoUrl?: string;
+  email?: string;
   province?: ProvinceSummaryDto;
   district?: DistrictSummaryDto;
   neighborhood?: NeighborhoodSummaryDto;

@@ -6,11 +6,13 @@ import { Role } from "@/enums/Role";
 const PanelMenu = () => {
   const { user, currentRole } = useAuth();
 
-  // Paneller menüsü sadece COMPANY, SUPPLY ve ADMIN rollerinde görünsün
+  // Paneller menüsü sadece belirli rollerde görünsün
   const showPanelMenu =
     currentRole === Role.COMPANY ||
     currentRole === Role.SUPPLY ||
-    currentRole === Role.ADMIN;
+    currentRole === Role.ADMIN ||
+    currentRole === Role.TEACHER ||
+    currentRole === Role.INSTRUCTOR;
 
   if (!user || !showPanelMenu) {
     return null;
@@ -49,11 +51,41 @@ const PanelMenu = () => {
       bgColor: "rgba(16, 185, 129, 0.1)",
       allowedRoles: [Role.COMPANY, Role.ADMIN],
     },
+    {
+      id: "teacher-panel",
+      label: "Öğretmen Paneli",
+      icon: "ph ph-chalkboard-teacher",
+      href: "/individual/teacher",
+      description: "Dersler ve öğrenci yönetimi",
+      color: "#8b5cf6",
+      bgColor: "rgba(139, 92, 246, 0.1)",
+      allowedRoles: [Role.TEACHER, Role.ADMIN],
+    },
+    {
+      id: "instructor-panel",
+      label: "Eğitmen Paneli",
+      icon: "ph ph-user-circle-gear",
+      href: "/individual/instructor",
+      description: "Eğitim ve performans takibi",
+      color: "#ec4899",
+      bgColor: "rgba(236, 72, 153, 0.1)",
+      allowedRoles: [Role.INSTRUCTOR, Role.ADMIN],
+    },
+    {
+      id: "individual-company-panel",
+      label: "Bireysel Şirket Paneli",
+      icon: "ph ph-briefcase",
+      href: "/individual/company",
+      description: "Proje ve kampanya yönetimi",
+      color: "#06b6d4",
+      bgColor: "rgba(6, 182, 212, 0.1)",
+      allowedRoles: [Role.COMPANY, Role.ADMIN],
+    },
   ];
 
   // Kullanıcının rolüne göre panelleri filtrele
   const panelOptions = allPanelOptions.filter((panel) =>
-    panel.allowedRoles.includes(currentRole as Role)
+    panel.allowedRoles.includes(currentRole as Role),
   );
 
   // Hiç panel yoksa menüyü gösterme

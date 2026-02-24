@@ -14,20 +14,21 @@ import { Navigation } from "./navigation";
 
 /**
  * User Register Form Content
- * Sadece step 3'te API çağrısı yapar
+ * Parent kayıt için 3 adımlı form (Giriş, Kişisel Bilgiler, Doğrulama, Success)
  */
 export const RegisterFormContent: React.FC = () => {
   const { currentStep, nextStep, handleSubmitStep3, isLoading } =
     useUserRegister();
 
   const handleSubmit = () => {
-    // Step 1 ve 2'de sadece nextStep
-    // Step 3'te API çağrısı + nextStep
+    // Step 3'te API çağrısı yap
     if (currentStep === 3) {
       handleSubmitStep3();
-    } else {
-      nextStep();
+      return;
     }
+
+    // Diğer durumlarda sadece nextStep
+    nextStep();
   };
 
   const renderStep = () => {

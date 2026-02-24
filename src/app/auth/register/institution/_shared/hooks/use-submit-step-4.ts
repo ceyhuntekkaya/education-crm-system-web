@@ -13,7 +13,7 @@ import { useRegisterStep4 } from "./use-register-step-4";
 export const useSubmitStep4 = (
   userId: number | null,
   setUserId: (id: number) => void,
-  nextStep: () => void
+  nextStep: () => void,
 ) => {
   const { values } = useForm();
   const { showSnackbar } = useSnackbar();
@@ -71,7 +71,7 @@ export const useSubmitStep4 = (
     const response = await submitCampus(payload);
     // console.log("📥 Step 4 API response:", response);
 
-    if (response?.success) {
+    if (response !== null) {
       // userId'yi set et (eğer yoksa)
       if (!userId && effectiveUserId) {
         setUserId(effectiveUserId);

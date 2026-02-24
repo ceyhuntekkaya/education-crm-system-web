@@ -18,13 +18,17 @@ import type { ApiResponsePageRFQDto, GetRFQsByCompanyParams } from "@/types";
 export const useGetRFQsByCompany = (
   companyId: number,
   params?: GetRFQsByCompanyParams,
-  options?: { enabled?: boolean }
+  options?: { enabled?: boolean },
 ) => {
   return useGet<ApiResponsePageRFQDto>(
     companyId ? API_ENDPOINTS.SUPPLY.RFQS.BY_COMPANY(companyId) : null,
     {
-      params,
+      params: {
+        page: 0,
+        size: 100000,
+        ...params,
+      },
       enabled: options?.enabled ?? !!companyId,
-    }
+    },
   );
 };
