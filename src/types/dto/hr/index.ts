@@ -6,6 +6,8 @@ export * from "./TeacherProfileDto";
 export * from "./TeacherProfileCreateDto";
 export * from "./TeacherProfileUpdateDto";
 export * from "./TeacherProfileSummaryDto";
+export * from "./TeacherEducationDto";
+export * from "./TeacherExperienceDto";
 export * from "./ApplicationDto";
 export * from "./ApplicationCreateDto";
 export * from "./HrNotificationDto";

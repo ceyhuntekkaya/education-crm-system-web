@@ -155,34 +155,38 @@ export const TeacherProfileSection: React.FC = () => {
                     </span>
                   </div>
                 )}
-                {teacherProfile.educationLevel && (
-                  <div className="d-flex align-items-center gap-4 px-8 py-3 bg-info-50 rounded-6">
-                    <i
-                      className="ph-bold ph-certificate text-info-600"
-                      style={{ fontSize: "12px" }}
-                    ></i>
-                    <span
-                      className="text-info-700 fw-medium"
-                      style={{ fontSize: "0.75rem", whiteSpace: "nowrap" }}
-                    >
-                      {getEducationLevelDisplay(teacherProfile.educationLevel)}
-                    </span>
-                  </div>
-                )}
-                {teacherProfile.experienceYears !== undefined && (
-                  <div className="d-flex align-items-center gap-4 px-8 py-3 bg-success-50 rounded-6">
-                    <i
-                      className="ph-bold ph-briefcase text-success-600"
-                      style={{ fontSize: "12px" }}
-                    ></i>
-                    <span
-                      className="text-success-700 fw-medium"
-                      style={{ fontSize: "0.75rem", whiteSpace: "nowrap" }}
-                    >
-                      {teacherProfile.experienceYears} yıl
-                    </span>
-                  </div>
-                )}
+                {teacherProfile.educations &&
+                  teacherProfile.educations.length > 0 && (
+                    <div className="d-flex align-items-center gap-4 px-8 py-3 bg-info-50 rounded-6">
+                      <i
+                        className="ph-bold ph-certificate text-info-600"
+                        style={{ fontSize: "12px" }}
+                      ></i>
+                      <span
+                        className="text-info-700 fw-medium"
+                        style={{ fontSize: "0.75rem", whiteSpace: "nowrap" }}
+                      >
+                        {getEducationLevelDisplay(
+                          teacherProfile.educations[0]?.educationLevel,
+                        )}
+                      </span>
+                    </div>
+                  )}
+                {teacherProfile.experiences &&
+                  teacherProfile.experiences.length > 0 && (
+                    <div className="d-flex align-items-center gap-4 px-8 py-3 bg-success-50 rounded-6">
+                      <i
+                        className="ph-bold ph-briefcase text-success-600"
+                        style={{ fontSize: "12px" }}
+                      ></i>
+                      <span
+                        className="text-success-700 fw-medium"
+                        style={{ fontSize: "0.75rem", whiteSpace: "nowrap" }}
+                      >
+                        {teacherProfile.experiences.length} deneyim
+                      </span>
+                    </div>
+                  )}
               </div>
             </div>
           </div>

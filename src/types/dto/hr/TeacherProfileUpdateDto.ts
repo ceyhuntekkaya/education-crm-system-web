@@ -4,8 +4,9 @@ export interface TeacherProfileUpdateDto {
   phone?: string;
   city?: string;
   branch?: string;
-  educationLevel?: string;
-  experienceYears?: number;
+  // NOT: educationLevel ve experienceYears backend DTO'sunda YOK.
+  // Eğitim: PUT /hr/teacher-profiles/{id}/educations/{educationId}
+  // Deneyim: PUT /hr/teacher-profiles/{id}/experiences/{experienceId}
   bio?: string;
   profilePhotoUrl?: string;
   videoUrl?: string;
