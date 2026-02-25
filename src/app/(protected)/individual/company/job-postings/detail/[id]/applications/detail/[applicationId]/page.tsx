@@ -8,7 +8,7 @@ import { Modal, Button } from "@/components/ui";
 import { useApplicationDetailContext } from "./_shared/context";
 import {
   createApplicationDetailColumns,
-  ApplicationNotesSection,
+  // ApplicationNotesSection,
   ApplicationDocumentsSection,
   TeacherProfileSection,
 } from "./_shared";
@@ -50,7 +50,7 @@ const ApplicationDetailPage: React.FC = () => {
     updateStatus,
     isUpdatingStatus,
     documents,
-    notes,
+    // notes,
   } = useApplicationDetailContext();
 
   const [showStatusModal, setShowStatusModal] = useState(false);
@@ -133,7 +133,7 @@ const ApplicationDetailPage: React.FC = () => {
                 data: application,
                 columns: createApplicationDetailColumns(
                   documents?.length,
-                  notes?.length,
+                  // notes?.length,
                 ),
               }
             : undefined
@@ -144,7 +144,7 @@ const ApplicationDetailPage: React.FC = () => {
       {application && <ApplicationDocumentsSection />}
 
       {/* Notes Section */}
-      {application && <ApplicationNotesSection />}
+      {/* {application && <ApplicationNotesSection />} */}
 
       {/* Durum Değiştirme Modal */}
       <Modal
