@@ -116,7 +116,7 @@ export const JobPostingCard: React.FC<JobPostingCardProps> = ({
           (jobPosting.salaryMin || jobPosting.salaryMax) && (
             <div className="soft-card rounded-12 mb-12 p-12">
               <div className="d-flex align-items-center gap-8">
-                <i className="ph-bold ph-currency-dollar text-success-600"></i>
+                <span className="text-success-600 fw-bold text-md lh-1">₺</span>
                 <span className="text-sm fw-medium text-neutral-700">
                   {formatSalaryRange(
                     jobPosting.salaryMin,
