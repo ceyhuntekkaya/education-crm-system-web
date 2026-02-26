@@ -84,7 +84,8 @@ export const TeacherProfileSummaryCard: React.FC = () => {
                         ? "Yüksek Lisans"
                         : myProfile.educations[0].educationLevel === "DOCTORATE"
                           ? "Doktora"
-                          : myProfile.educations[0].educationLevel === "ASSOCIATE"
+                          : myProfile.educations[0].educationLevel ===
+                              "ASSOCIATE"
                             ? "Ön Lisans"
                             : myProfile.educations[0].educationLevel}
                   </p>
@@ -113,11 +114,11 @@ export const TeacherProfileSummaryCard: React.FC = () => {
                       const earliest = myProfile.experiences.reduce(
                         (min, exp) =>
                           exp.startDate < min ? exp.startDate : min,
-                        myProfile.experiences[0].startDate
+                        myProfile.experiences[0].startDate,
                       );
                       const years = Math.floor(
                         (Date.now() - new Date(earliest).getTime()) /
-                          (1000 * 60 * 60 * 24 * 365)
+                          (1000 * 60 * 60 * 24 * 365),
                       );
                       return years > 0 ? `${years} yıl` : "1 yıldan az";
                     })()}
