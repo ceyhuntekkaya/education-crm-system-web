@@ -34,6 +34,12 @@ export interface GetJobPostingsParams {
   branch?: string;
   status?: "DRAFT" | "PUBLISHED" | "CLOSED" | "COMPLETED";
   searchTerm?: string;
+  // DTO alanları — Swagger'da görünmese de backend kabul edebilir
+  employmentType?: string;
+  minExperienceYears?: number;
+  requiredEducationLevel?: string;
+  salaryMin?: number;
+  salaryMax?: number;
   page?: number;
   size?: number;
   sortBy?: string;

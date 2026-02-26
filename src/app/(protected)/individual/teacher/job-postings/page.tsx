@@ -3,73 +3,48 @@
 import React, { useMemo } from "react";
 import { usePageTitle } from "@/hooks";
 import { DataCollectionLayout } from "@/components/layouts/data-collection-layout";
-import { JobPostingCard } from "./_shared/sections";
+import {
+  JobPostingCard,
+  JobPostingFilterSidebar,
+  JobPostingsInitialState,
+} from "./_shared/sections";
 import { createJobPostingColumns } from "./_shared/config/job-posting-columns";
 import { JOB_POSTING_POPOVER_FILTERS } from "./_shared/config/job-posting-filters";
 import { JOB_POSTING_SORT_OPTIONS } from "./_shared/config/job-posting-sort-options";
-import { useJobPostingsContext } from "./_shared/contexts";
-import { useApplicationsContext } from "../applications/_shared/contexts";
+import { useJobPostingsContext } from "./_shared/contexts/job-postings-context";
 import type { JobPostingDto } from "@/types";
 
 /**
  * TEACHER JOB POSTINGS PAGE
- * Öğretmen için iş ilanlarını listeleyen sayfa
- * - TÜM okulların yayında olan ilanları gösterilir (PUBLISHED status)
- * - Öğretmen ilan ekleyemez/düzenleyemez
- * - İlanlara başvuru yapabilir
- * - Zaten başvurulmuş ilanlar filtrelenir
+ * - Sol: Filter sidebar (keyword, branş, istihdam tipi, deneyim, maaş)
+ * - Sağ: Filtre uygulanmadan → InitialSearchState
+ *        Filtre uygulandığında → DataCollectionLayout (sort/search dahil)
  */
 
-const TeacherJobPostingsPage: React.FC = () => {
-  usePageTitle("İş İlanları");
+// ─── Right panel ─────────────────────────────────────────────────────────
 
-  // Context'ten tüm verileri al
-  const { jobPostings, jobPostingsListLoading } = useJobPostingsContext();
-  const { applications } = useApplicationsContext();
+const JobPostingsContent: React.FC = () => {
+  const { filteredJobPostings, filteredLoading, hasSearched } =
+    useJobPostingsContext();
 
-  // Başvuru yapılmış iş ilanı ID'lerini bul
-  const appliedJobPostingIds = useMemo(() => {
-    return new Set(
-      applications
-        .filter((app) => app.jobPosting?.id) // jobPosting.id olan başvuruları al
-        .map((app) => app.jobPosting!.id), // ID'leri çıkar
-    );
-  }, [applications]);
-
-  // Başvuru yapılmamış ilanları filtrele
-  const filteredJobPostings = useMemo(() => {
-    return jobPostings.filter(
-      (jobPosting) => !appliedJobPostingIds.has(jobPosting.id),
-    );
-  }, [jobPostings, appliedJobPostingIds]);
-
-  // Config'leri memoize et ki her render'da yeni object oluşmasın
   const jobPostingColumns = useMemo(() => createJobPostingColumns(), []);
-  const jobPostingFilters = useMemo(() => JOB_POSTING_POPOVER_FILTERS, []);
-  const jobPostingSortOptions = useMemo(() => JOB_POSTING_SORT_OPTIONS, []);
+
+  // Henüz Filtrele'ye basılmamışsa initial state göster
+  if (!hasSearched) {
+    return <JobPostingsInitialState />;
+  }
 
   return (
     <DataCollectionLayout<JobPostingDto>
-      // ═══════════════════════════════════════════════════════════════════
-      // HEADER - Başlık ve Aksiyon Butonları
-      // ═══════════════════════════════════════════════════════════════════
       header={{
         title: "İş İlanları",
-        subtitle:
-          "Tüm okulların aktif iş ilanlarını buradan görüntüleyebilir ve başvuru yapabilirsiniz. Başvuru yaptığınız ilanlar bu listede görünmez.",
+        subtitle: "Filtrelenen sonuçlar aşağıda listelenmiştir.",
         icon: "ph-briefcase",
-        // Öğretmen için action buttons yok (ilan ekleyemez)
       }}
-      // ═══════════════════════════════════════════════════════════════════
-      // DATA - Veri ve Loading State
-      // ═══════════════════════════════════════════════════════════════════
       data={{
         data: filteredJobPostings,
-        loading: jobPostingsListLoading,
+        loading: filteredLoading,
       }}
-      // ═══════════════════════════════════════════════════════════════════
-      // VIEW - Görünüm Ayarları
-      // ═══════════════════════════════════════════════════════════════════
       view={{
         defaultMode: "grid",
         enableToggle: true,
@@ -83,40 +58,48 @@ const TeacherJobPostingsPage: React.FC = () => {
           columns: jobPostingColumns,
         },
       }}
-      // ═══════════════════════════════════════════════════════════════════
-      // FILTERS - Filtreleme (logic ListView içinde)
-      // ═══════════════════════════════════════════════════════════════════
       filters={{
         enabled: true,
-        options: jobPostingFilters,
+        options: JOB_POSTING_POPOVER_FILTERS,
       }}
-      // ═══════════════════════════════════════════════════════════════════
-      // SORT - Sıralama
-      // ═══════════════════════════════════════════════════════════════════
       sort={{
         enabled: true,
-        options: jobPostingSortOptions,
+        options: JOB_POSTING_SORT_OPTIONS,
       }}
-      // ═══════════════════════════════════════════════════════════════════
-      // SEARCH - Arama
-      // ═══════════════════════════════════════════════════════════════════
       search={{
         enabled: true,
         placeholder: "İlan ara...",
         fields: ["positionTitle", "branch", "description"],
       }}
-      // ═══════════════════════════════════════════════════════════════════
-      // STATES - Empty State
-      // ═══════════════════════════════════════════════════════════════════
       states={{
         empty: {
-          title: "Henüz İş İlanı Yok",
+          title: "Sonuç Bulunamadı",
           description:
-            "Şu an aktif bir iş ilanı bulunmamaktadır. Yeni ilanlar yayınlandığında burada görüntülenecektir.",
+            "Seçtiğiniz filtrelere uygun ilan bulunamadı. Lütfen sol taraftaki filtrelerinizi değiştirin.",
           icon: "ph-briefcase",
         },
       }}
     />
+  );
+};
+
+// ─── Page ────────────────────────────────────────────────────────────────
+
+const TeacherJobPostingsPage: React.FC = () => {
+  usePageTitle("İş İlanları");
+
+  return (
+    <div className="row g-24 mt-12">
+      {/* Sol: Filtre Sidebar */}
+      <div className="col-lg-3">
+        <JobPostingFilterSidebar />
+      </div>
+
+      {/* Sağ: Initial State veya DataCollectionLayout */}
+      <div className="col-lg-9">
+        <JobPostingsContent />
+      </div>
+    </div>
   );
 };
 
