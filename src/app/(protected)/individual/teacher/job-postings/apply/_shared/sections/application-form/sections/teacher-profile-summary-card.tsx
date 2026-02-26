@@ -61,7 +61,7 @@ export const TeacherProfileSummaryCard: React.FC = () => {
           )}
 
           {/* Eğitim Seviyesi */}
-          {myProfile.educationLevel && (
+          {myProfile.educations && myProfile.educations.length > 0 && (
             <div>
               <div className="d-flex align-items-center gap-10">
                 <div
@@ -78,15 +78,15 @@ export const TeacherProfileSummaryCard: React.FC = () => {
                     Eğitim Seviyesi
                   </p>
                   <p className="mb-0 text-sm text-neutral-900 fw-medium">
-                    {myProfile.educationLevel === "BACHELOR"
+                    {myProfile.educations[0].educationLevel === "BACHELOR"
                       ? "Lisans"
-                      : myProfile.educationLevel === "MASTER"
+                      : myProfile.educations[0].educationLevel === "MASTER"
                         ? "Yüksek Lisans"
-                        : myProfile.educationLevel === "DOCTORATE"
+                        : myProfile.educations[0].educationLevel === "DOCTORATE"
                           ? "Doktora"
-                          : myProfile.educationLevel === "ASSOCIATE"
+                          : myProfile.educations[0].educationLevel === "ASSOCIATE"
                             ? "Ön Lisans"
-                            : myProfile.educationLevel}
+                            : myProfile.educations[0].educationLevel}
                   </p>
                 </div>
               </div>
@@ -94,7 +94,7 @@ export const TeacherProfileSummaryCard: React.FC = () => {
           )}
 
           {/* Deneyim */}
-          {myProfile.experienceYears !== undefined && (
+          {myProfile.experiences && myProfile.experiences.length > 0 && (
             <div>
               <div className="d-flex align-items-center gap-10">
                 <div
@@ -109,7 +109,18 @@ export const TeacherProfileSummaryCard: React.FC = () => {
                 <div className="flex-grow-1">
                   <p className="mb-0 text-xs text-neutral-500">Deneyim</p>
                   <p className="mb-0 text-sm text-neutral-900 fw-medium">
-                    {myProfile.experienceYears} yıl
+                    {(() => {
+                      const earliest = myProfile.experiences.reduce(
+                        (min, exp) =>
+                          exp.startDate < min ? exp.startDate : min,
+                        myProfile.experiences[0].startDate
+                      );
+                      const years = Math.floor(
+                        (Date.now() - new Date(earliest).getTime()) /
+                          (1000 * 60 * 60 * 24 * 365)
+                      );
+                      return years > 0 ? `${years} yıl` : "1 yıldan az";
+                    })()}
                   </p>
                 </div>
               </div>
