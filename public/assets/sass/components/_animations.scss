@@ -125,3 +125,92 @@
     }
   }
 }
+
+/* =================== Homepage Section Animations =================== */
+
+/* Breathing orb — dekoratif arka plan ışık efekti */
+@keyframes breathing {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* Timeline çizgi çizilme animasyonu */
+@keyframes line-draw {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* CTA butonlarında gradient kayma */
+@keyframes shimmer-button {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Hafif zıplama — floating elementler */
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Play butonu dikkat çekici pulse */
+@keyframes play-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.6); }
+  70% { box-shadow: 0 0 0 20px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+/* Kart glow hover efekti */
+@keyframes card-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(99, 102, 241, 0); }
+  50% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+}
+
+/* Sayı counter pop efekti */
+@keyframes count-pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Gradient border animasyonu */
+@keyframes gradient-rotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* Tab geçiş fade */
+@keyframes tab-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Marquee glow */
+@keyframes marquee-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Section geçiş wave */
+@keyframes section-wave {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Masonry kart stagger giriş */
+@keyframes masonry-enter {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* İkon rotate hover */
+@keyframes icon-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+/* Swiper slide entrance */
+@keyframes slide-up-enter {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}

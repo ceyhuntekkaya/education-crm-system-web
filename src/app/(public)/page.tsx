@@ -19,29 +19,29 @@ export default function PublicHomePage() {
       {/* Hero Banner */}
       <Banner />
 
+      {/* Nasıl Çalışır — 3 Adım (merak uyandır) */}
+      <HowItWorksSection />
+
       {/* Platform Tanıtım Videosu */}
       <VideoTeaserSection />
 
-      {/* Özel Okullar */}
+      {/* Özel Okullar — Carousel */}
       <PrivateSchoolsSection />
 
-      {/* Kurslar: Lise & Üniversite */}
+      {/* Kurslar: Lise & Üniversite — Tab Grid */}
       <EduCoursesSection />
 
-      {/* Nasıl Çalışır — 3 Adım */}
-      <HowItWorksSection />
-
-      {/* Kurslar: Dil */}
+      {/* Kurslar: Dil — Koyu Tema */}
       <LanguageCoursesSection />
 
-      {/* Kurslar: Aktivite */}
+      {/* Kurslar: Aktivite — Masonry Grid */}
       <ActivityCoursesSection />
-
-      {/* İK - Eğitim Sektörüne Özel */}
-      <HrEducationSection />
 
       {/* Webinar & Etkinlikler */}
       <WebinarsSection />
+
+      {/* İK - Eğitim Sektörüne Özel */}
+      <HrEducationSection />
 
       {/* Güven Barı + Final CTA */}
       <TrustCtaSection />

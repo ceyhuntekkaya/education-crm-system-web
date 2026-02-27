@@ -5,21 +5,25 @@ const features = [
     icon: "ph-bold ph-wifi-high",
     title: "Online, Yüz Yüze & Hibrit",
     desc: "Dilediğiniz formatta, dilediğiniz yerden katılın.",
+    num: "01",
   },
   {
     icon: "ph-bold ph-calendar-check",
     title: "Takvim Entegrasyonu",
     desc: "Google, Outlook ve Apple takvimlerinize anında ekleyin.",
+    num: "02",
   },
   {
     icon: "ph-bold ph-certificate",
     title: "Katılım Sertifikası",
     desc: "Her etkinlik sonrasında dijital sertifikanızı alın.",
+    num: "03",
   },
   {
     icon: "ph-bold ph-video-camera",
     title: "Kayıt & Tekrar İzle",
     desc: "Kaçırdığınız etkinlikleri istediğiniz zaman izleyin.",
+    num: "04",
   },
 ];
 
@@ -30,16 +34,41 @@ const stats = [
 ];
 
 const floatingIcons = [
-  { icon: "ph-bold ph-video-camera", top: "10%", left: "14%", delay: 0 },
-  { icon: "ph-bold ph-microphone-stage", top: "24%", right: "12%", delay: 100 },
-  { icon: "ph-bold ph-calendar-dots", bottom: "32%", left: "8%", delay: 200 },
+  {
+    icon: "ph-bold ph-video-camera",
+    top: "10%",
+    left: "14%",
+    delay: 0,
+    duration: "3.8s",
+  },
+  {
+    icon: "ph-bold ph-microphone-stage",
+    top: "24%",
+    right: "12%",
+    delay: 100,
+    duration: "4.3s",
+  },
+  {
+    icon: "ph-bold ph-calendar-dots",
+    bottom: "32%",
+    left: "8%",
+    delay: 200,
+    duration: "3.5s",
+  },
   {
     icon: "ph-bold ph-presentation-chart",
     top: "54%",
     right: "16%",
     delay: 300,
+    duration: "4.7s",
   },
-  { icon: "ph-bold ph-users-three", bottom: "14%", left: "32%", delay: 150 },
+  {
+    icon: "ph-bold ph-users-three",
+    bottom: "14%",
+    left: "32%",
+    delay: 150,
+    duration: "3.2s",
+  },
 ];
 
 export default function WebinarsSection() {
@@ -65,15 +94,16 @@ export default function WebinarsSection() {
               profesyonel gelişiminize yatırım yapın.
             </p>
 
-            {/* Features — icon + title + desc (diğer sectionlarla uyumlu) */}
+            {/* Features — numaralı badge'ler eklendi */}
             <div className="webinar-teaser-split__features">
               {features.map((f, i) => (
                 <div
                   key={i}
                   className="webinar-feature-item"
                   data-aos="fade-right"
-                  data-aos-delay={i * 70}
+                  data-aos-delay={i * 80}
                 >
+                  <div className="webinar-feature-item__num">{f.num}</div>
                   <div className="webinar-feature-item__icon">
                     <i className={f.icon} />
                   </div>
@@ -85,12 +115,12 @@ export default function WebinarsSection() {
               ))}
             </div>
 
-            {/* CTA */}
+            {/* CTA — shimmer efektli */}
             <Link
               href="/search"
-              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex"
+              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
               data-aos="fade-up"
-              data-aos-delay="300"
+              data-aos-delay="340"
             >
               Tüm Etkinlikleri Gör
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
@@ -100,10 +130,9 @@ export default function WebinarsSection() {
           {/* Sağ — Dekoratif Görsel Alan */}
           <div className="webinar-teaser-split__visual" data-aos="fade-left">
             <div className="webinar-teaser-split__illustration">
-              {/* Gradient arka plan */}
               <div className="webinar-teaser-split__gradient" />
 
-              {/* Floating ikonlar */}
+              {/* Floating ikonlar — farklı duration'larla organik hareket */}
               {floatingIcons.map((fi, i) => (
                 <div
                   key={i}
@@ -114,6 +143,7 @@ export default function WebinarsSection() {
                       left: fi.left,
                       right: fi.right,
                       bottom: fi.bottom,
+                      animationDuration: fi.duration,
                     } as React.CSSProperties
                   }
                   data-aos="zoom-in"
@@ -123,12 +153,10 @@ export default function WebinarsSection() {
                 </div>
               ))}
 
-              {/* Merkez büyük ikon */}
               <div className="webinar-teaser-split__center-icon">
                 <i className="ph-bold ph-video-camera" />
               </div>
 
-              {/* Floating stat chips */}
               <div className="webinar-teaser-split__floating-stats">
                 {stats.map((s, i) => (
                   <div

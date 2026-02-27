@@ -1,4 +1,7 @@
 import Link from "next/link";
+import CountUp from "react-countup";
+import VisibilitySensor from "react-visibility-sensor";
+import { useState } from "react";
 
 const features = [
   {
@@ -26,137 +29,146 @@ const features = [
 const stats = [
   {
     icon: "ph-bold ph-users",
-    num: "2.400+",
+    end: 2400,
+    suffix: "+",
     label: "Kayıtlı Eğitimci",
   },
   {
     icon: "ph-bold ph-briefcase",
-    num: "380+",
+    end: 380,
+    suffix: "+",
     label: "Aktif İş İlanı",
   },
   {
     icon: "ph-bold ph-buildings",
-    num: "150+",
+    end: 150,
+    suffix: "+",
     label: "Kurum İşveren",
   },
   {
     icon: "ph-bold ph-handshake",
-    num: "%94",
-    label: "İşe Yerleşme Oranı",
+    end: 94,
+    prefix: "%",
+    suffix: "",
+    label: "İşe Yerleşme",
   },
 ];
 
 export default function HrEducationSection() {
+  const [viewed, setViewed] = useState(false);
+
   return (
     <section className="hr-education-section">
+      {/* Dekoratif daireler */}
+      <div className="hr-section__circle hr-section__circle--1" />
+      <div className="hr-section__circle hr-section__circle--2" />
+
       <div className="container">
-        <div className="hr-teaser-split">
-          {/* Sol İçerik */}
-          <div className="hr-teaser-split__content" data-aos="fade-right">
-            <div className="hr-info">
-              {/* Badge */}
-              <div className="hr-info__badge">
-                <i className="ph-bold ph-briefcase" />
-                İnsan Kaynakları
-              </div>
-
-              {/* Title */}
-              <h2 className="hr-info__title">
-                Eğitim Sektörüne{" "}
-                <span style={{ color: "var(--main-200)" }}>Özel İK</span>{" "}
-                Çözümleri
-              </h2>
-
-              {/* Description */}
-              <p className="hr-info__description">
-                Okulunuz veya kurumunuz için doğru eğitimciyi bulun. Eğitim
-                dünyasının kendine özgü dinamiklerine uygun, hızlı ve şeffaf işe
-                alım & insan kaynakları yönetim platformu.
-              </p>
-
-              {/* Features */}
-              <div className="hr-info__features">
-                {features.map((f, i) => (
-                  <div
-                    key={i}
-                    className="hr-feature-item"
-                    data-aos="fade-right"
-                    data-aos-delay={i * 70}
-                  >
-                    <div className="hr-feature-item__icon">
-                      <i className={f.icon} />
-                    </div>
-                    <div className="hr-feature-item__body">
-                      <h6>{f.title}</h6>
-                      <p>{f.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div
-                className="hr-info__ctas"
-                data-aos="fade-up"
-                data-aos-delay="260"
-              >
-                <Link
-                  href="/search"
-                  className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex"
-                >
-                  İş İlanlarını Gör
-                  <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-                </Link>
-                <Link
-                  href="/about"
-                  className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex"
-                >
-                  Kurum Olarak Kaydol
-                  <i className="ph-bold ph-arrow-right d-flex text-lg" />
-                </Link>
-              </div>
-            </div>
+        {/* Centered Header */}
+        <div className="hr-fullwidth__header" data-aos="fade-up">
+          <div className="hr-fullwidth__badge">
+            <i className="ph-bold ph-briefcase" />
+            İnsan Kaynakları
           </div>
+          <h2 className="hr-fullwidth__title">
+            Eğitim Sektörüne{" "}
+            <span style={{ color: "var(--main-200)" }}>Özel İK</span> Çözümleri
+          </h2>
+          <p className="hr-fullwidth__subtitle">
+            Okulunuz veya kurumunuz için doğru eğitimciyi bulun. Hızlı ve şeffaf
+            işe alım & insan kaynakları yönetim platformu.
+          </p>
+        </div>
 
-          {/* Sağ İstatistikler */}
-          <div
-            className="hr-teaser-split__sidebar"
-            data-aos="fade-left"
-            data-aos-delay="80"
-          >
-            {/* 2×2 Stats Grid */}
-            <div className="hr-stats-grid">
-              {stats.map((stat, idx) => (
-                <div
-                  key={idx}
-                  className="hr-stat-card"
-                  data-aos="zoom-in"
-                  data-aos-delay={80 + idx * 70}
-                >
-                  <div className="hr-stat-card__icon">
-                    <i className={stat.icon} />
-                  </div>
-                  <div className="hr-stat-card__num">{stat.num}</div>
-                  <div className="hr-stat-card__label">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Info Card */}
+        {/* Feature Grid — 4 kolon */}
+        <div className="hr-fullwidth__features">
+          {features.map((f, i) => (
             <div
-              className="hr-info-card"
+              key={i}
+              className="hr-fullwidth__feature-card"
               data-aos="fade-up"
-              data-aos-delay="360"
+              data-aos-delay={i * 80}
             >
-              <div className="hr-info-card__icon">
-                <i className="ph-bold ph-megaphone" />
+              <div className="hr-fullwidth__feature-icon">
+                <i className={f.icon} />
               </div>
-              <div className="hr-info-card__text">
-                <span className="title">Kurumunuz için iş ilanı verin</span>
-                <span className="sub">
+              <h5 className="hr-fullwidth__feature-title">{f.title}</h5>
+              <p className="hr-fullwidth__feature-desc">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Stats Grid — 4 kolon, CountUp */}
+        <VisibilitySensor
+          onChange={(isVisible: boolean) => {
+            if (isVisible) setViewed(true);
+          }}
+          partialVisibility
+          delayedCall
+        >
+          <div className="hr-fullwidth__stats">
+            {stats.map((stat, idx) => (
+              <div
+                key={idx}
+                className="hr-fullwidth__stat-card"
+                data-aos="zoom-in"
+                data-aos-delay={idx * 80}
+              >
+                <div className="hr-fullwidth__stat-icon">
+                  <i className={stat.icon} />
+                </div>
+                <div className="hr-fullwidth__stat-num">
+                  {viewed ? (
+                    <CountUp
+                      end={stat.end}
+                      duration={2.2}
+                      separator="."
+                      prefix={stat.prefix || ""}
+                      suffix={stat.suffix}
+                    />
+                  ) : (
+                    `0${stat.suffix}`
+                  )}
+                </div>
+                <div className="hr-fullwidth__stat-label">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </VisibilitySensor>
+
+        {/* CTA Band */}
+        <div
+          className="hr-fullwidth__cta-band"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div className="hr-fullwidth__cta-inner">
+            <div className="hr-fullwidth__cta-text">
+              <i className="ph-bold ph-megaphone" />
+              <div>
+                <span className="hr-fullwidth__cta-title">
+                  Kurumunuz için iş ilanı verin
+                </span>
+                <span className="hr-fullwidth__cta-sub">
                   Eğitim sektörünün en büyük yetenek platformuna ücretsiz erişin
                 </span>
               </div>
+            </div>
+            <div className="hr-fullwidth__cta-buttons">
+              <Link
+                href="/search"
+                className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex"
+              >
+                İş İlanlarını Gör
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/about"
+                className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex"
+              >
+                Kurum Olarak Kaydol
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
+              </Link>
             </div>
           </div>
         </div>
