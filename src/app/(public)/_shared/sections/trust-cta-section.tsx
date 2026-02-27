@@ -109,6 +109,7 @@ export default function TrustCtaSection() {
           <Marquee
             speed={40}
             gradient
+            gradientColor="rgb(7, 20, 49)"
             gradientWidth={60}
             pauseOnHover
             className="trust-logos__marquee"
