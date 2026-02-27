@@ -14,8 +14,7 @@ const initialValues = {
   phone: "",
   city: "",
   branch: "",
-  educationLevel: "",
-  experienceYears: undefined,
+  // educationLevel ve experienceYears backend DTO'sunda YOK - form'dan kaldirildi
   bio: "",
   profilePhotoUrl: "",
   videoUrl: "",

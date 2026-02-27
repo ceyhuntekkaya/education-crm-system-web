@@ -4,8 +4,9 @@ export interface TeacherProfileCreateDto {
   phone?: string; // max 20
   city?: string; // max 50
   branch?: string; // max 100
-  educationLevel?: string; // max 50
-  experienceYears?: number;
+  // NOT: educationLevel ve experienceYears backend DTO'sunda YOK.
+  // Eğitim bilgileri: POST /hr/teacher-profiles/{id}/educations ile eklenir.
+  // Deneyim bilgileri: POST /hr/teacher-profiles/{id}/experiences ile eklenir.
   bio?: string;
   profilePhotoUrl?: string; // max 500
   videoUrl?: string; // Tanıtım videosu linki, max 500

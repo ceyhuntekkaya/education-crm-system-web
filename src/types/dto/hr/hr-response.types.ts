@@ -5,6 +5,8 @@ import type {
   ApplicationDocumentDto,
 } from "./ApplicationDto";
 import type { TeacherProfileDto } from "./TeacherProfileDto";
+import type { TeacherEducationDto } from "./TeacherEducationDto";
+import type { TeacherExperienceDto } from "./TeacherExperienceDto";
 import type { Page } from "../../api/api-general.types";
 
 // ==================== JOB POSTINGS ====================
@@ -32,6 +34,12 @@ export interface GetJobPostingsParams {
   branch?: string;
   status?: "DRAFT" | "PUBLISHED" | "CLOSED" | "COMPLETED";
   searchTerm?: string;
+  // DTO alanları — Swagger'da görünmese de backend kabul edebilir
+  employmentType?: string;
+  minExperienceYears?: number;
+  requiredEducationLevel?: string;
+  salaryMin?: number;
+  salaryMax?: number;
   page?: number;
   size?: number;
   sortBy?: string;
@@ -132,4 +140,44 @@ export interface GetTeacherProfilesParams {
   size?: number;
   sortBy?: string;
   sortDir?: "ASC" | "DESC";
+}
+
+// ==================== TEACHER EDUCATIONS ====================
+
+export interface ApiResponseTeacherEducationDto {
+  success: boolean;
+  message: string;
+  data: TeacherEducationDto;
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
+}
+
+export interface ApiResponseTeacherEducationsArray {
+  success: boolean;
+  message: string;
+  data: TeacherEducationDto[];
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
+}
+
+// ==================== TEACHER EXPERIENCES ====================
+
+export interface ApiResponseTeacherExperienceDto {
+  success: boolean;
+  message: string;
+  data: TeacherExperienceDto;
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
+}
+
+export interface ApiResponseTeacherExperiencesArray {
+  success: boolean;
+  message: string;
+  data: TeacherExperienceDto[];
+  errors?: string[] | null;
+  timestamp: string;
+  path?: string;
 }

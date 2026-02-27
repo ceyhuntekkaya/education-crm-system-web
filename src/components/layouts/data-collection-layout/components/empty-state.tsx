@@ -16,6 +16,12 @@ interface EmptyStateProps {
  * 📭 EMPTY STATE
  * Veri bulunamadı durumu
  */
+const resolveIconClass = (icon: string): string => {
+  if (icon.startsWith("ph-")) return `ph-bold ${icon}`;
+  if (icon.startsWith("bi-")) return `bi ${icon}`;
+  return `bi ${icon}`;
+};
+
 export const EmptyState: React.FC<EmptyStateProps> = ({
   title = "Sonuç Bulunamadı",
   description = "Aradığınız kriterlere uygun sonuç bulunamadı.",
@@ -38,7 +44,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         }}
       >
         <i
-          className={`bi ${icon} text-neutral-400`}
+          className={`${resolveIconClass(icon)} text-neutral-400`}
           style={{ fontSize: "40px" }}
         />
       </div>

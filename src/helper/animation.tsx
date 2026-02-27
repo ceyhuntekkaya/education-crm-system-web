@@ -9,7 +9,7 @@ const Animation = () => {
         const wow = new WOW.WOW({
           boxClass: "wow",
           animateClass: "animate__animated",
-          offset: 0,
+          offset: 80,
           mobile: true,
           live: true,
         });
@@ -17,10 +17,12 @@ const Animation = () => {
       });
     }
     Aos.init({
-      offset: 0,
-      easing: "ease",
+      offset: 80,
+      easing: "ease-out-cubic",
       once: true,
-      duration: 1200,
+      duration: 700,
+      delay: 0,
+      anchorPlacement: "top-bottom",
     });
     Aos.refresh();
   }, []);

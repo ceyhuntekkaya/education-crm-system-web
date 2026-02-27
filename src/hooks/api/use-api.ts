@@ -39,7 +39,7 @@ export const useApi = <T>() => {
   const execute = useCallback(
     async <TResult>(
       requestFn: () => Promise<{ data: TResult }>,
-      options?: ApiOptions
+      options?: ApiOptions,
     ): Promise<TResult | null> => {
       try {
         setLoading(true);
@@ -49,7 +49,12 @@ export const useApi = <T>() => {
         let result = response.data as any;
 
         // Backend'in { success: true, data: {...} } formatını handle et
-        if (result && typeof result === 'object' && 'data' in result && 'success' in result) {
+        if (
+          result &&
+          typeof result === "object" &&
+          "data" in result &&
+          "success" in result
+        ) {
           result = result.data;
         }
 
@@ -68,7 +73,7 @@ export const useApi = <T>() => {
         options?.onFinally?.();
       }
     },
-    [setData, setError, setLoading]
+    [setData, setError, setLoading],
   );
 
   // Mutation için execute fonksiyonu
@@ -76,7 +81,7 @@ export const useApi = <T>() => {
     async <TResult, TVariables>(
       requestFn: (variables: TVariables) => Promise<{ data: TResult }>,
       variables: TVariables,
-      options?: MutationOptions<TResult, TVariables>
+      options?: MutationOptions<TResult, TVariables>,
     ): Promise<TResult | null> => {
       try {
         setLoading(true);
@@ -86,12 +91,19 @@ export const useApi = <T>() => {
         let result = response.data as any;
 
         // Backend'in { success: true, data: {...} } formatını handle et
-        if (result && typeof result === 'object' && 'data' in result && 'success' in result) {
+        let isSuccessWrapper = false;
+        if (
+          result &&
+          typeof result === "object" &&
+          "data" in result &&
+          "success" in result
+        ) {
+          isSuccessWrapper = result.success === true;
           result = result.data;
         }
 
-        // Response kontrolü
-        if (result === undefined || result === null) {
+        // Response kontrolü — success: true ile data: null gelebilir (örn. DELETE)
+        if ((result === undefined || result === null) && !isSuccessWrapper) {
           throw new Error("API response is empty or null");
         }
 
@@ -110,7 +122,7 @@ export const useApi = <T>() => {
             errorMessage =
               "Sunucudan geçersiz yanıt alındı. Lütfen sistem yöneticisine başvurun.";
             console.error(
-              "JSON Parse Error - Likely empty or invalid response from server"
+              "JSON Parse Error - Likely empty or invalid response from server",
             );
           }
 
@@ -145,7 +157,7 @@ export const useApi = <T>() => {
         options?.onFinally?.(variables);
       }
     },
-    [setData, setError, setLoading]
+    [setData, setError, setLoading],
   );
 
   return {

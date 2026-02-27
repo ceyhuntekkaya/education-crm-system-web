@@ -1,79 +1,180 @@
 import Link from "next/link";
+import CountUp from "react-countup";
+import VisibilitySensor from "react-visibility-sensor";
+import { useState } from "react";
+
+const stats = [
+  {
+    icon: "ph-bold ph-users-three",
+    end: 10000,
+    suffix: "+",
+    label: "Kullanıcı",
+  },
+  { icon: "ph-bold ph-buildings", end: 500, suffix: "+", label: "Kurum" },
+  {
+    icon: "ph-bold ph-star",
+    prefix: "%",
+    end: 100,
+    suffix: "",
+    label: "Memnuniyet",
+  },
+];
+
+const floatingIcons = [
+  {
+    icon: "ph-bold ph-monitor-play",
+    top: "10%",
+    left: "14%",
+    delay: 0,
+    duration: "3.5s",
+  },
+  {
+    icon: "ph-bold ph-chalkboard-teacher",
+    top: "24%",
+    right: "12%",
+    delay: 100,
+    duration: "4.2s",
+  },
+  {
+    icon: "ph-bold ph-magnifying-glass",
+    bottom: "32%",
+    left: "8%",
+    delay: 200,
+    duration: "3.8s",
+  },
+  {
+    icon: "ph-bold ph-calendar-check",
+    top: "54%",
+    right: "16%",
+    delay: 300,
+    duration: "4.5s",
+  },
+  {
+    icon: "ph-bold ph-map-pin",
+    bottom: "14%",
+    left: "32%",
+    delay: 150,
+    duration: "3.2s",
+  },
+];
 
 export default function VideoTeaserSection() {
+  const [viewed, setViewed] = useState(false);
+
   return (
-    <section className="video-teaser-section py-40 py-lg-60">
+    <section className="video-teaser-section scroll-reveal-section">
       <div className="container">
-        {/* Compact Card Design */}
-        <div className="video-teaser-card" data-aos="fade-up">
-          <div className="row align-items-center g-0">
-            {/* Sol Taraf - Video Thumbnail (Daha Küçük) */}
-            <div className="col-lg-5">
-              <Link href="/video" className="video-teaser-thumbnail">
-                <div className="video-teaser-thumbnail__wrapper">
-                  <div className="video-teaser-thumbnail__overlay">
-                    <div className="video-teaser-thumbnail__play-btn">
-                      <i className="ph-fill ph-play-circle"></i>
-                    </div>
-                  </div>
-                  <div className="video-teaser-thumbnail__gradient"></div>
-                  
-                  {/* Video Badge */}
-                  <div className="video-teaser-thumbnail__badge">
-                    <i className="ph ph-clock"></i>
-                    <span>5 dakika</span>
-                  </div>
-                </div>
-              </Link>
+        <div className="video-teaser-split">
+          {/* Sol — Video Görsel Alanı */}
+          <div className="video-teaser-split__content">
+            <div className="video-teaser-split__badge" data-aos="fade-down">
+              <i className="ph ph-video-camera" />
+              Tanıtım Videosu
             </div>
 
-            {/* Sağ Taraf - Compact İçerik */}
-            <div className="col-lg-7">
-              <div className="video-teaser-content">
-                <span className="video-teaser-content__badge">
-                  <i className="ph ph-video-camera"></i>
-                  Tanıtım Videosu
-                </span>
-                
-                <h3 className="video-teaser-content__title">
-                  <span className="text-main-600">Eğitim İste</span>&apos;yi{" "}
-                  <span className="text-main-two-600">5 Dakikada</span> Keşfedin
-                </h3>
-                
-                <p className="video-teaser-content__description">
-                  Platformumuzun tüm özelliklerini keşfedin. Eğitim kurumlarını
-                  nasıl bulacağınızı, karşılaştıracağınızı ve randevu alacağınızı
-                  öğrenin.
-                </p>
+            <h2 className="video-teaser-split__title wow fadeInUp">
+              <span className="text-main-600">Eğitim İste</span>&apos;yi{" "}
+              <span className="text-main-two-600">5 Dakikada</span> Keşfedin
+            </h2>
 
-                <div className="video-teaser-stats">
-                  <div className="video-teaser-stat">
-                    <i className="ph-bold ph-users-three"></i>
-                    <span>10,000+ Kullanıcı</span>
-                  </div>
-                  <div className="video-teaser-stat">
-                    <i className="ph-bold ph-buildings"></i>
-                    <span>500+ Kurum</span>
-                  </div>
-                  <div className="video-teaser-stat">
-                    <i className="ph-bold ph-star"></i>
-                    <span>%100 Memnuniyet</span>
-                  </div>
-                </div>
+            <p
+              className="video-teaser-split__desc wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              Platformumuzun tüm özelliklerini keşfedin. Eğitim kurumlarını
+              nasıl bulacağınızı, karşılaştıracağınızı ve randevu alacağınızı
+              öğrenin.
+            </p>
 
-                <Link
-                  href="/video"
-                  className="video-teaser-content__link"
+            {/* CTA — shimmer efektli */}
+            <Link
+              href="/video"
+              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
+              data-wow-delay="0.2s"
+            >
+              Videoyu İzle
+              <i className="ph-bold ph-play-circle d-flex text-lg" />
+            </Link>
+          </div>
+
+          {/* Sağ — İçerik */}
+
+          <div className="video-teaser-split__visual wow fadeInRight">
+            <Link href="/video" className="video-teaser-split__illustration">
+              {/* Gradient arka plan */}
+              <div className="video-teaser-split__gradient" />
+
+              {/* Floating ikonlar — farklı duration'larla organik hareket */}
+              {floatingIcons.map((fi, i) => (
+                <div
+                  key={i}
+                  className="video-teaser-split__float-icon wow zoomIn"
+                  style={
+                    {
+                      top: fi.top,
+                      left: fi.left,
+                      right: fi.right,
+                      bottom: fi.bottom,
+                      animationDuration: fi.duration,
+                    } as React.CSSProperties
+                  }
+                  data-wow-delay={`${fi.delay / 1000}s`}
                 >
-                  <span>Videoyu İzle</span>
-                  <i className="ph-bold ph-arrow-right"></i>
-                </Link>
+                  <i className={fi.icon} />
+                </div>
+              ))}
+
+              {/* Merkez play butonu — pulse animasyonu */}
+              <div className="video-teaser-split__center-play">
+                <div className="video-teaser-split__play-pulse" />
+                <i className="ph-fill ph-play" />
               </div>
-            </div>
+
+              {/* Süre badge */}
+              <div className="video-teaser-split__duration">
+                <i className="ph ph-clock" />
+                <span>5 dakika</span>
+              </div>
+
+              {/* Floating stat chips — CountUp */}
+              <VisibilitySensor
+                onChange={(isVisible: boolean) => {
+                  if (isVisible) setViewed(true);
+                }}
+                partialVisibility
+                delayedCall
+              >
+                <div className="video-teaser-split__floating-stats">
+                  {stats.map((s, i) => (
+                    <div
+                      key={i}
+                      className="video-teaser-split__stat-chip wow zoomIn"
+                      data-wow-delay={`${i * 0.1 + 0.2}s`}
+                    >
+                      <span className="video-teaser-split__stat-val">
+                        {viewed ? (
+                          <CountUp
+                            end={s.end}
+                            duration={2.5}
+                            separator=","
+                            prefix={s.prefix || ""}
+                            suffix={s.suffix}
+                          />
+                        ) : (
+                          "0"
+                        )}
+                      </span>
+                      <span className="video-teaser-split__stat-lbl">
+                        {s.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </VisibilitySensor>
+            </Link>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

@@ -1,0 +1,2413 @@
+/* =========================================================
+   Home Sections — Landing Page
+   Referans: _about.scss kalıpları (feature-card, value-card,
+   about-stat-card, mission-vision-card, about-features-section)
+   ========================================================= */
+
+/* ---- Public Home Page Wrapper — smooth section flow ---- */
+.public-home-page {
+  overflow-x: hidden;
+
+  /* Her section arası smooth geçiş hissi */
+  > section,
+  > div > section {
+    position: relative;
+  }
+}
+
+/* ---- Paylaşılan: Gradient Section Header Block ---- */
+.home-section-header {
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+
+  @media (max-width: 768px) {
+    border-radius: 16px;
+    margin-bottom: 36px;
+  }
+
+  &__inner {
+    padding: 48px 32px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      padding: 36px 24px;
+    }
+
+    // Dekoratif daireler
+    &::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      z-index: -1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      bottom: -50px;
+      left: -50px;
+      z-index: -1;
+    }
+  }
+
+  &__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 1.625rem;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 1.375rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 600px;
+    margin: 0 auto 24px;
+    line-height: 1.65;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+      margin-bottom: 20px;
+    }
+  }
+
+  // Gradient varyantları
+  &--blue {
+    background: linear-gradient(135deg, #487fff 0%, #6c5ce7 100%);
+  }
+
+  &--orange {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  }
+
+  &--green {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+  }
+}
+
+/* =========================================================
+   1. ÖZEL OKULLAR — private-schools-section (Split-Layout Teaser)
+   ========================================================= */
+.private-schools-section {
+  background: var(--white);
+  padding: clampCal(48, 80, 768, 1599) 0;
+}
+
+.school-teaser-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* ---- İçerik (Sol) ---- */
+  &__content {
+    @media (max-width: 991px) {
+      order: 2;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: var(--main-50);
+    color: var(--main-600);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--main-100);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: var(--neutral-900);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: var(--neutral-600);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  /* ---- Kategori Card Grid ---- */
+  &__categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__cat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--white);
+    border: 1.5px solid var(--neutral-40);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: var(--main-600);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+      .school-teaser-split__cat-arrow {
+        color: var(--main-600);
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__cat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i { font-size: 1.2rem; }
+  }
+
+  &__cat-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__cat-label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    line-height: 1.2;
+  }
+
+  &__cat-count {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--neutral-400);
+    margin-top: 2px;
+  }
+
+  &__cat-arrow {
+    font-size: 0.9375rem;
+    color: var(--neutral-300);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+
+  /* ---- Görsel Alan (Sol) ---- */
+  &__visual {
+    @media (max-width: 991px) {
+      order: 1;
+    }
+  }
+
+  &__illustration {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 440px;
+
+    @media (max-width: 768px) {
+      min-height: 340px;
+      border-radius: 20px;
+    }
+  }
+
+  /* Gradient arka plan — mavi tema */
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--main-600) 0%, #6c5ce7 40%, #487fff 100%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(0, 0, 0, 0.06) 0%, transparent 40%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+    }
+  }
+
+  /* Floating ikonlar */
+  &__float-icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    animation: school-float 4s ease-in-out infinite;
+
+    i {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    &:nth-child(2) { animation-delay: -0.8s; }
+    &:nth-child(3) { animation-delay: -1.6s; }
+    &:nth-child(4) { animation-delay: -2.4s; }
+    &:nth-child(5) { animation-delay: -3.2s; }
+  }
+
+  /* Merkez büyük ikon */
+  &__center-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96px;
+    height: 96px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 768px) {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+    }
+
+    i {
+      font-size: 2.75rem;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* Floating stat chips — altta */
+  &__floating-stats {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 4;
+    flex-wrap: wrap;
+  }
+
+  &__stat-chip {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(4px);
+    transition: transform 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &__stat-val {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--main-600);
+    line-height: 1;
+  }
+
+  &__stat-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--neutral-600);
+    margin-top: 3px;
+    font-weight: 600;
+  }
+}
+
+@keyframes school-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* =========================================================
+   2. KURSLAR (LİSE-ÜNİVERSİTE) — edu-courses-section
+   ========================================================= */
+.edu-courses-section {
+  background: var(--main-25);
+  padding: clampCal(48, 80, 768, 1599) 0;
+}
+
+.edu-teaser-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* ---- İçerik (Sol) ---- */
+  &__content {
+    @media (max-width: 991px) {
+      order: 2;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: var(--main-two-50);
+    color: var(--main-two-600);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--main-two-100);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: var(--neutral-900);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: var(--neutral-600);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  /* ---- Kategori Card Grid ---- */
+  &__categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__cat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--white);
+    border: 1.5px solid var(--neutral-40);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: var(--main-two-600);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+      .edu-teaser-split__cat-arrow {
+        color: var(--main-two-600);
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__cat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i { font-size: 1.2rem; }
+  }
+
+  &__cat-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__cat-label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    line-height: 1.2;
+  }
+
+  &__cat-count {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--neutral-400);
+    margin-top: 2px;
+  }
+
+  &__cat-arrow {
+    font-size: 0.9375rem;
+    color: var(--neutral-300);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+
+  /* ---- Görsel Alan (Sağ) ---- */
+  &__visual {
+    @media (max-width: 991px) {
+      order: 1;
+    }
+  }
+
+  &__illustration {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 440px;
+
+    @media (max-width: 768px) {
+      min-height: 340px;
+      border-radius: 20px;
+    }
+  }
+
+  /* Gradient arka plan */
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--main-two-600) 0%, #f7931e 40%, #ff6b35 100%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(0, 0, 0, 0.06) 0%, transparent 40%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+    }
+  }
+
+  /* Floating ikonlar */
+  &__float-icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    animation: edu-float 4s ease-in-out infinite;
+
+    i {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    &:nth-child(2) { animation-delay: -0.8s; }
+    &:nth-child(3) { animation-delay: -1.6s; }
+    &:nth-child(4) { animation-delay: -2.4s; }
+    &:nth-child(5) { animation-delay: -3.2s; }
+  }
+
+  /* Merkez büyük ikon */
+  &__center-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96px;
+    height: 96px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 768px) {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+    }
+
+    i {
+      font-size: 2.75rem;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* Floating stat chips — altta */
+  &__floating-stats {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 4;
+    flex-wrap: wrap;
+  }
+
+  &__stat-chip {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(4px);
+    transition: transform 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &__stat-val {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--main-two-600);
+    line-height: 1;
+  }
+
+  &__stat-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--neutral-600);
+    margin-top: 3px;
+    font-weight: 600;
+  }
+}
+
+@keyframes edu-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* =========================================================
+   3. DİL KURSLARI — language-courses-section
+   ========================================================= */
+.language-courses-section {
+  background: var(--neutral-900);
+  padding: clampCal(56, 96, 768, 1599) 0;
+  position: relative;
+  overflow: hidden;
+
+  /* Breathing Orbs */
+  .lang-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: breathing 6s ease-in-out infinite;
+
+    &--1 {
+      width: 420px;
+      height: 420px;
+      background: var(--main-600);
+      filter: blur(130px);
+      opacity: 0.14;
+      top: -130px;
+      right: -80px;
+    }
+
+    &--2 {
+      width: 300px;
+      height: 300px;
+      background: var(--main-two-600);
+      filter: blur(100px);
+      opacity: 0.1;
+      bottom: -80px;
+      left: 8%;
+      animation-delay: -3s;
+    }
+  }
+}
+
+/* ---- Split Layout ---- */
+.lang-split {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 48px;
+  align-items: start;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+}
+
+.lang-info {
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  &__features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  &__feature-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      i {
+        font-size: 1.1rem;
+        color: var(--main-400);
+      }
+    }
+
+    .text {
+      .label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1px;
+      }
+      .desc {
+        display: block;
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.4;
+      }
+    }
+  }
+
+  &__stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 576px) {
+      gap: 20px;
+      justify-content: center;
+    }
+  }
+
+  &__stat-item {
+    .num {
+      display: block;
+      font-size: 1.625rem;
+      font-weight: 800;
+      color: var(--main-400);
+      line-height: 1;
+    }
+    .lbl {
+      display: block;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 3px;
+    }
+  }
+}
+
+/* ---- Dil Kartı ---- */
+.lang-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--main-400);
+    transform: translateY(-3px);
+
+    .lang-card__code {
+      background: rgba(72, 127, 255, 0.2);
+      border-color: rgba(72, 127, 255, 0.35);
+      color: var(--main-400);
+    }
+
+    .lang-card__arrow {
+      color: var(--main-400);
+      transform: translateX(4px);
+    }
+  }
+
+  /* Bayrak emoji */
+  &__flag {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* İki harfli ülke kodu badge */
+  &__code {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9375rem;
+    font-weight: 800;
+    color: var(--main-300, #a0bfff);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__count {
+    display: block;
+    font-size: 0.775rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  &__arrow {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+}
+
+/* =========================================================
+   4. AKTİVİTE KURSLARI — activity-courses-section
+   ========================================================= */
+.activity-courses-section {
+  background: var(--white);
+  padding: clampCal(48, 80, 768, 1599) 0;
+}
+
+.activity-teaser-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* ---- Görsel Alan (Sol) ---- */
+  &__visual {
+    @media (max-width: 991px) {
+      order: 1;
+    }
+  }
+
+  &__illustration {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 480px;
+
+    @media (max-width: 768px) {
+      min-height: 340px;
+      border-radius: 20px;
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--main-three-600) 0%, #00cec9 40%, #38d9a9 100%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 70% 75%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(0, 0, 0, 0.06) 0%, transparent 40%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+    }
+  }
+
+  &__float-icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    animation: activity-float 4s ease-in-out infinite;
+
+    i {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    &:nth-child(2) { animation-delay: -0.8s; }
+    &:nth-child(3) { animation-delay: -1.6s; }
+    &:nth-child(4) { animation-delay: -2.4s; }
+    &:nth-child(5) { animation-delay: -3.2s; }
+  }
+
+  &__center-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96px;
+    height: 96px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 768px) {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+    }
+
+    i {
+      font-size: 2.75rem;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__floating-stats {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 4;
+    flex-wrap: wrap;
+  }
+
+  &__stat-chip {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(4px);
+    transition: transform 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &__stat-val {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--main-three-600);
+    line-height: 1;
+  }
+
+  &__stat-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--neutral-600);
+    margin-top: 3px;
+    font-weight: 600;
+  }
+
+  /* ---- İçerik (Sağ) ---- */
+  &__content {
+    @media (max-width: 991px) {
+      order: 2;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: var(--main-three-50);
+    color: var(--main-three-600);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--main-three-100, #b2dfdb);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: var(--neutral-900);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: var(--neutral-600);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  /* ---- Kategori Card Grid — 2×3 ---- */
+  &__categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__cat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--white);
+    border: 1.5px solid var(--neutral-40);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: var(--main-three-600);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+      .activity-teaser-split__cat-arrow {
+        color: var(--main-three-600);
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__cat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i { font-size: 1.2rem; }
+  }
+
+  &__cat-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__cat-label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    line-height: 1.2;
+  }
+
+  &__cat-count {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--neutral-400);
+    margin-top: 2px;
+  }
+
+  &__cat-arrow {
+    font-size: 0.9375rem;
+    color: var(--neutral-300);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+}
+
+@keyframes activity-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* =========================================================
+   5. İK (EĞİTİM SEKTÖRÜ) — hr-education-section
+   ========================================================= */
+.hr-education-section {
+  background: linear-gradient(135deg, var(--main-600) 0%, var(--main-800) 100%);
+  padding: clampCal(48, 80, 768, 1599) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dekoratif daireler */
+.hr-section__circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: breathing 8s ease-in-out infinite;
+
+  &--1 {
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.04);
+    top: -200px;
+    right: -80px;
+  }
+
+  &--2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.035);
+    bottom: -120px;
+    left: -60px;
+    animation-delay: -4s;
+  }
+}
+
+.hr-fullwidth {
+  &__header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  &__subtitle {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* 4-column Feature Cards */
+  &__features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 991px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__feature-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 28px 22px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.22);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__feature-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+
+    i {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+  }
+
+  &__feature-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  &__feature-desc {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* 4-column Stat Cards (CountUp) */
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 991px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 16px;
+    padding: 24px 18px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+
+    i {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+  }
+
+  &__stat-num {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  &__stat-label {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* CTA Band */
+  &__cta-band {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__cta-inner {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+      padding: 24px 20px;
+    }
+  }
+
+  &__cta-text {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    > i {
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.7);
+      flex-shrink: 0;
+    }
+  }
+
+  &__cta-title {
+    display: block;
+    font-weight: 700;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+
+  &__cta-sub {
+    display: block;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+}
+
+/* =========================================================
+   6. WEBİNAR & ETKİNLİK — webinar-section (Split-Layout)
+   ========================================================= */
+.webinar-section {
+  background: var(--neutral-20);
+  padding: clampCal(48, 80, 768, 1599) 0;
+}
+
+.webinar-teaser-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* ---- İçerik (Sol) ---- */
+  &__content {
+    @media (max-width: 991px) {
+      order: 2;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: var(--main-two-50);
+    color: var(--main-two-600);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--main-two-100);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: var(--neutral-900);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: var(--neutral-600);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  &__features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  /* ---- Görsel Alan (Sağ) ---- */
+  &__visual {
+    @media (max-width: 991px) {
+      order: 1;
+    }
+  }
+
+  &__illustration {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 440px;
+
+    @media (max-width: 768px) {
+      min-height: 340px;
+      border-radius: 20px;
+    }
+  }
+
+  /* Gradient arka plan — turuncu/amber tema */
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--main-two-600) 0%, #f7931e 40%, #ff6b35 100%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(0, 0, 0, 0.06) 0%, transparent 40%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+    }
+  }
+
+  /* Floating ikonlar */
+  &__float-icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    animation: webinar-float 4s ease-in-out infinite;
+
+    i {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    &:nth-child(2) { animation-delay: -0.8s; }
+    &:nth-child(3) { animation-delay: -1.6s; }
+    &:nth-child(4) { animation-delay: -2.4s; }
+    &:nth-child(5) { animation-delay: -3.2s; }
+  }
+
+  /* Merkez büyük ikon */
+  &__center-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96px;
+    height: 96px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 768px) {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+    }
+
+    i {
+      font-size: 2.75rem;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* Floating stat chips — altta */
+  &__floating-stats {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 4;
+    flex-wrap: wrap;
+  }
+
+  &__stat-chip {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(4px);
+    transition: transform 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &__stat-val {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--main-two-600);
+    line-height: 1;
+  }
+
+  &__stat-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--neutral-600);
+    margin-top: 3px;
+    font-weight: 600;
+  }
+}
+
+/* Feature items — icon+title+desc (diğer sectionlarla uyumlu) */
+.webinar-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1.5px solid var(--neutral-40);
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  position: relative;
+
+  &:hover {
+    border-color: var(--main-two-600);
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Numbered badge */
+  &__num {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--main-two-600);
+    color: #fff;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--main-two-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i {
+      font-size: 1.1rem;
+      color: var(--main-two-600);
+    }
+  }
+
+  &__body {
+    h6 {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 2px;
+    }
+    p {
+      font-size: 0.8125rem;
+      color: var(--neutral-500);
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+@keyframes webinar-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* =========================================================
+   7. NASIL ÇALIŞIR — hiw-section (Premium Timeline)
+   ========================================================= */
+.hiw-section {
+  background: var(--neutral-900);
+  padding: clampCal(56, 96, 768, 1599) 0;
+  position: relative;
+  overflow: hidden;
+
+  /* Breathing Orbs */
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: breathing 7s ease-in-out infinite;
+
+    &:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(72, 127, 255, 0.08) 0%, transparent 70%);
+      top: -120px;
+      left: -120px;
+    }
+
+    &:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 184, 148, 0.06) 0%, transparent 70%);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: -3s;
+    }
+
+    &:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.05) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -5s;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 56px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: rgba(72, 127, 255, 0.12);
+    color: var(--main-400, #7ca3ff);
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid rgba(72, 127, 255, 0.2);
+    margin-bottom: 16px;
+
+    i { font-size: 1rem; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.65;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    margin-top: 48px;
+
+    @media (max-width: 768px) {
+      margin-top: 36px;
+    }
+  }
+}
+
+/* ---- Timeline Grid ---- */
+.hiw-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Yatay bağlantı çizgisi — desktop */
+  &__line {
+    display: none;
+
+    @media (min-width: 769px) {
+      display: block;
+      position: absolute;
+      top: 28px; /* number circle merkezine hizala */
+      left: calc(16.66% + 24px);
+      right: calc(16.66% + 24px);
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.15) 0,
+        rgba(255, 255, 255, 0.15) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      z-index: 1;
+    }
+  }
+
+  /* Her bir adım */
+  &__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Numara dairesi */
+  &__number {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    position: relative;
+
+    /* Parlayan halka efekti */
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  /* Kart */
+  &__card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 32px 24px 28px;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      padding: 28px 20px 24px;
+    }
+  }
+
+  /* Kart içi gradient ikon */
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+
+    i {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+  }
+
+  &__card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  &__card-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* CountUp stat inside card */
+  &__card-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__card-stat-num {
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: var(--main-400, #7ca3ff);
+    line-height: 1;
+  }
+
+  &__card-stat-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Shimmer CTA button for HiW */
+.hiw-cta-btn {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: shimmer-button 3s infinite;
+  }
+}
+
+/* =========================================================
+   8. GÜVEN + CTA — trust-section
+   ========================================================= */
+.trust-section {
+  background: var(--neutral-900);
+  padding: clampCal(48, 80, 768, 1599) 0;
+  position: relative;
+  overflow: hidden;
+
+  /* Breathing Orbs */
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: breathing 7s ease-in-out infinite;
+
+    &--1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(72, 127, 255, 0.12) 0%, transparent 70%);
+      top: -200px;
+      right: -150px;
+    }
+
+    &--2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%);
+      bottom: -120px;
+      left: -100px;
+      animation-delay: -3.5s;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background: rgba(72, 127, 255, 0.15);
+    color: #7cb3ff;
+    border: 1px solid rgba(72, 127, 255, 0.2);
+    margin-bottom: 16px;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 14px;
+
+    span {
+      color: var(--main-two-600);
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+    }
+  }
+}
+
+/* --- Stats Grid --- */
+.trust-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  &__card {
+    text-align: center;
+    padding: 28px 16px 24px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(72, 127, 255, 0.35);
+      box-shadow: 0 8px 32px rgba(72, 127, 255, 0.15);
+    }
+  }
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(72, 127, 255, 0.2) 0%, rgba(108, 92, 231, 0.2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+
+    i {
+      font-size: 1.375rem;
+      color: #7cb3ff;
+    }
+  }
+
+  &__value {
+    display: block;
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+  }
+}
+
+/* --- Logo Strip --- */
+.trust-logos {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+
+  &__label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+
+  &__marquee {
+    .rfm-marquee-container {
+      gap: 12px;
+    }
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 500;
+    transition: all 0.25s ease;
+    margin: 0 6px;
+    white-space: nowrap;
+
+    i {
+      font-size: 0.875rem;
+      opacity: 0.6;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+/* --- CTA Card --- */
+.trust-cta {
+  position: relative;
+  z-index: 1;
+
+  &__inner {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    padding: 48px 32px;
+
+    @media (max-width: 768px) {
+      padding: 36px 20px;
+      border-radius: 16px;
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #487fff 0%, #6c5ce7 50%, #487fff 100%);
+    background-size: 200% 200%;
+    animation: trust-shimmer 6s ease infinite;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 50%;
+      top: -100px;
+      right: -80px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      bottom: -60px;
+      left: -40px;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 14px;
+    line-height: 1.2;
+
+    span {
+      color: #ffb347;
+    }
+  }
+
+  &__desc {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.65;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+
+    .btn-main {
+      background: #fff;
+      color: var(--main-600);
+      border-color: #fff;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.92);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    .btn-outline-main-two {
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      background: transparent;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #fff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@keyframes trust-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* =========================================================
+   SHARED UTILITIES — Shimmer Button & Text Gradient
+   ========================================================= */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    animation: shimmer-button 3s infinite;
+  }
+}
+
+.text-gradient-main {
+  background: linear-gradient(135deg, var(--main-400) 0%, var(--main-two-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

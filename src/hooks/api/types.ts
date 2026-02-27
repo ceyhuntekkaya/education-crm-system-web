@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from "axios";
 
 // API Hook durumları
 export interface ApiState<T> {
@@ -17,6 +17,8 @@ export interface ApiOptions<T = unknown> extends AxiosRequestConfig {
   onError?: (error: string) => void;
   // Yükleme bitimi callback'i
   onFinally?: () => void;
+  // Snackbar gösterimini kontrol eder (default: true)
+  showSnackbar?: boolean;
 }
 
 // Mutation hook seçenekleri
@@ -33,7 +35,7 @@ export interface PaginationParams {
   page?: number;
   limit?: number;
   sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  sortOrder?: "asc" | "desc";
 }
 
 // API Response yapısı

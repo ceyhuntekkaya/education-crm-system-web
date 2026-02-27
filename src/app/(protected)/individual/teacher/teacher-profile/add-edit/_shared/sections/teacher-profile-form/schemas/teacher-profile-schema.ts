@@ -13,13 +13,7 @@ export const teacherProfileSchema = yup.object().shape({
   phone: yup.string().max(20, "Telefon en fazla 20 karakter olabilir"),
   city: yup.string().max(50, "Şehir en fazla 50 karakter olabilir"),
   branch: yup.string().max(100, "Branş en fazla 100 karakter olabilir"),
-  educationLevel: yup
-    .string()
-    .max(50, "Eğitim seviyesi en fazla 50 karakter olabilir"),
-  experienceYears: yup
-    .number()
-    .nullable()
-    .min(0, "Tecrübe yılı negatif olamaz"),
+  // educationLevel ve experienceYears backend DTO'sunda YOK - gönderilmez
   bio: yup.string(),
   profilePhotoUrl: yup
     .string()

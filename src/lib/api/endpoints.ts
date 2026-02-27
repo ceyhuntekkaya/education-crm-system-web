@@ -487,6 +487,30 @@ export const API_ENDPOINTS = {
       CREATE: "/hr/teacher-profiles",
       UPDATE: (id: string | number) => `/hr/teacher-profiles/${id}`,
       DELETE: (id: string | number) => `/hr/teacher-profiles/${id}`,
+
+      // Educations
+      EDUCATIONS: {
+        LIST: (profileId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/educations`,
+        CREATE: (profileId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/educations`,
+        UPDATE: (profileId: string | number, educationId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/educations/${educationId}`,
+        DELETE: (profileId: string | number, educationId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/educations/${educationId}`,
+      },
+
+      // Experiences
+      EXPERIENCES: {
+        LIST: (profileId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/experiences`,
+        CREATE: (profileId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/experiences`,
+        UPDATE: (profileId: string | number, experienceId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/experiences/${experienceId}`,
+        DELETE: (profileId: string | number, experienceId: string | number) =>
+          `/hr/teacher-profiles/${profileId}/experiences/${experienceId}`,
+      },
     },
 
     // Applications

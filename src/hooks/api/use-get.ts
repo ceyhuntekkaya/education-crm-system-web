@@ -8,11 +8,12 @@ import { ApiOptions, PaginationParams } from "./types";
 // GET istekleri için hook
 export const useGet = <T>(
   url: string | null,
-  options?: ApiOptions<T> & { params?: Record<string, unknown> }
+  options?: ApiOptions<T> & { params?: Record<string, unknown> },
 ) => {
   const {
     enabled = true,
     params,
+    showSnackbar,
     onSuccess,
     onError,
     onFinally,
@@ -27,7 +28,12 @@ export const useGet = <T>(
       api.setLoading(true);
       api.setError(null);
 
-      const response = await apiClient.get<T>(url, { params });
+      const response = await apiClient.get<T>(url, {
+        params,
+        headers: {
+          ...(showSnackbar === false && { "X-Show-Snackbar": "false" }),
+        },
+      });
       const result = response.data;
 
       api.setData(result);

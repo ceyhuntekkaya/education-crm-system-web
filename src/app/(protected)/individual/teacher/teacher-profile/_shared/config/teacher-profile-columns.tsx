@@ -1,6 +1,10 @@
 import React from "react";
 import { Badge, CustomImage } from "@/components";
-import { TeacherProfileDto } from "@/types";
+import {
+  TeacherProfileDto,
+  TeacherEducationDto,
+  TeacherExperienceDto,
+} from "@/types";
 import { DetailColumn } from "@/components/layouts/detail-layout/types";
 import {
   getProfileStatusBadgeVariant,
@@ -112,6 +116,226 @@ const renderProvinces = (profile: TeacherProfileDto) => {
   );
 };
 
+// Educations render helper
+const renderEducations = (profile: TeacherProfileDto) => {
+  const educations = profile.educations;
+  if (!educations || educations.length === 0) {
+    return (
+      <div className="d-flex align-items-center gap-8 text-neutral-400 py-8">
+        <i className="ph ph-graduation-cap" style={{ fontSize: "1.25rem" }}></i>
+        <span style={{ fontSize: "0.9375rem" }}>
+          Henüz eğitim bilgisi eklenmemiş
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 360px), 1fr))",
+        gap: "12px",
+      }}
+    >
+      {educations
+        .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+        .map((edu) => {
+          const hasYear = edu.startYear || edu.endYear;
+          return (
+            <div key={edu.id}>
+              <div
+                className="card border h-100"
+                style={{
+                  borderRadius: "12px",
+                  borderColor: "rgba(17,24,39,0.08)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                }}
+              >
+                <div className="card-body p-0 d-flex">
+                  {/* Sol Accent - info/mavi */}
+                  <div
+                    className="bg-info flex-shrink-0"
+                    style={{ width: "4px", borderRadius: "12px 0 0 12px" }}
+                  />
+                  <div className="flex-grow-1 p-16">
+                    <Badge variant="info" size="sm" className="mb-8">
+                      <i className="ph ph-graduation-cap me-1" />
+                      {getEducationLevelDisplay(edu.educationLevel)}
+                    </Badge>
+                    <h6
+                      className="fw-semibold text-neutral-900 mb-4"
+                      style={{ fontSize: "0.9375rem" }}
+                    >
+                      {edu.institution}
+                    </h6>
+                    <div
+                      className="d-flex flex-wrap align-items-center gap-8 text-neutral-500"
+                      style={{ fontSize: "0.8125rem" }}
+                    >
+                      {edu.department && (
+                        <span>
+                          <i className="ph ph-book-open me-1" />
+                          {edu.department}
+                        </span>
+                      )}
+                      {edu.department && hasYear && (
+                        <span style={{ opacity: 0.4 }}>•</span>
+                      )}
+                      {hasYear && (
+                        <span>
+                          <i className="ph ph-calendar me-1" />
+                          {edu.startYear || "?"} –{" "}
+                          {edu.endYear || "Devam Ediyor"}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+    </div>
+  );
+};
+
+// Experiences render helper
+const renderExperiences = (profile: TeacherProfileDto) => {
+  const experiences = profile.experiences;
+  if (!experiences || experiences.length === 0) {
+    return (
+      <div className="d-flex align-items-center gap-8 text-neutral-400 py-8">
+        <i className="ph ph-briefcase" style={{ fontSize: "1.25rem" }}></i>
+        <span style={{ fontSize: "0.9375rem" }}>
+          Henüz iş deneyimi eklenmemiş
+        </span>
+      </div>
+    );
+  }
+
+  const formatDate = (dateStr: string | null): string => {
+    if (!dateStr) return "Devam Ediyor";
+    try {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("tr-TR", {
+        year: "numeric",
+        month: "short",
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  const calculateDuration = (
+    startDate: string,
+    endDate: string | null,
+  ): string => {
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+    const months =
+      (end.getFullYear() - start.getFullYear()) * 12 +
+      (end.getMonth() - start.getMonth());
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    if (years > 0 && remainingMonths > 0) {
+      return `${years} yıl ${remainingMonths} ay`;
+    } else if (years > 0) {
+      return `${years} yıl`;
+    }
+    return `${Math.max(remainingMonths, 1)} ay`;
+  };
+
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 360px), 1fr))",
+        gap: "12px",
+      }}
+    >
+      {experiences
+        .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+        .map((exp) => {
+          const isActive = !exp.endDate;
+          return (
+            <div key={exp.id}>
+              <div
+                className="card border h-100"
+                style={{
+                  borderRadius: "12px",
+                  borderColor: "rgba(17,24,39,0.08)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                }}
+              >
+                <div className="card-body p-0 d-flex">
+                  {/* Sol Accent - yeşil aktifse, mavi pasifse */}
+                  <div
+                    className={isActive ? "bg-success" : "bg-primary"}
+                    style={{ width: "4px", borderRadius: "12px 0 0 12px" }}
+                  />
+                  <div className="flex-grow-1 p-16">
+                    {/* Başlık + Aktif Badge */}
+                    <div className="d-flex align-items-center gap-8 mb-4">
+                      <h6
+                        className="fw-semibold text-neutral-900 mb-0"
+                        style={{ fontSize: "0.9375rem" }}
+                      >
+                        {exp.roleTitle}
+                      </h6>
+                      {isActive && (
+                        <Badge variant="success" size="sm">
+                          Aktif
+                        </Badge>
+                      )}
+                    </div>
+
+                    {/* Kurum */}
+                    <div
+                      className="text-neutral-500 mb-8"
+                      style={{ fontSize: "0.8125rem" }}
+                    >
+                      <i className="ph ph-buildings me-1" />
+                      {exp.institution}
+                    </div>
+
+                    {/* Tarih + Süre */}
+                    <div
+                      className="d-flex flex-wrap align-items-center gap-8"
+                      style={{ fontSize: "0.8125rem" }}
+                    >
+                      <span className="text-neutral-500">
+                        <i className="ph ph-calendar me-1" />
+                        {formatDate(exp.startDate)} – {formatDate(exp.endDate)}
+                      </span>
+                      <Badge variant="secondary" size="sm">
+                        {calculateDuration(exp.startDate, exp.endDate)}
+                      </Badge>
+                    </div>
+
+                    {/* Açıklama */}
+                    {exp.description && (
+                      <p
+                        className="text-neutral-600 mb-0 mt-8"
+                        style={{
+                          fontSize: "0.8125rem",
+                          lineHeight: "1.6",
+                          whiteSpace: "pre-wrap",
+                        }}
+                      >
+                        {exp.description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+    </div>
+  );
+};
+
 // Main column definitions
 export const createTeacherProfileDetailColumns =
   (): DetailColumn<TeacherProfileDto>[] => [
@@ -172,38 +396,45 @@ export const createTeacherProfileDetailColumns =
     // DETAILS SECTION - Detay Bilgileri
     // ═══════════════════════════════════════════════════════════════════════════
     {
-      field: "educationLevel",
+      // educationLevel - TeacherProfileDto'da YOK; educations[0].educationLevel'den türetilir
+      field: "educationLevel" as any,
       headerName: "Eğitim Seviyesi",
       section: "details",
       icon: "ph-bold ph-graduation-cap",
       iconColor: "text-warning-700",
       grid: 6,
       order: 20,
-      condition: (profile) => !!profile.educationLevel,
-      renderCell: (profile) => (
-        <div
-          className="text-neutral-900 fw-semibold"
-          style={{ fontSize: "1rem" }}
-        >
-          {getEducationLevelDisplay(profile.educationLevel)}
-        </div>
-      ),
+      condition: (profile) =>
+        !!(profile.educations && profile.educations.length > 0),
+      renderCell: (profile) => {
+        const highestEdu = profile.educations?.[0];
+        return (
+          <div
+            className="text-neutral-900 fw-semibold"
+            style={{ fontSize: "1rem" }}
+          >
+            {getEducationLevelDisplay(highestEdu?.educationLevel)}
+          </div>
+        );
+      },
     },
     {
-      field: "experienceYears",
+      // experienceYears - TeacherProfileDto'da YOK; experiences array'inden türetilir
+      field: "experienceYears" as any,
       headerName: "Deneyim",
       section: "details",
       icon: "ph-bold ph-briefcase",
       iconColor: "text-primary-700",
       grid: 6,
       order: 21,
-      condition: (profile) => profile.experienceYears !== undefined,
+      condition: (profile) =>
+        !!(profile.experiences && profile.experiences.length > 0),
       renderCell: (profile) => (
         <div
           className="text-neutral-900 fw-semibold"
           style={{ fontSize: "1rem" }}
         >
-          {formatExperienceYears(profile.experienceYears)}
+          {formatExperienceYears(profile.experiences?.length)}
         </div>
       ),
     },
@@ -296,6 +527,38 @@ export const createTeacherProfileDetailColumns =
           <span>CV Dosyasını İndir</span>
         </div>
       ),
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // EDUCATIONS - Eğitim Bilgileri
+    // ═══════════════════════════════════════════════════════════════════════════
+    {
+      field: "educations",
+      headerName: "Eğitim Bilgileri",
+      section: "details",
+      icon: "ph-bold ph-graduation-cap",
+      iconColor: "text-info-700",
+      grid: 12,
+      order: 25,
+      condition: (profile) =>
+        !!profile.educations && profile.educations.length > 0,
+      renderCell: renderEducations,
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // EXPERIENCES - İş Deneyimleri
+    // ═══════════════════════════════════════════════════════════════════════════
+    {
+      field: "experiences",
+      headerName: "İş Deneyimleri",
+      section: "details",
+      icon: "ph-bold ph-briefcase",
+      iconColor: "text-primary-700",
+      grid: 12,
+      order: 26,
+      condition: (profile) =>
+        !!profile.experiences && profile.experiences.length > 0,
+      renderCell: renderExperiences,
     },
 
     // ═══════════════════════════════════════════════════════════════════════════

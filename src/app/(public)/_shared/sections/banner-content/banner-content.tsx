@@ -13,11 +13,14 @@ export default function BannerContent() {
           <span className="text-main-600">Hemen Bul</span>
         </h5>
       </div>
-      <h1 className="display2 mb-16 mb-lg-24 wow bounceInLeft">
+      <h1 className="display2 mb-16 mb-lg-24 wow fadeInUp">
         <span className="text-main-600">Hızlı Arama</span>,{" "}
         <span className="text-main-two-600">Kolay Seçim</span>
       </h1>
-      <p className="text-neutral-500 text-line-2 wow bounceInUp mb-3 mb-lg-0">
+      <p
+        className="text-neutral-500 text-line-2 wow fadeInUp mb-3 mb-lg-0"
+        data-wow-delay="0.1s"
+      >
         <span className="text-main-600">Ara</span>,{" "}
         <span className="text-main-two-600">Filtrele</span>,{" "}
         <span className="text-main-600">Keşfet</span>.
@@ -26,7 +29,7 @@ export default function BannerContent() {
         <Link
           href="/search"
           className="btn btn-main rounded-pill flex-align gap-8"
-          data-aos="fade-right"
+          data-aos="fade-up"
         >
           Eğitim Ara
           <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
@@ -34,7 +37,8 @@ export default function BannerContent() {
         <Link
           href="/about"
           className="btn btn-outline-main rounded-pill flex-align gap-8"
-          data-aos="fade-left"
+          data-aos="fade-up"
+          data-aos-delay="100"
         >
           Hakkımızda
           <i className="ph-bold ph-arrow-up-right d-flex text-lg" />

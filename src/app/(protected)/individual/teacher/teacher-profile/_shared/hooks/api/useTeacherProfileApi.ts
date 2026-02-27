@@ -81,6 +81,7 @@ export const useGetTeacherProfileByUserId = (
     userId ? API_ENDPOINTS.HR.TEACHER_PROFILES.BY_USER(userId) : null,
     {
       enabled: options?.enabled ?? !!userId,
+      showSnackbar: false,
     },
   );
 };

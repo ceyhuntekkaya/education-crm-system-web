@@ -16,8 +16,8 @@ export const transformProfileToFormData = (
     phone: profile.phone || "",
     city: profile.city || "",
     branch: profile.branch || "",
-    educationLevel: profile.educationLevel || "",
-    experienceYears: profile.experienceYears || undefined,
+    // educationLevel ve experienceYears backend'de TeacherProfileDto'da YOK
+    // Eğitim bilgileri 'educations' array'inden, deneyim 'experiences' array'inden gelir
     bio: profile.bio || "",
     profilePhotoUrl: profile.profilePhotoUrl || "",
     videoUrl: profile.videoUrl || "",

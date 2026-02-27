@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { filterDataForEdit } from "../../../utils";
 import { TeacherProfileCreateDto, TeacherProfileUpdateDto } from "@/types";
 import { useTeacherProfileContext } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/contexts";
+import { TeacherEducationSection } from "../../teacher-education-section";
+import { TeacherExperienceSection } from "../../teacher-experience-section";
 
 /**
  * Öğretmen profil form içeriği
@@ -34,6 +36,7 @@ export const TeacherProfileFormContent: React.FC = () => {
     cityOptions,
     provinceOptions,
     provincesLoading,
+    profileId,
   } = useTeacherProfileAddEdit();
 
   const handleSubmit = async (values: any) => {
@@ -42,21 +45,31 @@ export const TeacherProfileFormContent: React.FC = () => {
       ? values.provinceIds.map((id: string) => parseInt(id))
       : [];
 
+    // Backend DTO'suna uygun alanları dışla:
+    // educationLevel ve experienceYears backend TeacherProfileCreateDto/UpdateDto'sunda YOK.
+    // Eğitim: /hr/teacher-profiles/{id}/educations sub-resource ile yönetilir
+    // Deneyim: /hr/teacher-profiles/{id}/experiences sub-resource ile yönetilir
+    const {
+      educationLevel: _educationLevel,
+      experienceYears: _experienceYears,
+      provinceIds: _rawProvinceIds,
+      ...backendSafeValues
+    } = values;
+
     let success = false;
 
     if (isEditMode) {
-      const filteredData = filterDataForEdit(values) as TeacherProfileUpdateDto;
+      const filteredData = filterDataForEdit(
+        backendSafeValues,
+      ) as TeacherProfileUpdateDto;
       // Province IDs'i ekle
       filteredData.provinceIds = provinceIds;
       const result = await putProfile(filteredData);
       success = !!result;
     } else {
       const formData: TeacherProfileCreateDto = {
-        ...values,
+        ...backendSafeValues,
         provinceIds,
-        experienceYears: values.experienceYears
-          ? parseInt(values.experienceYears)
-          : undefined,
         isActive: values.isActive !== false,
       };
       const result = await postProfile(formData);
@@ -91,8 +104,8 @@ export const TeacherProfileFormContent: React.FC = () => {
       <div className="row row-gap-24">
         {/* Temel Bilgiler */}
         <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-user me-2"></i>
+          <h5 className="mb-3 d-flex align-items-center gap-8">
+            <i className="ph ph-user"></i>
             Temel Bilgiler
           </h5>
         </div>
@@ -151,41 +164,22 @@ export const TeacherProfileFormContent: React.FC = () => {
           <Divider size="xxs" />
         </div>
 
-        {/* Eğitim ve Tecrübe */}
+        {/* Eğitim ve Branş */}
         <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-graduation-cap me-2"></i>
-            Eğitim ve Tecrübe
+          <h5 className="mb-3 d-flex align-items-center gap-8">
+            <i className="ph ph-graduation-cap"></i>
+            Branş Bilgisi
           </h5>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-12">
           <FormInput label="Branş" name="branch" placeholder="Örn: Matematik" />
         </div>
 
-        <div className="col-md-6">
-          <FormAutocomplete
-            label="Eğitim Seviyesi"
-            name="educationLevel"
-            placeholder="Eğitim seviyesi seçiniz..."
-            options={[
-              { label: "Lise", value: "HIGH_SCHOOL" },
-              { label: "Ön Lisans", value: "ASSOCIATE" },
-              { label: "Lisans", value: "BACHELORS" },
-              { label: "Yüksek Lisans", value: "MASTERS" },
-              { label: "Doktora", value: "DOCTORATE" },
-            ]}
-          />
-        </div>
-
-        <div className="col-md-6">
-          <FormInput
-            label="Tecrübe Yılı"
-            name="experienceYears"
-            type="number"
-            placeholder="Örn: 5"
-          />
-        </div>
+        {/* NOT: Eğitim seviyesi ve tecrübe yılı alanları backend API'de TeacherProfileCreateDto/UpdateDto içinde yer almamaktadır.
+             Eğitim bilgileri (educationLevel dahil) profil oluşturulduktan sonra
+             /hr/teacher-profiles/{id}/educations sub-resource'u ile eklenir.
+             Deneyim bilgileri ise /hr/teacher-profiles/{id}/experiences ile eklenir. */}
 
         <div className="col-12">
           <FormTextarea
@@ -196,6 +190,160 @@ export const TeacherProfileFormContent: React.FC = () => {
           />
         </div>
 
+        {/* Eğitim Bilgileri - Sadece edit modunda göster */}
+        {isEditMode && profileId && (
+          <>
+            <div className="col-12 pt-8">
+              <Divider size="xxs" />
+            </div>
+            <div className="col-12 pt-8">
+              <TeacherEducationSection />
+            </div>
+          </>
+        )}
+
+        {/* İş Deneyimleri - Sadece edit modunda göster */}
+        {isEditMode && profileId && (
+          <>
+            <div className="col-12 pt-8">
+              <Divider size="xxs" />
+            </div>
+            <div className="col-12 pt-8">
+              <TeacherExperienceSection />
+            </div>
+          </>
+        )}
+
+        {/* Profil oluşturulduktan sonra eklenebileceğini belirten bilgi notu */}
+        {!isEditMode && (
+          <>
+            <div className="col-12">
+              <Divider size="xxs" />
+            </div>
+
+            {/* Section Başlığı */}
+            <div className="col-12">
+              <h5 className="mb-0 d-flex align-items-center gap-8">
+                <i className="ph ph-list-checks"></i>
+                Eğitim ve Deneyim Bilgileri
+              </h5>
+              <p className="text-muted text-sm mt-4 mb-0">
+                Bu bilgiler profil oluşturulduktan sonra eklenebilir.
+              </p>
+            </div>
+
+            {/* Eğitim Bilgileri Kartı */}
+            <div className="col-md-6">
+              <div className="rounded-12 border border-info-100 overflow-hidden h-100">
+                <div className="bg-info-50 px-16 py-12 d-flex align-items-center gap-10 border-bottom border-info-100">
+                  <div
+                    className="d-flex align-items-center justify-content-center rounded-8 bg-info-100"
+                    style={{ width: 36, height: 36, flexShrink: 0 }}
+                  >
+                    <i
+                      className="ph ph-graduation-cap text-info-600"
+                      style={{ fontSize: 18 }}
+                    ></i>
+                  </div>
+                  <span className="fw-semibold text-info-700">
+                    Eğitim Bilgileri
+                  </span>
+                </div>
+                <div className="bg-white px-16 py-12">
+                  <ul
+                    className="mb-0 ps-0 d-flex flex-column gap-8"
+                    style={{ listStyle: "none" }}
+                  >
+                    <li className="d-flex align-items-start gap-8 text-sm text-neutral-600">
+                      <i
+                        className="ph ph-check-circle text-info-500 mt-1 flex-shrink-0"
+                        style={{ fontSize: 15 }}
+                      ></i>
+                      Mezun olduğunuz okul ve bölüm
+                    </li>
+                    <li className="d-flex align-items-start gap-8 text-sm text-neutral-600">
+                      <i
+                        className="ph ph-check-circle text-info-500 mt-1 flex-shrink-0"
+                        style={{ fontSize: 15 }}
+                      ></i>
+                      Eğitim seviyesi ve mezuniyet yılı
+                    </li>
+                    <li className="d-flex align-items-start gap-8 text-sm text-neutral-600">
+                      <i
+                        className="ph ph-check-circle text-info-500 mt-1 flex-shrink-0"
+                        style={{ fontSize: 15 }}
+                      ></i>
+                      Birden fazla eğitim kaydı eklenebilir
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* İş Deneyimi Kartı */}
+            <div className="col-md-6">
+              <div className="rounded-12 border border-purple-100 overflow-hidden h-100">
+                <div className="bg-purple-50 px-16 py-12 d-flex align-items-center gap-10 border-bottom border-purple-100">
+                  <div
+                    className="d-flex align-items-center justify-content-center rounded-8 bg-purple-100"
+                    style={{ width: 36, height: 36, flexShrink: 0 }}
+                  >
+                    <i
+                      className="ph ph-briefcase text-purple-600"
+                      style={{ fontSize: 18 }}
+                    ></i>
+                  </div>
+                  <span className="fw-semibold text-purple-700">
+                    İş Deneyimleri
+                  </span>
+                </div>
+                <div className="bg-white px-16 py-12">
+                  <ul
+                    className="mb-0 ps-0 d-flex flex-column gap-8"
+                    style={{ listStyle: "none" }}
+                  >
+                    <li className="d-flex align-items-start gap-8 text-sm text-neutral-600">
+                      <i
+                        className="ph ph-check-circle text-purple-500 mt-1 flex-shrink-0"
+                        style={{ fontSize: 15 }}
+                      ></i>
+                      Çalıştığınız kurum ve pozisyon bilgisi
+                    </li>
+                    <li className="d-flex align-items-start gap-8 text-sm text-neutral-600">
+                      <i
+                        className="ph ph-check-circle text-purple-500 mt-1 flex-shrink-0"
+                        style={{ fontSize: 15 }}
+                      ></i>
+                      Başlangıç ve bitiş tarihleri
+                    </li>
+                    <li className="d-flex align-items-start gap-8 text-sm text-neutral-600">
+                      <i
+                        className="ph ph-check-circle text-purple-500 mt-1 flex-shrink-0"
+                        style={{ fontSize: 15 }}
+                      ></i>
+                      Birden fazla deneyim kaydı eklenebilir
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Alt bilgi notu */}
+            <div className="col-12">
+              <div className="d-flex align-items-center gap-8 bg-neutral-25 rounded-8 p-12 border border-neutral-100">
+                <i
+                  className="ph ph-arrows-clockwise text-neutral-400 flex-shrink-0"
+                  style={{ fontSize: 16 }}
+                ></i>
+                <p className="text-neutral-500 mb-0 text-sm">
+                  Profil kaydedildikten sonra düzenleme sayfasına
+                  yönlendirileceksiniz. Orada bu bilgileri ekleyebilirsiniz.
+                </p>
+              </div>
+            </div>
+          </>
+        )}
+
         {/* Divider */}
         <div className="col-12">
           <Divider size="xxs" />
@@ -203,8 +351,8 @@ export const TeacherProfileFormContent: React.FC = () => {
 
         {/* Medya ve Belgeler */}
         <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-file-image me-2"></i>
+          <h5 className="mb-3 d-flex align-items-center gap-8">
+            <i className="ph ph-file-image"></i>
             Medya ve Belgeler
           </h5>
         </div>
@@ -267,8 +415,8 @@ export const TeacherProfileFormContent: React.FC = () => {
 
         {/* Durum */}
         <div className="col-12">
-          <h5 className="mb-3">
-            <i className="ph ph-toggles me-2"></i>
+          <h5 className="mb-3 d-flex align-items-center gap-8">
+            <i className="ph ph-toggles"></i>
             Durum
           </h5>
         </div>
