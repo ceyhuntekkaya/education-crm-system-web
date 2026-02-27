@@ -108,12 +108,15 @@ export default function PrivateSchoolsSection() {
               Özel Okullar
             </div>
 
-            <h2 className="school-teaser-split__title wow bounceInRight">
+            <h2 className="school-teaser-split__title wow fadeInUp">
               <span className="text-main-600">Türkiye&apos;nin En İyi</span>{" "}
               Özel Okullarını Keşfedin
             </h2>
 
-            <p className="school-teaser-split__desc wow bounceInUp">
+            <p
+              className="school-teaser-split__desc wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
               Anaokulu&apos;ndan liseye, Türkiye genelindeki özel okulları
               keşfedin. Konuma, fiyata ve değerlendirmelere göre karşılaştırın,
               tanışma randevusu alın.

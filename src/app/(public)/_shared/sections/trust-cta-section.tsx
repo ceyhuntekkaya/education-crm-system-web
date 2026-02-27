@@ -55,11 +55,14 @@ export default function TrustCtaSection() {
             <i className="ph-bold ph-shield-check" />
             Güvenilir Platform
           </div>
-          <h2 className="trust-section__title wow bounceInLeft">
+          <h2 className="trust-section__title wow fadeInUp">
             Türkiye&apos;nin Eğitim Ekosistemi{" "}
             <span className="text-gradient-main">Tek Çatı Altında</span>
           </h2>
-          <p className="trust-section__subtitle wow bounceInUp">
+          <p
+            className="trust-section__subtitle wow fadeInUp"
+            data-wow-delay="0.1s"
+          >
             Binlerce veli, öğrenci ve kurumun güvendiği platformda yerinizi
             alın.
           </p>
@@ -129,14 +132,14 @@ export default function TrustCtaSection() {
             <div className="trust-cta__gradient" />
             <div className="trust-cta__content">
               <h3
-                className="trust-cta__title wow bounceInLeft"
+                className="trust-cta__title wow fadeInUp"
                 data-wow-delay="0.3s"
               >
                 Eğitimde Doğru Adımı{" "}
                 <span className="text-gradient-main">Şimdi Atın</span>
               </h3>
               <p
-                className="trust-cta__desc wow bounceInUp"
+                className="trust-cta__desc wow fadeInUp"
                 data-wow-delay="0.35s"
               >
                 Ücretsiz hesabınızla hemen başlayın veya kurumunuzu kaydedin.

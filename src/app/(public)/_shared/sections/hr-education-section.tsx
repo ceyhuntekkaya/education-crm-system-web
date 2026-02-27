@@ -70,11 +70,14 @@ export default function HrEducationSection() {
             <i className="ph-bold ph-briefcase" />
             İnsan Kaynakları
           </div>
-          <h2 className="hr-fullwidth__title wow bounceInRight">
+          <h2 className="hr-fullwidth__title wow fadeInUp">
             Eğitim Sektörüne{" "}
             <span style={{ color: "var(--main-200)" }}>Özel İK</span> Çözümleri
           </h2>
-          <p className="hr-fullwidth__subtitle wow bounceInUp">
+          <p
+            className="hr-fullwidth__subtitle wow fadeInUp"
+            data-wow-delay="0.1s"
+          >
             Okulunuz veya kurumunuz için doğru eğitimciyi bulun. Hızlı ve şeffaf
             işe alım & insan kaynakları yönetim platformu.
           </p>
@@ -86,7 +89,7 @@ export default function HrEducationSection() {
             <div
               key={i}
               className="hr-fullwidth__feature-card wow fadeInUp"
-              data-wow-delay={`${i * 0.12}s`}
+              data-wow-delay={`${i * 0.1}s`}
             >
               <div className="hr-fullwidth__feature-icon">
                 <i className={f.icon} />

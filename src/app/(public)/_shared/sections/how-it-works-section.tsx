@@ -44,11 +44,14 @@ export default function HowItWorksSection() {
             <i className="ph-bold ph-path" />
             Nasıl Çalışır?
           </div>
-          <h2 className="hiw-section__title wow bounceInLeft">
+          <h2 className="hiw-section__title wow fadeInUp">
             Üç Basit Adımda{" "}
             <span className="text-gradient-main">Hedefinize Ulaşın</span>
           </h2>
-          <p className="hiw-section__subtitle wow bounceInUp">
+          <p
+            className="hiw-section__subtitle wow fadeInUp"
+            data-wow-delay="0.1s"
+          >
             Hayalinizdeki eğitim kurumunu bulun, inceleyin ve kayıt olun — hepsi
             bu kadar kolay.
           </p>
@@ -70,7 +73,7 @@ export default function HowItWorksSection() {
               <div
                 key={i}
                 className="hiw-timeline__step wow fadeInUp"
-                data-wow-delay={`${i * 0.15}s`}
+                data-wow-delay={`${i * 0.1}s`}
               >
                 {/* Numara dairesi — CountUp */}
                 <div

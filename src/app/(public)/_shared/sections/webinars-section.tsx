@@ -83,12 +83,15 @@ export default function WebinarsSection() {
               Webinar & Etkinlik
             </div>
 
-            <h2 className="webinar-teaser-split__title wow bounceInLeft">
+            <h2 className="webinar-teaser-split__title wow fadeInUp">
               Uzmanlarla Buluşun,{" "}
               <span className="text-main-two-600">Gelişime Katılın</span>
             </h2>
 
-            <p className="webinar-teaser-split__desc wow bounceInUp">
+            <p
+              className="webinar-teaser-split__desc wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
               Eğitim dünyasının önde gelen uzmanlarıyla canlı webinar ve
               etkinliklere katılın. Dijitalden yüz yüzeye, her formatta
               profesyonel gelişiminize yatırım yapın.

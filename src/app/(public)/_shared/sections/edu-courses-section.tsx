@@ -58,12 +58,15 @@ export default function EduCoursesSection() {
               Lise & Üniversite
             </div>
 
-            <h2 className="edu-teaser-split__title wow bounceInLeft">
+            <h2 className="edu-teaser-split__title wow fadeInUp">
               <span className="text-main-two-600">Sınav Hazırlık</span>{" "}
               Kurslarında Fark Yaratın
             </h2>
 
-            <p className="edu-teaser-split__desc wow bounceInUp">
+            <p
+              className="edu-teaser-split__desc wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
               LGS, YKS, AYT ve üniversite hazırlık programlarında Türkiye
               genelindeki en iyi kurslara ulaşın. Uzman eğitmenler, kanıtlanmış
               müfredat ve garantili başarı.

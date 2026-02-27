@@ -117,12 +117,15 @@ export default function ActivityCoursesSection() {
               Aktivite Kursları
             </div>
 
-            <h2 className="activity-teaser-split__title wow bounceInRight">
+            <h2 className="activity-teaser-split__title wow fadeInUp">
               <span className="text-main-three-600">Yeteneği Keşfet</span>,
               Tutkuyu Geliştir
             </h2>
 
-            <p className="activity-teaser-split__desc wow bounceInUp">
+            <p
+              className="activity-teaser-split__desc wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
               Müzikten spora, sanattan teknolojiye — çocuğunuzun ilgi alanına
               uygun aktivite kurslarını bulun ve yeteneklerini en iyi
               eğitmenlerle geliştirin.
@@ -135,7 +138,7 @@ export default function ActivityCoursesSection() {
                   href="/search"
                   key={i}
                   className="activity-teaser-split__cat-card wow fadeInUp"
-                  data-wow-delay={`${i * 0.08}s`}
+                  data-wow-delay={`${i * 0.1}s`}
                 >
                   <div
                     className="activity-teaser-split__cat-icon"

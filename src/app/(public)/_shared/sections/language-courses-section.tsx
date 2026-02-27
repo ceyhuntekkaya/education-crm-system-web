@@ -103,12 +103,15 @@ export default function LanguageCoursesSection() {
               Dil Eğitimi
             </div>
 
-            <h2 className="lang-info__title wow bounceInLeft">
+            <h2 className="lang-info__title wow fadeInUp">
               Dünyaya Açılan Kapı:{" "}
               <span style={{ color: "var(--main-400)" }}>Dil Kursları</span>
             </h2>
 
-            <p className="lang-info__description wow bounceInUp">
+            <p
+              className="lang-info__description wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
               8 farklı dilde 600&apos;den fazla kurum arasından size en uygun
               dil kursunu seçin. Her seviyeye, her hedefe uygun programlar ve
               uluslararası geçerlilikte sertifikalar.

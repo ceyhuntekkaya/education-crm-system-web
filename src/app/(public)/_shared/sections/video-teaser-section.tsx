@@ -72,12 +72,15 @@ export default function VideoTeaserSection() {
               Tanıtım Videosu
             </div>
 
-            <h2 className="video-teaser-split__title wow bounceInLeft">
+            <h2 className="video-teaser-split__title wow fadeInUp">
               <span className="text-main-600">Eğitim İste</span>&apos;yi{" "}
               <span className="text-main-two-600">5 Dakikada</span> Keşfedin
             </h2>
 
-            <p className="video-teaser-split__desc wow bounceInUp">
+            <p
+              className="video-teaser-split__desc wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
               Platformumuzun tüm özelliklerini keşfedin. Eğitim kurumlarını
               nasıl bulacağınızı, karşılaştıracağınızı ve randevu alacağınızı
               öğrenin.
