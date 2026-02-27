@@ -89,7 +89,7 @@ export default function LanguageCoursesSection() {
   const [viewed, setViewed] = useState(false);
 
   return (
-    <section className="language-courses-section">
+    <section className="language-courses-section scroll-reveal-section">
       {/* Breathing dekoratif orb'lar */}
       <div className="lang-orb lang-orb--1" />
       <div className="lang-orb lang-orb--2" />
@@ -97,18 +97,18 @@ export default function LanguageCoursesSection() {
       <div className="container">
         <div className="lang-split">
           {/* Sol İçerik */}
-          <div className="lang-split__content" data-aos="fade-right">
-            <div className="lang-info__badge">
+          <div className="lang-split__content">
+            <div className="lang-info__badge" data-aos="fade-down">
               <i className="ph-bold ph-translate" />
               Dil Eğitimi
             </div>
 
-            <h2 className="lang-info__title">
+            <h2 className="lang-info__title wow bounceInLeft">
               Dünyaya Açılan Kapı:{" "}
               <span style={{ color: "var(--main-400)" }}>Dil Kursları</span>
             </h2>
 
-            <p className="lang-info__description">
+            <p className="lang-info__description wow bounceInUp">
               8 farklı dilde 600&apos;den fazla kurum arasından size en uygun
               dil kursunu seçin. Her seviyeye, her hedefe uygun programlar ve
               uluslararası geçerlilikte sertifikalar.
@@ -119,9 +119,8 @@ export default function LanguageCoursesSection() {
               {features.map((f, i) => (
                 <div
                   key={i}
-                  className="lang-info__feature-row"
-                  data-aos="fade-right"
-                  data-aos-delay={i * 80}
+                  className="lang-info__feature-row wow fadeInUp"
+                  data-wow-delay={`${i * 0.1}s`}
                 >
                   <div className="icon-box">
                     <i className={f.icon} />
@@ -136,9 +135,8 @@ export default function LanguageCoursesSection() {
 
             <Link
               href="/search"
-              className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
-              data-aos="fade-up"
-              data-aos-delay="320"
+              className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
+              data-wow-delay="0.35s"
             >
               Tüm Dil Kurslarını Gör
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
@@ -153,9 +151,8 @@ export default function LanguageCoursesSection() {
               delayedCall
             >
               <div
-                className="lang-info__stats"
-                data-aos="fade-up"
-                data-aos-delay="360"
+                className="lang-info__stats wow fadeInUp"
+                data-wow-delay="0.4s"
               >
                 {stats.map((s, i) => (
                   <div key={i} className="lang-info__stat-item">
@@ -174,14 +171,16 @@ export default function LanguageCoursesSection() {
           </div>
 
           {/* Sağ Dil Grid — bayrak emoji eklendi */}
-          <div className="lang-split__grid" data-aos="fade-left">
+          <div
+            className="lang-split__grid wow fadeInRight"
+            data-wow-delay="0.1s"
+          >
             {languages.map((lang, idx) => (
               <Link
                 href={lang.href}
                 key={lang.id}
-                className="lang-card"
-                data-aos="fade-up"
-                data-aos-delay={idx * 60}
+                className="lang-card wow fadeInUp"
+                data-wow-delay={`${idx * 0.08}s`}
               >
                 <span className="lang-card__flag">{lang.flag}</span>
                 <span className="lang-card__code">{lang.code}</span>

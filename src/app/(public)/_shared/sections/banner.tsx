@@ -20,6 +20,11 @@ export default function Banner() {
             </div>
           </div>
         </div>
+
+        {/* Scroll-down indicator — kullanıcıyı aşağı kaydırmaya davet eder */}
+        <div className="scroll-down-indicator d-none d-lg-block">
+          <i className="ph-bold ph-caret-double-down" />
+        </div>
       </section>
     </>
   );

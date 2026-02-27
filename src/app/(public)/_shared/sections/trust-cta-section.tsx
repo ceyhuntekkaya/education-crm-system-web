@@ -43,23 +43,23 @@ export default function TrustCtaSection() {
   const [viewed, setViewed] = useState(false);
 
   return (
-    <section className="trust-section">
+    <section className="trust-section scroll-reveal-section">
       {/* Breathing Orbs */}
       <div className="trust-section__orb trust-section__orb--1" />
       <div className="trust-section__orb trust-section__orb--2" />
 
       <div className="container">
         {/* Üst — Badge + Başlık */}
-        <div className="trust-section__header" data-aos="fade-up">
-          <div className="trust-section__badge">
+        <div className="trust-section__header">
+          <div className="trust-section__badge" data-aos="fade-down">
             <i className="ph-bold ph-shield-check" />
             Güvenilir Platform
           </div>
-          <h2 className="trust-section__title">
+          <h2 className="trust-section__title wow bounceInLeft">
             Türkiye&apos;nin Eğitim Ekosistemi{" "}
             <span className="text-gradient-main">Tek Çatı Altında</span>
           </h2>
-          <p className="trust-section__subtitle">
+          <p className="trust-section__subtitle wow bounceInUp">
             Binlerce veli, öğrenci ve kurumun güvendiği platformda yerinizi
             alın.
           </p>
@@ -73,13 +73,12 @@ export default function TrustCtaSection() {
           partialVisibility
           delayedCall
         >
-          <div className="trust-stats" data-aos="fade-up" data-aos-delay="100">
+          <div className="trust-stats wow fadeInUp" data-wow-delay="0.1s">
             {stats.map((s, i) => (
               <div
                 key={i}
-                className="trust-stats__card"
-                data-aos="zoom-in"
-                data-aos-delay={i * 80 + 100}
+                className="trust-stats__card wow zoomIn"
+                data-wow-delay={`${i * 0.1 + 0.1}s`}
               >
                 <div className="trust-stats__icon">
                   <i className={s.icon} />
@@ -105,7 +104,7 @@ export default function TrustCtaSection() {
         </VisibilitySensor>
 
         {/* Marquee Logo Strip */}
-        <div className="trust-logos" data-aos="fade-up" data-aos-delay="200">
+        <div className="trust-logos wow fadeInUp" data-wow-delay="0.2s">
           <span className="trust-logos__label">Bize güvenen kurumlar:</span>
           <Marquee
             speed={40}
@@ -124,15 +123,21 @@ export default function TrustCtaSection() {
         </div>
 
         {/* CTA Card */}
-        <div className="trust-cta" data-aos="fade-up" data-aos-delay="300">
+        <div className="trust-cta wow fadeInUp" data-wow-delay="0.25s">
           <div className="trust-cta__inner">
             <div className="trust-cta__gradient" />
             <div className="trust-cta__content">
-              <h3 className="trust-cta__title">
+              <h3
+                className="trust-cta__title wow bounceInLeft"
+                data-wow-delay="0.3s"
+              >
                 Eğitimde Doğru Adımı{" "}
                 <span className="text-gradient-main">Şimdi Atın</span>
               </h3>
-              <p className="trust-cta__desc">
+              <p
+                className="trust-cta__desc wow bounceInUp"
+                data-wow-delay="0.35s"
+              >
                 Ücretsiz hesabınızla hemen başlayın veya kurumunuzu kaydedin.
               </p>
               <div className="trust-cta__buttons">

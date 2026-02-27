@@ -4,6 +4,17 @@
    about-stat-card, mission-vision-card, about-features-section)
    ========================================================= */
 
+/* ---- Public Home Page Wrapper — smooth section flow ---- */
+.public-home-page {
+  overflow-x: hidden;
+
+  /* Her section arası smooth geçiş hissi */
+  > section,
+  > div > section {
+    position: relative;
+  }
+}
+
 /* ---- Paylaşılan: Gradient Section Header Block ---- */
 .home-section-header {
   border-radius: 24px;

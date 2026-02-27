@@ -62,22 +62,22 @@ export default function VideoTeaserSection() {
   const [viewed, setViewed] = useState(false);
 
   return (
-    <section className="video-teaser-section">
+    <section className="video-teaser-section scroll-reveal-section">
       <div className="container">
         <div className="video-teaser-split">
           {/* Sol — Video Görsel Alanı */}
-          <div className="video-teaser-split__content" data-aos="fade-left">
-            <div className="video-teaser-split__badge">
+          <div className="video-teaser-split__content">
+            <div className="video-teaser-split__badge" data-aos="fade-down">
               <i className="ph ph-video-camera" />
               Tanıtım Videosu
             </div>
 
-            <h2 className="video-teaser-split__title">
+            <h2 className="video-teaser-split__title wow bounceInLeft">
               <span className="text-main-600">Eğitim İste</span>&apos;yi{" "}
               <span className="text-main-two-600">5 Dakikada</span> Keşfedin
             </h2>
 
-            <p className="video-teaser-split__desc">
+            <p className="video-teaser-split__desc wow bounceInUp">
               Platformumuzun tüm özelliklerini keşfedin. Eğitim kurumlarını
               nasıl bulacağınızı, karşılaştıracağınızı ve randevu alacağınızı
               öğrenin.
@@ -86,9 +86,8 @@ export default function VideoTeaserSection() {
             {/* CTA — shimmer efektli */}
             <Link
               href="/video"
-              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
-              data-aos="fade-up"
-              data-aos-delay="300"
+              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
+              data-wow-delay="0.2s"
             >
               Videoyu İzle
               <i className="ph-bold ph-play-circle d-flex text-lg" />
@@ -97,7 +96,7 @@ export default function VideoTeaserSection() {
 
           {/* Sağ — İçerik */}
 
-          <div className="video-teaser-split__visual" data-aos="fade-right">
+          <div className="video-teaser-split__visual wow fadeInRight">
             <Link href="/video" className="video-teaser-split__illustration">
               {/* Gradient arka plan */}
               <div className="video-teaser-split__gradient" />
@@ -106,7 +105,7 @@ export default function VideoTeaserSection() {
               {floatingIcons.map((fi, i) => (
                 <div
                   key={i}
-                  className="video-teaser-split__float-icon"
+                  className="video-teaser-split__float-icon wow zoomIn"
                   style={
                     {
                       top: fi.top,
@@ -116,8 +115,7 @@ export default function VideoTeaserSection() {
                       animationDuration: fi.duration,
                     } as React.CSSProperties
                   }
-                  data-aos="zoom-in"
-                  data-aos-delay={fi.delay}
+                  data-wow-delay={`${fi.delay / 1000}s`}
                 >
                   <i className={fi.icon} />
                 </div>
@@ -147,9 +145,8 @@ export default function VideoTeaserSection() {
                   {stats.map((s, i) => (
                     <div
                       key={i}
-                      className="video-teaser-split__stat-chip"
-                      data-aos="zoom-in"
-                      data-aos-delay={i * 100 + 200}
+                      className="video-teaser-split__stat-chip wow zoomIn"
+                      data-wow-delay={`${i * 0.1 + 0.2}s`}
                     >
                       <span className="video-teaser-split__stat-val">
                         {viewed ? (

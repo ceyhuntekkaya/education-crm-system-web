@@ -48,11 +48,11 @@ const floatingIcons = [
 
 export default function PrivateSchoolsSection() {
   return (
-    <section className="private-schools-section">
+    <section className="private-schools-section scroll-reveal-section">
       <div className="container">
         <div className="school-teaser-split">
           {/* Sol — Dekoratif Görsel Alan (CSS Gradient Illustration) */}
-          <div className="school-teaser-split__visual" data-aos="fade-right">
+          <div className="school-teaser-split__visual wow fadeInLeft">
             <div className="school-teaser-split__illustration">
               {/* Gradient arka plan */}
               <div className="school-teaser-split__gradient" />
@@ -61,7 +61,7 @@ export default function PrivateSchoolsSection() {
               {floatingIcons.map((fi, i) => (
                 <div
                   key={i}
-                  className="school-teaser-split__float-icon"
+                  className="school-teaser-split__float-icon wow zoomIn"
                   style={
                     {
                       top: fi.top,
@@ -70,8 +70,7 @@ export default function PrivateSchoolsSection() {
                       bottom: fi.bottom,
                     } as React.CSSProperties
                   }
-                  data-aos="zoom-in"
-                  data-aos-delay={fi.delay}
+                  data-wow-delay={`${fi.delay / 1000}s`}
                 >
                   <i className={fi.icon} />
                 </div>
@@ -87,9 +86,8 @@ export default function PrivateSchoolsSection() {
                 {stats.map((s, i) => (
                   <div
                     key={i}
-                    className="school-teaser-split__stat-chip"
-                    data-aos="zoom-in"
-                    data-aos-delay={i * 100 + 200}
+                    className="school-teaser-split__stat-chip wow zoomIn"
+                    data-wow-delay={`${i * 0.1 + 0.2}s`}
                   >
                     <span className="school-teaser-split__stat-val">
                       {s.value}
@@ -104,18 +102,18 @@ export default function PrivateSchoolsSection() {
           </div>
 
           {/* Sağ — İçerik + Kategoriler + CTA */}
-          <div className="school-teaser-split__content" data-aos="fade-left">
-            <div className="school-teaser-split__badge">
+          <div className="school-teaser-split__content">
+            <div className="school-teaser-split__badge" data-aos="fade-down">
               <i className="ph-bold ph-buildings" />
               Özel Okullar
             </div>
 
-            <h2 className="school-teaser-split__title">
+            <h2 className="school-teaser-split__title wow bounceInRight">
               <span className="text-main-600">Türkiye&apos;nin En İyi</span>{" "}
               Özel Okullarını Keşfedin
             </h2>
 
-            <p className="school-teaser-split__desc">
+            <p className="school-teaser-split__desc wow bounceInUp">
               Anaokulu&apos;ndan liseye, Türkiye genelindeki özel okulları
               keşfedin. Konuma, fiyata ve değerlendirmelere göre karşılaştırın,
               tanışma randevusu alın.
@@ -127,9 +125,8 @@ export default function PrivateSchoolsSection() {
                 <Link
                   href="/search"
                   key={i}
-                  className="school-teaser-split__cat-card"
-                  data-aos="fade-up"
-                  data-aos-delay={i * 70}
+                  className="school-teaser-split__cat-card wow fadeInUp"
+                  data-wow-delay={`${i * 0.1}s`}
                 >
                   <div
                     className="school-teaser-split__cat-icon"
@@ -152,9 +149,8 @@ export default function PrivateSchoolsSection() {
 
             <Link
               href="/search"
-              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex"
-              data-aos="fade-up"
-              data-aos-delay="300"
+              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+              data-wow-delay="0.35s"
             >
               Tüm Okulları Keşfet
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />

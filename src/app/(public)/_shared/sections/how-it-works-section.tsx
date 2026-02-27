@@ -31,7 +31,7 @@ export default function HowItWorksSection() {
   const [viewed, setViewed] = useState(false);
 
   return (
-    <section className="hiw-section">
+    <section className="hiw-section scroll-reveal-section">
       {/* Dekoratif breathing arka plan orb'ları */}
       <div className="hiw-section__orb hiw-section__orb--1" />
       <div className="hiw-section__orb hiw-section__orb--2" />
@@ -39,16 +39,16 @@ export default function HowItWorksSection() {
 
       <div className="container">
         {/* Başlık */}
-        <div className="hiw-section__header" data-aos="fade-up">
-          <div className="hiw-section__badge">
+        <div className="hiw-section__header">
+          <div className="hiw-section__badge" data-aos="fade-down">
             <i className="ph-bold ph-path" />
             Nasıl Çalışır?
           </div>
-          <h2 className="hiw-section__title">
+          <h2 className="hiw-section__title wow bounceInLeft">
             Üç Basit Adımda{" "}
             <span className="text-gradient-main">Hedefinize Ulaşın</span>
           </h2>
-          <p className="hiw-section__subtitle">
+          <p className="hiw-section__subtitle wow bounceInUp">
             Hayalinizdeki eğitim kurumunu bulun, inceleyin ve kayıt olun — hepsi
             bu kadar kolay.
           </p>
@@ -69,9 +69,8 @@ export default function HowItWorksSection() {
             {steps.map((step, i) => (
               <div
                 key={i}
-                className="hiw-timeline__step"
-                data-aos="zoom-in-up"
-                data-aos-delay={i * 150}
+                className="hiw-timeline__step wow fadeInUp"
+                data-wow-delay={`${i * 0.15}s`}
               >
                 {/* Numara dairesi — CountUp */}
                 <div
@@ -116,11 +115,7 @@ export default function HowItWorksSection() {
         </VisibilitySensor>
 
         {/* CTA */}
-        <div
-          className="hiw-section__cta"
-          data-aos="fade-up"
-          data-aos-delay="500"
-        >
+        <div className="hiw-section__cta wow fadeInUp" data-wow-delay="0.3s">
           <Link
             href="/search"
             className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex hiw-cta-btn"

@@ -58,23 +58,23 @@ export default function HrEducationSection() {
   const [viewed, setViewed] = useState(false);
 
   return (
-    <section className="hr-education-section">
+    <section className="hr-education-section scroll-reveal-section">
       {/* Dekoratif daireler */}
       <div className="hr-section__circle hr-section__circle--1" />
       <div className="hr-section__circle hr-section__circle--2" />
 
       <div className="container">
         {/* Centered Header */}
-        <div className="hr-fullwidth__header" data-aos="fade-up">
-          <div className="hr-fullwidth__badge">
+        <div className="hr-fullwidth__header">
+          <div className="hr-fullwidth__badge" data-aos="fade-down">
             <i className="ph-bold ph-briefcase" />
             İnsan Kaynakları
           </div>
-          <h2 className="hr-fullwidth__title">
+          <h2 className="hr-fullwidth__title wow bounceInRight">
             Eğitim Sektörüne{" "}
             <span style={{ color: "var(--main-200)" }}>Özel İK</span> Çözümleri
           </h2>
-          <p className="hr-fullwidth__subtitle">
+          <p className="hr-fullwidth__subtitle wow bounceInUp">
             Okulunuz veya kurumunuz için doğru eğitimciyi bulun. Hızlı ve şeffaf
             işe alım & insan kaynakları yönetim platformu.
           </p>
@@ -85,9 +85,8 @@ export default function HrEducationSection() {
           {features.map((f, i) => (
             <div
               key={i}
-              className="hr-fullwidth__feature-card"
-              data-aos="fade-up"
-              data-aos-delay={i * 80}
+              className="hr-fullwidth__feature-card wow fadeInUp"
+              data-wow-delay={`${i * 0.12}s`}
             >
               <div className="hr-fullwidth__feature-icon">
                 <i className={f.icon} />
@@ -110,9 +109,8 @@ export default function HrEducationSection() {
             {stats.map((stat, idx) => (
               <div
                 key={idx}
-                className="hr-fullwidth__stat-card"
-                data-aos="zoom-in"
-                data-aos-delay={idx * 80}
+                className="hr-fullwidth__stat-card wow zoomIn"
+                data-wow-delay={`${idx * 0.1}s`}
               >
                 <div className="hr-fullwidth__stat-icon">
                   <i className={stat.icon} />
@@ -138,9 +136,8 @@ export default function HrEducationSection() {
 
         {/* CTA Band */}
         <div
-          className="hr-fullwidth__cta-band"
-          data-aos="fade-up"
-          data-aos-delay="300"
+          className="hr-fullwidth__cta-band wow fadeInUp"
+          data-wow-delay="0.3s"
         >
           <div className="hr-fullwidth__cta-inner">
             <div className="hr-fullwidth__cta-text">

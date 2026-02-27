@@ -48,22 +48,22 @@ const floatingIcons = [
 
 export default function EduCoursesSection() {
   return (
-    <section className="edu-courses-section">
+    <section className="edu-courses-section scroll-reveal-section">
       <div className="container">
         <div className="edu-teaser-split">
           {/* Sol — İçerik + Kategoriler + CTA */}
-          <div className="edu-teaser-split__content" data-aos="fade-right">
-            <div className="edu-teaser-split__badge">
+          <div className="edu-teaser-split__content">
+            <div className="edu-teaser-split__badge" data-aos="fade-down">
               <i className="ph-bold ph-graduation-cap" />
               Lise & Üniversite
             </div>
 
-            <h2 className="edu-teaser-split__title">
+            <h2 className="edu-teaser-split__title wow bounceInLeft">
               <span className="text-main-two-600">Sınav Hazırlık</span>{" "}
               Kurslarında Fark Yaratın
             </h2>
 
-            <p className="edu-teaser-split__desc">
+            <p className="edu-teaser-split__desc wow bounceInUp">
               LGS, YKS, AYT ve üniversite hazırlık programlarında Türkiye
               genelindeki en iyi kurslara ulaşın. Uzman eğitmenler, kanıtlanmış
               müfredat ve garantili başarı.
@@ -75,9 +75,8 @@ export default function EduCoursesSection() {
                 <Link
                   href="/search"
                   key={i}
-                  className="edu-teaser-split__cat-card"
-                  data-aos="fade-up"
-                  data-aos-delay={i * 70}
+                  className="edu-teaser-split__cat-card wow fadeInUp"
+                  data-wow-delay={`${i * 0.1}s`}
                 >
                   <div
                     className="edu-teaser-split__cat-icon"
@@ -100,9 +99,8 @@ export default function EduCoursesSection() {
 
             <Link
               href="/search"
-              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex"
-              data-aos="fade-up"
-              data-aos-delay="300"
+              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+              data-wow-delay="0.35s"
             >
               Tüm Kursları Keşfet
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
@@ -110,7 +108,7 @@ export default function EduCoursesSection() {
           </div>
 
           {/* Sağ — Dekoratif Görsel Alan (CSS Gradient Illustration) */}
-          <div className="edu-teaser-split__visual" data-aos="fade-left">
+          <div className="edu-teaser-split__visual wow fadeInRight">
             <div className="edu-teaser-split__illustration">
               {/* Gradient arka plan */}
               <div className="edu-teaser-split__gradient" />
@@ -119,7 +117,7 @@ export default function EduCoursesSection() {
               {floatingIcons.map((fi, i) => (
                 <div
                   key={i}
-                  className="edu-teaser-split__float-icon"
+                  className="edu-teaser-split__float-icon wow zoomIn"
                   style={
                     {
                       top: fi.top,
@@ -128,8 +126,7 @@ export default function EduCoursesSection() {
                       bottom: fi.bottom,
                     } as React.CSSProperties
                   }
-                  data-aos="zoom-in"
-                  data-aos-delay={fi.delay}
+                  data-wow-delay={`${fi.delay / 1000}s`}
                 >
                   <i className={fi.icon} />
                 </div>
@@ -145,9 +142,8 @@ export default function EduCoursesSection() {
                 {stats.map((s, i) => (
                   <div
                     key={i}
-                    className="edu-teaser-split__stat-chip"
-                    data-aos="zoom-in"
-                    data-aos-delay={i * 100 + 200}
+                    className="edu-teaser-split__stat-chip wow zoomIn"
+                    data-wow-delay={`${i * 0.1 + 0.2}s`}
                   >
                     <span className="edu-teaser-split__stat-val">
                       {s.value}

@@ -73,22 +73,22 @@ const floatingIcons = [
 
 export default function WebinarsSection() {
   return (
-    <section className="webinar-section">
+    <section className="webinar-section scroll-reveal-section">
       <div className="container">
         <div className="webinar-teaser-split">
           {/* Sol — İçerik + Özellikler + CTA */}
-          <div className="webinar-teaser-split__content" data-aos="fade-right">
-            <div className="webinar-teaser-split__badge">
+          <div className="webinar-teaser-split__content">
+            <div className="webinar-teaser-split__badge" data-aos="fade-down">
               <i className="ph-bold ph-video-camera" />
               Webinar & Etkinlik
             </div>
 
-            <h2 className="webinar-teaser-split__title">
+            <h2 className="webinar-teaser-split__title wow bounceInLeft">
               Uzmanlarla Buluşun,{" "}
               <span className="text-main-two-600">Gelişime Katılın</span>
             </h2>
 
-            <p className="webinar-teaser-split__desc">
+            <p className="webinar-teaser-split__desc wow bounceInUp">
               Eğitim dünyasının önde gelen uzmanlarıyla canlı webinar ve
               etkinliklere katılın. Dijitalden yüz yüzeye, her formatta
               profesyonel gelişiminize yatırım yapın.
@@ -99,9 +99,8 @@ export default function WebinarsSection() {
               {features.map((f, i) => (
                 <div
                   key={i}
-                  className="webinar-feature-item"
-                  data-aos="fade-right"
-                  data-aos-delay={i * 80}
+                  className="webinar-feature-item wow fadeInUp"
+                  data-wow-delay={`${i * 0.1}s`}
                 >
                   <div className="webinar-feature-item__num">{f.num}</div>
                   <div className="webinar-feature-item__icon">
@@ -118,9 +117,8 @@ export default function WebinarsSection() {
             {/* CTA — shimmer efektli */}
             <Link
               href="/search"
-              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
-              data-aos="fade-up"
-              data-aos-delay="340"
+              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
+              data-wow-delay="0.35s"
             >
               Tüm Etkinlikleri Gör
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
@@ -128,7 +126,7 @@ export default function WebinarsSection() {
           </div>
 
           {/* Sağ — Dekoratif Görsel Alan */}
-          <div className="webinar-teaser-split__visual" data-aos="fade-left">
+          <div className="webinar-teaser-split__visual wow fadeInRight">
             <div className="webinar-teaser-split__illustration">
               <div className="webinar-teaser-split__gradient" />
 
@@ -136,7 +134,7 @@ export default function WebinarsSection() {
               {floatingIcons.map((fi, i) => (
                 <div
                   key={i}
-                  className="webinar-teaser-split__float-icon"
+                  className="webinar-teaser-split__float-icon wow zoomIn"
                   style={
                     {
                       top: fi.top,
@@ -146,8 +144,7 @@ export default function WebinarsSection() {
                       animationDuration: fi.duration,
                     } as React.CSSProperties
                   }
-                  data-aos="zoom-in"
-                  data-aos-delay={fi.delay}
+                  data-wow-delay={`${fi.delay / 1000}s`}
                 >
                   <i className={fi.icon} />
                 </div>
@@ -161,9 +158,8 @@ export default function WebinarsSection() {
                 {stats.map((s, i) => (
                   <div
                     key={i}
-                    className="webinar-teaser-split__stat-chip"
-                    data-aos="zoom-in"
-                    data-aos-delay={i * 100 + 200}
+                    className="webinar-teaser-split__stat-chip wow zoomIn"
+                    data-wow-delay={`${i * 0.1 + 0.2}s`}
                   >
                     <span className="webinar-teaser-split__stat-val">
                       {s.value}

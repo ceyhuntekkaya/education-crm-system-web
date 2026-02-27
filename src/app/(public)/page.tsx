@@ -15,7 +15,7 @@ import {
 
 export default function PublicHomePage() {
   return (
-    <div>
+    <div className="public-home-page">
       {/* Hero Banner */}
       <Banner />
 

@@ -214,3 +214,108 @@
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================================
+   SCROLL-REVEAL SECTION ANIMATIONS
+   Zarif, sırıtmayan scroll-triggered dekoratif efektler
+   ========================================================= */
+
+/* Gradient shimmer sweep — section backgrounds */
+@keyframes gradientSweep {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating icon — hafif süzülme */
+@keyframes floatDrift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Orb breathing — yumuşak nefes */
+@keyframes orbBreathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.65;
+  }
+}
+
+/* ---- scroll-reveal-section — Base Class ---- */
+.scroll-reveal-section {
+  position: relative;
+
+  /* Dekoratif orb'lar için breathing efekti */
+  [class*="__orb"],
+  [class*="-orb"] {
+    animation: orbBreathing 6s ease-in-out infinite;
+  }
+
+  [class*="__orb--2"],
+  [class*="-orb--2"] {
+    animation-delay: 2s;
+    animation-duration: 8s;
+  }
+
+  [class*="__orb--3"],
+  [class*="-orb--3"] {
+    animation-delay: 4s;
+    animation-duration: 7s;
+  }
+
+  /* Floating ikonlara hafif süzülme — inline duration'ı bozmamak için !important yok */
+  [class*="__float-icon"] {
+    animation-name: floatDrift;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  /* Feature card / cat-card hover efekti — zarif translateY */
+  [class*="__cat-card"],
+  [class*="__feature-card"],
+  [class*="-feature-item"] {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  /* Section-level dekoratif daireler */
+  [class*="__circle"] {
+    animation: orbBreathing 8s ease-in-out infinite;
+
+    &[class*="--2"] {
+      animation-delay: 3s;
+      animation-duration: 10s;
+    }
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll-down indicator — banner altı */
+@keyframes scrollIndicator {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(8px); opacity: 0.4; }
+}
+
+.scroll-down-indicator {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollIndicator 2s ease-in-out infinite;
+  color: var(--main-600);
+  font-size: 1.5rem;
+  z-index: 10;
+  cursor: pointer;
+}

@@ -61,18 +61,18 @@ const floatingIcons = [
 
 export default function ActivityCoursesSection() {
   return (
-    <section className="activity-courses-section">
+    <section className="activity-courses-section scroll-reveal-section">
       <div className="container">
         <div className="activity-teaser-split">
           {/* Sol — Dekoratif Görsel Alan */}
-          <div className="activity-teaser-split__visual" data-aos="fade-right">
+          <div className="activity-teaser-split__visual wow fadeInLeft">
             <div className="activity-teaser-split__illustration">
               <div className="activity-teaser-split__gradient" />
 
               {floatingIcons.map((fi, i) => (
                 <div
                   key={i}
-                  className="activity-teaser-split__float-icon"
+                  className="activity-teaser-split__float-icon wow zoomIn"
                   style={
                     {
                       top: fi.top,
@@ -81,8 +81,7 @@ export default function ActivityCoursesSection() {
                       bottom: fi.bottom,
                     } as React.CSSProperties
                   }
-                  data-aos="zoom-in"
-                  data-aos-delay={fi.delay}
+                  data-wow-delay={`${fi.delay / 1000}s`}
                 >
                   <i className={fi.icon} />
                 </div>
@@ -96,9 +95,8 @@ export default function ActivityCoursesSection() {
                 {stats.map((s, i) => (
                   <div
                     key={i}
-                    className="activity-teaser-split__stat-chip"
-                    data-aos="zoom-in"
-                    data-aos-delay={i * 100 + 200}
+                    className="activity-teaser-split__stat-chip wow zoomIn"
+                    data-wow-delay={`${i * 0.1 + 0.2}s`}
                   >
                     <span className="activity-teaser-split__stat-val">
                       {s.value}
@@ -113,18 +111,18 @@ export default function ActivityCoursesSection() {
           </div>
 
           {/* Sağ — İçerik + Kategoriler + CTA */}
-          <div className="activity-teaser-split__content" data-aos="fade-left">
-            <div className="activity-teaser-split__badge">
+          <div className="activity-teaser-split__content">
+            <div className="activity-teaser-split__badge" data-aos="fade-down">
               <i className="ph-bold ph-sparkle" />
               Aktivite Kursları
             </div>
 
-            <h2 className="activity-teaser-split__title">
+            <h2 className="activity-teaser-split__title wow bounceInRight">
               <span className="text-main-three-600">Yeteneği Keşfet</span>,
               Tutkuyu Geliştir
             </h2>
 
-            <p className="activity-teaser-split__desc">
+            <p className="activity-teaser-split__desc wow bounceInUp">
               Müzikten spora, sanattan teknolojiye — çocuğunuzun ilgi alanına
               uygun aktivite kurslarını bulun ve yeteneklerini en iyi
               eğitmenlerle geliştirin.
@@ -136,9 +134,8 @@ export default function ActivityCoursesSection() {
                 <Link
                   href="/search"
                   key={i}
-                  className="activity-teaser-split__cat-card"
-                  data-aos="fade-up"
-                  data-aos-delay={i * 60}
+                  className="activity-teaser-split__cat-card wow fadeInUp"
+                  data-wow-delay={`${i * 0.08}s`}
                 >
                   <div
                     className="activity-teaser-split__cat-icon"
@@ -161,9 +158,8 @@ export default function ActivityCoursesSection() {
 
             <Link
               href="/search"
-              className="btn btn-main-three rounded-pill flex-align gap-8 d-inline-flex"
-              data-aos="fade-up"
-              data-aos-delay="380"
+              className="btn btn-main-three rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+              data-wow-delay="0.4s"
             >
               Tüm Aktiviteleri Keşfet
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
