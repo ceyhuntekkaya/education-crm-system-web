@@ -26,8 +26,7 @@ export default function TrustCtaSection() {
             Güvenilir Platform
           </div>
           <h2 className="trust-section__title">
-            Türkiye&apos;nin Eğitim Ekosistemi{" "}
-            <span>Tek Çatı Altında</span>
+            Türkiye&apos;nin Eğitim Ekosistemi <span>Tek Çatı Altında</span>
           </h2>
           <p className="trust-section__subtitle">
             Binlerce veli, öğrenci ve kurumun güvendiği platformda yerinizi
@@ -72,8 +71,7 @@ export default function TrustCtaSection() {
             <div className="trust-cta__gradient" />
             <div className="trust-cta__content">
               <h3 className="trust-cta__title">
-                Eğitimde Doğru Adımı{" "}
-                <span>Şimdi Atın</span>
+                Eğitimde Doğru Adımı <span>Şimdi Atın</span>
               </h3>
               <p className="trust-cta__desc">
                 Ücretsiz hesabınızla hemen başlayın veya kurumunuzu kaydedin.
