@@ -100,14 +100,24 @@ export default function EduCoursesSection() {
               ))}
             </div>
 
-            <Link
-              href="/search"
-              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
-              data-wow-delay="0.35s"
-            >
-              Tüm Kursları Keşfet
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/edu-courses"
+                className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
+              >
+                Detaylı Bilgi
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/search"
+                className="btn btn-outline-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Kurs Ara
+                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+              </Link>
+            </div>
           </div>
 
           {/* Sağ — Dekoratif Görsel Alan (CSS Gradient Illustration) */}

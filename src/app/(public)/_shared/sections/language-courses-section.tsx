@@ -136,14 +136,24 @@ export default function LanguageCoursesSection() {
               ))}
             </div>
 
-            <Link
-              href="/search"
-              className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
-              data-wow-delay="0.35s"
-            >
-              Tüm Dil Kurslarını Gör
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/language-courses"
+                className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
+              >
+                Tüm Dil Kurslarını Gör
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/search"
+                className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Dil Kursu Ara
+                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+              </Link>
+            </div>
 
             {/* Stats — CountUp */}
             <VisibilitySensor

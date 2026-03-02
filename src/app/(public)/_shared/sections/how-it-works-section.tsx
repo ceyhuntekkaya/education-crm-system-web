@@ -118,14 +118,25 @@ export default function HowItWorksSection() {
         </VisibilitySensor>
 
         {/* CTA */}
-        <div className="hiw-section__cta wow fadeInUp" data-wow-delay="0.3s">
-          <Link
-            href="/search"
-            className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex hiw-cta-btn"
-          >
-            Hemen Keşfet
-            <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-          </Link>
+        <div className="hiw-section__cta">
+          <div className="d-flex flex-wrap gap-12 justify-content-center">
+            <Link
+              href="/how-it-works"
+              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+              data-wow-delay="0.3s"
+            >
+              Detaylı Bilgi
+              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+            </Link>
+            <Link
+              href="/search"
+              className="btn btn-outline-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+              data-wow-delay="0.35s"
+            >
+              Hemen Keşfet
+              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

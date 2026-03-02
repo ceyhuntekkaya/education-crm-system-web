@@ -1,0 +1,3188 @@
+/* ===================================== Category Detail Pages CSS =========================== */
+/* Shared styles for: private-schools, edu-courses, language-courses,
+   activity-courses, webinars, hr-education, how-it-works */
+
+.category-detail-page {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 80px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
+
+  /* ── Background Variants ── */
+  &--secondary {
+    background: var(--main-25, #f8f9ff);
+  }
+
+  &--webinar {
+    background: var(--neutral-20, #f8f8f8);
+  }
+
+  &--tertiary {
+    /* white bg default — accent via child modifiers */
+  }
+
+  &--dark {
+    background: var(--neutral-900);
+  }
+
+  &--dark-gradient {
+    background: linear-gradient(135deg, var(--main-600) 0%, var(--main-800, #1a3a8a) 100%);
+  }
+}
+
+/* ── Decorative Breathing Orbs (Dark Pages) ── */
+.category-detail-page--dark,
+.category-detail-page--dark-gradient {
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::before {
+    width: 420px;
+    height: 420px;
+    top: -80px;
+    right: -60px;
+    background: rgba(72, 127, 255, 0.08);
+    filter: blur(100px);
+    animation: cd-breathing 6s ease-in-out infinite;
+  }
+
+  &::after {
+    width: 300px;
+    height: 300px;
+    bottom: 10%;
+    left: -60px;
+    background: rgba(0, 184, 148, 0.06);
+    filter: blur(80px);
+    animation: cd-breathing 6s ease-in-out infinite 2s;
+  }
+
+  > .container {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.category-detail-page--dark-gradient {
+  &::before {
+    background: rgba(255, 255, 255, 0.04);
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    right: -100px;
+    filter: blur(120px);
+  }
+
+  &::after {
+    background: rgba(255, 255, 255, 0.035);
+    width: 350px;
+    bottom: 5%;
+    left: -80px;
+    filter: blur(100px);
+  }
+}
+
+@keyframes cd-breathing {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+/* ===================================== Hero Section =========================== */
+.category-hero {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 48px 20px 32px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 32px;
+    padding: 24px 12px;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 100px;
+    background: var(--main-50);
+    color: var(--main-600);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+
+    i {
+      font-size: 1.125rem;
+    }
+
+    &--secondary {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    &--tertiary {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+
+    &--dark {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  &__title {
+    font-size: clamp(1.625rem, 4vw, 2.75rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+    color: var(--neutral-900);
+  }
+
+  &__desc {
+    font-size: 1.125rem;
+    color: var(--neutral-600);
+    max-width: 700px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 0.938rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+/* ===================================== Stats Section =========================== */
+.category-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 576px) {
+    gap: 12px;
+  }
+
+  &__card {
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--main-600);
+
+      .category-stats__icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    @media (max-width: 576px) {
+      padding: 16px;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--main-50);
+    color: var(--main-600);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+
+    &--secondary {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    &--tertiary {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+  }
+
+  &__value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--neutral-900);
+    margin-bottom: 4px;
+
+    @media (max-width: 576px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    font-weight: 500;
+  }
+}
+
+/* ===================================== Section Header =========================== */
+.section-header {
+  text-align: center;
+  margin-bottom: 32px;
+
+  &__title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    color: var(--neutral-500);
+    max-width: 600px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      font-size: 0.938rem;
+    }
+  }
+}
+
+/* ===================================== Category Grid =========================== */
+.category-grid-section {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+
+  &--3col {
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      border-color: var(--main-100);
+
+      .category-grid__card-action {
+        color: var(--main-600);
+
+        i {
+          transform: translateX(4px);
+        }
+      }
+
+      .category-grid__card-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    @media (max-width: 576px) {
+      padding: 20px;
+    }
+  }
+
+  &__card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+  }
+
+  &__card-body {
+    flex: 1;
+    margin-bottom: 16px;
+  }
+
+  &__card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 4px;
+  }
+
+  &__card-count {
+    display: inline-block;
+    font-size: 0.813rem;
+    color: var(--main-600);
+    font-weight: 600;
+    background: var(--main-50);
+    padding: 2px 10px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+
+  &__card-desc {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__card-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--neutral-400);
+    transition: all 0.3s ease;
+    margin-top: auto;
+
+    i {
+      transition: transform 0.3s ease;
+    }
+  }
+}
+
+/* ===================================== Activity Age Groups Section =========================== */
+.activity-age-groups {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+
+      .activity-age-groups__card-action {
+        i { transform: translateX(4px); }
+      }
+
+      .activity-age-groups__card-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    @media (max-width: 576px) {
+      padding: 20px;
+    }
+  }
+
+  &__card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  &__card-body {
+    flex: 1;
+    margin-bottom: 16px;
+  }
+
+  &__card-range {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  &__card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+  }
+
+  &__card-desc {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__card-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--neutral-400);
+    transition: all 0.3s ease;
+    margin-top: auto;
+
+    i {
+      transition: transform 0.3s ease;
+    }
+  }
+}
+
+/* ===================================== Advantages Section =========================== */
+.category-advantages {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  &__card {
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+      .category-advantages__card-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    @media (max-width: 576px) {
+      padding: 20px;
+    }
+  }
+
+  &__card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--main-50);
+    color: var(--main-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+
+    &--secondary {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    &--tertiary {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+  }
+
+  &__card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+  }
+
+  &__card-desc {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+/* ===================================== FAQ Section =========================== */
+.category-faq {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__item {
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &--open {
+      border-color: var(--main-200);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    &:hover {
+      border-color: var(--main-100);
+    }
+  }
+
+  &__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.938rem;
+    font-weight: 600;
+    color: var(--neutral-800);
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--main-600);
+    }
+
+    i {
+      font-size: 1rem;
+      color: var(--main-600);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 576px) {
+      padding: 14px 16px;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__answer {
+    padding: 0 24px 18px;
+    animation: faqSlideDown 0.25s ease-out;
+
+    p {
+      font-size: 0.875rem;
+      color: var(--neutral-600);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 576px) {
+      padding: 0 16px 14px;
+    }
+  }
+}
+
+@keyframes faqSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================== CTA Section =========================== */
+.category-cta {
+  margin-bottom: 20px;
+
+  &__inner {
+    position: relative;
+    border-radius: 20px;
+    padding: 48px 40px;
+    overflow: hidden;
+    text-align: center;
+    background: linear-gradient(135deg, var(--main-700), var(--main-900));
+
+    &--secondary {
+      background: linear-gradient(135deg, var(--main-two-600), var(--main-two-900, #6b3a0a));
+    }
+
+    &--tertiary {
+      background: linear-gradient(135deg, var(--main-three-600), var(--main-three-900, #0a4a3a));
+    }
+
+    &--dark {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    @media (max-width: 768px) {
+      padding: 36px 24px;
+    }
+
+    @media (max-width: 576px) {
+      padding: 28px 16px;
+      border-radius: 16px;
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 30% 50%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+
+    @media (max-width: 768px) {
+      font-size: 1.375rem;
+    }
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 500px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.938rem;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+/* ===================================== Language Page Grid =========================== */
+.lang-page-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 14px;
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border-color: var(--main-100);
+
+      .lang-page-grid__card-arrow {
+        transform: translateX(4px);
+        color: var(--main-600);
+      }
+    }
+  }
+
+  &__card-flag {
+    font-size: 2.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  &__card-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__card-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin: 0 0 2px;
+  }
+
+  &__card-count {
+    display: block;
+    font-size: 0.813rem;
+    color: var(--main-600);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  &__card-certs {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--neutral-400);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__card-arrow {
+    font-size: 1.125rem;
+    color: var(--neutral-300);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+}
+
+/* ===================================== Levels Section =========================== */
+.category-levels {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+
+  &__card {
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border-color: var(--main-100);
+    }
+  }
+
+  &__card-level {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--main-600);
+    margin-bottom: 8px;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__card-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--neutral-800);
+    margin-bottom: 4px;
+  }
+
+  &__card-desc {
+    font-size: 0.75rem;
+    color: var(--neutral-500);
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+/* ===================================== Tabs Section =========================== */
+.category-tabs {
+  margin-bottom: 16px;
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: 1px solid var(--neutral-30);
+    background: var(--white);
+    color: var(--neutral-600);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: var(--main-200);
+      color: var(--main-600);
+    }
+
+    &--active {
+      background: var(--main-600);
+      color: var(--white);
+      border-color: var(--main-600);
+
+      &:hover {
+        color: var(--white);
+      }
+    }
+
+    i {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+/* ===================================== Upcoming Section (Webinars) =========================== */
+.category-upcoming {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  &__card {
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border-color: var(--main-two-100);
+    }
+  }
+
+  &__card-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--main-two-50);
+    color: var(--main-two-600);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  &__card-topic {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+  }
+
+  &__card-speaker {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    margin: 0;
+
+    i {
+      color: var(--main-two-600);
+    }
+  }
+}
+
+/* ===================================== How It Works Detail Steps =========================== */
+.hiw-steps-detail {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--neutral-30);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--reverse {
+      flex-direction: row-reverse;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 24px;
+      padding: 24px 0;
+    }
+  }
+
+  &__step-visual {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 200px;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+      width: 100%;
+    }
+  }
+
+  &__step-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+
+  &__step-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+
+    i {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__step-content {
+    flex: 1;
+  }
+
+  &__step-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+
+    @media (max-width: 768px) {
+      font-size: 1.125rem;
+    }
+  }
+
+  &__step-desc {
+    font-size: 1rem;
+    color: var(--neutral-600);
+    line-height: 1.7;
+    margin-bottom: 16px;
+
+    @media (max-width: 768px) {
+      font-size: 0.938rem;
+    }
+  }
+
+  &__step-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--neutral-700);
+      line-height: 1.5;
+
+      i {
+        font-size: 1.125rem;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+    }
+  }
+}
+
+/* ===================================== Audiences Section (How It Works) =========================== */
+.hiw-audiences {
+  margin-bottom: 56px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--neutral-30);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__card-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  &__card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+  }
+
+  &__card-desc {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  &__card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.813rem;
+      color: var(--neutral-700);
+
+      i {
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+/* ===================================== Secondary Accent Overrides =========================== */
+/* edu-courses & webinars — orange accent harmony */
+.category-detail-page--secondary,
+/* ===================================== Webinar Page Overrides =========================== */
+/* Ensures the /webinars page carries the same visual polish as /private-schools */
+.category-detail-page--webinar {
+  /* Subtle orange-tinted background gradient */
+  background: linear-gradient(180deg, #fff8f3 0%, #ffffff 140px);
+
+  /* ── FAQ / hover accent ── */
+  .category-faq__item--open {
+    border-color: var(--main-two-200);
+  }
+
+  .category-faq__item:hover {
+    border-color: var(--main-two-100);
+  }
+
+  .category-faq__question {
+    &:hover {
+      color: var(--main-two-600);
+    }
+
+    i {
+      color: var(--main-two-600);
+    }
+  }
+
+  .category-levels__card-level {
+    color: var(--main-two-600);
+  }
+
+  .category-levels__card:hover {
+    border-color: var(--main-two-100);
+  }
+
+  /* ── Stats: per-card icon & value colors mirror event type palette ── */
+  .category-stats__card {
+    /* Etkinlik — orange (primary webinar accent) */
+    &:nth-child(1) .category-stats__icon {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+    /* Katılımcı — blue */
+    &:nth-child(2) .category-stats__icon {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+    /* Uzman Konuşmacı — teal */
+    &:nth-child(3) .category-stats__icon {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+    /* Memnuniyet — rose/pink */
+    &:nth-child(4) .category-stats__icon {
+      background: #fdf2f8;
+      color: #db2777;
+    }
+
+    &:nth-child(1) .category-stats__value { color: var(--main-two-600); }
+    &:nth-child(2) .category-stats__value { color: var(--main-600); }
+    &:nth-child(3) .category-stats__value { color: var(--main-three-600); }
+    &:nth-child(4) .category-stats__value { color: #db2777; }
+
+    &:hover {
+      border-color: var(--main-two-100);
+    }
+  }
+
+  /* ── Category Grid: per-card accent colors mirror eventTypes data ── */
+  .category-grid__card {
+    /* Canlı Webinar — orange (main-two) */
+    &:nth-child(1):hover {
+      border-color: var(--main-two-100);
+      .category-grid__card-action { color: var(--main-two-600); }
+    }
+    &:nth-child(1) .category-grid__card-count {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    /* Yüz Yüze Etkinlik — blue (main) */
+    &:nth-child(2):hover {
+      border-color: var(--main-100);
+      .category-grid__card-action { color: var(--main-600); }
+    }
+    &:nth-child(2) .category-grid__card-count {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+
+    /* Konferans — teal (main-three) */
+    &:nth-child(3):hover {
+      border-color: var(--main-three-100);
+      .category-grid__card-action { color: var(--main-three-600); }
+    }
+    &:nth-child(3) .category-grid__card-count {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+
+    /* Atölye Çalışması — purple */
+    &:nth-child(4):hover {
+      border-color: rgba(124, 58, 237, 0.15);
+      .category-grid__card-action { color: #7c3aed; }
+    }
+    &:nth-child(4) .category-grid__card-count {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+  }
+
+  /* ── Advantages: per-card icon colors ── */
+  .category-advantages__card {
+    &:nth-child(1) .category-advantages__card-icon {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+    &:nth-child(2) .category-advantages__card-icon {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+    &:nth-child(3) .category-advantages__card-icon {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+    &:nth-child(4) .category-advantages__card-icon {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+    &:nth-child(5) .category-advantages__card-icon {
+      background: #fdf2f8;
+      color: #db2777;
+    }
+    &:nth-child(6) .category-advantages__card-icon {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+  }
+
+  /* ── CTA Icon ── */
+  .category-cta__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #ffffff !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+/* ===================================== Tertiary Accent Overrides =========================== */
+/* activity-courses — teal accent harmony */
+.category-detail-page--tertiary {
+  .category-grid__card-count {
+    background: var(--main-three-50);
+    color: var(--main-three-600);
+  }
+
+  .category-grid__card:hover {
+    border-color: var(--main-three-100);
+
+    .category-grid__card-action {
+      color: var(--main-three-600);
+    }
+  }
+
+  .category-stats__card:hover {
+    border-color: var(--main-three-200);
+  }
+
+  .category-faq__item--open {
+    border-color: var(--main-three-200);
+  }
+
+  .category-faq__item:hover {
+    border-color: var(--main-three-100);
+  }
+
+  .category-faq__question {
+    &:hover {
+      color: var(--main-three-600);
+    }
+
+    i {
+      color: var(--main-three-600);
+    }
+  }
+
+  .category-levels__card-level {
+    color: var(--main-three-600);
+  }
+
+  .category-levels__card:hover {
+    border-color: var(--main-three-100);
+  }
+}
+
+/* ===================================== Dark Theme Overrides =========================== */
+/* Shared overrides for language-courses, how-it-works (--dark) and hr-education (--dark-gradient) */
+.category-detail-page--dark,
+.category-detail-page--dark-gradient {
+  /* ── Hero ── */
+  .category-hero__title {
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .category-hero__desc {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* ── Section Headers ── */
+  .section-header__title {
+    color: #fff;
+  }
+
+  .section-header__subtitle {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* ── Stats ── */
+  .category-stats__card {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .category-stats__icon {
+    background: rgba(72, 127, 255, 0.12);
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .category-stats__value {
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .category-stats__label {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* ── Category Grid ── */
+  .category-grid__card {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+
+      .category-grid__card-action {
+        color: var(--main-400, #7cb3ff);
+      }
+    }
+  }
+
+  .category-grid__card-title {
+    color: #fff;
+  }
+
+  .category-grid__card-count {
+    background: rgba(72, 127, 255, 0.15);
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .category-grid__card-desc {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .category-grid__card-action {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* ── Advantages ── */
+  .category-advantages__card {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .category-advantages__card-icon {
+    background: rgba(72, 127, 255, 0.12);
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .category-advantages__card-title {
+    color: #fff;
+  }
+
+  .category-advantages__card-desc {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* ── FAQ ── */
+  .category-faq__item {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &--open {
+      border-color: rgba(72, 127, 255, 0.3);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  .category-faq__question {
+    color: rgba(255, 255, 255, 0.9);
+
+    &:hover {
+      color: var(--main-400, #7cb3ff);
+    }
+
+    i {
+      color: var(--main-400, #7cb3ff);
+    }
+  }
+
+  .category-faq__answer p {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* ── Levels ── */
+  .category-levels__card {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .category-levels__card-level {
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .category-levels__card-name {
+    color: #fff;
+  }
+
+  .category-levels__card-desc {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* ── Language Grid ── */
+  .lang-page-grid__card {
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(255, 255, 255, 0.09);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--main-400, #7cb3ff);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .lang-page-grid__card-name {
+    color: #fff;
+  }
+
+  .lang-page-grid__card-count {
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .lang-page-grid__card-certs {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .lang-page-grid__card-arrow {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* ── Tabs ── */
+  .category-tabs__btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    &--active {
+      background: var(--main-400, #7cb3ff);
+      border-color: var(--main-400, #7cb3ff);
+      color: var(--neutral-900);
+
+      &:hover {
+        color: var(--neutral-900);
+      }
+    }
+  }
+
+  /* ── Upcoming ── */
+  .category-upcoming__card {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .category-upcoming__card-badge {
+    background: rgba(72, 127, 255, 0.15);
+    color: var(--main-400, #7cb3ff);
+  }
+
+  .category-upcoming__card-topic {
+    color: #fff;
+  }
+
+  .category-upcoming__card-speaker {
+    color: rgba(255, 255, 255, 0.5);
+
+    i {
+      color: var(--main-400, #7cb3ff);
+    }
+  }
+
+  /* ── HIW Steps ── */
+  .hiw-steps-detail__step {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .hiw-steps-detail__step-desc {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .hiw-steps-detail__step-list li {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ── HIW Audiences ── */
+  .hiw-audiences__card {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .hiw-audiences__card-title {
+    color: #fff;
+  }
+
+  .hiw-audiences__card-desc {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .hiw-audiences__card-features li {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  /* ── CTA Override — bright animated gradient ── */
+  .category-cta__inner {
+    background: linear-gradient(135deg, #487fff, #6c5ce7, #487fff) !important;
+    background-size: 200% 200% !important;
+    animation: cd-cta-shimmer 6s ease infinite;
+  }
+
+  /* ── CTA Icon ── */
+  .category-cta__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #ffffff !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* ── CTA text-gradient-main override for dark bg ── */
+  .category-cta .text-gradient-main {
+    background: linear-gradient(135deg, #ffd700, #ff6b6b) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+  }
+}
+
+/* ── HR Dark Gradient Specific ── */
+.category-detail-page--dark-gradient {
+  /* Stats: use a branded blue-tinted accent for icons and values */
+  .category-stats__icon {
+    background: rgba(72, 127, 255, 0.18);
+    border: 1px solid rgba(163, 191, 255, 0.2);
+    color: var(--main-200, #c0d4ff);
+  }
+
+  .category-stats__value {
+    color: #fff;
+  }
+
+  .category-stats__card {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(163, 191, 255, 0.5), transparent);
+      border-radius: 0 0 4px 4px;
+    }
+  }
+
+  /* Advantages: 4 items → 2×2 grid for clean symmetry */
+  .category-advantages__grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .category-advantages__card-icon {
+    background: rgba(72, 127, 255, 0.18);
+    border: 1px solid rgba(163, 191, 255, 0.2);
+    color: var(--main-200, #c0d4ff);
+  }
+
+  .category-grid__card-count {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .category-tabs__btn--active {
+    background: #fff;
+    border-color: #fff;
+    color: var(--main-600);
+
+    &:hover {
+      color: var(--main-600);
+    }
+  }
+}
+
+@keyframes cd-cta-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ===================================== Inline Breadcrumb =========================== */
+.category-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--neutral-500);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    i {
+      font-size: 0.9375rem;
+    }
+
+    &:hover {
+      color: var(--main-600);
+    }
+  }
+
+  &__sep {
+    font-size: 0.75rem;
+    color: var(--neutral-300);
+  }
+
+  &__current {
+    color: var(--main-600);
+    font-weight: 600;
+  }
+}
+
+/* ===================================== Hero — Activity Courses Variant =========================== */
+/* Teal-emerald orb that echoes the ActivityCoursesSection illustration */
+.category-hero--activity {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 280px;
+    background: radial-gradient(
+      ellipse at 50% 40%,
+      rgba(5, 150, 105, 0.10) 0%,
+      rgba(20, 184, 166, 0.07) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 200px;
+      top: -30px;
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-hero__badge {
+    border: 1px solid var(--main-three-100);
+  }
+}
+
+/* ===================================== Hero — Edu Courses Variant =========================== */
+/* Orange-amber orb that echoes the EduCoursesSection illustration */
+.category-hero--edu {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 280px;
+    background: radial-gradient(
+      ellipse at 50% 40%,
+      rgba(234, 88, 12, 0.10) 0%,
+      rgba(249, 115, 22, 0.07) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 200px;
+      top: -30px;
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-hero__badge {
+    border: 1px solid var(--main-two-100);
+  }
+}
+
+/* ===================================== Hero — Schools Variant =========================== */
+/* Creates a blue-purple gradient orb that echoes the PrivateSchoolsSection illustration */
+.category-hero--schools {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 280px;
+    background: radial-gradient(
+      ellipse at 50% 40%,
+      rgba(72, 127, 255, 0.10) 0%,
+      rgba(108, 92, 231, 0.07) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 200px;
+      top: -30px;
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Badge matches section badge exactly — border included */
+  .category-hero__badge {
+    border: 1px solid var(--main-100);
+  }
+}
+
+/* ── HR Education Hero orb variant ── */
+/* Blue-indigo radial orb matching the dark-gradient page background */
+.category-hero--hr {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 720px;
+    height: 320px;
+    background: radial-gradient(
+      ellipse at 50% 40%,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(72, 127, 255, 0.07) 35%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 220px;
+      top: -40px;
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* ── Webinar Hero orb variant ── */
+.category-hero--webinar {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 280px;
+    background: radial-gradient(
+      ellipse at 50% 40%,
+      rgba(249, 115, 22, 0.10) 0%,
+      rgba(234, 88, 12, 0.07) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 200px;
+      top: -30px;
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-hero__badge {
+    border: 1px solid var(--main-two-100);
+  }
+}
+
+/* ===================================== Private Schools Page Overrides =========================== */
+/* Ensures the /private-schools page carries the same visual language as PrivateSchoolsSection */
+.category-detail-page--schools {
+  /* Subtle gradient background to echo section's white-to-main-25 feel */
+  background: linear-gradient(180deg, #f6f7ff 0%, #ffffff 140px);
+
+  /* ── CTA — PrivateSchoolsSection mavi-mor gradient ── */
+  .category-cta__inner--schools {
+    background: linear-gradient(135deg, var(--main-600) 0%, #6c5ce7 55%, #487fff 100%);
+    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.35);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: var(--main-600) !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: var(--main-50) !important;
+        color: var(--main-700) !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  /* ── CTA icon — cam efekti ── */
+  .category-cta__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #ffffff !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* ── CTA typography shadow ── */
+  .category-cta__inner--schools {
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      /* arrow icon slide on hover */
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  /* ── Stats: per-card icon colors mirror section category colors ── */
+  .category-stats__card {
+    &:nth-child(1) .category-stats__icon {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+
+    &:nth-child(2) .category-stats__icon {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+
+    &:nth-child(3) .category-stats__icon {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    &:nth-child(4) .category-stats__icon {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+
+    /* value color for each stat card */
+    &:nth-child(1) .category-stats__value { color: var(--main-600); }
+    &:nth-child(2) .category-stats__value { color: #7c3aed; }
+    &:nth-child(3) .category-stats__value { color: var(--main-two-600); }
+    &:nth-child(4) .category-stats__value { color: var(--main-three-600); }
+  }
+
+  /* ── Category Grid: accent colors per level ── */
+  .category-grid__card {
+    /* card 1 — anaokulu: teal/green accent */
+    &:nth-child(1):hover {
+      border-color: var(--main-three-100);
+
+      .category-grid__card-action {
+        color: var(--main-three-600);
+      }
+    }
+
+    &:nth-child(1) .category-grid__card-count {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+
+    /* card 2 — ilkokul: primary blue */
+    &:nth-child(2) .category-grid__card-count {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+
+    /* card 3 — ortaokul: orange */
+    &:nth-child(3):hover {
+      border-color: var(--main-two-100);
+
+      .category-grid__card-action {
+        color: var(--main-two-600);
+      }
+    }
+
+    &:nth-child(3) .category-grid__card-count {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    /* card 4 — lise: purple */
+    &:nth-child(4):hover {
+      border-color: rgba(124, 58, 237, 0.15);
+
+      .category-grid__card-action {
+        color: #7c3aed;
+      }
+    }
+
+    &:nth-child(4) .category-grid__card-count {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+  }
+}
+
+/* ===================================== Edu Courses Page Overrides =========================== */
+/* /edu-courses — orange-amber accent, mirrors private-schools quality */
+.category-detail-page--edu {
+  background: linear-gradient(180deg, #fff8f3 0%, #ffffff 140px);
+
+  /* ── CTA — enhanced orange gradient with decorative orbs ── */
+  .category-cta__inner--secondary {
+    background: linear-gradient(135deg, var(--main-two-600) 0%, #f97316 45%, #ea580c 100%);
+    box-shadow: 0 20px 60px rgba(234, 88, 12, 0.30);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: var(--main-two-600) !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: #fff8f3 !important;
+        color: #c2410c !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  /* ── CTA Icon — glassmorphism effect ── */
+  .category-cta__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #ffffff !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* ── Stats: per-card icon & value colors ── */
+  .category-stats__card {
+    &:nth-child(1) .category-stats__icon {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+    &:nth-child(2) .category-stats__icon {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+    &:nth-child(3) .category-stats__icon {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+    &:nth-child(4) .category-stats__icon {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+
+    &:nth-child(1) .category-stats__value { color: var(--main-two-600); }
+    &:nth-child(2) .category-stats__value { color: #7c3aed; }
+    &:nth-child(3) .category-stats__value { color: var(--main-600); }
+    &:nth-child(4) .category-stats__value { color: var(--main-three-600); }
+  }
+
+  /* ── Category Grid: per-card accent colors matching category data ── */
+  .category-grid__card {
+    /* card 1 — LGS Hazırlık: primary blue */
+    &:nth-child(1):hover {
+      border-color: var(--main-100);
+      .category-grid__card-action { color: var(--main-600); }
+    }
+    &:nth-child(1) .category-grid__card-count {
+      background: var(--main-50);
+      color: var(--main-600);
+    }
+
+    /* card 2 — YKS/AYT: orange */
+    &:nth-child(2):hover {
+      border-color: var(--main-two-100);
+      .category-grid__card-action { color: var(--main-two-600); }
+    }
+    &:nth-child(2) .category-grid__card-count {
+      background: var(--main-two-50);
+      color: var(--main-two-600);
+    }
+
+    /* card 3 — Lise Destek: teal */
+    &:nth-child(3):hover {
+      border-color: var(--main-three-100);
+      .category-grid__card-action { color: var(--main-three-600); }
+    }
+    &:nth-child(3) .category-grid__card-count {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+
+    /* card 4 — Birebir Özel Ders: purple */
+    &:nth-child(4):hover {
+      border-color: rgba(124, 58, 237, 0.15);
+      .category-grid__card-action { color: #7c3aed; }
+    }
+    &:nth-child(4) .category-grid__card-count {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+  }
+}
+
+/* ===================================== Activity Courses Page Overrides =========================== */
+/* /activity-courses — teal-emerald accent, mirrors private-schools quality */
+.category-detail-page--activity {
+  background: linear-gradient(180deg, #f0fdf9 0%, #ffffff 140px);
+
+  /* ── CTA — enhanced teal gradient with decorative orbs ── */
+  .category-cta__inner--tertiary {
+    background: linear-gradient(135deg, var(--main-three-600) 0%, #059669 45%, #047857 100%);
+    box-shadow: 0 20px 60px rgba(5, 150, 105, 0.30);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: var(--main-three-600) !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: #f0fdf9 !important;
+        color: #047857 !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  /* ── CTA Icon — glassmorphism effect ── */
+  .category-cta__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      width: 64px;
+      height: 64px;
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #ffffff !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  /* ── Stats: per-card icon & value colors ── */
+  .category-stats__card {
+    /* Aktif Kurum — teal */
+    &:nth-child(1) .category-stats__icon {
+      background: var(--main-three-50);
+      color: var(--main-three-600);
+    }
+    /* Kategori — purple */
+    &:nth-child(2) .category-stats__icon {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+    /* Öğrenci — green */
+    &:nth-child(3) .category-stats__icon {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+    /* Memnuniyet — pink */
+    &:nth-child(4) .category-stats__icon {
+      background: #fdf2f8;
+      color: #db2777;
+    }
+
+    &:nth-child(1) .category-stats__value { color: var(--main-three-600); }
+    &:nth-child(2) .category-stats__value { color: #7c3aed; }
+    &:nth-child(3) .category-stats__value { color: #16a34a; }
+    &:nth-child(4) .category-stats__value { color: #db2777; }
+  }
+
+  /* ── Category Grid: per-card accent colors matching category data ── */
+  .category-grid__card {
+    /* card 1 — Müzik: purple */
+    &:nth-child(1):hover {
+      border-color: rgba(124, 58, 237, 0.15);
+      .category-grid__card-action { color: #7c3aed; }
+    }
+    &:nth-child(1) .category-grid__card-count {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+
+    /* card 2 — Spor: green */
+    &:nth-child(2):hover {
+      border-color: rgba(22, 163, 74, 0.15);
+      .category-grid__card-action { color: #16a34a; }
+    }
+    &:nth-child(2) .category-grid__card-count {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    /* card 3 — Resim & Sanat: amber */
+    &:nth-child(3):hover {
+      border-color: rgba(217, 119, 6, 0.15);
+      .category-grid__card-action { color: #d97706; }
+    }
+    &:nth-child(3) .category-grid__card-count {
+      background: #fffbeb;
+      color: #d97706;
+    }
+
+    /* card 4 — Dans: pink */
+    &:nth-child(4):hover {
+      border-color: rgba(219, 39, 119, 0.15);
+      .category-grid__card-action { color: #db2777; }
+    }
+    &:nth-child(4) .category-grid__card-count {
+      background: #fdf2f8;
+      color: #db2777;
+    }
+
+    /* card 5 — Satranç: teal-dark */
+    &:nth-child(5):hover {
+      border-color: rgba(15, 118, 110, 0.15);
+      .category-grid__card-action { color: #0f766e; }
+    }
+    &:nth-child(5) .category-grid__card-count {
+      background: #f0fdfa;
+      color: #0f766e;
+    }
+
+    /* card 6 — Yüzme: blue */
+    &:nth-child(6):hover {
+      border-color: rgba(3, 105, 161, 0.15);
+      .category-grid__card-action { color: #0369a1; }
+    }
+    &:nth-child(6) .category-grid__card-count {
+      background: #eff6ff;
+      color: #0369a1;
+    }
+  }
+
+  /* ── Age Groups: per-card hover accent colors ── */
+  .activity-age-groups__card {
+    /* card 1 — 3-6 Yaş: pink */
+    &:nth-child(1):hover {
+      border-color: rgba(219, 39, 119, 0.18);
+      .activity-age-groups__card-action { color: #db2777; }
+    }
+
+    /* card 2 — 7-12 Yaş: amber */
+    &:nth-child(2):hover {
+      border-color: rgba(217, 119, 6, 0.18);
+      .activity-age-groups__card-action { color: #d97706; }
+    }
+
+    /* card 3 — 13-18 Yaş: purple */
+    &:nth-child(3):hover {
+      border-color: rgba(124, 58, 237, 0.18);
+      .activity-age-groups__card-action { color: #7c3aed; }
+    }
+
+    /* card 4 — 18+ Yaş: teal */
+    &:nth-child(4):hover {
+      border-color: var(--main-three-100);
+      .activity-age-groups__card-action { color: var(--main-three-600); }
+    }
+  }
+}
+
+/* =====================================================================
+   Language Courses Page — CTA Override
+   /language-courses → dark page, deep blue-navy gradient
+   ===================================================================== */
+.category-detail-page--dark {
+  .category-cta__inner--language {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a6b 50%, #2563eb 100%) !important;
+    background-size: 100% 100% !important;
+    animation: none !important;
+    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.35);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: #1d4ed8 !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: #eff6ff !important;
+        color: #1e40af !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+
+    .category-cta__icon {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  /* ── How It Works CTA — dark navy-blue gradient matching language-courses ── */
+  .category-cta__inner--hiw {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a6b 50%, #2563eb 100%) !important;
+    background-size: 100% 100% !important;
+    animation: none !important;
+    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.35);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: #1d4ed8 !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: #eff6ff !important;
+        color: #1e40af !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+
+    .category-cta__icon {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+/* =====================================================================
+   HR Education Page — Section Rhythm (dark-gradient)
+   Interior sections get alternating subtle background bands so the
+   continuous dark gradient doesn't feel monotonous.
+   ===================================================================== */
+.category-detail-page--dark-gradient {
+  /* Tabs section — very subtle border to delineate */
+  .category-tabs {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 32px;
+    margin-top: -16px;
+  }
+
+  /* Advantages section: give it visual separation from the tabs section above */
+  .category-advantages {
+    margin-top: 8px;
+  }
+
+  /* Section header pill badge to echo the homepage section badge treatment */
+  .section-header {
+    position: relative;
+    padding-bottom: 4px;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--main-400, #7cb3ff), transparent);
+      border-radius: 2px;
+      margin: 12px auto 0;
+    }
+  }
+}
+
+/* =====================================================================
+   HR Education Page — CTA Override
+   /hr-education → dark-gradient page, deep indigo-navy gradient
+   ===================================================================== */
+.category-detail-page--dark-gradient {
+  .category-cta__inner--hr {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 45%, #1d4ed8 100%) !important;
+    background-size: 100% 100% !important;
+    animation: none !important;
+    box-shadow: 0 20px 60px rgba(29, 78, 216, 0.30);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: #1d4ed8 !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: #eff6ff !important;
+        color: #1e40af !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+
+    .category-cta__icon {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+/* =====================================================================
+   Webinars Page — CTA Override
+   /webinars → light page with secondary/orange accent
+   ===================================================================== */
+.category-detail-page--webinar {
+  .category-cta__inner--webinar {
+    background: linear-gradient(135deg, var(--main-two-600) 0%, #f97316 45%, #ea580c 100%);
+    box-shadow: 0 20px 60px rgba(234, 88, 12, 0.30);
+    border-radius: 24px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &::before {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+
+    &::after {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .btn-white {
+      background: #ffffff !important;
+      color: var(--main-two-600) !important;
+      border: 2px solid #ffffff !important;
+
+      &:hover {
+        background: #fff7ed !important;
+        color: #c2410c !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .btn-outline-white {
+      background: transparent !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.55) !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .category-cta__title {
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      @media (max-width: 768px) {
+        font-size: 1.625rem;
+      }
+    }
+
+    .category-cta__desc {
+      color: rgba(255, 255, 255, 0.95) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+    }
+
+    .category-cta__buttons .btn {
+      font-weight: 600;
+      min-width: 200px;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        min-width: auto;
+      }
+
+      i:last-child {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i:last-child {
+        transform: translateX(4px);
+      }
+    }
+
+    .category-cta__icon {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+  }
+}

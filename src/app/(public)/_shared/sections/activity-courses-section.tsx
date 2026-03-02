@@ -159,14 +159,24 @@ export default function ActivityCoursesSection() {
               ))}
             </div>
 
-            <Link
-              href="/search"
-              className="btn btn-main-three rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
-              data-wow-delay="0.4s"
-            >
-              Tüm Aktiviteleri Keşfet
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/activity-courses"
+                className="btn btn-teal rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Tüm Aktiviteleri Keşfet
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/search"
+                className="btn btn-outline-teal rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.45s"
+              >
+                Aktivite Ara
+                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

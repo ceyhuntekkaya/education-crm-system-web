@@ -131,12 +131,15 @@ export default function TrustCtaSection() {
           <div className="trust-cta__inner">
             <div className="trust-cta__gradient" />
             <div className="trust-cta__content">
+              <div className="trust-cta__icon wow zoomIn" data-wow-delay="0.28s">
+                <i className="ph-fill ph-shield-check" />
+              </div>
               <h3
                 className="trust-cta__title wow fadeInUp"
                 data-wow-delay="0.3s"
               >
                 Eğitimde Doğru Adımı{" "}
-                <span className="text-gradient-main">Şimdi Atın</span>
+                <span>Şimdi Atın</span>
               </h3>
               <p
                 className="trust-cta__desc wow fadeInUp"
@@ -147,14 +150,17 @@ export default function TrustCtaSection() {
               <div className="trust-cta__buttons">
                 <Link
                   href="/auth/register"
-                  className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
+                  className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                  data-wow-delay="0.4s"
                 >
                   <i className="ph-bold ph-rocket-launch d-flex text-lg" />
                   Hemen Ücretsiz Başla
+                  <i className="ph-bold ph-arrow-right d-flex text-lg" />
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="btn btn-outline-main-two rounded-pill flex-align gap-8 d-inline-flex"
+                  className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                  data-wow-delay="0.45s"
                 >
                   <i className="ph-bold ph-buildings d-flex text-lg" />
                   Kurumunuzu Kaydedin

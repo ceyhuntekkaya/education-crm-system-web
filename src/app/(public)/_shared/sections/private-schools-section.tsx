@@ -7,6 +7,7 @@ const categories = [
     count: "120+ okul",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
+    href: "/search?category=anaokulu",
   },
   {
     icon: "ph-bold ph-book-open-text",
@@ -14,6 +15,7 @@ const categories = [
     count: "280+ okul",
     color: "var(--main-600)",
     bg: "var(--main-50)",
+    href: "/search?category=ilkokul",
   },
   {
     icon: "ph-bold ph-student",
@@ -21,6 +23,7 @@ const categories = [
     count: "210+ okul",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
+    href: "/search?category=ortaokul",
   },
   {
     icon: "ph-bold ph-graduation-cap",
@@ -28,6 +31,7 @@ const categories = [
     count: "240+ okul",
     color: "#7c3aed",
     bg: "#f5f3ff",
+    href: "/search?category=lise",
   },
 ];
 
@@ -126,7 +130,7 @@ export default function PrivateSchoolsSection() {
             <div className="school-teaser-split__categories">
               {categories.map((cat, i) => (
                 <Link
-                  href="/search"
+                  href={cat.href}
                   key={i}
                   className="school-teaser-split__cat-card wow fadeInUp"
                   data-wow-delay={`${i * 0.1}s`}
@@ -150,14 +154,24 @@ export default function PrivateSchoolsSection() {
               ))}
             </div>
 
-            <Link
-              href="/search"
-              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
-              data-wow-delay="0.35s"
-            >
-              Tüm Okulları Keşfet
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/private-schools"
+                className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
+              >
+                Detaylı Bilgi
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/search"
+                className="btn btn-outline-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Okul Ara
+                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

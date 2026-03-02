@@ -156,18 +156,20 @@ export default function HrEducationSection() {
             </div>
             <div className="hr-fullwidth__cta-buttons">
               <Link
-                href="/search"
-                className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex"
+                href="/hr-education"
+                className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
               >
-                İş İlanlarını Gör
+                Daha Fazla Bilgi
                 <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
               </Link>
               <Link
-                href="/about"
-                className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex"
+                href="/search"
+                className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
               >
-                Kurum Olarak Kaydol
-                <i className="ph-bold ph-arrow-right d-flex text-lg" />
+                İş İlanlarını Gör
+                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
               </Link>
             </div>
           </div>
