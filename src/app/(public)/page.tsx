@@ -11,6 +11,7 @@ import {
   HrEducationSection,
   WebinarsSection,
   TrustCtaSection,
+  SupplyPanelSection,
 } from "./_shared/sections";
 
 export default function PublicHomePage() {
@@ -42,6 +43,9 @@ export default function PublicHomePage() {
 
       {/* İK - Eğitim Sektörüne Özel */}
       <HrEducationSection />
+
+      {/* Tedarik Paneli */}
+      <SupplyPanelSection />
 
       {/* Güven Barı + Final CTA */}
       <TrustCtaSection />

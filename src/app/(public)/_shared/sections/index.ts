@@ -11,3 +11,4 @@ export { default as HowItWorksSection } from "./how-it-works-section";
 export { default as HrEducationSection } from "./hr-education-section";
 export { default as WebinarsSection } from "./webinars-section";
 export { default as TrustCtaSection } from "./trust-cta-section";
+export { default as SupplyPanelSection } from "./supply-panel-section";
