@@ -52,6 +52,44 @@
             border-color: hsl(var(--main)) !important;
         }
     }
+    // Orange Button
+    &-orange {
+        background-color: hsl(var(--main-two)) !important;
+        border-color: hsl(var(--main-two)) !important;
+        color: hsl(var(--white)) !important;
+        &:hover {
+            background-color: var(--main-two-700) !important;
+            border-color: var(--main-two-700) !important;
+        }
+    }
+    &-outline-orange {
+        background-color: transparent !important;
+        border-color: hsl(var(--main-two)) !important;
+        color: hsl(var(--main-two)) !important;
+        &:hover {
+            background-color: hsl(var(--main-two) / 0.1) !important;
+            border-color: hsl(var(--main-two)) !important;
+        }
+    }
+    // Teal Button
+    &-teal {
+        background-color: hsl(var(--main-three)) !important;
+        border-color: hsl(var(--main-three)) !important;
+        color: hsl(var(--white)) !important;
+        &:hover {
+            background-color: var(--main-three-700) !important;
+            border-color: var(--main-three-700) !important;
+        }
+    }
+    &-outline-teal {
+        background-color: transparent !important;
+        border-color: hsl(var(--main-three)) !important;
+        color: hsl(var(--main-three)) !important;
+        &:hover {
+            background-color: hsl(var(--main-three) / 0.1) !important;
+            border-color: hsl(var(--main-three)) !important;
+        }
+    }
     &-white {
         background-color: hsl(var(--white)) !important;
         border-color: hsl(var(--white)) !important;

@@ -545,13 +545,15 @@
   &__icon {
     width: 80px;
     height: 80px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 24px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
     @media (max-width: 768px) {
       width: 64px;
@@ -560,7 +562,8 @@
 
     i {
       font-size: 2.5rem;
-      color: var(--white);
+      color: #ffffff !important;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 
       @media (max-width: 768px) {
         font-size: 2rem;
@@ -571,8 +574,9 @@
   &__title {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--white);
+    color: #ffffff !important;
     margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
     @media (max-width: 768px) {
       font-size: 1.75rem;
@@ -585,10 +589,11 @@
 
   &__description {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 0.95) !important;
     max-width: 700px;
     margin: 0 auto 32px;
     line-height: 1.7;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
     @media (max-width: 768px) {
       font-size: 1rem;

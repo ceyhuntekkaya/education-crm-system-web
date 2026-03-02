@@ -18,26 +18,26 @@ export const VIDEO_CONFIG = {
 export const VIDEO_STATS = [
   {
     icon: "ph-map-pin",
-    value: "Türkiye Geneli",
+    value: "81 İl",
     label: "Hizmet Ağı",
     color: "main",
   },
   {
     icon: "ph-shield-check",
-    value: "Güvenli",
-    label: "Platform",
+    value: "KVKK",
+    label: "Uyumlu",
     color: "main-two",
   },
   {
     icon: "ph-clock",
     value: "7/24",
-    label: "Destek",
+    label: "Teknik Destek",
     color: "success",
   },
   {
     icon: "ph-devices",
-    value: "Her Yerden",
-    label: "Erişim",
+    value: "Bulut",
+    label: "Altyapı",
     color: "info",
   },
 ] as const;
@@ -46,32 +46,35 @@ export const VIDEO_STATS = [
 export const PLATFORM_FEATURES = [
   {
     icon: "ph-magnifying-glass",
-    title: "Gelişmiş Arama",
-    description: "İhtiyaçlarınıza uygun eğitim kurumlarını kolayca bulun",
+    title: "Detaylı Raporlama",
+    description: "Kayıt, tahsilat ve memnuniyet oranlarınızı anlık takip edin",
   },
   {
     icon: "ph-scales",
-    title: "Kurum Karşılaştırma",
-    description: "Eğitim kurumlarını yan yana getirip detaylı karşılaştırın",
+    title: "Rakip Analizi",
+    description:
+      "Bölgenizdeki diğer kurumlarla fiyat ve hizmet karşılaştırması yapın",
   },
   {
     icon: "ph-calendar-check",
-    title: "Randevu Sistemi",
-    description: "Kurumlarla hızlıca iletişime geçin ve randevu alın",
+    title: "Randevu Yönetimi",
+    description:
+      "Veli görüşmelerini ve tanıtım günlerini dijital ortamda yönetin",
   },
   {
     icon: "ph-star",
-    title: "Değerlendirme",
-    description: "Gerçek kullanıcı deneyimlerini okuyun ve karar verin",
+    title: "İtibar Yönetimi",
+    description: "Kurumunuz hakkındaki yorumları yönetin ve yanıtlayın",
   },
   {
     icon: "ph-bookmark-simple",
-    title: "Liste Yönetimi",
-    description: "Beğendiğiniz kurumları listelerinize kaydedin",
+    title: "Öğrenci CRM",
+    description: "Aday öğrenci havuzunuzu yönetin ve kayıta dönüştürün",
   },
   {
     icon: "ph-device-mobile",
-    title: "Mobil Uyumlu",
-    description: "Her yerden, her cihazdan kolayca erişim sağlayın",
+    title: "Mobil Yönetim",
+    description:
+      "Yönetici paneline mobilden erişerek işinizi her yerden yönetin",
   },
 ] as const;

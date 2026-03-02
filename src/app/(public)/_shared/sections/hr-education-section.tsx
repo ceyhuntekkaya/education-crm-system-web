@@ -6,23 +6,23 @@ import { useState } from "react";
 const features = [
   {
     icon: "ph-bold ph-user-circle-gear",
-    title: "Yetenek Yönetimi & Aday Havuzu",
-    desc: "Eğitimli bireyleri filtreleyin, nitelikli öğretmen ve danışmanları hızla bulun.",
+    title: "Geniş Aday Havuzu",
+    desc: "Binlerce onaylı eğitimci özgeçmişine anında erişim sağlayın.",
   },
   {
     icon: "ph-bold ph-clipboard-text",
-    title: "Eğitim Sektörüne Özel İş İlanları",
-    desc: "Öğretmen, rehber öğretmen, eğitim danışmanı ve yönetici pozisyonları.",
+    title: "Hızlı İlan Yayınlama",
+    desc: "Öğretmen, idari kadro ve destek personel ilanlarınızı dakikalar içinde oluşturun.",
   },
   {
     icon: "ph-bold ph-chart-line-up",
-    title: "Performans & Gelişim Takibi",
-    desc: "Çalışan gelişimini izleyin, bireysel eğitim ihtiyaçlarını tespit edin.",
+    title: "Başvuru Yönetim Paneli",
+    desc: "Gelen başvuruları kolayca filtreleyin, mülakatları planlayın ve süreci yönetin.",
   },
   {
     icon: "ph-bold ph-shield-check",
-    title: "MEB Mevzuatına Uygun Süreçler",
-    desc: "Yasal gerekliliklere uygun belgeleme ve işe alım süreci yönetimi.",
+    title: "Kurumsal Marka Yönetimi",
+    desc: "Kurumunuzun işveren markasını güçlendirin ve en iyi yetenekleri cezbedin.",
   },
 ];
 
@@ -78,8 +78,9 @@ export default function HrEducationSection() {
             className="hr-fullwidth__subtitle wow fadeInUp"
             data-wow-delay="0.1s"
           >
-            Okulunuz veya kurumunuz için doğru eğitimciyi bulun. Hızlı ve şeffaf
-            işe alım & insan kaynakları yönetim platformu.
+            Nitelikli öğretmen ve idari personel ihtiyaçlarınızı en hızlı
+            şekilde karşılayın. Eğitim sektörüne özel İK çözümleriyle kadronuzu
+            güçlendirin.
           </p>
         </div>
 
@@ -147,27 +148,29 @@ export default function HrEducationSection() {
               <i className="ph-bold ph-megaphone" />
               <div>
                 <span className="hr-fullwidth__cta-title">
-                  Kurumunuz için iş ilanı verin
+                  Aradığınız Yeteneği Hemen Bulun
                 </span>
                 <span className="hr-fullwidth__cta-sub">
-                  Eğitim sektörünün en büyük yetenek platformuna ücretsiz erişin
+                  İlk iş ilanınızı ücretsiz yayınlayın ve adaylarla tanışın.
                 </span>
               </div>
             </div>
             <div className="hr-fullwidth__cta-buttons">
               <Link
-                href="/search"
-                className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex"
+                href="/hr-education"
+                className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
               >
-                İş İlanlarını Gör
+                İK Çözümlerini İncele
                 <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
               </Link>
               <Link
-                href="/about"
-                className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex"
+                href="/auth/register"
+                className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
               >
-                Kurum Olarak Kaydol
-                <i className="ph-bold ph-arrow-right d-flex text-lg" />
+                İlan Yayınla
+                <i className="ph-bold ph-plus-circle d-flex text-lg" />
               </Link>
             </div>
           </div>

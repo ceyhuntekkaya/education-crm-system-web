@@ -7,6 +7,7 @@ const categories = [
     count: "120+ okul",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
+    href: "/search?category=anaokulu",
   },
   {
     icon: "ph-bold ph-book-open-text",
@@ -14,6 +15,7 @@ const categories = [
     count: "280+ okul",
     color: "var(--main-600)",
     bg: "var(--main-50)",
+    href: "/search?category=ilkokul",
   },
   {
     icon: "ph-bold ph-student",
@@ -21,6 +23,7 @@ const categories = [
     count: "210+ okul",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
+    href: "/search?category=ortaokul",
   },
   {
     icon: "ph-bold ph-graduation-cap",
@@ -28,13 +31,14 @@ const categories = [
     count: "240+ okul",
     color: "#7c3aed",
     bg: "#f5f3ff",
+    href: "/search?category=lise",
   },
 ];
 
 const stats = [
-  { value: "850+", label: "Kayıtlı Okul" },
-  { value: "4.8★", label: "Ort. Puan" },
-  { value: "12K+", label: "Veli Yorumu" },
+  { value: "45K+", label: "Veli Ziyareti" },
+  { value: "%98", label: "Kurum Memnuniyeti" },
+  { value: "1500+", label: "Öğrenci Talebi" },
 ];
 
 /* Gradient "illustration" alanındaki floating ikonlar */
@@ -109,24 +113,24 @@ export default function PrivateSchoolsSection() {
             </div>
 
             <h2 className="school-teaser-split__title wow fadeInUp">
-              <span className="text-main-600">Türkiye&apos;nin En İyi</span>{" "}
-              Özel Okullarını Keşfedin
+              <span className="text-main-600">Özel Okulunuz İçin</span> Güçlü
+              Bir Çözüm Ortağı
             </h2>
 
             <p
               className="school-teaser-split__desc wow fadeInUp"
               data-wow-delay="0.1s"
             >
-              Anaokulu&apos;ndan liseye, Türkiye genelindeki özel okulları
-              keşfedin. Konuma, fiyata ve değerlendirmelere göre karşılaştırın,
-              tanışma randevusu alın.
+              Kurumunuzun dijital görünürlüğünü artırın, potansiyel velilere
+              doğrudan ulaşın. Tanıtım günleri, randevu yönetimi ve ön kayıt
+              süreçlerini tek panelden yönetin.
             </p>
 
             {/* Kategori Kartları */}
             <div className="school-teaser-split__categories">
               {categories.map((cat, i) => (
                 <Link
-                  href="/search"
+                  href={cat.href}
                   key={i}
                   className="school-teaser-split__cat-card wow fadeInUp"
                   data-wow-delay={`${i * 0.1}s`}
@@ -150,14 +154,24 @@ export default function PrivateSchoolsSection() {
               ))}
             </div>
 
-            <Link
-              href="/search"
-              className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
-              data-wow-delay="0.35s"
-            >
-              Tüm Okulları Keşfet
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/private-schools"
+                className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
+              >
+                Kurumsal Çözümler
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/auth/register"
+                className="btn btn-outline-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Okulunuzu Kaydedin
+                <i className="ph-bold ph-plus-circle d-flex text-lg" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

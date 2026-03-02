@@ -46,9 +46,9 @@ const categories = [
 ];
 
 const stats = [
-  { value: "500+", label: "Aktif Kurum" },
-  { value: "8", label: "Kategori" },
-  { value: "35K+", label: "Öğrenci" },
+  { value: "500+", label: "Aktif Kulüp" },
+  { value: "8", label: "Branş" },
+  { value: "1.5M+", label: "Etkinlik İzlenimi" },
 ];
 
 const floatingIcons = [
@@ -118,17 +118,17 @@ export default function ActivityCoursesSection() {
             </div>
 
             <h2 className="activity-teaser-split__title wow fadeInUp">
-              <span className="text-main-three-600">Yeteneği Keşfet</span>,
-              Tutkuyu Geliştir
+              <span className="text-main-three-600">Sanat ve Spor</span>{" "}
+              Merkezinizi Canlandırın
             </h2>
 
             <p
               className="activity-teaser-split__desc wow fadeInUp"
               data-wow-delay="0.1s"
             >
-              Müzikten spora, sanattan teknolojiye — çocuğunuzun ilgi alanına
-              uygun aktivite kurslarını bulun ve yeteneklerini en iyi
-              eğitmenlerle geliştirin.
+              Müzik, spor, sanat ve teknoloji kurslarınızı tanıtın. Atölye
+              takvimini, eğitmen programlarını ve katılımcı kayıtlarını kolayca
+              yönetin.
             </p>
 
             {/* Kategori Kartları — 2×3 Grid */}
@@ -159,14 +159,24 @@ export default function ActivityCoursesSection() {
               ))}
             </div>
 
-            <Link
-              href="/search"
-              className="btn btn-main-three rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
-              data-wow-delay="0.4s"
-            >
-              Tüm Aktiviteleri Keşfet
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/activity-courses"
+                className="btn btn-teal rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Yetenek Programınızı Oluşturun
+                <i className="ph-bold ph-pencil-simple-line d-flex text-lg" />
+              </Link>
+              <Link
+                href="/auth/register"
+                className="btn btn-outline-teal rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.45s"
+              >
+                Hemen Katılın
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

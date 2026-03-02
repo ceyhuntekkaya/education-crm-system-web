@@ -2,27 +2,27 @@ import Link from "next/link";
 
 const features = [
   {
-    icon: "ph-bold ph-wifi-high",
-    title: "Online, Yüz Yüze & Hibrit",
-    desc: "Dilediğiniz formatta, dilediğiniz yerden katılın.",
+    icon: "ph-bold ph-ticket",
+    title: "Kayıt Yönetimi",
+    desc: "Katılımcı kayıtlarını toplayın, bilet satışlarını yönetin ve raporlayın.",
     num: "01",
   },
   {
-    icon: "ph-bold ph-calendar-check",
-    title: "Takvim Entegrasyonu",
-    desc: "Google, Outlook ve Apple takvimlerinize anında ekleyin.",
+    icon: "ph-bold ph-users-three",
+    title: "Hedef Kitle Erişimi",
+    desc: "Etkinliklerinizi doğru kitleye ulaştırarak doluluk oranlarını artırın.",
     num: "02",
   },
   {
     icon: "ph-bold ph-certificate",
-    title: "Katılım Sertifikası",
-    desc: "Her etkinlik sonrasında dijital sertifikanızı alın.",
+    title: "Otomatik Sertifika",
+    desc: "Katılımcılara özel tasarımlı dijital sertifikaları otomatik gönderin.",
     num: "03",
   },
   {
-    icon: "ph-bold ph-video-camera",
-    title: "Kayıt & Tekrar İzle",
-    desc: "Kaçırdığınız etkinlikleri istediğiniz zaman izleyin.",
+    icon: "ph-bold ph-chart-bar",
+    title: "Analiz & Raporlama",
+    desc: "Etkinlik performansını ve katılımcı geri bildirimlerini detaylı analiz edin.",
     num: "04",
   },
 ];
@@ -84,17 +84,17 @@ export default function WebinarsSection() {
             </div>
 
             <h2 className="webinar-teaser-split__title wow fadeInUp">
-              Uzmanlarla Buluşun,{" "}
-              <span className="text-main-two-600">Gelişime Katılın</span>
+              Kurum Etkinliklerinizi{" "}
+              <span className="text-main-two-600">Profesyonelce Yönetin</span>
             </h2>
 
             <p
               className="webinar-teaser-split__desc wow fadeInUp"
               data-wow-delay="0.1s"
             >
-              Eğitim dünyasının önde gelen uzmanlarıyla canlı webinar ve
-              etkinliklere katılın. Dijitalden yüz yüzeye, her formatta
-              profesyonel gelişiminize yatırım yapın.
+              Tanıtım günleri, seminerler, webinarlar ve atölye çalışmalarınızı
+              geniş kitlelere duyurun. Kayıt, biletleme ve sertifika süreçlerini
+              dijitalleştirin.
             </p>
 
             {/* Features — numaralı badge'ler eklendi */}
@@ -117,15 +117,25 @@ export default function WebinarsSection() {
               ))}
             </div>
 
-            {/* CTA — shimmer efektli */}
-            <Link
-              href="/search"
-              className="btn btn-main-two rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
-              data-wow-delay="0.35s"
-            >
-              Tüm Etkinlikleri Gör
-              <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
-            </Link>
+            {/* CTA */}
+            <div className="d-flex flex-wrap gap-12">
+              <Link
+                href="/webinars"
+                className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.35s"
+              >
+                Etkinlik Özellikleri
+                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+              </Link>
+              <Link
+                href="/auth/register"
+                className="btn btn-outline-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                Etkinlik Oluştur
+                <i className="ph-bold ph-plus-circle d-flex text-lg" />
+              </Link>
+            </div>
           </div>
 
           {/* Sağ — Dekoratif Görsel Alan */}

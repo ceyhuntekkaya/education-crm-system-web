@@ -73,17 +73,18 @@ export default function VideoTeaserSection() {
             </div>
 
             <h2 className="video-teaser-split__title wow fadeInUp">
-              <span className="text-main-600">Eğitim İste</span>&apos;yi{" "}
-              <span className="text-main-two-600">5 Dakikada</span> Keşfedin
+              <span className="text-main-600">Eğitim Kurumunuzu</span>{" "}
+              <span className="text-main-two-600">5 Dakikada</span>{" "}
+              Dijitalleştirin
             </h2>
 
             <p
               className="video-teaser-split__desc wow fadeInUp"
               data-wow-delay="0.1s"
             >
-              Platformumuzun tüm özelliklerini keşfedin. Eğitim kurumlarını
-              nasıl bulacağınızı, karşılaştıracağınızı ve randevu alacağınızı
-              öğrenin.
+              Öğrenci kayıtlarından personel yönetimine, ders programlarından
+              finansal takibe kadar tüm süreçlerinizi tek bir platformdan
+              yönetin.
             </p>
 
             {/* CTA — shimmer efektli */}
@@ -92,7 +93,7 @@ export default function VideoTeaserSection() {
               className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn wow fadeInUp"
               data-wow-delay="0.2s"
             >
-              Videoyu İzle
+              Panel Tanıtımını İzle
               <i className="ph-bold ph-play-circle d-flex text-lg" />
             </Link>
           </div>
