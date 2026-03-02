@@ -98,7 +98,7 @@ export default function TrustCtaSection() {
                       end={s.end}
                       duration={2.4}
                       separator="."
-                      decimals={s.decimals || 0}
+                      decimals={0}
                       prefix={s.prefix || ""}
                       suffix={s.suffix}
                     />
