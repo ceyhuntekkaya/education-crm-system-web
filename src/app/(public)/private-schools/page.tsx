@@ -15,7 +15,7 @@ const categories = [
     desc: "Öğrenci takibi, veli iletişimi ve yemek listesi yönetimi için özelleşmiş modüller.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-book-open-text",
@@ -24,7 +24,7 @@ const categories = [
     desc: "Ön kayıt süreçlerini dijitalleştirin, veli randevularını otomatik planlayın.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-student",
@@ -33,7 +33,7 @@ const categories = [
     desc: "LGS deneme sınavlarını yönetin, öğrenci başarı grafiklerini velilerle paylaşın.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-graduation-cap",
@@ -42,7 +42,7 @@ const categories = [
     desc: "Üniversite hazırlık süreçlerini, tercih danışmanlığını ve mezun ağını yönetin.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/auth/register",
+    href: "/search",
   },
 ];
 
@@ -167,7 +167,7 @@ export default function PrivateSchoolsPage() {
               Okulunuzu Ekleyin
             </Link>
             <Link
-              href="/about"
+              href="/how-it-works"
               className="btn btn-outline-main rounded-pill flex-align gap-8 d-inline-flex"
             >
               <i className="ph-bold ph-info d-flex text-lg" />
@@ -338,7 +338,7 @@ export default function PrivateSchoolsPage() {
                   <i className="ph-bold ph-arrow-right d-flex text-lg" />
                 </Link>
                 <Link
-                  href="/about"
+                  href="/how-it-works"
                   className="btn btn-outline-white btn-lg rounded-pill flex-align gap-8 d-inline-flex"
                 >
                   <i className="ph-bold ph-info d-flex text-lg" />

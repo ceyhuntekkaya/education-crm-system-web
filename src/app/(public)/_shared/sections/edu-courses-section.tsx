@@ -7,6 +7,7 @@ const categories = [
     count: "120+ kurs",
     color: "var(--main-600)",
     bg: "var(--main-50)",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-graduation-cap",
@@ -14,6 +15,7 @@ const categories = [
     count: "98+ kurs",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-book-open",
@@ -21,6 +23,7 @@ const categories = [
     count: "76+ kurs",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-chalkboard-teacher",
@@ -28,6 +31,7 @@ const categories = [
     count: "210+ ilan",
     color: "#7c3aed",
     bg: "#f5f3ff",
+    href: "/search",
   },
 ];
 
@@ -76,7 +80,7 @@ export default function EduCoursesSection() {
             <div className="edu-teaser-split__categories">
               {categories.map((cat, i) => (
                 <Link
-                  href="/search"
+                  href={cat.href}
                   key={i}
                   className="edu-teaser-split__cat-card wow fadeInUp"
                   data-wow-delay={`${i * 0.1}s`}
@@ -106,8 +110,8 @@ export default function EduCoursesSection() {
                 className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.35s"
               >
-                Çözümleri İncele
-                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+                Kurs & Dershane Çözümlerimiz
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
               </Link>
               <Link
                 href="/auth/register"

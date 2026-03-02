@@ -124,8 +124,8 @@ export default function WebinarsSection() {
                 className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.35s"
               >
-                Etkinlik Özellikleri
-                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+                Etkinlik & Webinar Çözümlerimiz
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
               </Link>
               <Link
                 href="/auth/register"
