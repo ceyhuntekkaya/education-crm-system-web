@@ -15,7 +15,7 @@ const eventTypes = [
     desc: "Zoom entegrasyonu ile canlı yayınlarınızı planlayın, kayıt linklerini otomatik gönderin.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-users-three",
@@ -24,7 +24,7 @@ const eventTypes = [
     desc: "Okulunuzdaki açık kapı günleri için kayıt toplayın ve ziyaretçi listelerini yönetin.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-presentation-chart",
@@ -33,7 +33,7 @@ const eventTypes = [
     desc: "Büyük ölçekli etkinliklerinizde bilet satışı, check-in ve yaka kartı süreçlerini yönetin.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-wrench",
@@ -42,7 +42,7 @@ const eventTypes = [
     desc: "Sınırlı kontenjanlı atölyeleriniz için bekleme listesi ve ön ödeme özelliklerini kullanın.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/auth/register",
+    href: "/search",
   },
 ];
 

@@ -7,7 +7,7 @@ const categories = [
     count: "120+ okul",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/search?category=anaokulu",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-book-open-text",
@@ -15,7 +15,7 @@ const categories = [
     count: "280+ okul",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/search?category=ilkokul",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-student",
@@ -23,7 +23,7 @@ const categories = [
     count: "210+ okul",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/search?category=ortaokul",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-graduation-cap",
@@ -31,7 +31,7 @@ const categories = [
     count: "240+ okul",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?category=lise",
+    href: "/search",
   },
 ];
 
@@ -160,8 +160,8 @@ export default function PrivateSchoolsSection() {
                 className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.35s"
               >
-                Kurumsal Çözümler
-                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+                Özel Okul Çözümlerimiz
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
               </Link>
               <Link
                 href="/auth/register"

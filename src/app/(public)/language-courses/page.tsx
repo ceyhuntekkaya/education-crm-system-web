@@ -13,7 +13,7 @@ const languages = [
     name: "İngilizce",
     count: "Yüksek",
     code: "EN",
-    href: "/auth/register",
+    href: "/search?languageOfInstruction=en",
     certifications: "Sertifika Modülü",
   },
   {
@@ -21,7 +21,7 @@ const languages = [
     name: "Almanca",
     count: "Yüksek",
     code: "DE",
-    href: "/auth/register",
+    href: "/search?languageOfInstruction=de",
     certifications: "Kur Takibi",
   },
   {
@@ -29,7 +29,7 @@ const languages = [
     name: "Fransızca",
     count: "Orta",
     code: "FR",
-    href: "/auth/register",
+    href: "/search?languageOfInstruction=fr",
     certifications: "Sınav Yönetimi",
   },
   {
@@ -37,7 +37,7 @@ const languages = [
     name: "İspanyolca",
     count: "Orta",
     code: "ES",
-    href: "/auth/register",
+    href: "/search",
     certifications: "Materyal Desteği",
   },
   {
@@ -45,7 +45,7 @@ const languages = [
     name: "Japonca",
     count: "Özel",
     code: "JP",
-    href: "/auth/register",
+    href: "/search",
     certifications: "Alfabe Eğitimi",
   },
   {
@@ -53,7 +53,7 @@ const languages = [
     name: "Rusça",
     count: "Özel",
     code: "RU",
-    href: "/auth/register",
+    href: "/search",
     certifications: "Pratik Odaklı",
   },
   {
@@ -61,7 +61,7 @@ const languages = [
     name: "Arapça",
     count: "Özel",
     code: "AR",
-    href: "/auth/register",
+    href: "/search",
     certifications: "Grammer Modülü",
   },
   {
@@ -69,7 +69,7 @@ const languages = [
     name: "Çince",
     count: "Özel",
     code: "CN",
-    href: "/auth/register",
+    href: "/search",
     certifications: "Tonlama Analizi",
   },
 ];

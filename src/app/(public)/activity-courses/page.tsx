@@ -15,7 +15,7 @@ const categories = [
     desc: "Enstrüman derslerini, eğitmen müsaitliğini ve öğrenci randevularını kolayca planlayın.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-soccer-ball",
@@ -24,7 +24,7 @@ const categories = [
     desc: "Antrenman saatlerini, sporcu gelişim kartlarını ve aidat ödemelerini tek yerden yönetin.",
     color: "#16a34a",
     bg: "#f0fdf4",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-paint-brush",
@@ -33,7 +33,7 @@ const categories = [
     desc: "Workshop takviminizi yayınlayın, online bilet satışı yapın ve katılımcı listelerini oluşturun.",
     color: "#d97706",
     bg: "#fffbeb",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-person-simple-walk",
@@ -42,7 +42,7 @@ const categories = [
     desc: "Grup dersleri için kapasite yönetimi, devam takip sistemi ve kareografi paylaşımı.",
     color: "#db2777",
     bg: "#fdf2f8",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-crown",
@@ -51,7 +51,7 @@ const categories = [
     desc: "Turnuva organizasyonlarını duyurun, lisanslı sporcu kayıtlarını tutun ve Elo takibi yapın.",
     color: "#0f766e",
     bg: "#f0fdfa",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-swimming-pool",
@@ -60,7 +60,7 @@ const categories = [
     desc: "Havuz doluluk oranlarını optimize edin, üye giriş-çıkışlarını kartlı sistemle yönetin.",
     color: "#0369a1",
     bg: "#eff6ff",
-    href: "/auth/register",
+    href: "/search",
   },
 ];
 
@@ -94,7 +94,7 @@ const ageGroups = [
     icon: "ph-bold ph-baby",
     color: "#db2777",
     bg: "#fce7f3",
-    href: "/auth/register",
+    href: "/search?minAge=3&maxAge=6",
   },
   {
     range: "7–12 Yaş",
@@ -103,7 +103,7 @@ const ageGroups = [
     icon: "ph-bold ph-lightning",
     color: "#d97706",
     bg: "#fef3c7",
-    href: "/auth/register",
+    href: "/search?minAge=7&maxAge=12",
   },
   {
     range: "13–18 Yaş",
@@ -112,7 +112,7 @@ const ageGroups = [
     icon: "ph-bold ph-rocket",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/auth/register",
+    href: "/search?minAge=13&maxAge=18",
   },
   {
     range: "18+ Yaş",
@@ -121,7 +121,7 @@ const ageGroups = [
     icon: "ph-bold ph-user",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/auth/register",
+    href: "/search?minAge=18&maxAge=80",
   },
 ];
 

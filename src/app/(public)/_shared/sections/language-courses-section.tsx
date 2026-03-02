@@ -10,7 +10,7 @@ const languages = [
     flag: "🇬🇧",
     name: "İngilizce",
     count: 284,
-    href: "/search",
+    href: "/search?languageOfInstruction=en",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const languages = [
     flag: "🇩🇪",
     name: "Almanca",
     count: 98,
-    href: "/search",
+    href: "/search?languageOfInstruction=de",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const languages = [
     flag: "🇫🇷",
     name: "Fransızca",
     count: 76,
-    href: "/search",
+    href: "/search?languageOfInstruction=fr",
   },
   {
     id: 4,
@@ -142,8 +142,8 @@ export default function LanguageCoursesSection() {
                 className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.35s"
               >
-                Yönetim Panelini Tanıyın
-                <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
+                Dil Okulu Çözümlerimiz
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
               </Link>
               <Link
                 href="/auth/register"

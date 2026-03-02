@@ -7,6 +7,7 @@ const categories = [
     count: "120+ kurum",
     color: "#7c3aed",
     bg: "#f5f3ff",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-soccer-ball",
@@ -14,6 +15,7 @@ const categories = [
     count: "85+ kurum",
     color: "#16a34a",
     bg: "#f0fdf4",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-paint-brush",
@@ -21,6 +23,7 @@ const categories = [
     count: "94+ kurum",
     color: "#d97706",
     bg: "#fffbeb",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-person-simple-walk",
@@ -28,6 +31,7 @@ const categories = [
     count: "67+ kurum",
     color: "#db2777",
     bg: "#fdf2f8",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-crown",
@@ -35,6 +39,7 @@ const categories = [
     count: "51+ kurum",
     color: "#0f766e",
     bg: "#f0fdfa",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-swimming-pool",
@@ -42,6 +47,7 @@ const categories = [
     count: "73+ kurum",
     color: "#0369a1",
     bg: "#eff6ff",
+    href: "/search",
   },
 ];
 
@@ -135,7 +141,7 @@ export default function ActivityCoursesSection() {
             <div className="activity-teaser-split__categories">
               {categories.map((cat, i) => (
                 <Link
-                  href="/search"
+                  href={cat.href}
                   key={i}
                   className="activity-teaser-split__cat-card wow fadeInUp"
                   data-wow-delay={`${i * 0.1}s`}
@@ -165,8 +171,8 @@ export default function ActivityCoursesSection() {
                 className="btn btn-teal rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.4s"
               >
-                Yetenek Programınızı Oluşturun
-                <i className="ph-bold ph-pencil-simple-line d-flex text-lg" />
+                Aktivite Kulübü Çözümlerimiz
+                <i className="ph-bold ph-arrow-right d-flex text-lg" />
               </Link>
               <Link
                 href="/auth/register"

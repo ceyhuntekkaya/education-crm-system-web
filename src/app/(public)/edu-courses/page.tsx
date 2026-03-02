@@ -15,7 +15,7 @@ const categories = [
     desc: "8. sınıf öğrencileri için deneme sınavı takibi, konu analizi ve veli bilgilendirme sistemi.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-graduation-cap",
@@ -24,7 +24,7 @@ const categories = [
     desc: "TYT ve AYT netlerini analiz edin, öğrencilerin gelişim grafiklerini otomatik oluşturun.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-book-open",
@@ -33,7 +33,7 @@ const categories = [
     desc: "Birebir ve grup etütlerini çakışmadan planlayın, öğretmen programlarını optimize edin.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/auth/register",
+    href: "/search",
   },
   {
     icon: "ph-bold ph-chalkboard-teacher",
@@ -42,7 +42,7 @@ const categories = [
     desc: "Özel ders taleplerini yönetin, eğitmenlerinizin müsaitlik durumunu takvime işleyin.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/auth/register",
+    href: "/search",
   },
 ];
 
