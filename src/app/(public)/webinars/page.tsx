@@ -10,39 +10,39 @@ import { useState } from "react";
 const eventTypes = [
   {
     icon: "ph-bold ph-video-camera",
-    label: "Canlı Webinar",
-    count: "60+ etkinlik",
-    desc: "Uzman konuşmacılarla interaktif, canlı online seminerler. Soru-cevap ve katılım sertifikası.",
+    label: "Online Webinar",
+    count: "Dijital",
+    desc: "Zoom entegrasyonu ile canlı yayınlarınızı planlayın, kayıt linklerini otomatik gönderin.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/search?type=webinar",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-users-three",
-    label: "Yüz Yüze Etkinlik",
-    count: "35+ etkinlik",
-    desc: "Okullar ve eğitim kurumlarında düzenlenen atölye çalışmaları ve seminerler.",
+    label: "Tanıtım Günleri",
+    count: "Fiziksel",
+    desc: "Okulunuzdaki açık kapı günleri için kayıt toplayın ve ziyaretçi listelerini yönetin.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/search?type=yuzyuze",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-presentation-chart",
-    label: "Konferans",
-    count: "15+ etkinlik",
-    desc: "Eğitim sektörünün önde gelen konferansları. Panel tartışmaları ve networking.",
+    label: "Seminer & Konferans",
+    count: "Hibrit",
+    desc: "Büyük ölçekli etkinliklerinizde bilet satışı, check-in ve yaka kartı süreçlerini yönetin.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/search?type=konferans",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-wrench",
     label: "Atölye Çalışması",
-    count: "25+ etkinlik",
-    desc: "Uygulamalı, interaktif atölye çalışmaları. Küçük gruplar ve pratik deneyim.",
+    count: "Uygulamalı",
+    desc: "Sınırlı kontenjanlı atölyeleriniz için bekleme listesi ve ön ödeme özelliklerini kullanın.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?type=atolye",
+    href: "/auth/register",
   },
 ];
 
@@ -160,17 +160,17 @@ export default function WebinarsPage() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Uzmanlarla Buluşun,{" "}
-            <span className="text-main-two-600">Gelişime Katılın</span>
+            Eğitim Etkinliklerinizi{" "}
+            <span className="text-main-two-600">Tek Platformdan</span> Yönetin
           </h1>
           <p
             className="category-hero__desc"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Eğitim dünyasının önde gelen uzmanlarıyla canlı webinar ve
-            etkinliklere katılın. Dijitalden yüz yüzeye, her formatta
-            profesyonel gelişiminize yatırım yapın.
+            Webinar, seminer ve tanıtım günlerinizi planlayın, kayıt toplayın ve
+            katılımcılarınıza otomatik sertifika gönderin. Etkinlik yönetiminde
+            profesyonel çözüm.
           </p>
           <div
             className="category-hero__actions"
@@ -178,11 +178,11 @@ export default function WebinarsPage() {
             data-aos-delay="300"
           >
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex"
             >
-              <i className="ph-bold ph-calendar-check d-flex text-lg" />
-              Etkinlikleri Gör
+              <i className="ph-bold ph-rocket-launch d-flex text-lg" />
+              Etkinlik Oluştur
             </Link>
             <Link
               href="/how-it-works"

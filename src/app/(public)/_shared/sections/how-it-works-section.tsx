@@ -5,25 +5,25 @@ import { useState } from "react";
 
 const steps = [
   {
-    icon: "ph-bold ph-magnifying-glass",
-    title: "Ara & Keşfet",
-    desc: "İhtiyacınıza uygun okul, kurs veya etkinliği konum, fiyat ve değerlendirmelere göre arayın.",
+    icon: "ph-bold ph-pencil-simple-line", // Icon changed to reflect profile creation
+    title: "Kurum Profilinizi Oluşturun",
+    desc: "Kurumsal kimliğinizi yansıtan detaylı bir profil oluşturun, görseller ekleyin ve özelliklerinizi tanıtın.",
     gradient: "linear-gradient(135deg, var(--main-600), #6c5ce7)",
-    stat: { end: 850, suffix: "+", label: "Kurum" },
+    stat: { end: 850, suffix: "+", label: "Aktif Kurum" },
   },
   {
-    icon: "ph-bold ph-scales",
-    title: "Karşılaştır & İncele",
-    desc: "Kurumları yan yana karşılaştırın, veli yorumlarını okuyun ve en doğru kararı verin.",
+    icon: "ph-bold ph-megaphone", // Icon changed to reflect publishing/announcing
+    title: "İçeriklerinizi Yayınlayın",
+    desc: "Ders programlarınızı, etkinliklerinizi ve iş ilanlarınızı binlerce potansiyel öğrenci ve veliye duyurun.",
     gradient: "linear-gradient(135deg, var(--main-two-600), #f7931e)",
-    stat: { end: 12, suffix: "K+", label: "Yorum" },
+    stat: { end: 12, suffix: "K+", label: "Günlük Ziyaret" },
   },
   {
-    icon: "ph-bold ph-rocket-launch",
-    title: "Kayıt Ol & Başla",
-    desc: "Beğendiğiniz kuruma hemen randevu alın veya online kayıt sürecini başlatın.",
+    icon: "ph-bold ph-chart-line-up", // Icon changed to reflect management/growth
+    title: "Başvuruları Yönetin",
+    desc: "Gelen başvuruları tek panelden takip edin, randevuları yönetin ve kayıt oranlarınızı artırın.",
     gradient: "linear-gradient(135deg, var(--main-three-600), #00cec9)",
-    stat: { end: 10, suffix: "K+", label: "Kullanıcı" },
+    stat: { end: 45, suffix: "%", label: "Büyüme" },
   },
 ];
 
@@ -52,8 +52,8 @@ export default function HowItWorksSection() {
             className="hiw-section__subtitle wow fadeInUp"
             data-wow-delay="0.1s"
           >
-            Hayalinizdeki eğitim kurumunu bulun, inceleyin ve kayıt olun — hepsi
-            bu kadar kolay.
+            Eğitim kurumunuzu dijital dünyaya taşıyın, görünürlüğünüzü artırın
+            ve öğrenci kayıt süreçlerini hızlandırın.
           </p>
         </div>
 
@@ -129,12 +129,12 @@ export default function HowItWorksSection() {
               <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
             </Link>
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-outline-main rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
               data-wow-delay="0.35s"
             >
-              Hemen Keşfet
-              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+              Kurum Kaydı Oluştur
+              <i className="ph-bold ph-buildings d-flex text-lg" />
             </Link>
           </div>
         </div>

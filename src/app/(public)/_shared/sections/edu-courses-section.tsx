@@ -32,9 +32,9 @@ const categories = [
 ];
 
 const stats = [
-  { value: "420+", label: "Aktif Kurs" },
-  { value: "%87", label: "Başarı Oranı" },
-  { value: "18K+", label: "Öğrenci" },
+  { value: "420K+", label: "Kayıt Talebi" },
+  { value: "%90", label: "Doluluk Oranı" },
+  { value: "1.2M+", label: "Görüntülenme" },
 ];
 
 /* Gradient "illustration" alanındaki floating ikonlar */
@@ -60,16 +60,16 @@ export default function EduCoursesSection() {
 
             <h2 className="edu-teaser-split__title wow fadeInUp">
               <span className="text-main-two-600">Sınav Hazırlık</span>{" "}
-              Kurslarında Fark Yaratın
+              Programlarınızı Duyurun
             </h2>
 
             <p
               className="edu-teaser-split__desc wow fadeInUp"
               data-wow-delay="0.1s"
             >
-              LGS, YKS, AYT ve üniversite hazırlık programlarında Türkiye
-              genelindeki en iyi kurslara ulaşın. Uzman eğitmenler, kanıtlanmış
-              müfredat ve garantili başarı.
+              LGS, YKS ve üniversite hazırlık kurslarınızı binlerce adaya
+              ulaştırın. Deneme sınavı sonuçlarını, başarı hikayelerini ve uzman
+              kadronuzu öne çıkarın.
             </p>
 
             {/* Kategori Kartları */}
@@ -106,16 +106,16 @@ export default function EduCoursesSection() {
                 className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.35s"
               >
-                Detaylı Bilgi
+                Çözümleri İncele
                 <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
               </Link>
               <Link
-                href="/search"
+                href="/auth/register"
                 className="btn btn-outline-orange rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.4s"
               >
-                Kurs Ara
-                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+                Hemen Başvurun
+                <i className="ph-bold ph-user-plus d-flex text-lg" />
               </Link>
             </div>
           </div>

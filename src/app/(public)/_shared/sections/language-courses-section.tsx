@@ -59,23 +59,23 @@ const languages = [
 const features = [
   {
     icon: "ph-bold ph-certificate",
-    label: "Uluslararası Sertifika",
-    desc: "IELTS, TOEFL, Goethe, DELE ve daha fazlası",
+    label: "Sertifika Yönetimi",
+    desc: "IELTS, TOEFL ve kurumsal sertifikaları dijital olarak verin ve takip edin.",
   },
   {
     icon: "ph-bold ph-users-three",
-    label: "Küçük Grup Dersleri",
-    desc: "Maksimum 8–12 kişilik sınıflar, kişisel ilgi",
+    label: "Sınıf Planlama",
+    desc: "Maksimum doluluk için ders programlarını ve sınıf kapasitelerini optimize edin.",
   },
   {
     icon: "ph-bold ph-monitor-play",
-    label: "Online & Yüz Yüze",
-    desc: "Dilediğin formatta, dilediğin tempoda öğren",
+    label: "Hibrit Eğitim Altyapısı",
+    desc: "Online ve yüz yüze eğitimleri tek platformdan yönetin.",
   },
   {
     icon: "ph-bold ph-trend-up",
-    label: "Hızlı İlerleme Garantisi",
-    desc: "Kanıtlanmış metodoloji, ölçülebilir sonuçlar",
+    label: "Seviye Tespit",
+    desc: "Potansiyel öğrencilerin seviyelerini online testlerle belirleyin.",
   },
 ];
 
@@ -104,17 +104,17 @@ export default function LanguageCoursesSection() {
             </div>
 
             <h2 className="lang-info__title wow fadeInUp">
-              Dünyaya Açılan Kapı:{" "}
-              <span style={{ color: "var(--main-400)" }}>Dil Kursları</span>
+              Kurumunuzu Dünyaya Açın:{" "}
+              <span style={{ color: "var(--main-400)" }}>Dil Okulları</span>
             </h2>
 
             <p
               className="lang-info__description wow fadeInUp"
               data-wow-delay="0.1s"
             >
-              8 farklı dilde 600&apos;den fazla kurum arasından size en uygun
-              dil kursunu seçin. Her seviyeye, her hedefe uygun programlar ve
-              uluslararası geçerlilikte sertifikalar.
+              Yabancı dil eğitim programlarınızı listeleyin, seviye tespit
+              sınavları düzenleyin ve yeni öğrenciler kazanın. Uluslararası
+              standartlarda yönetim araçlarıyla tanışın.
             </p>
 
             {/* Features — stagger animasyonlu */}
@@ -142,16 +142,16 @@ export default function LanguageCoursesSection() {
                 className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.35s"
               >
-                Tüm Dil Kurslarını Gör
+                Yönetim Panelini Tanıyın
                 <i className="ph-bold ph-arrow-up-right d-flex text-lg" />
               </Link>
               <Link
-                href="/search"
+                href="/auth/register"
                 className="btn btn-outline-white rounded-pill flex-align gap-8 d-inline-flex wow fadeInUp"
                 data-wow-delay="0.4s"
               >
-                Dil Kursu Ara
-                <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
+                Hemen Üye Olun
+                <i className="ph-bold ph-user-plus d-flex text-lg" />
               </Link>
             </div>
 

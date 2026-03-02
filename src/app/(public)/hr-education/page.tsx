@@ -10,47 +10,57 @@ import { useState } from "react";
 const jobCategories = [
   {
     icon: "ph-bold ph-chalkboard-teacher",
-    label: "Öğretmen",
-    count: "180+ ilan",
-    desc: "Tüm branşlarda öğretmen pozisyonları. Özel okul, kurs ve dershane fırsatları.",
+    label: "Öğretmen Kadroları",
+    count: "CV Havuzu",
+    desc: "Matematik, Fen, Yabancı Dil ve Sınıf Öğretmenliği branşlarında nitelikli adaylara ulaşın.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/search?job=ogretmen",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-user-circle-gear",
-    label: "Eğitim Danışmanı",
-    count: "45+ ilan",
-    desc: "Rehberlik ve eğitim danışmanlığı pozisyonları. Öğrenci ve veli iletişimi.",
+    label: "Rehberlik & PDR",
+    count: "Uzmanlar",
+    desc: "Kurum kültürünüze uygun, deneyimli rehber öğretmen ve eğitim koçlarını keşfedin.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/search?job=danısman",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-crown",
-    label: "Yönetici",
-    count: "32+ ilan",
-    desc: "Okul müdürü, müdür yardımcısı ve eğitim koordinatörü pozisyonları.",
+    label: "Yönetici Pozisyonları",
+    count: "Liderler",
+    desc: "Okul müdürü, eğitim koordinatörü ve zümre başkanı gibi lider kadrolar için ilan verin.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/search?job=yonetici",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-clipboard-text",
-    label: "İdari Personel",
-    count: "65+ ilan",
-    desc: "Sekreter, muhasebe, yazılım ve diğer idari pozisyonlar.",
+    label: "Destek Personeli",
+    count: "Operasyon",
+    desc: "Öğrenci işleri, muhasebe, güvenlik ve hizmetli kadrolarınızı hızla tamamlayın.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?job=idari",
+    href: "/auth/register",
   },
 ];
 
 const stats = [
-  { end: 2400, suffix: "+", label: "Kayıtlı Eğitimci", icon: "ph-bold ph-users" },
-  { end: 380, suffix: "+", label: "Aktif İş İlanı", icon: "ph-bold ph-briefcase" },
-  { end: 150, suffix: "+", label: "Kurum İşveren", icon: "ph-bold ph-buildings" },
-  { end: 94, suffix: "%", label: "İşe Yerleşme", icon: "ph-bold ph-handshake" },
+  { end: 2400, suffix: "+", label: "Kayıtlı CV", icon: "ph-bold ph-users" },
+  {
+    end: 12,
+    suffix: "Saat",
+    label: "Ort. İlan Onayı",
+    icon: "ph-bold ph-clock",
+  },
+  { end: 150, suffix: "+", label: "Mutlu Kurum", icon: "ph-bold ph-buildings" },
+  {
+    end: 94,
+    suffix: "%",
+    label: "Pozisyon Kapama",
+    icon: "ph-bold ph-handshake",
+  },
 ];
 
 const forEmployers = [
@@ -79,23 +89,23 @@ const forEmployers = [
 const forCandidates = [
   {
     icon: "ph-bold ph-user-focus",
-    title: "Profesyonel Profil",
-    desc: "Eğitim geçmişinizi, sertifikalarınızı ve deneyimlerinizi sergileyen kapsamlı profil.",
+    title: "Yetenek Tarama",
+    desc: "Aday havuzumuzdaki binlerce güncel CV arasında yetkinlik bazlı arama yapın.",
   },
   {
     icon: "ph-bold ph-bell-ringing",
-    title: "İlan Bildirimleri",
-    desc: "Kriterlerinize uygun yeni iş ilanlarından anında haberdar olun.",
+    title: "Otomatik Eşleşme",
+    desc: "İlan kriterlerinize uyan adaylar sisteme eklendiğinde anında bildirim alın.",
   },
   {
     icon: "ph-bold ph-chat-circle-dots",
-    title: "Doğrudan İletişim",
-    desc: "İşverenlerle platform üzerinden doğrudan ve güvenli iletişim kurun.",
+    title: "Mülakat Yönetimi",
+    desc: "Mülakat davetlerini sistem üzerinden gönderin, aday notlarını dijital olarak tutun.",
   },
   {
     icon: "ph-bold ph-certificate",
-    title: "Kariyer Gelişimi",
-    desc: "Eğitim ve sertifika programlarıyla kendinizi geliştirin, CV'nizi güçlendirin.",
+    title: "Referans Kontrolü",
+    desc: "Adayların geçmiş deneyimlerini ve referanslarını doğrulanmış verilerle inceleyin.",
   },
 ];
 
@@ -122,7 +132,9 @@ export default function HrEducationPage() {
   usePageTitle("İnsan Kaynakları");
   const [viewed, setViewed] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState<"employer" | "candidate">("candidate");
+  const [activeTab, setActiveTab] = useState<"employer" | "candidate">(
+    "candidate",
+  );
 
   return (
     <div className="category-detail-page category-detail-page--dark-gradient">
@@ -133,20 +145,35 @@ export default function HrEducationPage() {
             <i className="ph-bold ph-briefcase" />
             İnsan Kaynakları
           </div>
-          <h1 className="category-hero__title" data-aos="fade-up" data-aos-delay="100">
-            Eğitim Sektörüne <span style={{ color: "var(--main-200)" }}>Özel İK</span> Çözümleri
+          <h1
+            className="category-hero__title"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Eğitim Kurumunuza{" "}
+            <span style={{ color: "var(--main-200)" }}>En İyi Eğitmenleri</span>{" "}
+            Bulun
           </h1>
-          <p className="category-hero__desc" data-aos="fade-up" data-aos-delay="200">
-            Okulunuz veya kurumunuz için doğru eğitimciyi bulun. Eğitimci olarak kariyerinizde
-            yeni fırsatlara ulaşın. Hızlı, şeffaf ve güvenli İK platformu.
+          <p
+            className="category-hero__desc"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            niteliğindeki eğitmen kadronuzu genişletin. İlan yayınlayın,
+            başvuruları yönetin ve aday havuzumuzdan kurum kültürünüze en uygun
+            öğretmenleri seçin.
           </p>
-          <div className="category-hero__actions" data-aos="fade-up" data-aos-delay="300">
+          <div
+            className="category-hero__actions"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-white rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
             >
               <i className="ph-bold ph-briefcase d-flex text-lg" />
-              İş İlanlarını Gör
+              İlan Yayınla
             </Link>
             <Link
               href="/auth/register"
@@ -160,20 +187,34 @@ export default function HrEducationPage() {
 
         {/* Stats Section */}
         <VisibilitySensor
-          onChange={(isVisible: boolean) => { if (isVisible) setViewed(true); }}
+          onChange={(isVisible: boolean) => {
+            if (isVisible) setViewed(true);
+          }}
           partialVisibility
           delayedCall
         >
           <div className="category-stats" data-aos="fade-up">
             {stats.map((s, i) => (
-              <div key={i} className="category-stats__card" data-aos="zoom-in" data-aos-delay={i * 100}>
+              <div
+                key={i}
+                className="category-stats__card"
+                data-aos="zoom-in"
+                data-aos-delay={i * 100}
+              >
                 <div className="category-stats__icon">
                   <i className={s.icon} />
                 </div>
                 <span className="category-stats__value">
                   {viewed ? (
-                    <CountUp end={s.end} duration={2.4} separator="." suffix={s.suffix} />
-                  ) : ( `0${s.suffix}` )}
+                    <CountUp
+                      end={s.end}
+                      duration={2.4}
+                      separator="."
+                      suffix={s.suffix}
+                    />
+                  ) : (
+                    `0${s.suffix}`
+                  )}
                 </span>
                 <span className="category-stats__label">{s.label}</span>
               </div>
@@ -198,7 +239,10 @@ export default function HrEducationPage() {
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
               >
-                <div className="category-grid__card-icon" style={{ background: cat.bg, color: cat.color }}>
+                <div
+                  className="category-grid__card-icon"
+                  style={{ background: cat.bg, color: cat.color }}
+                >
                   <i className={cat.icon} />
                 </div>
                 <div className="category-grid__card-body">
@@ -241,15 +285,26 @@ export default function HrEducationPage() {
           </div>
           <div className="category-advantages">
             <div className="category-advantages__grid">
-              {(activeTab === "employer" ? forEmployers : forCandidates).map((item, i) => (
-                <div key={i} className="category-advantages__card" data-aos="fade-up" data-aos-delay={i * 80}>
-                  <div className="category-advantages__card-icon">
-                    <i className={item.icon} />
+              {(activeTab === "employer" ? forEmployers : forCandidates).map(
+                (item, i) => (
+                  <div
+                    key={i}
+                    className="category-advantages__card"
+                    data-aos="fade-up"
+                    data-aos-delay={i * 80}
+                  >
+                    <div className="category-advantages__card-icon">
+                      <i className={item.icon} />
+                    </div>
+                    <h5 className="category-advantages__card-title">
+                      {item.title}
+                    </h5>
+                    <p className="category-advantages__card-desc">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h5 className="category-advantages__card-title">{item.title}</h5>
-                  <p className="category-advantages__card-desc">{item.desc}</p>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -258,7 +313,9 @@ export default function HrEducationPage() {
         <div className="category-faq">
           <div className="section-header" data-aos="fade-up">
             <h2 className="section-header__title">Sıkça Sorulan Sorular</h2>
-            <p className="section-header__subtitle">İK platformu hakkında merak ettikleriniz</p>
+            <p className="section-header__subtitle">
+              İK platformu hakkında merak ettikleriniz
+            </p>
           </div>
           <div className="category-faq__list">
             {faqs.map((faq, i) => (
@@ -273,7 +330,9 @@ export default function HrEducationPage() {
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <span>{faq.q}</span>
-                  <i className={`ph-bold ${openFaq === i ? "ph-minus" : "ph-plus"}`} />
+                  <i
+                    className={`ph-bold ${openFaq === i ? "ph-minus" : "ph-plus"}`}
+                  />
                 </button>
                 {openFaq === i && (
                   <div className="category-faq__answer">
@@ -297,7 +356,8 @@ export default function HrEducationPage() {
                 Eğitim Kariyerinizde Yeni Bir Sayfa
               </h3>
               <p className="category-cta__desc">
-                2.400&apos;den fazla eğitimci ve 150+ kurum ile Türkiye&apos;nin en büyük eğitim İK platformu.
+                2.400&apos;den fazla eğitimci ve 150+ kurum ile Türkiye&apos;nin
+                en büyük eğitim İK platformu.
               </p>
               <div className="category-cta__buttons">
                 <Link

@@ -11,60 +11,60 @@ const categories = [
   {
     icon: "ph-bold ph-baby",
     label: "Anaokulu & Kreş",
-    count: "120+ okul",
-    desc: "0-6 yaş grubu için kreş ve anaokulu seçenekleri. Güvenli ortam, uzman kadro ve yaratıcı müfredat.",
+    count: "Yönetim Paneli",
+    desc: "Öğrenci takibi, veli iletişimi ve yemek listesi yönetimi için özelleşmiş modüller.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/search?category=anaokulu",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-book-open-text",
     label: "İlkokul",
-    count: "280+ okul",
-    desc: "Akademik başarı ve kişisel gelişimi bir arada sunan, modern eğitim anlayışıyla donatılmış ilkokullar.",
+    count: "Kayıt Sistemi",
+    desc: "Ön kayıt süreçlerini dijitalleştirin, veli randevularını otomatik planlayın.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/search?category=ilkokul",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-student",
     label: "Ortaokul",
-    count: "210+ okul",
-    desc: "LGS hazırlık desteği, STEM eğitimi ve sosyal aktivitelerle öğrencileri geleceğe hazırlayan ortaokullar.",
+    count: "Sınav Başarısı",
+    desc: "LGS deneme sınavlarını yönetin, öğrenci başarı grafiklerini velilerle paylaşın.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/search?category=ortaokul",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-graduation-cap",
     label: "Lise",
-    count: "240+ okul",
-    desc: "Üniversite hazırlık, Anadolu, Fen ve uluslararası müfredatlarla donatılmış lise programları.",
+    count: "Kariyer Takibi",
+    desc: "Üniversite hazırlık süreçlerini, tercih danışmanlığını ve mezun ağını yönetin.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?category=lise",
+    href: "/auth/register",
   },
 ];
 
 const stats = [
   {
-    end: 850,
-    suffix: "+",
-    label: "Kayıtlı Okul",
-    icon: "ph-bold ph-buildings",
+    end: 45,
+    suffix: "K+",
+    label: "Aylık Veli Ziyareti",
+    icon: "ph-bold ph-users",
   },
   {
-    end: 4.8,
-    suffix: "★",
-    label: "Ort. Puan",
-    icon: "ph-bold ph-star",
-    decimals: 1,
+    end: 98,
+    suffix: "%",
+    label: "Kurum Memnuniyeti",
+    icon: "ph-bold ph-smiley",
+    decimals: 0,
   },
   {
-    end: 12000,
+    end: 1500,
     suffix: "+",
-    label: "Veli Yorumu",
-    icon: "ph-bold ph-chat-circle-text",
+    label: "Öğrenci Talebi",
+    icon: "ph-bold ph-student",
   },
   { end: 81, suffix: "", label: "İl Kapsamı", icon: "ph-bold ph-map-pin" },
 ];
@@ -104,20 +104,20 @@ const advantages = [
 
 const faqs = [
   {
-    q: "Özel okul ücretlerini nasıl karşılaştırabilirim?",
-    a: "Arama sayfamızda fiyat aralığı filtresi ile bütçenize uygun okulları kolayca bulabilir ve yan yana karşılaştırabilirsiniz.",
+    q: "Platformda okul profili oluşturmak ücretli mi?",
+    a: "Temel profil oluşturma tamamen ücretsizdir. Daha fazla görünürlük ve gelişmiş CRM özellikleri için premium paketlerimizi inceleyebilirsiniz.",
   },
   {
-    q: "Tanışma randevusu nasıl alınır?",
-    a: "Beğendiğiniz okulun profilinde 'Randevu Al' butonuna tıklayarak online veya yüz yüze tanışma randevunuzu oluşturabilirsiniz.",
+    q: "Veli randevuları nasıl yönetiliyor?",
+    a: "Veliler, profilinizdeki takvim üzerinden boş saatlerinize randevu alır. Sistem size SMS ve e-posta ile bildirim gönderir.",
   },
   {
-    q: "Veli yorumları güvenilir mi?",
-    a: "Tüm yorumlar doğrulanmış veliler tarafından yazılmaktadır. Sahte yorum tespiti için yapay zekâ destekli filtreleme sistemi kullanıyoruz.",
+    q: "Okul etkinliklerini nasıl duyurabilirim?",
+    a: "Yönetim panelindeki 'Etkinlikler' modülünden tanıtım günleri, bursluluk sınavları ve festivallerinizi kolayca yayınlayabilirsiniz.",
   },
   {
-    q: "Hangi şehirlerdeki okullar listeleniyor?",
-    a: "Türkiye genelinde 81 ilde kayıtlı özel okulları platformumuzda bulabilirsiniz.",
+    q: "Birden fazla kampüsüm var, tek hesaptan yönetebilir miyim?",
+    a: "Evet, 'Kurum Zinciri' özelliği ile tüm şubelerinizi tek bir ana hesaba bağlayabilir ve merkezi olarak yönetebilirsiniz.",
   },
 ];
 
@@ -143,18 +143,16 @@ export default function PrivateSchoolsPage() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Türkiye&apos;nin{" "}
-            <span className="text-main-600">En İyi Özel Okullarını</span>{" "}
-            Keşfedin
+            Özel Okul Yöneticileri İçin{" "}
+            <span className="text-main-600">Dijital Çözümler</span>
           </h1>
           <p
             className="category-hero__desc"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Anaokulu&apos;ndan liseye, Türkiye genelindeki 850&apos;den fazla
-            özel okulu keşfedin. Konuma, fiyata ve veli değerlendirmelerine göre
-            karşılaştırın, tanışma randevusu alın.
+            Öğrenci kayıtlarından veli iletişimine, finans yönetiminden etkinlik
+            planlamaya kadar tüm okul süreçlerinizi tek platformda yönetin.
           </p>
           <div
             className="category-hero__actions"
@@ -162,11 +160,11 @@ export default function PrivateSchoolsPage() {
             data-aos-delay="300"
           >
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
             >
-              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
-              Okul Ara
+              <i className="ph-bold ph-rocket-launch d-flex text-lg" />
+              Okulunuzu Ekleyin
             </Link>
             <Link
               href="/about"

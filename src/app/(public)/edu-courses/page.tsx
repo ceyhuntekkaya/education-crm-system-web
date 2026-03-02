@@ -10,39 +10,39 @@ import { useState } from "react";
 const categories = [
   {
     icon: "ph-bold ph-math-operations",
-    label: "LGS Hazırlık",
-    count: "120+ kurs",
-    desc: "8. sınıf öğrencileri için kapsamlı LGS hazırlık programları. Deneme sınavları, konu anlatımı ve soru çözümü.",
+    label: "LGS Kurs Yönetimi",
+    count: "CRM Modülü",
+    desc: "8. sınıf öğrencileri için deneme sınavı takibi, konu analizi ve veli bilgilendirme sistemi.",
     color: "var(--main-600)",
     bg: "var(--main-50)",
-    href: "/search?category=lgs",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-graduation-cap",
-    label: "YKS / AYT",
-    count: "98+ kurs",
-    desc: "TYT ve AYT sınavlarına yönelik kapsamlı hazırlık programları. Alan bazlı uzmanlaşma ve strateji eğitimi.",
+    label: "YKS / AYT Takibi",
+    count: "Performans",
+    desc: "TYT ve AYT netlerini analiz edin, öğrencilerin gelişim grafiklerini otomatik oluşturun.",
     color: "var(--main-two-600)",
     bg: "var(--main-two-50)",
-    href: "/search?category=yks",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-book-open",
-    label: "Lise Destek",
-    count: "76+ kurs",
-    desc: "Lise müfredatına paralel destek kursları. Zayıf dersleri güçlendirin, not ortalamanızı yükseltin.",
+    label: "Etüt Planlama",
+    count: "Otomasyon",
+    desc: "Birebir ve grup etütlerini çakışmadan planlayın, öğretmen programlarını optimize edin.",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/search?category=lise-destek",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-chalkboard-teacher",
-    label: "Birebir Özel Ders",
-    count: "210+ ilan",
-    desc: "Alanında uzman öğretmenlerle birebir özel ders imkânı. Kişiye özel program ve esnek saat seçenekleri.",
+    label: "Özel Ders Ağı",
+    count: "Eğitmen",
+    desc: "Özel ders taleplerini yönetin, eğitmenlerinizin müsaitlik durumunu takvime işleyin.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?category=ozel-ders",
+    href: "/auth/register",
   },
 ];
 
@@ -61,52 +61,52 @@ const stats = [
 const advantages = [
   {
     icon: "ph-bold ph-target",
-    title: "Hedefe Odaklı Müfredat",
-    desc: "Sınav odaklı, sonuç garantili müfredatlarla hedefinize ulaşın.",
+    title: "Hedef Kitle Erişimi",
+    desc: "Bölgenizdeki sınav hazırlık öğrencilerine doğrudan ulaşın ve sınıflarınızı doldurun.",
   },
   {
     icon: "ph-bold ph-chart-line-up",
-    title: "Gelişim Takibi",
-    desc: "Haftalık deneme sınavları ve detaylı analiz raporlarıyla ilerlemenizi izleyin.",
+    title: "Başarı Hikayeleri",
+    desc: "Mezunlarınızın başarılarını ve üniversiteye yerleşme oranlarını gururla sergileyin.",
   },
   {
     icon: "ph-bold ph-users-three",
-    title: "Küçük Sınıflar",
-    desc: "Maksimum 15 kişilik sınıflarda birebir ilgi ve kişisel koçluk.",
+    title: "Sınıf Yönetimi",
+    desc: "Sınıf kapasitelerini, ders programlarını ve yoklamaları dijital ortamda takip edin.",
   },
   {
     icon: "ph-bold ph-monitor-play",
-    title: "Online & Yüz Yüze",
-    desc: "Hibrit eğitim modeli ile dilediğiniz formatta katılın.",
+    title: "Hibrit Eğitim Altyapısı",
+    desc: "Online deneme sınavları ve video ders içeriklerinizi öğrencilerle paylaşın.",
   },
   {
     icon: "ph-bold ph-exam",
-    title: "Deneme Sınavları",
-    desc: "Gerçek sınav formatında haftalık denemeler ve detaylı çözümlemeler.",
+    title: "Deneme Sınavı Modülü",
+    desc: "Optik form okuma (entegrasyonu), sınav sonuç karnesi ve veli bilgilendirme SMS'leri.",
   },
   {
     icon: "ph-bold ph-medal",
-    title: "Başarı Garantisi",
-    desc: "Kanıtlanmış metodoloji ve %87 başarı oranı ile fark yaratın.",
+    title: "Marka Bilinirliği",
+    desc: "Kurumsal kimliğinizi güçlendirin, bölgenizin en çok tercih edilen kursu olun.",
   },
 ];
 
 const faqs = [
   {
-    q: "Hangi sınavlara hazırlık kursları mevcut?",
-    a: "LGS, TYT, AYT, YDT ve DGS sınavlarına yönelik kapsamlı hazırlık programları sunulmaktadır.",
+    q: "Deneme sınavı sonuçlarını nasıl girebilirim?",
+    a: "Optik form okuma cihazınızla entegre çalışabilir veya excel formatında sonuçları sisteme yükleyebilirsiniz.",
   },
   {
-    q: "Kurslar online mı yoksa yüz yüze mi?",
-    a: "Kurumların büyük çoğunluğu hem online hem yüz yüze seçenekler sunmaktadır. Filtreleme ile tercih ettiğiniz formatı seçebilirsiniz.",
+    q: "Hangi dersler için müfredat desteği var?",
+    a: "MEB müfredatına uygun tüm dersler ve sınav hazırlık (LGS, YKS, DGS) konuları sistemde tanımlıdır.",
   },
   {
-    q: "Birebir özel ders nasıl alabilirim?",
-    a: "'Birebir Özel Ders' kategorisinden öğretmen profillerini inceleyebilir ve uygun saatler için randevu oluşturabilirsiniz.",
+    q: "Öğretmen maaş ve hakedişlerini takip edebilir miyim?",
+    a: "Evet, İK ve Finans modülü üzerinden ders saati bazlı hakediş hesaplaması yapabilir ve maaş takibi tutabilirsiniz.",
   },
   {
-    q: "Kurs ücretlerini nasıl karşılaştırabilirim?",
-    a: "Arama sayfamızda fiyat aralığı filtresiyle bütçenize uygun kursları listeleyebilir ve yan yana karşılaştırabilirsiniz.",
+    q: "Öğrencilere SMS gönderebilir miyim?",
+    a: "Sistem üzerinden belirlediğiniz kriterlere göre (ör: devamsızlık yapanlar, sınav sonucu açıklananlar) toplu SMS gönderebilirsiniz.",
   },
 ];
 
@@ -129,17 +129,17 @@ export default function EduCoursesPage() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <span className="text-main-two-600">Sınav Hazırlık</span>{" "}
-            Kurslarında Fark Yaratın
+            Kurs Merkezi Yönetiminde{" "}
+            <span className="text-main-two-600">Yeni Nesil</span> Deneyim
           </h1>
           <p
             className="category-hero__desc"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            LGS, YKS, AYT ve üniversite hazırlık programlarında Türkiye
-            genelindeki en iyi kurslara ulaşın. Uzman eğitmenler, kanıtlanmış
-            müfredat ve garantili başarı.
+            LGS, YKS hazırlık ve etüt merkezleri için özel CRM. Deneme sınavı
+            takibi, yoklama yönetimi ve veli bilgilendirme sistemi ile
+            başarınızı artırın.
           </p>
           <div
             className="category-hero__actions"
@@ -147,11 +147,11 @@ export default function EduCoursesPage() {
             data-aos-delay="300"
           >
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-orange rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
             >
-              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
-              Kurs Ara
+              <i className="ph-bold ph-lightning d-flex text-lg" />
+              Ücretsiz Deneyin
             </Link>
             <Link
               href="/how-it-works"

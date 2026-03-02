@@ -10,103 +10,118 @@ import { useState } from "react";
 const categories = [
   {
     icon: "ph-bold ph-music-note",
-    label: "Müzik",
-    count: "120+ kurum",
-    desc: "Piyano, gitar, keman, bağlama ve daha fazlası. Her yaş grubuna uygun müzik eğitimi programları.",
+    label: "Müzik Kursu Yönetimi",
+    count: "Ders Programı",
+    desc: "Enstrüman derslerini, eğitmen müsaitliğini ve öğrenci randevularını kolayca planlayın.",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?category=muzik",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-soccer-ball",
-    label: "Spor",
-    count: "85+ kurum",
-    desc: "Futbol, basketbol, tenis, jimnastik ve daha birçok branşta profesyonel spor eğitimi.",
+    label: "Spor Okulu Paneli",
+    count: "Takım Takibi",
+    desc: "Antrenman saatlerini, sporcu gelişim kartlarını ve aidat ödemelerini tek yerden yönetin.",
     color: "#16a34a",
     bg: "#f0fdf4",
-    href: "/search?category=spor",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-paint-brush",
-    label: "Resim & Sanat",
-    count: "94+ kurum",
-    desc: "Resim, heykel, seramik ve dijital sanat atölyeleri. Yaratıcılığı keşfetme ve geliştirme.",
+    label: "Sanat Atölyesi",
+    count: "Etkinlik",
+    desc: "Workshop takviminizi yayınlayın, online bilet satışı yapın ve katılımcı listelerini oluşturun.",
     color: "#d97706",
     bg: "#fffbeb",
-    href: "/search?category=sanat",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-person-simple-walk",
-    label: "Dans",
-    count: "67+ kurum",
-    desc: "Bale, modern dans, halk dansları ve latin dansları. Ritim ve koordinasyon geliştirme.",
+    label: "Dans Stüdyosu",
+    count: "Sınıf Planı",
+    desc: "Grup dersleri için kapasite yönetimi, devam takip sistemi ve kareografi paylaşımı.",
     color: "#db2777",
     bg: "#fdf2f8",
-    href: "/search?category=dans",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-crown",
-    label: "Satranç",
-    count: "51+ kurum",
-    desc: "Stratejik düşünme, problem çözme ve konsantrasyon geliştiren satranç eğitimi programları.",
+    label: "Satranç Kulübü",
+    count: "Turnuva",
+    desc: "Turnuva organizasyonlarını duyurun, lisanslı sporcu kayıtlarını tutun ve Elo takibi yapın.",
     color: "#0f766e",
     bg: "#f0fdfa",
-    href: "/search?category=satranc",
+    href: "/auth/register",
   },
   {
     icon: "ph-bold ph-swimming-pool",
-    label: "Yüzme",
-    count: "73+ kurum",
-    desc: "Bebek yüzme, yetişkin yüzme ve yarışma hazırlık programları. Güvenli havuz ortamlarında eğitim.",
+    label: "Yüzme Kursu",
+    count: "Kulvar",
+    desc: "Havuz doluluk oranlarını optimize edin, üye giriş-çıkışlarını kartlı sistemle yönetin.",
     color: "#0369a1",
     bg: "#eff6ff",
-    href: "/search?category=yuzme",
+    href: "/auth/register",
   },
 ];
 
 const stats = [
-  { end: 500, suffix: "+", label: "Aktif Kurum", icon: "ph-bold ph-buildings" },
-  { end: 8, suffix: "", label: "Kategori", icon: "ph-bold ph-squares-four" },
-  { end: 35000, suffix: "+", label: "Öğrenci", icon: "ph-bold ph-student" },
-  { end: 96, suffix: "%", label: "Memnuniyet", icon: "ph-bold ph-smiley" },
+  { end: 500, suffix: "+", label: "Aktif Kulüp", icon: "ph-bold ph-buildings" },
+  {
+    end: 8,
+    suffix: "",
+    label: "Branş Yönetimi",
+    icon: "ph-bold ph-squares-four",
+  },
+  {
+    end: 35000,
+    suffix: "+",
+    label: "Sporcu/Öğrenci",
+    icon: "ph-bold ph-student",
+  },
+  {
+    end: 96,
+    suffix: "%",
+    label: "Verimlilik",
+    icon: "ph-bold ph-chart-line-up",
+  },
 ];
 
 const ageGroups = [
   {
     range: "3–6 Yaş",
-    title: "Erken Çocukluk",
-    desc: "Motor beceriler, müzik hissi ve sosyal gelişim odaklı aktiviteler. Oynamayı öğrenirken öğrenin.",
+    title: "Erken Çocukluk Programları",
+    desc: "Minikler için hazırladığınız oyun gruplarını, jimnastik derslerini ve sanat atölyelerini duyurun.",
     icon: "ph-bold ph-baby",
     color: "#db2777",
     bg: "#fce7f3",
-    href: "/search?age=3-6",
+    href: "/auth/register",
   },
   {
     range: "7–12 Yaş",
-    title: "İlkokul Dönemi",
-    desc: "Yetenekleri keşfetme, disiplin kazanma ve takım çalışması. Merak ve keşif yaşları.",
+    title: "Okul Dönemi Kursları",
+    desc: "Hafta sonu kurslarınızı, yaz okullarınızı ve yetenek geliştirme programlarınızı listeleyin.",
     icon: "ph-bold ph-lightning",
     color: "#d97706",
     bg: "#fef3c7",
-    href: "/search?age=7-12",
+    href: "/auth/register",
   },
   {
     range: "13–18 Yaş",
-    title: "Ergenlik Dönemi",
-    desc: "Uzmanlaşma, yarışma hazırlığı ve kariyer yönlendirme. Potansiyeli zirveye taşıma zamanı.",
+    title: "Gençlik & Performans",
+    desc: "Lisanslı sporcu antrenmanlarını, konservatuara hazırlık ve portfolyo derslerini yönetin.",
     icon: "ph-bold ph-rocket",
     color: "#7c3aed",
     bg: "#f5f3ff",
-    href: "/search?age=13-18",
+    href: "/auth/register",
   },
   {
     range: "18+ Yaş",
-    title: "Yetişkin",
-    desc: "Hobi, stres yönetimi ve yeni beceriler kazanma. Yaş sınırı olmadan öğrenme devam eder.",
+    title: "Yetişkin Atölyeleri",
+    desc: "Hobi kursları, kurumsal etkinlikler ve workshop programlarınız için katılımcı toplayın.",
     icon: "ph-bold ph-user",
     color: "var(--main-three-600)",
     bg: "var(--main-three-50)",
-    href: "/search?age=adult",
+    href: "/auth/register",
   },
 ];
 
@@ -151,17 +166,17 @@ export default function ActivityCoursesPage() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <span className="text-main-three-600">Yeteneği Keşfet</span>,
-            Tutkuyu Geliştir
+            Spor, Sanat ve <span className="text-main-three-600">Aktivite</span>{" "}
+            Kurslarınızı Büyütün
           </h1>
           <p
             className="category-hero__desc"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Müzikten spora, sanattan teknolojiye — çocuğunuzun ilgi alanına
-            uygun aktivite kurslarını bulun ve yeteneklerini en iyi eğitmenlerle
-            geliştirin.
+            Kurs yönetim yazılımımızla ders programlarını düzenleyin, üye
+            takiplerini yapın ve yeni kursiyerlere kolayca ulaşın. Spor okulları
+            ve sanat atölyeleri için ideal çözüm.
           </p>
           <div
             className="category-hero__actions"
@@ -169,11 +184,11 @@ export default function ActivityCoursesPage() {
             data-aos-delay="300"
           >
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-teal rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
             >
-              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
-              Aktivite Ara
+              <i className="ph-bold ph-lightning d-flex text-lg" />
+              Ücretsiz Deneyin
             </Link>
             <Link
               href="/how-it-works"

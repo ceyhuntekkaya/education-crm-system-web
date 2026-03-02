@@ -10,39 +10,39 @@ import { useState } from "react";
 const steps = [
   {
     number: "01",
-    icon: "ph-bold ph-magnifying-glass",
-    title: "Ara & Keşfet",
-    desc: "İhtiyacınıza uygun okul, kurs veya etkinliği arayın. Konum, fiyat, puan ve müfredat türüne göre filtreleme yapın.",
+    icon: "ph-bold ph-pencil-simple-line",
+    title: "Kurum Profilinizi Oluşturun",
+    desc: "Eğitim kurumunuzu sisteme kaydedin. Logonuzu, kampüs görsellerinizi ve kurumsal tanıtım metninizi ekleyerek profesyonel bir görünüm kazanın.",
     details: [
-      "Gelişmiş filtreleme sistemi ile binlerce kurum arasından size uygun olanları bulun",
-      "Harita üzerinde yakınlardaki kurumları görüntüleyin",
-      "Arama sonuçlarını kaydedin ve daha sonra tekrar inceleyin",
+      "Kurumsal kimlik ve iletişim bilgileri",
+      "Şube ve kampüs yönetimi",
+      "Eğitmen kadrosu tanıtımı",
     ],
     gradient: "linear-gradient(135deg, var(--main-600), #6c5ce7)",
     color: "var(--main-600)",
   },
   {
     number: "02",
-    icon: "ph-bold ph-scales",
-    title: "Karşılaştır & İncele",
-    desc: "Beğendiğiniz kurumları yan yana karşılaştırın. Veli yorumlarını okuyun ve detaylı bilgiye ulaşın.",
+    icon: "ph-bold ph-megaphone",
+    title: "İçeriklerinizi Yayınlayın",
+    desc: "Kurs programlarınızı, etkinlik takviminizi ve açık pozisyonlarınızı yayınlayarak hedef kitlenize ulaşın.",
     details: [
-      "Kurumları yan yana karşılaştırma özelliği",
-      "Doğrulanmış veli ve öğrenci yorumlarını okuyun",
-      "Fiyat, müfredat, konum ve puan karşılaştırması",
+      "Ders programı ve sınıf kontenjanı belirleme",
+      "Etkinlik ve webinar oluşturma",
+      "İş ilanı yayınlama ve aday toplama",
     ],
     gradient: "linear-gradient(135deg, var(--main-two-600), #f7931e)",
     color: "var(--main-two-600)",
   },
   {
     number: "03",
-    icon: "ph-bold ph-rocket-launch",
-    title: "Kayıt Ol & Başla",
-    desc: "Karar verdiğiniz kuruma online başvuru yapın veya tanışma randevusu oluşturun.",
+    icon: "ph-bold ph-chart-line-up",
+    title: "Büyümenizi Yönetin",
+    desc: "Gelen başvuruları CRM panelinden takip edin, kayıt süreçlerini dijitalleştirin ve kurumunuzun performansını analiz edin.",
     details: [
-      "Online randevu oluşturma — tarih ve saat seçimi",
-      "Doğrudan kurumla mesajlaşma imkânı",
-      "Başvuru sürecini platform üzerinden takip edin",
+      "Öğrenci ve veli başvurularını yönetme",
+      "Finansal raporlama ve tahsilat takibi",
+      "Memnuniyet anketleri ve geri bildirim yönetimi",
     ],
     gradient: "linear-gradient(135deg, var(--main-three-600), #00cec9)",
     color: "var(--main-three-600)",
@@ -51,48 +51,85 @@ const steps = [
 
 const stats = [
   { end: 850, suffix: "+", label: "Kurum", icon: "ph-bold ph-buildings" },
-  { end: 12000, suffix: "+", label: "Yorum", icon: "ph-bold ph-chat-circle-text" },
+  {
+    end: 12000,
+    suffix: "+",
+    label: "Yorum",
+    icon: "ph-bold ph-chat-circle-text",
+  },
   { end: 10000, suffix: "+", label: "Kullanıcı", icon: "ph-bold ph-users" },
   { end: 100, suffix: "%", label: "Ücretsiz", icon: "ph-bold ph-gift" },
 ];
 
 const audiences = [
   {
-    icon: "ph-bold ph-user-circle",
-    title: "Veliler İçin",
-    desc: "Çocuğunuz için en doğru eğitim kurumunu bulun, karşılaştırın ve randevu alın.",
-    features: ["Okulları araştırın ve karşılaştırın", "Veli yorumlarını okuyun", "Online randevu oluşturun"],
-    href: "/search",
-    btnText: "Okul Ara",
+    icon: "ph-bold ph-buildings",
+    title: "Okullar İçin",
+    desc: "Öğrenci kayıtlarını artırın, veli memnuniyetini yönetin ve idari süreçlerinizi dijitalleştirin.",
+    features: [
+      "Online kayıt sistemi",
+      "Veli bilgilendirme paneli",
+      "Finansal takip modülü",
+    ],
+    href: "/auth/register",
+    btnText: "Okulunuzu Kaydedin",
     color: "var(--main-600)",
   },
   {
-    icon: "ph-bold ph-student",
-    title: "Öğrenciler İçin",
-    desc: "Kurslar, dil eğitimleri, aktiviteler ve kariyer fırsatlarını keşfedin.",
-    features: ["Kursları ve aktiviteleri keşfedin", "Webinar ve etkinliklere katılın", "Kariyer fırsatlarını takip edin"],
-    href: "/search",
-    btnText: "Kurs Ara",
+    icon: "ph-bold ph-chalkboard-teacher",
+    title: "Kurs Merkezleri İçin",
+    desc: "Ders programlarını optimize edin, deneme sınavlarını yönetin ve başarı oranlarınızı artırın.",
+    features: [
+      "LGS/YKS sınav modülü",
+      "Ders programı yönetimi",
+      "Yoklama ve ödev takibi",
+    ],
+    href: "/auth/register",
+    btnText: "Hemen Başlayın",
     color: "var(--main-two-600)",
   },
   {
-    icon: "ph-bold ph-buildings",
-    title: "Kurumlar İçin",
-    desc: "Kurumunuzu kaydedin, ilanlarınızı yayınlayın ve yeni öğrencilere ulaşın.",
-    features: ["Kurum profilinizi oluşturun", "İş ilanları yayınlayın", "Öğrenci başvurularını yönetin"],
+    icon: "ph-bold ph-briefcase",
+    title: "İK Yöneticileri İçin",
+    desc: "Nitelikli öğretmen ve personel ihtiyaçlarınızı en geniş aday havuzundan hızla karşılayın.",
+    features: ["İş ilanı yayınlama", "Aday filtreleme", "Mülakat yönetimi"],
     href: "/auth/register",
-    btnText: "Kurum Kaydı",
+    btnText: "İlan Yayınlayın",
     color: "var(--main-three-600)",
   },
 ];
 
 const platformFeatures = [
-  { icon: "ph-bold ph-lock-simple", title: "Güvenli & Gizli", desc: "Kişisel bilgileriniz SSL şifreleme ile korunur." },
-  { icon: "ph-bold ph-device-mobile", title: "Her Cihazda", desc: "Masaüstü, tablet ve mobilde sorunsuz deneyim." },
-  { icon: "ph-bold ph-headset", title: "7/24 Destek", desc: "Sorularınız için her zaman yanınızdayız." },
-  { icon: "ph-bold ph-star", title: "Doğrulanmış Yorumlar", desc: "Tüm yorumlar gerçek kullanıcılar tarafından yazılır." },
-  { icon: "ph-bold ph-currency-circle-dollar", title: "Tamamen Ücretsiz", desc: "Platform kullanımı veliler ve öğrenciler için ücretsizdir." },
-  { icon: "ph-bold ph-arrows-clockwise", title: "Güncel Bilgiler", desc: "Kurum bilgileri düzenli olarak güncellenir." },
+  {
+    icon: "ph-bold ph-lock-simple",
+    title: "KVKK Uyumlu",
+    desc: "Öğrenci ve veli verileriniz güvenli sunucularda KVKK'ya uygun saklanır.",
+  },
+  {
+    icon: "ph-bold ph-cloud-check",
+    title: "Bulut Tabanlı",
+    desc: "Kurulum gerektirmez, internet olan her yerden erişim sağlayın.",
+  },
+  {
+    icon: "ph-bold ph-headset",
+    title: "Öncelikli Destek",
+    desc: "Kurumsal müşterilerimize özel 7/24 teknik destek hattı.",
+  },
+  {
+    icon: "ph-bold ph-chart-pie-slice",
+    title: "Gelişmiş Raporlar",
+    desc: "Veriye dayalı kararlar almanız için detaylı analizler.",
+  },
+  {
+    icon: "ph-bold ph-wallet",
+    title: "Maliyet Avantajı",
+    desc: "Donanım yatırımı yapmadan uygun maliyetle dijitalleşin.",
+  },
+  {
+    icon: "ph-bold ph-arrows-clockwise",
+    title: "Sürekli Güncel",
+    desc: "MEB mevzuat değişikliklerine anında uyum sağlayan altyapı.",
+  },
 ];
 
 export default function HowItWorksPage() {
@@ -108,20 +145,34 @@ export default function HowItWorksPage() {
             <i className="ph-bold ph-path" />
             Nasıl Çalışır?
           </div>
-          <h1 className="category-hero__title" data-aos="fade-up" data-aos-delay="100">
-            Üç Basit Adımda <span className="text-gradient-main">Hedefinize Ulaşın</span>
+          <h1
+            className="category-hero__title"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Eğitim Kurumunuzu{" "}
+            <span className="text-gradient-main">Büyütmenin</span> En Akıllı
+            Yolu
           </h1>
-          <p className="category-hero__desc" data-aos="fade-up" data-aos-delay="200">
-            Hayalinizdeki eğitim kurumunu bulun, inceleyin ve kayıt olun — hepsi bu kadar kolay.
-            Eğitim İste platformunu adım adım keşfedin.
+          <p
+            className="category-hero__desc"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            Kurumsal üyeliğinizi oluşturun, dijital görünürlüğünüzü artırın ve
+            yönetim süreçlerinizi profesyonelleştirin.
           </p>
-          <div className="category-hero__actions" data-aos="fade-up" data-aos-delay="300">
+          <div
+            className="category-hero__actions"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <Link
-              href="/search"
+              href="/auth/register"
               className="btn btn-main rounded-pill flex-align gap-8 d-inline-flex shimmer-btn"
             >
-              <i className="ph-bold ph-magnifying-glass d-flex text-lg" />
-              Hemen Keşfet
+              <i className="ph-bold ph-rocket-launch d-flex text-lg" />
+              Hemen Başlayın
             </Link>
             <Link
               href="/video"
@@ -135,20 +186,34 @@ export default function HowItWorksPage() {
 
         {/* Stats Section */}
         <VisibilitySensor
-          onChange={(isVisible: boolean) => { if (isVisible) setViewed(true); }}
+          onChange={(isVisible: boolean) => {
+            if (isVisible) setViewed(true);
+          }}
           partialVisibility
           delayedCall
         >
           <div className="category-stats" data-aos="fade-up">
             {stats.map((s, i) => (
-              <div key={i} className="category-stats__card" data-aos="zoom-in" data-aos-delay={i * 100}>
+              <div
+                key={i}
+                className="category-stats__card"
+                data-aos="zoom-in"
+                data-aos-delay={i * 100}
+              >
                 <div className="category-stats__icon">
                   <i className={s.icon} />
                 </div>
                 <span className="category-stats__value">
                   {viewed ? (
-                    <CountUp end={s.end} duration={2.4} separator="." suffix={s.suffix} />
-                  ) : ( `0${s.suffix}` )}
+                    <CountUp
+                      end={s.end}
+                      duration={2.4}
+                      separator="."
+                      suffix={s.suffix}
+                    />
+                  ) : (
+                    `0${s.suffix}`
+                  )}
                 </span>
                 <span className="category-stats__label">{s.label}</span>
               </div>
@@ -172,22 +237,34 @@ export default function HowItWorksPage() {
               data-aos-delay={i * 100}
             >
               <div className="hiw-steps-detail__step-visual">
-                <div className="hiw-steps-detail__step-number" style={{ background: step.gradient }}>
+                <div
+                  className="hiw-steps-detail__step-number"
+                  style={{ background: step.gradient }}
+                >
                   {step.number}
                 </div>
-                <div className="hiw-steps-detail__step-icon" style={{ background: step.gradient }}>
+                <div
+                  className="hiw-steps-detail__step-icon"
+                  style={{ background: step.gradient }}
+                >
                   <i className={step.icon} />
                 </div>
               </div>
               <div className="hiw-steps-detail__step-content">
-                <h3 className="hiw-steps-detail__step-title" style={{ color: step.color }}>
+                <h3
+                  className="hiw-steps-detail__step-title"
+                  style={{ color: step.color }}
+                >
                   {step.title}
                 </h3>
                 <p className="hiw-steps-detail__step-desc">{step.desc}</p>
                 <ul className="hiw-steps-detail__step-list">
                   {step.details.map((detail, di) => (
                     <li key={di}>
-                      <i className="ph-bold ph-check-circle" style={{ color: step.color }} />
+                      <i
+                        className="ph-bold ph-check-circle"
+                        style={{ color: step.color }}
+                      />
                       <span>{detail}</span>
                     </li>
                   ))}
@@ -207,8 +284,16 @@ export default function HowItWorksPage() {
           </div>
           <div className="hiw-audiences__grid">
             {audiences.map((aud, i) => (
-              <div key={i} className="hiw-audiences__card" data-aos="fade-up" data-aos-delay={i * 100}>
-                <div className="hiw-audiences__card-icon" style={{ color: aud.color }}>
+              <div
+                key={i}
+                className="hiw-audiences__card"
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+              >
+                <div
+                  className="hiw-audiences__card-icon"
+                  style={{ color: aud.color }}
+                >
                   <i className={aud.icon} />
                 </div>
                 <h4 className="hiw-audiences__card-title">{aud.title}</h4>
@@ -243,7 +328,12 @@ export default function HowItWorksPage() {
           </div>
           <div className="category-advantages__grid">
             {platformFeatures.map((pf, i) => (
-              <div key={i} className="category-advantages__card" data-aos="fade-up" data-aos-delay={i * 80}>
+              <div
+                key={i}
+                className="category-advantages__card"
+                data-aos="fade-up"
+                data-aos-delay={i * 80}
+              >
                 <div className="category-advantages__card-icon">
                   <i className={pf.icon} />
                 </div>
@@ -266,7 +356,8 @@ export default function HowItWorksPage() {
                 Eğitimde Doğru Adımı Şimdi Atın
               </h3>
               <p className="category-cta__desc">
-                Ücretsiz hesabınızla hemen başlayın. Binlerce kurum arasından size en uygununu bulun.
+                Ücretsiz hesabınızla hemen başlayın. Binlerce kurum arasından
+                size en uygununu bulun.
               </p>
               <div className="category-cta__buttons">
                 <Link
