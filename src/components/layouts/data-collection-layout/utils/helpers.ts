@@ -9,13 +9,13 @@ import type { FilterOption, PopoverFilterConfig } from "../types";
  * Filter ve popover filter'ları ayırır
  */
 export function separateFilters(
-  allFilterOptions: (FilterOption | PopoverFilterConfig)[]
+  allFilterOptions: (FilterOption | PopoverFilterConfig)[],
 ) {
   const filterOptions = allFilterOptions.filter(
-    (opt): opt is FilterOption => "type" in opt
+    (opt): opt is FilterOption => "type" in opt,
   );
   const popoverFiltersConfig = allFilterOptions.filter(
-    (opt): opt is PopoverFilterConfig => "options" in opt && !("type" in opt) // PopoverFilterConfig'de options var ama type yok
+    (opt): opt is PopoverFilterConfig => "options" in opt && !("type" in opt), // PopoverFilterConfig'de options var ama type yok
   );
 
   return { filterOptions, popoverFiltersConfig };
@@ -25,7 +25,7 @@ export function separateFilters(
  * Popover filter config signature hesaplar
  */
 export function getPopoverConfigKey(
-  popoverFiltersConfig: PopoverFilterConfig[]
+  popoverFiltersConfig: PopoverFilterConfig[],
 ) {
   return popoverFiltersConfig
     .map((f) => `${f.id}:${f.defaultValue || "ALL"}`)
@@ -37,7 +37,7 @@ export function getPopoverConfigKey(
  */
 export function calculateActiveFiltersCount(
   filterOptions: FilterOption[],
-  popoverFilterValues: Record<string, string>
+  popoverFilterValues: Record<string, string>,
 ) {
   const standardFiltersCount = filterOptions.filter((filter) => {
     if (filter.type === "select" || filter.type === "multiSelect") {
@@ -60,7 +60,7 @@ export function calculateActiveFiltersCount(
   }).length;
 
   const popoverFiltersCount = Object.values(popoverFilterValues).filter(
-    (value) => value && value !== "ALL" && value !== ""
+    (value) => value && value !== "ALL" && value !== "",
   ).length;
 
   return standardFiltersCount + popoverFiltersCount;
@@ -74,7 +74,7 @@ export function filterData<T extends Record<string, any>>(
   popoverFiltersConfig: PopoverFilterConfig[],
   popoverFilterValues: Record<string, string>,
   searchFields?: string[],
-  searchQuery?: string
+  searchQuery?: string,
 ): T[] {
   if (!data || data.length === 0) return data;
 
@@ -117,19 +117,22 @@ export function filterData<T extends Record<string, any>>(
 export function sortData<T extends Record<string, any>>(
   data: T[],
   sortBy: string,
-  sortOrder: string
+  sortOrder: string,
 ): T[] {
   if (!data || data.length === 0 || !sortBy || sortBy === "none") {
     return data;
   }
 
-  // Sıralama kriterini parse et ("field" veya "field_desc" formatı)
+  // Sıralama kriterini parse et ("field", "field_asc" veya "field_desc" formatı)
   let sortField = sortBy;
   let isDescending = false;
 
   if (sortBy.endsWith("_desc")) {
     sortField = sortBy.replace("_desc", "");
     isDescending = true;
+  } else if (sortBy.endsWith("_asc")) {
+    sortField = sortBy.replace("_asc", "");
+    isDescending = false;
   } else if (sortOrder === "desc") {
     isDescending = true;
   }
@@ -146,18 +149,8 @@ export function sortData<T extends Record<string, any>>(
 
     let comparison = 0;
 
-    // Sayısal karşılaştırma - string'den number'a çevirme dahil
+    // Tarih karşılaştırması - ÖNCE kontrol edilmeli (date string'ler parseFloat ile yanlış sayısal eşleşebilir)
     if (
-      typeof aValue === "number" ||
-      typeof bValue === "number" ||
-      (!isNaN(parseFloat(aValue)) && !isNaN(parseFloat(bValue)))
-    ) {
-      const numA = typeof aValue === "number" ? aValue : parseFloat(aValue);
-      const numB = typeof bValue === "number" ? bValue : parseFloat(bValue);
-      comparison = numA - numB;
-    }
-    // Tarih karşılaştırması - ISO string ve Date objesi desteği
-    else if (
       aValue instanceof Date ||
       bValue instanceof Date ||
       (typeof aValue === "string" && /\d{4}-\d{2}-\d{2}/.test(aValue)) ||
@@ -175,6 +168,19 @@ export function sortData<T extends Record<string, any>>(
       } else {
         comparison = dateA.getTime() - dateB.getTime();
       }
+    }
+    // Sayısal karşılaştırma - salt sayısal değerler için
+    else if (
+      typeof aValue === "number" ||
+      typeof bValue === "number" ||
+      (!isNaN(Number(aValue)) &&
+        !isNaN(Number(bValue)) &&
+        aValue !== "" &&
+        bValue !== "")
+    ) {
+      const numA = typeof aValue === "number" ? aValue : Number(aValue);
+      const numB = typeof bValue === "number" ? bValue : Number(bValue);
+      comparison = numA - numB;
     }
     // String karşılaştırması
     else {
