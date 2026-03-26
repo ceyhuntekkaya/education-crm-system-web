@@ -519,79 +519,10 @@
 
 /* ===================================== Institution Modules Section =========================== */
 .institution-modules-section {
-  background: var(--white);
-  border: 2px solid var(--neutral-40);
-  border-radius: 24px;
-  padding: 48px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 56px;
 
   @media (max-width: 768px) {
-    border-radius: 16px;
-    padding: 32px 24px;
-  }
-
-  &__header {
-    text-align: center;
     margin-bottom: 40px;
-    padding-bottom: 32px;
-    border-bottom: 2px solid var(--neutral-40);
-
-    @media (max-width: 768px) {
-      margin-bottom: 32px;
-      padding-bottom: 24px;
-    }
-  }
-
-  &__icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--success-600) 0%, var(--info-600) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    box-shadow: 0 8px 24px rgba(0, 208, 132, 0.3);
-
-    @media (max-width: 768px) {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-    }
-
-    i {
-      font-size: 2.5rem;
-      color: var(--white);
-
-      @media (max-width: 768px) {
-        font-size: 2rem;
-      }
-    }
-  }
-
-  &__title {
-    font-size: 2.25rem;
-    font-weight: 800;
-    margin-bottom: 12px;
-    color: var(--neutral-900);
-
-    @media (max-width: 768px) {
-      font-size: 1.75rem;
-    }
-  }
-
-  &__subtitle {
-    font-size: 1.125rem;
-    color: var(--neutral-600);
-    margin: 0;
-
-    @media (max-width: 768px) {
-      font-size: 1rem;
-    }
-  }
-
-  &__content {
-    // Grid content wrapper
   }
 }
 
@@ -768,6 +699,58 @@
 
     @media (max-width: 768px) {
       font-size: 0.938rem;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--neutral-30);
+  }
+
+  &__footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--main-600);
+
+    i {
+      font-size: 0.875rem;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &__footer-lock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--neutral-400);
+
+    i {
+      font-size: 0.8125rem;
+    }
+  }
+
+  // Disabled state (for company dashboard locked modules)
+  &--disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border-color: var(--neutral-40);
+
+      .feature-card__icon-wrapper {
+        transform: none;
+      }
     }
   }
 }
@@ -1273,6 +1256,13 @@
       }
     }
 
+    &--primary {
+      background: var(--primary-100);
+      i {
+        color: var(--primary-600);
+      }
+    }
+
     &--success {
       background: var(--success-100);
       i {
@@ -1357,7 +1347,7 @@
 
     i {
       font-size: 1.375rem;
-      color: var(--success-600);
+      color: var(--main-600);
       flex-shrink: 0;
       margin-top: 2px;
     }
@@ -1596,5 +1586,22 @@
   }
 }
 
-/* ===================================== About Page Css End =========================== */
+/* ── About page layout utilities ── */
+.about-mv-section,
+.about-features-wrap {
+  margin-bottom: 56px;
 
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+}
+
+.mb-56 {
+  margin-bottom: 56px !important;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px !important;
+  }
+}
+
+/* ===================================== About Page Css End =========================== */
