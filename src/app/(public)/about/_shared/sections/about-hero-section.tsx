@@ -13,8 +13,8 @@ export const AboutHeroSection: React.FC = () => {
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        Eğitim Dünyasını{" "}
-        <span className="text-gradient-main">Birleştiren</span> Platform
+        Eğitim Dünyasını <span className="text-gradient-main">Birleştiren</span>{" "}
+        Platform
       </h1>
       <p
         className="category-hero__desc"

@@ -58,4 +58,3 @@ export const AboutFeaturesSection: React.FC<AboutFeaturesSectionProps> = ({
     </div>
   );
 };
-

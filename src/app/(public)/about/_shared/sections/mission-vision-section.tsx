@@ -21,9 +21,9 @@ export const MissionVisionSection: React.FC = () => {
             </div>
             <h3 className="mission-vision-card__title">Misyonumuz</h3>
             <p className="mission-vision-card__description">
-              Veliler ve eğitim kurumları arasında köprü kurarak, eğitim sürecini
-              daha şeffaf, erişilebilir ve verimli hale getirmek. Teknoloji ile
-              eğitim dünyasını buluşturmak.
+              Veliler ve eğitim kurumları arasında köprü kurarak, eğitim
+              sürecini daha şeffaf, erişilebilir ve verimli hale getirmek.
+              Teknoloji ile eğitim dünyasını buluşturmak.
             </p>
             <ul className="mission-vision-card__list">
               <li className="mission-vision-card__list-item">
