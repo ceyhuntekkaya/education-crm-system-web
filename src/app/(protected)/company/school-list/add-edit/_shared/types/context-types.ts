@@ -22,17 +22,17 @@ export interface SchoolAddEditContextType {
   fetchSchool: (() => void) | undefined;
   postSchool: (
     data: SchoolCreateDto,
-    mutationOptions?: MutationOptions<ApiResponse<SchoolDto>, SchoolCreateDto>
-  ) => Promise<ApiResponse<SchoolDto> | null>;
+    mutationOptions?: MutationOptions<SchoolDto, SchoolCreateDto>,
+  ) => Promise<SchoolDto | null>;
   putSchool: (
     data: SchoolCreateDto,
-    mutationOptions?: MutationOptions<ApiResponse<SchoolDto>, SchoolCreateDto>
-  ) => Promise<ApiResponse<SchoolDto> | null>;
+    mutationOptions?: MutationOptions<SchoolDto, SchoolCreateDto>,
+  ) => Promise<SchoolDto | null>;
   updateProperties: (
     data: number[],
     mutationOptions?: MutationOptions<ApiResponse<any>, number[]> & {
       schoolId?: number;
-    }
+    },
   ) => Promise<ApiResponse<any> | null>;
 
   // Dropdown options
@@ -43,7 +43,7 @@ export interface SchoolAddEditContextType {
 
   // Institution type helpers
   getFilteredTypesByGroupId: (
-    groupId: string | undefined
+    groupId: string | undefined,
   ) => InstitutionTypeOption[];
   getGroupIdByTypeId: (typeId: string | undefined) => string | undefined;
 
@@ -52,7 +52,7 @@ export interface SchoolAddEditContextType {
   propertyValuesLoading: boolean;
   propertyValuesError: string | null;
   getGroupsByInstitutionTypeId: (
-    institutionTypeId: number | string | undefined
+    institutionTypeId: number | string | undefined,
   ) => PropertyGroupCheckboxOption[];
 
   // School properties (for edit mode - existing properties)

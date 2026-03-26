@@ -129,31 +129,31 @@ export const SchoolFormContent: React.FC = () => {
       const schoolUpdateResponse = await putSchool(filteredData);
 
       // 2. School güncelleme başarılıysa, property'leri güncelle
-      if (schoolUpdateResponse && "success" in schoolUpdateResponse) {
+      // executeMutation unwraps { success, data } -> response is SchoolDto directly
+      if (schoolUpdateResponse) {
         await updateProperties(propertyTypeIds);
       }
     } else {
       // Add modunda:
       // 1. Önce school'u oluştur
+      // executeMutation unwraps { success, data } -> response is SchoolDto directly
       const schoolCreateResponse = await postSchool(formData);
 
       // 2. School oluşturma başarılıysa ve propertyTypeIds varsa, property'leri güncelle
       if (
         schoolCreateResponse &&
-        schoolCreateResponse.success &&
-        "data" in schoolCreateResponse &&
-        schoolCreateResponse.data?.id &&
+        schoolCreateResponse.id &&
         propertyTypeIds.length > 0
       ) {
         // Response'tan gelen school id ile updateProperties çağır
-        const createdSchoolId = schoolCreateResponse.data.id;
+        const createdSchoolId = schoolCreateResponse.id;
         await updateProperties(propertyTypeIds, {
           schoolId: createdSchoolId,
           onSuccess: () => {
             router.push("/company/school-list");
           },
         });
-      } else if (schoolCreateResponse && schoolCreateResponse.success) {
+      } else if (schoolCreateResponse) {
         // propertyTypeIds yoksa direkt yönlendir
         router.push("/company/school-list");
       }
@@ -552,8 +552,8 @@ export const SchoolFormContent: React.FC = () => {
             {isSubmitting
               ? "Kaydediliyor..."
               : isEditing
-              ? "Güncelle"
-              : "Kaydet"}
+                ? "Güncelle"
+                : "Kaydet"}
           </Button>
         </div>
       </div>

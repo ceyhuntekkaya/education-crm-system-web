@@ -1,7 +1,7 @@
 "use client";
 
 import { usePost } from "@/hooks";
-import { API_ENDPOINTS, ApiResponse } from "@/lib";
+import { API_ENDPOINTS } from "@/lib";
 import { SchoolCreateDto, SchoolDto } from "@/types";
 import { useAuth } from "@/contexts";
 
@@ -15,19 +15,19 @@ export const useAddSchool = () => {
     mutate: postSchool,
     loading: isLoading,
     error,
-  } = usePost<ApiResponse<SchoolDto>, SchoolCreateDto>(
+  } = usePost<SchoolDto, SchoolCreateDto>(
     API_ENDPOINTS.INSTITUTIONS.SCHOOL_CREATE,
     {
       onSuccess: (res) => {
-        // console.log("✅ onSuccess alanı -> School başarıyla eklendi:", res);
-        if ("data" in res && res.data) {
-          updateUserSchools(res.data, "add");
+        // executeMutation unwraps { success, data } -> res is SchoolDto directly
+        if (res) {
+          updateUserSchools(res, "add");
         }
       },
       onError: (error) => {
         // console.log("❌ onError alanı -> School eklenirken hata:", error);
       },
-    }
+    },
   );
 
   return {
