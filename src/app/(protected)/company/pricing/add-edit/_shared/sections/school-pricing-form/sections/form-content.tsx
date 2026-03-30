@@ -31,7 +31,9 @@ import { Divider } from "@/components";
  */
 export const SchoolPricingFormContent: React.FC = () => {
   // Form hook - validation ve error kontrolü için
-  const { hasErrors } = useFormHook();
+  const { hasErrors, errors } = useFormHook();
+
+  console.log("Form errors:", errors);
 
   // Form reset hook'u
   const { reset } = useForm();
@@ -54,7 +56,7 @@ export const SchoolPricingFormContent: React.FC = () => {
       if (isEditing) {
         // Edit modunda sadece UpdateDto'daki alanları gönder
         const filteredData = filterDataForEdit(
-          values
+          values,
         ) as SchoolPricingUpdateDto;
         // console.log("🔄 Edit modu - Filtrelenmiş veri:", filteredData);
         await putPricing(filteredData);

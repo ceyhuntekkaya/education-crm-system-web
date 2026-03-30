@@ -42,12 +42,12 @@ export const useEditCustomFee = ({
         // Liste sayfasını yenile
         refetchCustomFees();
         // Liste sayfasına yönlendir
-        router.push("/company/custom-fees");
+        // router.push("/company/custom-fees");
       },
       onError: (error) => {
         console.error("❌ Ek ücret güncellenirken hata:", error);
       },
-    }
+    },
   );
 
   return {

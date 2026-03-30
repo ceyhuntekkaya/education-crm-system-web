@@ -37,12 +37,8 @@ const PostDetail: React.FC<ExtendedPostDetailProps> = ({
       <div className="gallery-detail-modal">
         <PostDetailHeader post={post} onClose={onClose} />
         <div className="gallery-modal-grid">
-          <div className="gallery-viewer-column">
-            <MediaGallery items={post.items || []} />
-          </div>
-          <div className="gallery-info-column">
-            <PostDetailContentColumn post={post} variant={variant} />
-          </div>
+          <MediaGallery items={post.items || []} />
+          <PostDetailContentColumn post={post} variant={variant} />
         </div>
       </div>
     );
@@ -53,12 +49,8 @@ const PostDetail: React.FC<ExtendedPostDetailProps> = ({
     <div className="gallery-detail-modal">
       <PostDetailHeader post={post} onClose={onClose} />
       <div className="gallery-modal-grid">
-        <div className="gallery-viewer-column">
-          <MediaGallery items={post.items || []} />
-        </div>
-        <div className="gallery-info-column">
-          <PostDetailContentColumn post={post} variant={variant} />
-        </div>
+        <MediaGallery items={post.items || []} />
+        <PostDetailContentColumn post={post} variant={variant} />
       </div>
     </div>
   );
