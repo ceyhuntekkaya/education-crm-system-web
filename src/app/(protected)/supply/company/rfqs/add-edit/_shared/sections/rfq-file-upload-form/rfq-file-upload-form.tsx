@@ -71,8 +71,8 @@ const RFQFileUploadFormContent = forwardRef<
           itemType: uploadedFile.mimeType?.includes("image")
             ? "IMAGE"
             : uploadedFile.mimeType?.includes("video")
-            ? "VIDEO"
-            : "DOCUMENT",
+              ? "VIDEO"
+              : "DOCUMENT",
         };
 
         // Mevcut dosyalara ekle
@@ -108,8 +108,8 @@ const RFQFileUploadFormContent = forwardRef<
       currentIndex >= newFiles.length && newFiles.length > 0
         ? newFiles.length - 1
         : newFiles.length === 0
-        ? 0
-        : currentIndex;
+          ? 0
+          : currentIndex;
 
     setValue("currentIndex", newIndex);
   }, [uploadedFiles, currentIndex, setValue]);
@@ -245,7 +245,7 @@ const RFQFileUploadFormContent = forwardRef<
                     onClick={handleDeleteFile}
                     title="Dosyayı Sil"
                   >
-                    <i className="bi bi-trash" style={{ fontSize: "18px" }}></i>
+                    <i className="ph ph-trash" style={{ fontSize: "18px" }}></i>
                   </button>
                 </div>
               )}
