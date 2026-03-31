@@ -4,7 +4,7 @@ import * as Yup from "yup";
  * School pricing form validation schema
  */
 export const validationSchema = Yup.object({
-  academicYear: Yup.string().required("Akademik yıl gereklidir"),
+  // academicYear: Yup.string().required("Akademik yıl gereklidir"),
 
   // gradeLevel: Yup.string().required("Sınıf seviyesi gereklidir"),
 
@@ -30,7 +30,7 @@ export const validationSchema = Yup.object({
         "KWD",
         "BHD",
       ],
-      "Geçersiz para birimi"
+      "Geçersiz para birimi",
     ),
 
   // Temel ücretler
@@ -115,7 +115,7 @@ export const validationSchema = Yup.object({
         "BIANNUAL",
         "CUSTOM",
       ],
-      "Geçersiz ödeme sıklığı"
+      "Geçersiz ödeme sıklığı",
     ),
 
   installmentCount: Yup.number()
@@ -189,7 +189,7 @@ export const validationSchema = Yup.object({
         const startDate = new Date(validFrom);
         const endDate = new Date(value);
         return endDate >= startDate; // Eşit tarihler de kabul edilsin
-      }
+      },
     ),
 
   // Metin alanları

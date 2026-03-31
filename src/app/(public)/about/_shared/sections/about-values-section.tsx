@@ -1,47 +1,69 @@
 import React from "react";
 
-interface PlatformValue {
-  icon: string;
-  title: string;
-  description: string;
-  color: string;
-}
+const values = [
+  {
+    icon: "ph-bold ph-shield-check",
+    title: "Güvenilirlik",
+    description: "Verileriniz en yüksek güvenlik standartlarıyla korunur.",
+    iconClass: "category-advantages__card-icon",
+  },
+  {
+    icon: "ph-bold ph-rocket-launch",
+    title: "İnovasyon",
+    description: "Sürekli gelişen teknoloji ile her zaman güncel kalın.",
+    iconClass: "category-advantages__card-icon",
+  },
+  {
+    icon: "ph-bold ph-handshake",
+    title: "Müşteri Odaklı",
+    description: "İhtiyaçlarınızı dinliyor ve en iyi çözümleri sunuyoruz.",
+    iconClass: "category-advantages__card-icon",
+  },
+  {
+    icon: "ph-bold ph-medal",
+    title: "Kalite",
+    description: "En yüksek standartlarda hizmet kalitesi sunuyoruz.",
+    iconClass: "category-advantages__card-icon",
+  },
+  {
+    icon: "ph-bold ph-globe",
+    title: "Erişilebilirlik",
+    description: "Türkiye genelinde her yerden, her cihazdan ulaşılabilir.",
+    iconClass: "category-advantages__card-icon",
+  },
+  {
+    icon: "ph-bold ph-trend-up",
+    title: "Şeffaflık",
+    description: "Açık fiyatlandırma, net süreçler, herkes için eşit erişim.",
+    iconClass: "category-advantages__card-icon",
+  },
+];
 
-interface AboutValuesSectionProps {
-  values: PlatformValue[];
-}
-
-export const AboutValuesSection: React.FC<AboutValuesSectionProps> = ({
-  values,
-}) => {
+export const AboutValuesSection: React.FC = () => {
   return (
-    <div className="about-values-section mb-40" data-aos="fade-up">
-      {/* Header */}
-      <div className="about-values-section__header">
-        <div className="about-values-section__icon">
-          <i className="ph-bold ph-heart"></i>
-        </div>
-        <h2 className="about-values-section__title">Değerlerimiz</h2>
-        <p className="about-values-section__subtitle">Bizi biz yapan prensipler</p>
+    <div className="category-advantages">
+      <div className="section-header" data-aos="fade-up">
+        <h2 className="section-header__title">Değerlerimiz</h2>
+        <p className="section-header__subtitle">
+          Bizi biz yapan temel prensipler ve anlayış
+        </p>
       </div>
-
-      {/* Values Grid */}
-      <div className="about-values-section__content">
-        <div className="row row-gap-24">
-          {values.map((value, index) => (
-            <div key={index} className="col-lg-3 col-md-6">
-              <div className="value-card">
-                <div className={`value-card__icon bg-${value.color}-100`}>
-                  <i className={`ph-bold ${value.icon} text-${value.color}-600`}></i>
-                </div>
-                <h4 className="value-card__title">{value.title}</h4>
-                <p className="value-card__description">{value.description}</p>
-              </div>
+      <div className="category-advantages__grid">
+        {values.map((v, i) => (
+          <div
+            key={i}
+            className="category-advantages__card"
+            data-aos="fade-up"
+            data-aos-delay={i * 70}
+          >
+            <div className={v.iconClass}>
+              <i className={v.icon} />
             </div>
-          ))}
-        </div>
+            <h5 className="category-advantages__card-title">{v.title}</h5>
+            <p className="category-advantages__card-desc">{v.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-

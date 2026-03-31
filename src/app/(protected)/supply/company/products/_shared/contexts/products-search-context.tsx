@@ -5,9 +5,10 @@ import React, {
   useContext,
   useState,
   useCallback,
+  useMemo,
   useEffect,
+  useRef,
 } from "react";
-import { useFormHook } from "@/hooks";
 import {
   useSearchProducts,
   useCategoriesData,
@@ -44,9 +45,6 @@ interface ProductsContextValue {
   suppliers: any;
   suppliersLoading: boolean;
 
-  // Form values
-  formValues: Record<string, any>;
-
   // Actions
   search: (formValues: FormValues) => void;
   resetSearch: () => void;
@@ -58,15 +56,12 @@ interface ProductsProviderProps {
 }
 
 const ProductsContext = createContext<ProductsContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 export function ProductsProvider({ children }: ProductsProviderProps) {
   const [hasSearched, setHasSearched] = useState(false);
   const [searchParams, setSearchParams] = useState<SearchProductsParams>();
-
-  // Form management
-  const { values, resetForm } = useFormHook();
 
   // API data - RFQ gibi basit yapı
   const { data, loading, error, refetch } = useSearchProducts(searchParams, {
@@ -77,49 +72,70 @@ export function ProductsProvider({ children }: ProductsProviderProps) {
   const categories = useCategoriesData();
   const suppliers = useSuppliersData();
 
-  // Transform data
-  const products: ProductResultDto[] =
-    data?.data?.content?.map((item) => mapProductDtoToResult(item)) || [];
-
-  useEffect(() => {
-    if (values) {
-      const apiParams = createProductsApiParams(values);
-      setSearchParams(cleanProductsApiParams(apiParams));
-    }
-  }, [values]);
-
-  // Search action
-  const search = useCallback(
-    (formValues: FormValues) => {
-      setHasSearched(true);
-      refetch();
-    },
-    [refetch]
+  // Transform data - memoize to prevent unnecessary re-renders
+  const products: ProductResultDto[] = useMemo(
+    () => data?.data?.content?.map((item) => mapProductDtoToResult(item)) || [],
+    [data],
   );
+
+  // searchParams değiştiğinde (ilk fetch hariç) refetch tetikle
+  // useGet sadece url/enabled değişiminde fetch yapar, params değişimini yakalamaz
+  const isFirstSearch = useRef(true);
+  useEffect(() => {
+    if (searchParams) {
+      if (isFirstSearch.current) {
+        isFirstSearch.current = false;
+      } else {
+        refetch();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  // Search action - sadece "Filtrele" butonuna basıldığında çalışır
+  const search = useCallback((formValues: FormValues) => {
+    const apiParams = createProductsApiParams(formValues);
+    setSearchParams(cleanProductsApiParams(apiParams));
+    setHasSearched(true);
+  }, []);
 
   // Reset action
   const resetSearch = useCallback(() => {
     setSearchParams(undefined);
     setHasSearched(false);
-    resetForm();
-  }, [resetForm]);
+  }, []);
 
-  // Context value
-  const contextValue: ProductsContextValue = {
-    hasSearched,
-    searchParams,
-    products,
-    productsLoading: loading,
-    productsError: error,
-    categories: categories.data,
-    categoriesLoading: categories.loading,
-    suppliers: suppliers.data,
-    suppliersLoading: suppliers.loading,
-    formValues: values,
-    search,
-    resetSearch,
-    refetch,
-  };
+  // Context value - memoize to prevent unnecessary re-renders of consumers
+  const contextValue: ProductsContextValue = useMemo(
+    () => ({
+      hasSearched,
+      searchParams,
+      products,
+      productsLoading: loading,
+      productsError: error,
+      categories: categories.data,
+      categoriesLoading: categories.loading,
+      suppliers: suppliers.data,
+      suppliersLoading: suppliers.loading,
+      search,
+      resetSearch,
+      refetch,
+    }),
+    [
+      hasSearched,
+      searchParams,
+      products,
+      loading,
+      error,
+      categories.data,
+      categories.loading,
+      suppliers.data,
+      suppliers.loading,
+      search,
+      resetSearch,
+      refetch,
+    ],
+  );
 
   return (
     <ProductsContext.Provider value={contextValue}>
@@ -132,7 +148,7 @@ export function useProductsContext() {
   const context = useContext(ProductsContext);
   if (context === undefined) {
     throw new Error(
-      "useProductsContext must be used within a ProductsProvider"
+      "useProductsContext must be used within a ProductsProvider",
     );
   }
   return context;

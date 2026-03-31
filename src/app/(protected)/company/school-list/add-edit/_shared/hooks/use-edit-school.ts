@@ -1,7 +1,7 @@
 "use client";
 
 import { usePut } from "@/hooks";
-import { API_ENDPOINTS, ApiResponse } from "@/lib";
+import { API_ENDPOINTS } from "@/lib";
 import { SchoolCreateDto, SchoolDto } from "@/types";
 import { useAuth } from "@/contexts";
 
@@ -15,20 +15,20 @@ export const useEditSchool = (schoolId: number, refetchSchool?: () => void) => {
     mutate: putSchool,
     loading: isLoading,
     error,
-  } = usePut<ApiResponse<SchoolDto>, SchoolCreateDto>(
+  } = usePut<SchoolDto, SchoolCreateDto>(
     () => API_ENDPOINTS.INSTITUTIONS.SCHOOL_BY_ID(schoolId),
     {
       onSuccess: (res) => {
-        // console.log("✅ School başarıyla güncellendi:", res);
-        if ("data" in res && res.data) {
-          updateUserSchools(res.data, "edit");
+        // executeMutation unwraps { success, data } -> res is SchoolDto directly
+        if (res) {
+          updateUserSchools(res, "edit");
           refetchSchool?.();
         }
       },
       onError: (error) => {
         console.error("❌ School güncellenirken hata:", error);
       },
-    }
+    },
   );
 
   return {

@@ -29,6 +29,18 @@ const MainNavigation = ({ className = "", navItems }: NavigationProps) => {
       href: "/memberships",
       label: "Kurumsal Üyelik",
     },
+    {
+      href: "/how-it-works",
+      label: "Nasıl Çalışır",
+    },
+    {
+      href: "/about",
+      label: "Hakkımızda",
+    },
+    {
+      href: "/contact",
+      label: "İletişim",
+    },
   ];
 
   const items = navItems || defaultNavItems;

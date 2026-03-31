@@ -4,10 +4,10 @@ import { useState, useCallback } from "react";
 import { ApiState, ApiOptions, MutationOptions } from "./types";
 
 // Ana API hook - diğer hook'lar için temel
-export const useApi = <T>() => {
+export const useApi = <T>(initialLoading = false) => {
   const [state, setState] = useState<ApiState<T>>({
     data: null,
-    loading: false,
+    loading: initialLoading,
     error: null,
   });
 

@@ -10,15 +10,85 @@
  * - overlay ve animasyonlar
  * 
  * Bu dosya sadece mobile menu içeriğinin stillerini içerir.
+ * Drawer body padding: 0 24px 16px 24px (paddingTop yok)
  */
 
 // ============================================
 // Mobile Menu Container
 // ============================================
 .mobile-menu {
-    // Section stilleri
     &__section {
-        margin-bottom: 8px;
+        margin-bottom: 0;
+
+        &--first {
+            padding-top: 16px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__section-label {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #8B8FA3;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    // Nav item icon backgrounds
+    &__nav-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+
+        i {
+            font-size: 17px;
+            line-height: 1;
+        }
+
+        &--main {
+            background: var(--main-50);
+            i { color: var(--main-600); }
+        }
+        &--primary {
+            background: var(--primary-50);
+            i { color: var(--primary-600); }
+        }
+        &--success {
+            background: var(--success-50);
+            i { color: var(--success-600); }
+        }
+        &--warning {
+            background: var(--warning-50);
+            i { color: var(--warning-600); }
+        }
+        &--info {
+            background: var(--info-50);
+            i { color: var(--info-600); }
+        }
+        &--danger {
+            background: var(--danger-50);
+            i { color: var(--danger-600); }
+        }
+    }
+
+    // Arrow — nav link içinde sağ kenarda
+    &__arrow {
+        font-size: 14px;
+        color: #C8CBD4;
+        transition: transform 0.2s ease, color 0.2s ease;
+        margin-left: auto;
+        flex-shrink: 0;
+        line-height: 1;
     }
 
     // Bölüm ayracı
@@ -28,7 +98,7 @@
         margin: 16px 0;
         position: relative;
         flex-shrink: 0;
-        
+
         &::after {
             content: '';
             position: absolute;
@@ -37,7 +107,7 @@
             transform: translate(-50%, -50%);
             width: 4px;
             height: 4px;
-            background: #0B6FD7;
+            background: var(--main-600);
             border-radius: 50%;
             box-shadow: -12px 0 0 #C1C4CC, 12px 0 0 #C1C4CC;
         }
@@ -49,102 +119,123 @@
 // ============================================
 .nav-menu--mobile {
     display: block;
-    margin-top: 16px;
-    
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
     .nav-menu__item {
-        margin-bottom: 6px;
-        border-radius: 10px;
+        margin-bottom: 2px;
+        border-radius: 12px;
         overflow: visible;
-        background: #F5F6F7;
-        transition: all 0.2s ease;
-        border: 1px solid #EBECEF;
-        
-        // Hover efekti
-        &:hover > a {
-            color: #0B6FD7;
-            
-            i.ph {
-                color: #0B6FD7;
-            }
+        background: transparent;
+        transition: background 0.2s ease;
+
+        &:last-child {
+            margin-bottom: 0;
         }
-        
-        // Aktif sayfa stili
-        &.activePage {
-            background: #E4F1FF;
-            border-color: #0B6FD7;
-            
-            > a {
-                color: #0B6FD7;
-                font-weight: 600;
-                
-                i.ph {
-                    color: #0B6FD7;
+
+        // Hover
+        &:hover {
+            > a,
+            > .nav-menu__link {
+                background: #F5F6FA;
+
+                .mobile-menu__arrow {
+                    color: var(--main-600);
+                    transform: translateX(2px);
                 }
             }
         }
-        
+
+        // Aktif sayfa
+        &.activePage {
+            > a,
+            > .nav-menu__link {
+                background: #E4F1FF;
+
+                .nav-menu__label {
+                    color: var(--main-600);
+                    font-weight: 600;
+                }
+
+                .mobile-menu__arrow {
+                    color: var(--main-600);
+                }
+
+                .mobile-menu__nav-icon {
+                    transform: scale(1.06);
+                }
+            }
+        }
+
         // Alt menü açık durumu
         &.active .nav-submenu {
-            max-height: 280px;
+            max-height: 300px;
             padding: 8px 12px 12px 12px;
             overflow-y: auto;
         }
-        
-        // Alt menüsü olan öğeler
+
+        // Alt menüsü olan öğeler (Hesabım bölümü)
         &.has-submenu {
             > a {
                 padding-right: 44px;
-                
+
                 &::before {
                     content: "\E136";
                     font-family: 'Phosphor';
                     position: absolute;
-                    right: 16px;
+                    right: 14px;
                     top: 50%;
                     transform: translateY(-50%) rotate(-90deg);
-                    color: #0B6FD7;
+                    color: var(--main-600);
                     transition: transform 0.3s ease;
                     font-weight: 700;
                     font-size: 16px;
                     z-index: 2;
                 }
             }
-            
+
             &.active > a::before {
                 transform: translateY(-50%) rotate(0deg);
             }
-            
+
             .nav-menu__badge {
                 right: 44px;
             }
         }
     }
-    
+
+    // Ana link stili — icon + label + arrow yapısı
     .nav-menu__link {
         position: relative;
-        padding: 14px 16px;
-        padding-right: 56px;
+        padding: 8px 12px;
         font-weight: 500;
-        font-size: 15px;
+        font-size: 0.9375rem;
         color: #222E48;
-        transition: all 0.2s ease;
+        transition: background 0.2s ease, color 0.2s ease;
         display: flex;
         align-items: center;
+        gap: 12px;
         background: transparent;
         width: 100%;
-        min-height: 48px;
+        min-height: 50px;
         border: none !important;
-        
-        i.ph {
-            font-size: 18px;
-            color: #0B6FD7;
+        border-radius: 12px;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            color: #222E48;
         }
     }
-    
+
     .nav-menu__label {
         flex: 1;
+        min-width: 0;
     }
-    
+
     .nav-menu__badge {
         position: absolute;
         right: 12px;
@@ -166,7 +257,7 @@
 }
 
 // ============================================
-// Submenu Styles
+// Submenu Styles (Hesabım bölümündeki alt menüler)
 // ============================================
 .nav-menu--mobile .nav-submenu {
     position: static;
@@ -177,12 +268,12 @@
     display: block;
     background: #ffffff;
     border-top: 1px solid #EBECEF;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 12px 12px;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
-    
-    // Submenu scrollbar
+    list-style: none;
+
     &::-webkit-scrollbar {
         width: 4px;
     }
@@ -193,45 +284,50 @@
         background: #C1C4CC;
         border-radius: 4px;
     }
-    
+
     .nav-submenu__item {
+        list-style: none;
+
         &::before {
             display: none;
         }
-        
+
         &:hover {
             background-color: transparent;
         }
-        
+
         &.activePage .nav-submenu__link {
             background: #E4F1FF;
-            border-color: #0B6FD7;
-            color: #0B6FD7;
+            border-color: var(--main-200) !important;
+            color: var(--main-600);
             font-weight: 600;
         }
-        
+
         &:last-child .nav-submenu__link {
             margin-bottom: 0;
         }
     }
-    
+
     .nav-submenu__link {
         width: 100%;
         padding: 10px 14px;
         border-radius: 8px;
-        font-size: 14px;
+        font-size: 0.875rem;
         color: #222E48;
         font-weight: 500;
-        transition: all 0.2s ease;
-        background: #F5F6F7;
+        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        background: #F5F6FA;
         margin-bottom: 4px;
         display: block;
         border: 1px solid #EBECEF !important;
-        
-        &:hover {
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
             background: #E4F1FF;
             border-color: #BFDCFF !important;
-            color: #0B6FD7;
+            color: var(--main-600);
+            text-decoration: none;
         }
     }
 }

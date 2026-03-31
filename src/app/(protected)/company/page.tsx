@@ -3,13 +3,12 @@ import React from "react";
 import Link from "next/link";
 import { companyLayoutNavigation } from "./_shared/navigation/navigation";
 import { useCompany } from "./_shared/context/company-context";
-import FileInputExamples from "@/components/file-input/file-input.example";
 import { usePageTitle } from "@/hooks";
 
 const CompanyPage: React.FC = () => {
   usePageTitle("Kurum Paneli");
   const { selectedSchool } = useCompany();
-  // Icon mapping - eğer navigation'dan gelen icon uygun değilse alternatif kullan
+
   const getModuleIcon = (label: string, originalIcon: string) => {
     const iconMap: { [key: string]: string } = {
       "Kurum Listesi": "ph-buildings",
@@ -28,8 +27,7 @@ const CompanyPage: React.FC = () => {
     return iconMap[label] || originalIcon;
   };
 
-  // Kurum yönetim paneli için genel ve dinamik açıklamalar
-  const getModuleDescription = (label: string, href: string) => {
+  const getModuleDescription = (label: string, _href: string) => {
     const descriptions: { [key: string]: string } = {
       "Kurum Listesi":
         "Eğitim kurumlarınızın kapsamlı listesini görüntüleyin, filtreleyin ve detaylı yönetim işlemlerini gerçekleştirin",
@@ -62,8 +60,22 @@ const CompanyPage: React.FC = () => {
     );
   };
 
-  const getModuleVariant = (index: number, label: string) => {
-    const variants = [
+  const getModuleVariant = (label: string, index: number) => {
+    const variants: { [key: string]: string } = {
+      "Kurum Listesi": "primary",
+      "Kurum Bilgileri": "purple",
+      "Fiyat Bilgileri": "warning",
+      Kampanyalar: "primary",
+      "Randevu Bilgileri": "success",
+      Galeri: "info",
+      "Sosyal Medya": "purple",
+      Anketler: "orange",
+      "Analitik Raporları": "info",
+      Kullanıcılar: "success",
+      "Üyelik Planları": "warning",
+      "Marka Bilgileri": "pink",
+    };
+    const defaults = [
       "primary",
       "success",
       "warning",
@@ -73,218 +85,178 @@ const CompanyPage: React.FC = () => {
       "teal",
       "orange",
     ];
-
-    // Bazı önemli modüller için özel renkler
-    const specialVariants: { [key: string]: string } = {
-      Kampanyalar: "primary",
-      "Analitik Raporları": "info",
-      Kullanıcılar: "success",
-      "Üyelik Planları": "warning",
-      "Kurum Listesi": "purple",
-      "Fiyat Bilgileri": "orange",
-    };
-
-    return specialVariants[label] || variants[index % variants.length];
+    return variants[label] || defaults[index % defaults.length];
   };
 
-  // Navigation'dan gelen verileri filtrele (Giriş hariç)
   const moduleItems = companyLayoutNavigation
-    .filter((item) => item.href !== "/company") // Giriş sayfasını hariç tut
+    .filter((item) => item.href !== "/company")
     .map((item, index) => ({
       ...item,
-      icon: getModuleIcon(item.label, item.icon), // Icon mapping uygula
+      icon: getModuleIcon(item.label, item.icon),
       description: getModuleDescription(item.label, item.href),
-      variant: getModuleVariant(index, item.label),
+      variant: getModuleVariant(item.label, index),
     }));
 
   return (
     <div className="company-dashboard">
-      {/* Hero Section */}
-      <section className="company-dashboard__hero">
-        <div className="company-dashboard__hero-pattern"></div>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-10">
-              {/* Welcome Header */}
-              <div className="company-dashboard__welcome">
-                <div className="company-dashboard__welcome-icon">
-                  <i className="ph-bold ph-buildings"></i>
-                </div>
-                <h1 className="company-dashboard__welcome-title">
-                  Kurum Yönetim Paneli
-                </h1>
-                <h2 className="company-dashboard__welcome-subtitle">
-                  Eğitim Kurumunuzu Profesyonelce Yönetin
-                </h2>
-                <p className="company-dashboard__welcome-subtitle">
-                  Kurumsal süreçlerinizi optimize edin, performansınızı artırın
-                  ve büyümenizi hızlandırın
-                </p>
-              </div>
-
-              {/* Quick Stats */}
-              <div className="company-dashboard__stats">
-                <div className="row g-4">
-                  <div className="col-md-3 col-sm-6">
-                    <div className="company-dashboard__stats-card">
-                      <i className="ph-bold ph-squares-four"></i>
-                      <div className="company-dashboard__stats-card-number">
-                        {moduleItems.length}
-                      </div>
-                      <div className="company-dashboard__stats-card-label">
-                        Yönetim Modülü
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3 col-sm-6">
-                    <div className="company-dashboard__stats-card">
-                      <i className="ph-bold ph-buildings"></i>
-                      <div className="company-dashboard__stats-card-number">
-                        ∞
-                      </div>
-                      <div className="company-dashboard__stats-card-label">
-                        Kurum Kapasitesi
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3 col-sm-6">
-                    <div className="company-dashboard__stats-card">
-                      <i className="ph-bold ph-chart-bar"></i>
-                      <div className="company-dashboard__stats-card-number">
-                        24/7
-                      </div>
-                      <div className="company-dashboard__stats-card-label">
-                        Analitik İzleme
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3 col-sm-6">
-                    <div className="company-dashboard__stats-card">
-                      <i className="ph-bold ph-shield-checkered"></i>
-                      <div className="company-dashboard__stats-card-number">
-                        %99.9
-                      </div>
-                      <div className="company-dashboard__stats-card-label">
-                        Sistem Güvenilirliği
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Navigation Cards Grid */}
-              <div className="company-dashboard__modules">
-                <div className="company-dashboard__modules-header">
-                  <h3>Kurumsal Yönetim Modülleri</h3>
-                  <p>
-                    Kurumunuzun farklı alanlarını profesyonelce yönetmek için
-                    bir modül seçin
-                  </p>
-                </div>
-
-                <div className="company-dashboard__modules-grid">
-                  {moduleItems.map((item, index) => {
-                    const isDisabled =
-                      !selectedSchool && item.requiresSchool !== false;
-
-                    return isDisabled ? (
-                      <div
-                        key={item.href}
-                        className={`company-dashboard__card company-dashboard__card--${item.variant} company-dashboard__card--disabled`}
-                        style={{
-                          animationDelay: `${0.1 * (index + 1)}s`,
-                          opacity: 0.5,
-                          cursor: "not-allowed",
-                          position: "relative",
-                        }}
-                        title="Bu modülü kullanmak için önce bir okul seçmelisiniz"
-                      >
-                        <div className="company-dashboard__card-icon">
-                          <i className={`ph-bold ${item.icon}`}></i>
-                        </div>
-
-                        <h4 className="company-dashboard__card-title">
-                          {item.label}
-                        </h4>
-
-                        <p className="company-dashboard__card-description">
-                          {item.description}
-                        </p>
-
-                        <div className="company-dashboard__card-footer">
-                          <span className="company-dashboard__card-footer-text">
-                            <i className="ph-bold ph-lock me-8"></i>
-                            Okul Seçimi Gerekli
-                          </span>
-                        </div>
-
-                        {/* Overlay badge */}
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: "12px",
-                            right: "12px",
-                            background: "rgba(220, 53, 69, 0.9)",
-                            color: "white",
-                            padding: "4px 8px",
-                            borderRadius: "4px",
-                            fontSize: "11px",
-                            fontWeight: "600",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.5px",
-                          }}
-                        >
-                          <i
-                            className="ph-bold ph-lock"
-                            style={{ fontSize: "10px", marginRight: "4px" }}
-                          ></i>
-                          Kilitli
-                        </div>
-                      </div>
-                    ) : (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={`company-dashboard__card company-dashboard__card--${item.variant}`}
-                        style={{ animationDelay: `${0.1 * (index + 1)}s` }}
-                      >
-                        <div className="company-dashboard__card-icon">
-                          <i className={`ph-bold ${item.icon}`}></i>
-                        </div>
-
-                        <h4 className="company-dashboard__card-title">
-                          {item.label}
-                        </h4>
-
-                        <p className="company-dashboard__card-description">
-                          {item.description}
-                        </p>
-
-                        <div className="company-dashboard__card-footer">
-                          <span className="company-dashboard__card-footer-text">
-                            Başlat
-                          </span>
-                          <i className="ph-bold ph-arrow-right"></i>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-
-                {/* <div className="company-dashboard__help">
-                  <div className="company-dashboard__help-badge">
-                    <i className="ph-bold ph-question"></i>
-                    <span>
-                      Kurumsal destek mi gerekiyor?
-                      <a href="/help">Teknik Destek</a>
-                    </span>
-                  </div>
-                </div> */}
-              </div>
+      {/* ── Hero ── */}
+      <section className="dash-hero rounded-16 position-relative overflow-hidden mb-24">
+        <div className="dash-hero__pattern position-absolute inset-0" />
+        <div className="position-relative d-flex align-items-center justify-content-between flex-wrap gap-16 p-28">
+          <div className="d-flex align-items-center gap-16">
+            <div className="dash-hero__decor d-none d-md-flex">
+              <i className="ph-duotone ph-buildings" />
             </div>
+            <div>
+              <h1 className="dash-hero__title fw-800 text-white mb-6">
+                Kurum Yönetim Paneli
+              </h1>
+              <p className="dash-hero__subtitle mb-0">
+                Kurumsal süreçlerinizi optimize edin, performansınızı artırın ve
+                büyümenizi hızlandırın
+              </p>
+            </div>
+          </div>
+          <div className="d-flex align-items-center gap-8 flex-wrap">
+            <Link href="/company/school-list" className="hero-btn-primary">
+              <i className="ph-bold ph-buildings" />
+              Kurum Listesi
+            </Link>
+            {selectedSchool && (
+              <Link
+                href="/company/school-detail"
+                className="hero-btn-secondary"
+              >
+                <i className="ph-bold ph-gear" />
+                Kurum Bilgileri
+              </Link>
+            )}
           </div>
         </div>
       </section>
+
+      {/* ── Quick Stats ── */}
+      <div className="row g-3 mb-24">
+        {[
+          {
+            icon: "ph-bold ph-squares-four",
+            value: moduleItems.length.toString(),
+            label: "Yönetim Modülü",
+            bg: "bg-main-50",
+            color: "text-main-600",
+          },
+          {
+            icon: "ph-bold ph-buildings",
+            value: "∞",
+            label: "Kurum Kapasitesi",
+            bg: "bg-success-50",
+            color: "text-success-600",
+          },
+          {
+            icon: "ph-bold ph-chart-bar",
+            value: "24/7",
+            label: "Analitik İzleme",
+            bg: "bg-info-50",
+            color: "text-info-600",
+          },
+          {
+            icon: "ph-bold ph-shield-checkered",
+            value: "%99.9",
+            label: "Sistem Güvenilirliği",
+            bg: "bg-warning-50",
+            color: "text-warning-600",
+          },
+        ].map((stat, i) => (
+          <div key={i} className="col-md-3 col-sm-6">
+            <div className="stat-card-inner rounded-16 p-20 text-center bg-white">
+              <div
+                className={`stat-card__icon ${stat.bg} ${stat.color} rounded-12 d-inline-flex align-items-center justify-content-center mb-8`}
+              >
+                <i className={stat.icon} />
+              </div>
+              <div className={`stat-card__value fw-800 ${stat.color} mb-2`}>
+                {stat.value}
+              </div>
+              <div className="stat-card__label">{stat.label}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Module Cards ── */}
+      <div className="dash-panel mb-24">
+        <div className="dash-panel-header">
+          <div className="d-flex align-items-center gap-10">
+            <div className="dash-panel-icon bg-main-50 text-main-600 rounded-10 d-flex align-items-center justify-content-center">
+              <i className="ph-bold ph-stack" />
+            </div>
+            <div>
+              <h3 className="dash-panel-title fw-700 text-neutral-900 mb-0">
+                Kurumsal Yönetim Modülleri
+              </h3>
+              <p className="text-xs text-neutral-500 mb-0 mt-2">
+                Kurumunuzun farklı alanlarını profesyonelce yönetmek için bir
+                modül seçin
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-20">
+          <div className="company-dashboard__modules-grid">
+            {moduleItems.map((item, index) => {
+              const isDisabled =
+                !selectedSchool && item.requiresSchool !== false;
+
+              return isDisabled ? (
+                <div
+                  key={item.href}
+                  className={`company-dashboard__card company-dashboard__card--${item.variant} company-dashboard__card--disabled`}
+                  title="Bu modülü kullanmak için önce bir okul seçmelisiniz"
+                >
+                  <div className="company-dashboard__card-icon">
+                    <i className={`ph-bold ${item.icon}`} />
+                  </div>
+                  <h4 className="company-dashboard__card-title">
+                    {item.label}
+                  </h4>
+                  <p className="company-dashboard__card-description">
+                    {item.description}
+                  </p>
+                  <div className="company-dashboard__card-footer">
+                    <span className="company-dashboard__card-footer-text text-neutral-400">
+                      <i className="ph-bold ph-lock me-6" />
+                      Okul Seçimi Gerekli
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`company-dashboard__card company-dashboard__card--${item.variant}`}
+                >
+                  <div className="company-dashboard__card-icon">
+                    <i className={`ph-bold ${item.icon}`} />
+                  </div>
+                  <h4 className="company-dashboard__card-title">
+                    {item.label}
+                  </h4>
+                  <p className="company-dashboard__card-description">
+                    {item.description}
+                  </p>
+                  <div className="company-dashboard__card-footer">
+                    <span className="company-dashboard__card-footer-text">
+                      Başlat
+                    </span>
+                    <i className="ph-bold ph-arrow-right" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
