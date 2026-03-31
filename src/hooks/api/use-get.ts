@@ -18,7 +18,7 @@ export const useGet = <T>(
     onError,
     onFinally,
   } = options || {};
-  const api = useApi<T>();
+  const api = useApi<T>(enabled && !!url);
 
   // GET isteği yapma fonksiyonu
   const fetchData = useCallback(async () => {
