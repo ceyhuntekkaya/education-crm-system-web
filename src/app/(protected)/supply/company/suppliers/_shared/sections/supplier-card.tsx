@@ -92,13 +92,13 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
           </div>
 
           {/* Description */}
-          {supplier.description && (
-            <div
-              style={{
-                minHeight: "63px",
-                marginBottom: "12px",
-              }}
-            >
+          <div
+            style={{
+              minHeight: "63px",
+              marginBottom: "12px",
+            }}
+          >
+            {supplier.description && (
               <p
                 className="text-sm text-neutral-600 mb-0"
                 style={{
@@ -112,8 +112,8 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
               >
                 {supplier.description}
               </p>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* İletişim Bilgileri Card */}
           <div className="soft-card rounded-16 mb-12">
@@ -221,7 +221,7 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
 
           {/* Created Date with Detail Button */}
           {supplier.createdAt && (
-            <div className="d-flex align-items-center justify-content-between gap-12 mb-12">
+            <div className="d-flex align-items-center justify-content-between gap-12 mt-auto">
               <div className="d-flex align-items-center gap-6">
                 <i className="ph-bold ph-clock text-neutral-400 text-sm"></i>
                 <span className="text-xs text-neutral-500 fw-medium">
