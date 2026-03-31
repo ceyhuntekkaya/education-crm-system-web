@@ -35,7 +35,7 @@ const WishlistPage: React.FC = () => {
       label: "Ürünlere Göz At",
       onClick: () => router.push("/supply/company/products"),
     }),
-    [router]
+    [router],
   );
 
   return (
@@ -66,7 +66,7 @@ const WishlistPage: React.FC = () => {
           renderCard: ({ item }: { item: ProductResultDto }) => (
             <ProductCard product={item} />
           ),
-          col: 6,
+          col: 4,
         },
         list: {
           columns: wishlistColumns,

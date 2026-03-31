@@ -137,7 +137,9 @@ export function Results<T extends Record<string, any>>({
     if (customLoadingState) {
       return <>{customLoadingState}</>;
     }
-    return <LoadingState text={loadingText} />;
+    return (
+      <LoadingState gridCol={gridCol} cardClassName={computedCardClassName} />
+    );
   }
 
   // 2️⃣ Empty State
