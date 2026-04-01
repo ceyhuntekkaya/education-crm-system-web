@@ -3,8 +3,9 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { useParams } from "next/navigation";
 import { PricingAddEditContextType } from "../types";
-import { usePricingById, useAddPricing, useEditPricing } from "../hooks";
+import { useAddPricing, useEditPricing } from "../hooks";
 import { isValidEditId, parseEditId } from "../utils";
+import { usePricing } from "../../../_shared";
 
 const PricingAddEditContext = createContext<
   PricingAddEditContextType | undefined
@@ -19,18 +20,15 @@ export const PricingAddEditProvider: React.FC<PricingAddEditProviderProps> = ({
 }) => {
   const params = useParams();
   const { id } = params;
+  const { schoolPricings, pricingLoading, pricingError, refetchPricings } =
+    usePricing();
 
   // ID parsing and edit mode determination
   const isEditing = isValidEditId(id);
   const pricingId = parseEditId(id);
 
-  // Pricing data hook
-  const {
-    pricing,
-    isLoading: pricingLoading,
-    error: pricingError,
-    refetch,
-  } = usePricingById(pricingId);
+  // PricingContext zaten aynı school ID ile veri çekiyor, tekrar istek atmaya gerek yok
+  const pricing = schoolPricings?.[0] ?? null;
 
   // Add pricing hook
   const {
@@ -39,14 +37,14 @@ export const PricingAddEditProvider: React.FC<PricingAddEditProviderProps> = ({
     error: addError,
   } = useAddPricing();
 
-  // Edit pricing hook - refetch'i props olarak geçir
+  // Edit pricing hook
   const {
     putPricing,
     isLoading: editLoading,
     error: editError,
   } = useEditPricing({
     pricingId: pricingId || 0,
-    refetch: isEditing ? refetch : undefined,
+    refetch: isEditing ? refetchPricings : undefined,
   });
 
   const contextValue: PricingAddEditContextType = {
@@ -63,7 +61,7 @@ export const PricingAddEditProvider: React.FC<PricingAddEditProviderProps> = ({
     pricingId: pricingId?.toString() || null,
 
     // Actions
-    fetchPricing: refetch,
+    fetchPricing: refetchPricings,
     postPricing,
     putPricing,
   };
@@ -79,7 +77,7 @@ export const usePricingAddEdit = (): PricingAddEditContextType => {
   const context = useContext(PricingAddEditContext);
   if (context === undefined) {
     throw new Error(
-      "usePricingAddEdit must be used within a PricingAddEditProvider"
+      "usePricingAddEdit must be used within a PricingAddEditProvider",
     );
   }
   return context;
