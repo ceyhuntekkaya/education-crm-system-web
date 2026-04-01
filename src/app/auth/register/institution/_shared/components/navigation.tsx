@@ -94,7 +94,8 @@ export const StepNavigation: React.FC = () => {
 
       <div>
         {isLastFormStep ? (
-          <Button
+          <>
+            {/* <Button
             type="button"
             variant="success"
             onClick={handleNext}
@@ -116,7 +117,8 @@ export const StepNavigation: React.FC = () => {
                 <i className="ph-bold ph-check ms-8" />
               </>
             )}
-          </Button>
+          </Button> */}
+          </>
         ) : (
           <Button
             type="button"

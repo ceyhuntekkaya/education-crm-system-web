@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { DataGrid } from "@/components/ui/data-grid";
 import { createSchoolColumns } from "../config/school-columns";
 import { SchoolTableProps } from "../types";
@@ -8,6 +9,7 @@ import { useCompany } from "@/app/(protected)/company/_shared";
 import { useAuth } from "@/contexts";
 
 export const SchoolTable: React.FC<SchoolTableProps> = () => {
+  const router = useRouter();
   const { schools } = useCompany();
   const { isLoading } = useAuth();
 
@@ -36,7 +38,7 @@ export const SchoolTable: React.FC<SchoolTableProps> = () => {
           showActions: true,
           addButtonText: "Yeni Kurum Ekle",
           onAddNew: () => {
-            // console.log("Yeni Kurum ekleme formu açılacak");
+            router.push("/company/school-list/add-edit/new");
           },
         }}
       />
