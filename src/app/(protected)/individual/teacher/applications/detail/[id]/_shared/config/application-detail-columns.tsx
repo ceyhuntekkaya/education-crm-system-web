@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "@/components";
-import { formatDate } from "@/utils";
+import { formatDate, renderHtml, isHtmlEmpty } from "@/utils";
 import { DetailColumn } from "@/components/layouts/detail-layout/types";
 import type { ApplicationDto } from "../../../../_shared/types";
 import {
@@ -344,19 +344,18 @@ export const createApplicationDetailColumns = (
     iconColor: "text-primary-700",
     grid: 12,
     order: 29,
-    condition: (application) => !!(application.jobPosting as any)?.description,
+    condition: (application) =>
+      !isHtmlEmpty((application.jobPosting as any)?.description),
     renderCell: (application) => (
       <div
-        className="text-neutral-700"
+        className="tiptap-content text-neutral-700"
         style={{
-          whiteSpace: "pre-wrap",
           fontSize: "0.9375rem",
           lineHeight: "1.7",
           letterSpacing: "0.01em",
         }}
-      >
-        {(application.jobPosting as any).description}
-      </div>
+        {...renderHtml((application.jobPosting as any).description)}
+      />
     ),
   },
 
@@ -369,19 +368,17 @@ export const createApplicationDetailColumns = (
     iconColor: "text-primary-700",
     grid: 12,
     order: 30,
-    condition: (application) => !!application.coverLetter,
+    condition: (application) => !isHtmlEmpty(application.coverLetter),
     renderCell: (application) => (
       <div
-        className="text-neutral-700"
+        className="tiptap-content text-neutral-700"
         style={{
-          whiteSpace: "pre-wrap",
           fontSize: "0.9375rem",
           lineHeight: "1.7",
           letterSpacing: "0.01em",
         }}
-      >
-        {application.coverLetter || "Ön yazı eklenmemiş"}
-      </div>
+        {...renderHtml(application.coverLetter)}
+      />
     ),
   },
 

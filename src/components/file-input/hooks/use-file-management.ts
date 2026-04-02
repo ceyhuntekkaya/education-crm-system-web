@@ -37,10 +37,10 @@ export const useFileManagement = (props: {
     (type === "video"
       ? 500 // Video için 500MB
       : type === "img"
-      ? 10 // Resim için 10MB
-      : type === "file"
-      ? 50 // Dosya için 50MB
-      : 100); // Genel için 100MB
+        ? 10 // Resim için 10MB
+        : type === "file"
+          ? 50 // Dosya için 50MB
+          : 100); // Genel için 100MB
   const defaultMaxFiles = maxFiles ?? 5;
 
   const [files, setFiles] = useState<FileWithPreview[]>([]);
@@ -114,13 +114,22 @@ export const useFileManagement = (props: {
         const fileExtension = fileName.split(".").pop()?.toLowerCase() || "";
 
         // MIME type'ı belirle
-        let mimeType = "image/jpeg";
-        if (["png"].includes(fileExtension)) mimeType = "image/png";
+        let mimeType = "application/octet-stream";
+        if (["jpg", "jpeg"].includes(fileExtension)) mimeType = "image/jpeg";
+        else if (["png"].includes(fileExtension)) mimeType = "image/png";
         else if (["gif"].includes(fileExtension)) mimeType = "image/gif";
         else if (["webp"].includes(fileExtension)) mimeType = "image/webp";
         else if (["svg"].includes(fileExtension)) mimeType = "image/svg+xml";
         else if (["mp4", "webm", "ogg"].includes(fileExtension)) {
           mimeType = `video/${fileExtension}`;
+        } else if (["pdf"].includes(fileExtension)) {
+          mimeType = "application/pdf";
+        } else if (["doc", "docx"].includes(fileExtension)) {
+          mimeType = "application/msword";
+        } else if (["xls", "xlsx"].includes(fileExtension)) {
+          mimeType = "application/vnd.ms-excel";
+        } else if (["ppt", "pptx"].includes(fileExtension)) {
+          mimeType = "application/vnd.ms-powerpoint";
         }
 
         // Preview URL'sini oluştur - backend'den gelen path'e serve prefix ekle
@@ -187,7 +196,7 @@ export const useFileManagement = (props: {
               .split(",")
               .map((type) => type.trim()),
             maxFiles: multiple ? defaultMaxFiles - files.length : 1,
-          }
+          },
         );
 
         if (!validationResult.isValid) {
@@ -233,7 +242,7 @@ export const useFileManagement = (props: {
             }
 
             return fileWithPreview;
-          })
+          }),
         );
 
         // Dosyaları güncelle
@@ -259,7 +268,7 @@ export const useFileManagement = (props: {
       type,
       onChange,
       onError,
-    ]
+    ],
   );
 
   // Dosya silme
@@ -306,7 +315,7 @@ export const useFileManagement = (props: {
       const outputValue = multiple ? updatedFiles : updatedFiles[0] || null;
       onChange?.(outputValue);
     },
-    [files, multiple, onChange, onError]
+    [files, multiple, onChange, onError],
   );
 
   // Dosyaları "yüklenmiş" olarak işaretle
@@ -375,7 +384,7 @@ export const useFileManagement = (props: {
             } as unknown as FileWithPreview;
 
             return placeholderFile;
-          }
+          },
         );
 
         // replaceAll true ise: Tüm dosyaları değiştir (çoklu upload için - allItems zaten birleştirilmiş)
@@ -415,19 +424,19 @@ export const useFileManagement = (props: {
             {
               isUploaded: true,
               size: 0,
-            }
+            },
           );
           return uploadedFile as FileWithPreview;
         });
         setFiles(uploadedFiles);
       }
     },
-    [files]
+    [files],
   );
 
   // Yeni dosya var mı kontrolü (placeholder olmayan ve yüklenmemiş)
   const hasNewFiles = files.some(
-    (file) => file.size > 0 && !(file as any).isUploaded
+    (file) => file.size > 0 && !(file as any).isUploaded,
   );
 
   return {

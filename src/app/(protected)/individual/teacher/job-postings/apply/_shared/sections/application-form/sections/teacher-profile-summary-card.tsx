@@ -3,6 +3,7 @@
 import React from "react";
 import { useTeacherProfileContext } from "@/app/(protected)/individual/teacher/teacher-profile/_shared/contexts";
 import { formatPhoneNumber } from "@/utils";
+import { getEducationLevelDisplay } from "../../../../../_shared/utils/job-posting-helpers";
 
 /**
  * Öğretmen profil özet kartı - Başvuran öğretmenin temel bilgilerini gösterir
@@ -78,16 +79,9 @@ export const TeacherProfileSummaryCard: React.FC = () => {
                     Eğitim Seviyesi
                   </p>
                   <p className="mb-0 text-sm text-neutral-900 fw-medium">
-                    {myProfile.educations[0].educationLevel === "BACHELOR"
-                      ? "Lisans"
-                      : myProfile.educations[0].educationLevel === "MASTER"
-                        ? "Yüksek Lisans"
-                        : myProfile.educations[0].educationLevel === "DOCTORATE"
-                          ? "Doktora"
-                          : myProfile.educations[0].educationLevel ===
-                              "ASSOCIATE"
-                            ? "Ön Lisans"
-                            : myProfile.educations[0].educationLevel}
+                    {getEducationLevelDisplay(
+                      myProfile.educations[0].educationLevel,
+                    )}
                   </p>
                 </div>
               </div>

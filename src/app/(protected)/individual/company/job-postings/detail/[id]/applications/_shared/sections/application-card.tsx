@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Badge, CustomImage } from "@/components";
-import { formatDate } from "@/utils";
+import { formatDate, stripHtml, isHtmlEmpty } from "@/utils";
 import type { ApplicationDto } from "../types";
 import {
   getApplicationStatusBadgeVariant,
@@ -179,7 +179,7 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
         )}
 
         {/* Cover Letter */}
-        {application.coverLetter && (
+        {!isHtmlEmpty(application.coverLetter) && (
           <div className="soft-card rounded-12 mb-12 p-12">
             <div className="d-flex align-items-start gap-8">
               <i className="ph-bold ph-article text-success-600 mt-2"></i>
@@ -197,9 +197,9 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
                     textOverflow: "ellipsis",
                   }}
                 >
-                  {application.coverLetter}
+                  {stripHtml(application.coverLetter)}
                 </p>
-                {application.coverLetter.length > 150 && (
+                {stripHtml(application.coverLetter).length > 150 && (
                   <span className="text-xs text-primary-600 fw-medium mt-4 d-block">
                     Devamını görmek için tıklayın...
                   </span>

@@ -3,6 +3,7 @@
 import React from "react";
 import { useApplicationAdd } from "../../../context";
 import { formatDate, renderHtml } from "@/utils";
+import { getEducationLevelDisplay } from "../../../../../_shared/utils/job-posting-helpers";
 
 /**
  * İlan özet kartı - Başvuru yapılacak ilanın detaylarını gösterir
@@ -173,15 +174,7 @@ export const JobPostingSummaryCard: React.FC = () => {
               <div className="flex-grow-1">
                 <p className="mb-0 text-xs text-neutral-500">Eğitim Seviyesi</p>
                 <p className="mb-0 text-sm text-neutral-900 fw-medium">
-                  {jobPosting.requiredEducationLevel === "BACHELOR"
-                    ? "Lisans"
-                    : jobPosting.requiredEducationLevel === "MASTER"
-                      ? "Yüksek Lisans"
-                      : jobPosting.requiredEducationLevel === "DOCTORATE"
-                        ? "Doktora"
-                        : jobPosting.requiredEducationLevel === "ASSOCIATE"
-                          ? "Ön Lisans"
-                          : jobPosting.requiredEducationLevel}
+                  {getEducationLevelDisplay(jobPosting.requiredEducationLevel)}
                 </p>
               </div>
             </div>

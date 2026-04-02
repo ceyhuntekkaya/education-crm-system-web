@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FormTextarea } from "@/components/forms";
+import { FormTextEditor } from "@/components/forms";
 import { FileInput } from "@/components/file-input";
 import { useApplicationAdd } from "../../../context";
 
@@ -27,14 +27,15 @@ export const CoverLetterSection: React.FC = () => {
           </div>
         </div>
         <div className="p-20">
-          <FormTextarea
-            label=""
+          <FormTextEditor
             name="coverLetter"
-            rows={24}
-            placeholder="Kendinizi tanıtın ve bu pozisyon için neden uygun olduğunuzu açıklayın...&#10;&#10;• Deneyimleriniz ve yetkinlikleriniz&#10;• Bu pozisyona olan ilginiz&#10;• Ekibe katabileceğiniz değer&#10;&#10;(En az 50 karakter gereklidir)"
+            placeholder="Kendinizi tanıtın ve bu pozisyon için neden uygun olduğunuzu açıklayın...&#10;&#10;• Deneyimleriniz ve yetkinlikleriniz&#10;• Bu pozisyona olan ilginiz&#10;• Ekibe katabileceğiniz değer"
             disabled={submitting}
             helperText="İyi bir ön yazı, başvurunuzun öne çıkmasına yardımcı olur."
             variant="inline"
+            toolbar="standard"
+            minHeight={300}
+            showCharCount
           />
 
           {/* İpuçları */}
