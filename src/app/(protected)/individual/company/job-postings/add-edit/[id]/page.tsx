@@ -107,7 +107,7 @@ const JobPostingAddEditPage: React.FC = () => {
         )}
 
         {/* Action Buttons */}
-        <div className="d-flex justify-content-end gap-8 mt-4">
+        <div className="d-flex justify-content-end gap-8 mt-32">
           <Button
             type="button"
             variant="outline"
