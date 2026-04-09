@@ -12,6 +12,7 @@ import {
   getEventStatusDisplay,
   getDeliveryFormatDisplay,
   getDeliveryFormatIcon,
+  getOrganizerTypeDisplay,
 } from "../../../../_shared/utils/event-helpers";
 
 // ─── Shared Styles ────────────────────────────────────────────────────────────
@@ -298,7 +299,7 @@ const renderOrganizerCard = (event: EventDto) => {
           {organizer.name}
         </p>
         <Badge variant="primary" size="sm">
-          {organizer.type}
+          {getOrganizerTypeDisplay(organizer.type)}
         </Badge>
       </div>
     </div>

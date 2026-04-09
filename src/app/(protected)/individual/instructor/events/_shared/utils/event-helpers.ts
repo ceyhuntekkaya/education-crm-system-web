@@ -1,4 +1,5 @@
 import type { EventType, DeliveryFormat, EventStatus } from "@/types";
+import type { OrganizerType } from "@/types/dto/webinar/EventOrganizerDto";
 
 /**
  * Etkinlik türüne göre badge variant döner
@@ -135,6 +136,30 @@ export const getEventStatusDisplay = (status: EventStatus): string => {
       return "Tamamlandı";
     case "CANCELLED":
       return "İptal Edildi";
+    default:
+      return "Bilinmiyor";
+  }
+};
+
+/**
+ * Organizatör türünü Türkçe'ye çevirir
+ */
+export const getOrganizerTypeDisplay = (type: OrganizerType): string => {
+  switch (type) {
+    case "UNIVERSITY":
+      return "Üniversite";
+    case "EDUCATION_COMPANY":
+      return "Eğitim Şirketi";
+    case "ASSOCIATION":
+      return "Dernek / Vakıf";
+    case "GOVERNMENT":
+      return "Kamu Kurumu";
+    case "INDIVIDUAL_TRAINER":
+      return "Bireysel Eğitmen";
+    case "PLATFORM":
+      return "Platform";
+    case "OTHER":
+      return "Diğer";
     default:
       return "Bilinmiyor";
   }

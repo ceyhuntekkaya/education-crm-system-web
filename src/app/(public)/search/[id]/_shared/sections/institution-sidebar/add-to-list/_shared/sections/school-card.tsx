@@ -2,12 +2,12 @@ import React from "react";
 
 interface SchoolCardProps {
   schoolName: string;
-  location?: string;
+  locationText?: string;
 }
 
 export const SchoolCard: React.FC<SchoolCardProps> = ({
   schoolName,
-  location = "İstanbul, Türkiye",
+  locationText = "İstanbul, Türkiye",
 }) => {
   return (
     <div className="mb-20">
@@ -24,7 +24,7 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
           </h6>
           <div className="d-flex align-items-center gap-4 mt-2">
             <i className="ph ph-map-pin text-main-500 text-xs" />
-            <span className="text-main-500 text-xs">{location}</span>
+            <span className="text-main-500 text-xs">{locationText}</span>
           </div>
         </div>
       </div>
