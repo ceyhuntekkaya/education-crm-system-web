@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useTeacherProfileAddEdit } from "../context";
 import { Button } from "@/components/ui";
 import { Modal, CustomCard } from "@/components";
@@ -32,30 +32,40 @@ export const TeacherEducationSection: React.FC = () => {
 
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const scrollToSection = () => {
-    setTimeout(() => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const offset = 100;
-      window.scrollBy({ top: rect.top - offset, behavior: "smooth" });
-    }, 150);
-  };
+  // scrollTrigger her artışında useEffect DOM paint sonrası doğru pozisyonu hesaplar
+  const [scrollTrigger, setScrollTrigger] = useState(0);
+  const triggerScroll = () => setScrollTrigger((prev) => prev + 1);
+
+  useEffect(() => {
+    if (scrollTrigger === 0) return;
+    const raf1 = requestAnimationFrame(() => {
+      const raf2 = requestAnimationFrame(() => {
+        if (!sectionRef.current) return;
+        const top =
+          sectionRef.current.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top, behavior: "smooth" });
+      });
+      return () => cancelAnimationFrame(raf2);
+    });
+    return () => cancelAnimationFrame(raf1);
+  }, [scrollTrigger]);
 
   const handleSuccess = () => {
     setShowForm(false);
     setEditData(null);
-    scrollToSection();
+    triggerScroll();
   };
 
   const handleCancel = () => {
     setShowForm(false);
     setEditData(null);
+    triggerScroll();
   };
 
   const handleEdit = (education: TeacherEducationDto) => {
     setEditData(education);
     setShowForm(true);
-    scrollToSection();
+    triggerScroll();
   };
 
   const handleDeleteClick = (id: number) => {
@@ -120,11 +130,13 @@ export const TeacherEducationSection: React.FC = () => {
             size="sm"
             onClick={() => {
               if (showForm) {
-                handleCancel();
+                setShowForm(false);
+                setEditData(null);
+                triggerScroll();
               } else {
                 setEditData(null);
                 setShowForm(true);
-                scrollToSection();
+                triggerScroll();
               }
             }}
           >

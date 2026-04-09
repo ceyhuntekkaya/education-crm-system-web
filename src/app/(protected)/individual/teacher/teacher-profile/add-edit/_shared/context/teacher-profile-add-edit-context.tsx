@@ -37,7 +37,21 @@ export function TeacherProfileAddEditProvider({
 }: TeacherProfileAddEditProviderProps) {
   const params = useParams();
   const { showSnackbar } = useSnackbar();
-  const { myProfile, profileLoading } = useTeacherProfileContext();
+  const {
+    myProfile,
+    profileLoading,
+    refetch: refetchMyProfile,
+  } = useTeacherProfileContext();
+
+  // Track whether profile has been loaded at least once.
+  // After the initial load we never want to propagate loading state
+  // to the page (which would unmount the whole form) during background refetches.
+  const hasProfileLoadedOnce = React.useRef(myProfile !== null);
+  React.useEffect(() => {
+    if (myProfile !== null) {
+      hasProfileLoadedOnce.current = true;
+    }
+  }, [myProfile]);
 
   // ID parsing and edit mode determination
   const { id } = params;
@@ -108,6 +122,7 @@ export function TeacherProfileAddEditProvider({
     if (!result) throw new Error("İşlem başarısız");
     showSnackbar("Eğitim bilgisi eklendi", "success");
     await refetchEducations();
+    await refetchMyProfile();
   };
 
   const updateEducation = async (
@@ -121,12 +136,14 @@ export function TeacherProfileAddEditProvider({
     if (!result) throw new Error("İşlem başarısız");
     showSnackbar("Eğitim bilgisi güncellendi", "success");
     await refetchEducations();
+    await refetchMyProfile();
   };
 
   const deleteEducation = async (educationId: number) => {
     await removeEducation(educationId);
     showSnackbar("Eğitim bilgisi silindi", "success");
     await refetchEducations();
+    await refetchMyProfile();
   };
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -180,6 +197,7 @@ export function TeacherProfileAddEditProvider({
     if (!result) throw new Error("İşlem başarısız");
     showSnackbar("Deneyim bilgisi eklendi", "success");
     await refetchExperiences();
+    await refetchMyProfile();
   };
 
   const updateExperience = async (
@@ -193,12 +211,14 @@ export function TeacherProfileAddEditProvider({
     if (!result) throw new Error("İşlem başarısız");
     showSnackbar("Deneyim bilgisi güncellendi", "success");
     await refetchExperiences();
+    await refetchMyProfile();
   };
 
   const deleteExperience = async (experienceId: number) => {
     await removeExperience(experienceId);
     showSnackbar("Deneyim bilgisi silindi", "success");
     await refetchExperiences();
+    await refetchMyProfile();
   };
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -208,7 +228,10 @@ export function TeacherProfileAddEditProvider({
   const contextValue: TeacherProfileAddEditContextValue = {
     // Current profile data
     teacherProfile,
-    profileDetailLoading: isEditMode ? profileLoading : false,
+    // Only show loading during the initial profile fetch, not during background refetches.
+    profileDetailLoading: isEditMode
+      ? profileLoading && !hasProfileLoadedOnce.current
+      : false,
     profileSubmitLoading: isCreating || isUpdating,
     profileError: createError || updateError,
 
