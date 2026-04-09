@@ -10,20 +10,26 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
   location = "İstanbul, Türkiye",
 }) => {
   return (
-    <div className="text-center mb-24">
-      <div className="bg-main-25 border border-main-200 rounded-12 p-20">
-        <h5 className="text-main-700 fw-semibold mb-6">{schoolName}</h5>
-        <div className="d-flex align-items-center justify-content-center gap-4 mb-12">
-          <i className="ph ph-map-pin text-main-500 text-xs" />
-          <span className="text-main-600 text-sm">{location}</span>
+    <div className="mb-20">
+      <div className="d-flex align-items-center gap-12 p-14 bg-main-25 border border-main-200 rounded-12">
+        <div
+          className="bg-main-600 rounded-10 d-flex align-items-center justify-content-center flex-shrink-0"
+          style={{ width: "40px", height: "40px" }}
+        >
+          <i className="ph-bold ph-buildings text-white text-lg" />
         </div>
-        <div className="bg-main-600 rounded-8 px-12 py-4 d-inline-flex align-items-center gap-6">
-          <i className="ph-bold ph-bookmark-simple text-white text-xs" />
-          <span className="text-white text-sm fw-medium">Listeye Kaydet</span>
+        <div className="flex-grow-1 min-w-0">
+          <h6 className="text-main-700 fw-semibold mb-0 text-truncate">
+            {schoolName}
+          </h6>
+          <div className="d-flex align-items-center gap-4 mt-2">
+            <i className="ph ph-map-pin text-main-500 text-xs" />
+            <span className="text-main-500 text-xs">{location}</span>
+          </div>
         </div>
       </div>
-      <p className="text-neutral-600 text-sm mt-16 mb-0">
-        Bu Kurumu hangi listeye kaydetmek istiyorsunuz?
+      <p className="text-neutral-600 text-sm mt-12 mb-0">
+        Hangi listenize eklemek istiyorsunuz?
       </p>
     </div>
   );

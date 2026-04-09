@@ -6,11 +6,21 @@ import { useAddToList } from "../context";
 
 interface NewListFormProps {
   isVisible: boolean;
+  onCollapse?: () => void;
 }
 
-export const NewListForm: React.FC<NewListFormProps> = ({ isVisible }) => {
+export const NewListForm: React.FC<NewListFormProps> = ({
+  isVisible,
+  onCollapse,
+}) => {
   const { values, setValue } = useFormHook();
-  const { createList, listsLoading, handleOptionSelect } = useAddToList();
+  const {
+    createList,
+    listsLoading,
+    handleOptionSelect,
+    setShowAllOptions,
+    listSectionRef,
+  } = useAddToList();
   const [isCreating, setIsCreating] = useState(false);
 
   const handleCreateList = async () => {
@@ -24,10 +34,19 @@ export const NewListForm: React.FC<NewListFormProps> = ({ isVisible }) => {
     });
     setIsCreating(false);
 
-    if (response?.data?.id) {
-      // Liste oluşturuldu, input'u temizle ve yeni listeyi otomatik seç
+    if (response?.id) {
       setValue("newListName", "");
-      handleOptionSelect(response.data.id.toString());
+      setShowAllOptions(true);
+      handleOptionSelect(response.id.toString());
+      onCollapse?.();
+
+      // Yeni liste oluşturuldu, form kapandıktan sonra liste bölümüne scroll et
+      setTimeout(() => {
+        listSectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 350); // form kapanma animasyonu (300ms) + buffer
     }
   };
 
@@ -44,7 +63,10 @@ export const NewListForm: React.FC<NewListFormProps> = ({ isVisible }) => {
       <div className="card bg-main-25 border border-main-200">
         <div className="card-body p-20">
           <div className="d-flex align-items-center gap-12 mb-16">
-            <div className="w-32 h-32 bg-main-600 rounded-8 d-flex align-items-center justify-content-center">
+            <div
+              className="bg-main-600 rounded-8 d-flex align-items-center justify-content-center flex-shrink-0"
+              style={{ width: "32px", height: "32px" }}
+            >
               <i className="ph-bold ph-textbox text-white text-sm" />
             </div>
             <h6 className="text-main-700 fw-semibold mb-0">

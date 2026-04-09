@@ -1,10 +1,10 @@
+import React from "react";
 import {
   ParentSchoolListResponse,
+  ParentSchoolListItemResponse,
   CreateParentSchoolListRequest,
   AddSchoolToListRequest,
-  ParentSchoolListItemResponse,
   FormValues,
-  ApiResponseDto,
 } from "@/types";
 import { ListOption } from "./list-option-types";
 
@@ -19,12 +19,12 @@ export interface AddToListContextType {
   fetchLists: () => void;
   createList: (
     data: CreateParentSchoolListRequest,
-    mutationOptions?: any
-  ) => Promise<ApiResponseDto<ParentSchoolListResponse> | null>;
+    mutationOptions?: any,
+  ) => Promise<ParentSchoolListResponse | null>;
   addSchoolToList: (
     data: AddSchoolToListRequest,
-    mutationOptions?: any
-  ) => Promise<ApiResponseDto<ParentSchoolListItemResponse> | null>;
+    mutationOptions?: any,
+  ) => Promise<ParentSchoolListItemResponse | null>;
 
   // Current school
   schoolId: number | null;
@@ -36,5 +36,7 @@ export interface AddToListContextType {
   setShowAllOptions: (show: boolean) => void;
   handleOptionSelect: (optionValue: string) => void;
   handleFormSubmit: (formValues: FormValues) => Promise<void>;
-}
 
+  // Refs
+  listSectionRef: React.RefObject<HTMLDivElement>;
+}

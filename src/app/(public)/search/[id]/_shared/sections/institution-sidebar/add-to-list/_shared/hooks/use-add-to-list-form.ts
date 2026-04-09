@@ -6,7 +6,6 @@ import {
   FormValues,
   CreateParentSchoolListRequest,
   AddSchoolToListRequest,
-  ApiResponseDto,
   ParentSchoolListResponse,
   ParentSchoolListItemResponse,
 } from "@/types";
@@ -16,11 +15,11 @@ interface UseAddToListFormProps {
   listOptions: ListOption[];
   schoolId: number | null;
   createList: (
-    data: CreateParentSchoolListRequest
-  ) => Promise<ApiResponseDto<ParentSchoolListResponse> | null>;
+    data: CreateParentSchoolListRequest,
+  ) => Promise<ParentSchoolListResponse | null>;
   addSchoolToList: (
-    data: AddSchoolToListRequest
-  ) => Promise<ApiResponseDto<ParentSchoolListItemResponse> | null>;
+    data: AddSchoolToListRequest,
+  ) => Promise<ParentSchoolListItemResponse | null>;
   onSuccess: () => void;
 }
 
@@ -77,7 +76,7 @@ export const useAddToListForm = ({
       addedFromSearch: window.location.pathname,
     });
     // console.log("response:", response);
-    if (response?.data) {
+    if (response) {
       onSuccess();
     }
   };
@@ -90,4 +89,3 @@ export const useAddToListForm = ({
     handleFormSubmit,
   };
 };
-

@@ -6,7 +6,6 @@ import { useData } from "@/contexts";
 import {
   CreateParentSchoolListRequest,
   ParentSchoolListResponse,
-  ApiResponseDto,
 } from "@/types";
 
 interface UseCreateListOptions {
@@ -24,27 +23,25 @@ export const useCreateList = (options?: UseCreateListOptions) => {
     mutate: createList,
     loading,
     error,
-  } = usePost<
-    ApiResponseDto<ParentSchoolListResponse>,
-    CreateParentSchoolListRequest
-  >(API_ENDPOINTS.PARENT_SCHOOL_LISTS.CREATE_LIST, {
-    onSuccess: (response) => {
-      // console.log("✅ Liste başarıyla oluşturuldu:", response.data);
+  } = usePost<ParentSchoolListResponse, CreateParentSchoolListRequest>(
+    API_ENDPOINTS.PARENT_SCHOOL_LISTS.CREATE_LIST,
+    {
+      onSuccess: (response) => {
+        // Listeleri yeniden yükle
+        refetchLists();
 
-      // Listeleri yeniden yükle
-      refetchLists();
-
-      if (options?.onSuccess && response.data) {
-        options.onSuccess(response.data);
-      }
+        if (options?.onSuccess && response) {
+          options.onSuccess(response);
+        }
+      },
+      onError: (err) => {
+        console.error("❌ Liste oluşturulurken hata:", err);
+        if (options?.onError) {
+          options.onError(err);
+        }
+      },
     },
-    onError: (err) => {
-      console.error("❌ Liste oluşturulurken hata:", err);
-      if (options?.onError) {
-        options.onError(err);
-      }
-    },
-  });
+  );
 
   return {
     createList,

@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { Modal, ModalHeader, ModalBody } from "@/components/ui";
-import { Form, FormValues as FormValuesComponent } from "@/components/forms";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui";
 import { FormProvider } from "@/contexts";
 import { FormValues } from "@/types";
 import { useAddToList, AddToListProvider } from "./_shared/context";
@@ -25,15 +24,14 @@ interface AddToListModalProps {
 const AddToListModalContent: React.FC<{ onClose: () => void }> = ({
   onClose,
 }) => {
-  const { schoolName, handleFormSubmit } = useAddToList();
+  const { schoolName } = useAddToList();
 
   return (
-    <div>
-      {/* Kurum Hero Kartı */}
-      <SchoolCard schoolName={schoolName || "Kurum"} />
+    <>
+      <ModalBody scrollable={true}>
+        {/* Kurum Hero Kartı */}
+        <SchoolCard schoolName={schoolName || "Kurum"} />
 
-      <Form onSubmit={handleFormSubmit}>
-        {/* <FormValuesComponent /> */}
         {/* Liste Seçenekleri */}
         <ListSection />
 
@@ -42,11 +40,12 @@ const AddToListModalContent: React.FC<{ onClose: () => void }> = ({
 
         {/* Yeni Liste Oluştur */}
         <NewListSection />
+      </ModalBody>
 
-        {/* Footer Butonları */}
+      <ModalFooter>
         <ModalActions onClose={onClose} />
-      </Form>
-    </div>
+      </ModalFooter>
+    </>
   );
 };
 
@@ -85,13 +84,11 @@ export const AddToListModal: React.FC<AddToListModalProps> = ({
       <style>{scrollbarStyles}</style>
       <Modal isOpen={isOpen} onClose={onClose} size="md" scrollable={true}>
         <ModalHeader title="Listeye Ekle" onClose={onClose} />
-        <ModalBody scrollable={true}>
-          <FormProvider initialValues={initialValues}>
-            <AddToListProvider onSuccess={onClose}>
-              <AddToListModalContent onClose={onClose} />
-            </AddToListProvider>
-          </FormProvider>
-        </ModalBody>
+        <FormProvider initialValues={initialValues}>
+          <AddToListProvider onSuccess={onClose}>
+            <AddToListModalContent onClose={onClose} />
+          </AddToListProvider>
+        </FormProvider>
       </Modal>
     </>
   );

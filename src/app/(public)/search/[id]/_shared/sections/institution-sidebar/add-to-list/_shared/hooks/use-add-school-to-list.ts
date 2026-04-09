@@ -3,11 +3,7 @@
 import { usePost } from "@/hooks";
 import { API_ENDPOINTS } from "@/lib";
 import { useData } from "@/contexts";
-import {
-  AddSchoolToListRequest,
-  ParentSchoolListItemResponse,
-  ApiResponseDto,
-} from "@/types";
+import { AddSchoolToListRequest, ParentSchoolListItemResponse } from "@/types";
 
 interface UseAddSchoolToListOptions {
   onSuccess?: (data: ParentSchoolListItemResponse) => void;
@@ -24,27 +20,25 @@ export const useAddSchoolToList = (options?: UseAddSchoolToListOptions) => {
     mutate: addSchoolToList,
     loading,
     error,
-  } = usePost<
-    ApiResponseDto<ParentSchoolListItemResponse>,
-    AddSchoolToListRequest
-  >(API_ENDPOINTS.PARENT_SCHOOL_LISTS.ADD_SCHOOL, {
-    onSuccess: (response) => {
-      // console.log("✅ Kurum listeye başarıyla eklendi:", response.data);
+  } = usePost<ParentSchoolListItemResponse, AddSchoolToListRequest>(
+    API_ENDPOINTS.PARENT_SCHOOL_LISTS.ADD_SCHOOL,
+    {
+      onSuccess: (response) => {
+        // Listeleri yeniden yükle
+        refetchLists();
 
-      // Listeleri yeniden yükle
-      refetchLists();
-
-      if (options?.onSuccess && response.data) {
-        options.onSuccess(response.data);
-      }
+        if (options?.onSuccess && response) {
+          options.onSuccess(response);
+        }
+      },
+      onError: (err) => {
+        console.error("❌ Kurum listeye eklenirken hata:", err);
+        if (options?.onError) {
+          options.onError(err);
+        }
+      },
     },
-    onError: (err) => {
-      console.error("❌ Kurum listeye eklenirken hata:", err);
-      if (options?.onError) {
-        options.onError(err);
-      }
-    },
-  });
+  );
 
   return {
     addSchoolToList,

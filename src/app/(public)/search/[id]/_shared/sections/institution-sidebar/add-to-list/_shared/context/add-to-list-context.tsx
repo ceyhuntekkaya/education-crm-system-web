@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useMemo,
+  useRef,
+} from "react";
 import { AddToListContextType } from "../types";
 import {
   useGetParentLists,
@@ -12,7 +18,7 @@ import { useInstitutionSidebarData } from "../../../hooks/useInstitutionSidebarD
 import { transformListsToOptions, sortLists } from "../utils";
 
 const AddToListContext = createContext<AddToListContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface AddToListProviderProps {
@@ -48,6 +54,9 @@ export const AddToListProvider: React.FC<AddToListProviderProps> = ({
     return transformListsToOptions(sortedLists);
   }, [parentLists]);
 
+  // Ref for list section (used for scroll after new list creation)
+  const listSectionRef = useRef<HTMLDivElement>(null);
+
   // Form logic
   const formHandlers = useAddToListForm({
     listOptions,
@@ -75,6 +84,9 @@ export const AddToListProvider: React.FC<AddToListProviderProps> = ({
 
     // Form state and handlers
     ...formHandlers,
+
+    // Refs
+    listSectionRef,
   };
 
   return (

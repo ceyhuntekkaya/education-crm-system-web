@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui";
+import { useForm } from "@/contexts";
 import { useAddToList } from "../context";
 
 interface ModalActionsProps {
@@ -7,10 +8,17 @@ interface ModalActionsProps {
 }
 
 export const ModalActions: React.FC<ModalActionsProps> = ({ onClose }) => {
-  const { listsLoading } = useAddToList();
+  const { listsLoading, handleFormSubmit } = useAddToList();
+  const { values, validate } = useForm();
+
+  const handleSave = async () => {
+    const isValid = await validate();
+    if (!isValid) return;
+    await handleFormSubmit(values);
+  };
 
   return (
-    <div className="d-flex align-items-center justify-content-end gap-12 pt-20 border-top border-neutral-100">
+    <div className="d-flex align-items-center justify-content-end gap-12">
       <Button
         variant="outline"
         onClick={onClose}
@@ -22,7 +30,8 @@ export const ModalActions: React.FC<ModalActionsProps> = ({ onClose }) => {
       </Button>
       <Button
         variant="inline"
-        type="submit"
+        type="button"
+        onClick={handleSave}
         disabled={listsLoading}
         leftIcon="ph-bold ph-bookmark-simple"
       >
